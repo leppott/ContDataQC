@@ -3,8 +3,46 @@ Quality control checks on continuous data.  Example data is from a HOBO data log
 
 Installation
 -----------------
+# Installing just this library (should get all dependancies)
 library(devtools) 
 install.git_hub("leppott/ContDataQC")
+
+# Installing dependancies separately
+# set CRAN mirror 
+#(loads gui in R; in R-Studio select ## of mirror in Console pane)
+# If know mirror can use "ind=" in 2nd statement and comment out (prefix line with #) the first.
+chooseCRANmirror()
+#chooseCRANmirror(ind=21)
+################################################
+# must run "chooseCRANmirror()" by itself before running the rest of the script
+
+# libraries to be installed
+data.packages = c(                  
+                  "devtools"        # install helper for non CRAN libraries
+                  ,"installr"       # install helper
+                  ,"digest"         # caused error in R v3.2.3 without it
+                  ,"dataRetrieval"  # loads USGS data into R
+                  ,"knitr"          # create documents in other formats (e.g., PDF or Word)
+                  ,"doBy"           # summary stats
+                  ,"zoo"            # z's ordered observations, use for rolling sd calc
+                  ,"htmltools"      # needed for knitr and doesn't always install properly with Pandoc
+                  ,"rmarkdown"      # needed for knitr and doesn't always install properly with Pandoc
+                  ,"htmltools"      # a dependency that is sometimes missed.
+                  ,"evaluate"       # a dependency that is sometimes missed.
+                  ,"highr"          # a dependency that is sometimes missed.
+                  ,"rmarkdown"      # a dependency that is sometimes missed.
+#                 ,"reshape"        # list to matrix
+#                 ,"lattice"        # plotting
+#                 ,"waterData"      # QC of hydro time series data
+#                 ,"summaryBy"      # used in summary stats
+                  )
+                  
+lapply(data.packages,function(x) install.packages(x))
+
+## pandoc
+require(installr)
+install.pandoc()
+
 
 Purpose
 --------------
@@ -21,5 +59,61 @@ The code was presented at the following workshops. Oct 2015, SWPBPA (Region 4 re
 Functions developed to help data generators handle data from continuous data sensors (e.g., HOBO data loggers).
 
 From a single function, ContDataQC(), can QC, aggregate, or calculate summary stats on data.  Uses the USGS dataRetrieval library to get USGS gage data.  Reports are generated in Word (through the use of knitr and Pandoc).
+
+Usage
+------------
+# load library and dependant libraries
+require("ContDataQC")
+
+ Define working Directory
+# if specify directory use "/" not "\" (as used in Windows) and leave off final "/" (example below).
+#myDir.BASE  <- "C:/Users/Erik.Leppo/Documents/NCEA_DataInfrastructure/Erik"
+myDir.BASE <- getwd()
+setwd(myDir.BASE)
+# library (load any required helper functions)
+#source(paste(myDir.BASE,"Scripts","fun.Master.R",sep="/"))
+#####################################################################
+# USER input in this section (see end of script for explanations)
+#####################################################################
+#
+# PROMPT; Operation
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+myData.Operation    <- Selection.Operation[3]  #number corresponds to intended operation in the line above
+#
+# PROMPT; Site ID
+# single site;         "ECO66G12"
+# group of sites;      c("test2", "HRCC", "PBCC", "ECO66G12", "ECO66G20", "ECO68C20", "01187300")
+myData.SiteID       <- "ECO71F19"
+#
+# PROMPT; Data Type
+# Type of data file
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG") # only one at a time
+myData.Type         <- Selection.Type[3] #number corresponds to intended operation in the line above
+#
+# PROMPT; Start Date
+# YYYY-MM-DD ("-" delimiter), leave blank for all data ("1900-01-01")
+myData.DateRange.Start  <- "2013-01-01"
+#
+# PROMPT; End Date
+# YYYY-MM-DD ("-" delimiter), leave blank for all data (today)
+myData.DateRange.End    <- "2014-12-31"
+######################################################################
+# PROMPT; SubDirectory, input file location.  Leave blank for defaults
+Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.SUB.import <- "" #Selection.SUB[2]
+#
+# PROMPT; SubDirectory, output file location.  Leave blank for default.
+myDir.SUB.export <- "" #Selection.SUB[3]
+#
+#####################################################################
+# Run the script with the above user defined values
+ContDataQC(myData.Operation
+           ,myData.SiteID
+           ,myData.Type
+           ,myData.DateRange.Start
+           ,myData.DateRange.End
+           ,myDir.BASE
+           ,myDir.SUB.import
+           ,myDir.SUB.export)
 
 
