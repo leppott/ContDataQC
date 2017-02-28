@@ -67,7 +67,7 @@ require("ContDataQC")
 
  Define working Directory
 '# if specify directory use "/" not "\" (as used in Windows) and leave off final "/" (example below).
-#myDir.BASE  <- "C:/Users/Erik.Leppo/Documents/NCEA_DataInfrastructure/Erik"
+'#myDir.BASE  <- "C:/Users/Erik.Leppo/Documents/NCEA_DataInfrastructure/Erik"
 myDir.BASE <- getwd()
 setwd(myDir.BASE)
 '# library (load any required helper functions)
