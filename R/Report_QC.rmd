@@ -1,0 +1,399 @@
+---
+title: "Data Quality Control Report"
+output: word_document
+---
+
+```{r, results='asis', echo=FALSE, warning=FALSE}
+  myReportDate <- format(Sys.Date(),"%Y-%m-%d")
+  cat(paste("**Report Date:** ",myReportDate,"\n\n",sep=""))
+```
+
+# DATA FILE INFORMATION
+```{r, results='asis', echo=FALSE, warning=FALSE}
+  
+  #filename
+  cat("**Filename:** ",strFile,"\n\n",sep="")
+  
+  cat(paste("**SiteID:** ",strFile.SiteID,"\n\n",sep=""))
+  
+  cat(paste("**Period of Record, Requested:** ",fun.myData.DateRange.Start," to ",fun.myData.DateRange.End,sep="",collapse="\n\n"))
+       
+  
+  myNumRecords <- nrow(data.import) # 20170228, mod from records 10 and 11 to half way point
+  myTimeDiff <- difftime(data.import[10,myName.DateTime],data.import[11,myName.DateTime],units="mins")
+  cat(paste("\n\n**Period of Record, Actual:** ",min(data.import[,myName.Date])," to ",max(data.import[,myName.Date]),"\n\n",sep=""))
+       
+  cat(paste("**Recording Interval:** ",myTimeDiff[1]," minutes\n\n",sep=""))
+  
+  cat(paste("**Data Type:** ",strFile.DataType,"\n\n",sep=""))  # need to do better
+  
+   myParameters.ALL     <- myNames.DataFields[myNames.DataFields %in% names(data.import)==TRUE] 
+   myParameters.Lab.ALL <- myNames.DataFields.Lab[myNames.DataFields %in% names(data.import)==TRUE]
+   # Filter out Discrete
+   myParameters     <- myParameters.ALL[!grepl(myPrefix.Discrete,myParameters.ALL)]
+   myParameters.Lab <- myParameters.Lab.ALL[!grepl(myPrefix.Discrete,myParameters.Lab.ALL)]
+   
+   
+ #cat("**Parameters:** ",paste(myParameters.Lab,", ",sep=""),"\n\n",sep="")
+  # above line not working, preventing pandoc conversion to WORD
+  #cat("**Included Parameters:** \n\n")
+  cat("**Parameters Included:** ",paste(myParameters.ALL,", ",sep=""),"\n\n",sep="")
+
+```
+
+# DATA SUMMARY, OVERALL
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+#     2.1. Records by Month/Day
+#     split so easier to put on paper
+#     number of records by month/day (split 1:15 and 16:31)
+#     
+  # format = markdown/pandoc = seems to be the same.  All rows but no columns in Word.
+  # Have to use on table not ftable.  ftable better by itself but doesn't work with kable.
+
+    # # QC, if days less than count = 15
+    #*Error in table.  Only printing half.* (fixed for sites with <15 days)
+    # if((max(data.import[,"day"])-min(data.import[,"day"]))<15) {##IF.daycount.START
+    #   myTable <- table(data.import[,"month"],data.import[,"day"])
+    #   print(kable(myTable, format="markdown",row.names=TRUE))
+    # } else {
+    #   #
+    #   #myTable.month.day.rec.LTE15 <-
+    #   myTable <- table(data.import[,"month"][data.import[,"day"]<=15],data.import[,"day"][data.import[,"day"]<=15])
+    #     print(kable(myTable, format="markdown", row.names=TRUE))
+    #     #kable(myTable.month.day.rec.LTE15, format="pandoc", caption = "Title of the table")
+    #   cat("\n\n")  
+    #   #   
+    #   # myTable.month.day.rec.GT15 <-
+    #   myTable <- table(data.import[,"month"][data.import[,"day"]>15],data.import[,"day"][data.import[,"day"]>15])
+    #     print(kable(myTable, format="markdown", row.names=TRUE))
+      #   
+   # }##IF.daycount.END
+
+
+      # Convert time interval (minutes) to number per day
+      records.expected <- round(24*60/as.numeric(myTimeDiff[1]),1)
+      
+      cat(paste("Estimated number of records per day is ",records.expected,".",sep=""))
+        cat("\n\n")
+
+        
+    cat("Number of records by year and month (with totals).")
+    cat("\n")
+    myTable <- addmargins(table(data.import[,"year"],data.import[,"month"]))
+        print(kable(myTable, format="markdown", row.names=TRUE))
+    cat("\n\n")
+
+    
+  # revert to longer table (20170228)
+    cat("Number of records by day and month (with totals).")
+    cat("\n")
+    myTable <- addmargins(table(data.import[,"day"],data.import[,"month"]))
+        print(kable(myTable, format="markdown", row.names=TRUE))
+    cat("\n\n") 
+
+#     
+#     pandoc.table(myTable.month.day.rec.GT15,style="rmarkdown")
+#    
+#     
+    myTable.month.day.rec <- table(data.import[,"month"],data.import[,"day"])
+#     use apply function to count number of records not equal to the expected value
+    cat("\n\n")
+    
+
+    #
+    myTable.DateTime.N <- aggregate(SiteID ~ Date.Time, data=data.import,FUN=length)
+    myTable <- myTable.DateTime.N[myTable.DateTime.N[,"SiteID"]!=1,]
+    cat(paste0("Date and time records with more than one entry; N=",nrow(myTable),". Duplicate date.time records are shown below."))
+    cat("\n")
+      print(kable(myTable, format="markdown", row.names=TRUE))
+    
+    
+    
+```
+
+
+# FLAGS, OVERALL, BY PARAMETER
+Flags are assigned to each data point (a single measured parameter at a unique point in time) first by each of the QC tests below.  Flags are assigned numerical values;
+
+```{r, results='asis', echo=FALSE, warning=FALSE}
+cat(paste("* **",myFlagVal.Pass,"** = Pass,",sep=""))
+cat("\n")
+cat(paste("* **",myFlagVal.Suspect,"** = Suspect,",sep=""))  
+cat("\n")
+cat(paste("* **",myFlagVal.Fail,"** = Fail,",sep=""))
+cat("\n")
+cat(paste("* **",myFlagVal.NoData,"** = No Data or Not Applicable (NA).",sep=""))
+```
+
+Overall flags are assigned by examining the results of the four tests below. 
+
+```{r, results='asis', echo=FALSE, warning=FALSE}
+cat(paste("* **",myFlagVal.Pass,"** = no Fail or Suspect and at least one Pass,",sep=""))
+cat("\n")
+cat(paste("* **",myFlagVal.Suspect,"** = no Fail and at least one Suspect,",sep="")) 
+cat("\n") 
+cat(paste("* **",myFlagVal.Fail,"** = at least one Fail,,",sep=""))
+cat("\n")
+cat(paste("* **",myFlagVal.NoData,"** = all tests were Missing Data.",sep=""))
+```
+
+Overall flags by parameter
+
+```{r, results='asis', echo=FALSE, warning=FALSE}
+#
+     for (j in 1:length(myParameters)) {##FOR.j.START
+#       #
+       #j.num <- match(j,myParameters)
+ #   cat(paste(myParameters.Lab[j.num],"/n/n",sep=""))
+       
+       # ISSUE WITH KABLE INSIDE OF LOOPS
+       
+    cat(paste("##",myParameters[j],"\n\n",sep=""))
+
+       colnum <- match(paste("Flag",myParameters[j],sep="."),names(data.import))
+       
+       #print(myTable.Flags.Overall <- ftable(data.import[,colnum]))
+       myTable <- addmargins(table(data.import[,colnum]),1)
+       print(kable(t(as.matrix(myTable)), format = "markdown"))
+       # future mod, 1,3,4,9 to Pass, Suspect, Fail, NA
+       # exclude=NA to get all
+       # future mod, 2nd line in table to include Percent of row total
+       # future mod, sort levels
+       
+       cat("\n\n")
+       
+#       #
+     }##FOR.j.END
+```
+
+#QC TESTS, BY PARAMETER
+* **Gross Range Test (Gross):** Test if data point exceeds sensor or user defined min/max.  The values are user defined based on parameter being measured and measuring instrument.
+* **Spike Test (Spike):** Test if data point exceeds a user defined threshold relative to the previous data point.  The user defined values are based on the parameter being measured.
+* **Rate of Change Test (RoC):** Test if a data point exceeds a number of standard deviations from the previous data points over a user defined time period.  Default is a 25 hour time period and 3 standard deviations.
+* **Flat Line Test (Flat):** Test if a data point is within a user defined threshold from previous data points over a user defined range.  Default is 3 previous points for suspect and 5 points for failure.  The threshold is user defined and based on the measured parameter and sensitivity of the measuring instrument.
+
+
+```{r, results='asis', echo=FALSE, warning=FALSE}
+ # 3. Data Info, by Parameter
+    # Individual Data Type Report
+    # QC
+    #i <- myParameters[1]
+
+     for (i in myParameters) {##FOR.i.START
+#       #
+       i.num <- match(i,myParameters)
+       myTitle.Sub <- myParameters.Lab[i.num]
+       
+       
+      cat("##QC TESTS, ",i,"\n\n",sep="")
+       
+       #cat(paste("**QC TESTS,",myTitle.Sub,sep=""))
+       
+       # 3.1. Flags, overall
+       cat(myTitle.Sub <- "###Flags")
+             cat("\n\n")
+      cat("####Flag summary, overall number of records.")
+      cat("\n\n")
+       myTable <- addmargins(table(data.import[,paste("Flag",i,sep=".")]),1)
+       print(kable(t(as.matrix(myTable)), format = "markdown"))
+      
+      cat("\n\n")
+       
+      #
+      # 3.1. Number of Records (revised 20170228)
+       # Convert time interval (minutes) to number per day
+      records.expected <- round(24*60/as.numeric(myTimeDiff[1]),1)
+      cat(paste("Estimated number of records per day is ",records.expected,".",sep=""))
+      cat("\n\n")
+      #
+      cat("Number of records by year and month (with totals)")
+      cat("\n")
+      myTable <- addmargins(table(data.import[,"year"],data.import[,"month"]))
+      print(kable(myTable, format="markdown", row.names=TRUE))
+      cat("\n\n")
+      #
+      cat("Number of records by day and month (with totals)")
+      cat("\n")
+      myTable <- addmargins(table(data.import[,"day"],data.import[,"month"]))
+      print(kable(myTable, format="markdown", row.names=TRUE))
+      cat("\n\n") 
+      #
+      # identify days/months where not the expected number of records
+      # (expect first and last day)
+  #    print("days where not the expected number of records")
+      #
+      # 3.2. Flags by QC Test
+      
+      cat("\n\n")
+      
+      cat("####Flags by QC Test")
+      
+      cat("\n\n")
+      
+      cat("#####Flags, Gross\n\n")
+      
+      myTable <- addmargins(table(data.import[,paste("Flag.Gross",i,sep=".")]),1)
+      print(kable(t(as.matrix(myTable)), format = "markdown"))
+        cat("\n\n")
+      cat("#####Flags, Spike\n\n")
+      
+      myTable <- addmargins(table(data.import[,paste("Flag.Spike",i,sep=".")]),1)
+      print(kable(t(as.matrix(myTable)), format = "markdown"))
+        cat("\n\n")
+      cat("#####Flags, RoC\n\n")
+      
+      myTable <- addmargins(table(data.import[,paste("Flag.RoC",i,sep=".")]),1)
+      print(kable(t(as.matrix(myTable)), format = "markdown"))
+        cat("\n\n")
+      cat("#####Flags, Flat\n\n")
+      
+      myTable <- addmargins(table(data.import[,paste("Flag.Flat",i,sep=".")]),1)
+      print(kable(t(as.matrix(myTable)), format = "markdown"))
+        cat("\n\n")
+      cat("QC Test Flag fields are saved in the data file so the user can identify data points that have been flagged as suspect or fail.")
+     
+      #
+      #myFlagTests <- c("Gross","Spike","RoC","Flat")
+      #(myTable.Flags.Flat <- ftable(data.import[,paste("Flag",myFlagTests,i,sep=".")]))
+      #
+      
+      
+      cat(paste("\n\n Test results marked as ",myFlagVal.NoData," (No/Missing Data) if unable to calculate the end point needed for the test.  For example, the first record does not have a previous record for comparison for the Gross QC Test.  QC Test flags are saved in the data file.",sep=""))
+      
+      #
+      # 3.3. Plot
+      data.plot <- data.import
+      #
+      # cheat on Date/Time axis
+      n.Total <- length(data.plot[,myName.Date])
+      pct <- c(20,40,60,80,100)*.01
+      myAT <- c(1,round(n.Total * pct,0))
+      myLab <- data.plot[,myName.Date][myAT]
+      #
+      myPlot.Y <- data.plot[,i]
+      myPlot.Ylab <- myParameters.Lab[i.num]
+      plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="gray", xaxt="n")
+      axis(1,at=myAT,labels=myLab,tick=TRUE)
+      # Add discrete (only if present)
+      myDiscrete <- paste(myPrefix.Discrete,i,sep=".")
+      if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
+        data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
+        data.plot.points <- na.omit(data.plot[,c(myName.DateTime,myDiscrete)]) # remove NA
+        myPoints.X <- as.numeric(rownames(data.plot.points))
+        myPoints.Y <- data.plot.points[,myDiscrete]
+        points(myPoints.Y~myPoints.X,col="black",pch=19) 
+      }##IF.Discrete.END
+      cat("\n\n")
+      cat("Discrete measurements, if any, show up as points on the plot.")
+      cat("\n\n")
+      
+      #
+    }##FOR.i.END
+
+```
+
+# PLOTS, MULTIPARAMETER
+Multiparameter plots if exist in the data.
+
+```{r, results='asis', echo=FALSE, warning=FALSE}
+ # BOTH plots
+    
+    # 3.3. Plot
+    data.plot <- data.import
+    #
+    # cheat on Date/Time axis
+    n.Total <- length(data.plot[,myName.Date])
+    pct <- c(20,40,60,80,100)*.01
+    myAT <- c(1,round(n.Total * pct,0))
+    myLab <- data.plot[,myName.Date][myAT]
+    ###################################
+    # Need to check for parameters before plot
+    ##################################    
+    
+    # Temp, Air vs. Water
+    if (myName.AirTemp %in% myParameters & myName.WaterTemp %in% myParameters == TRUE){##IF.Temp.START
+      cat("##PLOT, Temperature (Air vs. Water) \n\n" )
+
+      myPlot.Y <- data.plot[,myName.AirTemp]
+      myPlot.Y2 <- data.plot[,myName.WaterTemp]
+      myPlot.Ylab <- myLab.Temp.BOTH
+      plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="green", xaxt="n")
+      axis(1,at=myAT,labels=myLab,tick=TRUE)
+      lines(myPlot.Y2,type="l",col="blue")
+      legend(x="bottomright",lty=1,col=c("green","blue"),legend=c("air","water"))
+      # Add discrete, AirTemp (only if present)
+      myDiscrete <- paste(myPrefix.Discrete,myName.AirTemp,sep=".")
+      if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
+        data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
+        data.plot.points <- na.omit(data.plot[,c(myName.DateTime,myDiscrete)]) # remove NA
+        myPoints.X <- as.numeric(rownames(data.plot.points))
+        myPoints.Y <- data.plot.points[,myDiscrete]
+        points(myPoints.Y~myPoints.X,col="green",pch=19) 
+      }##IF.Discrete.END
+      # Add discrete, Water.Temp (only if present)
+      myDiscrete <- paste(myPrefix.Discrete,myName.WaterTemp,sep=".")
+      if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
+        data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
+        data.plot.points <- na.omit(data.plot[,c(myName.DateTime,myDiscrete)]) # remove NA
+        myPoints.X <- as.numeric(rownames(data.plot.points))
+        myPoints.Y <- data.plot.points[,myDiscrete]
+        points(myPoints.Y~myPoints.X,col="blue",pch=19) 
+      }##IF.Discrete.END
+      # Future mod, add points to legend
+      cat("\n\n")
+      cat("Discrete measurements, if any, show up as points on the plot.")
+      cat("\n\n")
+
+      #
+    }##IF.Temp.END
+    #
+    # Water, Temp vs Level
+    if (myName.WaterTemp %in% myParameters & myName.WaterLevel %in% myParameters == TRUE){##IF.Temp_Level.START
+      cat("##PLOT, Water Level vs. Water Temperature \n\n")
+      
+      par.orig <- par(no.readonly=TRUE) # save original par settings
+        par(oma=c(0,0,0,2))
+        myPlot.Y <- data.plot[,myName.WaterTemp]
+        myPlot.Ylab <- myLab.WaterTemp
+        myPlot.Y2 <- data.plot[,myName.WaterLevel]
+        myPlot.Y2lab <- myLab.WaterLevel
+        #
+        plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n")
+        axis(1,at=myAT,labels=myLab,tick=TRUE)
+        # Add discrete, Water.Temp (only if present)
+        myDiscrete <- paste(myPrefix.Discrete,myName.WaterTemp,sep=".")
+        if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
+          data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
+          data.plot.points <- na.omit(data.plot[,c(myName.DateTime,myDiscrete)]) # remove NA
+          myPoints.X <- as.numeric(rownames(data.plot.points))
+          myPoints.Y <- data.plot.points[,myDiscrete]
+          points(myPoints.Y~myPoints.X,col="blue",pch=19) 
+        }##IF.Discrete.END
+        #
+        # Add 2nd y axis (2nd color is black)
+        par(new=TRUE)
+        plot(myPlot.Y2,type="l",col="black",axes=FALSE,ann=FALSE)
+        axis(4)
+        mtext(myPlot.Y2lab,side=4,line=2.5)
+        # Add discrete, WaterLevel (only if present)
+        myDiscrete <- paste(myPrefix.Discrete,myName.WaterLevel,sep=".")
+        if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
+          data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
+          data.plot.points <- na.omit(data.plot[,c(myName.DateTime,myDiscrete)]) # remove NA
+          myPoints.X <- as.numeric(rownames(data.plot.points))
+          myPoints.Y <- data.plot.points[,myDiscrete]
+          points(myPoints.Y~myPoints.X,col="black",pch=19) 
+        }##IF.Discrete.END
+        #
+        # Future mod, add points to legend
+        #
+      par(par.orig) # return to original par settings
+      cat("\n\n")
+      cat("Discrete measurements, if any, show up as points on the plot.")
+      cat("\n\n")
+    }##IF.Temp_Level.END
+    
+   # '''
+```
+
