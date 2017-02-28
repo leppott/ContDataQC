@@ -3,20 +3,20 @@ Quality control checks on continuous data.  Example data is from a HOBO data log
 
 Installation
 -----------------
-# Installing just this library (should get all dependancies)
+'# Installing just this library (should get all dependancies)
 library(devtools) 
 install.git_hub("leppott/ContDataQC")
 
-# Installing dependancies separately
-# set CRAN mirror 
-#(loads gui in R; in R-Studio select ## of mirror in Console pane)
-# If know mirror can use "ind=" in 2nd statement and comment out (prefix line with #) the first.
+'# Installing dependancies separately
+'# set CRAN mirror 
+'#(loads gui in R; in R-Studio select ## of mirror in Console pane)
+'# If know mirror can use "ind=" in 2nd statement and comment out (prefix line with #) the first.
 chooseCRANmirror()
-#chooseCRANmirror(ind=21)
-################################################
-# must run "chooseCRANmirror()" by itself before running the rest of the script
+'#chooseCRANmirror(ind=21)
+'################################################
+'# must run "chooseCRANmirror()" by itself before running the rest of the script
 
-# libraries to be installed
+'# libraries to be installed
 data.packages = c(                  
                   "devtools"        # install helper for non CRAN libraries
                   ,"installr"       # install helper
@@ -31,15 +31,15 @@ data.packages = c(
                   ,"evaluate"       # a dependency that is sometimes missed.
                   ,"highr"          # a dependency that is sometimes missed.
                   ,"rmarkdown"      # a dependency that is sometimes missed.
-#                 ,"reshape"        # list to matrix
-#                 ,"lattice"        # plotting
-#                 ,"waterData"      # QC of hydro time series data
-#                 ,"summaryBy"      # used in summary stats
+'#                 ,"reshape"        # list to matrix
+'#                 ,"lattice"        # plotting
+'#                 ,"waterData"      # QC of hydro time series data
+'#                 ,"summaryBy"      # used in summary stats
                   )
                   
 lapply(data.packages,function(x) install.packages(x))
 
-## pandoc
+'## pandoc
 require(installr)
 install.pandoc()
 
@@ -62,51 +62,51 @@ From a single function, ContDataQC(), can QC, aggregate, or calculate summary st
 
 Usage
 ------------
-# load library and dependant libraries
+'# load library and dependant libraries
 require("ContDataQC")
 
  Define working Directory
-# if specify directory use "/" not "\" (as used in Windows) and leave off final "/" (example below).
+'# if specify directory use "/" not "\" (as used in Windows) and leave off final "/" (example below).
 #myDir.BASE  <- "C:/Users/Erik.Leppo/Documents/NCEA_DataInfrastructure/Erik"
 myDir.BASE <- getwd()
 setwd(myDir.BASE)
-# library (load any required helper functions)
-#source(paste(myDir.BASE,"Scripts","fun.Master.R",sep="/"))
-#####################################################################
-# USER input in this section (see end of script for explanations)
-#####################################################################
-#
-# PROMPT; Operation
+'# library (load any required helper functions)
+'#source(paste(myDir.BASE,"Scripts","fun.Master.R",sep="/"))
+'#####################################################################
+'# USER input in this section (see end of script for explanations)
+'#####################################################################
+'#
+'# PROMPT; Operation
 Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 myData.Operation    <- Selection.Operation[3]  #number corresponds to intended operation in the line above
-#
-# PROMPT; Site ID
-# single site;         "ECO66G12"
-# group of sites;      c("test2", "HRCC", "PBCC", "ECO66G12", "ECO66G20", "ECO68C20", "01187300")
+'#
+'# PROMPT; Site ID
+'# single site;         "ECO66G12"
+'# group of sites;      c("test2", "HRCC", "PBCC", "ECO66G12", "ECO66G20", "ECO68C20", "01187300")
 myData.SiteID       <- "ECO71F19"
-#
-# PROMPT; Data Type
-# Type of data file
+'#
+'# PROMPT; Data Type
+'# Type of data file
 Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG") # only one at a time
 myData.Type         <- Selection.Type[3] #number corresponds to intended operation in the line above
-#
-# PROMPT; Start Date
-# YYYY-MM-DD ("-" delimiter), leave blank for all data ("1900-01-01")
+'#
+'# PROMPT; Start Date
+'# YYYY-MM-DD ("-" delimiter), leave blank for all data ("1900-01-01")
 myData.DateRange.Start  <- "2013-01-01"
-#
-# PROMPT; End Date
-# YYYY-MM-DD ("-" delimiter), leave blank for all data (today)
+'#
+'# PROMPT; End Date
+'# YYYY-MM-DD ("-" delimiter), leave blank for all data (today)
 myData.DateRange.End    <- "2014-12-31"
-######################################################################
-# PROMPT; SubDirectory, input file location.  Leave blank for defaults
+'######################################################################
+'# PROMPT; SubDirectory, input file location.  Leave blank for defaults
 Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
 myDir.SUB.import <- "" #Selection.SUB[2]
-#
-# PROMPT; SubDirectory, output file location.  Leave blank for default.
+'#
+'# PROMPT; SubDirectory, output file location.  Leave blank for default.
 myDir.SUB.export <- "" #Selection.SUB[3]
-#
-#####################################################################
-# Run the script with the above user defined values
+'#
+'#####################################################################
+'# Run the script with the above user defined values
 ContDataQC(myData.Operation
            ,myData.SiteID
            ,myData.Type
