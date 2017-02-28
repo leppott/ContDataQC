@@ -1,0 +1,18 @@
+Package: ContDataQC
+Title: Quality Control (QC) of Continous Monitoring Data
+Version: 0.0.0.9000
+Authors@R: person("Erik", "Leppo", email="Erik.Leppo@tetratech.com",role=c("aut","cre"))
+Description: What the package does (one paragraph). Need to add devtools or
+    installr for pandoc.
+Depends:
+    R (>= 3.3.2),
+    dataRetrieval,
+    zoo,
+    knitr,
+    survival,
+    doBy
+License: CC0
+Encoding: UTF-8
+LazyData: true
+URL: https://github.com/leppott/ContDataQC
+RoxygenNote: 5.0.1
