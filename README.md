@@ -119,8 +119,8 @@ ContDataQC(myData.Operation
 
 Versions
 --------------
-v0.8, 2015-10-26, SWPBA 2015, Myrtle Beach, SC
-v0.9, 2016-03-31, AMAAB 2016, Cacapon, WV
-v1.0, 2016-05-04, NWQMC 2016, Tampa, FL
-v1.1, 2017-01-16, Update for NJ, fixed date/time issue when resaving files in Excel.  Added date/time QC process to be run again at the aggregate step.
-v1.2, 2017-02-28, Update for TN, Modified QC report (RMD) to summarize number of samples differently.  Included tables in Aggregate report (RMD).  Reworked scripts to be run as a library (work in progress).  Uploaded to GitHub.
+v1.0.0, 2015-10-26, SWPBA 2015, Myrtle Beach, SC
+v1.1.0, 2016-03-31, AMAAB 2016, Cacapon, WV
+v1.2.0, 2016-05-04, NWQMC 2016, Tampa, FL
+v1.2.1, 2017-01-16, Update for NJ, fixed date/time issue when resaving files in Excel.  Added date/time QC process to be run again at the aggregate step.
+v2.0.0, 2017-02-28, Update for TN, Modified QC report (RMD) to summarize number of samples differently.  Included tables in Aggregate report (RMD).  Reworked scripts to be run as a library (work in progress).  Uploaded to GitHub.
