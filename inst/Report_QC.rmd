@@ -108,8 +108,20 @@ output: word_document
     cat("\n")
       print(kable(myTable, format="markdown", row.names=TRUE))
     
-    
-    
+    #
+    myDateRange.Target <- seq(as.Date(fun.myData.DateRange.Start)
+                              ,as.Date(fun.myData.DateRange.End)
+                              ,by="day")
+    myDateRange.Data <- seq(as.Date(min(data.import[,myName.Date]))
+                            ,as.Date(max(data.import[,myName.Date]))
+                            ,by="day")
+    myDateRange.Target.Missing <- myDateRange.Target[!myDateRange.Target %in% myDateRange.Data]
+    cat(paste0("Below are the dates with missing data between the min (",min(myDateRange.Data)
+               ,") and max(",max(myDateRange.Data)," for the provided data. There are "
+               ,length(myDateRange.Target.Missing)," records."))
+    cat("\n")
+    print(myDateRange.Target.Missing)
+
 ```
 
 
