@@ -85,6 +85,7 @@ fun.Report <- function(fun.myData.SiteID
     
     
     # pick 'report' based on prefix
+    myPkg <- "ContDataQC"
     if (strFile.Prefix=="QC") {##IF.strFile.Prefix.START
       myReport.Name <- "Report_QC"
     } else if (strFile.Prefix=="DATA") {
@@ -93,11 +94,11 @@ fun.Report <- function(fun.myData.SiteID
       myReport.Name <- "Report_Stats"
     }
     
-    
     #RStudio help solution 
     # use RMD with embedded code
     # much cleaner DOCX than the 2-step process of MD with knit to RMD with pandoc
-    strFile.RMD <- paste(myDir.BASE,"Scripts",paste(myReport.Name,"rmd",sep="."),sep="/") #"QCReport.rmd"
+    #strFile.RMD <- paste(myDir.BASE,"Scripts",paste(myReport.Name,"rmd",sep="."),sep="/") #"QCReport.rmd"
+    strFile.RMD <- system.file(paste0("rmd/",myReport.Name,".rmd"),package=myPkg)
     strFile.DOCX <- paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,myReport.Name,sep=myDelim),".docx",sep="")
     rmarkdown::render(strFile.RMD,output_file=strFile.DOCX,output_dir=paste(fun.myDir.BASE,fun.myDir.SUB.export,sep="/"))
     

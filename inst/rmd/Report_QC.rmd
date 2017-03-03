@@ -108,7 +108,7 @@ output: word_document
     cat("\n")
       print(kable(myTable, format="markdown", row.names=TRUE))
     
-    #
+    # Missing Dates
     myDateRange.Target <- seq(as.Date(fun.myData.DateRange.Start)
                               ,as.Date(fun.myData.DateRange.End)
                               ,by="day")
@@ -119,8 +119,8 @@ output: word_document
     cat(paste0("Below are the dates with missing data between the min (",min(myDateRange.Data)
                ,") and max(",max(myDateRange.Data)," for the provided data. There are "
                ,length(myDateRange.Target.Missing)," records."))
-    cat("\n")
-    print(myDateRange.Target.Missing)
+    cat("\n\n")
+    print(ifelse(length(myDateRange.Target.Missing)==0,"",myDateRange.Target.Missing))
 
 ```
 
