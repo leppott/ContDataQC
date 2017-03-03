@@ -1,3 +1,8 @@
+#' User Defined Values
+#' 
+#' User defined values for variables used across multiple functions in this library.
+#' The user had the ability to modify the values for names, units, QC thresholds, etc.
+#
 # Continuous data helper script
 # Default Values
 # Erik.Leppo@tetratech.com (EWL)
@@ -8,16 +13,21 @@
 # It is assumed that this R script is stored in a directory with the data files as subdirectories
 # This script is intended to be "source"d from the main script.
 #############################
-
+#' @keywords continuous data
+#' @examples
+#' #Not intended to be accessed indepedant of function ContDataQC().
+#' #Data values only.  No functions.
 #####################################################################
 # USER may make modifications in this section but not mandatory
 # this section could be sourced so can use between scripts
+#####################################################################
+UserDefinedValues <- NA # default value so shows up in help files
 #####################################################################
 # Delimiter in File Names (e.g., test2_AW_201301_20131231.csv)
 myDelim <- "_"
 #####################################################################
 # Acceptable column names for the data 
-#(special characters (e.g., %, space, or /) are converted to "." by R, "°" converted to "Â")
+#(special characters (e.g., %, space, or /) are converted to "." by R, "deg" converted to "A")
 myUnits.AirTemp     <- "C" # C or F
 myUnits.WaterTemp   <- myUnits.AirTemp
 myUnits.AirBP       <- "psi"
@@ -32,25 +42,25 @@ myName.DateTime       <- "Date.Time"
 ## Water
 myName.RowID.Water    <- "Water.RowID"
 myName.LoggerID.Water <- "Water.LoggerID"
-myName.WaterTemp      <- paste("Water.Temp.",myUnits.WaterTemp,sep="")  # "°" from HoboWare files sometimes adds "Â " in front.  Replace with "." in R.
+myName.WaterTemp      <- paste("Water.Temp.",myUnits.WaterTemp,sep="")  # "deg" from HoboWare files sometimes adds "A " in front.  Replace with "." in R.
 ## Air
 myName.RowID.Air      <- "Air.RowID"
 myName.LoggerID.Air   <- "Air.LoggerID"
-myName.AirTemp        <- paste("Air.Temp.",myUnits.AirTemp,sep="")   # "°" from HoboWare files sometimes adds "Â " in front.  Replace with "." in R.
+myName.AirTemp        <- paste("Air.Temp.",myUnits.AirTemp,sep="")   # "deg" from HoboWare files sometimes adds "A " in front.  Replace with "." in R.
 myName.WaterP         <- paste("Water.BP.",myUnits.WaterP,sep="")
 myName.AirBP          <- paste("Air.BP.",myUnits.WaterP,sep="")
 myName.WaterLevel     <- paste("Water.Level.",myUnits.WaterLevel,sep="")
 myName.Discharge      <- paste("Discharge.",myUnits.Discharge,sep="")
 ## plot labels
-myLab.WaterTemp       <- paste("Temperature, Water (°",myUnits.WaterTemp,")",sep="")
-myLab.AirTemp         <- paste("Temperature, Air (°",myUnits.AirTemp,")",sep="")
+myLab.WaterTemp       <- paste("Temperature, Water (deg ",myUnits.WaterTemp,")",sep="")
+myLab.AirTemp         <- paste("Temperature, Air (deg ",myUnits.AirTemp,")",sep="")
 myLab.Date            <- "Date"
 myLab.DateTime        <- "Date"
 myLab.WaterP          <- paste("Pressure, Water (",myUnits.AirBP,")",sep="")
 myLab.AirBP           <- paste("Barometric Pressure, Air (",myUnits.WaterP,")",sep="")
 myLab.WaterLevel      <- paste("Water Level (",myUnits.WaterLevel,")",sep="")
-myLab.Temp.BOTH       <- paste("Temperature (°",myUnits.WaterTemp,")",sep="")
-myLab.Discharge       <- paste("Discharge (ft³/s)")
+myLab.Temp.BOTH       <- paste("Temperature (deg ",myUnits.WaterTemp,")",sep="")
+myLab.Discharge       <- paste("Discharge (ft3/s)")
 #####################################################################
 # Discrete Measurements
 myPrefix.Discrete           <- "Discrete"

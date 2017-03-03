@@ -1,26 +1,41 @@
-# Sourced Routine
-##################
-# Download USGS Gage Data
-##################
+#' Download USGS Gage Data
+#' 
+#' This a wrapper function for the package dataRetrieval to get USGS data.  Daily means are the default data type.
+#'
 # Erik.Leppo@tetratech.com (EWL)
 # 20151130
 ##################
-#
 # Basic Operations:
 # download from USGS based on user selection
 # daily means
-
-
 # library (load any required helper functions)
 #library(dataRetrieval)
+#################
+#' @param fun.myData.SiteID Station/SiteID (can be a vector).
+#' @param fun.myData.Type data type is "Gage".
+#' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
+#' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
+#' @param fun.myDir.BASE Root directory for data.  If blank will use current working directory.
+#' @param fun.myDir.SUB.import Subdirectory for import data.  If blank will use root directory.
+#' @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
+#' @param myTZ Timezone for requested gage.  Default is Sys.timezone().
+#' @return Returns a csv file to specified directory with the requested daily mean data.  During the data retrieval a summary is output to the console. 
+#' @keywords continuous data, USGS, gage, dataRetrieval
+#' @examples
+#' #Not intended to be accessed indepedant of function ContDataQC().
+#' fun.GageData("01187300","Gage","2013-01-01","2013-12-31",getwd(),"","")
+#' # with optional variable left blank
+#' fun.GageData("01187300","Gage","2013-01-01","2013-12-31")
+#
 #' @export
 fun.GageData <- function(fun.myData.SiteID
-                     ,fun.myData.Type
+                     ,fun.myData.Type="Gage"
                      ,fun.myData.DateRange.Start
                      ,fun.myData.DateRange.End
-                     ,fun.myDir.BASE
-                     ,fun.myDir.SUB.import
-                     ,fun.myDir.SUB.export) {##FUN.fun.GageData.START
+                     ,fun.myDir.BASE=getwd()
+                     ,fun.myDir.SUB.import=""
+                     ,fun.myDir.SUB.export=""
+                     ,myTZ=Sys.timezone()) {##FUN.fun.GageData.START
   #
   # data directories
   myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="","",paste("/",fun.myDir.SUB.import,sep="")),sep="")
@@ -152,50 +167,6 @@ fun.GageData <- function(fun.myData.SiteID
     
     ## Add GageID field so can retain (20160205)
     data.myGage <- cbind(GageID=strGage,data.myGage)
-    
-    
-    
-  #   #############################################
-  #   # old waterData code, start, unused now
-  #   #############################################
-  #   data.myGage.q  <- importDVs(fun.myData.SiteID, code="00060", sdate=fun.myData.DateRange.Start, edate=fun.myData.DateRange.End)
-  #  # data.myGage.gh <- importDVs(fun.myData.SiteID, code="00065", sdate=fun.myData.DateRange.Start, edate=fun.myData.DateRange.End)
-  # #   data.myGage.tw <- importDVs(fun.myData.SiteID, code="00010", sdate=fun.myData.DateRange.Start, edate=fun.myData.DateRange.End)
-  # #   data.myGage.ta <- importDVs(fun.myData.SiteID, code="00020", sdate=fun.myData.DateRange.Start, edate=fun.myData.DateRange.End)
-  #   
-  #   # Column Names - Define
-  #   myParam <- myName.Discharge
-  #     names.q   <- c(myName.SiteID,myParam,myName.Date,paste("Flag",myParam,sep="."))
-  #   myParam <- myName.WaterLevel
-  #     names.gh  <- c(myName.SiteID,myParam,myName.Date,paste("Flag",myParam,sep="."))
-  # #   myParam <- myName.WaterTemp
-  # #     names.tw  <- c(myName.SiteID,myParam,myName.Date,paste("Flag",myParam,sep="."))
-  # #   myParam <- myName.AirTemp
-  # #     names.ta  <- c(myName.SiteID,myParam,myName.Date,paste("Flag",myParam,sep="."))
-  #   # Column Names - Apply
-  #   names(data.myGage.q)  <- names.q
-  # #  names(data.myGage.gh) <- names.gh
-  # #   names(data.myGage.tw) <- names.tw
-  # #   names(data.myGage.ta) <- names.ta
-  #   
-  #   # Merge "q" and "gh"
-  #   if(exists("data.myGage.q")==FALSE & exists("data.myGage.gh")==FALSE) {
-  #     data.myGage.merge <- merge(data.myGage.q,data.myGage.gh,by=dates,all=TRUE) 
-  #   } else if(exists("data.myGage.q")==TRUE & exists("data.myGage.gh")==TRUE) {
-  #     stop("No USGS data.")
-  #   } else if (exists("data.myGage.q")==TRUE & exists("data.myGage.gh")==FALSE) {
-  #     data.myGage.merge <- data.myGage.q
-  #   } else if (exists("data.myGage.q")==FALSE & exists("data.myGage.gh")==TRUE) {
-  #     data.myGage.merge <- data.myGage.gh
-  #   }
-  #   #############################################
-  #   # old waterData code, end, unused now
-  #   #############################################
-    
-    
-    
-    
-    
     
     # Rework Start and End Dates to match data in file
     strFile.Date.Start  <- format(min(data.myGage[,myName.DateTime]),myFormat.Date)

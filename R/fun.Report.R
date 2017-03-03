@@ -1,6 +1,10 @@
-# Sourced Routine
-##################
-# Generate QC Report
+#' Generate Reports
+#' 
+#' Subfunction for generating Word reports.  Needs to be called from ContDataQC().
+#' Requires knitr() and pandoc.
+#' Different reports (in Word) are created using the RMD files in this package depending on the input fun.myFile.Prefix.
+#' Values are "QC", "DATA", or "STATS".
+#
 #########################
 # Erik.Leppo@tetratech.com (EWL)
 # 20151022
@@ -14,7 +18,6 @@
 ## ideas
 # load one file instead of all
 ################
-
 # library (load any required helper functions)
 #library(waterData)
 #library(knitr)
@@ -33,17 +36,28 @@
 # ##############################
 # 20150302, Change function to "Report" 
 # QC / Aggregate
-
-
+#' @param fun.myData.SiteID Station/SiteID.
+#' @param fun.myData.Type data type; c("Air","Water","AW","Gage","AWG","AG","WG")
+#' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
+#' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
+#' @param fun.myDir.BASE Root directory for data.  If blank will use current working directory.
+#' @param fun.myDir.SUB.import Subdirectory for import data.  If blank will use root directory.
+#' @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
+#' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
+#' @return Creates a Word file in the specified directory.
+#' @keywords continuous data, report
+#' @examples
+#' #Not intended to be accessed indepedant of function ContDataQC().
+#
 # FUNCTION
 #' @export
 fun.Report <- function(fun.myData.SiteID
                          ,fun.myData.Type
                          ,fun.myData.DateRange.Start
                          ,fun.myData.DateRange.End
-                         ,fun.myDir.BASE
-                         ,fun.myDir.SUB.import
-                         ,fun.myDir.SUB.export
+                         ,fun.myDir.BASE=getwd()
+                         ,fun.myDir.SUB.import=""
+                         ,fun.myDir.SUB.export=""
                          ,fun.myFile.Prefix) {##FUN.fun.Report.START
   #
   # Convert Data Type to proper case

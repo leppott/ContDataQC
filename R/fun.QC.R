@@ -1,3 +1,8 @@
+#' Quality Control
+#' 
+#' Subfunction for performing QC.  Needs to be called from ContDataQC().
+#' Requires zoo().
+#
 # Sourced Routine
 ##################
 # Quality Control (auto)
@@ -17,24 +22,36 @@
 # perform QC
 # write QC report
 # save QCed data file
-
-
+#
 # 20160208
 # WaterLevel - Gross is only negative, Flat = remove
 # 20160303
 # Rolling SD.  Use "zoo" and rollapply.  Loop too slow for large/dense data sets.
 # (will crash if less than 5 records so added "stop")
-
+#
 # library (load any required helper functions)
-library(zoo)
-
+#library(zoo)
+#############################################
+#' @param fun.myData.SiteID Station/SiteID.
+#' @param fun.myData.Type data type is "QC".
+#' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
+#' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
+#' @param fun.myDir.BASE Root directory for data.  If blank will use current working directory.
+#' @param fun.myDir.SUB.import Subdirectory for import data.  If blank will use root directory.
+#' @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
+#' @return Returns a csv file to specified directory with QC flags.
+#' @keywords continuous data, qc, quality control
+#' @examples
+#' #Not intended to be accessed indepedant of function ContDataQC().
+# 
+#'@export
 fun.QC <- function(fun.myData.SiteID
-                   ,fun.myData.Type
+                   ,fun.myData.Type="QC"
                    ,fun.myData.DateRange.Start
                    ,fun.myData.DateRange.End
-                   ,fun.myDir.BASE
-                   ,fun.myDir.SUB.import
-                   ,fun.myDir.SUB.export) {##FUN.fun.QCauto.START
+                   ,fun.myDir.BASE=getwd()
+                   ,fun.myDir.SUB.import=""
+                   ,fun.myDir.SUB.export="") {##FUN.fun.QCauto.START
   #
   # Convert Data Type to proper case
   fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1)),tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
@@ -799,7 +816,7 @@ fun.CalcQCStats <- function(fun.data.import
   #myT <- strptime(fun.data.import[,myName.DateTime],format=myFormat.DateTime)
   # A.2. Use data "as is"
   # create zoo object of data and date/time (use row num instead)
-  zoo.data <- zoo(fun.data.import[,fun.myField.Data],seq(from=1,to=nrow(fun.data.import),by=1))  # works
+  zoo.data <- zoo::zoo(fun.data.import[,fun.myField.Data],seq(from=1,to=nrow(fun.data.import),by=1))  # works
   #
   # B. Rolling SD
   # time difference is in minutes and Threshold is in hours
@@ -808,7 +825,7 @@ fun.CalcQCStats <- function(fun.data.import
   # right align says the previous 50
   # +1 is to include the record itself
   #RollSD <- rollapply(data=zoo.merge,width=RollBy+1,FUN=sd,na.rm=TRUE,fill=NA,align="right")
-  RollSD <- rollapply(data=zoo.data,width=RollBy+1,FUN=sd,na.rm=TRUE,fill=NA,align="right")
+  RollSD <- zoo::rollapply(data=zoo.data,width=RollBy+1,FUN=sd,na.rm=TRUE,fill=NA,align="right")
   # add to data frame
   fun.data.import[,myField] <- RollSD
   # clean up

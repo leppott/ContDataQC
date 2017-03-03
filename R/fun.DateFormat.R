@@ -1,17 +1,27 @@
-# Determine Date and Time format from input (single record)
+#' Date Format (wrapper)
+#' 
+#' Input a date/time string and output R date/time *format*. The format can then be used to convert to a different format. 
+#' Determine Date and Time *format* from input (single record) using Perl regular expresions.
+#' Perl Code prepared by Ann Roseberry Lincoln
+#' Not all possible formats recognized but the most common are accepted.
+#' If AM/PM is left off them assume 24 hr time.
 #
-# using Perl regular expresions
-# Ann.Lincoln@tetratech.com
-#
-#Perl Code prepared by Ann Roseberry Lincoln
-#Written August 05, 2015
-#perl version 5.16.3
+# Written August 05, 2015
+# perl version 5.16.3
 # R version, Erik.Leppo@tetratech.com, 20150806
 #
 # 20170115, EWL, replace "NA" with NA (can happen with Excel)
 #########################################################
-# input a date/time string and output R date/time format
-
+#' @param fun.DateTime Date, Time, or DateTime data
+#' @param fun.dt.Type type of input; date, time, or date
+#' @return Returns a text string representing the date/time format of the input fun.DateTime.  Wrapper function for fun.dt.Type2().
+#' @keywords date, time, datetime, format
+#' @examples
+#' #Not intended to be accessed indepedantly.
+#' #format of current date
+#' fun.DateTimeFormat(Sys.Date(),"date")
+#' fun.DateTimeFormat(Sys.time(),"datetime")
+#
 # # QC
 #  fun.DateTime <- data.import[,myName.Time] 
 #  fun.dt.Type <- "time"
@@ -88,6 +98,15 @@ fun.DateTimeFormat <- function(fun.DateTime,fun.dt.Type) { ##FUN.START
 ################################################################
 # 2nd function to get the format for date or time (feeds 1st function)
 ###############################################################
+#' Date Format (function)
+#' @param fun.dt Date, Time, or DateTime data
+#' @param fun.dt2.Type type of input; date, time, or date
+#' @return Returns a text string representing the date/time format of the input fun.dt.  Wrapped in function fun.DateTimeFormat().
+#' @keywords date, time, datetime, format
+#' @examples
+#' #Not intended to be accessed indepedant of function "fun.DateTimeFormat()".
+#' fun.dt.Type2(Sys.Date(),"date")
+#
 # # QC
 # fun.dt <- dt
 # fun2.dt.Type <- fun.dt.Type

@@ -1,3 +1,8 @@
+#' Aggregate Data Files
+#' 
+#' Subfunction for aggregating or splitting data files.  Needs to be called from ContDataQC().
+#' Combines or splits files based on given data range.  Saves a new CSV in the export directory.
+#
 # Sourced Routine
 ##################
 # Aggregate Data
@@ -23,14 +28,26 @@
 # combine
 # save
 # (repeats much of fun.QCauto)
+#' @param fun.myData.SiteID Station/SiteID.
+#' @param fun.myData.Type data type; c("Air","Water","AW","Gage","AWG","AG","WG")
+#' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
+#' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
+#' @param fun.myDir.BASE Root directory for data.  If blank will use current working directory.
+#' @param fun.myDir.SUB.import Subdirectory for import data.  If blank will use root directory.
+#' @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
+#' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
+#' @keywords continuous data, aggregate
+#' @examples
+#' #Not intended to be accessed indepedant of function ContDataQC().
+#
 #' @export
 fun.AggregateData <- function(fun.myData.SiteID
                              ,fun.myData.Type
                              ,fun.myData.DateRange.Start
                              ,fun.myData.DateRange.End
                              ,fun.myDir.BASE=getwd()
-                             ,fun.myDir.SUB.import
-                             ,fun.myDir.SUB.export) {##FUN.fun.QCauto.START
+                             ,fun.myDir.SUB.import=""
+                             ,fun.myDir.SUB.export="") {##FUN.fun.QCauto.START
   #
   # Error Checking - only 1 SiteID and 1 DataType
   if(length(fun.myData.SiteID)!=1){

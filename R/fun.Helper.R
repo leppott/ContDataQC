@@ -3,26 +3,54 @@
 # Erik.Leppo@tetratech.com (EWL)
 # 20150805
 ##################
-
-
-# functions
-
+# Status Message
+# 
+# Reports progress back to the user in the console.
+# @param fun.status Date, Time, or DateTime data
+# @param fun.item.num.current current item
+# @param fun.item.num.total total items
+# @param fun.item.name name of current item
+# @return Returns a message to the console
+# @examples
+# #Not intended to be accessed indepedantly.
+#
 ## for informing user of progress
-#' @export
+# @export
 fun.Msg.Status <- function(fun.status, fun.item.num.current, fun.item.num.total, fun.item.name) { ## FUNCTION.START
   print(paste("Processing item ",fun.item.num.current," of ",fun.item.num.total,", ",fun.status,", ",fun.item.name,".",sep=""))
 } ## FUNCTION.END 
-
+###################
+# Log write
+# 
+# Writes status information to a log file.
+# 
+# @param fun.Log information to write to log
+# @param fun.Date current date (YYYYMMDD)
+# @param fun.Time current time (HHMMSS)
+# @param fun.item.name item name
+# @return Returns a message to the console
+# @examples
+# #Not intended to be accessed indepedantly.
+#
 ## write log file
-#' @export
+# @export
 fun.write.log <- function(fun.Log,fun.Date,fun.Time) {#FUNCTION.START
   write.table(fun.Log,file=paste("LOG.Items.",fun.Date,".",fun.Time,".tab",sep=""),sep="\t",row.names=FALSE,col.names=TRUE)
 }#FUNCTION.END
-
+###################
+# Required field check
+# 
+# Checks a data frame for required fields.  Gives an error message and stops the process if fields are not present.
+# 
+# @param fun.names required names
+# @param fun.File file to check
+# @examples
+# #Not intended to be accessed indepedantly.
+#
 ## QC check for variables in data (20160204)
 # referenced in calling script right after data is imported.
 # Required fields: myName.SiteID & (myName.DateTime | (myName.Date & myName.Time))
-#' @export
+# @export
 fun.QC.ReqFlds <- function(fun.names,fun.File) {##FUNCTION.fun.QC.ReqFlds.START
   #### QC
 #   fun.names <- names(data.import)
@@ -62,7 +90,15 @@ fun.QC.ReqFlds <- function(fun.names,fun.File) {##FUNCTION.fun.QC.ReqFlds.START
   }##IF.2.END
   #
 }##FUNCTION.fun.QC.ReqFlds.END
-
+###################
+# Date and Time QC
+# 
+# Subroutine to check a data frame for dates
+# 
+# @param fun.df data frame to check
+# @examples
+# #Not intended to be accessed indepedantly.
+#
 ## QC check of date and time fields (20170115)
 # Excel can mess up date formats in CSV files even when don't intentionally change.
 # borrow code from fun.QC.R, fun.QC, step 5 ~ line 245
@@ -72,7 +108,7 @@ fun.QC.ReqFlds <- function(fun.names,fun.File) {##FUNCTION.fun.QC.ReqFlds.START
 # QC
 #fun.df <- data.import
 ######
-#' @export
+# @export
 fun.QC.datetime <- function(fun.df){##FUNCTION.fun.QC.datetime.START
   #
   # 5.  QC Date and Time fields

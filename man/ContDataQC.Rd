@@ -8,7 +8,115 @@ ContDataQC(fun.myData.Operation, fun.myData.SiteID, fun.myData.Type,
   fun.myData.DateRange.Start, fun.myData.DateRange.End, fun.myDir.BASE,
   fun.myDir.SUB.import, fun.myDir.SUB.export)
 }
-\description{
-Calls other scripts
+\arguments{
+\item{fun.myData.Operation}{Operation to be performed; c("GetGageData","QCRaw", "Aggregate", "SummaryStats")}
+
+\item{fun.myData.SiteID}{Station/SiteID.}
+
+\item{fun.myData.Type}{data type; c("Air","Water","AW","Gage","AWG","AG","WG")}
+
+\item{fun.myData.DateRange.Start}{Start date for requested data. Format = YYYY-MM-DD.}
+
+\item{fun.myData.DateRange.End}{End date for requested data. Format = YYYY-MM-DD.}
+
+\item{fun.myDir.BASE}{Root directory for data.  If blank will use current working directory.}
+
+\item{fun.myDir.SUB.import}{Subdirectory for import data.  If blank will use root directory.}
+
+\item{fun.myDir.SUB.export}{Subdirectory for export data.  If blank will use root directory.}
+
+\item{fun.myFile.Prefix}{Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.}
 }
+\value{
+Returns a csv into the specified export directory with additional columns for calculated statistics.
+}
+\description{
+Calls all other functions for the ContDataQC library.
+}
+\details{
+Below are the default data directories assumed to exist in the working directory.  These can be created with code in the example.
+
+./Data0_Original/ = Unmodified data logger files.
+
+./Data1_RAW/ = Data logger files modified for use with library.  Modifications for extra rows and file and column names.
+
+./Data2_QC/ = Repository for library output for QCed files.
+
+./Data3_Aggregated/ = Repository for library output for aggregated (or split) files.
+
+./Data4_Stats/ = Repository for library output for statistical summary files.
+}
+\examples{
+# Install Pandoc
+require(installr)
+install.pandoc()
+# The above won't work if don't have admin rights on your computer.
+# Alternative = Download the file below and have your IT dept install for you.
+# https://github.com/jgm/pandoc/releases/download/1.16.0.2/pandoc-1.16.0.2-windows.msi
+# For help for installing via command window:
+# http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-prompt-in-windows/
+
+
+# Examples of each operation
+
+# Parameters
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+myData.DateRange.Start  <- "2013-01-01"
+myData.DateRange.End    <- "2014-12-31"
+Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.SUB.import <- ""
+myDir.SUB.export <- ""
+
+# Create data directories
+myDir.create <- paste0("./",Selection.SUB[1])
+  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+myDir.create <- paste0("./",Selection.SUB[2])
+  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+myDir.create <- paste0("./",Selection.SUB[3])
+  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+myDir.create <- paste0("./",Selection.SUB[4])
+  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+
+# Save example data (assumes directory ./Data1_RAW/ exists)
+myData <- data_raw_test2_AW_20130426_20130725
+  write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20130426_20130725.csv"))
+myData <- data_raw_test2_AW_20130725_20131015
+  write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20130725_20131015.csv"))
+myData <- data_raw_test2_AW_20140901_20140930
+  write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20140901_20140930.csv"))
+
+# Get Gage Data
+myData.Operation    <- "GetGageData" #Selection.Operation[1]
+myData.SiteID       <- "01187300"
+myData.Type         <- Selection.Type[4] #"Gage"
+ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "")
+
+# QC Raw Data
+myData.Operation <- "QCRaw" #Selection.Operation[2]
+myData.SiteID    <- "test2"
+myData.Type      <- Selection.Type[3] #"AW"
+myDir.SUB.import <- Selection.SUB[1] #"Data1_RAW"
+myDir.SUB.export <- Selection.SUB[2] #"Data2_QC"
+ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "")
+
+# Aggregate Data
+myData.Operation <- "Aggregate" #Selection.Operation[3]
+myData.SiteID    <- "test2"
+myData.Type      <- Selection.Type[3] #"AW"
+myDir.SUB.import <- Selection.SUB[2] #"Data2_QC"
+myDir.SUB.export <- Selection.SUB[3] #"Data3_Aggregated"
+ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "")
+
+# Summary Stats
+myData.Operation <- "SummaryStats" #Selection.Operation[4]
+myData.SiteID    <- "test2"
+myData.Type      <- Selection.Type[3] #"AW"
+myDir.SUB.import <- Selection.SUB[3] #"Data3_Aggregated"
+myDir.SUB.export <- Selection.SUB[4] #"Data4_Stats"
+ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "")
+}
+\keyword{aggregate}
+\keyword{continuous}
+\keyword{data,}
 

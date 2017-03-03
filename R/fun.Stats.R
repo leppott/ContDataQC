@@ -1,6 +1,9 @@
-# Sourced Routine
-##################
-# Statistical Summary
+#' Statistical Summary
+#' 
+#' Subfunction for generating statistical summaries.  Needs to be called from ContDataQC().
+#' Requires doBy() and survival() [required by doBy]
+#' Calculates statistics on input data and saves to a new csv.
+# 
 ##################
 # Erik.Leppo@tetratech.com (EWL)
 # 20151120
@@ -13,21 +16,33 @@
 # load all files in data directory
 # perform Stats
 # write Stat summary file
-
-
+#
 # library (load any required helper functions)
 # library(StreamThermal)
 # library(survival) # required for doBy
 # library(doBy)
 # should have been loaded by master script
+#' @param fun.myData.SiteID Station/SiteID.
+#' @param fun.myData.Type data type; c("Air","Water","AW","Gage","AWG","AG","WG")
+#' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
+#' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
+#' @param fun.myDir.BASE Root directory for data.  If blank will use current working directory.
+#' @param fun.myDir.SUB.import Subdirectory for import data.  If blank will use root directory.
+#' @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
+#' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
+#' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
+#' @keywords continuous data, statistics
+#' @examples
+#' #Not intended to be accessed indepedant of function ContDataQC().
+#
 #' @export
 fun.Stats <- function(fun.myData.SiteID
                      ,fun.myData.Type
                      ,fun.myData.DateRange.Start
                      ,fun.myData.DateRange.End
-                     ,fun.myDir.BASE
-                     ,fun.myDir.SUB.import
-                     ,fun.myDir.SUB.export
+                     ,fun.myDir.BASE=getwd()
+                     ,fun.myDir.SUB.import=""
+                     ,fun.myDir.SUB.export=""
                      ,fun.myProcedure.Step
                      ,fun.myFile.Prefix) {##FUN.fun.Stats.START
   #
