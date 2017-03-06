@@ -18,7 +18,7 @@
 #' @param fun.myDir.BASE Root directory for data.  If blank will use current working directory.
 #' @param fun.myDir.SUB.import Subdirectory for import data.  If blank will use root directory.
 #' @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
-#' @param myTZ Timezone for requested gage.  Default is Sys.timezone().
+#' @param myTZ Timezone for requested gage.  Default is in env.UserDefinedValues.R.  Can also be set with Sys.timezone().
 #' @return Returns a csv file to specified directory with the requested daily mean data.  During the data retrieval a summary is output to the console. 
 #' @keywords continuous data, USGS, gage, dataRetrieval
 #' @examples
@@ -35,7 +35,7 @@ fun.GageData <- function(fun.myData.SiteID
                      ,fun.myDir.BASE=getwd()
                      ,fun.myDir.SUB.import=""
                      ,fun.myDir.SUB.export=""
-                     ,myTZ=Sys.timezone()) {##FUN.fun.GageData.START
+                     ,myTZ=ContData.env$myTZ) {##FUN.fun.GageData.START
   #
   # data directories
   myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="","",paste("/",fun.myDir.SUB.import,sep="")),sep="")
@@ -46,9 +46,9 @@ fun.GageData <- function(fun.myData.SiteID
   #
   # Verify input dates, if blank, NA, or null use all data
   # if DateRange.Start is null or "" then assign it 1900-01-01
-  if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start==""){fun.myData.DateRange.Start<-DateRange.Start.Default}
+  if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start==""){fun.myData.DateRange.Start<-ContData.env$DateRange.Start.Default}
   # if DateRange.End is null or "" then assign it today
-  if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End==""){fun.myData.DateRange.End<-DateRange.End.Default}
+  if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End==""){fun.myData.DateRange.End<-ContData.env$DateRange.End.Default}
   #
   # Start Time (used to determine run time at end)
   myTime.Start <- Sys.time()
@@ -162,20 +162,20 @@ fun.GageData <- function(fun.myData.SiteID
     # replace "_Inst" with null and leave "_cd"
     names(data.myGage) <- gsub("_Inst","",names(data.myGage))
     # mod SiteID and DateTIme
-    names(data.myGage)[1:2] <- c(myName.SiteID,myName.DateTime)
+    names(data.myGage)[1:2] <- c(ContData.env$myName.SiteID,ContData.env$myName.DateTime)
     
     
     ## Add GageID field so can retain (20160205)
     data.myGage <- cbind(GageID=strGage,data.myGage)
     
     # Rework Start and End Dates to match data in file
-    strFile.Date.Start  <- format(min(data.myGage[,myName.DateTime]),myFormat.Date)
-    strFile.Date.End    <- format(max(data.myGage[,myName.DateTime]),myFormat.Date)
+    strFile.Date.Start  <- format(min(data.myGage[,ContData.env$myName.DateTime]),ContData.env$myFormat.Date)
+    strFile.Date.End    <- format(max(data.myGage[,ContData.env$myName.DateTime]),ContData.env$myFormat.Date)
     
     # 10.0. Output file
     # 10.1. Set Name
-    File.Date.Start <- format(as.Date(strFile.Date.Start,myFormat.Date),"%Y%m%d")
-    File.Date.End   <- format(as.Date(strFile.Date.End,myFormat.Date),"%Y%m%d")
+    File.Date.Start <- format(as.Date(strFile.Date.Start,ContData.env$myFormat.Date),"%Y%m%d")
+    File.Date.End   <- format(as.Date(strFile.Date.End,ContData.env$myFormat.Date),"%Y%m%d")
     strFile.Out.Prefix <- "Gage"
     strFile.Out <- paste(paste(strGage,fun.myData.Type,File.Date.Start,File.Date.End,sep=myDelim),"csv",sep=".")
     # 10.2. Save to File the data (overwrites any existing file).

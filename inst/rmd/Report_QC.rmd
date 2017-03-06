@@ -4,7 +4,7 @@ output: word_document
 ---
 
 ```{r, results='asis', echo=FALSE, warning=FALSE}
-  myReportDate <- format(Sys.Date(),"%Y-%m-%d")
+  myReportDate <- format(Sys.Date(),ContData.env$myFormat.Date)
   cat(paste("**Report Date:** ",myReportDate,"\n\n",sep=""))
 ```
 
@@ -20,18 +20,18 @@ output: word_document
        
   
   myNumRecords <- nrow(data.import) # 20170228, mod from records 10 and 11 to half way point
-  myTimeDiff <- difftime(data.import[10,myName.DateTime],data.import[11,myName.DateTime],units="mins")
-  cat(paste("\n\n**Period of Record, Actual:** ",min(data.import[,myName.Date])," to ",max(data.import[,myName.Date]),"\n\n",sep=""))
+  myTimeDiff <- difftime(data.import[10,ContData.env$myName.DateTime],data.import[11,ContData.env$myName.DateTime],units="mins")
+  cat(paste("\n\n**Period of Record, Actual:** ",min(data.import[,ContData.env$myName.Date])," to ",max(data.import[,ContData.env$myName.Date]),"\n\n",sep=""))
        
   cat(paste("**Recording Interval:** ",myTimeDiff[1]," minutes\n\n",sep=""))
   
   cat(paste("**Data Type:** ",strFile.DataType,"\n\n",sep=""))  # need to do better
   
-   myParameters.ALL     <- myNames.DataFields[myNames.DataFields %in% names(data.import)==TRUE] 
-   myParameters.Lab.ALL <- myNames.DataFields.Lab[myNames.DataFields %in% names(data.import)==TRUE]
+   myParameters.ALL     <- ContData.env$myNames.DataFields[ContData.env$myNames.DataFields %in% names(data.import)==TRUE] 
+   myParameters.Lab.ALL <- ContData.env$myNames.DataFields.Lab[ContData.env$myNames.DataFields %in% names(data.import)==TRUE]
    # Filter out Discrete
-   myParameters     <- myParameters.ALL[!grepl(myPrefix.Discrete,myParameters.ALL)]
-   myParameters.Lab <- myParameters.Lab.ALL[!grepl(myPrefix.Discrete,myParameters.Lab.ALL)]
+   myParameters     <- myParameters.ALL[!grepl(ContData.env$myPrefix.Discrete,myParameters.ALL)]
+   myParameters.Lab <- myParameters.Lab.ALL[!grepl(ContData.env$myPrefix.Discrete,myParameters.Lab.ALL)]
    
    
  #cat("**Parameters:** ",paste(myParameters.Lab,", ",sep=""),"\n\n",sep="")
@@ -80,7 +80,7 @@ output: word_document
         
     cat("Number of records by year and month (with totals).")
     cat("\n")
-    myTable <- addmargins(table(data.import[,"year"],data.import[,"month"]))
+    myTable <- addmargins(table(data.import[,ContData.env$myName.Yr],data.import[,ContData.env$myName.Mo]))
         print(kable(myTable, format="markdown", row.names=TRUE))
     cat("\n\n")
 
@@ -88,7 +88,7 @@ output: word_document
   # revert to longer table (20170228)
     cat("Number of records by day and month (with totals).")
     cat("\n")
-    myTable <- addmargins(table(data.import[,"day"],data.import[,"month"]))
+    myTable <- addmargins(table(data.import[,ContData.env$myName.Day],data.import[,ContData.env$myName.Mo]))
         print(kable(myTable, format="markdown", row.names=TRUE))
     cat("\n\n") 
 
@@ -96,14 +96,14 @@ output: word_document
 #     pandoc.table(myTable.month.day.rec.GT15,style="rmarkdown")
 #    
 #     
-    myTable.month.day.rec <- table(data.import[,"month"],data.import[,"day"])
+    myTable.month.day.rec <- table(data.import[,ContData.env$myName.Mo],data.import[,ContData.env$myName.Day])
 #     use apply function to count number of records not equal to the expected value
     cat("\n\n")
     
 
     #
-    myTable.DateTime.N <- aggregate(SiteID ~ Date.Time, data=data.import,FUN=length)
-    myTable <- myTable.DateTime.N[myTable.DateTime.N[,"SiteID"]!=1,]
+    myTable.DateTime.N <- aggregate(ContData.env$myName.SiteID  ~ ContData.env$myName.DateTime, data=data.import,FUN=length)
+    myTable <- myTable.DateTime.N[myTable.DateTime.N[,ContData.env$myName.SiteID]!=1,]
     cat(paste0("Date and time records with more than one entry; N=",nrow(myTable),". Duplicate date.time records are shown below."))
     cat("\n")
       print(kable(myTable, format="markdown", row.names=TRUE))
@@ -112,8 +112,8 @@ output: word_document
     myDateRange.Target <- seq(as.Date(fun.myData.DateRange.Start)
                               ,as.Date(fun.myData.DateRange.End)
                               ,by="day")
-    myDateRange.Data <- seq(as.Date(min(data.import[,myName.Date]))
-                            ,as.Date(max(data.import[,myName.Date]))
+    myDateRange.Data <- seq(as.Date(min(data.import[,ContData.env$myName.Date]))
+                            ,as.Date(max(data.import[,ContData.env$myName.Date]))
                             ,by="day")
     myDateRange.Target.Missing <- myDateRange.Target[!myDateRange.Target %in% myDateRange.Data]
     cat(paste0("Below are the dates with missing data between the min (",min(myDateRange.Data)
@@ -129,25 +129,25 @@ output: word_document
 Flags are assigned to each data point (a single measured parameter at a unique point in time) first by each of the QC tests below.  Flags are assigned numerical values;
 
 ```{r, results='asis', echo=FALSE, warning=FALSE}
-cat(paste("* **",myFlagVal.Pass,"** = Pass,",sep=""))
+cat(paste("* **",ContData.env$myFlagVal.Pass,"** = Pass,",sep=""))
 cat("\n")
-cat(paste("* **",myFlagVal.Suspect,"** = Suspect,",sep=""))  
+cat(paste("* **",ContData.env$myFlagVal.Suspect,"** = Suspect,",sep=""))  
 cat("\n")
-cat(paste("* **",myFlagVal.Fail,"** = Fail,",sep=""))
+cat(paste("* **",ContData.env$myFlagVal.Fail,"** = Fail,",sep=""))
 cat("\n")
-cat(paste("* **",myFlagVal.NoData,"** = No Data or Not Applicable (NA).",sep=""))
+cat(paste("* **",ContData.env$myFlagVal.NoData,"** = No Data or Not Applicable (NA).",sep=""))
 ```
 
 Overall flags are assigned by examining the results of the four tests below. 
 
 ```{r, results='asis', echo=FALSE, warning=FALSE}
-cat(paste("* **",myFlagVal.Pass,"** = no Fail or Suspect and at least one Pass,",sep=""))
+cat(paste("* **",ContData.env$myFlagVal.Pass,"** = no Fail or Suspect and at least one Pass,",sep=""))
 cat("\n")
-cat(paste("* **",myFlagVal.Suspect,"** = no Fail and at least one Suspect,",sep="")) 
+cat(paste("* **",ContData.env$myFlagVal.Suspect,"** = no Fail and at least one Suspect,",sep="")) 
 cat("\n") 
-cat(paste("* **",myFlagVal.Fail,"** = at least one Fail,,",sep=""))
+cat(paste("* **",ContData.env$myFlagVal.Fail,"** = at least one Fail,,",sep=""))
 cat("\n")
-cat(paste("* **",myFlagVal.NoData,"** = all tests were Missing Data.",sep=""))
+cat(paste("* **",ContData.env$myFlagVal.NoData,"** = all tests were Missing Data.",sep=""))
 ```
 
 Overall flags by parameter
@@ -221,13 +221,13 @@ Overall flags by parameter
       #
       cat("Number of records by year and month (with totals)")
       cat("\n")
-      myTable <- addmargins(table(data.import[,"year"],data.import[,"month"]))
+      myTable <- addmargins(table(data.import[,ContData.env$myName.Yr],data.import[,ContData.env$myName.Mo]))
       print(kable(myTable, format="markdown", row.names=TRUE))
       cat("\n\n")
       #
       cat("Number of records by day and month (with totals)")
       cat("\n")
-      myTable <- addmargins(table(data.import[,"day"],data.import[,"month"]))
+      myTable <- addmargins(table(data.import[,ContData.env$myName.Day],data.import[,ContData.env$myName.Mo]))
       print(kable(myTable, format="markdown", row.names=TRUE))
       cat("\n\n") 
       #
@@ -245,22 +245,22 @@ Overall flags by parameter
       
       cat("#####Flags, Gross\n\n")
       
-      myTable <- addmargins(table(data.import[,paste("Flag.Gross",i,sep=".")]),1)
+      myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"Gross",i,sep=".")]),1)
       print(kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
       cat("#####Flags, Spike\n\n")
       
-      myTable <- addmargins(table(data.import[,paste("Flag.Spike",i,sep=".")]),1)
+      myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"Spike",i,sep=".")]),1)
       print(kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
       cat("#####Flags, RoC\n\n")
       
-      myTable <- addmargins(table(data.import[,paste("Flag.RoC",i,sep=".")]),1)
+      myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"RoC",i,sep=".")]),1)
       print(kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
       cat("#####Flags, Flat\n\n")
       
-      myTable <- addmargins(table(data.import[,paste("Flag.Flat",i,sep=".")]),1)
+      myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"Flat",i,sep=".")]),1)
       print(kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
       cat("QC Test Flag fields are saved in the data file so the user can identify data points that have been flagged as suspect or fail.")
@@ -271,27 +271,27 @@ Overall flags by parameter
       #
       
       
-      cat(paste("\n\n Test results marked as ",myFlagVal.NoData," (No/Missing Data) if unable to calculate the end point needed for the test.  For example, the first record does not have a previous record for comparison for the Gross QC Test.  QC Test flags are saved in the data file.",sep=""))
+      cat(paste("\n\n Test results marked as ",ContData.env$myFlagVal.NoData," (No/Missing Data) if unable to calculate the end point needed for the test.  For example, the first record does not have a previous record for comparison for the Gross QC Test.  QC Test flags are saved in the data file.",sep=""))
       
       #
       # 3.3. Plot
       data.plot <- data.import
       #
       # cheat on Date/Time axis
-      n.Total <- length(data.plot[,myName.Date])
+      n.Total <- length(data.plot[,ContData.env$myName.Date])
       pct <- c(20,40,60,80,100)*.01
       myAT <- c(1,round(n.Total * pct,0))
-      myLab <- data.plot[,myName.Date][myAT]
+      myLab <- data.plot[,ContData.env$myName.Date][myAT]
       #
       myPlot.Y <- data.plot[,i]
       myPlot.Ylab <- myParameters.Lab[i.num]
-      plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="gray", xaxt="n")
+      plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="gray", xaxt="n")
       axis(1,at=myAT,labels=myLab,tick=TRUE)
       # Add discrete (only if present)
-      myDiscrete <- paste(myPrefix.Discrete,i,sep=".")
+      myDiscrete <- paste(ContData.env$myPrefix.Discrete,i,sep=".")
       if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
         data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
-        data.plot.points <- na.omit(data.plot[,c(myName.DateTime,myDiscrete)]) # remove NA
+        data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
         myPoints.X <- as.numeric(rownames(data.plot.points))
         myPoints.Y <- data.plot.points[,myDiscrete]
         points(myPoints.Y~myPoints.X,col="black",pch=19) 
@@ -315,30 +315,30 @@ Multiparameter plots if exist in the data.
     data.plot <- data.import
     #
     # cheat on Date/Time axis
-    n.Total <- length(data.plot[,myName.Date])
+    n.Total <- length(data.plot[,ContData.env$myName.Date])
     pct <- c(20,40,60,80,100)*.01
     myAT <- c(1,round(n.Total * pct,0))
-    myLab <- data.plot[,myName.Date][myAT]
+    myLab <- data.plot[,ContData.env$myName.Date][myAT]
     ###################################
     # Need to check for parameters before plot
     ##################################    
     
     # Temp, Air vs. Water
-    if (myName.AirTemp %in% myParameters & myName.WaterTemp %in% myParameters == TRUE){##IF.Temp.START
+    if (ContData.env$myName.AirTemp %in% myParameters & ContData.env$myName.WaterTemp %in% myParameters == TRUE){##IF.Temp.START
       cat("##PLOT, Temperature (Air vs. Water) \n\n" )
 
-      myPlot.Y <- data.plot[,myName.AirTemp]
-      myPlot.Y2 <- data.plot[,myName.WaterTemp]
-      myPlot.Ylab <- myLab.Temp.BOTH
-      plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="green", xaxt="n")
-      axis(1,at=myAT,labels=myLab,tick=TRUE)
+      myPlot.Y <- data.plot[,ContData.env$myName.AirTemp]
+      myPlot.Y2 <- data.plot[,ContData.env$myName.WaterTemp]
+      myPlot.Ylab <- ContData.env$myLab.Temp.BOTH
+      plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="green", xaxt="n")
+      axis(1,at=myAT,labels=ContData.env$myLab,tick=TRUE)
       lines(myPlot.Y2,type="l",col="blue")
       legend(x="bottomright",lty=1,col=c("green","blue"),legend=c("air","water"))
       # Add discrete, AirTemp (only if present)
-      myDiscrete <- paste(myPrefix.Discrete,myName.AirTemp,sep=".")
+      myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.AirTemp,sep=".")
       if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
         data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
-        data.plot.points <- na.omit(data.plot[,c(myName.DateTime,myDiscrete)]) # remove NA
+        data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
         myPoints.X <- as.numeric(rownames(data.plot.points))
         myPoints.Y <- data.plot.points[,myDiscrete]
         points(myPoints.Y~myPoints.X,col="green",pch=19) 
@@ -347,7 +347,7 @@ Multiparameter plots if exist in the data.
       myDiscrete <- paste(myPrefix.Discrete,myName.WaterTemp,sep=".")
       if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
         data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
-        data.plot.points <- na.omit(data.plot[,c(myName.DateTime,myDiscrete)]) # remove NA
+        data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
         myPoints.X <- as.numeric(rownames(data.plot.points))
         myPoints.Y <- data.plot.points[,myDiscrete]
         points(myPoints.Y~myPoints.X,col="blue",pch=19) 
@@ -361,23 +361,23 @@ Multiparameter plots if exist in the data.
     }##IF.Temp.END
     #
     # Water, Temp vs Level
-    if (myName.WaterTemp %in% myParameters & myName.WaterLevel %in% myParameters == TRUE){##IF.Temp_Level.START
+    if (ContData.env$myName.WaterTemp %in% myParameters & ContData.env$myName.WaterLevel %in% myParameters == TRUE){##IF.Temp_Level.START
       cat("##PLOT, Water Level vs. Water Temperature \n\n")
       
       par.orig <- par(no.readonly=TRUE) # save original par settings
         par(oma=c(0,0,0,2))
-        myPlot.Y <- data.plot[,myName.WaterTemp]
-        myPlot.Ylab <- myLab.WaterTemp
-        myPlot.Y2 <- data.plot[,myName.WaterLevel]
-        myPlot.Y2lab <- myLab.WaterLevel
+        myPlot.Y <- data.plot[,ContData.env$myName.WaterTemp]
+        myPlot.Ylab <- ContData.env$myLab.WaterTemp
+        myPlot.Y2 <- data.plot[,ContData.env$myName.WaterLevel]
+        myPlot.Y2lab <- ContData.env$myLab.WaterLevel
         #
-        plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n")
-        axis(1,at=myAT,labels=myLab,tick=TRUE)
+        plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n")
+        axis(1,at=myAT,labels=ContData.env$myLab,tick=TRUE)
         # Add discrete, Water.Temp (only if present)
         myDiscrete <- paste(myPrefix.Discrete,myName.WaterTemp,sep=".")
         if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
           data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
-          data.plot.points <- na.omit(data.plot[,c(myName.DateTime,myDiscrete)]) # remove NA
+          data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
           myPoints.X <- as.numeric(rownames(data.plot.points))
           myPoints.Y <- data.plot.points[,myDiscrete]
           points(myPoints.Y~myPoints.X,col="blue",pch=19) 
@@ -389,10 +389,10 @@ Multiparameter plots if exist in the data.
         axis(4)
         mtext(myPlot.Y2lab,side=4,line=2.5)
         # Add discrete, WaterLevel (only if present)
-        myDiscrete <- paste(myPrefix.Discrete,myName.WaterLevel,sep=".")
+        myDiscrete <- paste(myPrefix.Discrete,ContData.env$myName.WaterLevel,sep=".")
         if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
           data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
-          data.plot.points <- na.omit(data.plot[,c(myName.DateTime,myDiscrete)]) # remove NA
+          data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
           myPoints.X <- as.numeric(rownames(data.plot.points))
           myPoints.Y <- data.plot.points[,myDiscrete]
           points(myPoints.Y~myPoints.X,col="black",pch=19) 

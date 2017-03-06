@@ -51,7 +51,7 @@ fun.QC <- function(fun.myData.SiteID
                    ,fun.myData.DateRange.End
                    ,fun.myDir.BASE=getwd()
                    ,fun.myDir.SUB.import=""
-                   ,fun.myDir.SUB.export="") {##FUN.fun.QCauto.START
+                   ,fun.myDir.SUB.export="") {##FUN.fun.QC.START
   #
   # Convert Data Type to proper case
   fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1)),tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
@@ -65,9 +65,9 @@ fun.QC <- function(fun.myData.SiteID
   #
   # Verify input dates, if blank, NA, or null use all data
   # if DateRange.Start is null or "" then assign it 1900-01-01
-  if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start==""){fun.myData.DateRange.Start<-DateRange.Start.Default}
+  if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start==""){fun.myData.DateRange.Start<-ContData.env$DateRange.Start.Default}
   # if DateRange.End is null or "" then assign it today
-  if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End==""){fun.myData.DateRange.End<-DateRange.End.Default}
+  if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End==""){fun.myData.DateRange.End<-ContData.env$DateRange.End.Default}
   #
   # Read in list of files to work on, uses all files matching pattern ("\\.csv$")
   # ## if change formats will have to make modifications (pattern, import, export)
@@ -202,7 +202,7 @@ fun.QC <- function(fun.myData.SiteID
     # Check for and add any missing columns (but not for missing data fields)
     # 4.1. Date, Time, DateTime
     # list
-    strCol.DT <- c(myName.Date,myName.Time,myName.DateTime)
+    strCol.DT <- c(ContData.env$myName.Date,ContData.env$myName.Time,ContData.env$myName.DateTime)
     # check for missing
     strCol.DT.Missing <- strCol.DT[strCol.DT %in% colnames(data.import)==FALSE]
     # go to next item if no date, time, or date/time field
@@ -217,7 +217,7 @@ fun.QC <- function(fun.myData.SiteID
       next
     } 
     # go to next item if no (date or time) AND no date/time field  (i.e., only 1 of date or time)
-    if(length(strCol.DT.Missing)==2 & myName.DateTime%in%strCol.DT.Missing==TRUE) {
+    if(length(strCol.DT.Missing)==2 & ContData.env$myName.DateTime%in%strCol.DT.Missing==TRUE) {
       myMsg <- "SKIPPED (Missing Fields, 'Date.Time' and one of 'Date' or 'Time')"
       myItems.Skipped <- myItems.Skipped + 1
       myItems.Log[intCounter,2] <- myMsg
@@ -233,9 +233,9 @@ fun.QC <- function(fun.myData.SiteID
     #
     # 4.2.  Check for columns present and reorder columns
     # check for columns present
-    strCol.Present <- myNames.Order[myNames.Order %in% colnames(data.import)==TRUE]
+    strCol.Present <- ContData.env$myNames.Order[ContData.env$myNames.Order %in% colnames(data.import)==TRUE]
     #       
-    myNames.DataFields.Present <- myNames.DataFields[myNames.DataFields %in% colnames(data.import)==TRUE]
+    myNames.DataFields.Present <- ContData.env$myNames.DataFields[ContData.env$myNames.DataFields %in% colnames(data.import)==TRUE]
     # kick out if no data fields
     if(length(myNames.DataFields.Present)==0){
       myMsg <- "SKIPPED (Missing Fields, DATA)"
@@ -250,7 +250,7 @@ fun.QC <- function(fun.myData.SiteID
     # reorder Columns (and drop extra columns)
     data.import <- data.import[,strCol.Present]
     # 4.3. Add FLAGS
-    strCol.Flags <- myNames.Flags[myNames.Cols4Flags %in% colnames(data.import)==TRUE]
+    strCol.Flags <- myNames.Flags[ContData.env$myNames.Cols4Flags %in% colnames(data.import)==TRUE]
     data.import[,strCol.Flags] <- ""
     #
     #
@@ -273,11 +273,11 @@ fun.QC <- function(fun.myData.SiteID
     #
     # if entire field is NA then fill from other fields
     # Date
-    myField   <- myName.Date
-    data.import[,myField][all(is.na(data.import[,myField]))] <- data.import[,myName.DateTime]
+    myField   <- ContData.env$myName.Date
+    data.import[,myField][all(is.na(data.import[,myField]))] <- data.import[,ContData.env$myName.DateTime]
     # Time
-    myField   <- myName.Time
-    data.import[,myField][all(is.na(data.import[,myField]))] <- data.import[,myName.DateTime]
+    myField   <- ContData.env$myName.Time
+    data.import[,myField][all(is.na(data.import[,myField]))] <- data.import[,ContData.env$myName.DateTime]
     # DateTime
     #myField   <- myName.DateTime
     # can't fill fill from others without knowing the format
@@ -286,26 +286,26 @@ fun.QC <- function(fun.myData.SiteID
     # Function below gets date or time format and returns R format
     # date_time is split and then pasted together.
     # if no AM/PM then 24hr time is assumed
-    format.Date     <- fun.DateTimeFormat(data.import[,myName.Date],"Date")
-    format.Time     <- fun.DateTimeFormat(data.import[,myName.Time],"Time")
+    format.Date     <- fun.DateTimeFormat(data.import[,ContData.env$myName.Date],"Date")
+    format.Time     <- fun.DateTimeFormat(data.import[,ContData.env$myName.Time],"Time")
     #format.DateTime <- fun.DateTimeFormat(data.import[,myName.DateTime],"DateTime")
     # get error if field is NA, need to fix
     # same for section below
     #
     # 20160322, new section, check for NA and fill if needed
-    if (length(na.omit(data.import[,myName.DateTime]))==0){##IF.DateTime==NA.START
+    if (length(na.omit(data.import[,ContData.env$myName.DateTime]))==0){##IF.DateTime==NA.START
       # move 5.2.1 up here
-      myField   <- myName.DateTime
-      myFormat  <- myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
+      myField   <- ContData.env$myName.DateTime
+      myFormat  <- ContData.env$myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
       #   data.import[,myField][data.import[,myField]==""] <- strftime(paste(data.import[,myName.Date][data.import[,myField]==""]
       #                                                                       ,data.import[,myName.Time][data.import[,myField]==""],sep="")
       #                                                                 ,format=myFormat,usetz=FALSE)
-      data.import[,myField][is.na(data.import[,myField])] <- strftime(paste(data.import[,myName.Date][is.na(data.import[,myField])]
-                                                                            ,data.import[,myName.Time][is.na(data.import[,myField])]
+      data.import[,myField][is.na(data.import[,myField])] <- strftime(paste(data.import[,ContData.env$myName.Date][is.na(data.import[,myField])]
+                                                                            ,data.import[,ContData.env$myName.Time][is.na(data.import[,myField])]
                                                                             ,sep=" ")
                                                                       ,format=myFormat,usetz=FALSE)
     }##IF.DateTime==NA.START
-    format.DateTime <- fun.DateTimeFormat(data.import[,myName.DateTime],"DateTime")
+    format.DateTime <- fun.DateTimeFormat(data.import[,ContData.env$myName.DateTime],"DateTime")
     #
     # QC
     #  # format.Date <- "%Y-%m-%d"
@@ -322,21 +322,21 @@ fun.QC <- function(fun.myData.SiteID
     # assume all records have the same format.
     #
     # 5.1.1. Update Date to "%Y-%m-%d" (equivalent to %F)
-    myField   <- myName.Date
+    myField   <- ContData.env$myName.Date
     myFormat.In  <- format.Date #"%Y-%m-%d"
-    myFormat.Out <- myFormat.Date #"%Y-%m-%d"
+    myFormat.Out <- ContData.env$myFormat.Date #"%Y-%m-%d"
     data.import[,myField][!is.na(data.import[,myField])] <- format(strptime(data.import[,myField][!is.na(data.import[,myField])],format=myFormat.In)
                                                                    ,format=myFormat.Out)
     # 5.1.2. Update Time to "%H:%M:%S" (equivalent to %T) (uses different function)
-    myField   <- myName.Time
+    myField   <- ContData.env$myName.Time
     myFormat.In  <- format.Time #"%H:%M:%S"
-    myFormat.Out <- myFormat.Time #"%H:%M:%S"
+    myFormat.Out <- ContData.env$myFormat.Time #"%H:%M:%S"
     data.import[,myField][!is.na(data.import[,myField])] <- format(as.POSIXct(data.import[,myField][!is.na(data.import[,myField])],format=myFormat.In)
                                                                    ,format=myFormat.Out)
     # 5.1.3. Update DateTime to "%Y-%m-%d %H:%M:%S" (equivalent to %F %T)
-    myField   <- myName.DateTime
+    myField   <- ContData.env$myName.DateTime
     myFormat.In  <- format.DateTime #"%Y-%m-%d %H:%M:%S"
-    myFormat.Out <- myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
+    myFormat.Out <- ContData.env$myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
     data.import[,myField][!is.na(data.import[,myField])] <- format(strptime(data.import[,myField][!is.na(data.import[,myField])],format=myFormat.In)
                                                                    ,format=myFormat.Out)
     #   # strptime adds the timezome but drops it when added back to data.import (using format)
@@ -354,28 +354,28 @@ fun.QC <- function(fun.myData.SiteID
     #
     # 5.2. Update DateTime, Date, and Time if NA based on other fields
     # 5.2.1. Update Date_Time if NA (use Date and Time)
-    myField   <- myName.DateTime
-    myFormat  <- myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
+    myField   <- ContData.env$myName.DateTime
+    myFormat  <- ContData.env$myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
     #   data.import[,myField][data.import[,myField]==""] <- strftime(paste(data.import[,myName.Date][data.import[,myField]==""]
     #                                                                       ,data.import[,myName.Time][data.import[,myField]==""],sep="")
     #                                                                 ,format=myFormat,usetz=FALSE)
-    data.import[,myField][is.na(data.import[,myField])] <- strftime(paste(data.import[,myName.Date][is.na(data.import[,myField])]
-                                                                          ,data.import[,myName.Time][is.na(data.import[,myField])]
+    data.import[,myField][is.na(data.import[,myField])] <- strftime(paste(data.import[,ContData.env$myName.Date][is.na(data.import[,myField])]
+                                                                          ,data.import[,ContData.env$myName.Time][is.na(data.import[,myField])]
                                                                           ,sep=" ")
                                                                     ,format=myFormat,usetz=FALSE)
     # 5.2.2. Update Date if NA (use Date_Time)
-    myField   <- myName.Date
-    myFormat  <- myFormat.Date #"%Y-%m-%d"
+    myField   <- ContData.env$myName.Date
+    myFormat  <- ContData.env$myFormat.Date #"%Y-%m-%d"
     #   data.import[,myField][data.import[,myField]==""] <- strftime(data.import[,myName.DateTime][data.import[,myName.Date]==""]
     #                                                               ,format=myFormat,usetz=FALSE)
-    data.import[,myField][is.na(data.import[,myField])] <- strftime(data.import[,myName.DateTime][is.na(data.import[,myField])]
+    data.import[,myField][is.na(data.import[,myField])] <- strftime(data.import[,ContData.env$myName.DateTime][is.na(data.import[,myField])]
                                                                     ,format=myFormat,usetz=FALSE)
     # 5.2.3. Update Time if NA (use Date_Time)
-    myField   <- myName.Time
-    myFormat  <- myFormat.Time #"%H:%M:%S"
+    myField   <- ContData.env$myName.Time
+    myFormat  <- ContData.env$myFormat.Time #"%H:%M:%S"
     #   data.import[,myField][data.import[,myField]==""] <- strftime(data.import[,myName.DateTime][data.import[,myName.Time]==""]
     #                                                               ,format=myFormat,usetz=FALSE)
-    data.import[,myField][is.na(data.import[,myField])] <- as.POSIXct(data.import[,myName.DateTime][is.na(data.import[,myField])]
+    data.import[,myField][is.na(data.import[,myField])] <- as.POSIXct(data.import[,ContData.env$myName.DateTime][is.na(data.import[,myField])]
                                                                       ,format=myFormat,usetz=FALSE)
     #
     # old code just for reference
@@ -392,7 +392,7 @@ fun.QC <- function(fun.myData.SiteID
 #     myFormat  <- "%m"
 #     data.import[,myField][!is.na(data.import[,myName.Date])] <- strftime(data.import[,myName.Date][!is.na(data.import[,myName.DateTime])]
 #                                                                     ,format=myFormat,usetz=FALSE)
-    data.import[,"month"] <- as.POSIXlt(data.import$Date)$mon+1
+    data.import[,ContData.env$myName.Mo] <- as.POSIXlt(data.import[,ContData.env$myName.Date])$mon+1
     # day
 #     myField   <- "day"
 #     data.import[,myField] <- data.import[,myName.Date]
@@ -400,10 +400,10 @@ fun.QC <- function(fun.myData.SiteID
 #     myFormat.Out <- "%d"
 #     data.import[,myField][!is.na(data.import[,myField])] <- format(strptime(data.import[,myField][!is.na(data.import[,myField])],format=myFormat.In)
 #                                                                    ,format=myFormat.Out)
-    data.import[,"day"] <- as.POSIXlt(data.import$Date)$mday
+    data.import[,ContData.env$myName.Day] <- as.POSIXlt(data.import[,ContData.env$myName.Date])$mday
     
     # year
-    data.import[,"year"] <- as.POSIXlt(data.import$Date)$year+1900
+    data.import[,ContData.env$myName.Yr] <- as.POSIXlt(data.import[,ContData.env$myName.Date])$year+1900
     
     #
 #     # example of classes for POSIXlt
@@ -418,7 +418,7 @@ fun.QC <- function(fun.myData.SiteID
     # skip if not present
     #
     # 6.1. WaterTemp
-    myField <- myName.WaterTemp
+    myField <- ContData.env$myName.WaterTemp
     myMsg.data <- "WaterTemp"
     myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
     myItems.Complete <- myItems.Complete + 1
@@ -429,22 +429,22 @@ fun.QC <- function(fun.myData.SiteID
       #
       data.import <- fun.CalcQCStats(data.import
                                      ,myField
-                                     ,myThresh.Gross.Fail.Hi.WaterTemp
-                                     ,myThresh.Gross.Fail.Lo.WaterTemp
-                                     ,myThresh.Gross.Suspect.Hi.WaterTemp
-                                     ,myThresh.Gross.Suspect.Lo.WaterTemp
-                                     ,myThresh.Spike.Hi.WaterTemp
-                                     ,myThresh.Spike.Lo.WaterTemp
-                                     ,myThresh.RoC.SD.period.WaterTemp
-                                     ,myThresh.RoC.SD.number.WaterTemp
-                                     ,myThresh.Flat.Hi.WaterTemp
-                                     ,myThresh.Flat.Lo.WaterTemp
-                                     ,myThresh.Flat.Tolerance.WaterTemp)
+                                     ,ContData.env$myThresh.Gross.Fail.Hi.WaterTemp
+                                     ,ContData.env$myThresh.Gross.Fail.Lo.WaterTemp
+                                     ,ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp
+                                     ,ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp
+                                     ,ContData.env$myThresh.Spike.Hi.WaterTemp
+                                     ,ContData.env$myThresh.Spike.Lo.WaterTemp
+                                     ,ContData.env$myThresh.RoC.SD.period.WaterTemp
+                                     ,ContData.env$myThresh.RoC.SD.number.WaterTemp
+                                     ,ContData.env$myThresh.Flat.Hi.WaterTemp
+                                     ,ContData.env$myThresh.Flat.Lo.WaterTemp
+                                     ,ContData.env$myThresh.Flat.Tolerance.WaterTemp)
       #
     }##IF.END
     #
     # 6.2. AirTemp
-    myField <- myName.AirTemp
+    myField <- ContData.env$myName.AirTemp
     myMsg.data <- "AirTemp"
     myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
     myItems.Complete <- myItems.Complete + 1
@@ -455,22 +455,22 @@ fun.QC <- function(fun.myData.SiteID
       #
       data.import <- fun.CalcQCStats(data.import
                                   ,myField 
-                                  ,myThresh.Gross.Fail.Hi.AirTemp
-                                  ,myThresh.Gross.Fail.Lo.AirTemp
-                                  ,myThresh.Gross.Suspect.Hi.AirTemp
-                                  ,myThresh.Gross.Suspect.Lo.AirTemp
-                                  ,myThresh.Spike.Hi.AirTemp
-                                  ,myThresh.Spike.Lo.AirTemp
-                                  ,myThresh.RoC.SD.period.AirTemp
-                                  ,myThresh.RoC.SD.number.AirTemp
-                                  ,myThresh.Flat.Hi.AirTemp
-                                  ,myThresh.Flat.Lo.AirTemp
-                                  ,myThresh.Flat.Tolerance.AirTemp)
+                                  ,ContData.env$myThresh.Gross.Fail.Hi.AirTemp
+                                  ,ContData.env$myThresh.Gross.Fail.Lo.AirTemp
+                                  ,ContData.env$myThresh.Gross.Suspect.Hi.AirTemp
+                                  ,ContData.env$myThresh.Gross.Suspect.Lo.AirTemp
+                                  ,ContData.env$myThresh.Spike.Hi.AirTemp
+                                  ,ContData.env$myThresh.Spike.Lo.AirTemp
+                                  ,ContData.env$myThresh.RoC.SD.period.AirTemp
+                                  ,ContData.env$myThresh.RoC.SD.number.AirTemp
+                                  ,ContData.env$myThresh.Flat.Hi.AirTemp
+                                  ,ContData.env$myThresh.Flat.Lo.AirTemp
+                                  ,ContData.env$myThresh.Flat.Tolerance.AirTemp)
       #
     }##IF.END
     #
     # 6.3. WaterP
-    myField <- myName.WaterP
+    myField <- ContData.env$myName.WaterP
     myMsg.data <- "WaterP"
     myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
     myItems.Complete <- myItems.Complete + 1
@@ -481,22 +481,22 @@ fun.QC <- function(fun.myData.SiteID
       #
       data.import <- fun.CalcQCStats(data.import
                                   ,myField 
-                                  ,myThresh.Gross.Fail.Hi.WaterP
-                                  ,myThresh.Gross.Fail.Lo.WaterP
-                                  ,myThresh.Gross.Suspect.Hi.WaterP
-                                  ,myThresh.Gross.Suspect.Lo.WaterP
-                                  ,myThresh.Spike.Hi.WaterP
-                                  ,myThresh.Spike.Lo.WaterP
-                                  ,myThresh.RoC.SD.period.WaterP
-                                  ,myThresh.RoC.SD.number.WaterP
-                                  ,myThresh.Flat.Hi.WaterP
-                                  ,myThresh.Flat.Lo.WaterP
-                                  ,myThresh.Flat.Tolerance.WaterP)
+                                  ,ContData.env$myThresh.Gross.Fail.Hi.WaterP
+                                  ,ContData.env$myThresh.Gross.Fail.Lo.WaterP
+                                  ,ContData.env$myThresh.Gross.Suspect.Hi.WaterP
+                                  ,ContData.env$myThresh.Gross.Suspect.Lo.WaterP
+                                  ,ContData.env$myThresh.Spike.Hi.WaterP
+                                  ,ContData.env$myThresh.Spike.Lo.WaterP
+                                  ,ContData.env$myThresh.RoC.SD.period.WaterP
+                                  ,ContData.env$myThresh.RoC.SD.number.WaterP
+                                  ,ContData.env$myThresh.Flat.Hi.WaterP
+                                  ,ContData.env$myThresh.Flat.Lo.WaterP
+                                  ,ContData.env$myThresh.Flat.Tolerance.WaterP)
       #
     }##IF.END
     #
     # 6.4. AirBP
-    myField <- myName.AirBP
+    myField <- ContData.env$myName.AirBP
     myMsg.data <- "AirBP"
     myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
     myItems.Complete <- myItems.Complete + 1
@@ -507,22 +507,22 @@ fun.QC <- function(fun.myData.SiteID
       #
       data.import <- fun.CalcQCStats(data.import
                                   ,myField
-                                  ,myThresh.Gross.Fail.Hi.AirBP
-                                  ,myThresh.Gross.Fail.Lo.AirBP
-                                  ,myThresh.Gross.Suspect.Hi.AirBP
-                                  ,myThresh.Gross.Suspect.Lo.AirBP
-                                  ,myThresh.Spike.Hi.AirBP
-                                  ,myThresh.Spike.Lo.AirBP
-                                  ,myThresh.RoC.SD.period.AirBP
-                                  ,myThresh.RoC.SD.number.AirBP
-                                  ,myThresh.Flat.Hi.AirBP
-                                  ,myThresh.Flat.Lo.AirBP
-                                  ,myThresh.Flat.Tolerance.AirBP)
+                                  ,ContData.env$myThresh.Gross.Fail.Hi.AirBP
+                                  ,ContData.env$myThresh.Gross.Fail.Lo.AirBP
+                                  ,ContData.env$myThresh.Gross.Suspect.Hi.AirBP
+                                  ,ContData.env$myThresh.Gross.Suspect.Lo.AirBP
+                                  ,ContData.env$myThresh.Spike.Hi.AirBP
+                                  ,ContData.env$myThresh.Spike.Lo.AirBP
+                                  ,ContData.env$myThresh.RoC.SD.period.AirBP
+                                  ,ContData.env$myThresh.RoC.SD.number.AirBP
+                                  ,ContData.env$myThresh.Flat.Hi.AirBP
+                                  ,ContData.env$myThresh.Flat.Lo.AirBP
+                                  ,ContData.env$myThresh.Flat.Tolerance.AirBP)
       #
     }##IF.END
     #
     # 6.5. WaterLevel
-    myField <- myName.WaterLevel
+    myField <- ContData.env$myName.WaterLevel
     myMsg.data <- "WaterLevel"
     myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
     myItems.Complete <- myItems.Complete + 1
@@ -533,22 +533,22 @@ fun.QC <- function(fun.myData.SiteID
       #
       data.import <- fun.CalcQCStats(data.import
                                   ,myField 
-                                  ,myThresh.Gross.Fail.Hi.WaterLevel
-                                  ,myThresh.Gross.Fail.Lo.WaterLevel
-                                  ,myThresh.Gross.Suspect.Hi.WaterLevel
-                                  ,myThresh.Gross.Suspect.Lo.WaterLevel
-                                  ,myThresh.Spike.Hi.WaterLevel
-                                  ,myThresh.Spike.Lo.WaterLevel
-                                  ,myThresh.RoC.SD.period.WaterLevel
-                                  ,myThresh.RoC.SD.number.WaterLevel
-                                  ,myThresh.Flat.Hi.WaterLevel
-                                  ,myThresh.Flat.Lo.WaterLevel
-                                  ,myThresh.Flat.Tolerance.WaterLevel)
+                                  ,ContData.env$myThresh.Gross.Fail.Hi.WaterLevel
+                                  ,ContData.env$myThresh.Gross.Fail.Lo.WaterLevel
+                                  ,ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel
+                                  ,ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel
+                                  ,ContData.env$myThresh.Spike.Hi.WaterLevel
+                                  ,ContData.env$myThresh.Spike.Lo.WaterLevel
+                                  ,ContData.env$myThresh.RoC.SD.period.WaterLevel
+                                  ,ContData.env$myThresh.RoC.SD.number.WaterLevel
+                                  ,ContData.env$myThresh.Flat.Hi.WaterLevel
+                                  ,ContData.env$myThresh.Flat.Lo.WaterLevel
+                                  ,ContData.env$myThresh.Flat.Tolerance.WaterLevel)
       #
     }##IF.END
     #
     # 6.5. Discharge
-    myField <- myName.Discharge
+    myField <- ContData.env$myName.Discharge
     myMsg.data <- "Discharge"
     myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
     myItems.Complete <- myItems.Complete + 1
@@ -559,17 +559,17 @@ fun.QC <- function(fun.myData.SiteID
       #
       data.import <- fun.CalcQCStats(data.import
                                      ,myField 
-                                     ,myThresh.Gross.Fail.Hi.Discharge
-                                     ,myThresh.Gross.Fail.Lo.Discharge
-                                     ,myThresh.Gross.Suspect.Hi.Discharge
-                                     ,myThresh.Gross.Suspect.Lo.Discharge
-                                     ,myThresh.Spike.Hi.Discharge
-                                     ,myThresh.Spike.Lo.Discharge
-                                     ,myThresh.RoC.SD.period.Discharge
-                                     ,myThresh.RoC.SD.number.Discharge
-                                     ,myThresh.Flat.Hi.Discharge
-                                     ,myThresh.Flat.Lo.Discharge
-                                     ,myThresh.Flat.Tolerance.Discharge)
+                                     ,ContData.env$myThresh.Gross.Fail.Hi.Discharge
+                                     ,ContData.env$myThresh.Gross.Fail.Lo.Discharge
+                                     ,ContData.env$myThresh.Gross.Suspect.Hi.Discharge
+                                     ,ContData.env$myThresh.Gross.Suspect.Lo.Discharge
+                                     ,ContData.env$myThresh.Spike.Hi.Discharge
+                                     ,ContData.env$myThresh.Spike.Lo.Discharge
+                                     ,ContData.env$myThresh.RoC.SD.period.Discharge
+                                     ,ContData.env$myThresh.RoC.SD.number.Discharge
+                                     ,ContData.env$myThresh.Flat.Hi.Discharge
+                                     ,ContData.env$myThresh.Flat.Lo.Discharge
+                                     ,ContData.env$myThresh.Flat.Tolerance.Discharge)
       #
     }##IF.END
     #
@@ -577,8 +577,8 @@ fun.QC <- function(fun.myData.SiteID
     #############################
     # Names of columns for QC Calculations and Tests with Flags for each data column present
     # combine so can check for and remove later.
-    myNames.DataFields.Present.QCCalcs <- as.vector(t(outer(myNames.DataFields.Present,myNames.QCCalcs,paste,sep=".")))
-    myNames.Flags.QCTests <- paste("Flag.",as.vector(t(outer(myNames.QCTests,myNames.DataFields.Present,paste,sep="."))),sep="")
+    myNames.DataFields.Present.QCCalcs <- as.vector(t(outer(myNames.DataFields.Present,ContData.env$myNames.QCCalcs,paste,sep=".")))
+    myNames.Flags.QCTests <- paste("Flag.",as.vector(t(outer(ContData.env$myNames.QCTests,myNames.DataFields.Present,paste,sep="."))),sep="")
     #################################
     # not sure if need this little bit anymore
     ################################
@@ -617,9 +617,9 @@ fun.QC <- function(fun.myData.SiteID
     #
     # 4.0. Columns
     # 4.1. Check for DataFields  (may have already been done)
-    myNames.DataFields.Present <- myNames.DataFields[myNames.DataFields %in% colnames(data.import)==TRUE]
+    myNames.DataFields.Present <- ContData.env$myNames.DataFields[ContData.env$myNames.DataFields %in% colnames(data.import)==TRUE]
     # add Date.Time to names for modification
-    myNames.DataFields2Mod <- c(myName.DateTime, myNames.DataFields.Present)
+    myNames.DataFields2Mod <- c(ContData.env$myName.DateTime, myNames.DataFields.Present)
     #
     # 5.0. Add "RAW" and "Comment.MOD" fields
     # default values
@@ -649,10 +649,10 @@ fun.QC <- function(fun.myData.SiteID
     ###############
     # 10.0. Output file
     # 10.1. Set Name
-    File.Date.Start <- format(as.Date(strFile.Date.Start,myFormat.Date),"%Y%m%d")
-    File.Date.End   <- format(as.Date(strFile.Date.End,myFormat.Date),"%Y%m%d")
+    File.Date.Start <- format(as.Date(strFile.Date.Start,ContData.env$myFormat.Date),"%Y%m%d")
+    File.Date.End   <- format(as.Date(strFile.Date.End,ContData.env$myFormat.Date),"%Y%m%d")
     strFile.Out.Prefix <- "QC"
-    strFile.Out <- paste(paste(strFile.Out.Prefix,strFile.SiteID,strFile.DataType,File.Date.Start,File.Date.End,sep=myDelim),"csv",sep=".")
+    strFile.Out <- paste(paste(strFile.Out.Prefix,strFile.SiteID,strFile.DataType,File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
     # 10.2. Save to File the data (overwrites any existing file).
     #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
     #flush.console()
@@ -723,7 +723,7 @@ fun.QC <- function(fun.myData.SiteID
   #
   # return data table
   #return(data.import)  # don't want to return since are saving in the loop  (would only be last one anyway)
-}##FUN.fun.QCauto.END
+}##FUN.fun.QC.END
 ######################################################################
 
 
@@ -753,6 +753,25 @@ fun.QC <- function(fun.myData.SiteID
 # output is a data frame (assumes data.import)
 # reuses items from this script and calling script.  Not a stand alone function
 # 
+####
+# @param fun.data.import data frame to perform QC
+# @param fun.myField.Data data field
+# @param fun.myThresh.Gross.Fail.Hi Pertinent QC threshold; Gross, Fail, Hi
+# @param fun.myThresh.Gross.Fail.Lo Pertinent QC threshold; Gross, Fail, Lo
+# @param fun.myThresh.Gross.Suspect.Hi Pertinent QC threshold; Gross, Suspect, Hi
+# @param fun.myThresh.Gross.Suspect.Lo Pertinent QC threshold; Gross, Suspect, Lo
+# @param fun.myThresh.Spike.Hi Pertinent QC threshold; Spike, Fail, Hi
+# @param fun.myThresh.Spike.Lo Pertinent QC threshold; Spike, Fail, Lo
+# @param fun.myThresh.RoC.SD.period Pertinent QC threshold; Rate of Change, Standard Deviation, period
+# @param fun.myThresh.RoC.SD.number Pertinent QC threshold; Rate of Change, Standard Deviation, number
+# @param fun.myThresh.Flat.Hi Pertinent QC threshold; Flat, Hi
+# @param fun.myThresh.Flat.Lo Pertinent QC threshold; Flat, Hi
+# @param fun.myThresh.Flat.Tolerance Pertinent QC threshold; Flat, tolerance
+# @return Returns a data frame to calling function
+# @keywords continuous data, qc, quality control
+# @examples
+# #Not intended to be accessed indepedently.
+# @export
 fun.CalcQCStats <- function(fun.data.import
                             ,fun.myField.Data
                             ,fun.myThresh.Gross.Fail.Hi     
@@ -773,7 +792,7 @@ fun.CalcQCStats <- function(fun.data.import
   # calculate as separate variable
   #http://stackoverflow.com/questions/8857287/how-to-add-subtract-time-from-a-posixlt-time-while-keeping-its-class-in-r
   # myT will be a POSIXt object
-  myT <- strptime(fun.data.import[,myName.DateTime],format=myFormat.DateTime)
+  myT <- strptime(fun.data.import[,ContData.env$myName.DateTime],format=ContData.env$myFormat.DateTime)
   myT$hour <- myT$hour - fun.myThresh.RoC.SD.period
   # add back to dataframe
   fun.data.import[,myField] <- as.character(myT)
@@ -810,7 +829,7 @@ fun.CalcQCStats <- function(fun.data.import
     stop(myMsg)
   }##IF.1.END
   # get interval distance (will crash if less than 5 records)
-  myT.diff <- difftime(fun.data.import[5,myName.DateTime],fun.data.import[4,myName.DateTime],units="mins")
+  myT.diff <- difftime(fun.data.import[5,ContData.env$myName.DateTime],fun.data.import[4,ContData.env$myName.DateTime],units="mins")
   myT.diff[[1]]
   # convert DateTime to POSIX object (already done above)
   #myT <- strptime(fun.data.import[,myName.DateTime],format=myFormat.DateTime)
@@ -894,28 +913,28 @@ fun.CalcQCStats <- function(fun.data.import
   # data is NA then flag = 9 (missing data)
   fun.data.import[,myField][is.na(fun.data.import[,fun.myField.Data])==TRUE] <- myFlagVal.NoData
   # different test for water level, only if negative
-  if(fun.myField.Data==myName.WaterLevel) {##IF.Gross.WaterLevel.START
+  if(fun.myField.Data==ContData.env$myName.WaterLevel) {##IF.Gross.WaterLevel.START
     # data < 0 (i.e., negative) = 4 (fail)
-    fun.data.import[,myField][fun.data.import[,fun.myField.Data] < 0] <- myFlagVal.Fail
+    fun.data.import[,myField][fun.data.import[,fun.myField.Data] < 0] <- ContData.env$myFlagVal.Fail
     # otherwise flag = 1 (pass)
-    fun.data.import[,myField][fun.data.import[,myField]==myFlagVal.NotEval] <- myFlagVal.Pass 
+    fun.data.import[,myField][fun.data.import[,myField]==myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass 
   # different test for discharge
-  } else if(fun.myField.Data==myName.Discharge) {
+  } else if(fun.myField.Data==ContData.env$myName.Discharge) {
     # data < 0 (i.e., negative) = 4 (fail)
-    fun.data.import[,myField][fun.data.import[,fun.myField.Data] < 0] <- myFlagVal.Fail
+    fun.data.import[,myField][fun.data.import[,fun.myField.Data] < 0] <- ContData.env$myFlagVal.Fail
     # otherwise flag = 1 (pass)
-    fun.data.import[,myField][fun.data.import[,myField]==myFlagVal.NotEval] <- myFlagVal.Pass 
+    fun.data.import[,myField][fun.data.import[,myField]==myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass 
   } else {
     # data >= Suspect.Hi then flag = 3 (suspect)
-    fun.data.import[,myField][fun.data.import[,fun.myField.Data] >= fun.myThresh.Gross.Suspect.Hi] <- myFlagVal.Suspect
+    fun.data.import[,myField][fun.data.import[,fun.myField.Data] >= fun.myThresh.Gross.Suspect.Hi] <- ContData.env$myFlagVal.Suspect
     # data <= Suspect.Lo then flag = 3 (Suspect)
-    fun.data.import[,myField][fun.data.import[,fun.myField.Data] <= fun.myThresh.Gross.Suspect.Lo] <- myFlagVal.Suspect
+    fun.data.import[,myField][fun.data.import[,fun.myField.Data] <= fun.myThresh.Gross.Suspect.Lo] <- ContData.env$myFlagVal.Suspect
     # data >= Fail.Hi then flag = 4 (fail)
-    fun.data.import[,myField][fun.data.import[,fun.myField.Data] >= fun.myThresh.Gross.Fail.Hi] <- myFlagVal.Fail
+    fun.data.import[,myField][fun.data.import[,fun.myField.Data] >= fun.myThresh.Gross.Fail.Hi] <- ContData.env$myFlagVal.Fail
     # data <= Fail.Lo then flag = 4 (fail)
-    fun.data.import[,myField][fun.data.import[,fun.myField.Data] <= fun.myThresh.Gross.Fail.Lo] <- myFlagVal.Fail
+    fun.data.import[,myField][fun.data.import[,fun.myField.Data] <= fun.myThresh.Gross.Fail.Lo] <- ContData.env$myFlagVal.Fail
     # otherwise flag = 1 (pass)
-    fun.data.import[,myField][fun.data.import[,myField]==myFlagVal.NotEval] <- myFlagVal.Pass  
+    fun.data.import[,myField][fun.data.import[,myField]==ContData.env$myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass  
   }##IF.Gross.WaterLevel.END
   # QC
   #table(fun.data.import[,myField])
@@ -926,15 +945,15 @@ fun.CalcQCStats <- function(fun.data.import
   myField.Calc.1 <- paste(fun.myField.Data,"n",1,sep=".")
   # Assign Flags
   # default value
-  fun.data.import[,myField] <- myFlagVal.NotEval
+  fun.data.import[,myField] <- ContData.env$myFlagVal.NotEval
   # diff 1 is NA then flag = 9 (missing data)
-  fun.data.import[,myField][is.na(fun.data.import[,myField.Calc.1])==TRUE] <- myFlagVal.NoData
+  fun.data.import[,myField][is.na(fun.data.import[,myField.Calc.1])==TRUE] <- ContData.env$myFlagVal.NoData
   # abs(diff 1) >= spike Lo then flag = 3 (suspect)
-  fun.data.import[,myField][abs(fun.data.import[,myField.Calc.1]) >= fun.myThresh.Spike.Lo] <- myFlagVal.Suspect
+  fun.data.import[,myField][abs(fun.data.import[,myField.Calc.1]) >= fun.myThresh.Spike.Lo] <- ContData.env$myFlagVal.Suspect
   # abs(diff 1) >= spike Hi then flag = 4 (fail)
-  fun.data.import[,myField][abs(fun.data.import[,myField.Calc.1]) >= fun.myThresh.Spike.Hi] <- myFlagVal.Fail
+  fun.data.import[,myField][abs(fun.data.import[,myField.Calc.1]) >= fun.myThresh.Spike.Hi] <- ContData.env$myFlagVal.Fail
   # otherwise flag = 1 (pass)
-  fun.data.import[,myField][fun.data.import[,myField]==myFlagVal.NotEval] <- myFlagVal.Pass
+  fun.data.import[,myField][fun.data.import[,myField]==ContData.env$myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass
   # QC
   #table(fun.data.import[,myField])
   #
@@ -945,15 +964,15 @@ fun.CalcQCStats <- function(fun.data.import
   myField.Calc.2 <- paste(fun.myField.Data,"SDxN",sep=".")
   # Assign Flags
   # default value
-  fun.data.import[,myField] <- myFlagVal.NotEval
+  fun.data.import[,myField] <- ContData.env$myFlagVal.NotEval
   # data is NA then flag = 9 (missing data)
-  fun.data.import[,myField][is.na(fun.data.import[,fun.myField.Data])==TRUE] <- myFlagVal.NoData
+  fun.data.import[,myField][is.na(fun.data.import[,fun.myField.Data])==TRUE] <- ContData.env$myFlagVal.NoData
   # sd is NA then flag = 9 (missing data)
-  fun.data.import[,myField][is.na(fun.data.import[,myField.Calc.1])==TRUE] <- myFlagVal.NoData
+  fun.data.import[,myField][is.na(fun.data.import[,myField.Calc.1])==TRUE] <- ContData.env$myFlagVal.NoData
   # diff 1 > SD*N then flag = 3 (suspect)
-  fun.data.import[,myField][abs(fun.data.import[,myField.Calc.1]) > fun.data.import[,myField.Calc.2]] <- myFlagVal.Suspect
+  fun.data.import[,myField][abs(fun.data.import[,myField.Calc.1]) > fun.data.import[,myField.Calc.2]] <- ContData.env$myFlagVal.Suspect
   # otherwise flag = 1 (pass) [no 4/Fail]
-  fun.data.import[,myField][fun.data.import[,myField]==myFlagVal.NotEval] <- myFlagVal.Pass
+  fun.data.import[,myField][fun.data.import[,myField]==ContData.env$myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass
   # QC
   #table(fun.data.import[,myField])
   #
@@ -965,11 +984,11 @@ fun.CalcQCStats <- function(fun.data.import
   # default value
   fun.data.import[,myField] <- myFlagVal.NotEval
   # Lo >= Thresh.Lo = 3 (suspect)
-  fun.data.import[,myField][fun.data.import[,myField.Calc.2] >= fun.myThresh.Flat.Lo] <- myFlagVal.Suspect
+  fun.data.import[,myField][fun.data.import[,myField.Calc.2] >= fun.myThresh.Flat.Lo] <- ContData.env$myFlagVal.Suspect
   # Hi >= Thresh.Hi = 4 (fail)
-  fun.data.import[,myField][fun.data.import[,myField.Calc.1] >= fun.myThresh.Flat.Hi] <- myFlagVal.Fail
+  fun.data.import[,myField][fun.data.import[,myField.Calc.1] >= fun.myThresh.Flat.Hi] <- ContData.env$myFlagVal.Fail
   # otherwise flag = 1 (pass)
-  fun.data.import[,myField][fun.data.import[,myField]==myFlagVal.NotEval] <- myFlagVal.Pass
+  fun.data.import[,myField][fun.data.import[,myField]==ContData.env$myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass
   # QC
   #table(fun.data.import[,myField])
   #
@@ -978,41 +997,41 @@ fun.CalcQCStats <- function(fun.data.import
   myField <- paste("Flag",fun.myField.Data,sep=".")
   #myNames.QCTests
   # get column numbers (match) for QCTest Flags for this data
-  myFields.Match <- match(paste("Flag",myNames.QCTests,fun.myField.Data,sep="."), names(fun.data.import))
+  myFields.Match <- match(paste("Flag",ContData.env$myNames.QCTests,fun.myField.Data,sep="."), names(fun.data.import))
   # Conditional rowSums for number of flag fields with specified flags
-  myFlags.Num.Pass    <- rowSums(fun.data.import[,myFields.Match]==myFlagVal.Pass)
-  myFlags.Num.Suspect <- rowSums(fun.data.import[,myFields.Match]==myFlagVal.Suspect )
-  myFlags.Num.Fail    <- rowSums(fun.data.import[,myFields.Match]==myFlagVal.Fail)
-  myFlags.Num.Missing <- rowSums(fun.data.import[,myFields.Match]==myFlagVal.NoData)
-  myFlags.Num.OK      <- rowSums(fun.data.import[,myFields.Match]==myFlagVal.Pass | fun.data.import[,myFields.Match]==myFlagVal.NoData)
+  myFlags.Num.Pass    <- rowSums(fun.data.import[,myFields.Match]==ContData.env$myFlagVal.Pass)
+  myFlags.Num.Suspect <- rowSums(fun.data.import[,myFields.Match]==ContData.env$myFlagVal.Suspect )
+  myFlags.Num.Fail    <- rowSums(fun.data.import[,myFields.Match]==ContData.env$myFlagVal.Fail)
+  myFlags.Num.Missing <- rowSums(fun.data.import[,myFields.Match]==ContData.env$myFlagVal.NoData)
+  myFlags.Num.OK      <- rowSums(fun.data.import[,myFields.Match]==ContData.env$myFlagVal.Pass | fun.data.import[,myFields.Match]==ContData.env$myFlagVal.NoData)
   # Assign
   # default value
-  fun.data.import[,myField] <- myFlagVal.NotEval
+  fun.data.import[,myField] <- ContData.env$myFlagVal.NotEval
   # any QC Test flags = 3 then flag = 3 (suspect)
-  fun.data.import[,myField][myFlags.Num.Suspect > 0] <- myFlagVal.Suspect
+  fun.data.import[,myField][myFlags.Num.Suspect > 0] <- ContData.env$myFlagVal.Suspect
   # any QC Test flags = 4 then flag = 4 (fail)
-  fun.data.import[,myField][myFlags.Num.Fail > 0] <- myFlagVal.Fail
+  fun.data.import[,myField][myFlags.Num.Fail > 0] <- ContData.env$myFlagVal.Fail
   # all QC Test flags = 1 then flag = 1 (pass)
-  fun.data.import[,myField][myFlags.Num.Pass == length(myNames.QCTests)] <- myFlagVal.Pass
+  fun.data.import[,myField][myFlags.Num.Pass == length(ContData.env$myNames.QCTests)] <- ContData.env$myFlagVal.Pass
   # all QC Test flags = 1 or 9 then flag = 1 (pass)
-  fun.data.import[,myField][myFlags.Num.OK == length(myNames.QCTests)] <- myFlagVal.Pass
+  fun.data.import[,myField][myFlags.Num.OK == length(ContData.env$myNames.QCTests)] <- ContData.env$myFlagVal.Pass
     #fun.data.import[,myField][fun.data.import[,myField]==myFlagVal.NotEval] <- myFlagVal.Pass
   # data is NA then flag = 9 (missing data)
-  fun.data.import[,myField][is.na(fun.data.import[,fun.myField.Data])==TRUE] <- myFlagVal.NoData
+  fun.data.import[,myField][is.na(fun.data.import[,fun.myField.Data])==TRUE] <- ContData.env$myFlagVal.NoData
   # QC
   #table(fun.data.import[,myField])
   #
   # D. Remove QC Calc fields
   #myNames.QCCalcs <- c("SD.Time","SD","SDxN","n.1","n.2","n.3","n.4","n.5","flat.Lo","flat.Hi")
   # get field column numbers
-  myFields.Match <- match(paste(fun.myField.Data,myNames.QCCalcs,sep="."), names(fun.data.import))
+  myFields.Match <- match(paste(fun.myField.Data,ContData.env$myNames.QCCalcs,sep="."), names(fun.data.import))
   # drop fields from data table
   fun.data.import <- fun.data.import[,-na.omit(myFields.Match)]
   #
   # function output
   return(fun.data.import)
   #
-}##FUN.fun.QC.START
+}##FUN.fun.QC.END
 ########################
 
 

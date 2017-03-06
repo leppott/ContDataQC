@@ -134,9 +134,9 @@ ContDataQC <- function(fun.myData.Operation
                       ,fun.myData.Type
                       ,fun.myData.DateRange.Start
                       ,fun.myData.DateRange.End
-                      ,fun.myDir.BASE
-                      ,fun.myDir.SUB.import
-                      ,fun.myDir.SUB.export) 
+                      ,fun.myDir.BASE=getwd()
+                      ,fun.myDir.SUB.import=""
+                      ,fun.myDir.SUB.export="") 
   {##FUN.fun.Master.START
   #
   # Error checking.  If any null then kick back
@@ -147,7 +147,7 @@ ContDataQC <- function(fun.myData.Operation
   QC.SiteID.myDelim <- grepl(myDelim,fun.myData.SiteID) #T/F
   if(QC.SiteID.myDelim==TRUE){##IF.QC.SiteID.myDelim.START
     myMsg <- paste("\n
-              SiteID (",fun.myData.SiteID,") contains the same delimiter (",myDelim,") as in your file names.  
+              SiteID (",fun.myData.SiteID,") contains the same delimiter (",ContData.env$myDelim,") as in your file names.  
               \n
               Scripts will not work properly while this is true.
               \n 
@@ -162,8 +162,8 @@ ContDataQC <- function(fun.myData.Operation
   #
   # Run different functions based on "fun.myOperation"
   if (fun.myData.Operation=="GetGageData"){##IF.fun.myOperation.START
-    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=myName.Dir.1Raw}
-    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=myName.Dir.1Raw}
+    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.1Raw}
+    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.1Raw}
     fun.myData.Type <- "Gage"
     fun.GageData(fun.myData.SiteID
                  ,fun.myData.Type
@@ -174,8 +174,8 @@ ContDataQC <- function(fun.myData.Operation
                  ,fun.myDir.SUB.export)
     # runs the QC Report as part of sourced function but can run independantly below
   } else if (fun.myData.Operation=="QCRaw"){
-    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=myName.Dir.1Raw}
-    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=myName.Dir.2QC}
+    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.1Raw}
+    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.2QC}
     fun.QC(fun.myData.SiteID
            ,fun.myData.Type
            ,fun.myData.DateRange.Start
@@ -185,8 +185,8 @@ ContDataQC <- function(fun.myData.Operation
            ,fun.myDir.SUB.export)
     # runs the QC Report as part of sourced function but can run independantly below
   } else if (fun.myData.Operation=="ReportQC") {
-    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=myName.Dir.2QC}
-    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=myName.Dir.2QC}
+    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.2QC}
+    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.2QC}
     myProcedure.Step <- "QC"
     fun.Report(fun.myData.SiteID
                  ,fun.myData.Type
@@ -197,8 +197,8 @@ ContDataQC <- function(fun.myData.Operation
                  ,fun.myDir.SUB.export
                  ,myProcedure.Step)  
   } else if (fun.myData.Operation=="Aggregate") {
-    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=myName.Dir.2QC}
-    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=myName.Dir.3Agg}
+    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.2QC}
+    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.3Agg}
     fun.AggregateData(fun.myData.SiteID
                       ,fun.myData.Type
                       ,fun.myData.DateRange.Start
@@ -207,8 +207,8 @@ ContDataQC <- function(fun.myData.Operation
                       ,fun.myDir.SUB.import
                       ,fun.myDir.SUB.export)
   } else if (fun.myData.Operation=="ReportAggregate") {
-    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=myName.Dir.3Agg}
-    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=myName.Dir.3Agg}
+    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.3Agg}
+    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.3Agg}
     myProcedure.Step <- "DATA"
     fun.Report(fun.myData.SiteID
                  ,fun.myData.Type
@@ -219,8 +219,8 @@ ContDataQC <- function(fun.myData.Operation
                  ,fun.myDir.SUB.export
                  ,myProcedure.Step)  
   } else if (fun.myData.Operation=="SummaryStats") {
-    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=myName.Dir.3Agg}
-    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=myName.Dir.4Stats}
+    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.3Agg}
+    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.4Stats}
     myProcedure.Step <- "STATS"
     fun.myFile.Prefix <- "DATA"
     fun.Stats(fun.myData.SiteID

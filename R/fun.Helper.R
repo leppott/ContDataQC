@@ -12,7 +12,7 @@
 # @param fun.item.name name of current item
 # @return Returns a message to the console
 # @examples
-# #Not intended to be accessed indepedantly.
+# #Not intended to be accessed indepedently.
 #
 ## for informing user of progress
 # @export
@@ -45,7 +45,7 @@ fun.write.log <- function(fun.Log,fun.Date,fun.Time) {#FUNCTION.START
 # @param fun.names required names
 # @param fun.File file to check
 # @examples
-# #Not intended to be accessed indepedantly.
+# #Not intended to be accessed indepedently.
 #
 ## QC check for variables in data (20160204)
 # referenced in calling script right after data is imported.
@@ -57,9 +57,9 @@ fun.QC.ReqFlds <- function(fun.names,fun.File) {##FUNCTION.fun.QC.ReqFlds.START
 #   fun.File <- paste(myDir.data.import,strFile,sep="/")
   #####
   # SiteID
-  if(myName.SiteID%in%fun.names==FALSE) {##IF.1.START
+  if(ContData.env$myName.SiteID%in%fun.names==FALSE) {##IF.1.START
     myMsg <- paste("\n
-      The SiteID column name (",myName.SiteID,") is mispelled or missing from your data file. 
+      The SiteID column name (",ContData.env$myName.SiteID,") is mispelled or missing from your data file. 
       The scripts will not work properly until you change the SiteID variable 'myName.SiteID' in the script 'UserDefinedValue.R' or modify your file.
        \n
       File name and path:
@@ -73,9 +73,9 @@ fun.QC.ReqFlds <- function(fun.names,fun.File) {##FUNCTION.fun.QC.ReqFlds.START
   }##IF.1.END
   #
   # Date.Time | (Date & Time)
-  if(myName.DateTime%in%fun.names==FALSE & (myName.Date%in%fun.names==FALSE | myName.Time%in%fun.names==FALSE)) {##IF.2.START
+  if(ContData.env$myName.DateTime%in%fun.names==FALSE & (ContData.env$myName.Date%in%fun.names==FALSE | ContData.env$myName.Time%in%fun.names==FALSE)) {##IF.2.START
     myMsg <- paste("\n
-      The DateTime (",myName.DateTime,") and/or Date (",myName.Date,") and/or Time (",myName.Time,") column names are mispelled or missing from your data file.
+      The DateTime (",ContData.env$myName.DateTime,") and/or Date (",ContData.env$myName.Date,") and/or Time (",ContData.env$myName.Time,") column names are mispelled or missing from your data file.
       Either 'Date.Time' or both of 'Date' and 'Time' are required.
       The scripts will not work properly until you change the variables 'myName.DateTime' and/or 'myName.Date' and/or 'myName.Time' in the script 'UserDefinedValue.R' or modify your file.
       \n
@@ -125,11 +125,11 @@ fun.QC.datetime <- function(fun.df){##FUNCTION.fun.QC.datetime.START
   #
   # if entire field is NA then fill from other fields
   # Date
-  myField   <- myName.Date
-  fun.df[,myField][all(is.na(fun.df[,myField]))] <- fun.df[,myName.DateTime]
+  myField   <- ContData.env$myName.Date
+  fun.df[,myField][all(is.na(fun.df[,myField]))] <- fun.df[,ContData.env$myName.DateTime]
   # Time
-  myField   <- myName.Time
-  fun.df[,myField][all(is.na(fun.df[,myField]))] <- fun.df[,myName.DateTime]
+  myField   <- ContData.env$myName.Time
+  fun.df[,myField][all(is.na(fun.df[,myField]))] <- fun.df[,ContData.env$myName.DateTime]
   # DateTime
   #myField   <- myName.DateTime
   # can't fill fill from others without knowing the format
@@ -138,26 +138,26 @@ fun.QC.datetime <- function(fun.df){##FUNCTION.fun.QC.datetime.START
   # Function below gets date or time format and returns R format
   # date_time is split and then pasted together.
   # if no AM/PM then 24hr time is assumed
-  format.Date     <- fun.DateTimeFormat(fun.df[,myName.Date],"Date")
-  format.Time     <- fun.DateTimeFormat(fun.df[,myName.Time],"Time")
+  format.Date     <- fun.DateTimeFormat(fun.df[,ContData.env$myName.Date],"Date")
+  format.Time     <- fun.DateTimeFormat(fun.df[,ContData.env$myName.Time],"Time")
   #format.DateTime <- fun.DateTimeFormat(data.import[,myName.DateTime],"DateTime")
   # get error if field is NA, need to fix
   # same for section below
   #
   # 20160322, new section, check for NA and fill if needed
-  if (length(na.omit(fun.df[,myName.DateTime]))==0){##IF.DateTime==NA.START
+  if (length(na.omit(fun.df[,ContData.env$myName.DateTime]))==0){##IF.DateTime==NA.START
     # move 5.2.1 up here
-    myField   <- myName.DateTime
-    myFormat  <- myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
+    myField   <- ContData.env$myName.DateTime
+    myFormat  <- ContData.env$myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
     #   data.import[,myField][data.import[,myField]==""] <- strftime(paste(data.import[,myName.Date][data.import[,myField]==""]
     #                                                                       ,data.import[,myName.Time][data.import[,myField]==""],sep="")
     #                                                                 ,format=myFormat,usetz=FALSE)
-    fun.df[,myField][is.na(fun.df[,myField])] <- strftime(paste(fun.df[,myName.Date][is.na(fun.df[,myField])]
-                                                                          ,fun.df[,myName.Time][is.na(fun.df[,myField])]
+    fun.df[,myField][is.na(fun.df[,myField])] <- strftime(paste(fun.df[,ContData.env$myName.Date][is.na(fun.df[,myField])]
+                                                                          ,fun.df[,ContData.env$myName.Time][is.na(fun.df[,myField])]
                                                                           ,sep=" ")
                                                                     ,format=myFormat,usetz=FALSE)
   }##IF.DateTime==NA.START
-  format.DateTime <- fun.DateTimeFormat(fun.df[,myName.DateTime],"DateTime")
+  format.DateTime <- fun.DateTimeFormat(fun.df[,ContData.env$myName.DateTime],"DateTime")
   #
   # QC
   #  # format.Date <- "%Y-%m-%d"
@@ -174,21 +174,21 @@ fun.QC.datetime <- function(fun.df){##FUNCTION.fun.QC.datetime.START
   # assume all records have the same format.
   #
   # 5.1.1. Update Date to "%Y-%m-%d" (equivalent to %F)
-  myField   <- myName.Date
+  myField   <- ContData.env$myName.Date
   myFormat.In  <- format.Date #"%Y-%m-%d"
-  myFormat.Out <- myFormat.Date #"%Y-%m-%d"
+  myFormat.Out <- ContData.env$myFormat.Date #"%Y-%m-%d"
   fun.df[,myField][!is.na(fun.df[,myField])] <- format(strptime(fun.df[,myField][!is.na(fun.df[,myField])],format=myFormat.In)
                                                                  ,format=myFormat.Out)
   # 5.1.2. Update Time to "%H:%M:%S" (equivalent to %T) (uses different function)
-  myField   <- myName.Time
+  myField   <- ContData.env$myName.Time
   myFormat.In  <- format.Time #"%H:%M:%S"
-  myFormat.Out <- myFormat.Time #"%H:%M:%S"
+  myFormat.Out <- ContData.env$myFormat.Time #"%H:%M:%S"
   fun.df[,myField][!is.na(fun.df[,myField])] <- format(as.POSIXct(fun.df[,myField][!is.na(fun.df[,myField])],format=myFormat.In)
                                                                  ,format=myFormat.Out)
   # 5.1.3. Update DateTime to "%Y-%m-%d %H:%M:%S" (equivalent to %F %T)
-  myField   <- myName.DateTime
+  myField   <- ContData.env$myName.DateTime
   myFormat.In  <- format.DateTime #"%Y-%m-%d %H:%M:%S"
-  myFormat.Out <- myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
+  myFormat.Out <- ContData.env$myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
   fun.df[,myField][!is.na(fun.df[,myField])] <- format(strptime(fun.df[,myField][!is.na(fun.df[,myField])],format=myFormat.In)
                                                                  ,format=myFormat.Out)
   #   # strptime adds the timezome but drops it when added back to data.import (using format)
@@ -206,28 +206,28 @@ fun.QC.datetime <- function(fun.df){##FUNCTION.fun.QC.datetime.START
   #
   # 5.2. Update DateTime, Date, and Time if NA based on other fields
   # 5.2.1. Update Date_Time if NA (use Date and Time)
-  myField   <- myName.DateTime
-  myFormat  <- myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
+  myField   <- ContData.env$myName.DateTime
+  myFormat  <- ContData.env$myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
   #   data.import[,myField][data.import[,myField]==""] <- strftime(paste(data.import[,myName.Date][data.import[,myField]==""]
   #                                                                       ,data.import[,myName.Time][data.import[,myField]==""],sep="")
   #                                                                 ,format=myFormat,usetz=FALSE)
-  fun.df[,myField][is.na(fun.df[,myField])] <- strftime(paste(fun.df[,myName.Date][is.na(fun.df[,myField])]
-                                                                        ,fun.df[,myName.Time][is.na(fun.df[,myField])]
+  fun.df[,myField][is.na(fun.df[,myField])] <- strftime(paste(fun.df[,ContData.env$myName.Date][is.na(fun.df[,myField])]
+                                                                        ,fun.df[,ContData.env$myName.Time][is.na(fun.df[,myField])]
                                                                         ,sep=" ")
                                                                   ,format=myFormat,usetz=FALSE)
   # 5.2.2. Update Date if NA (use Date_Time)
-  myField   <- myName.Date
-  myFormat  <- myFormat.Date #"%Y-%m-%d"
+  myField   <- ContData.env$myName.Date
+  myFormat  <- ContData.env$myFormat.Date #"%Y-%m-%d"
   #   data.import[,myField][data.import[,myField]==""] <- strftime(data.import[,myName.DateTime][data.import[,myName.Date]==""]
   #                                                               ,format=myFormat,usetz=FALSE)
-  fun.df[,myField][is.na(fun.df[,myField])] <- strftime(fun.df[,myName.DateTime][is.na(fun.df[,myField])]
+  fun.df[,myField][is.na(fun.df[,myField])] <- strftime(fun.df[,ContData.env$myName.DateTime][is.na(fun.df[,myField])]
                                                                   ,format=myFormat,usetz=FALSE)
   # 5.2.3. Update Time if NA (use Date_Time)
-  myField   <- myName.Time
-  myFormat  <- myFormat.Time #"%H:%M:%S"
+  myField   <- ContData.env$myName.Time
+  myFormat  <- ContData.env$myFormat.Time #"%H:%M:%S"
   #   data.import[,myField][data.import[,myField]==""] <- strftime(data.import[,myName.DateTime][data.import[,myName.Time]==""]
   #                                                               ,format=myFormat,usetz=FALSE)
-  fun.df[,myField][is.na(fun.df[,myField])] <- as.POSIXct(fun.df[,myName.DateTime][is.na(fun.df[,myField])]
+  fun.df[,myField][is.na(fun.df[,myField])] <- as.POSIXct(fun.df[,ContData.env$myName.DateTime][is.na(fun.df[,myField])]
                                                                     ,format=myFormat,usetz=FALSE)
   #
   # old code just for reference
@@ -244,7 +244,7 @@ fun.QC.datetime <- function(fun.df){##FUNCTION.fun.QC.datetime.START
   #     myFormat  <- "%m"
   #     data.import[,myField][!is.na(data.import[,myName.Date])] <- strftime(data.import[,myName.Date][!is.na(data.import[,myName.DateTime])]
   #                                                                     ,format=myFormat,usetz=FALSE)
-  fun.df[,"month"] <- as.POSIXlt(fun.df$Date)$mon+1
+  fun.df[,ContData.env$myName.Mo] <- as.POSIXlt(fun.df$Date)$mon+1
   # day
   #     myField   <- "day"
   #     data.import[,myField] <- data.import[,myName.Date]
@@ -252,7 +252,7 @@ fun.QC.datetime <- function(fun.df){##FUNCTION.fun.QC.datetime.START
   #     myFormat.Out <- "%d"
   #     data.import[,myField][!is.na(data.import[,myField])] <- format(strptime(data.import[,myField][!is.na(data.import[,myField])],format=myFormat.In)
   #                                                                    ,format=myFormat.Out)
-  fun.df[,"day"] <- as.POSIXlt(fun.df$Date)$mday
+  fun.df[,ContData.env$myName.Day] <- as.POSIXlt(fun.df$Date)$mday
   #
   #     # example of classes for POSIXlt
   #     Sys.time()

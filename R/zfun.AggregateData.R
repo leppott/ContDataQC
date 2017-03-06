@@ -71,9 +71,9 @@ fun.AggregateData <- function(fun.myData.SiteID
   #
   # Verify input dates, if blank, NA, or null use all data
   # if DateRange.Start is null or "" then assign it 1900-01-01
-  if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start==""){fun.myData.DateRange.Start<-DateRange.Start.Default}
+  if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start==""){fun.myData.DateRange.Start<-ContData.env$DateRange.Start.Default}
   # if DateRange.End is null or "" then assign it today
-  if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End==""){fun.myData.DateRange.End<-DateRange.End.Default}
+  if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End==""){fun.myData.DateRange.End<-ContData.env$DateRange.End.Default}
   #
   # Read in list of files to work on, uses all files matching pattern ("\\.csv$")
   # ## if change formats will have to make modifications (pattern, import, export)
@@ -237,8 +237,8 @@ fun.AggregateData <- function(fun.myData.SiteID
     
     # 6.0. Filter data based on Date Range
     ## "subset" can have issues.  "with" doesn't seem work using variables for colnames.
-    data.subset <- data.import[data.import[,myName.Date]>=fun.myData.DateRange.Start 
-                               & data.import[,myName.Date]<=fun.myData.DateRange.End,]
+    data.subset <- data.import[data.import[,ContData.env$myName.Date]>=fun.myData.DateRange.Start 
+                               & data.import[,ContData.env$myName.Date]<=fun.myData.DateRange.End,]
     #
     # 7.0. Append Data
     # Append different based on the DataType
@@ -301,17 +301,17 @@ fun.AggregateData <- function(fun.myData.SiteID
     #
     # 8.0. Output file (only works if DataType is Air OR Water not both)
     # 8.1. Set Name
-    File.Date.Start <- format(as.Date(fun.myData.DateRange.Start,myFormat.Date),"%Y%m%d")
-    File.Date.End   <- format(as.Date(fun.myData.DateRange.End,myFormat.Date),"%Y%m%d")
+    File.Date.Start <- format(as.Date(fun.myData.DateRange.Start,ContData.env$myFormat.Date),"%Y%m%d")
+    File.Date.End   <- format(as.Date(fun.myData.DateRange.End,ContData.env$myFormat.Date),"%Y%m%d")
     strFile.Out.Prefix <- "DATA"
-    strFile.Out <- paste(paste(strFile.Out.Prefix,strFile.SiteID,strFile.DataType,File.Date.Start,File.Date.End,sep=myDelim),"csv",sep=".")
+    strFile.Out <- paste(paste(strFile.Out.Prefix, strFile.SiteID, strFile.DataType, File.Date.Start, File.Date.End, sep=ContData.env$myDelim),"csv",sep=".")
     # 8.2. Save to File the Append data (overwrites any existing file).
     #strFile.Out
     #   varSep <- "\t" #tab-delimited
     #   write.table(data.append,file=strFile.Out,sep=varSep,quote=FALSE,row.names=FALSE,col.names=TRUE)
     #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
     #flush.console()
-    write.csv(data.append,file=paste(myDir.data.export,"/",strFile.Out,sep=""),quote=FALSE,row.names=FALSE)
+    write.csv(data.append, file=paste(myDir.data.export,"/",strFile.Out,sep=""), quote=FALSE, row.names=FALSE)
     # saves but if gets another one in the time range it will append as append is recycled between loop iterations
     # when gets a new data type it gets a new data.append
     # need trigger for different SiteID (won't combine across sites)
@@ -418,32 +418,32 @@ fun.AggregateData <- function(fun.myData.SiteID
     # reapply some fields since the merge as some files have differen number of rows and purged duplicate fields
     # Date, Time, month, day (bring from fun.QC.R, change data.import to data.merge)
     # 5.2.2. Update Date if NA (use Date_Time)
-    myField   <- myName.Date
-    myFormat  <- myFormat.Date #"%Y-%m-%d"
+    myField   <- ContData.env$myName.Date
+    myFormat  <- ContData.env$myFormat.Date #"%Y-%m-%d"
     #   data.import[,myField][data.import[,myField]==""] <- strftime(data.import[,myName.DateTime][data.import[,myName.Date]==""]
     #                                                               ,format=myFormat,usetz=FALSE)
-    data.merge[,myField][is.na(data.merge[,myField])] <- strftime(data.merge[,myName.DateTime][is.na(data.merge[,myField])]
+    data.merge[,myField][is.na(data.merge[,myField])] <- strftime(data.merge[,ContData.env$myName.DateTime][is.na(data.merge[,myField])]
                                                                   ,format=myFormat,usetz=FALSE)
     # 5.2.3. Update Time if NA (use Date_Time)
-    myField   <- myName.Time
-    myFormat  <- myFormat.Time #"%H:%M:%S"
+    myField   <- ContData.env$myName.Time
+    myFormat  <- ContData.env$myFormat.Time #"%H:%M:%S"
     #   data.import[,myField][data.import[,myField]==""] <- strftime(data.import[,myName.DateTime][data.import[,myName.Time]==""]
     #                                                               ,format=myFormat,usetz=FALSE)
     #     data.merge[,myField][is.na(data.merge[,myField])] <- as.POSIXct(data.merge[,myName.DateTime][is.na(data.merge[,myField])]
     #                                                                      ,format=myFormat,usetz=FALSE)
     # update all time fields
-    data.merge[,myField] <- strftime(as.POSIXct(data.merge[,myName.DateTime],format=myFormat.DateTime,usetz=FALSE)
+    data.merge[,myField] <- strftime(as.POSIXct(data.merge[,ContData.env$myName.DateTime],format=ContData.env$myFormat.DateTime,usetz=FALSE)
                                      ,format=myFormat.Time,usetz=FALSE)
     #
     #
-    data.merge[,"month"] <- as.POSIXlt(data.merge[,myName.Date])$mon+1
-    data.merge[,"day"] <- as.POSIXlt(data.merge[,myName.Date])$mday
+    data.merge[,ContData.env$myName.Mo] <- as.POSIXlt(data.merge[,myName.Date])$mon+1
+    data.merge[,ContData.env$myName.Day] <- as.POSIXlt(data.merge[,myName.Date])$mday
     # update SiteID
-    data.merge[,myName.SiteID][is.na(data.merge[,myName.SiteID])] <- fun.myData.SiteID
+    data.merge[,ContData.env$myName.SiteID][is.na(data.merge[,ContData.env$myName.SiteID])] <- fun.myData.SiteID
     
     # sort 
     # not working in merge command
-    data.merge <- data.merge[order(data.merge[,myName.DateTime]),,drop=FALSE]
+    data.merge <- data.merge[order(data.merge[,ContData.env$myName.DateTime]),,drop=FALSE]
     
     
     # save file
@@ -525,19 +525,19 @@ fun.AggregateData <- function(fun.myData.SiteID
   # Check for all Data Type  files (Air, Water, AW, Gage, AWG, AG, WG)
   # had been using "proper" to get "Air" and "Water".  So AWG=Awg, AW=Aw, AG=Ag, and WG=Wg
   # 1
-  Name.File.Air <- paste(paste("DATA",fun.myData.SiteID,"Air",File.Date.Start,File.Date.End,sep=myDelim),"csv",sep=".")
+  Name.File.Air <- paste(paste("DATA",fun.myData.SiteID,"Air",File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
   # 2
-  Name.File.Water <- paste(paste("DATA",fun.myData.SiteID,"Water",File.Date.Start,File.Date.End,sep=myDelim),"csv",sep=".")
+  Name.File.Water <- paste(paste("DATA",fun.myData.SiteID,"Water",File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
   # 3
-  Name.File.AW <- paste(paste("DATA",fun.myData.SiteID,"Aw",File.Date.Start,File.Date.End,sep=myDelim),"csv",sep=".")
+  Name.File.AW <- paste(paste("DATA",fun.myData.SiteID,"Aw",File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
   # 4
-  Name.File.Gage <- paste(paste("DATA",fun.myData.SiteID,"Gage",File.Date.Start,File.Date.End,sep=myDelim),"csv",sep=".")
+  Name.File.Gage <- paste(paste("DATA",fun.myData.SiteID,"Gage",File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
   # 5
-  Name.File.AWG <- paste(paste("DATA",fun.myData.SiteID,"Awg",File.Date.Start,File.Date.End,sep=myDelim),"csv",sep=".")
+  Name.File.AWG <- paste(paste("DATA",fun.myData.SiteID,"Awg",File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
   # 6
-  Name.File.AG <- paste(paste("DATA",fun.myData.SiteID,"Ag",File.Date.Start,File.Date.End,sep=myDelim),"csv",sep=".")
+  Name.File.AG <- paste(paste("DATA",fun.myData.SiteID,"Ag",File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
   # 7
-  Name.File.WG <- paste(paste("DATA",fun.myData.SiteID,"Wg",File.Date.Start,File.Date.End,sep=myDelim),"csv",sep=".")
+  Name.File.WG <- paste(paste("DATA",fun.myData.SiteID,"Wg",File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
   #
   #
   files.ALL <- list.files(path=myDir.data.export, pattern=" *.csv")

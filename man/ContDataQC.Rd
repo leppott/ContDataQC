@@ -5,8 +5,9 @@
 \title{Master Script}
 \usage{
 ContDataQC(fun.myData.Operation, fun.myData.SiteID, fun.myData.Type,
-  fun.myData.DateRange.Start, fun.myData.DateRange.End, fun.myDir.BASE,
-  fun.myDir.SUB.import, fun.myDir.SUB.export)
+  fun.myData.DateRange.Start, fun.myData.DateRange.End,
+  fun.myDir.BASE = getwd(), fun.myDir.SUB.import = "",
+  fun.myDir.SUB.export = "")
 }
 \arguments{
 \item{fun.myData.Operation}{Operation to be performed; c("GetGageData","QCRaw", "Aggregate", "SummaryStats")}

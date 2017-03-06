@@ -4,7 +4,7 @@ output: word_document
 ---
 
 ```{r, results='asis', echo=FALSE, warning=FALSE}
-  myReportDate <- format(Sys.Date(),"%Y-%m-%d")
+  myReportDate <- format(Sys.Date(),ContData.env$myFormat.Date)
   cat(paste("**Report Date:** ",myReportDate,"\n\n",sep=""))
 ```
 
@@ -18,15 +18,15 @@ output: word_document
   
   cat(paste("**Period of Record, Requested:** ",fun.myData.DateRange.Start," to ",fun.myData.DateRange.End,sep="",collapse="\n\n"))
        
-  myTimeDiff <- difftime(data.import[11,myName.DateTime],data.import[10,myName.DateTime],units="mins")
+  myTimeDiff <- difftime(data.import[11,ContData.env$myName.DateTime],data.import[10,ContData.env$myName.DateTime],units="mins")
   cat(paste("\n\n**Period of Record, Actual:** ",min(data.import[,myName.Date])," to ",max(data.import[,myName.Date]),"\n\n",sep=""))
        
   cat(paste("**Recording Interval:** ",myTimeDiff[1]," minutes\n\n",sep=""))
   
   cat(paste("**Data Type:** ",strFile.DataType,"\n\n",sep=""))  # need to do better
   
-   myParameters <- myNames.DataFields[myNames.DataFields %in% names(data.import)==TRUE] 
-   myParameters.Lab <- myNames.DataFields.Lab[myNames.DataFields %in% names(data.import)==TRUE]
+   myParameters <- ContData.env$myNames.DataFields[ContData.env$myNames.DataFields %in% names(data.import)==TRUE] 
+   myParameters.Lab <- ContData.env$myNames.DataFields.Lab[ContData.env$myNames.DataFields %in% names(data.import)==TRUE]
  #cat("**Parameters:** ",paste(myParameters.Lab,", ",sep=""),"\n\n",sep="")
   # above line not working, preventing pandoc conversion to WORD
   #cat("**Included Parameters:** \n\n")

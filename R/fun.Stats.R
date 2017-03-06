@@ -77,9 +77,9 @@ fun.Stats <- function(fun.myData.SiteID
   #  
   # Verify input dates, if blank, NA, or null use all data
   # if DateRange.Start is null or "" then assign it 1900-01-01
-  if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start==""){fun.myData.DateRange.Start<-DateRange.Start.Default}
+  if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start==""){fun.myData.DateRange.Start<-ContData.env$DateRange.Start.Default}
   # if DateRange.End is null or "" then assign it today
-  if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End==""){fun.myData.DateRange.End<-DateRange.End.Default}
+  if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End==""){fun.myData.DateRange.End<-ContData.env$DateRange.End.Default}
   #
   # 0. Load Single file
   strFile.Prefix     <- toupper(fun.myFile.Prefix)     # DATA = Aggregate, QC = QC
@@ -87,7 +87,7 @@ fun.Stats <- function(fun.myData.SiteID
   strFile.DataType   <- fun.myData.Type
   strFile.Date.Start <- format(as.Date(fun.myData.DateRange.Start,"%Y-%m-%d"),"%Y%m%d")
   strFile.Date.End   <- format(as.Date(fun.myData.DateRange.End,"%Y-%m-%d"),"%Y%m%d")
-  strFile <- paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,sep=myDelim),"csv",sep=".")
+  strFile <- paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
   strFile.Base <- substr(strFile,1,nchar(strFile)-nchar(".csv"))
   strFile.parts <- strsplit(strFile.Base,myDelim)
   #
@@ -121,13 +121,14 @@ fun.Stats <- function(fun.myData.SiteID
   
   # Define time period fields
 
-  myNames.Fields.TimePeriods <- c(myName.Yr,myName.YrMo,myName.MoDa,myName.Mo,myName.JuDa,myName.Season,myName.YrSeason)
+  myNames.Fields.TimePeriods <- c(ContData.env$myName.Yr, ContData.env$myName.YrMo, ContData.env$myName.MoDa, ContData.env$myName.Mo
+                                  , ContData.env$myName.JuDa, ContData.env$myName.Season, ContData.env$myName.YrSeason)
   # add time period fields
-  data.import[,myName.Yr]   <- format(as.Date(data.import[,myName.Date]),format="%Y")
-  data.import[,myName.Mo]   <- format(as.Date(data.import[,myName.Date]),format="%m")
-  data.import[,myName.YrMo] <- format(as.Date(data.import[,myName.Date]),format="%Y%m")
-  data.import[,myName.MoDa] <- format(as.Date(data.import[,myName.Date]),format="%m%d")
-  data.import[,myName.JuDa] <- as.POSIXlt(data.import[,myName.Date], format=myFormat.Date)$yday
+  data.import[,myName.Yr]   <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%Y")
+  data.import[,myName.Mo]   <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%m")
+  data.import[,myName.YrMo] <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%Y%m")
+  data.import[,myName.MoDa] <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%m%d")
+  data.import[,myName.JuDa] <- as.POSIXlt(data.import[,ContData.env$myName.Date], format=ContData.env$myFormat.Date)$yday
   ## add Season fields
 #   md <- data.import[,myName.MoDa]
 #   data.import[,myName.Season] <- NA
@@ -137,13 +138,13 @@ fun.Stats <- function(fun.myData.SiteID
 #   data.import[,myName.Season][as.numeric(md)>=as.numeric(myTimeFrame.Season.Fall.Start) & as.numeric(md)<as.numeric(myTimeFrame.Season.Winter.Start)] <- "Fall"
 #   data.import[,myName.Season][as.numeric(md)>=as.numeric(myTimeFrame.Season.Winter.Start) & as.numeric(md)<as.numeric("1231")] <- "Winter"
 #   data.import[,myName.SeasonYr] <- paste(data.import[,"Season"],data.import[,"Year"],sep="")
-  data.import[,myName.Season] <- NA
-  data.import[,myName.Season][as.numeric(data.import[,myName.MoDa])>=as.numeric("0101") & as.numeric(data.import[,myName.MoDa])<as.numeric(myTimeFrame.Season.Spring.Start)] <- "Winter"
-  data.import[,myName.Season][as.numeric(data.import[,myName.MoDa])>=as.numeric(myTimeFrame.Season.Spring.Start) & as.numeric(data.import[,myName.MoDa])<as.numeric(myTimeFrame.Season.Summer.Start)] <- "Spring"
-  data.import[,myName.Season][as.numeric(data.import[,myName.MoDa])>=as.numeric(myTimeFrame.Season.Summer.Start) & as.numeric(data.import[,myName.MoDa])<as.numeric(myTimeFrame.Season.Fall.Start)] <- "Summer"
-  data.import[,myName.Season][as.numeric(data.import[,myName.MoDa])>=as.numeric(myTimeFrame.Season.Fall.Start) & as.numeric(data.import[,myName.MoDa])<as.numeric(myTimeFrame.Season.Winter.Start)] <- "Fall"
-  data.import[,myName.Season][as.numeric(data.import[,myName.MoDa])>=as.numeric(myTimeFrame.Season.Winter.Start) & as.numeric(data.import[,myName.MoDa])<as.numeric("1231")] <- "Winter"
-  data.import[,myName.YrSeason] <- paste(data.import[,myName.Yr],data.import[,myName.Season],sep="")
+  data.import[,ContData.env$myName.Season] <- NA
+  data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric("0101") & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Spring.Start)] <- "Winter"
+  data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric(ContData.env$myTimeFrame.Season.Spring.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Summer.Start)] <- "Spring"
+  data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric(ContData.env$myTimeFrame.Season.Summer.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Fall.Start)] <- "Summer"
+  data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric(ContData.env$myTimeFrame.Season.Fall.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Winter.Start)] <- "Fall"
+  data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric(ContData.env$myTimeFrame.Season.Winter.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric("1231")] <- "Winter"
+  data.import[,ContData.env$myName.YrSeason] <- paste(data.import[,ContData.env$myName.Yr],data.import[,ContData.env$myName.Season],sep="")
   
   #
   # Loop - Parameter (n=3)
@@ -151,13 +152,16 @@ fun.Stats <- function(fun.myData.SiteID
   ## Flow (WaterLevel and Discharge)
   ## Nothing on Pressure (used to calculate waterlevel)
   # future add pH, Cond, etc from USGS gages
-  myFields.Data       <- c(myName.WaterTemp, myName.AirTemp, myName.WaterLevel)
-  myFields.Data.Flags <- c(myName.Flag.WaterTemp,myName.Flag.AirTemp,myName.Flag.WaterLevel)
+  myFields.Data       <- c(ContData.env$myName.WaterTemp, ContData.env$myName.AirTemp, ContData.env$myName.WaterLevel)
+  myFields.Data.Flags <- c(ContData.env$myName.Flag.WaterTemp, ContData.env$myName.Flag.AirTemp, ContData.env$myName.Flag.WaterLevel)
   myFields.Type       <- c("Thermal","Thermal","Hydrologic")
-  myFields.Keep <- c(myName.SiteID
-                     ,myName.Date,myName.Time,myName.DateTime
-                     ,myNames.Fields.TimePeriods
-                     ,myFields.Data,myFields.Data.Flags
+  myFields.Keep <- c(ContData.env$myName.SiteID
+                     , ContData.env$myName.Date
+                     , ContData.env$myName.Time
+                     , ContData.env$myName.DateTime
+                     , ContData.env$myNames.Fields.TimePeriods
+                     , ContData.env$myFields.Data
+                     , ContData.env$myFields.Data.Flags
                      )
   # keep only fields needed for stats
  # data.import <- data.import[,myFields.Keep]
@@ -196,10 +200,10 @@ fun.Stats <- function(fun.myData.SiteID
     #
     # summaryBy doesn't work with Group as variable (change value for running here)
     # have to change some back for dv.i when save
-    names(data.stats)[names(data.stats) %in% myName.Date] <- "Date"
-    names(data.stats)[names(data.stats) %in% myName.YrMo] <- "YearMonth"
-    names(data.stats)[names(data.stats) %in% myName.YrSeason] <- "YearSeason"
-    names(data.stats)[names(data.stats) %in% myName.Yr] <- "Year"
+    names(data.stats)[names(data.stats) %in% ContData.env$myName.Date] <- "Date"
+    names(data.stats)[names(data.stats) %in% ContData.env$myName.YrMo] <- "YearMonth"
+    names(data.stats)[names(data.stats) %in% ContData.env$myName.YrSeason] <- "YearSeason"
+    names(data.stats)[names(data.stats) %in% ContData.env$myName.Yr] <- "Year"
     
     
     # summaryBy not working with "i" as variable.  Have to do an ugly hack to get it working
@@ -231,13 +235,16 @@ fun.Stats <- function(fun.myData.SiteID
     
     if(i==myFields.Data[1]) {
       dv.i <- doBy::summaryBy(as.numeric(Water.Temp.C)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
-                        , var.names="i",id=c(myName.SiteID,"Year","YearMonth",myName.Mo,myName.MoDa,myName.JuDa,myName.Season,"YearSeason"))
+                        , var.names="i",id=c(ContData.env$myName.SiteID, "Year", "YearMonth", ContData.env$myName.Mo, ContData.env$myName.MoDa
+                                             , ContData.env$myName.JuDa, ContData.env$myName.Season,"YearSeason"))
     } else if(i==myFields.Data[2]) {
       dv.i <- doBy::summaryBy(as.numeric(Air.Temp.C)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
-                        , var.names="i",id=c(myName.SiteID,"Year","YearMonth",myName.Mo,myName.MoDa,myName.JuDa,myName.Season,"YearSeason"))
+                        , var.names="i",id=c(ContData.env$myName.SiteID, "Year", "YearMonth", ContData.env$myName.Mo, ContData.env$myName.MoDa
+                                             , ContData.env$myName.JuDa, ContData.env$myName.Season,"YearSeason"))
     } else if (i==myFields.Data[3]) {
       dv.i <- doBy::summaryBy(as.numeric(Water.Level.ft)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
-                        , var.names="i",id=c(myName.SiteID,"Year","YearMonth",myName.Mo,myName.MoDa,myName.JuDa,myName.Season,"YearSeason"))
+                        , var.names="i",id=c(ContData.env$myName.SiteID, "Year", "YearMonth", ContData.env$myName.Mo, ContData.env$myName.MoDa
+                                             , ContData.env$myName.JuDa, ContData.env$myName.Season,"YearSeason"))
     }
     
     
@@ -248,19 +255,19 @@ fun.Stats <- function(fun.myData.SiteID
     
     # rename fields back (use dv.i generated by summaryBy)
     names(dv.i)[2] <- "mean" 
-    names(dv.i)[names(dv.i) %in% "Date"] <- myName.Date
-    names(dv.i)[names(dv.i) %in% "YearMonth"] <- myName.YrMo
-    names(dv.i)[names(dv.i) %in% "YearSeason"] <- myName.YrSeason
-    names(dv.i)[names(dv.i) %in% "Year"] <- myName.Yr
+    names(dv.i)[names(dv.i) %in% "Date"] <- ContData.env$myName.Date
+    names(dv.i)[names(dv.i) %in% "YearMonth"] <- ContData.env$myName.YrMo
+    names(dv.i)[names(dv.i) %in% "YearSeason"] <- ContData.env$myName.YrSeason
+    names(dv.i)[names(dv.i) %in% "Year"] <- ContData.env$myName.Yr
     # add parameter as column
     dv.i[,"Parameter"] <- i
     # rearrange columns
-    dv.i.ColOrder <- c(myName.SiteID,"Parameter","mean",myName.Date,myNames.Fields.TimePeriods)
+    dv.i.ColOrder <- c(ContData.env$myName.SiteID, "Parameter", "mean", ContData.env$myName.Date, ContData.env$myNames.Fields.TimePeriods)
     dv.i <- dv.i[,dv.i.ColOrder]
 
     # save dv
     strFile.Prefix.Out <- "DV"
-    strFile.Out <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,sep=myDelim),"csv",sep=".")
+    strFile.Out <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,sep=ContData.env$myDelim),"csv",sep=".")
     write.csv(dv.i,paste(myDir.data.export,strFile.Out,sep="/"),quote=FALSE,row.names=FALSE)
     
     # calculate daily mean, max, min, range, sd, n
@@ -285,13 +292,13 @@ fun.Stats <- function(fun.myData.SiteID
     #
     # summaryBy doesn't work with Group as variable (change value for running here)
     # have to change some back for dv.i.* when save
-    names(data.stats)[names(data.stats) %in% myName.Date] <- "Date"
-    names(data.stats)[names(data.stats) %in% myName.Date] <- "Date"
-    names(data.stats)[names(data.stats) %in% myName.YrMo] <- "YearMonth"
-    names(data.stats)[names(data.stats) %in% myName.YrSeason] <- "YearSeason"
-    names(data.stats)[names(data.stats) %in% myName.Yr] <- "Year"
-    names(data.stats)[names(data.stats) %in% myName.Mo] <- "Month"
-    names(data.stats)[names(data.stats) %in% myName.Season] <- "Season"
+    names(data.stats)[names(data.stats) %in% ContData.env$myName.Date] <- "Date"
+    names(data.stats)[names(data.stats) %in% ContData.env$myName.Date] <- "Date"
+    names(data.stats)[names(data.stats) %in% ContData.env$myName.YrMo] <- "YearMonth"
+    names(data.stats)[names(data.stats) %in% ContData.env$myName.YrSeason] <- "YearSeason"
+    names(data.stats)[names(data.stats) %in% ContData.env$myName.Yr] <- "Year"
+    names(data.stats)[names(data.stats) %in% ContData.env$myName.Mo] <- "Month"
+    names(data.stats)[names(data.stats) %in% ContData.env$myName.Season] <- "Season"
     
     #
     #
@@ -303,7 +310,7 @@ fun.Stats <- function(fun.myData.SiteID
       #
       ## Daily
         myTimeFrame <- "day"
-        myTF.Field <- myName.Date
+        myTF.Field <- ContData.env$myName.Date
         myDF <- data.stats
         #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~Date,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
         ####### ugly hack
@@ -344,7 +351,7 @@ fun.Stats <- function(fun.myData.SiteID
       #
         ## Julian Day
         myTimeFrame <- "JulianDay"
-        myTF.Field <- myName.JuDa
+        myTF.Field <- ContData.env$myName.JuDa
         myDF <- dv.i
         #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
         ####### ugly hack
@@ -379,7 +386,7 @@ fun.Stats <- function(fun.myData.SiteID
         #
       ## Year_Month
         myTimeFrame <- "year_month"
-        myTF.Field <- myName.YrMo
+        myTF.Field <- ContData.env$myName.YrMo
         myDF <- dv.i
         #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
         ####### ugly hack
@@ -414,7 +421,7 @@ fun.Stats <- function(fun.myData.SiteID
         #
         ## Month (all years)
         myTimeFrame <- "month"
-        myTF.Field <- myName.Mo
+        myTF.Field <- ContData.env$myName.Mo
         myDF <- dv.i
         #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
         ####### ugly hack
@@ -483,7 +490,7 @@ fun.Stats <- function(fun.myData.SiteID
         #
         ## Season (all years)
         myTimeFrame <- "season"
-        myTF.Field <- myName.Season
+        myTF.Field <- ContData.env$myName.Season
         myDF <- dv.i
         #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~SeasonYear,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
         ####### ugly hack
@@ -517,7 +524,7 @@ fun.Stats <- function(fun.myData.SiteID
         #
       ## Year
         myTimeFrame <- "year"
-        myTF.Field <- myName.Yr
+        myTF.Field <- ContData.env$myName.Yr
         myDF <- dv.i
         #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~Year,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
         ####### ugly hack
@@ -565,7 +572,7 @@ fun.Stats <- function(fun.myData.SiteID
     stats.i.ALL <- stats.i.ALL[,myCol.Order]
     # save stats
     strFile.Prefix.Out <- fun.myProcedure.Step
-    strFile.Out <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,sep=myDelim),"csv",sep=".")
+    strFile.Out <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,sep=ContData.env$myDelim),"csv",sep=".")
     write.csv(stats.i.ALL,paste(myDir.data.export,strFile.Out,sep="/"),quote=FALSE,row.names=FALSE)
     #
     

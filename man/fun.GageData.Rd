@@ -7,7 +7,7 @@
 fun.GageData(fun.myData.SiteID, fun.myData.Type = "Gage",
   fun.myData.DateRange.Start, fun.myData.DateRange.End,
   fun.myDir.BASE = getwd(), fun.myDir.SUB.import = "",
-  fun.myDir.SUB.export = "", myTZ = Sys.timezone())
+  fun.myDir.SUB.export = "", myTZ = ContData.env$myTZ)
 }
 \arguments{
 \item{fun.myData.SiteID}{Station/SiteID (can be a vector).}
@@ -24,7 +24,7 @@ fun.GageData(fun.myData.SiteID, fun.myData.Type = "Gage",
 
 \item{fun.myDir.SUB.export}{Subdirectory for export data.  If blank will use root directory.}
 
-\item{myTZ}{Timezone for requested gage.  Default is Sys.timezone().}
+\item{myTZ}{Timezone for requested gage.  Default is in env.UserDefinedValues.R.  Can also be set with Sys.timezone().}
 }
 \value{
 Returns a csv file to specified directory with the requested daily mean data.  During the data retrieval a summary is output to the console.

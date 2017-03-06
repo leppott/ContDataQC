@@ -79,9 +79,9 @@ fun.Report <- function(fun.myData.SiteID
     strFile.DataType   <- fun.myData.Type
     strFile.Date.Start <- format(as.Date(fun.myData.DateRange.Start,"%Y-%m-%d"),"%Y%m%d")
     strFile.Date.End   <- format(as.Date(fun.myData.DateRange.End,"%Y-%m-%d"),"%Y%m%d")
-    strFile = paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,sep=myDelim),"csv",sep=".")
+    strFile = paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
     strFile.Base <- substr(strFile,1,nchar(strFile)-nchar(".csv"))
-    strFile.parts <- strsplit(strFile.Base,myDelim)
+    strFile.parts <- strsplit(strFile.Base,ContData.env$myDelim)
    
     #QC, make sure file exists
     if(strFile %in% list.files(path=myDir.data.import)==FALSE) {##IF.file.START
@@ -113,7 +113,7 @@ fun.Report <- function(fun.myData.SiteID
     # much cleaner DOCX than the 2-step process of MD with knit to RMD with pandoc
     #strFile.RMD <- paste(myDir.BASE,"Scripts",paste(myReport.Name,"rmd",sep="."),sep="/") #"QCReport.rmd"
     strFile.RMD <- system.file(paste0("rmd/",myReport.Name,".rmd"),package=myPkg)
-    strFile.DOCX <- paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,myReport.Name,sep=myDelim),".docx",sep="")
+    strFile.DOCX <- paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,myReport.Name,sep=ContData.env$myDelim),".docx",sep="")
     rmarkdown::render(strFile.RMD,output_file=strFile.DOCX,output_dir=paste(fun.myDir.BASE,fun.myDir.SUB.export,sep="/"))
     
     
