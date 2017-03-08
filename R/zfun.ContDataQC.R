@@ -144,7 +144,7 @@ ContDataQC <- function(fun.myData.Operation
   # 20160204, Check for required fields
   #   Add to individual scripts as need to load the file first
   # QC Check - delimiter in site ID
-  QC.SiteID.myDelim <- grepl(myDelim,fun.myData.SiteID) #T/F
+  QC.SiteID.myDelim <- grepl(ContData.env$myDelim,fun.myData.SiteID) #T/F
   if(QC.SiteID.myDelim==TRUE){##IF.QC.SiteID.myDelim.START
     myMsg <- paste("\n
               SiteID (",fun.myData.SiteID,") contains the same delimiter (",ContData.env$myDelim,") as in your file names.  

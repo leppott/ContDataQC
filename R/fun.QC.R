@@ -113,7 +113,7 @@ fun.QC <- function(fun.myData.SiteID
     strFile = files2process[intCounter]
     # 1.1. File Name, Parse
     strFile.Base <- substr(strFile,1,nchar(strFile)-nchar(".csv"))
-    strFile.parts <- strsplit(strFile.Base,myDelim)
+    strFile.parts <- strsplit(strFile.Base, ContData.env$myDelim)
     strFile.SiteID     <- strFile.parts[[1]][1]
     strFile.DataType   <- strFile.parts[[1]][2]
     # Convert Data Type to proper case
@@ -250,7 +250,7 @@ fun.QC <- function(fun.myData.SiteID
     # reorder Columns (and drop extra columns)
     data.import <- data.import[,strCol.Present]
     # 4.3. Add FLAGS
-    strCol.Flags <- myNames.Flags[ContData.env$myNames.Cols4Flags %in% colnames(data.import)==TRUE]
+    strCol.Flags <- ContData.env$myNames.Flags[ContData.env$myNames.Cols4Flags %in% colnames(data.import)==TRUE]
     data.import[,strCol.Flags] <- ""
     #
     #
@@ -875,7 +875,7 @@ fun.CalcQCStats <- function(fun.data.import
   fun.data.import[,myField.2] <- fun.data.import[,myField.1] * fun.myThresh.RoC.SD.number
   #
   # A.4. Calc, Diff (1:5) (5 is default but can be more)
-  for (i in 1:myThresh.Flat.MaxComp) {##FOR.i.START
+  for (i in 1:ContData.env$myThresh.Flat.MaxComp) {##FOR.i.START
     myCalc <- paste("n",i,sep=".")
     myField <- paste(fun.myField.Data,myCalc,sep=".")
     fun.data.import[-(1:i),myField] <- diff(as.numeric(fun.data.import[,fun.myField.Data]),lag=i)
@@ -909,21 +909,21 @@ fun.CalcQCStats <- function(fun.data.import
   myField <- paste("Flag",myQCTest,fun.myField.Data,sep=".")
   # Assign Flags
   # default value
-  fun.data.import[,myField] <- myFlagVal.NotEval
+  fun.data.import[,myField] <- ContData.env$myFlagVal.NotEval
   # data is NA then flag = 9 (missing data)
-  fun.data.import[,myField][is.na(fun.data.import[,fun.myField.Data])==TRUE] <- myFlagVal.NoData
+  fun.data.import[,myField][is.na(fun.data.import[,fun.myField.Data])==TRUE] <- ContData.env$myFlagVal.NoData
   # different test for water level, only if negative
   if(fun.myField.Data==ContData.env$myName.WaterLevel) {##IF.Gross.WaterLevel.START
     # data < 0 (i.e., negative) = 4 (fail)
     fun.data.import[,myField][fun.data.import[,fun.myField.Data] < 0] <- ContData.env$myFlagVal.Fail
     # otherwise flag = 1 (pass)
-    fun.data.import[,myField][fun.data.import[,myField]==myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass 
+    fun.data.import[,myField][fun.data.import[,myField]==ContData.env$myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass 
   # different test for discharge
   } else if(fun.myField.Data==ContData.env$myName.Discharge) {
     # data < 0 (i.e., negative) = 4 (fail)
     fun.data.import[,myField][fun.data.import[,fun.myField.Data] < 0] <- ContData.env$myFlagVal.Fail
     # otherwise flag = 1 (pass)
-    fun.data.import[,myField][fun.data.import[,myField]==myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass 
+    fun.data.import[,myField][fun.data.import[,myField]==ContData.env$myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass 
   } else {
     # data >= Suspect.Hi then flag = 3 (suspect)
     fun.data.import[,myField][fun.data.import[,fun.myField.Data] >= fun.myThresh.Gross.Suspect.Hi] <- ContData.env$myFlagVal.Suspect
@@ -982,7 +982,7 @@ fun.CalcQCStats <- function(fun.data.import
   myField.Calc.1 <- paste(fun.myField.Data,"flat.Hi",sep=".")
   myField.Calc.2 <- paste(fun.myField.Data,"flat.Lo",sep=".")
   # default value
-  fun.data.import[,myField] <- myFlagVal.NotEval
+  fun.data.import[,myField] <- ContData.env$myFlagVal.NotEval
   # Lo >= Thresh.Lo = 3 (suspect)
   fun.data.import[,myField][fun.data.import[,myField.Calc.2] >= fun.myThresh.Flat.Lo] <- ContData.env$myFlagVal.Suspect
   # Hi >= Thresh.Hi = 4 (fail)

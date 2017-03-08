@@ -89,7 +89,7 @@ fun.Stats <- function(fun.myData.SiteID
   strFile.Date.End   <- format(as.Date(fun.myData.DateRange.End,"%Y-%m-%d"),"%Y%m%d")
   strFile <- paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
   strFile.Base <- substr(strFile,1,nchar(strFile)-nchar(".csv"))
-  strFile.parts <- strsplit(strFile.Base,myDelim)
+  strFile.parts <- strsplit(strFile.Base, ContData.env$myDelim)
   #
   #QC, make sure file exists
   if(strFile %in% list.files(path=myDir.data.import)==FALSE) {##IF.file.START
@@ -124,11 +124,11 @@ fun.Stats <- function(fun.myData.SiteID
   myNames.Fields.TimePeriods <- c(ContData.env$myName.Yr, ContData.env$myName.YrMo, ContData.env$myName.MoDa, ContData.env$myName.Mo
                                   , ContData.env$myName.JuDa, ContData.env$myName.Season, ContData.env$myName.YrSeason)
   # add time period fields
-  data.import[,myName.Yr]   <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%Y")
-  data.import[,myName.Mo]   <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%m")
-  data.import[,myName.YrMo] <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%Y%m")
-  data.import[,myName.MoDa] <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%m%d")
-  data.import[,myName.JuDa] <- as.POSIXlt(data.import[,ContData.env$myName.Date], format=ContData.env$myFormat.Date)$yday
+  data.import[,ContData.env$myName.Yr]   <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%Y")
+  data.import[,ContData.env$myName.Mo]   <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%m")
+  data.import[,ContData.env$myName.YrMo] <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%Y%m")
+  data.import[,ContData.env$myName.MoDa] <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%m%d")
+  data.import[,ContData.env$myName.JuDa] <- as.POSIXlt(data.import[,ContData.env$myName.Date], format=ContData.env$myFormat.Date)$yday
   ## add Season fields
 #   md <- data.import[,myName.MoDa]
 #   data.import[,myName.Season] <- NA
@@ -191,9 +191,9 @@ fun.Stats <- function(fun.myData.SiteID
     #data.stats.nofail[data.stats.nofail[,data.stats[,myFields.Data.Flags[i.num]]=myFlagVal.Fail]] <- na
     
     # change fail to NA for i (only if user define value == FALSE)
-    if(myStats.Fails.Exclude==TRUE) {##IF.myStats.Fails.Include.START
+    if(ContData.env$myStats.Fails.Exclude==TRUE) {##IF.myStats.Fails.Include.START
       #
-      data.stats[,i][data.stats[,myFlag]==myFlagVal.Fail] <- NA
+      data.stats[,i][data.stats[,myFlag]==ContData.env$myFlagVal.Fail] <- NA
       #
     }##IF.myStats.Fails.Exclude.END  
       
@@ -304,7 +304,7 @@ fun.Stats <- function(fun.myData.SiteID
     #
     # Save plots as PDF
     strFile.Prefix.Out <- fun.myProcedure.Step
-    strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,sep=myDelim),"pdf",sep=".")
+    strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,sep=ContData.env$myDelim),"pdf",sep=".")
     pdf(file=paste(myDir.data.export,strFile.plot,sep="/"),width=11,height=8.5)
 
       #
@@ -455,7 +455,7 @@ fun.Stats <- function(fun.myData.SiteID
         #
       ## Year_Season
         myTimeFrame <- "year_season"
-        myTF.Field <- myName.YrSeason
+        myTF.Field <- ContData.env$myName.YrSeason
         myDF <- dv.i
         #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~SeasonYear,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
         ####### ugly hack

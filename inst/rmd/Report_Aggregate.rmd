@@ -25,8 +25,8 @@ output: word_document
   
   cat(paste("**Data Type:** ",strFile.DataType,"\n\n",sep=""))  # need to do better
   
-   myParameters.ALL     <- myNames.DataFields[ContData.env$myNames.DataFields %in% names(data.import)==TRUE] 
-   myParameters.Lab.ALL <- myNames.DataFields.Lab[ContData.env$myNames.DataFields %in% names(data.import)==TRUE]
+   myParameters.ALL     <- ContData.env$myNames.DataFields[ContData.env$myNames.DataFields %in% names(data.import)==TRUE] 
+   myParameters.Lab.ALL <- ContData.env$myNames.DataFields.Lab[ContData.env$myNames.DataFields %in% names(data.import)==TRUE]
    # Filter out Discrete
    myParameters     <- myParameters.ALL[!grepl(ContData.env$myPrefix.Discrete,myParameters.ALL)]
    myParameters.Lab <- myParameters.Lab.ALL[!grepl(ContData.env$myPrefix.Discrete,myParameters.Lab.ALL)]
@@ -66,11 +66,12 @@ output: word_document
     
 
     #
-    myTable.DateTime.N <- aggregate(ContData.env$myName.SiteID ~ ContData.env$myNameDateTime, data=data.import,FUN=length)
-    myTable <- myTable.DateTime.N[myTable.DateTime.N[,"SiteID"]!=1,]
-    cat(paste0("Date and time records with more than one entry; N=",nrow(myTable),". Duplicate date.time records are shown below."))
-    cat("\n")
-      print(kable(myTable, format="markdown", row.names=TRUE))
+    myTable.DateTime.N <- aggregate(data.import[,ContData.env$myName.SiteID] ~ data.import[,ContData.env$myName.DateTime]
+                                    , data=data.import,FUN=length)
+    # myTable <- myTable.DateTime.N[myTable.DateTime.N[,ContData.env$myName.SiteID]!=1,]
+    # cat(paste0("Date and time records with more than one entry; N=",nrow(myTable),". Duplicate date.time records are shown below."))
+    # cat("\n")
+    #   print(kable(myTable, format="markdown", row.names=TRUE))
       
     # Missing Dates
     myDateRange.Target <- seq(as.Date(fun.myData.DateRange.Start)
@@ -127,7 +128,7 @@ output: word_document
       myDiscrete <- paste(ContData.env$myPrefix.Discrete,i,sep=".")
       if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
         data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
-        data.plot.points <- na.omit(data.plot[,c(myName.DateTime,myDiscrete)]) # remove NA
+        data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
         myPoints.X <- as.numeric(rownames(data.plot.points))
         myPoints.Y <- data.plot.points[,myDiscrete]
         points(myPoints.Y~myPoints.X,col="black",pch=19) 
@@ -152,7 +153,7 @@ Multiparameter plots if exist in the data.
 
     #
     # cheat on Date/Time axis
-    n.Total <- length(data.plot[,myName.Date])
+    n.Total <- length(data.plot[,ContData.env$myName.Date])
     pct <- c(20,40,60,80,100)*.01
     myAT <- c(1,round(n.Total * pct,0))
     myLab <- data.plot[,ContData.env$myName.Date][myAT]
@@ -183,7 +184,7 @@ Multiparameter plots if exist in the data.
         points(myPoints.Y~myPoints.X,col="green",pch=19) 
       }##IF.Discrete.END
       # Add discrete, Water.Temp (only if present)
-      myDiscrete <- paste(myPrefix.Discrete,ContData.env$myName.WaterTemp,sep=".")
+      myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterTemp,sep=".")
       if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
         data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
         data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA

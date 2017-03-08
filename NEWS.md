@@ -2,9 +2,27 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-03-06 14:51:07
+    #> Last Update: 2017-03-08 08:11:32
 
 Version history.
+
+Planned Updates
+===============
+
+-   Change WaterLevel to GageHeight. Used terminology from test files during development but Gage Height is the more proper term. 20170308.
+
+-   Spell out "AW"" and other abbreviations (e.g., AirWater). 20170308.
+
+-   When Air and Water measurements are at different times the plots aren't working. 20170308.
+
+-   Gaps in data not always evident in the plots. 20170308.
+
+v2.0.1.0001
+===========
+
+2017-03-08
+
+-   Bug fix for missed references to new environment for variables introduced in v2.0.1. Multiple files affected. Gage data, QC, and Aggregate working but not Stats. One table in the QC and Aggregate reports has been commented out. (To be fixed later).
 
 v2.0.1
 ======

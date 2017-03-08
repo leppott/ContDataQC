@@ -102,11 +102,13 @@ output: word_document
     
 
     #
-    myTable.DateTime.N <- aggregate(ContData.env$myName.SiteID  ~ ContData.env$myName.DateTime, data=data.import,FUN=length)
-    myTable <- myTable.DateTime.N[myTable.DateTime.N[,ContData.env$myName.SiteID]!=1,]
-    cat(paste0("Date and time records with more than one entry; N=",nrow(myTable),". Duplicate date.time records are shown below."))
-    cat("\n")
-      print(kable(myTable, format="markdown", row.names=TRUE))
+    myTable.DateTime.N <- aggregate(data.import[,ContData.env$myName.SiteID]  ~ data.import[,ContData.env$myName.DateTime]
+                                    , data=data.import,FUN=length)
+    # myTable <- myTable.DateTime.N[myTable.DateTime.N[,ContData.env$myName.SiteID]!=1,]
+    # cat(paste0("Date and time records with more than one entry; N=",nrow(myTable),". Duplicate date.time records are shown below."))
+    # cat("\n")
+    #   print(kable(myTable, format="markdown", row.names=TRUE))
+    # mask error, 20170307
     
     # Missing Dates
     myDateRange.Target <- seq(as.Date(fun.myData.DateRange.Start)
@@ -344,7 +346,7 @@ Multiparameter plots if exist in the data.
         points(myPoints.Y~myPoints.X,col="green",pch=19) 
       }##IF.Discrete.END
       # Add discrete, Water.Temp (only if present)
-      myDiscrete <- paste(myPrefix.Discrete,myName.WaterTemp,sep=".")
+      myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterTemp,sep=".")
       if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
         data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
         data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
@@ -374,7 +376,7 @@ Multiparameter plots if exist in the data.
         plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n")
         axis(1,at=myAT,labels=ContData.env$myLab,tick=TRUE)
         # Add discrete, Water.Temp (only if present)
-        myDiscrete <- paste(myPrefix.Discrete,myName.WaterTemp,sep=".")
+        myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterTemp,sep=".")
         if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
           data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
           data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
@@ -389,7 +391,7 @@ Multiparameter plots if exist in the data.
         axis(4)
         mtext(myPlot.Y2lab,side=4,line=2.5)
         # Add discrete, WaterLevel (only if present)
-        myDiscrete <- paste(myPrefix.Discrete,ContData.env$myName.WaterLevel,sep=".")
+        myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterLevel,sep=".")
         if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
           data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
           data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA

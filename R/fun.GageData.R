@@ -133,13 +133,13 @@ fun.GageData <- function(fun.myData.SiteID
     # column headers are "X_myCode_myStat"
     # can put in multipe and it only runs on those present
     data.myGage <- dataRetrieval::renameNWISColumns(data.myGage
-                      ,p00060=myName.Discharge
-                      ,p00065=myName.WaterLevel
-                      ,p00010=myName.WaterTemp
-                      ,p00020=myName.AirTemp
+                      ,p00060=ContData.env$myName.Discharge
+                      ,p00065=ContData.env$myName.WaterLevel
+                      ,p00010=ContData.env$myName.WaterTemp
+                      ,p00020=ContData.env$myName.AirTemp
                       ,p00040="pH"
                       ,p00045="Precip.Total.in"
-                      ,p00011=gsub(".C",".F",myName.WaterTemp)
+                      ,p00011=gsub(".C",".F",ContData.env$myName.WaterTemp)
                       )
     # different data structure for dataRetrieval
     names(data.myGage)
@@ -177,7 +177,7 @@ fun.GageData <- function(fun.myData.SiteID
     File.Date.Start <- format(as.Date(strFile.Date.Start,ContData.env$myFormat.Date),"%Y%m%d")
     File.Date.End   <- format(as.Date(strFile.Date.End,ContData.env$myFormat.Date),"%Y%m%d")
     strFile.Out.Prefix <- "Gage"
-    strFile.Out <- paste(paste(strGage,fun.myData.Type,File.Date.Start,File.Date.End,sep=myDelim),"csv",sep=".")
+    strFile.Out <- paste(paste(strGage,fun.myData.Type,File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
     # 10.2. Save to File the data (overwrites any existing file).
     #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
     #flush.console()
