@@ -1,5 +1,5 @@
 #' Quality Control
-#' 
+#'
 #' Subfunction for performing QC.  Needs to be called from ContDataQC().
 #' Requires zoo().
 #
@@ -14,6 +14,8 @@
 # Erik.Leppo@tetratech.com (EWL)
 # 20150921 (20151021, make into self standing function)
 # 20151112, combine Auto and Manual QC
+# 20170323, added 3 parameters (Cond, DO, and pH)
+# 20170324, added 2 more parameters (Turbidity and Chlrophylla)
 ##################
 # assumes use of CSV.  If using TXT have to modify list.files(pattern), read.csv(), and write.csv()
 #
@@ -43,7 +45,7 @@
 #' @keywords continuous data, qc, quality control
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
-# 
+#
 #'@export
 fun.QC <- function(fun.myData.SiteID
                    ,fun.myData.Type="QC"
@@ -93,10 +95,10 @@ fun.QC <- function(fun.myData.SiteID
   #myItems.Log <- data.frame(cbind(myItems.ALL,NA),stringsAsFactors=FALSE)
   myItems.Log <- data.frame(ItemID=1:intItems.Total,Status=NA,ItemName=myItems.ALL)
   #
-  
-  
+
+
   # Error if no files to process or no files in dir
-  
+
 
   # Start Time (used to determine run time at end)
   myTime.Start <- Sys.time()
@@ -215,7 +217,7 @@ fun.QC <- function(fun.myData.SiteID
       flush.console()
       # go to next Item
       next
-    } 
+    }
     # go to next item if no (date or time) AND no date/time field  (i.e., only 1 of date or time)
     if(length(strCol.DT.Missing)==2 & ContData.env$myName.DateTime%in%strCol.DT.Missing==TRUE) {
       myMsg <- "SKIPPED (Missing Fields, 'Date.Time' and one of 'Date' or 'Time')"
@@ -234,7 +236,7 @@ fun.QC <- function(fun.myData.SiteID
     # 4.2.  Check for columns present and reorder columns
     # check for columns present
     strCol.Present <- ContData.env$myNames.Order[ContData.env$myNames.Order %in% colnames(data.import)==TRUE]
-    #       
+    #
     myNames.DataFields.Present <- ContData.env$myNames.DataFields[ContData.env$myNames.DataFields %in% colnames(data.import)==TRUE]
     # kick out if no data fields
     if(length(myNames.DataFields.Present)==0){
@@ -344,7 +346,7 @@ fun.QC <- function(fun.myData.SiteID
     #   # doesn't work anymore, worked when first line was NA
     #   #######################################################
     #   data.import <- y
-    #   x<-data.import[,myField][!is.na(data.import[,myField])] 
+    #   x<-data.import[,myField][!is.na(data.import[,myField])]
     #   (z<-x[2])
     #   (a <- strptime(z,format=myFormat.In))
     #   (b <- strptime(x,format=myFormat.In))
@@ -401,10 +403,10 @@ fun.QC <- function(fun.myData.SiteID
 #     data.import[,myField][!is.na(data.import[,myField])] <- format(strptime(data.import[,myField][!is.na(data.import[,myField])],format=myFormat.In)
 #                                                                    ,format=myFormat.Out)
     data.import[,ContData.env$myName.Day] <- as.POSIXlt(data.import[,ContData.env$myName.Date])$mday
-    
+
     # year
     data.import[,ContData.env$myName.Yr] <- as.POSIXlt(data.import[,ContData.env$myName.Date])$year+1900
-    
+
     #
 #     # example of classes for POSIXlt
 #     Sys.time()
@@ -417,7 +419,7 @@ fun.QC <- function(fun.myData.SiteID
     #
     # skip if not present
     #
-    # 6.1. WaterTemp
+    # 6.01. WaterTemp
     myField <- ContData.env$myName.WaterTemp
     myMsg.data <- "WaterTemp"
     myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
@@ -425,7 +427,7 @@ fun.QC <- function(fun.myData.SiteID
     myItems.Log[intCounter,2] <- myMsg
     fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
     flush.console()
-    if(myField %in% myNames.DataFields.Present==TRUE){##IF.START
+    if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
       data.import <- fun.CalcQCStats(data.import
                                      ,myField
@@ -441,9 +443,9 @@ fun.QC <- function(fun.myData.SiteID
                                      ,ContData.env$myThresh.Flat.Lo.WaterTemp
                                      ,ContData.env$myThresh.Flat.Tolerance.WaterTemp)
       #
-    }##IF.END
+    }##IF.myField.END
     #
-    # 6.2. AirTemp
+    # 6.02. AirTemp
     myField <- ContData.env$myName.AirTemp
     myMsg.data <- "AirTemp"
     myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
@@ -451,10 +453,10 @@ fun.QC <- function(fun.myData.SiteID
     myItems.Log[intCounter,2] <- myMsg
     fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
     flush.console()
-    if(myField %in% myNames.DataFields.Present==TRUE){##IF.START
+    if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
       data.import <- fun.CalcQCStats(data.import
-                                  ,myField 
+                                  ,myField
                                   ,ContData.env$myThresh.Gross.Fail.Hi.AirTemp
                                   ,ContData.env$myThresh.Gross.Fail.Lo.AirTemp
                                   ,ContData.env$myThresh.Gross.Suspect.Hi.AirTemp
@@ -467,9 +469,9 @@ fun.QC <- function(fun.myData.SiteID
                                   ,ContData.env$myThresh.Flat.Lo.AirTemp
                                   ,ContData.env$myThresh.Flat.Tolerance.AirTemp)
       #
-    }##IF.END
+    }##IF.myField.END
     #
-    # 6.3. WaterP
+    # 6.03. WaterP
     myField <- ContData.env$myName.WaterP
     myMsg.data <- "WaterP"
     myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
@@ -477,10 +479,10 @@ fun.QC <- function(fun.myData.SiteID
     myItems.Log[intCounter,2] <- myMsg
     fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
     flush.console()
-    if(myField %in% myNames.DataFields.Present==TRUE){##IF.START
+    if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
       data.import <- fun.CalcQCStats(data.import
-                                  ,myField 
+                                  ,myField
                                   ,ContData.env$myThresh.Gross.Fail.Hi.WaterP
                                   ,ContData.env$myThresh.Gross.Fail.Lo.WaterP
                                   ,ContData.env$myThresh.Gross.Suspect.Hi.WaterP
@@ -493,9 +495,9 @@ fun.QC <- function(fun.myData.SiteID
                                   ,ContData.env$myThresh.Flat.Lo.WaterP
                                   ,ContData.env$myThresh.Flat.Tolerance.WaterP)
       #
-    }##IF.END
+    }##IF.myField.END
     #
-    # 6.4. AirBP
+    # 6.04. AirBP
     myField <- ContData.env$myName.AirBP
     myMsg.data <- "AirBP"
     myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
@@ -503,7 +505,7 @@ fun.QC <- function(fun.myData.SiteID
     myItems.Log[intCounter,2] <- myMsg
     fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
     flush.console()
-    if(myField %in% myNames.DataFields.Present==TRUE){##IF.START
+    if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
       data.import <- fun.CalcQCStats(data.import
                                   ,myField
@@ -519,9 +521,9 @@ fun.QC <- function(fun.myData.SiteID
                                   ,ContData.env$myThresh.Flat.Lo.AirBP
                                   ,ContData.env$myThresh.Flat.Tolerance.AirBP)
       #
-    }##IF.END
+    }##IF.myField.END
     #
-    # 6.5. WaterLevel
+    # 6.05. WaterLevel
     myField <- ContData.env$myName.WaterLevel
     myMsg.data <- "WaterLevel"
     myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
@@ -529,10 +531,10 @@ fun.QC <- function(fun.myData.SiteID
     myItems.Log[intCounter,2] <- myMsg
     fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
     flush.console()
-    if(myField %in% myNames.DataFields.Present==TRUE){##IF.START
+    if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
       data.import <- fun.CalcQCStats(data.import
-                                  ,myField 
+                                  ,myField
                                   ,ContData.env$myThresh.Gross.Fail.Hi.WaterLevel
                                   ,ContData.env$myThresh.Gross.Fail.Lo.WaterLevel
                                   ,ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel
@@ -545,9 +547,9 @@ fun.QC <- function(fun.myData.SiteID
                                   ,ContData.env$myThresh.Flat.Lo.WaterLevel
                                   ,ContData.env$myThresh.Flat.Tolerance.WaterLevel)
       #
-    }##IF.END
+    }##IF.myField.END
     #
-    # 6.5. Discharge
+    # 6.06. Discharge
     myField <- ContData.env$myName.Discharge
     myMsg.data <- "Discharge"
     myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
@@ -555,10 +557,10 @@ fun.QC <- function(fun.myData.SiteID
     myItems.Log[intCounter,2] <- myMsg
     fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
     flush.console()
-    if(myField %in% myNames.DataFields.Present==TRUE){##IF.START
+    if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
       data.import <- fun.CalcQCStats(data.import
-                                     ,myField 
+                                     ,myField
                                      ,ContData.env$myThresh.Gross.Fail.Hi.Discharge
                                      ,ContData.env$myThresh.Gross.Fail.Lo.Discharge
                                      ,ContData.env$myThresh.Gross.Suspect.Hi.Discharge
@@ -570,8 +572,135 @@ fun.QC <- function(fun.myData.SiteID
                                      ,ContData.env$myThresh.Flat.Hi.Discharge
                                      ,ContData.env$myThresh.Flat.Lo.Discharge
                                      ,ContData.env$myThresh.Flat.Tolerance.Discharge)
+
+    }##IF.myField.END
       #
-    }##IF.END
+    # 6.07. Conductivity
+    myField <- ContData.env$myName.Cond
+    myMsg.data <- "Cond"
+    myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
+    myItems.Complete <- myItems.Complete + 1
+    myItems.Log[intCounter,2] <- myMsg
+    fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+    flush.console()
+    if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
+      #
+      data.import <- fun.CalcQCStats(data.import
+                                     ,myField
+                                     ,ContData.env$myThresh.Gross.Fail.Hi.Cond
+                                     ,ContData.env$myThresh.Gross.Fail.Lo.Cond
+                                     ,ContData.env$myThresh.Gross.Suspect.Hi.Cond
+                                     ,ContData.env$myThresh.Gross.Suspect.Lo.Cond
+                                     ,ContData.env$myThresh.Spike.Hi.Cond
+                                     ,ContData.env$myThresh.Spike.Lo.Cond
+                                     ,ContData.env$myThresh.RoC.SD.period.Cond
+                                     ,ContData.env$myThresh.RoC.SD.number.Cond
+                                     ,ContData.env$myThresh.Flat.Hi.Cond
+                                     ,ContData.env$myThresh.Flat.Lo.Cond
+                                     ,ContData.env$myThresh.Flat.Tolerance.Cond)
+
+    }##IF.myField.END
+    #
+    # 6.08. Dissolved Oxygen
+    myField <- ContData.env$myName.DO
+    myMsg.data <- "DO"
+    myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
+    myItems.Complete <- myItems.Complete + 1
+    myItems.Log[intCounter,2] <- myMsg
+    fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+    flush.console()
+    if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
+      #
+      data.import <- fun.CalcQCStats(data.import
+                                     ,myField
+                                     ,ContData.env$myThresh.Gross.Fail.Hi.DO
+                                     ,ContData.env$myThresh.Gross.Fail.Lo.DO
+                                     ,ContData.env$myThresh.Gross.Suspect.Hi.DO
+                                     ,ContData.env$myThresh.Gross.Suspect.Lo.DO
+                                     ,ContData.env$myThresh.Spike.Hi.DO
+                                     ,ContData.env$myThresh.Spike.Lo.DO
+                                     ,ContData.env$myThresh.RoC.SD.period.DO
+                                     ,ContData.env$myThresh.RoC.SD.number.DO
+                                     ,ContData.env$myThresh.Flat.Hi.DO
+                                     ,ContData.env$myThresh.Flat.Lo.DO
+                                     ,ContData.env$myThresh.Flat.Tolerance.DO)
+    }##IF.myField.END
+    #
+    # 6.09. pH
+    myField <- ContData.env$myName.pH
+    myMsg.data <- "pH"
+    myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
+    myItems.Complete <- myItems.Complete + 1
+    myItems.Log[intCounter,2] <- myMsg
+    fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+    flush.console()
+    if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
+      #
+      data.import <- fun.CalcQCStats(data.import
+                                     ,myField
+                                     ,ContData.env$myThresh.Gross.Fail.Hi.pH
+                                     ,ContData.env$myThresh.Gross.Fail.Lo.pH
+                                     ,ContData.env$myThresh.Gross.Suspect.Hi.pH
+                                     ,ContData.env$myThresh.Gross.Suspect.Lo.pH
+                                     ,ContData.env$myThresh.Spike.Hi.pH
+                                     ,ContData.env$myThresh.Spike.Lo.pH
+                                     ,ContData.env$myThresh.RoC.SD.period.pH
+                                     ,ContData.env$myThresh.RoC.SD.number.pH
+                                     ,ContData.env$myThresh.Flat.Hi.pH
+                                     ,ContData.env$myThresh.Flat.Lo.pH
+                                     ,ContData.env$myThresh.Flat.Tolerance.pH)
+    }##IF.myField.END
+    #
+    # 6.10. Turbidity
+    myField <- ContData.env$myName.Turbidity
+    myMsg.data <- "Turbidity"
+    myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
+    myItems.Complete <- myItems.Complete + 1
+    myItems.Log[intCounter,2] <- myMsg
+    fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+    flush.console()
+    if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
+      #
+      data.import <- fun.CalcQCStats(data.import
+                                     ,myField
+                                     ,ContData.env$myThresh.Gross.Fail.Hi.Turbidity
+                                     ,ContData.env$myThresh.Gross.Fail.Lo.Turbidity
+                                     ,ContData.env$myThresh.Gross.Suspect.Hi.Turbidity
+                                     ,ContData.env$myThresh.Gross.Suspect.Lo.Turbidity
+                                     ,ContData.env$myThresh.Spike.Hi.Turbidity
+                                     ,ContData.env$myThresh.Spike.Lo.Turbidity
+                                     ,ContData.env$myThresh.RoC.SD.period.Turbidity
+                                     ,ContData.env$myThresh.RoC.SD.number.Turbidity
+                                     ,ContData.env$myThresh.Flat.Hi.Turbidity
+                                     ,ContData.env$myThresh.Flat.Lo.Turbidity
+                                     ,ContData.env$myThresh.Flat.Tolerance.Turbidity)
+    }##IF.myField.END
+    #
+    # 6.11. Chlorophyll a
+    myField <- ContData.env$myName.Chlorophylla
+    myMsg.data <- "Chlorophylla"
+    myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
+    myItems.Complete <- myItems.Complete + 1
+    myItems.Log[intCounter,2] <- myMsg
+    fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+    flush.console()
+    if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
+      #
+      data.import <- fun.CalcQCStats(data.import
+                                     ,myField
+                                     ,ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla
+                                     ,ContData.env$myThresh.Gross.Fail.Lo.Chlorophylla
+                                     ,ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla
+                                     ,ContData.env$myThresh.Gross.Suspect.Lo.Chlorophylla
+                                     ,ContData.env$myThresh.Spike.Hi.Chlorophylla
+                                     ,ContData.env$myThresh.Spike.Lo.Chlorophylla
+                                     ,ContData.env$myThresh.RoC.SD.period.Chlorophylla
+                                     ,ContData.env$myThresh.RoC.SD.number.Chlorophylla
+                                     ,ContData.env$myThresh.Flat.Hi.Chlorophylla
+                                     ,ContData.env$myThresh.Flat.Lo.Chlorophylla
+                                     ,ContData.env$myThresh.Flat.Tolerance.Chlorophylla)
+    }##IF.myField.END
+            #
     #
     #
     #############################
@@ -589,7 +718,7 @@ fun.QC <- function(fun.myData.SiteID
     #
     # 8. Generate QC File
     # incorporated into subroutine in step 6
-    #    
+    #
     # 9. Generate Log File
     # incorporated into subroutine in step 6
     #
@@ -606,13 +735,13 @@ fun.QC <- function(fun.myData.SiteID
 #     #flush.console()
 #     write.csv(data.import,file=paste(myDir.data.export,"/",strFile.Out,sep=""),quote=FALSE,row.names=FALSE)
 #     #
-    
-    
-    #********************* 
+
+
+    #*********************
     # START QC manual stuff
-    #************************   
-    
-    
+    #************************
+
+
     #data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings="")
     #
     # 4.0. Columns
@@ -636,7 +765,7 @@ fun.QC <- function(fun.myData.SiteID
         }##FOR.j.END
         #
 #     # leave as a loop so get RAW and Comment together
-#     j <- myNames.DataFields2Mod 
+#     j <- myNames.DataFields2Mod
 #     # A. Add comment field and leave blank
 #     data.import[,paste(myName.Comment.Mod,j,sep=".")] <- ""
 #     # B. Add data.RAW and populate with original data
@@ -668,19 +797,19 @@ fun.QC <- function(fun.myData.SiteID
 #     flush.console()
 #     # 11.2. Remove data (import)
 #     rm(data.import)
-    
-    
-#********************* 
+
+
+#*********************
     # end QC manual stuff
   #************************
-    
-    
+
+
     ##################
     # insert QC Report so runs without user intervention
     ##################
     # run with same import and export directory
     ###
-    
+
     fun.Report(strFile.SiteID
                  ,strFile.DataType
                  ,strFile.Date.Start
@@ -701,9 +830,9 @@ fun.QC <- function(fun.myData.SiteID
 #                     fun.myDir.SUB.export        <- fun.myDir.SUB.export
 #                     fun.myFile.Prefix           <- strFile.Out.Prefix
     ######################
-    
+
     ######################
-    
+
     # 11. Clean up
     # 11.1. Inform user of progress and update LOG
     myMsg <- "COMPLETE"
@@ -731,7 +860,7 @@ fun.QC <- function(fun.myData.SiteID
 # # # ######################################################################
 # # # # QC
 # fun.data.import                 <- data.import
-# fun.myField.Data                <- myName.WaterLevel 
+# fun.myField.Data                <- myName.WaterLevel
 # fun.myThresh.Gross.Fail.Hi      <- myThresh.Gross.Fail.Hi.WaterLevel
 # fun.myThresh.Gross.Fail.Lo      <- myThresh.Gross.Fail.Lo.WaterLevel
 # fun.myThresh.Gross.Suspect.Hi   <- myThresh.Gross.Suspect.Hi.WaterLevel
@@ -752,7 +881,7 @@ fun.QC <- function(fun.myData.SiteID
 # input is a single data field and the thresholds
 # output is a data frame (assumes data.import)
 # reuses items from this script and calling script.  Not a stand alone function
-# 
+#
 ####
 # @param fun.data.import data frame to perform QC
 # @param fun.myField.Data data field
@@ -774,16 +903,16 @@ fun.QC <- function(fun.myData.SiteID
 # @export
 fun.CalcQCStats <- function(fun.data.import
                             ,fun.myField.Data
-                            ,fun.myThresh.Gross.Fail.Hi     
-                            ,fun.myThresh.Gross.Fail.Lo    
-                            ,fun.myThresh.Gross.Suspect.Hi 
-                            ,fun.myThresh.Gross.Suspect.Lo 
-                            ,fun.myThresh.Spike.Hi         
-                            ,fun.myThresh.Spike.Lo         
-                            ,fun.myThresh.RoC.SD.period    
-                            ,fun.myThresh.RoC.SD.number      
-                            ,fun.myThresh.Flat.Hi          
-                            ,fun.myThresh.Flat.Lo            
+                            ,fun.myThresh.Gross.Fail.Hi
+                            ,fun.myThresh.Gross.Fail.Lo
+                            ,fun.myThresh.Gross.Suspect.Hi
+                            ,fun.myThresh.Gross.Suspect.Lo
+                            ,fun.myThresh.Spike.Hi
+                            ,fun.myThresh.Spike.Lo
+                            ,fun.myThresh.RoC.SD.period
+                            ,fun.myThresh.RoC.SD.number
+                            ,fun.myThresh.Flat.Hi
+                            ,fun.myThresh.Flat.Lo
                             ,fun.myThresh.Flat.Tolerance) {##FUN.fun.CalcQCStats.START
   #
   # A.1. Calc, SD Time Interval
@@ -807,7 +936,7 @@ fun.CalcQCStats <- function(fun.data.import
   myCalc <- "SD"
   myField <- paste(fun.myField.Data,myCalc,sep=".")
   #myField.T2 <- myName.DateTime
-#   ################
+#   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #   # calc SD
 #   #
 #   #a <- fun.data.import[,myName.WaterTemp]
@@ -816,9 +945,9 @@ fun.CalcQCStats <- function(fun.data.import
 #   #sd(a,na.rm=TRUE)
 #   #
 #   fun.data.import[,myField] <- sd(fun.data.import[,fun.myField.Data][fun.data.import[,myName.DateTime]<="2014-04-22 10:00:00" & fun.data.import[,myName.DateTime]>="2014-01-13 11:00:00"],na.rm=TRUE)
-  
-  
-# ###################################################  
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ## zoo version with rollapply
   # need at least 5 records
   if(nrow(fun.data.import)<5) {##IF.nrow.START
@@ -829,8 +958,11 @@ fun.CalcQCStats <- function(fun.data.import
     stop(myMsg)
   }##IF.1.END
   # get interval distance (will crash if less than 5 records)
-  myT.diff <- difftime(fun.data.import[5,ContData.env$myName.DateTime],fun.data.import[4,ContData.env$myName.DateTime],units="mins")
-  myT.diff[[1]]
+  # myT.diff <- difftime(fun.data.import[5,ContData.env$myName.DateTime],fun.data.import[4,ContData.env$myName.DateTime],units="mins")
+  # myT.diff[[1]]
+  # use median of all (no lower limit)
+  myT.diff.all <- difftime(fun.data.import[,ConData.env$myName.DateTime],fun.data.import[,ContData.env$myName.DateTime],units="mins")
+  myT.diff <- median(as.vector(myT.diff.all))
   # convert DateTime to POSIX object (already done above)
   #myT <- strptime(fun.data.import[,myName.DateTime],format=myFormat.DateTime)
   # A.2. Use data "as is"
@@ -851,18 +983,18 @@ fun.CalcQCStats <- function(fun.data.import
   rm(myT)
   rm(zoo.data)
   rm(RollSD)
-#   
-# ###################################################
-  
-  
-#   ################
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+#   #~~~~~~~~~~~~~
 #   # slow but works (~10 seconds for 5k records)
 #   # *******need to change to sapply***********
 #   for (m in 1:nrow(fun.data.import)) {
 # #     print(m)
 # #     flush.console()
 #     fun.data.import[m,myField] <- sd(fun.data.import[,fun.myField.Data][
-#         fun.data.import[,myName.DateTime]<=fun.data.import[m,myName.DateTime] 
+#         fun.data.import[,myName.DateTime]<=fun.data.import[m,myName.DateTime]
 #         & fun.data.import[,myName.DateTime]>=fun.data.import[m,myField.T1]
 #         ],na.rm=TRUE)
 #   }
@@ -917,13 +1049,13 @@ fun.CalcQCStats <- function(fun.data.import
     # data < 0 (i.e., negative) = 4 (fail)
     fun.data.import[,myField][fun.data.import[,fun.myField.Data] < 0] <- ContData.env$myFlagVal.Fail
     # otherwise flag = 1 (pass)
-    fun.data.import[,myField][fun.data.import[,myField]==ContData.env$myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass 
+    fun.data.import[,myField][fun.data.import[,myField]==ContData.env$myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass
   # different test for discharge
   } else if(fun.myField.Data==ContData.env$myName.Discharge) {
     # data < 0 (i.e., negative) = 4 (fail)
     fun.data.import[,myField][fun.data.import[,fun.myField.Data] < 0] <- ContData.env$myFlagVal.Fail
     # otherwise flag = 1 (pass)
-    fun.data.import[,myField][fun.data.import[,myField]==ContData.env$myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass 
+    fun.data.import[,myField][fun.data.import[,myField]==ContData.env$myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass
   } else {
     # data >= Suspect.Hi then flag = 3 (suspect)
     fun.data.import[,myField][fun.data.import[,fun.myField.Data] >= fun.myThresh.Gross.Suspect.Hi] <- ContData.env$myFlagVal.Suspect
@@ -934,7 +1066,7 @@ fun.CalcQCStats <- function(fun.data.import
     # data <= Fail.Lo then flag = 4 (fail)
     fun.data.import[,myField][fun.data.import[,fun.myField.Data] <= fun.myThresh.Gross.Fail.Lo] <- ContData.env$myFlagVal.Fail
     # otherwise flag = 1 (pass)
-    fun.data.import[,myField][fun.data.import[,myField]==ContData.env$myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass  
+    fun.data.import[,myField][fun.data.import[,myField]==ContData.env$myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass
   }##IF.Gross.WaterLevel.END
   # QC
   #table(fun.data.import[,myField])
@@ -1049,5 +1181,3 @@ fun.CalcQCStats <- function(fun.data.import
 # leave code "as is"
 # Not removing data but flagging.
 # Had found some cases with WaterLevel equal to 0.1 and not getting the correct T/F.
-
-

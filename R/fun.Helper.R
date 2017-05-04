@@ -1,10 +1,10 @@
 # Helper Functions
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Erik.Leppo@tetratech.com (EWL)
 # 20150805
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Status Message
-# 
+#
 # Reports progress back to the user in the console.
 # @param fun.status Date, Time, or DateTime data
 # @param fun.item.num.current current item
@@ -18,12 +18,12 @@
 # @export
 fun.Msg.Status <- function(fun.status, fun.item.num.current, fun.item.num.total, fun.item.name) { ## FUNCTION.START
   print(paste("Processing item ",fun.item.num.current," of ",fun.item.num.total,", ",fun.status,", ",fun.item.name,".",sep=""))
-} ## FUNCTION.END 
-###################
+} ## FUNCTION.END
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Log write
-# 
+#
 # Writes status information to a log file.
-# 
+#
 # @param fun.Log information to write to log
 # @param fun.Date current date (YYYYMMDD)
 # @param fun.Time current time (HHMMSS)
@@ -37,11 +37,11 @@ fun.Msg.Status <- function(fun.status, fun.item.num.current, fun.item.num.total,
 fun.write.log <- function(fun.Log,fun.Date,fun.Time) {#FUNCTION.START
   write.table(fun.Log,file=paste("LOG.Items.",fun.Date,".",fun.Time,".tab",sep=""),sep="\t",row.names=FALSE,col.names=TRUE)
 }#FUNCTION.END
-###################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Required field check
-# 
+#
 # Checks a data frame for required fields.  Gives an error message and stops the process if fields are not present.
-# 
+#
 # @param fun.names required names
 # @param fun.File file to check
 # @examples
@@ -52,14 +52,14 @@ fun.write.log <- function(fun.Log,fun.Date,fun.Time) {#FUNCTION.START
 # Required fields: myName.SiteID & (myName.DateTime | (myName.Date & myName.Time))
 # @export
 fun.QC.ReqFlds <- function(fun.names,fun.File) {##FUNCTION.fun.QC.ReqFlds.START
-  #### QC
+  ### QC
 #   fun.names <- names(data.import)
 #   fun.File <- paste(myDir.data.import,strFile,sep="/")
-  #####
+  ####
   # SiteID
   if(ContData.env$myName.SiteID%in%fun.names==FALSE) {##IF.1.START
     myMsg <- paste("\n
-      The SiteID column name (",ContData.env$myName.SiteID,") is mispelled or missing from your data file. 
+      The SiteID column name (",ContData.env$myName.SiteID,") is mispelled or missing from your data file.
       The scripts will not work properly until you change the SiteID variable 'myName.SiteID' in the script 'UserDefinedValue.R' or modify your file.
        \n
       File name and path:
@@ -90,11 +90,11 @@ fun.QC.ReqFlds <- function(fun.names,fun.File) {##FUNCTION.fun.QC.ReqFlds.START
   }##IF.2.END
   #
 }##FUNCTION.fun.QC.ReqFlds.END
-###################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Date and Time QC
-# 
+#
 # Subroutine to check a data frame for dates
-# 
+#
 # @param fun.df data frame to check
 # @examples
 # #Not intended to be accessed indepedantly.
@@ -107,15 +107,15 @@ fun.QC.ReqFlds <- function(fun.names,fun.File) {##FUNCTION.fun.QC.ReqFlds.START
 ###
 # QC
 #fun.df <- data.import
-######
+####
 # @export
 fun.QC.datetime <- function(fun.df){##FUNCTION.fun.QC.datetime.START
   #
   # 5.  QC Date and Time fields
   #
-  ############
+  ###
   # may have to tinker with for NA fields
-  ##############
+  ###
   # get format - if all data NA then get an error
   #
   # backfill first?
@@ -192,11 +192,11 @@ fun.QC.datetime <- function(fun.df){##FUNCTION.fun.QC.datetime.START
   fun.df[,myField][!is.na(fun.df[,myField])] <- format(strptime(fun.df[,myField][!is.na(fun.df[,myField])],format=myFormat.In)
                                                                  ,format=myFormat.Out)
   #   # strptime adds the timezome but drops it when added back to data.import (using format)
-  #   #######################################################
+  #   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   #   # doesn't work anymore, worked when first line was NA
-  #   #######################################################
+  #   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   #   data.import <- y
-  #   x<-data.import[,myField][!is.na(data.import[,myField])] 
+  #   x<-data.import[,myField][!is.na(data.import[,myField])]
   #   (z<-x[2])
   #   (a <- strptime(z,format=myFormat.In))
   #   (b <- strptime(x,format=myFormat.In))
@@ -262,3 +262,30 @@ fun.QC.datetime <- function(fun.df){##FUNCTION.fun.QC.datetime.START
   return(fun.df)
   #
 }##FUNCTION.fun.QC.datetime.END
+#
+# check for offset data collection times
+#
+# Checks if data (e.g., air and water) are recorded at different timings (e.g., air at x:12 and water at x:17).
+# Checks for single data types.  Then if case-wise remove NA and have no records.
+# @param myDF data frame to check
+# @param myDataType type of data (Air, Water, AW, Gage, AWG, AG, WG)
+# @param myFld.Data data fields to check
+# @param myFld.DateTime date time field; defaults to ContData.env$myName.DateTime
+fun.OffsetCollectionCheck <- function(myDF, myDataType, myFld.Data, myFld.DateTime=ContData.env$myName.DateTime) {##FUNCTION.fun.OffsetCollectionCheck.START
+  # Skip if a single data type
+  if (tolower(myDataType) %in% c("air","water","gage") == FALSE) {##IF.START
+    # data fields
+    #myDataFields <- c("Water.BP.psi", "Water.Temp.C", "Air.BP.psi", "Water.Level.ft", "Air.Temp.C" )
+    myDF.NAomit <- na.omit(myDF[,myFld.Data])
+    if (nrow(myDF.NAomit)==0) {##IF.nrow.START
+      print("Offset collection times between data fields.  Need different analysis routine for this data.")
+      flush.console()
+    }##IF.nrow.END
+    #
+  }##IF.END
+  #
+}##FUNCTION.fun.OffsetCollectionCheck.END
+
+
+
+

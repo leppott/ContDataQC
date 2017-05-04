@@ -1,5 +1,5 @@
 #' Generate Reports
-#' 
+#'
 #' Subfunction for generating Word reports.  Needs to be called from ContDataQC().
 #' Requires knitr() and pandoc.
 #' Different reports (in Word) are created using the RMD files in this package depending on the input fun.myFile.Prefix.
@@ -34,7 +34,7 @@
 # # 3. Pandoc, convert MD to DOCX
 # pandoc(report.md,-0,"report.docx")
 # ##############################
-# 20150302, Change function to "Report" 
+# 20150302, Change function to "Report"
 # QC / Aggregate
 #' @param fun.myData.SiteID Station/SiteID.
 #' @param fun.myData.Type data type; c("Air","Water","AW","Gage","AWG","AG","WG")
@@ -82,7 +82,7 @@ fun.Report <- function(fun.myData.SiteID
     strFile = paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
     strFile.Base <- substr(strFile,1,nchar(strFile)-nchar(".csv"))
     strFile.parts <- strsplit(strFile.Base,ContData.env$myDelim)
-   
+
     #QC, make sure file exists
     if(strFile %in% list.files(path=myDir.data.import)==FALSE) {##IF.file.START
       #
@@ -93,11 +93,11 @@ fun.Report <- function(fun.myData.SiteID
       stop("Bad file.")
       #
     }##IF.file.END
-    
-    #import the file    
+
+    #import the file
     data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings="")
-    
-    
+
+
     # pick 'report' based on prefix
     myPkg <- "ContDataQC"
     if (strFile.Prefix=="QC") {##IF.strFile.Prefix.START
@@ -107,24 +107,26 @@ fun.Report <- function(fun.myData.SiteID
     } else if (strFile.Prefix=="STATS") {
       myReport.Name <- "Report_Stats"
     }
-    
-    #RStudio help solution 
+
+    #RStudio help solution
     # use RMD with embedded code
     # much cleaner DOCX than the 2-step process of MD with knit to RMD with pandoc
     #strFile.RMD <- paste(myDir.BASE,"Scripts",paste(myReport.Name,"rmd",sep="."),sep="/") #"QCReport.rmd"
     strFile.RMD <- system.file(paste0("rmd/",myReport.Name,".rmd"),package=myPkg)
     strFile.DOCX <- paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,myReport.Name,sep=ContData.env$myDelim),".docx",sep="")
-    rmarkdown::render(strFile.RMD,output_file=strFile.DOCX,output_dir=paste(fun.myDir.BASE,fun.myDir.SUB.export,sep="/"))
-    
-    
+    #suppressWarnings(
+      rmarkdown::render(strFile.RMD,output_file=strFile.DOCX,output_dir=paste(fun.myDir.BASE,fun.myDir.SUB.export,sep="/"),quiet=TRUE)
+    #)
+
+
     #######################################################################
-    
+
     # Clean up
     rm(data.import)
     rm(data.plot)
     #
 
-  
+
   ###########################################################################
   #
   #print(paste("Processing of ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
@@ -140,6 +142,6 @@ fun.Report <- function(fun.myData.SiteID
   flush.console()
   #
 }##FUN.Report.END
-  
+
 
 

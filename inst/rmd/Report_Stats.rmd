@@ -18,7 +18,10 @@ output: word_document
   
   cat(paste("**Period of Record, Requested:** ",fun.myData.DateRange.Start," to ",fun.myData.DateRange.End,sep="",collapse="\n\n"))
        
-  myTimeDiff <- difftime(data.import[11,ContData.env$myName.DateTime],data.import[10,ContData.env$myName.DateTime],units="mins")
+  # myTimeDiff <- difftime(data.import[11,ContData.env$myName.DateTime],data.import[10,ContData.env$myName.DateTime],units="mins")
+  myTimeDiff.all <- difftime(data.import[,ConData.env$myName.DateTime],data.import[,ContData.env$myName.DateTime],units="mins")
+  myTimeDiff <- median(as.vector(myTimeDiff.all))
+  
   cat(paste("\n\n**Period of Record, Actual:** ",min(data.import[,myName.Date])," to ",max(data.import[,myName.Date]),"\n\n",sep=""))
        
   cat(paste("**Recording Interval:** ",myTimeDiff[1]," minutes\n\n",sep=""))

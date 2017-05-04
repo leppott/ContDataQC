@@ -2,20 +2,37 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-03-08 08:11:32
+    #> Last Update: 2017-05-04 15:38:14
 
 Version history.
 
 Planned Updates
 ===============
 
--   Change WaterLevel to GageHeight. Used terminology from test files during development but Gage Height is the more proper term. 20170308.
+-   Add 1 *more* parameter (GageHeight). 20170323. On hold.
 
--   Spell out "AW"" and other abbreviations (e.g., AirWater). 20170308.
+-   Change WaterLevel to SensorDepth. 20170308/23. On hold
+
+-   Spell out "AW"" and other abbreviations (e.g., AirWater). 20170308. On hold.
 
 -   When Air and Water measurements are at different times the plots aren't working. 20170308.
 
--   Gaps in data not always evident in the plots. 20170308.
+-   Gaps in data not always evident in the plots. Related to the above. 20170308.
+
+v2.0.1.0002
+===========
+
+2017-05-04
+
+-   Corrected error in Julian Day (0:364 instead of 1:365). Fixed in fun.Stats.R (line 131) by adding "+1". 20170320.
+
+-   Added 5 parameters (Conductivity, Dissolved Oxygen, pH, Turbidity, and Chrlorphyl a) to those that can be evaluated. Changes made to env.UserDefinedValues.R and fun.QC.R. 20170323.
+
+-   Renamed env.UserDefinedValues.R to config.R. 20170421.
+
+-   Added "config" functions to load user configuration (e.g., thresholds specific to coldwater streams) \[fun.CustomConfig.R\] 20170421.
+
+-   Tweak Reports (Report\_Aggregate.RMD, Report\_QC.RMD, and Report\_Stats.RMD) and fun.QC.R for determining time frequency for sampling. Was using interval for 10th and 11th samples (or 4th and 5th in fun.QC.R). Now using median of all time differences. Will always work as long as have at least 1 sample. Previously could fail with less than 5 samples (or 11).
 
 v2.0.1.0001
 ===========
