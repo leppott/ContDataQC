@@ -26,7 +26,7 @@
 # save QCed data file
 #
 # 20160208
-# WaterLevel - Gross is only negative, Flat = remove
+# SensorDepth - Gross is only negative, Flat = remove
 # 20160303
 # Rolling SD.  Use "zoo" and rollapply.  Loop too slow for large/dense data sets.
 # (will crash if less than 5 records so added "stop")
@@ -523,9 +523,9 @@ fun.QC <- function(fun.myData.SiteID
       #
     }##IF.myField.END
     #
-    # 6.05. WaterLevel
-    myField <- ContData.env$myName.WaterLevel
-    myMsg.data <- "WaterLevel"
+    # 6.05. SensorDepth
+    myField <- ContData.env$myName.SensorDepth
+    myMsg.data <- "SensorDepth"
     myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
     myItems.Complete <- myItems.Complete + 1
     myItems.Log[intCounter,2] <- myMsg
@@ -535,17 +535,17 @@ fun.QC <- function(fun.myData.SiteID
       #
       data.import <- fun.CalcQCStats(data.import
                                   ,myField
-                                  ,ContData.env$myThresh.Gross.Fail.Hi.WaterLevel
-                                  ,ContData.env$myThresh.Gross.Fail.Lo.WaterLevel
-                                  ,ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel
-                                  ,ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel
-                                  ,ContData.env$myThresh.Spike.Hi.WaterLevel
-                                  ,ContData.env$myThresh.Spike.Lo.WaterLevel
-                                  ,ContData.env$myThresh.RoC.SD.period.WaterLevel
-                                  ,ContData.env$myThresh.RoC.SD.number.WaterLevel
-                                  ,ContData.env$myThresh.Flat.Hi.WaterLevel
-                                  ,ContData.env$myThresh.Flat.Lo.WaterLevel
-                                  ,ContData.env$myThresh.Flat.Tolerance.WaterLevel)
+                                  ,ContData.env$myThresh.Gross.Fail.Hi.SensorDepth
+                                  ,ContData.env$myThresh.Gross.Fail.Lo.SensorDepth
+                                  ,ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth
+                                  ,ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth
+                                  ,ContData.env$myThresh.Spike.Hi.SensorDepth
+                                  ,ContData.env$myThresh.Spike.Lo.SensorDepth
+                                  ,ContData.env$myThresh.RoC.SD.period.SensorDepth
+                                  ,ContData.env$myThresh.RoC.SD.number.SensorDepth
+                                  ,ContData.env$myThresh.Flat.Hi.SensorDepth
+                                  ,ContData.env$myThresh.Flat.Lo.SensorDepth
+                                  ,ContData.env$myThresh.Flat.Tolerance.SensorDepth)
       #
     }##IF.myField.END
     #
@@ -860,18 +860,18 @@ fun.QC <- function(fun.myData.SiteID
 # # # ######################################################################
 # # # # QC
 # fun.data.import                 <- data.import
-# fun.myField.Data                <- myName.WaterLevel
-# fun.myThresh.Gross.Fail.Hi      <- myThresh.Gross.Fail.Hi.WaterLevel
-# fun.myThresh.Gross.Fail.Lo      <- myThresh.Gross.Fail.Lo.WaterLevel
-# fun.myThresh.Gross.Suspect.Hi   <- myThresh.Gross.Suspect.Hi.WaterLevel
-# fun.myThresh.Gross.Suspect.Lo   <- myThresh.Gross.Suspect.Lo.WaterLevel
-# fun.myThresh.Spike.Hi           <- myThresh.Spike.Hi.WaterLevel
-# fun.myThresh.Spike.Lo           <- myThresh.Spike.Lo.WaterLevel
-# fun.myThresh.RoC.SD.period      <- myThresh.RoC.SD.period.WaterLevel
-# fun.myThresh.RoC.SD.number      <- myThresh.RoC.SD.number.WaterLevel
-# fun.myThresh.Flat.Hi            <- myThresh.Flat.Hi.WaterLevel
-# fun.myThresh.Flat.Lo            <- myThresh.Flat.Lo.WaterLevel
-# fun.myThresh.Flat.Tolerance     <- myThresh.Flat.Tolerance.WaterLevel
+# fun.myField.Data                <- myName.SensorDepth
+# fun.myThresh.Gross.Fail.Hi      <- myThresh.Gross.Fail.Hi.SensorDepth
+# fun.myThresh.Gross.Fail.Lo      <- myThresh.Gross.Fail.Lo.SensorDepth
+# fun.myThresh.Gross.Suspect.Hi   <- myThresh.Gross.Suspect.Hi.SensorDepth
+# fun.myThresh.Gross.Suspect.Lo   <- myThresh.Gross.Suspect.Lo.SensorDepth
+# fun.myThresh.Spike.Hi           <- myThresh.Spike.Hi.SensorDepth
+# fun.myThresh.Spike.Lo           <- myThresh.Spike.Lo.SensorDepth
+# fun.myThresh.RoC.SD.period      <- myThresh.RoC.SD.period.SensorDepth
+# fun.myThresh.RoC.SD.number      <- myThresh.RoC.SD.number.SensorDepth
+# fun.myThresh.Flat.Hi            <- myThresh.Flat.Hi.SensorDepth
+# fun.myThresh.Flat.Lo            <- myThresh.Flat.Lo.SensorDepth
+# fun.myThresh.Flat.Tolerance     <- myThresh.Flat.Tolerance.SensorDepth
 # # # ####################################################################
 
 ########################
@@ -1045,7 +1045,7 @@ fun.CalcQCStats <- function(fun.data.import
   # data is NA then flag = 9 (missing data)
   fun.data.import[,myField][is.na(fun.data.import[,fun.myField.Data])==TRUE] <- ContData.env$myFlagVal.NoData
   # different test for water level, only if negative
-  if(fun.myField.Data==ContData.env$myName.WaterLevel) {##IF.Gross.WaterLevel.START
+  if(fun.myField.Data==ContData.env$myName.SensorDepth) {##IF.Gross.SensorDepth.START
     # data < 0 (i.e., negative) = 4 (fail)
     fun.data.import[,myField][fun.data.import[,fun.myField.Data] < 0] <- ContData.env$myFlagVal.Fail
     # otherwise flag = 1 (pass)
@@ -1067,7 +1067,7 @@ fun.CalcQCStats <- function(fun.data.import
     fun.data.import[,myField][fun.data.import[,fun.myField.Data] <= fun.myThresh.Gross.Fail.Lo] <- ContData.env$myFlagVal.Fail
     # otherwise flag = 1 (pass)
     fun.data.import[,myField][fun.data.import[,myField]==ContData.env$myFlagVal.NotEval] <- ContData.env$myFlagVal.Pass
-  }##IF.Gross.WaterLevel.END
+  }##IF.Gross.SensorDepth.END
   # QC
   #table(fun.data.import[,myField])
   #
@@ -1180,4 +1180,4 @@ fun.CalcQCStats <- function(fun.data.import
 ############################
 # leave code "as is"
 # Not removing data but flagging.
-# Had found some cases with WaterLevel equal to 0.1 and not getting the correct T/F.
+# Had found some cases with SensorDepth equal to 0.1 and not getting the correct T/F.

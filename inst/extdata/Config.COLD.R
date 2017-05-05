@@ -45,7 +45,7 @@ ContData.env <- new.env(parent = emptyenv())
 # ContData.env$myUnits.WaterTemp  <- ContData.env$myUnits.AirTemp
 # ContData.env$myUnits.AirBP      <- "psi"
 # ContData.env$myUnits.WaterP     <- ContData.env$myUnits.AirBP
-# ContData.env$myUnits.WaterLevel <- "ft"
+# ContData.env$myUnits.SensorDepth <- "ft"
 # ContData.env$myUnits.Discharge  <- "ft3.s"
 # ## Air and Water
 # ContData.env$myName.SiteID        <- "SiteID"
@@ -62,7 +62,7 @@ ContData.env <- new.env(parent = emptyenv())
 # ContData.env$myName.AirTemp       <- paste("Air.Temp.",ContData.env$myUnits.AirTemp,sep="")   # "deg" from HoboWare files sometimes adds "A " in front.  Replace with "." in R.
 # ContData.env$myName.WaterP        <- paste("Water.BP.",ContData.env$myUnits.WaterP,sep="")
 # ContData.env$myName.AirBP         <- paste("Air.BP.",ContData.env$myUnits.WaterP,sep="")
-# ContData.env$myName.WaterLevel    <- paste("Water.Level.",ContData.env$myUnits.WaterLevel,sep="")
+# ContData.env$myName.SensorDepth    <- paste("Water.Level.",ContData.env$myUnits.SensorDepth,sep="")
 # ContData.env$myName.Discharge     <- paste("Discharge.",ContData.env$myUnits.Discharge,sep="")
 # ## plot labels
 # ContData.env$myLab.WaterTemp      <- paste("Temperature, Water (deg ",ContData.env$myUnits.WaterTemp,")",sep="")
@@ -71,7 +71,7 @@ ContData.env <- new.env(parent = emptyenv())
 # ContData.env$myLab.DateTime       <- "Date"
 # ContData.env$myLab.WaterP         <- paste("Pressure<- Water (",ContData.env$myUnits.AirBP,")",sep="")
 # ContData.env$myLab.AirBP          <- paste("Barometric Pressure, Air (",ContData.env$myUnits.WaterP,")",sep="")
-# ContData.env$myLab.WaterLevel     <- paste("Water Level (",ContData.env$myUnits.WaterLevel,")",sep="")
+# ContData.env$myLab.SensorDepth     <- paste("Water Level (",ContData.env$myUnits.SensorDepth,")",sep="")
 # ContData.env$myLab.Temp.BOTH      <- paste("Temperature (deg ",ContData.env$myUnits.WaterTemp,")",sep="")
 # ContData.env$myLab.Discharge      <- paste("Discharge (ft3/s)")
 # #####################################################################
@@ -82,14 +82,14 @@ ContData.env <- new.env(parent = emptyenv())
 # ContData.env$myName.Discrete.AirTemp    <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.AirTemp,sep=".")
 # ContData.env$myName.Discrete.WaterP     <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterP,sep=".")
 # ContData.env$myName.Discrete.AirBP      <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.AirBP,sep=".")
-# ContData.env$myName.Discrete.WaterLevel <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterLevel,sep=".")
+# ContData.env$myName.Discrete.SensorDepth <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.SensorDepth,sep=".")
 # ContData.env$myName.Discrete.Discharge  <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.Discharge,sep=".")
 # # Discrete, Labels
 # ContData.env$myLab.Discrete.WaterTemp   <- paste(ContData.env$myLab.WaterTemp,"(Discrete)",sep=" ")
 # ContData.env$myLab.Discrete.AirTemp     <- paste(ContData.env$myLab.AirTemp,"(Discrete)",sep=" ")
 # ContData.env$myLab.Discrete.WaterP      <- paste(ContData.env$myLab.WaterP,"(Discrete)",sep=" ")
 # ContData.env$myLab.Discrete.AirBP       <- paste(ContData.env$myLab.AirBP,"(Discrete)",sep=" ")
-# ContData.env$myLab.Discrete.WaterLevel  <- paste(ContData.env$myLab.WaterLevel,"(Discrete)",sep=" ")
+# ContData.env$myLab.Discrete.SensorDepth  <- paste(ContData.env$myLab.SensorDepth,"(Discrete)",sep=" ")
 # ContData.env$myLab.Discrete.Discharge   <- paste(ContData.env$myLab.Discharge,"(Discrete)",sep=" ")
 # #####################################################################
 # # Automated QC stuff
@@ -111,26 +111,26 @@ ContData.env <- new.env(parent = emptyenv())
 #                                      , ContData.env$myName.AirTemp
 #                                      , ContData.env$myName.WaterP
 #                                      , ContData.env$myName.AirBP
-#                                      , ContData.env$myName.WaterLevel
+#                                      , ContData.env$myName.SensorDepth
 #                                      , ContData.env$myName.Discharge
 #                                      , ContData.env$myName.Discrete.WaterTemp
 #                                      , ContData.env$myName.Discrete.AirTemp
 #                                      , ContData.env$myName.Discrete.WaterP
 #                                      , ContData.env$myName.Discrete.AirBP
-#                                      , ContData.env$myName.Discrete.WaterLevel
+#                                      , ContData.env$myName.Discrete.SensorDepth
 #                                      , ContData.env$myName.Discrete.Discharge)
 #
 # ContData.env$myNames.DataFields.Lab <- c(ContData.env$myLab.WaterTemp
 #                                          , ContData.env$myLab.AirTemp
 #                                          , ContData.env$myLab.WaterP
 #                                          , ContData.env$myLab.AirBP
-#                                          , ContData.env$myLab.WaterLevel
+#                                          , ContData.env$myLab.SensorDepth
 #                                          , ContData.env$myLab.Discharge
 #                                          , ContData.env$myLab.Discrete.WaterTemp
 #                                          , ContData.env$myLab.Discrete.AirTemp
 #                                          , ContData.env$myLab.Discrete.WaterP
 #                                          , ContData.env$myLab.Discrete.AirBP
-#                                          , ContData.env$myLab.Discrete.WaterLevel
+#                                          , ContData.env$myLab.Discrete.SensorDepth
 #                                          , ContData.env$myLab.Discrete.Discharge)
 #
 # ContData.env$myNames.DataFields.Col <- c("blue","green","gray","gray","black","brown")
@@ -146,7 +146,7 @@ ContData.env <- new.env(parent = emptyenv())
 #                                 , ContData.env$myName.AirTemp
 #                                 , ContData.env$myName.WaterP
 #                                 , ContData.env$myName.AirBP
-#                                 , ContData.env$myName.WaterLevel
+#                                 , ContData.env$myName.SensorDepth
 #                                 , ContData.env$myName.LoggerID.Water
 #                                 , ContData.env$myName.RowID.Water
 #                                 , ContData.env$myName.Discharge
@@ -154,7 +154,7 @@ ContData.env <- new.env(parent = emptyenv())
 #                                 , ContData.env$myName.Discrete.AirTemp
 #                                 , ContData.env$myName.Discrete.WaterP
 #                                 , ContData.env$myName.Discrete.AirBP
-#                                 , ContData.env$myName.Discrete.WaterLevel
+#                                 , ContData.env$myName.Discrete.SensorDepth
 #                                 , ContData.env$myName.Discrete.Discharge)
 #
 # ######################################################################
@@ -184,8 +184,8 @@ ContData.env$myThresh.Gross.Fail.Lo.WaterTemp  <- -2
 # ContData.env$myThresh.Gross.Fail.Lo.WaterP     <- 11
 # ContData.env$myThresh.Gross.Fail.Hi.AirBP      <- 17
 # ContData.env$myThresh.Gross.Fail.Lo.AirBP      <- 11
-# ContData.env$myThresh.Gross.Fail.Hi.WaterLevel <- 6   # no longer used (only check for negative values for WaterLevel)
-# ContData.env$myThresh.Gross.Fail.Lo.WaterLevel <- -1  # no longer used (only check for negative values for WaterLevel)
+# ContData.env$myThresh.Gross.Fail.Hi.SensorDepth <- 6   # no longer used (only check for negative values for SensorDepth)
+# ContData.env$myThresh.Gross.Fail.Lo.SensorDepth <- -1  # no longer used (only check for negative values for SensorDepth)
 # ContData.env$myThresh.Gross.Fail.Hi.Discharge  <-  10^5 #dependant upon stream size (only checkf or negative values)
 # ContData.env$myThresh.Gross.Fail.Lo.Discharge  <-  -1  #dependant upon stream size
 ## Gross Min/Max, Suspect (extreme)
@@ -197,8 +197,8 @@ ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp  <- -1
 # ContData.env$myThresh.Gross.Suspect.Lo.WaterP     <- 12
 # ContData.env$myThresh.Gross.Suspect.Hi.AirBP      <- 16
 # ContData.env$myThresh.Gross.Suspect.Lo.AirBP      <- 12
-# ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel <- 5    # no longer used (only check for negative values for WaterLevel)
-# ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel <- 0    # no longer used (only check for negative values for WaterLevel)
+# ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth <- 5    # no longer used (only check for negative values for SensorDepth)
+# ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth <- 0    # no longer used (only check for negative values for SensorDepth)
 # ContData.env$myThresh.Gross.Suspect.Hi.Discharge  <-  10^3 #dependant upon stream size (only checkf or negative values
 # ContData.env$myThresh.Gross.Suspect.Lo.Discharge  <-  -1   #dependant upon stream size
 ## Spike thresholds (absolute change)
@@ -210,8 +210,8 @@ ContData.env$myThresh.Spike.Lo.WaterTemp  <- 5
 # ContData.env$myThresh.Spike.Lo.WaterP     <- 3
 # ContData.env$myThresh.Spike.Hi.AirBP      <- 5
 # ContData.env$myThresh.Spike.Lo.AirBP      <- 3
-# ContData.env$myThresh.Spike.Hi.WaterLevel <- 5
-# ContData.env$myThresh.Spike.Lo.WaterLevel <- 3
+# ContData.env$myThresh.Spike.Hi.SensorDepth <- 5
+# ContData.env$myThresh.Spike.Lo.SensorDepth <- 3
 # ContData.env$myThresh.Spike.Hi.Discharge  <- 10^4 #dependant upon stream size
 # ContData.env$myThresh.Spike.Lo.Discharge  <- 10^3 #dependant upon stream size
 ## Rate of Change (relative change)
@@ -225,8 +225,8 @@ ContData.env$myThresh.RoC.SD.period.WaterTemp  <- ContData.env$myDefault.RoC.SD.
 # ContData.env$myThresh.RoC.SD.period.WaterP     <- ContData.env$myDefault.RoC.SD.period
 # ContData.env$myThresh.RoC.SD.number.AirBP      <- ContData.env$myDefault.RoC.SD.number
 # ContData.env$myThresh.RoC.SD.period.AirBP      <- ContData.env$myDefault.RoC.SD.period
-# ContData.env$myThresh.RoC.SD.number.WaterLevel <- ContData.env$myDefault.RoC.SD.number
-# ContData.env$myThresh.RoC.SD.period.WaterLevel <- ContData.env$myDefault.RoC.SD.period
+# ContData.env$myThresh.RoC.SD.number.SensorDepth <- ContData.env$myDefault.RoC.SD.number
+# ContData.env$myThresh.RoC.SD.period.SensorDepth <- ContData.env$myDefault.RoC.SD.period
 # ContData.env$myThresh.RoC.SD.number.Discharge  <- ContData.env$myDefault.RoC.SD.number
 # ContData.env$myThresh.RoC.SD.period.Discharge  <- ContData.env$myDefault.RoC.SD.period
 ## No Change (flat-line)
@@ -245,9 +245,9 @@ ContData.env$myThresh.Flat.Tolerance.WaterP     <- 0.001
 ContData.env$myThresh.Flat.Hi.AirBP             <- ContData.env$myDefault.Flat.Hi
 ContData.env$myThresh.Flat.Lo.AirBP             <- ContData.env$myDefault.Flat.Lo
 ContData.env$myThresh.Flat.Tolerance.AirBP      <- 0.001
-ContData.env$myThresh.Flat.Hi.WaterLevel        <- ContData.env$myDefault.Flat.Hi * 2
-ContData.env$myThresh.Flat.Lo.WaterLevel        <- ContData.env$myDefault.Flat.Lo * 2
-ContData.env$myThresh.Flat.Tolerance.WaterLevel <- 0.0
+ContData.env$myThresh.Flat.Hi.SensorDepth        <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.SensorDepth        <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.SensorDepth <- 0.0
 ContData.env$myThresh.Flat.Hi.Discharge         <- ContData.env$myDefault.Flat.Hi * 2
 ContData.env$myThresh.Flat.Lo.Discharge         <- ContData.env$myDefault.Flat.Lo * 2
 ContData.env$myThresh.Flat.Tolerance.Discharge  <- 0.01
@@ -268,7 +268,7 @@ ContData.env$myThresh.Flat.MaxComp    <- max(ContData.env$myThresh.Flat.Hi.Water
 # ContData.env$myName.Flag.AirTemp    <- paste(ContData.env$myName.Flag,ContData.env$myName.AirTemp,sep=".")
 # ContData.env$myName.Flag.WaterP     <- paste(ContData.env$myName.Flag,ContData.env$myName.WaterP,sep=".")
 # ContData.env$myName.Flag.AirBP      <- paste(ContData.env$myName.Flag,ContData.env$myName.AirBP,sep=".")
-# ContData.env$myName.Flag.WaterLevel <- paste(ContData.env$myName.Flag,ContData.env$myName.WaterLevel,sep=".")
+# ContData.env$myName.Flag.SensorDepth <- paste(ContData.env$myName.Flag,ContData.env$myName.SensorDepth,sep=".")
 # ContData.env$myName.Flag.Discharge  <- paste(ContData.env$myName.Flag,ContData.env$myName.Discharge,sep=".")
 # # Data Quality Test Names
 # ContData.env$myNames.QCTests <- c("Gross","Spike","RoC","Flat")
@@ -277,7 +277,7 @@ ContData.env$myThresh.Flat.MaxComp    <- max(ContData.env$myThresh.Flat.Hi.Water
 # # Exceedance values for stats (default to Gross-Suspect-Hi value)
 # ContData.env$myExceed.WaterTemp  <- ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp
 # ContData.env$myExceed.AirTemp    <- ContData.env$myThresh.Gross.Suspect.Hi.AirTemp
-# ContData.env$myExceed.WaterLevel <- ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel
+# ContData.env$myExceed.SensorDepth <- ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth
 # #####################################################################
 # # Date and Time Formats
 # ContData.env$myFormat.Date           <- "%Y-%m-%d"

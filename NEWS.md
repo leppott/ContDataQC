@@ -2,22 +2,29 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-05-04 15:38:14
+    #> Last Update: 2017-05-05 14:42:05
 
 Version history.
 
 Planned Updates
 ===============
 
--   Add 1 *more* parameter (GageHeight). 20170323. On hold.
-
--   Change WaterLevel to SensorDepth. 20170308/23. On hold
-
 -   Spell out "AW"" and other abbreviations (e.g., AirWater). 20170308. On hold.
 
 -   When Air and Water measurements are at different times the plots aren't working. 20170308.
 
--   Gaps in data not always evident in the plots. Related to the above. 20170308.
+-   Gaps in data not always evident in the plots. 20170308.
+
+v2.0.1.0003
+===========
+
+2017-05-05
+
+-   Change WaterLevel to SensorDepth; config.R, config\_COLD.R, Report\_Aggregate.RMD, Report\_QC.RMD, fun.QC.R, fun.Stats.R, zfunAggregateData.R. 20170505.
+
+-   Changed WaterLevel to GageHeight in fun.GageData.R and added new parameter to config.R. Added to config.R with thresholds. 20170505.
+
+-   Corrected flag names for Turbidity and Chlorophyll a; config.R. 20170505.
 
 v2.0.1.0002
 ===========

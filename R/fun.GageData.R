@@ -1,5 +1,5 @@
 #' Download USGS Gage Data
-#' 
+#'
 #' This a wrapper function for the package dataRetrieval to get USGS data.  Daily means are the default data type.
 #'
 # Erik.Leppo@tetratech.com (EWL)
@@ -19,7 +19,7 @@
 #' @param fun.myDir.SUB.import Subdirectory for import data.  If blank will use root directory.
 #' @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
 #' @param myTZ Timezone for requested gage.  Default is in env.UserDefinedValues.R.  Can also be set with Sys.timezone().
-#' @return Returns a csv file to specified directory with the requested daily mean data.  During the data retrieval a summary is output to the console. 
+#' @return Returns a csv file to specified directory with the requested daily mean data.  During the data retrieval a summary is output to the console.
 #' @keywords continuous data, USGS, gage, dataRetrieval
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
@@ -92,7 +92,7 @@ fun.GageData <- function(fun.myData.SiteID
   # 00002 Min
   # 00003 Mean (dataRetrieval default)
   # 00006 Sum
-  
+
   # Define Counters for the Loop
   intCounter <- 0
   intCounter.Stop <- length(fun.myData.SiteID)
@@ -116,7 +116,7 @@ fun.GageData <- function(fun.myData.SiteID
     #
     #data.what.Codes <- as.vector(USGS.Code.Desc[,"Code"][data.what.uv[,"parameter_nm"]%in%USGS.Code.Desc$Desc])
     data.what.Codes <- data.what.uv[,"parm_cd"]
-    
+
     # inform user
     cat("\n")
     print(paste("Getting available data; ",strGage,".",sep=""))
@@ -124,17 +124,17 @@ fun.GageData <- function(fun.myData.SiteID
     print(data.what.uv)
     cat("\n")
     flush.console()
-    
+
     myCode <- data.what.Codes #"00060" #c("00060","00065") # can download multiple at one time
     myStat <- "00003"  #data, not daily values
     data.myGage <- dataRetrieval::readNWISuv(strGage, myCode
                               , startDate=fun.myData.DateRange.Start, endDate=fun.myData.DateRange.End, tz=myTZ )
-    
+
     # column headers are "X_myCode_myStat"
     # can put in multipe and it only runs on those present
     data.myGage <- dataRetrieval::renameNWISColumns(data.myGage
                       ,p00060=ContData.env$myName.Discharge
-                      ,p00065=ContData.env$myName.WaterLevel
+                      ,p00065=ContData.env$myName.GageHeight
                       ,p00010=ContData.env$myName.WaterTemp
                       ,p00020=ContData.env$myName.AirTemp
                       ,p00040="pH"
@@ -143,35 +143,35 @@ fun.GageData <- function(fun.myData.SiteID
                       )
     # different data structure for dataRetrieval
     names(data.myGage)
-    
-    
+
+
     # drop columns for Agency Code and TimeZone
     myDrop <- c("agency_cd","tz_cd")
     myKeep <- names(data.myGage)[! names(data.myGage) %in% myDrop]
     data.myGage <- data.myGage[,myKeep]
     # and code column
     #data.myGage <- data.myGage[,-ncol(data.myGage.q)]
-    
+
     ##############
     # hard code only Discharge due to time limits on project
-    
+
   #   NewNames <- c(myName.SiteID,myName.DateTime,myName.Discharge,paste("_cd",myName.Discharge,sep="."))
   #   names(data.myGage) <- NewNames
-    
-  
+
+
     # replace "_Inst" with null and leave "_cd"
     names(data.myGage) <- gsub("_Inst","",names(data.myGage))
     # mod SiteID and DateTIme
     names(data.myGage)[1:2] <- c(ContData.env$myName.SiteID,ContData.env$myName.DateTime)
-    
-    
+
+
     ## Add GageID field so can retain (20160205)
     data.myGage <- cbind(GageID=strGage,data.myGage)
-    
+
     # Rework Start and End Dates to match data in file
     strFile.Date.Start  <- format(min(data.myGage[,ContData.env$myName.DateTime]),ContData.env$myFormat.Date)
     strFile.Date.End    <- format(max(data.myGage[,ContData.env$myName.DateTime]),ContData.env$myFormat.Date)
-    
+
     # 10.0. Output file
     # 10.1. Set Name
     File.Date.Start <- format(as.Date(strFile.Date.Start,ContData.env$myFormat.Date),"%Y%m%d")
@@ -196,25 +196,25 @@ fun.GageData <- function(fun.myData.SiteID
     # 11.2. Remove data
     rm(data.myGage)
   #  rm(data.myGage.gh)
-    
 
-    
+
+
   }##WHILE.END
   ######################
   # Loop through sites
   ######################
-  
+
   # inform user task complete with status
   myTime.End <- Sys.time()
-  
+
   myTime.End <- Sys.time()
   print(paste("Task COMPLETE; ",round(difftime(myTime.End,myTime.Start,units="mins"),2)," min.",sep=""))
   flush.console()
-  
+
   # encase in loop so can handle multiple SiteIDs
-  
-  
-  
+
+
+
   #
 }##FUN.fun.GageData.END
 ########################

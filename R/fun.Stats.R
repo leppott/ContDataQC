@@ -149,11 +149,11 @@ fun.Stats <- function(fun.myData.SiteID
   #
   # Loop - Parameter (n=3)
   ## Temperature (Air/Water)
-  ## Flow (WaterLevel and Discharge)
-  ## Nothing on Pressure (used to calculate waterlevel)
+  ## Flow (SensorDepth and Discharge)
+  ## Nothing on Pressure (used to calculate SensorDepth)
   # future add pH, Cond, etc from USGS gages
-  myFields.Data       <- c(ContData.env$myName.WaterTemp, ContData.env$myName.AirTemp, ContData.env$myName.WaterLevel)
-  myFields.Data.Flags <- c(ContData.env$myName.Flag.WaterTemp, ContData.env$myName.Flag.AirTemp, ContData.env$myName.Flag.WaterLevel)
+  myFields.Data       <- c(ContData.env$myName.WaterTemp, ContData.env$myName.AirTemp, ContData.env$myName.SensorDepth)
+  myFields.Data.Flags <- c(ContData.env$myName.Flag.WaterTemp, ContData.env$myName.Flag.AirTemp, ContData.env$myName.Flag.SensorDepth)
   myFields.Type       <- c("Thermal","Thermal","Hydrologic")
   myFields.Keep <- c(ContData.env$myName.SiteID
                      , ContData.env$myName.Date

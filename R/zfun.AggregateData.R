@@ -1,5 +1,5 @@
 #' Aggregate Data Files
-#' 
+#'
 #' Subfunction for aggregating or splitting data files.  Needs to be called from ContDataQC().
 #' Combines or splits files based on given data range.  Saves a new CSV in the export directory.
 #
@@ -102,11 +102,11 @@ fun.AggregateData <- function(fun.myData.SiteID
   #myItems.Log <- data.frame(cbind(myItems.ALL,NA),stringsAsFactors=FALSE)
   myItems.Log <- data.frame(ItemID=1:intItems.Total,Status=NA,ItemName=myItems.ALL)
   #
-  
-  
+
+
   # Error if no files to process or no files in dir
-  
-  
+
+
   # Start Time (used to determine run time at end)
   myTime.Start <- Sys.time()
   #
@@ -225,19 +225,19 @@ fun.AggregateData <- function(fun.myData.SiteID
     #
     #
     # QC date and time
-    # accessing files with Excel can change formats 
+    # accessing files with Excel can change formats
     # 20170116, EWL
     data.import <- fun.QC.datetime(data.import)
-    
-    
-    
+
+
+
     ######################################
     # filter data, append (if necessary), then export
     ######################################
-    
+
     # 6.0. Filter data based on Date Range
     ## "subset" can have issues.  "with" doesn't seem work using variables for colnames.
-    data.subset <- data.import[data.import[,ContData.env$myName.Date]>=fun.myData.DateRange.Start 
+    data.subset <- data.import[data.import[,ContData.env$myName.Date]>=fun.myData.DateRange.Start
                                & data.import[,ContData.env$myName.Date]<=fun.myData.DateRange.End,]
     #
     # 7.0. Append Data
@@ -315,15 +315,15 @@ fun.AggregateData <- function(fun.myData.SiteID
     # saves but if gets another one in the time range it will append as append is recycled between loop iterations
     # when gets a new data type it gets a new data.append
     # need trigger for different SiteID (won't combine across sites)
-    
-    
+
+
     ##################
     # insert QC Report so runs without user intervention
     ##################
     # run with same import and export directory & on new file
     ###
     # will run repeatedly for each subfile when aggregating
-    
+
 
         fun.Report(strFile.SiteID
                      ,strFile.DataType
@@ -345,11 +345,11 @@ fun.AggregateData <- function(fun.myData.SiteID
 #                 fun.myDir.SUB.export        <- fun.myDir.SUB.export
 #                 fun.myFile.Prefix           <- strFile.Out.Prefix
 #                 ######################
-    
-    
-    
-    
-    
+
+
+
+
+
     # 9. Clean up
     # set previous SiteID for QC check near top
     strFile.SiteID.Previous <- strFile.SiteID
@@ -365,9 +365,9 @@ fun.AggregateData <- function(fun.myData.SiteID
     #
   }##while.END
   #######################################################################
-  
-  
-  
+
+
+
   #
   print(paste("Processing of ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
   files2process[intCounter] #use for troubleshooting if get error
@@ -379,23 +379,23 @@ fun.AggregateData <- function(fun.myData.SiteID
   # User defined parameters
   print(paste("User defined parameters: SiteID (",fun.myData.SiteID,"), Data Type (",fun.myData.Type,"), Date Range (",fun.myData.DateRange.Start," to ",fun.myData.DateRange.End,").",sep=""))
   flush.console()
-  
-  
+
+
   ### may have to move to inside of loop (original code for single SiteID)
-  
-  
-  
-  
-  
+
+
+
+
+
   # QC
 #   fun.myPrefix.merge <- myPrefix.merge
 #   fun.Name.myDF.1 <- myDF.Name.1
 #   fun.Name.myDF.2 <- myDF.Name.2
 
-  
-  
-  
-  
+
+
+
+
   # Need to deal with overlapping data fields (gage and others) (merge only)
   fun.merge <- function(fun.myPrefix.merge, fun.Name.myDF.1, fun.Name.myDF.2){##FUNCTION.fun.merge.START
     #
@@ -403,7 +403,7 @@ fun.AggregateData <- function(fun.myData.SiteID
     #     fun.myPrefix.merge <- myPrefix.merge
     #     fun.Name.myDF.1    <- myDF.Name.1
     #     fun.Name.myDF.2    <- myDF.Name.2
-    #     
+    #
     # Load Files
     data.DF.1 <- read.csv(paste(myDir.data.export,fun.Name.myDF.1,sep="/"),as.is=TRUE,na.strings="")
     data.DF.2 <- read.csv(paste(myDir.data.export,fun.Name.myDF.2,sep="/"),as.is=TRUE,na.strings="")
@@ -440,12 +440,12 @@ fun.AggregateData <- function(fun.myData.SiteID
     data.merge[,ContData.env$myName.Day] <- as.POSIXlt(data.merge[,myName.Date])$mday
     # update SiteID
     data.merge[,ContData.env$myName.SiteID][is.na(data.merge[,ContData.env$myName.SiteID])] <- fun.myData.SiteID
-    
-    # sort 
+
+    # sort
     # not working in merge command
     data.merge <- data.merge[order(data.merge[,ContData.env$myName.DateTime]),,drop=FALSE]
-    
-    
+
+
     # save file
     #File.Date.Start <- format(as.Date(fun.myData.DateRange.Start,myFormat.Date),"%Y%m%d")
     #File.Date.End   <- format(as.Date(fun.myData.DateRange.End,myFormat.Date),"%Y%m%d")
@@ -483,45 +483,45 @@ fun.AggregateData <- function(fun.myData.SiteID
     #
     # plot
     data.plot <- data.merge
-    
+
     # clean up
     rm(data.merge)
     #
     rm(data.plot)
-    
+
   }##FUNCTION.fun.merge.END
   #
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
   File.Date.Start <- strftime(as.Date(fun.myData.DateRange.Start,"%Y-%m-%d"),"%Y%m%d")
   File.Date.End   <- strftime(as.Date(fun.myData.DateRange.End,"%Y-%m-%d"),"%Y%m%d")
-  
-  
-  
+
+
+
   # have counters so can keep track of files
-  
-  # myData.Type 
+
+  # myData.Type
   # strFile.DataType
   # myFileTypeNum.Air
   # myFileTypeNum.Water
-  # 
-  # 
+  #
+  #
   # DATA_Air_HRCC_20130101_20131231.csv
   # DATA_Water_HRCC_20130101_20131231.csv
-  # 
+  #
   # List both files
-  # 
+  #
   # merge and save as BOTH (AW)
-  # 
+  #
   # paste(paste("DATA",strFile.DataType,myData.SiteID,File.Date.Start,File.Date.End,sep="_"),"csv",sep=".")
-  
-  
+
+
   # Check for all Data Type  files (Air, Water, AW, Gage, AWG, AG, WG)
   # had been using "proper" to get "Air" and "Water".  So AWG=Awg, AW=Aw, AG=Ag, and WG=Wg
   # 1
@@ -546,13 +546,13 @@ fun.AggregateData <- function(fun.myData.SiteID
   files.match.num <- sum(files.match==TRUE)
   #
   # only continue if have more than one.
-  
-  
-  
+
+
+
   ###### 20160418
   # manual combination of A/W/G (auto not working properly depending on sequence)
   #  fun.myData.Type
-  
+
   if(fun.myData.Type=="Aw"){
     # Files = 1Air & 2Water = 3AW
     if(files.match[1]==TRUE & files.match[2]==TRUE & files.match[3]==FALSE){##IF.files.AW.START
@@ -565,7 +565,7 @@ fun.AggregateData <- function(fun.myData.SiteID
       # mark file complete
       myItems.Complete <- myItems.Complete + 1
       #
-    }##IF.files.WG.END 
+    }##IF.files.WG.END
   }
   #
   if (fun.myData.Type=="Ag"){
@@ -595,8 +595,8 @@ fun.AggregateData <- function(fun.myData.SiteID
       fun.merge(myPrefix.merge,myDF.Name.1,myDF.Name.2)
       # mark file complete
       myItems.Complete <- myItems.Complete + 1
-      #  
-    }##IF.files.AWG.END  
+      #
+    }##IF.files.AWG.END
   }
   #
   if(fun.myData.Type=="Wg"){
@@ -614,42 +614,42 @@ fun.AggregateData <- function(fun.myData.SiteID
     }##IF.files.WG.END
   }
   #
-  
-  
-  
+
+
+
   # 20151202
   # Quit if skipped = total
   if(myItems.Complete==0){##IF.items.START
     myMsg <- "No files with the selected attributes available to perform selected procedure.  Check to make sure there are files that match your inputs (SiteID, DataType, and Date Range).  [This is a specific error message not an R error message]."
     stop(myMsg)
   }##IF.items.END
-  
-  
+
+
   # trigger above should have caught if zero files and ended there
   if (files.match.num==1){##IF.files.match.num.START
-    myMsg <- "No other data type files exist for this SiteID and Date Range.  No combining across data types is possible." 
+    myMsg <- "No other data type files exist for this SiteID and Date Range.  No combining across data types is possible."
     # may want to continue so don't end
-    print(myMsg) #stop(myMsg) 
+    print(myMsg) #stop(myMsg)
   } else { #should be if >1
     myMsg <- "Files for multiple data types exist for this SiteID and Date Range.  These will be be combined:"
     # list out below
     print(myMsg)
     print(files.mine[files.match==TRUE])
-  }  
+  }
   flush.console()
- # 
-  
-
-  
-  
-  
-  
- 
+ #
 
 
-  
-#   
-#   
+
+
+
+
+
+
+
+
+#
+#
 #   # Files = 1Air & 4Gage = 6AG
 #   if(files.match[1]==TRUE & files.match[4]==TRUE & files.match[6]==FALSE){##IF.files.AG.START
 #     #
@@ -692,23 +692,23 @@ fun.AggregateData <- function(fun.myData.SiteID
 #     myDF.Name.2 <- Name.File.Gage
 #     # run merge function
 #     fun.merge(myPrefix.merge,myDF.Name.1,myDF.Name.2)
-#     #  
+#     #
 #   }##IF.files.AWG.END
-#   
-  
-######################################################################################  
+#
+
+######################################################################################
   # need to write subroutines for merge and plotting
   # AW has all the stuff
   # 20160206, already done (fun.merge)
   # since saving plots in QCReport shouldn't need plots here
 # Should be ok to leave in code below for merge&plot when had only Air and Water
-######################################################################################    
-  
+######################################################################################
+
 #   #
 #   # Files = 1Air & 2Water = 3AW
 #   # load files, merge, plot
 #   if((files.match[1]==TRUE & files.match[2]==TRUE & files.match[3]==FALSE) | files.match[3]==TRUE){##IF.files.AW.START
-#     
+#
 #     if(files.match[3]==FALSE) {##IF.air/water.START
 #       #
 # #       myPrefix.merge <- "Aw"
@@ -716,15 +716,15 @@ fun.AggregateData <- function(fun.myData.SiteID
 # #       myDF.Name.2 <- Name.File.Water
 # #       # run merge function
 # #       fun.merge(myPrefix.merge,myDF.Name.1,myDF.Name.2)
-#       
-# 
-#       
+#
+#
+#
 #       # Load Files
 #       data.air <- read.csv(paste(myDir.data.export,Name.File.Air,sep="/"),as.is=TRUE,na.strings="")
 #       data.water <- read.csv(paste(myDir.data.export,Name.File.Water,sep="/"),as.is=TRUE,na.strings="")
 #       # strip non-file specific columns
 #       myNames.Order.Air <- c(myName.SiteID,myName.Date,myName.Time,myName.DateTime,myName.AirTemp,myName.LoggerID.Air,myName.RowID.Air)
-#       myNames.Order.Water <-c(myName.DateTime,myName.WaterTemp,myName.WaterP,myName.AirBP,myName.WaterLevel,myName.LoggerID.Water,myName.RowID.Water)
+#       myNames.Order.Water <-c(myName.DateTime,myName.WaterTemp,myName.WaterP,myName.AirBP,myName.SensorDepth,myName.LoggerID.Water,myName.RowID.Water)
 #       # data.air <- data.air[,myNames.Order.Air]
 #       #  data.water <- data.water[,myNames.Order.Water]
 #       # merge
@@ -734,7 +734,7 @@ fun.AggregateData <- function(fun.myData.SiteID
 #       # error in date if one file is smaller than the other
 #       ###########
 #       #
-#       
+#
 #       # save file
 #       File.Date.Start <- format(as.Date(fun.myData.DateRange.Start,myFormat.Date),"%Y%m%d")
 #       File.Date.End   <- format(as.Date(fun.myData.DateRange.End,myFormat.Date),"%Y%m%d")
@@ -767,8 +767,8 @@ fun.AggregateData <- function(fun.myData.SiteID
 #       #                 fun.myDir.SUB.export        <- fun.myDir.SUB.export
 #       #                 fun.myFile.Prefix           <- strFile.Out.Prefix
 #       #                 ######################
-#       
-#       
+#
+#
 #       #
 #       print(paste("Done merging Air and Water files; ",strFile.Out,sep=""))
 #       flush.console()
@@ -781,8 +781,8 @@ fun.AggregateData <- function(fun.myData.SiteID
 #       data.AW <- read.csv(paste(myDir.data.export,Name.File.AW,sep="/"),as.is=TRUE,na.strings="")
 #       #
 #     }##IF.air/water.END
-# 
-#     
+#
+#
 #     #
 #     #
 #     data.plot <- data.AW
@@ -804,7 +804,7 @@ fun.AggregateData <- function(fun.myData.SiteID
 #       # plot (Temp, water & Temp, Air)
 #       myPlot.Y <- as.numeric(data.plot[,myName.AirTemp])
 #       myPlot.Y2 <- as.numeric(data.plot[,myName.WaterTemp])
-#       myPlot.Ylab <- myLab.Temp.BOTH 
+#       myPlot.Ylab <- myLab.Temp.BOTH
 #       plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="green", xaxt="n")
 #       axis(1,at=myAT,labels=myLab,tick=TRUE)
 #       lines(myPlot.Y2,type="l",col="blue")
@@ -827,8 +827,8 @@ fun.AggregateData <- function(fun.myData.SiteID
 #         par(oma=c(0,0,0,2))
 #         myPlot.Y <- as.numeric(data.plot[,myName.WaterTemp])
 #         myPlot.Ylab <- myLab.WaterTemp
-#         myPlot.Y2 <- as.numeric(data.plot[,myName.WaterLevel])
-#         myPlot.Y2lab <- myLab.WaterLevel
+#         myPlot.Y2 <- as.numeric(data.plot[,myName.SensorDepth])
+#         myPlot.Y2lab <- myLab.SensorDepth
 #         plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n")
 #         axis(1,at=myAT,labels=myLab,tick=TRUE)
 #         # Add 2nd y axis (2nd color is black)
@@ -839,8 +839,8 @@ fun.AggregateData <- function(fun.myData.SiteID
 #       par(par.orig) # return to original par settings
 #       #
 #       # plot (Water Level)
-#       myPlot.Y <- as.numeric(data.plot[,myName.WaterLevel])
-#       myPlot.Ylab <- myLab.WaterLevel
+#       myPlot.Y <- as.numeric(data.plot[,myName.SensorDepth])
+#       myPlot.Ylab <- myLab.SensorDepth
 #       plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="black", xaxt="n")
 #       axis(1,at=myAT,labels=myLab,tick=TRUE)
 #       #
@@ -852,7 +852,7 @@ fun.AggregateData <- function(fun.myData.SiteID
 #     print(paste("Done creating plot of Air and Water temperature; ",strFile.Out,sep=""))
 #     flush.console()
 #     #
-# 
+#
 #     rm(data.AW)
 #     #
 #   }##IF.filesmatch_both.END
@@ -900,8 +900,8 @@ fun.AggregateData <- function(fun.myData.SiteID
 #       axis(1,at=myAT,labels=myLab,tick=TRUE)
 #       #
 #       # plot (Water Level)
-#       myPlot.Y <- as.numeric(data.plot[,myName.WaterLevel])
-#       myPlot.Ylab <- myLab.WaterLevel
+#       myPlot.Y <- as.numeric(data.plot[,myName.SensorDepth])
+#       myPlot.Ylab <- myLab.SensorDepth
 #       plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="black", xaxt="n")
 #       axis(1,at=myAT,labels=myLab,tick=TRUE)
 #       #
@@ -910,8 +910,8 @@ fun.AggregateData <- function(fun.myData.SiteID
 #       par(oma=c(0,0,0,2))
 #       myPlot.Y <- as.numeric(data.plot[,myName.WaterTemp])
 #       myPlot.Ylab <- myLab.WaterTemp
-#       myPlot.Y2 <- as.numeric(data.plot[,myName.WaterLevel])
-#       myPlot.Y2lab <- myLab.WaterLevel
+#       myPlot.Y2 <- as.numeric(data.plot[,myName.SensorDepth])
+#       myPlot.Y2lab <- myLab.SensorDepth
 #       plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n")
 #       axis(1,at=myAT,labels=myLab,tick=TRUE)
 #       # Add 2nd y axis (2nd color is black)
@@ -922,8 +922,8 @@ fun.AggregateData <- function(fun.myData.SiteID
 #       par(par.orig) # return to original par settings
 #       #
 #       # plot (Water Level)
-#       myPlot.Y <- as.numeric(data.plot[,myName.WaterLevel])
-#       myPlot.Ylab <- myLab.WaterLevel
+#       myPlot.Y <- as.numeric(data.plot[,myName.SensorDepth])
+#       myPlot.Ylab <- myLab.SensorDepth
 #       plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="black", xaxt="n")
 #       axis(1,at=myAT,labels=myLab,tick=TRUE)
 #       #
@@ -935,9 +935,9 @@ fun.AggregateData <- function(fun.myData.SiteID
 #   myTime.End <- Sys.time()
 #   print(paste("Task COMPLETE; ",round(difftime(myTime.End,myTime.Start,units="mins"),2)," min.",sep=""))
 #   flush.console()
-  
+
   #
 }##FUN.Aggregate.END
-  
+
 
 

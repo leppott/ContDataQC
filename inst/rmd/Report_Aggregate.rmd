@@ -204,15 +204,15 @@ Multiparameter plots if exist in the data.
     }##IF.Temp.END
     #
     # Water, Temp vs Level
-    if (ContData.env$myName.WaterTemp %in% myParameters & ContData.env$myName.WaterLevel %in% myParameters == TRUE){##IF.Temp_Level.START
+    if (ContData.env$myName.WaterTemp %in% myParameters & ContData.env$myName.SensorDepth %in% myParameters == TRUE){##IF.Temp_Level.START
       cat("##PLOT, Water Level vs. Water Temperature \n\n")
       
       par.orig <- par(no.readonly=TRUE) # save original par settings
         par(oma=c(0,0,0,2))
         myPlot.Y <- data.plot[,ContData.env$myName.WaterTemp]
         myPlot.Ylab <- ContData.env$myLab.WaterTemp
-        myPlot.Y2 <- data.plot[,ContData.env$myName.WaterLevel]
-        myPlot.Y2lab <- ContData.env$myLab.WaterLevel
+        myPlot.Y2 <- data.plot[,ContData.env$myName.SensorDepth]
+        myPlot.Y2lab <- ContData.env$myLab.SensorDepth
         #
         #plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n")
         plot(myPlot.Y,type="p",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n",cex=0.5)
@@ -233,8 +233,8 @@ Multiparameter plots if exist in the data.
         plot(myPlot.Y2,type="p",col="black",axes=FALSE,ann=FALSE,cex=0.5)
         axis(4)
         mtext(myPlot.Y2lab,side=4,line=2.5)
-        # Add discrete, WaterLevel (only if present)
-        myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterLevel,sep=".")
+        # Add discrete, SensorDepth (only if present)
+        myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.SensorDepth,sep=".")
         if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
           data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
           data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA

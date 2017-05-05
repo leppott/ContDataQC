@@ -51,13 +51,14 @@ ContData.env$myUnits.AirTemp    <- "C" # C or F
 ContData.env$myUnits.WaterTemp  <- ContData.env$myUnits.AirTemp
 ContData.env$myUnits.AirBP      <- "psi"
 ContData.env$myUnits.WaterP     <- ContData.env$myUnits.AirBP
-ContData.env$myUnits.WaterLevel <- "ft"
+ContData.env$myUnits.SensorDepth <- "ft"
 ContData.env$myUnits.Discharge  <- "ft3.s"
 ContData.env$myUnits.Cond       <- "uS.cm"
 ContData.env$myUnits.DO         <- "mg.L"
 ContData.env$myUnits.pH         <- "SU"
 ContData.env$myUnits.Turbidity  <- "NTU"
 ContData.env$myUnits.Chlorphylla <- "g.cm3"
+ContData.env$myUnits.GageHeight <- "ft"
 ## Logger Fields
 ContData.env$myName.RowID.Water   <- "Water.RowID"
 ContData.env$myName.LoggerID.Water<- "Water.LoggerID"
@@ -68,13 +69,14 @@ ContData.env$myName.WaterTemp     <- paste0("Water.Temp.",ContData.env$myUnits.W
 ContData.env$myName.AirTemp       <- paste0("Air.Temp.",ContData.env$myUnits.AirTemp)   # "deg" from HoboWare files sometimes adds "A " in front.  Replace with "." in R.
 ContData.env$myName.WaterP        <- paste0("Water.BP.",ContData.env$myUnits.WaterP)
 ContData.env$myName.AirBP         <- paste0("Air.BP.",ContData.env$myUnits.WaterP)
-ContData.env$myName.WaterLevel    <- paste0("Water.Level.",ContData.env$myUnits.WaterLevel)
+ContData.env$myName.SensorDepth    <- paste0("Water.Level.",ContData.env$myUnits.SensorDepth)
 ContData.env$myName.Discharge     <- paste0("Discharge.",ContData.env$myUnits.Discharge)
 ContData.env$myName.Cond          <- paste0("Conductivity.",ContData.env$myUnits.Cond)
 ContData.env$myName.DO            <- paste0("DO.",ContData.env$myUnits.DO)
 ContData.env$myName.pH            <- paste0("pH.",ContData.env$myUnits.pH)
 ContData.env$myName.Turbidity     <- paste0("DO.",ContData.env$myUnits.DO)
 ContData.env$myName.Chlorphylla   <- paste0("pH.",ContData.env$myUnits.pH)
+ContData.env$myName.GageHeight    <- paste0("GageHeight",ContData.env$myUnits.GageHeight)
 ## Plot Labels
 ContData.env$myLab.WaterTemp      <- paste0("Temperature, Water (deg ",ContData.env$myUnits.WaterTemp,")")
 ContData.env$myLab.AirTemp        <- paste0("Temperature, Air (deg ",ContData.env$myUnits.AirTemp,")")
@@ -82,7 +84,7 @@ ContData.env$myLab.Date           <- "Date"
 ContData.env$myLab.DateTime       <- "Date"
 ContData.env$myLab.WaterP         <- paste0("Pressure<- Water (",ContData.env$myUnits.AirBP,")")
 ContData.env$myLab.AirBP          <- paste0("Barometric Pressure, Air (",ContData.env$myUnits.WaterP,")")
-ContData.env$myLab.WaterLevel     <- paste0("Water Level (",ContData.env$myUnits.WaterLevel,")",sep="")
+ContData.env$myLab.SensorDepth     <- paste0("Water Level (",ContData.env$myUnits.SensorDepth,")",sep="")
 ContData.env$myLab.Temp.BOTH      <- paste0("Temperature (deg ",ContData.env$myUnits.WaterTemp,")")
 ContData.env$myLab.Discharge      <- paste0("Discharge (",sub("\\.","/",ContData.env$myUnits.Discharge),")")  #replace "." with "/"
 ContData.env$myLab.Cond           <- paste0("Conductivity (",sub("\\.","/",ContData.env$myUnits.Cond),")")    #replace "." with "/"
@@ -90,6 +92,7 @@ ContData.env$myLab.DO             <- paste0("Dissolved Oxygen (",sub("\\.","/",C
 ContData.env$myLab.pH             <- paste0("pH (",ContData.env$myUnits.pH,")")
 ContData.env$myLab.Turbidity      <- paste0("Turbidity (",ContData.env$myUnits.Turbidity,")")
 ContData.env$myLab.Chlorophylla   <- paste0("Chlorophyll a (",sub("\\.","/",ContData.env$myUnits.Chlorphylla),")")    #replace "." with "/"
+ContData.env$myLab.GageHeight     <- paste0("Gage Height (",ContData.env$myUnits.GageHeight,")")
 #####################################################################
 # Discrete Measurements
 ContData.env$myPrefix.Discrete          <- "Discrete"
@@ -98,25 +101,27 @@ ContData.env$myName.Discrete.WaterTemp  <- paste(ContData.env$myPrefix.Discrete,
 ContData.env$myName.Discrete.AirTemp    <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.AirTemp,sep=".")
 ContData.env$myName.Discrete.WaterP     <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterP,sep=".")
 ContData.env$myName.Discrete.AirBP      <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.AirBP,sep=".")
-ContData.env$myName.Discrete.WaterLevel <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterLevel,sep=".")
+ContData.env$myName.Discrete.SensorDepth <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.SensorDepth,sep=".")
 ContData.env$myName.Discrete.Discharge  <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.Discharge,sep=".")
 ContData.env$myName.Discrete.Cond       <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.Cond,sep=".")
 ContData.env$myName.Discrete.DO         <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.DO,sep=".")
 ContData.env$myName.Discrete.pH         <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.pH,sep=".")
 ContData.env$myName.Discrete.Turbidity  <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.Turbidity,sep=".")
 ContData.env$myName.Discrete.Chlorophylla <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.Chlorophylla,sep=".")
+ContData.env$myName.Discrete.GageHeight <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.GageHeight,sep=".")
 # Discrete, Labels
 ContData.env$myLab.Discrete.WaterTemp   <- paste(ContData.env$myLab.WaterTemp,"(Discrete)",sep=" ")
 ContData.env$myLab.Discrete.AirTemp     <- paste(ContData.env$myLab.AirTemp,"(Discrete)",sep=" ")
 ContData.env$myLab.Discrete.WaterP      <- paste(ContData.env$myLab.WaterP,"(Discrete)",sep=" ")
 ContData.env$myLab.Discrete.AirBP       <- paste(ContData.env$myLab.AirBP,"(Discrete)",sep=" ")
-ContData.env$myLab.Discrete.WaterLevel  <- paste(ContData.env$myLab.WaterLevel,"(Discrete)",sep=" ")
+ContData.env$myLab.Discrete.SensorDepth <- paste(ContData.env$myLab.SensorDepth,"(Discrete)",sep=" ")
 ContData.env$myLab.Discrete.Discharge   <- paste(ContData.env$myLab.Discharge,"(Discrete)",sep=" ")
 ContData.env$myLab.Discrete.Cond        <- paste(ContData.env$myLab.Cond,"(Discrete)",sep=" ")
 ContData.env$myLab.Discrete.DO          <- paste(ContData.env$myLab.DO,"(Discrete)",sep=" ")
 ContData.env$myLab.Discrete.pH          <- paste(ContData.env$myLab.pH,"(Discrete)",sep=" ")
 ContData.env$myLab.Discrete.Turbidity   <- paste(ContData.env$myLab.Turbidity,"(Discrete)",sep=" ")
-ContData.env$myLab.Discrete.Chlorophylla <- paste(ContData.env$myLab.Chlorophylla,"(Discrete)",sep=" ")
+ContData.env$myLab.Discrete.Chlorophylla<- paste(ContData.env$myLab.Chlorophylla,"(Discrete)",sep=" ")
+ContData.env$myLab.Discrete.GageHeight  <- paste(ContData.env$myLab.GageHeight,"(Discrete)",sep=" ")
 #####################################################################
 # Automated QC stuff
 ## data type/stages
@@ -137,37 +142,39 @@ ContData.env$myNames.DataFields <- c(ContData.env$myName.WaterTemp
                                      , ContData.env$myName.AirTemp
                                      , ContData.env$myName.WaterP
                                      , ContData.env$myName.AirBP
-                                     , ContData.env$myName.WaterLevel
+                                     , ContData.env$myName.SensorDepth
                                      , ContData.env$myName.Discharge
                                      , ContData.env$myName.Discrete.WaterTemp
                                      , ContData.env$myName.Discrete.AirTemp
                                      , ContData.env$myName.Discrete.WaterP
                                      , ContData.env$myName.Discrete.AirBP
-                                     , ContData.env$myName.Discrete.WaterLevel
+                                     , ContData.env$myName.Discrete.SensorDepth
                                      , ContData.env$myName.Discrete.Discharge
                                      , ContData.env$myName.Discrete.Cond
                                      , ContData.env$myName.Discrete.DO
                                      , ContData.env$myName.Discrete.pH
                                      , ContData.env$myName.Discrete.Turbidity
                                      , ContData.env$myName.Discrete.Chlorophylla
+                                     , ContData.env$myName.Discrete.GageHeight
                                      )
 ContData.env$myNames.DataFields.Lab <- c(ContData.env$myLab.WaterTemp
                                          , ContData.env$myLab.AirTemp
                                          , ContData.env$myLab.WaterP
                                          , ContData.env$myLab.AirBP
-                                         , ContData.env$myLab.WaterLevel
+                                         , ContData.env$myLab.SensorDepth
                                          , ContData.env$myLab.Discharge
                                          , ContData.env$myLab.Discrete.WaterTemp
                                          , ContData.env$myLab.Discrete.AirTemp
                                          , ContData.env$myLab.Discrete.WaterP
                                          , ContData.env$myLab.Discrete.AirBP
-                                         , ContData.env$myLab.Discrete.WaterLevel
+                                         , ContData.env$myLab.Discrete.SensorDepth
                                          , ContData.env$myLab.Discrete.Discharge
                                          , ContData.env$myLab.Discrete.Cond
                                          , ContData.env$myLab.Discrete.DO
                                          , ContData.env$myLab.Discrete.pH
                                          , ContData.env$myLab.Discrete.Turbidity
                                          , ContData.env$myLab.Discrete.Chlorophylla
+                                         , ContData.env$myLab.Discrete.GageHeight
                                          )
 ContData.env$myNames.DataFields.Col <- c("blue","green","gray","gray","black","brown"
                                          ,"purple","orange","salmon","rosybrown","aquamarine1")
@@ -183,7 +190,7 @@ ContData.env$myNames.Order <- c(ContData.env$myName.SiteID
                                 , ContData.env$myName.AirTemp
                                 , ContData.env$myName.WaterP
                                 , ContData.env$myName.AirBP
-                                , ContData.env$myName.WaterLevel
+                                , ContData.env$myName.SensorDepth
                                 , ContData.env$myName.LoggerID.Water
                                 , ContData.env$myName.RowID.Water
                                 , ContData.env$myName.Discharge
@@ -191,13 +198,14 @@ ContData.env$myNames.Order <- c(ContData.env$myName.SiteID
                                 , ContData.env$myName.Discrete.AirTemp
                                 , ContData.env$myName.Discrete.WaterP
                                 , ContData.env$myName.Discrete.AirBP
-                                , ContData.env$myName.Discrete.WaterLevel
+                                , ContData.env$myName.Discrete.SensorDepth
                                 , ContData.env$myName.Discrete.Discharge
                                 , ContData.env$myName.Discrete.Cond
                                 , ContData.env$myName.Discrete.DO
                                 , ContData.env$myName.Discrete.pH
                                 , ContData.env$myName.Discrete.Turbidity
                                 , ContData.env$myName.Discrete.Chlorophylla
+                                , ContData.env$myName.Discrete.GageHeight
                                 )
 ######################################################################
 ## Data Quality Flag Values
@@ -226,8 +234,8 @@ ContData.env$myThresh.Gross.Fail.Hi.WaterP     <- 17
 ContData.env$myThresh.Gross.Fail.Lo.WaterP     <- 11
 ContData.env$myThresh.Gross.Fail.Hi.AirBP      <- 17
 ContData.env$myThresh.Gross.Fail.Lo.AirBP      <- 11
-ContData.env$myThresh.Gross.Fail.Hi.WaterLevel <- 6   # no longer used (only check for negative values for WaterLevel)
-ContData.env$myThresh.Gross.Fail.Lo.WaterLevel <- -1  # no longer used (only check for negative values for WaterLevel)
+ContData.env$myThresh.Gross.Fail.Hi.SensorDepth <- 6   # no longer used (only check for negative values for SensorDepth)
+ContData.env$myThresh.Gross.Fail.Lo.SensorDepth <- -1  # no longer used (only check for negative values for SensorDepth)
 ContData.env$myThresh.Gross.Fail.Hi.Discharge  <-  10^5 #dependant upon stream size (only checkf or negative values)
 ContData.env$myThresh.Gross.Fail.Lo.Discharge  <-  -1  #dependant upon stream size
 ContData.env$myThresh.Gross.Fail.Hi.Cond       <- 1500
@@ -240,6 +248,8 @@ ContData.env$myThresh.Gross.Fail.Hi.Turbidity         <- 10^5
 ContData.env$myThresh.Gross.Fail.Lo.Turbidity         <- -1
 ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla         <- 10^5
 ContData.env$myThresh.Gross.Fail.Lo.Chlorophylla          <- -1
+ContData.env$myThresh.Gross.Fail.Hi.GageHeight         <- 10^5
+ContData.env$myThresh.Gross.Fail.Lo.GageHeight          <- -1
 ## Gross Min/Max, Suspect (extreme)
 ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp  <- 25
 ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp  <- -1
@@ -249,8 +259,8 @@ ContData.env$myThresh.Gross.Suspect.Hi.WaterP     <- 16
 ContData.env$myThresh.Gross.Suspect.Lo.WaterP     <- 12
 ContData.env$myThresh.Gross.Suspect.Hi.AirBP      <- 16
 ContData.env$myThresh.Gross.Suspect.Lo.AirBP      <- 12
-ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel <- 5    # no longer used (only check for negative values for WaterLevel)
-ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel <- 0    # no longer used (only check for negative values for WaterLevel)
+ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth <- 5    # no longer used (only check for negative values for SensorDepth)
+ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth <- 0    # no longer used (only check for negative values for SensorDepth)
 ContData.env$myThresh.Gross.Suspect.Hi.Discharge  <-  10^3 #dependant upon stream size (only checkf or negative values
 ContData.env$myThresh.Gross.Suspect.Lo.Discharge  <-  -1   #dependant upon stream size
 ContData.env$myThresh.Gross.Suspect.Hi.Cond       <- 1200
@@ -263,6 +273,8 @@ ContData.env$myThresh.Gross.Suspect.Hi.Turbidity         <- 10^3
 ContData.env$myThresh.Gross.Suspect.Lo.Turbidity          <- -1
 ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla         <- 10^3
 ContData.env$myThresh.Gross.Suspect.Lo.Chlorophylla         <- 1
+ContData.env$myThresh.Gross.Suspect.Hi.GageHeight         <- 10^3
+ContData.env$myThresh.Gross.Suspect.Lo.GageHeight        <- 1
 ## Spike thresholds (absolute change)
 ContData.env$myThresh.Spike.Hi.WaterTemp  <- 10
 ContData.env$myThresh.Spike.Lo.WaterTemp  <- 5
@@ -272,8 +284,8 @@ ContData.env$myThresh.Spike.Hi.WaterP     <- 5
 ContData.env$myThresh.Spike.Lo.WaterP     <- 3
 ContData.env$myThresh.Spike.Hi.AirBP      <- 5
 ContData.env$myThresh.Spike.Lo.AirBP      <- 3
-ContData.env$myThresh.Spike.Hi.WaterLevel <- 5
-ContData.env$myThresh.Spike.Lo.WaterLevel <- 3
+ContData.env$myThresh.Spike.Hi.SensorDepth <- 5
+ContData.env$myThresh.Spike.Lo.SensorDepth <- 3
 ContData.env$myThresh.Spike.Hi.Discharge  <- 10^4 #dependant upon stream size
 ContData.env$myThresh.Spike.Lo.Discharge  <- 10^3 #dependant upon stream size
 ContData.env$myThresh.Spike.Hi.Cond       <- 10
@@ -284,6 +296,8 @@ ContData.env$myThresh.Spike.Hi.pH         <- 10
 ContData.env$myThresh.Spike.Lo.pH         <- 5
 ContData.env$myThresh.Spike.Hi.Turbidity         <- 10^4
 ContData.env$myThresh.Spike.Lo.Turbidity         <- 10^3
+ContData.env$myThresh.Spike.Hi.Chlorophylla         <- 10^4
+ContData.env$myThresh.Spike.Lo.Chlorophylla         <- 10^3
 ContData.env$myThresh.Spike.Hi.Chlorophylla         <- 10^4
 ContData.env$myThresh.Spike.Lo.Chlorophylla         <- 10^3
 ## Rate of Change (relative change)
@@ -297,8 +311,8 @@ ContData.env$myThresh.RoC.SD.number.WaterP     <- ContData.env$myDefault.RoC.SD.
 ContData.env$myThresh.RoC.SD.period.WaterP     <- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.AirBP      <- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.AirBP      <- ContData.env$myDefault.RoC.SD.period
-ContData.env$myThresh.RoC.SD.number.WaterLevel <- ContData.env$myDefault.RoC.SD.number
-ContData.env$myThresh.RoC.SD.period.WaterLevel <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.SensorDepth <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.SensorDepth <- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.Discharge  <- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.Discharge  <- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.Cond       <- ContData.env$myDefault.RoC.SD.number
@@ -311,6 +325,8 @@ ContData.env$myThresh.RoC.SD.number.Turbidity         <- ContData.env$myDefault.
 ContData.env$myThresh.RoC.SD.period.Turbidity         <- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.Chlorphylla         <- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.Chlorphylla        <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.GageHeight         <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.GageHeight        <- ContData.env$myDefault.RoC.SD.period
 ## No Change (flat-line)
 ContData.env$myDefault.Flat.Hi        <- 30  # maximum is myThresh.Flat.MaxComp
 ContData.env$myDefault.Flat.Lo        <- 10
@@ -327,9 +343,9 @@ ContData.env$myThresh.Flat.Tolerance.WaterP     <- 0.001
 ContData.env$myThresh.Flat.Hi.AirBP             <- ContData.env$myDefault.Flat.Hi
 ContData.env$myThresh.Flat.Lo.AirBP             <- ContData.env$myDefault.Flat.Lo
 ContData.env$myThresh.Flat.Tolerance.AirBP      <- 0.001
-ContData.env$myThresh.Flat.Hi.WaterLevel        <- ContData.env$myDefault.Flat.Hi * 2
-ContData.env$myThresh.Flat.Lo.WaterLevel        <- ContData.env$myDefault.Flat.Lo * 2
-ContData.env$myThresh.Flat.Tolerance.WaterLevel <- 0.0
+ContData.env$myThresh.Flat.Hi.SensorDepth        <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.SensorDepth        <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.SensorDepth <- 0.0
 ContData.env$myThresh.Flat.Hi.Discharge         <- ContData.env$myDefault.Flat.Hi * 2
 ContData.env$myThresh.Flat.Lo.Discharge         <- ContData.env$myDefault.Flat.Lo * 2
 ContData.env$myThresh.Flat.Tolerance.Discharge  <- 0.01
@@ -348,6 +364,8 @@ ContData.env$myThresh.Flat.Tolerance.Turbidity         <- 0.01
 ContData.env$myThresh.Flat.Hi.Chlorophylla                <- ContData.env$myDefault.Flat.Hi * 2
 ContData.env$myThresh.Flat.Lo.Chlorophylla                <- ContData.env$myDefault.Flat.Lo * 2
 ContData.env$myThresh.Flat.Tolerance.Chlorophylla        <- 0.01
+ContData.env$myThresh.Flat.Lo.GageHeight               <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.GageHeight        <- 0.01
 #
 ContData.env$myThresh.Flat.MaxComp    <- max(ContData.env$myThresh.Flat.Hi.WaterTemp
                                              , ContData.env$myThresh.Flat.Hi.AirTemp
@@ -359,6 +377,7 @@ ContData.env$myThresh.Flat.MaxComp    <- max(ContData.env$myThresh.Flat.Hi.Water
                                              , ContData.env$myThresh.Flat.Hi.pH
                                              , ContData.env$myThresh.Flat.Hi.Turbidity
                                              , ContData.env$myThresh.Flat.Hi.Chlorophylla
+                                             , ContData.env$myThresh.Flat.Hi.GageHeight
                                              )
 #####################################################################
 # Data Fields with Flags
@@ -371,13 +390,14 @@ ContData.env$myName.Flag.WaterTemp  <- paste(ContData.env$myName.Flag,ContData.e
 ContData.env$myName.Flag.AirTemp    <- paste(ContData.env$myName.Flag,ContData.env$myName.AirTemp,sep=".")
 ContData.env$myName.Flag.WaterP     <- paste(ContData.env$myName.Flag,ContData.env$myName.WaterP,sep=".")
 ContData.env$myName.Flag.AirBP      <- paste(ContData.env$myName.Flag,ContData.env$myName.AirBP,sep=".")
-ContData.env$myName.Flag.WaterLevel <- paste(ContData.env$myName.Flag,ContData.env$myName.WaterLevel,sep=".")
+ContData.env$myName.Flag.SensorDepth <- paste(ContData.env$myName.Flag,ContData.env$myName.SensorDepth,sep=".")
 ContData.env$myName.Flag.Discharge  <- paste(ContData.env$myName.Flag,ContData.env$myName.Discharge,sep=".")
 ContData.env$myName.Flag.Cond       <- paste(ContData.env$myName.Flag,ContData.env$myName.Cond,sep=".")
 ContData.env$myName.Flag.DO         <- paste(ContData.env$myName.Flag,ContData.env$myName.DO,sep=".")
 ContData.env$myName.Flag.pH         <- paste(ContData.env$myName.Flag,ContData.env$myName.pH,sep=".")
-ContData.env$myName.Flag.Turbidity         <- paste(ContData.env$myName.Flag,ContData.env$myName.DO,sep=".")
-ContData.env$myName.Flag.Chlorphylla        <- paste(ContData.env$myName.Flag,ContData.env$myName.pH,sep=".")
+ContData.env$myName.Flag.Turbidity         <- paste(ContData.env$myName.Flag,ContData.env$myName.Turbidity,sep=".")
+ContData.env$myName.Flag.Chlorphylla        <- paste(ContData.env$myName.Flag,ContData.env$myName.Chlorophylla,sep=".")
+ContData.env$myName.Flag.GageHeight        <- paste(ContData.env$myName.Flag,ContData.env$myName.GageHeight,sep=".")
 # Data Quality Test Names
 ContData.env$myNames.QCTests <- c("Gross","Spike","RoC","Flat")
 ContData.env$myNames.QCCalcs <- c("SD.Time","SD","SDxN",paste("n",1:ContData.env$myThresh.Flat.MaxComp,sep="."),"flat.Lo","flat.Hi")
@@ -385,7 +405,7 @@ ContData.env$myNames.QCCalcs <- c("SD.Time","SD","SDxN",paste("n",1:ContData.env
 # Exceedance values for stats (default to Gross-Suspect-Hi value)
 ContData.env$myExceed.WaterTemp  <- ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp
 ContData.env$myExceed.AirTemp    <- ContData.env$myThresh.Gross.Suspect.Hi.AirTemp
-ContData.env$myExceed.WaterLevel <- ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel
+ContData.env$myExceed.SensorDepth <- ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth
 #####################################################################
 # Date and Time Formats
 ContData.env$myFormat.Date           <- "%Y-%m-%d"
