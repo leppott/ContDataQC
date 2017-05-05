@@ -4,13 +4,13 @@
 #'
 # Erik.Leppo@tetratech.com (EWL)
 # 20151130
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Basic Operations:
 # download from USGS based on user selection
 # daily means
 # library (load any required helper functions)
 #library(dataRetrieval)
-#################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @param fun.myData.SiteID Station/SiteID (can be a vector).
 #' @param fun.myData.Type data type is "Gage".
 #' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
@@ -53,7 +53,7 @@ fun.GageData <- function(fun.myData.SiteID
   # Start Time (used to determine run time at end)
   myTime.Start <- Sys.time()
   #
-  ##################################
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   #    DD parameter   Description ("parameter_nm" from whatNWISdata)
   #    01   00060     Discharge, cubic feet per second
   #    02   00065     Gage height, feet
@@ -84,7 +84,7 @@ fun.GageData <- function(fun.myData.SiteID
 #   USGS.Code.Desc <- as.data.frame(cbind(param.code,param.desc))
 #   names(USGS.Code.Desc) <- c("Code","Desc")
   #
-  ####################
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # USGS Statistic Codes
   # http://help.waterdata.usgs.gov/codes-and-parameters
   # 00011 Instantaneous
@@ -102,9 +102,9 @@ fun.GageData <- function(fun.myData.SiteID
   myItems.Complete  <- 0
   #myItems.Skipped   <- 0
 
-  ######################
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # Loop through sites
-  ######################
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   while (intCounter < intCounter.Stop) {##WHILE.START
     intCounter <- intCounter+1
     strGage <- fun.myData.SiteID[intCounter]
@@ -152,7 +152,7 @@ fun.GageData <- function(fun.myData.SiteID
     # and code column
     #data.myGage <- data.myGage[,-ncol(data.myGage.q)]
 
-    ##############
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # hard code only Discharge due to time limits on project
 
   #   NewNames <- c(myName.SiteID,myName.DateTime,myName.Discharge,paste("_cd",myName.Discharge,sep="."))
@@ -200,9 +200,9 @@ fun.GageData <- function(fun.myData.SiteID
 
 
   }##WHILE.END
-  ######################
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # Loop through sites
-  ######################
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   # inform user task complete with status
   myTime.End <- Sys.time()
@@ -217,4 +217,4 @@ fun.GageData <- function(fun.myData.SiteID
 
   #
 }##FUN.fun.GageData.END
-########################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

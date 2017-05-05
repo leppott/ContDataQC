@@ -1,6 +1,6 @@
 #' Date Format (wrapper)
-#' 
-#' Input a date/time string and output R date/time *format*. The format can then be used to convert to a different format. 
+#'
+#' Input a date/time string and output R date/time *format*. The format can then be used to convert to a different format.
 #' Determine Date and Time *format* from input (single record) using Perl regular expresions.
 #' Perl Code prepared by Ann Roseberry Lincoln
 #' Not all possible formats recognized but the most common are accepted.
@@ -11,7 +11,7 @@
 # R version, Erik.Leppo@tetratech.com, 20150806
 #
 # 20170115, EWL, replace "NA" with NA (can happen with Excel)
-#########################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @param fun.DateTime Date, Time, or DateTime data
 #' @param fun.dt.Type type of input; date, time, or date
 #' @return Returns a text string representing the date/time format of the input fun.DateTime.  Wrapper function for fun.dt.Type2().
@@ -23,7 +23,7 @@
 #' fun.DateTimeFormat(Sys.time(),"datetime")
 #
 # # QC
-#  fun.DateTime <- data.import[,myName.Time] 
+#  fun.DateTime <- data.import[,myName.Time]
 #  fun.dt.Type <- "time"
 #' @export
 fun.DateTimeFormat <- function(fun.DateTime,fun.dt.Type) { ##FUN.START
@@ -46,7 +46,7 @@ fun.DateTimeFormat <- function(fun.DateTime,fun.dt.Type) { ##FUN.START
   #
   # check for white space in date time then split into date and time else is date or time
   # runs a subroutine for date or time to get format.
-  if(grepl("\\s+",dt[1],perl=TRUE)==TRUE){##IF.grepl.ws.START  
+  if(grepl("\\s+",dt[1],perl=TRUE)==TRUE){##IF.grepl.ws.START
     #
     # delimit date_time into Date and Time based on white space
     ## some internet searches for ideas
@@ -61,7 +61,7 @@ fun.DateTimeFormat <- function(fun.DateTime,fun.dt.Type) { ##FUN.START
 #     dt.split.date <- as.vector(sub(pattern.delim.white,"\\1",dt,perl=TRUE))
 #     dt.split.time <- as.vector(sub(pattern.delim.white,"\\2",dt,perl=TRUE))
 
-#     dt.split <- strsplit(dt,pattern.delim.white,perl=TRUE) 
+#     dt.split <- strsplit(dt,pattern.delim.white,perl=TRUE)
 #     dt.split.date <- unlist(lapply(dt.split, `[[`,1)) #date, all 1st element, and change to vector (unlist)
 #     dt.split.time <- unlist(lapply(dt.split, `[[`,2)) #time, all 2nd element, and change to vector (unlist)
 #     dt.split.datetime <- cbind(dt.split.date,dt.split.time)
@@ -87,17 +87,17 @@ fun.DateTimeFormat <- function(fun.DateTime,fun.dt.Type) { ##FUN.START
     #
   } else {
     myResult <- fun.dt.Type2(dt,fun.dt.Type)
-    
-  }##IF.grepl.ws.END  
+
+  }##IF.grepl.ws.END
   #
   # return format
   return(myResult)  #NA declared as default value at start
   #
 } ##FUN.END
 
-################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # 2nd function to get the format for date or time (feeds 1st function)
-###############################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Date Format (function)
 #' @param fun.dt Date, Time, or DateTime data
 #' @param fun.dt2.Type type of input; date, time, or date
@@ -117,7 +117,7 @@ fun.dt.Type2 <- function(fun.dt, fun2.dt.Type) {##FUN.fun.dt.Type.START
   # 20170115, replace "NA" with NA
   #fun.dt[fun.dt=="NA"] <- NA
   #
-  ## grab a single value 
+  ## grab a single value
   ## declare possible formats (R) and patterns (Perl regular expressions)
   ## compare input data to each pattern and return R format
   if(fun2.dt.Type=="date") {##IF.fun2.dt.Type.START
@@ -135,7 +135,7 @@ fun.dt.Type2 <- function(fun.dt, fun2.dt.Type) {##FUN.fun.dt.Type.START
     #
     fd04 <- "%d-%b-%Y" # DD-MMM-YYYY, 05-AUG-2015 (upper or lower case) (1 or 2 digit D and 4 digit year)
     pd04 <- "^(\\d{1,2})-(\\w\\w\\w)-(\\d\\d\\d\\d)"
-    # 
+    #
     fd05 <- "%m-%d-%Y" # MM-DD-YYYY, 08-05-2015 (1 or 2 digit M and D)
     pd05 <- "^(\\d{1,2})-(\\d{1,2})-(\\d\\d\\d\\d)"
     #
@@ -150,7 +150,7 @@ fun.dt.Type2 <- function(fun.dt, fun2.dt.Type) {##FUN.fun.dt.Type.START
       if(grepl(myPatterns[i],dt2,perl=TRUE)==TRUE){
         myFormat.Result <- myFormats[i]
         break #stop after first match
-      }  
+      }
     }##FOR.i.Date
     #       if(grepl(p01,dt,perl=TRUE)==TRUE){
     #         myFormat <- f01
@@ -183,7 +183,7 @@ fun.dt.Type2 <- function(fun.dt, fun2.dt.Type) {##FUN.fun.dt.Type.START
     #
     # HH:MM:SS AM/PM
     pt01 <- "^(\\d{1,2}):(\\d\\d):(\\d\\d) (AM|PM)"
-    ft01 <- "%I:%M:%S %p"   
+    ft01 <- "%I:%M:%S %p"
     # HH:MM AM/PM
     pt02 <- "^(\\d{1,2}):(\\d\\d) (AM|PM)"
     ft02 <- "%I:%M %p"
@@ -204,7 +204,7 @@ fun.dt.Type2 <- function(fun.dt, fun2.dt.Type) {##FUN.fun.dt.Type.START
       if(grepl(myPatterns[i],dt2,perl=TRUE)==TRUE){
         myFormat.Result <- myFormats[i]
         break #stop after first match
-      }  
+      }
     }##FOR.i.Date
     #
   }##IF.fun2.dt.Type.END
@@ -216,9 +216,9 @@ fun.dt.Type2 <- function(fun.dt, fun2.dt.Type) {##FUN.fun.dt.Type.START
 
 
 
-################################################################################
-# testing stuff
-################################################################################ 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# testing stuff ####
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 # time hh:mm:ss
@@ -231,12 +231,12 @@ fun.dt.Type2 <- function(fun.dt, fun2.dt.Type) {##FUN.fun.dt.Type.START
 # p1 <- "~ /(\\d+)-(\\d+)-(\\d+)"
 # p2 <- "^(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d)"
 # (x <- grepl(p2,"2015-08-05",perl=TRUE))
-# 
-# 
+#
+#
 # d11 <- "2015-08-05"
 # d12 <- "8/5/2015"
 # d13 <- "8/5/15 10:13:24 PM"
-# 
+#
 # d1 <- "Wed, Aug 5, 2015"
 # d2 <- "8/5/2015"
 # d3 <- "2015-8-5"

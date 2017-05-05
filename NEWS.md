@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-05-05 14:42:05
+    #> Last Update: 2017-05-05 14:58:29
 
 Version history.
 
@@ -14,6 +14,17 @@ Planned Updates
 -   When Air and Water measurements are at different times the plots aren't working. 20170308.
 
 -   Gaps in data not always evident in the plots. 20170308.
+
+v2.0.1.9004
+===========
+
+2017-05-05
+
+-   Reformat file comments so outlines properly in RStudio. 20170505.
+
+-   Fix development version from 2.0.1.0004 to 2.0.1.9004. 20170505.
+
+-   Update Description with version number (last edit was 2.0.1.0000). 20170505.
 
 v2.0.1.0003
 ===========

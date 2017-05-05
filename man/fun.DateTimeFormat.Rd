@@ -15,7 +15,7 @@ fun.DateTimeFormat(fun.DateTime, fun.dt.Type)
 Returns a text string representing the date/time format of the input fun.DateTime.  Wrapper function for fun.dt.Type2().
 }
 \description{
-Input a date/time string and output R date/time *format*. The format can then be used to convert to a different format. 
+Input a date/time string and output R date/time *format*. The format can then be used to convert to a different format.
 Determine Date and Time *format* from input (single record) using Perl regular expresions.
 Perl Code prepared by Ann Roseberry Lincoln
 Not all possible formats recognized but the most common are accepted.

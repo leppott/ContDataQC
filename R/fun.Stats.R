@@ -4,13 +4,13 @@
 #' Requires doBy() and survival() [required by doBy]
 #' Calculates statistics on input data and saves to a new csv.
 #
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Erik.Leppo@tetratech.com (EWL)
 # 20151120
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # 20170116, EWL
 # added date & time QC
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # Basic Operations:
 # load all files in data directory
@@ -46,14 +46,14 @@ fun.Stats <- function(fun.myData.SiteID
                      ,fun.myProcedure.Step
                      ,fun.myFile.Prefix) {##FUN.fun.Stats.START
   #
-#   ##########
+#   ##
 #   # QC (from fun.Master.R)
-#   ##########
+#   ##
 #   if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=myName.Dir.3Agg}
 #   if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=myName.Dir.4Stats}
 #   fun.myProcedure.Step <- "STATS"
 #   fun.myFile.Prefix <- "DATA"
-#   ###########
+#   ##
   #
   # Error Checking - only 1 SiteID and 1 DataType
   if(length(fun.myData.SiteID)!=1){
@@ -166,7 +166,7 @@ fun.Stats <- function(fun.myData.SiteID
   # keep only fields needed for stats
  # data.import <- data.import[,myFields.Keep]
 
-  ###############################################
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     data2process <- myFields.Data[myFields.Data %in% names(data.import)]
     print(paste("Total items to process = ",length(data2process),":",sep=""))
@@ -321,7 +321,7 @@ fun.Stats <- function(fun.myData.SiteID
       #   } else if (i==myFields.Data[3]) {
       #     stats.i <- doBy::summaryBy(as.numeric(Water.Level.ft)~Date,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
       #   }
-      #   #######
+      #   ##
       #   # Range
       #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
       #   # rename
@@ -354,9 +354,9 @@ fun.Stats <- function(fun.myData.SiteID
         # myTF.Field <- ContData.env$myName.JuDa
         # myDF <- dv.i
         # #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-        # ####### ugly hack
+        # ## ugly hack
         # stats.i <- doBy::summaryBy(as.numeric(mean)~JulianDay,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-        # #######
+        # ##
         # #Range
         # #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
         # # rename
@@ -389,9 +389,9 @@ fun.Stats <- function(fun.myData.SiteID
       #   myTF.Field <- ContData.env$myName.YrMo
       #   myDF <- dv.i
       #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ####### ugly hack
+      #   ## ugly hack
       #     stats.i <- doBy::summaryBy(as.numeric(mean)~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   #######
+      #   ##
       #   #Range
       #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
       #   # rename
@@ -424,9 +424,9 @@ fun.Stats <- function(fun.myData.SiteID
       #   myTF.Field <- ContData.env$myName.Mo
       #   myDF <- dv.i
       #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ####### ugly hack
+      #   ## ugly hack
       #   stats.i <- doBy::summaryBy(as.numeric(mean)~Month,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   #######
+      #   ##
       #   #Range
       #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
       #   # rename
@@ -458,9 +458,9 @@ fun.Stats <- function(fun.myData.SiteID
       #   myTF.Field <- ContData.env$myName.YrSeason
       #   myDF <- dv.i
       #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~SeasonYear,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ####### ugly hack
-      #   stats.i <- doBy::summaryBy(as.numeric(mean)~YearSeason,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   #######
+      #   ## ugly hack
+      #   stat.i <- doBy::summaryBy(as.numeric(mean)~YearSeason,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+      #   ###
       #   # Range
       #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
       #   # rename
@@ -493,9 +493,9 @@ fun.Stats <- function(fun.myData.SiteID
       #   myTF.Field <- ContData.env$myName.Season
       #   myDF <- dv.i
       #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~SeasonYear,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ####### ugly hack
+      #   ## ugly hack
       #   stats.i <- doBy::summaryBy(as.numeric(mean)~Season,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   #######
+      #   ##
       #   # Range
       #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
       #   # rename
@@ -527,9 +527,9 @@ fun.Stats <- function(fun.myData.SiteID
       #   myTF.Field <- ContData.env$myName.Yr
       #   myDF <- dv.i
       #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~Year,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ####### ugly hack
+      #   ## ugly hack
       #   stats.i <- doBy::summaryBy(as.numeric(mean)~Year,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   #######
+      #   ##
       #   # Range
       #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
       #   # rename
@@ -581,7 +581,7 @@ fun.Stats <- function(fun.myData.SiteID
 
     #
   }##FOR.i.END
-  #####################################################
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   # Run QC Report
 #       fun.myData.SiteID           <- strFile.SiteID
@@ -593,9 +593,9 @@ fun.Stats <- function(fun.myData.SiteID
 #       fun.myDir.SUB.export        <- fun.myDir.SUB.export
 #       fun.myFile.Prefix           <- fun.myProcedure.Step
   # will run repeatedly for each subfile for STATS
-      ###################
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # need to run for each parameter, comment out for now
-      ####################
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #   fun.Report(strFile.SiteID
 #                ,strFile.DataType
 #                ,fun.myData.DateRange.Start
@@ -606,9 +606,9 @@ fun.Stats <- function(fun.myData.SiteID
 #                ,fun.myProcedure.Step)  #"STATS"
   #
 }##FUN.fun.Stats.END
-########################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-############################################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 #   # Define FUNCTION for use with doBy::summaryBy
@@ -631,9 +631,9 @@ fun.Stats <- function(fun.myData.SiteID
 #
 #
 #
-#   ####################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #   # old code - START
-#   ####################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #   # force loading of needed libraries
 #
 #
@@ -730,6 +730,8 @@ fun.Stats <- function(fun.myData.SiteID
 #   print(paste("Last item processed = ",items2process[myCounter-1],".",sep="")) #use for troubleshooting if get error
 #   alarm()
 #
-#     ####################
+#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #     # old code - END
-#     ####################
+#     #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -160,9 +160,9 @@ Multiparameter plots if exist in the data.
     pct <- c(20,40,60,80,100)*.01
     myAT <- c(1,round(n.Total * pct,0))
     myLab <- data.plot[,ContData.env$myName.Date][myAT]
-    ###################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Need to check for parameters before plot
-    ##################################    
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
     
     # Temp, Air vs. Water
     if (ContData.env$myName.AirTemp %in% myParameters & ContData.env$myName.WaterTemp %in% myParameters == TRUE){##IF.Temp.START

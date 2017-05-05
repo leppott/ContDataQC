@@ -12,22 +12,23 @@
 # Erik.Leppo@tetratech.com (EWL)
 # 20150928
 # 20170323, add 3 parameters (Cond, DO, pH)
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # User defined variable names for input data
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # It is assumed that this R script is stored in a directory with the data files as subdirectories
 # This script is intended to be "source"d from the main script.
-#############################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # @keywords continuous data
 # @examples
 # #Not intended to be accessed indepedant of function ContDataQC().
 # #Data values only.  No functions.  Add to environment so only visible inside library.
-#####################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # USER may make modifications in this section but not mandatory
 # this section could be sourced so can use between scripts
-#####################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #UserDefinedValues <- NA # default value so shows up in help files
-#####################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Environment Name ####
 # Environment for use only by ContDataQC library
 ContData.env <- new.env(parent = emptyenv())
 # assign variables to new environment requires editing of all lines.
@@ -36,11 +37,11 @@ ContData.env <- new.env(parent = emptyenv())
 # list all elements in environment
 # ls(ContData.env)  # all elements in environment
 # as.list(ContData.env)  # all elements in environment with assigned values
-#####################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Delimiter in File Names (e.g., test2_AW_201301_20131231.csv)
 ContData.env$myDelim <- "_"
-#####################################################################
-# Acceptable column names for the data
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Acceptable column names for the data ####
 ## Basic
 ContData.env$myName.SiteID        <- "SiteID"
 ContData.env$myName.Date          <- "Date"
@@ -93,8 +94,8 @@ ContData.env$myLab.pH             <- paste0("pH (",ContData.env$myUnits.pH,")")
 ContData.env$myLab.Turbidity      <- paste0("Turbidity (",ContData.env$myUnits.Turbidity,")")
 ContData.env$myLab.Chlorophylla   <- paste0("Chlorophyll a (",sub("\\.","/",ContData.env$myUnits.Chlorphylla),")")    #replace "." with "/"
 ContData.env$myLab.GageHeight     <- paste0("Gage Height (",ContData.env$myUnits.GageHeight,")")
-#####################################################################
-# Discrete Measurements
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Discrete Measurements ####
 ContData.env$myPrefix.Discrete          <- "Discrete"
 # Discrete, Names
 ContData.env$myName.Discrete.WaterTemp  <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterTemp,sep=".")
@@ -122,22 +123,22 @@ ContData.env$myLab.Discrete.pH          <- paste(ContData.env$myLab.pH,"(Discret
 ContData.env$myLab.Discrete.Turbidity   <- paste(ContData.env$myLab.Turbidity,"(Discrete)",sep=" ")
 ContData.env$myLab.Discrete.Chlorophylla<- paste(ContData.env$myLab.Chlorophylla,"(Discrete)",sep=" ")
 ContData.env$myLab.Discrete.GageHeight  <- paste(ContData.env$myLab.GageHeight,"(Discrete)",sep=" ")
-#####################################################################
-# Automated QC stuff
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Automated QC stuff ####
 ## data type/stages
 ContData.env$myDataQuality.Raw        <- "RAW"
 ContData.env$myDataQuality.QCauto     <- "QCauto"
 ContData.env$myDataQuality.QCmanual   <- "QCmanual"
 ContData.env$myDataQuality.Final      <- "Final"
 ContData.env$myDataQuality.Aggregated <- "Aggregated"
-#####################################################################
-# Directory Names
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Directory Names ####
 ContData.env$myName.Dir.1Raw  <- "Data1_Raw"
 ContData.env$myName.Dir.2QC   <- "Data2_QC"
 ContData.env$myName.Dir.3Agg  <- "Data3_Aggregated"
 ContData.env$myName.Dir.4Stats<- "Data4_Stats"
-#####################################################################
-# Data Fields
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Data Fields ####
 ContData.env$myNames.DataFields <- c(ContData.env$myName.WaterTemp
                                      , ContData.env$myName.AirTemp
                                      , ContData.env$myName.WaterP
@@ -207,8 +208,8 @@ ContData.env$myNames.Order <- c(ContData.env$myName.SiteID
                                 , ContData.env$myName.Discrete.Chlorophylla
                                 , ContData.env$myName.Discrete.GageHeight
                                 )
-######################################################################
-## Data Quality Flag Values
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Data Quality Flag Values ####
 ContData.env$myFlagVal.Pass    <- "P"
 ContData.env$myFlagVal.NotEval <- "NA"
 ContData.env$myFlagVal.Suspect <- "S"
@@ -218,8 +219,8 @@ ContData.env$myFlagVal.Order   <- c(ContData.env$myFlagVal.Pass
                                     , ContData.env$myFlagVal.Suspect
                                     , ContData.env$myFlagVal.Fail
                                     , ContData.env$myFlagVal.NoData)
-#####################################################################
-# QC Tests and Calculations
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# QC Tests and Calculations ####
 #http://stackoverflow.com/questions/16143700/pasting-two-vectors-with-combinations-of-all-vectors-elements
 #myNames.QCTests.Calcs.combo <- as.vector(t(outer(myNames.QCTests,myNames.QCTests.Calcs,paste,sep=".")))
 # combine so can check for and remove later.
@@ -379,8 +380,8 @@ ContData.env$myThresh.Flat.MaxComp    <- max(ContData.env$myThresh.Flat.Hi.Water
                                              , ContData.env$myThresh.Flat.Hi.Chlorophylla
                                              , ContData.env$myThresh.Flat.Hi.GageHeight
                                              )
-#####################################################################
-# Data Fields with Flags
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Data Fields with Flags ####
 ContData.env$myName.Flag        <- "Flag" # flag prefix
 ContData.env$myNames.Cols4Flags <- c(ContData.env$myName.DateTime,ContData.env$myNames.DataFields)
 ContData.env$myNames.Flags      <- paste(ContData.env$myName.Flag,ContData.env$myNames.Cols4Flags,sep=".")  # define ones using in the calling script
@@ -401,13 +402,13 @@ ContData.env$myName.Flag.GageHeight        <- paste(ContData.env$myName.Flag,Con
 # Data Quality Test Names
 ContData.env$myNames.QCTests <- c("Gross","Spike","RoC","Flat")
 ContData.env$myNames.QCCalcs <- c("SD.Time","SD","SDxN",paste("n",1:ContData.env$myThresh.Flat.MaxComp,sep="."),"flat.Lo","flat.Hi")
-#####################################################################
-# Exceedance values for stats (default to Gross-Suspect-Hi value)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Exceedance values for stats (default to Gross-Suspect-Hi value) ####
 ContData.env$myExceed.WaterTemp  <- ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp
 ContData.env$myExceed.AirTemp    <- ContData.env$myThresh.Gross.Suspect.Hi.AirTemp
 ContData.env$myExceed.SensorDepth <- ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth
-#####################################################################
-# Date and Time Formats
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Date and Time Formats ####
 ContData.env$myFormat.Date           <- "%Y-%m-%d"
 ContData.env$myFormat.Time           <- "%H:%M:%S"
 ContData.env$myFormat.DateTime       <- "%Y-%m-%d %H:%M:%S"
@@ -415,8 +416,8 @@ ContData.env$DateRange.Start.Default <- format(as.Date("1900-01-01"),ContData.en
 ContData.env$DateRange.End.Default   <- format(Sys.Date(),ContData.env$myFormat.Date)
 # Time Zone, used in Gage script in dataRetrieval
 ContData.env$myTZ <- Sys.timezone() #"America/New_York" (local time zone)
-######################################################################
-# Time Frames (MM-DD)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Time Frames (MM-DD) ####
 ContData.env$myTimeFrame.Annual.Start        <- "0101"
 ContData.env$myTimeFrame.Annual.End          <- "1231"
 ContData.env$myTimeFrame.WaterYear.Start     <- "1001"
@@ -438,10 +439,11 @@ ContData.env$myName.JuDa     <- "JulianDay"
 ContData.env$myName.Day      <- "Day"
 ContData.env$myName.Season   <- "Season"
 ContData.env$myName.YrSeason <- "YearSeason"
-######################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Exclude Trigger ####
 # Trigger for Stats to exclude (TRUE) or include (FALSE) where flag = "fail"
 ContData.env$myStats.Fails.Exclude <- TRUE  #FALSE #TRUE
-######################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 

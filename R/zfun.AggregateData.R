@@ -4,21 +4,21 @@
 #' Combines or splits files based on given data range.  Saves a new CSV in the export directory.
 #
 # Sourced Routine
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Aggregate Data
 # combine Single Site and Date Range
 # add all data types into columns, merge time stamps
-#########################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # make user script smaller and easier to understand
 # not a true function, needs defined variables in calling script
 # if change variable names in either file have to update the other
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Erik.Leppo@tetratech.com (EWL)
 # 20151021
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # 20170116, EWL
 # added date & time QC
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # assumes use of CSV.  If using TXT have to modify list.files(pattern), read.csv(), and write.csv()
 #
 # Basic Operations:
@@ -231,9 +231,9 @@ fun.AggregateData <- function(fun.myData.SiteID
 
 
 
-    ######################################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # filter data, append (if necessary), then export
-    ######################################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     # 6.0. Filter data based on Date Range
     ## "subset" can have issues.  "with" doesn't seem work using variables for colnames.
@@ -317,9 +317,11 @@ fun.AggregateData <- function(fun.myData.SiteID
     # need trigger for different SiteID (won't combine across sites)
 
 
-    ##################
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # insert QC Report so runs without user intervention
-    ##################
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # run with same import and export directory & on new file
     ###
     # will run repeatedly for each subfile when aggregating
@@ -333,9 +335,9 @@ fun.AggregateData <- function(fun.myData.SiteID
                      ,fun.myDir.SUB.export
                      ,fun.myDir.SUB.export
                      ,"DATA")
-#                 ##########
+#                 ##
 #                 # QC
-#                 ######
+#                 ##
 #                 fun.myData.SiteID           <- strFile.SiteID
 #                 fun.myData.Type             <- strFile.DataType
 #                 fun.myData.DateRange.Start  <- fun.myData.DateRange.Start
@@ -344,7 +346,7 @@ fun.AggregateData <- function(fun.myData.SiteID
 #                 fun.myDir.SUB.import        <- fun.myDir.SUB.export
 #                 fun.myDir.SUB.export        <- fun.myDir.SUB.export
 #                 fun.myFile.Prefix           <- strFile.Out.Prefix
-#                 ######################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
@@ -364,7 +366,7 @@ fun.AggregateData <- function(fun.myData.SiteID
     rm(data.import, data.subset)
     #
   }##while.END
-  #######################################################################
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
@@ -453,9 +455,10 @@ fun.AggregateData <- function(fun.myData.SiteID
     write.csv(data.merge,file=strFile.Out,quote=FALSE,row.names=FALSE)
     # QC report (fails on render - lines 41-83 in rmd)
     #
-    ##########
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # QC
-    ######
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #           fun.myData.SiteID           <- fun.myData.SiteID
 #           fun.myData.Type             <- fun.myPrefix.merge
 #           fun.myData.DateRange.Start  <- fun.myData.DateRange.Start #format(as.Date(File.Date.Start,"%Y%m%d"),"%Y-%m-%d")
@@ -464,7 +467,7 @@ fun.AggregateData <- function(fun.myData.SiteID
 #           fun.myDir.SUB.import        <- fun.myDir.SUB.export
 #           fun.myDir.SUB.export        <- fun.myDir.SUB.export
 #           fun.myFile.Prefix           <- "DATA"
-#     #####################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     fun.Report(fun.myData.SiteID
                  ,fun.myPrefix.merge
                  ,fun.myData.DateRange.Start
@@ -696,13 +699,13 @@ fun.AggregateData <- function(fun.myData.SiteID
 #   }##IF.files.AWG.END
 #
 
-######################################################################################
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # need to write subroutines for merge and plotting
   # AW has all the stuff
   # 20160206, already done (fun.merge)
   # since saving plots in QCReport shouldn't need plots here
 # Should be ok to leave in code below for merge&plot when had only Air and Water
-######################################################################################
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #   #
 #   # Files = 1Air & 2Water = 3AW
@@ -730,9 +733,11 @@ fun.AggregateData <- function(fun.myData.SiteID
 #       # merge
 #       data.AW <- merge(data.water,data.air,by=myName.DateTime,all=TRUE,sort=FALSE,suffixes="")
 #       #
-#       ###############
+#
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #       # error in date if one file is smaller than the other
-#       ###########
+#
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #       #
 #
 #       # save file
@@ -741,9 +746,9 @@ fun.AggregateData <- function(fun.myData.SiteID
 #       strFile.Out <- paste(myDir.data.export,paste(paste("DATA",fun.myData.SiteID,"Aw",File.Date.Start,File.Date.End,sep=myDelim),"csv",sep="."),sep="/")
 #       write.csv(data.AW,file=strFile.Out,quote=FALSE,row.names=FALSE)
 #       #
-#       ##################20160111
+#       #~~~~~~~~~~~~~~~~20160111
 #       # insert QC Report so runs without user intervention
-#       ##################
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #       # run with same import and export directory & on new file
 #       ###
 #       # will run repeatedly for each subfile when aggregating
@@ -755,9 +760,11 @@ fun.AggregateData <- function(fun.myData.SiteID
 #                    ,fun.myDir.SUB.export
 #                    ,fun.myDir.SUB.export
 #                    ,"DATA")
-#       #                 ##########
+#       #
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #       #                 # QC
-#       #                 ######
+#       #
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #       #                 fun.myData.SiteID           <- strFile.SiteID
 #       #                 fun.myData.Type             <- strFile.DataType
 #       #                 fun.myData.DateRange.Start  <- fun.myData.DateRange.Start
@@ -766,7 +773,8 @@ fun.AggregateData <- function(fun.myData.SiteID
 #       #                 fun.myDir.SUB.import        <- fun.myDir.SUB.export
 #       #                 fun.myDir.SUB.export        <- fun.myDir.SUB.export
 #       #                 fun.myFile.Prefix           <- strFile.Out.Prefix
-#       #                 ######################
+#       #
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 #
 #       #
@@ -788,7 +796,7 @@ fun.AggregateData <- function(fun.myData.SiteID
 #     data.plot <- data.AW
 #     ##
 #     # save to PDF
-#     ######
+#     ##
 #     #
 #     # cheat on Date/Time axis
 #     n.Total <- length(data.plot[,myName.Date])

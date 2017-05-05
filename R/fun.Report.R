@@ -5,35 +5,35 @@
 #' Different reports (in Word) are created using the RMD files in this package depending on the input fun.myFile.Prefix.
 #' Values are "QC", "DATA", or "STATS".
 #
-#########################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Erik.Leppo@tetratech.com (EWL)
 # 20151022
-###################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Basic Operations:
 # load all files in data directory
 # find ones specified by user
 # generate QC data summaries
 # output to PDF
-#####################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## ideas
 # load one file instead of all
-################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # library (load any required helper functions)
 #library(waterData)
 #library(knitr)
 
-# ##############################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # # 20151221
 # # create MD file in myDir.BASE
 # # then knit
 # # then PANDOC to DOCX
-# ####
+# ##
 # # 1. Create MD file
 # # 2. Knit MD file
 # knit('report_knit_.md')
 # # 3. Pandoc, convert MD to DOCX
 # pandoc(report.md,-0,"report.docx")
-# ##############################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # 20150302, Change function to "Report"
 # QC / Aggregate
 #' @param fun.myData.SiteID Station/SiteID.
@@ -119,7 +119,7 @@ fun.Report <- function(fun.myData.SiteID
     #)
 
 
-    #######################################################################
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     # Clean up
     rm(data.import)
@@ -127,7 +127,7 @@ fun.Report <- function(fun.myData.SiteID
     #
 
 
-  ###########################################################################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   #
   #print(paste("Processing of ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
  # files2process[intCounter] #use for troubleshooting if get error

@@ -29,6 +29,15 @@ Version history.
 
 * Gaps in data not always evident in the plots.  20170308.
 
+# v2.0.1.9004
+2017-05-05
+
+* Reformat file comments so outlines properly in RStudio.  20170505.
+
+* Fix development version from 2.0.1.0004 to 2.0.1.9004.  20170505.
+
+* Update Description with version number (last edit was 2.0.1.0000).  20170505.
+
 # v2.0.1.0003
 2017-05-05
 

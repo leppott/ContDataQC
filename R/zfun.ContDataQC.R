@@ -1,24 +1,24 @@
 #' Master Script
-#' 
+#'
 #' Calls all other functions for the ContDataQC library.
-#' 
+#'
 #' Below are the default data directories assumed to exist in the working directory.  These can be created with code in the example.
-#' 
+#'
 #' ./Data0_Original/ = Unmodified data logger files.
-#' 
-#' ./Data1_RAW/ = Data logger files modified for use with library.  Modifications for extra rows and file and column names. 
-#' 
+#'
+#' ./Data1_RAW/ = Data logger files modified for use with library.  Modifications for extra rows and file and column names.
+#'
 #' ./Data2_QC/ = Repository for library output for QCed files.
-#' 
+#'
 #' ./Data3_Aggregated/ = Repository for library output for aggregated (or split) files.
-#' 
+#'
 #' ./Data4_Stats/ = Repository for library output for statistical summary files.
-#' 
+#'
 # Master Continuous Data Script
 # Will prompt user for what to do
 # Erik.Leppo@tetratech.com
 # 20151118
-#################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Master Functions Script that is invoked from a calling the master script
 # The master will have different versions but will all call this one.
 #
@@ -35,7 +35,7 @@
 #                                                    ,"fun.GageData.R"
 #                                                    ,"fun.Stats.R"
 #                                                   ),sep="/")
-# sapply(myFiles.Source,source,.GlobalEnv)                        
+# sapply(myFiles.Source,source,.GlobalEnv)
 #
 # source(paste(myDir.BASE,myDir.Scripts,"fun.UserDefinedValues.R",sep="/"))
 # source(paste(myDir.BASE,myDir.Scripts,"fun.DateFormat.R",sep="/"))
@@ -68,7 +68,7 @@
 #'
 #'
 #' # Examples of each operation
-#' 
+#'
 #' # Parameters
 #' Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 #' Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
@@ -77,7 +77,7 @@
 #' Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
 #' myDir.SUB.import <- ""
 #' myDir.SUB.export <- ""
-#' 
+#'
 #' # Create data directories
 #' myDir.create <- paste0("./",Selection.SUB[1])
 #'   ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
@@ -87,7 +87,7 @@
 #'   ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
 #' myDir.create <- paste0("./",Selection.SUB[4])
 #'   ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
-#' 
+#'
 #' # Save example data (assumes directory ./Data1_RAW/ exists)
 #' myData <- data_raw_test2_AW_20130426_20130725
 #'   write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20130426_20130725.csv"))
@@ -95,13 +95,13 @@
 #'   write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20130725_20131015.csv"))
 #' myData <- data_raw_test2_AW_20140901_20140930
 #'   write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20140901_20140930.csv"))
-#' 
+#'
 #' # Get Gage Data
 #' myData.Operation    <- "GetGageData" #Selection.Operation[1]
 #' myData.SiteID       <- "01187300"
 #' myData.Type         <- Selection.Type[4] #"Gage"
 #' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "")
-#' 
+#'
 #' # QC Raw Data
 #' myData.Operation <- "QCRaw" #Selection.Operation[2]
 #' myData.SiteID    <- "test2"
@@ -109,7 +109,7 @@
 #' myDir.SUB.import <- Selection.SUB[1] #"Data1_RAW"
 #' myDir.SUB.export <- Selection.SUB[2] #"Data2_QC"
 #' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "")
-#' 
+#'
 #' # Aggregate Data
 #' myData.Operation <- "Aggregate" #Selection.Operation[3]
 #' myData.SiteID    <- "test2"
@@ -117,7 +117,7 @@
 #' myDir.SUB.import <- Selection.SUB[2] #"Data2_QC"
 #' myDir.SUB.export <- Selection.SUB[3] #"Data3_Aggregated"
 #' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "")
-#' 
+#'
 #' # Summary Stats
 #' myData.Operation <- "SummaryStats" #Selection.Operation[4]
 #' myData.SiteID    <- "test2"
@@ -136,7 +136,7 @@ ContDataQC <- function(fun.myData.Operation
                       ,fun.myData.DateRange.End
                       ,fun.myDir.BASE=getwd()
                       ,fun.myDir.SUB.import=""
-                      ,fun.myDir.SUB.export="") 
+                      ,fun.myDir.SUB.export="")
   {##FUN.fun.Master.START
   #
   # Error checking.  If any null then kick back
@@ -147,10 +147,10 @@ ContDataQC <- function(fun.myData.Operation
   QC.SiteID.myDelim <- grepl(ContData.env$myDelim,fun.myData.SiteID) #T/F
   if(QC.SiteID.myDelim==TRUE){##IF.QC.SiteID.myDelim.START
     myMsg <- paste("\n
-              SiteID (",fun.myData.SiteID,") contains the same delimiter (",ContData.env$myDelim,") as in your file names.  
+              SiteID (",fun.myData.SiteID,") contains the same delimiter (",ContData.env$myDelim,") as in your file names.
               \n
               Scripts will not work properly while this is true.
-              \n 
+              \n
               Change SiteID names so they do not include the same delimiter.
               \n
               Or change file names and the variable 'myDelim' in the script 'UserDefinedValue.R'.",sep="")
@@ -195,7 +195,7 @@ ContDataQC <- function(fun.myData.Operation
                  ,fun.myDir.BASE
                  ,fun.myDir.SUB.import
                  ,fun.myDir.SUB.export
-                 ,myProcedure.Step)  
+                 ,myProcedure.Step)
   } else if (fun.myData.Operation=="Aggregate") {
     if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.2QC}
     if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.3Agg}
@@ -217,7 +217,7 @@ ContDataQC <- function(fun.myData.Operation
                  ,fun.myDir.BASE
                  ,fun.myDir.SUB.import
                  ,fun.myDir.SUB.export
-                 ,myProcedure.Step)  
+                 ,myProcedure.Step)
   } else if (fun.myData.Operation=="SummaryStats") {
     if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.3Agg}
     if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.4Stats}
@@ -231,18 +231,19 @@ ContDataQC <- function(fun.myData.Operation
               ,fun.myDir.SUB.import
               ,fun.myDir.SUB.export
               ,myProcedure.Step
-              ,fun.myFile.Prefix) 
+              ,fun.myFile.Prefix)
   } else {
     myMsg <- "No operation provided."
     stop(myMsg)
   }##IF.fun.myOperation.END
   #
 }##FUN.fun.Master.END
-####################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-########
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC
-########
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # fun.myData.SiteID <- myData.SiteID
 # fun.myData.Type <- myData.Type
 # fun.myData.DateRange.Start <- myData.DateRange.Start
@@ -250,7 +251,7 @@ ContDataQC <- function(fun.myData.Operation
 # fun.myDir.BASE <- myDir.BASE
 # fun.myDir.SUB.import <- myDir.SUB.import
 # fun.myDir.SUB.export <- myDir.SUB.export
-# 
+#
 # rm(myData.SiteID)
 # rm(myData.Type)
 # rm(myData.DateRange.Start)

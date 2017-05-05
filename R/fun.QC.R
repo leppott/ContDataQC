@@ -4,19 +4,19 @@
 #' Requires zoo().
 #
 # Sourced Routine
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Quality Control (auto)
-#########################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # make user script smaller and easier to understand
 # not a true function, needs defined variables in calling script
 # if change variable names in either file have to update the other
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Erik.Leppo@tetratech.com (EWL)
 # 20150921 (20151021, make into self standing function)
 # 20151112, combine Auto and Manual QC
 # 20170323, added 3 parameters (Cond, DO, and pH)
 # 20170324, added 2 more parameters (Turbidity and Chlrophylla)
-##################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # assumes use of CSV.  If using TXT have to modify list.files(pattern), read.csv(), and write.csv()
 #
 # Basic Operations:
@@ -33,7 +33,7 @@
 #
 # library (load any required helper functions)
 #library(zoo)
-#############################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @param fun.myData.SiteID Station/SiteID.
 #' @param fun.myData.Type data type is "QC".
 #' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
@@ -263,9 +263,9 @@ fun.QC <- function(fun.myData.SiteID
     #
     # 5.  QC Date and Time fields
     #
-    ############
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # may have to tinker with for NA fields
-    ##############
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # get format - if all data NA then get an error
     #
     # backfill first?
@@ -342,9 +342,9 @@ fun.QC <- function(fun.myData.SiteID
     data.import[,myField][!is.na(data.import[,myField])] <- format(strptime(data.import[,myField][!is.na(data.import[,myField])],format=myFormat.In)
                                                                    ,format=myFormat.Out)
     #   # strptime adds the timezome but drops it when added back to data.import (using format)
-    #   #######################################################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     #   # doesn't work anymore, worked when first line was NA
-    #   #######################################################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     #   data.import <- y
     #   x<-data.import[,myField][!is.na(data.import[,myField])]
     #   (z<-x[2])
@@ -703,14 +703,14 @@ fun.QC <- function(fun.myData.SiteID
             #
     #
     #
-    #############################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Names of columns for QC Calculations and Tests with Flags for each data column present
     # combine so can check for and remove later.
     myNames.DataFields.Present.QCCalcs <- as.vector(t(outer(myNames.DataFields.Present,ContData.env$myNames.QCCalcs,paste,sep=".")))
     myNames.Flags.QCTests <- paste("Flag.",as.vector(t(outer(ContData.env$myNames.QCTests,myNames.DataFields.Present,paste,sep="."))),sep="")
-    #################################
+        #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # not sure if need this little bit anymore
-    ################################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     #
     #
     # 7. QC Tests
@@ -722,9 +722,9 @@ fun.QC <- function(fun.myData.SiteID
     # 9. Generate Log File
     # incorporated into subroutine in step 6
     #
-    ###########################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # save file then run QC Report in a separate Script
-    ###############
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #     # 10.0. Output file (only works if DataType is Air OR Water *not* both)
 #     # 10.1. Set Name
 #     #File.Date.Start <- format(as.Date(myData.DateRange.Start,myFormat.Date),"%Y%m%d")
@@ -773,9 +773,9 @@ fun.QC <- function(fun.myData.SiteID
     #
     # 6-9 #not here
     #
-    ###########################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # save file then run QC Report in a separate Script
-    ###############
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # 10.0. Output file
     # 10.1. Set Name
     File.Date.Start <- format(as.Date(strFile.Date.Start,ContData.env$myFormat.Date),"%Y%m%d")
@@ -804,9 +804,9 @@ fun.QC <- function(fun.myData.SiteID
   #************************
 
 
-    ##################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # insert QC Report so runs without user intervention
-    ##################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # run with same import and export directory
     ###
 
@@ -818,9 +818,9 @@ fun.QC <- function(fun.myData.SiteID
                  ,fun.myDir.SUB.export
                  ,fun.myDir.SUB.export
                  ,strFile.Out.Prefix)
-    ##########
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # QC
-    ######
+    ###
 #                     fun.myData.SiteID           <- strFile.SiteID
 #                     fun.myData.Type             <- strFile.DataType
 #                     fun.myData.DateRange.Start  <- fun.myData.DateRange.Start
@@ -829,9 +829,9 @@ fun.QC <- function(fun.myData.SiteID
 #                     fun.myDir.SUB.import        <- fun.myDir.SUB.export
 #                     fun.myDir.SUB.export        <- fun.myDir.SUB.export
 #                     fun.myFile.Prefix           <- strFile.Out.Prefix
-    ######################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    ######################
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     # 11. Clean up
     # 11.1. Inform user of progress and update LOG
@@ -853,11 +853,12 @@ fun.QC <- function(fun.myData.SiteID
   # return data table
   #return(data.import)  # don't want to return since are saving in the loop  (would only be last one anyway)
 }##FUN.fun.QC.END
-######################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
-# # # ######################################################################
+# # #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # # # # QC
 # fun.data.import                 <- data.import
 # fun.myField.Data                <- myName.SensorDepth
@@ -872,11 +873,11 @@ fun.QC <- function(fun.myData.SiteID
 # fun.myThresh.Flat.Hi            <- myThresh.Flat.Hi.SensorDepth
 # fun.myThresh.Flat.Lo            <- myThresh.Flat.Lo.SensorDepth
 # fun.myThresh.Flat.Tolerance     <- myThresh.Flat.Tolerance.SensorDepth
-# # # ####################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-########################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # FUNCTION
-########################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Generate QC Test Calculations, QC Test Flags, and Assign overall flags
 # input is a single data field and the thresholds
 # output is a data frame (assumes data.import)
@@ -1164,10 +1165,10 @@ fun.CalcQCStats <- function(fun.data.import
   return(fun.data.import)
   #
 }##FUN.fun.QC.END
-########################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-#############################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Floating point math error in some cases (e.g., 0.15 != 0.15)
 # http://stackoverflow.com/questions/9508518/why-are-these-numbers-not-equal
 # instead of <= may have to use isTrue(all.equal(a,b))  where a<-0.1+0.05 and b<-0.15
@@ -1177,7 +1178,7 @@ fun.CalcQCStats <- function(fun.data.import
 # a<=b
 # b>=a
 # isTRUE(all.equal(a,b))
-############################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # leave code "as is"
 # Not removing data but flagging.
 # Had found some cases with SensorDepth equal to 0.1 and not getting the correct T/F.
