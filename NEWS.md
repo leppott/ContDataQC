@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-05-05 14:58:29
+    #> Last Update: 2017-05-15 13:52:37
 
 Version history.
 
@@ -11,16 +11,51 @@ Planned Updates
 
 -   Spell out "AW"" and other abbreviations (e.g., AirWater). 20170308. On hold.
 
--   When Air and Water measurements are at different times the plots aren't working. 20170308.
+-   When Air and Water measurements are at different times the plots and QC aren't working. 20170308.
 
 -   Gaps in data not always evident in the plots. 20170308.
+
+-   Steps/tasks should independant of each other. That is, someone can use just part and not all routines. 20170508.
+
+-   Make knitr silent so don't get code scrolling across screen. 20170512.
+
+-   QC Report, plots are now blank for offset data. 20170515.
+
+v2.0.1.9005
+===========
+
+2017-05-15
+
+-   Add data.R to desribe data inlcuded in library. 20170508.
+
+-   fun.QC.R. Fix typo in myT.diff.all operation (line 965). 20170508.
+
+-   Create data process script in "data-raw" for three example "test1" files. 20170509.
+
+-   Revised fun.OffsetCollectionCheck() in fun.Helper.R. Return value is not boolean. 20170509.
+
+-   Revised fun.CalcQCStats() in fun.QC.R. Added ability to handle offset timing for Air/Water data files. 20170509.
+
+-   Fixed typo in finding time interval in markdown files; Report\_Aggregate.RMD, Report\_Stats.RMD, and Report\_QC.RMD. 20170510.
+
+-   Offset time collections (e.g., Air and Water data in same file but not starting at the same time). Fixed fun.QC.R(fun.QC() and fun.CalcQCStats()) to account for this disparity. Previous iteration flagged every other row. Rows without data are no longer flagged (unless the data at the regular time interval was missing). 20170512.
+
+-   Applied fix from fun.QC.R for difftime to report markdown files; Report\_Aggregate.RMD, Report\_Stats.RMD, and Report\_QC.RMD.. 20170512.
+
+-   Modified example files in /data-raw/ to use "Sensor Depth" instead of "Water Level". Reran ProcessData scripts to recreate data files. 20170512.
+
+-   fun.QC(); moved "Working" message inside of IF statement to only reports to user if that data type is present in the data. Avoids printing to the console all 11 parameters being checked. 20170512.
+
+-   config.R; ContData.env*m**y**N**a**m**e*.*T**u**r**b**i**d**i**t**y**m**o**d**i**f**i**e**d**v**a**l**u**e*, *C**o**n**t**D**a**t**a*.*e**n**v*myName.Chlorophylla modified typo in name (and changed value), ContData.env*m**y**L**a**b*.*C**h**l**o**r**o**p**h**y**l**l**a**m**o**d**i**f**i**e**d**v**a**l**u**e**t**y**p**o*, *C**o**n**t**D**a**t**a*.*e**n**v*myThresh.RoC.SD.number.Chlorophylla name fix, ContData.env*m**y**N**a**m**e*.*F**l**a**g*.*C**h**l**o**r**o**p**h**y**l**l**a**n**a**m**e**f**i**x*, *C**o**n**t**D**a**t**a*.*e**n**v*myUnits.Chlorophylla name fix. 20170512.
+
+-   Offset data files. Fix overall data flags for each parameters. Currently giving "NA" if any "NA". And have "NA" due to offset data. fun.QC.R. 20170512.
 
 v2.0.1.9004
 ===========
 
 2017-05-05
 
--   Reformat file comments so outlines properly in RStudio. 20170505.
+-   Reformat file comments for proper outlining in RStudio. 20170505.
 
 -   Fix development version from 2.0.1.0004 to 2.0.1.9004. 20170505.
 

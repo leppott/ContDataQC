@@ -265,24 +265,36 @@ fun.QC.datetime <- function(fun.df){##FUNCTION.fun.QC.datetime.START
 #
 # check for offset data collection times
 #
-# Checks if data (e.g., air and water) are recorded at different timings (e.g., air at x:12 and water at x:17).
-# Checks for single data types.  Then if case-wise remove NA and have no records.
+# Checks if data (e.g., air and water) are recorded at different timings (e.g., air at 08:12 and water at 08:17).
+# Checks for single data types.  Then if case-wise remove NA and have no records.  Uses all data fields.
+# Returns a boolean value (0=FALSE, no offset times or 1=TRUE, offset times).
 # @param myDF data frame to check
-# @param myDataType type of data (Air, Water, AW, Gage, AWG, AG, WG)
+# @param myDataType type of data (Air, Water, AW, Gage, AWG, AG, WG) # Removed 20170512.
 # @param myFld.Data data fields to check
 # @param myFld.DateTime date time field; defaults to ContData.env$myName.DateTime
-fun.OffsetCollectionCheck <- function(myDF, myDataType, myFld.Data, myFld.DateTime=ContData.env$myName.DateTime) {##FUNCTION.fun.OffsetCollectionCheck.START
+# @return A boolean value (0=FALSE, no offset times or 1=TRUE, offset times).
+# @examples
+# myDF <- test4_AW_20160418_20160726
+# myDataType <- "AW"
+# myFld.Data <- names(myDF)[names(myDF) %in% ContData.env$myNames.DataFields]
+# fun.OffsetCollectionCheck(myDF, myDataType, myFld.Data)
+fun.OffsetCollectionCheck <- function(myDF, myFld.Data, myFld.DateTime=ContData.env$myName.DateTime) {##FUNCTION.fun.OffsetCollectionCheck.START
+  # Return value
+  boo.return <- 0 #FALSE, no issue (default)
   # Skip if a single data type
-  if (tolower(myDataType) %in% c("air","water","gage") == FALSE) {##IF.START
+  #if (tolower(myDataType) %in% c("air","water","gage") == FALSE) {##IF.START
     # data fields
     #myDataFields <- c("Water.BP.psi", "Water.Temp.C", "Air.BP.psi", "Water.Level.ft", "Air.Temp.C" )
-    myDF.NAomit <- na.omit(myDF[,myFld.Data])
+    myDF.NAomit <- as.data.frame(na.omit(myDF[,myFld.Data]))
     if (nrow(myDF.NAomit)==0) {##IF.nrow.START
-      print("Offset collection times between data fields.  Need different analysis routine for this data.")
-      flush.console()
+      boo.return <- 1 #TRUE, there is an issue
+      #print("Offset collection times between data fields.  Need different analysis routine for this data.")
+      #flush.console()
     }##IF.nrow.END
     #
-  }##IF.END
+  #}##IF.END
+  #
+  return(boo.return)
   #
 }##FUNCTION.fun.OffsetCollectionCheck.END
 

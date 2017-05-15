@@ -58,7 +58,7 @@ ContData.env$myUnits.Cond       <- "uS.cm"
 ContData.env$myUnits.DO         <- "mg.L"
 ContData.env$myUnits.pH         <- "SU"
 ContData.env$myUnits.Turbidity  <- "NTU"
-ContData.env$myUnits.Chlorphylla <- "g.cm3"
+ContData.env$myUnits.Chlorophylla <- "g.cm3"
 ContData.env$myUnits.GageHeight <- "ft"
 ## Logger Fields
 ContData.env$myName.RowID.Water   <- "Water.RowID"
@@ -75,8 +75,8 @@ ContData.env$myName.Discharge     <- paste0("Discharge.",ContData.env$myUnits.Di
 ContData.env$myName.Cond          <- paste0("Conductivity.",ContData.env$myUnits.Cond)
 ContData.env$myName.DO            <- paste0("DO.",ContData.env$myUnits.DO)
 ContData.env$myName.pH            <- paste0("pH.",ContData.env$myUnits.pH)
-ContData.env$myName.Turbidity     <- paste0("DO.",ContData.env$myUnits.DO)
-ContData.env$myName.Chlorphylla   <- paste0("pH.",ContData.env$myUnits.pH)
+ContData.env$myName.Turbidity     <- paste0("Turbidity.",ContData.env$myUnits.DO)
+ContData.env$myName.Chlorophylla   <- paste0("Chlorophylla.",ContData.env$myUnits.pH)
 ContData.env$myName.GageHeight    <- paste0("GageHeight",ContData.env$myUnits.GageHeight)
 ## Plot Labels
 ContData.env$myLab.WaterTemp      <- paste0("Temperature, Water (deg ",ContData.env$myUnits.WaterTemp,")")
@@ -92,7 +92,7 @@ ContData.env$myLab.Cond           <- paste0("Conductivity (",sub("\\.","/",ContD
 ContData.env$myLab.DO             <- paste0("Dissolved Oxygen (",sub("\\.","/",ContData.env$myUnits.DO),")")  #replace "." with "/"
 ContData.env$myLab.pH             <- paste0("pH (",ContData.env$myUnits.pH,")")
 ContData.env$myLab.Turbidity      <- paste0("Turbidity (",ContData.env$myUnits.Turbidity,")")
-ContData.env$myLab.Chlorophylla   <- paste0("Chlorophyll a (",sub("\\.","/",ContData.env$myUnits.Chlorphylla),")")    #replace "." with "/"
+ContData.env$myLab.Chlorophylla   <- paste0("Chlorophyll a (",sub("\\.","/",ContData.env$myUnits.Chlorophylla),")")    #replace "." with "/"
 ContData.env$myLab.GageHeight     <- paste0("Gage Height (",ContData.env$myUnits.GageHeight,")")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Discrete Measurements ####
@@ -324,8 +324,8 @@ ContData.env$myThresh.RoC.SD.number.pH         <- ContData.env$myDefault.RoC.SD.
 ContData.env$myThresh.RoC.SD.period.pH         <- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.Turbidity         <- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.Turbidity         <- ContData.env$myDefault.RoC.SD.period
-ContData.env$myThresh.RoC.SD.number.Chlorphylla         <- ContData.env$myDefault.RoC.SD.number
-ContData.env$myThresh.RoC.SD.period.Chlorphylla        <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.Chlorophylla         <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.Chlorophylla        <- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.GageHeight         <- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.GageHeight        <- ContData.env$myDefault.RoC.SD.period
 ## No Change (flat-line)
@@ -397,7 +397,7 @@ ContData.env$myName.Flag.Cond       <- paste(ContData.env$myName.Flag,ContData.e
 ContData.env$myName.Flag.DO         <- paste(ContData.env$myName.Flag,ContData.env$myName.DO,sep=".")
 ContData.env$myName.Flag.pH         <- paste(ContData.env$myName.Flag,ContData.env$myName.pH,sep=".")
 ContData.env$myName.Flag.Turbidity         <- paste(ContData.env$myName.Flag,ContData.env$myName.Turbidity,sep=".")
-ContData.env$myName.Flag.Chlorphylla        <- paste(ContData.env$myName.Flag,ContData.env$myName.Chlorophylla,sep=".")
+ContData.env$myName.Flag.Chlorophylla        <- paste(ContData.env$myName.Flag,ContData.env$myName.Chlorophylla,sep=".")
 ContData.env$myName.Flag.GageHeight        <- paste(ContData.env$myName.Flag,ContData.env$myName.GageHeight,sep=".")
 # Data Quality Test Names
 ContData.env$myNames.QCTests <- c("Gross","Spike","RoC","Flat")
