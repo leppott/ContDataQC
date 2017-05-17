@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-05-15 13:52:37
+    #> Last Update: 2017-05-17 12:28:50
 
 Version history.
 
@@ -15,11 +15,26 @@ Planned Updates
 
 -   Gaps in data not always evident in the plots. 20170308.
 
--   Steps/tasks should independant of each other. That is, someone can use just part and not all routines. 20170508.
+-   QC Report, plots are blank for offset data (after v2.0.1.9004). 20170515.
 
--   Make knitr silent so don't get code scrolling across screen. 20170512.
+-   QC Report, plot legend is below but doesn't have a full outline. 20170517.
 
--   QC Report, plots are now blank for offset data. 20170515.
+-   config.R, custom thresholds. 20170517.
+
+v2.0.1.9006
+===========
+
+2017-05-17
+
+-   zfun.ContDataQC.R. Add in "test4" data (offset times) to examples. 20170515.
+
+-   config.R. Fix typo in ContData.env$myName.GageHeight; missing "." between name and unites. 20170517.
+
+-   fun.QC.R. Line 1034 bad reference for difftime; renamed myTimeDiff.all to myT.diff.all.
+
+-   Comnfirmed that knitr is silent so the user does not get code scrolling across screen. 20170517.
+
+-   Confirmed that steps/tasks in the process are independant of each other. That is, someone can use some or all routines as each is a separate function. 20170517.
 
 v2.0.1.9005
 ===========

@@ -95,6 +95,9 @@
 #'   write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20130725_20131015.csv"))
 #' myData <- data_raw_test2_AW_20140901_20140930
 #'   write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20140901_20140930.csv"))
+#' myData <- data_raw_test4_AW_20160418_20160726
+#'   write.csv(myData,paste0("./",Selection.SUB[1],"/test4_AW_20160418_20160726.csv"))
+#'
 #'
 #' # Get Gage Data
 #' myData.Operation    <- "GetGageData" #Selection.Operation[1]

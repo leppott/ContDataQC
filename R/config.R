@@ -77,7 +77,7 @@ ContData.env$myName.DO            <- paste0("DO.",ContData.env$myUnits.DO)
 ContData.env$myName.pH            <- paste0("pH.",ContData.env$myUnits.pH)
 ContData.env$myName.Turbidity     <- paste0("Turbidity.",ContData.env$myUnits.DO)
 ContData.env$myName.Chlorophylla   <- paste0("Chlorophylla.",ContData.env$myUnits.pH)
-ContData.env$myName.GageHeight    <- paste0("GageHeight",ContData.env$myUnits.GageHeight)
+ContData.env$myName.GageHeight    <- paste0("GageHeight.",ContData.env$myUnits.GageHeight)
 ## Plot Labels
 ContData.env$myLab.WaterTemp      <- paste0("Temperature, Water (deg ",ContData.env$myUnits.WaterTemp,")")
 ContData.env$myLab.AirTemp        <- paste0("Temperature, Air (deg ",ContData.env$myUnits.AirTemp,")")

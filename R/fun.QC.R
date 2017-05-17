@@ -830,8 +830,8 @@ fun.QC <- function(fun.myData.SiteID
                  ,fun.myDir.SUB.export
                  ,strFile.Out.Prefix)
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    # QC
-    ###
+# QC
+# ##
 #                     fun.myData.SiteID           <- strFile.SiteID
 #                     fun.myData.Type             <- strFile.DataType
 #                     fun.myData.DateRange.Start  <- fun.myData.DateRange.Start
@@ -1031,7 +1031,7 @@ fun.CalcQCStats <- function(fun.data.import
   # use median of all (no lower limit)
   x <- fun.data.import.mod[,ContData.env$myName.DateTime]
   myT.diff.all <- difftime(x[-1],x[-length(x)], units="mins")
-  myT.diff <- median(as.vector(myTimeDiff.all))
+  myT.diff <- median(as.vector(myT.diff.all))
   # convert DateTime to POSIX object (already done above)
   #myT <- strptime(fun.data.import.mod[,myName.DateTime],format=myFormat.DateTime)
   # A.2. Use data "as is"
