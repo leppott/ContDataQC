@@ -7,7 +7,7 @@
 config.load(myFile, myExt = "R")
 }
 \arguments{
-\item{myFile}{Configuration file}
+\item{myFile}{Configuration file (including path if not in working directory)}
 
 \item{myExt}{"R" or "RDS"}
 }

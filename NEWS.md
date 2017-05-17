@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-05-17 12:28:50
+    #> Last Update: 2017-05-17 18:09:09
 
 Version history.
 
@@ -19,7 +19,12 @@ Planned Updates
 
 -   QC Report, plot legend is below but doesn't have a full outline. 20170517.
 
--   config.R, custom thresholds. 20170517.
+v2.0.1.9007
+===========
+
+2017-05-17
+
+-   Add additional config file. Modified config.R to include OlsonNames() in timezone section. Added /extdata/config.TZ.central.R with only time zone change. Modified examples in zfun.ContaDataQC.R to include a USGS gage in the central time zone. Modified ContDataQC() with optional parameter to use helper functions to include different config files. Will only need paramters that are different. User provides path to the new R file for new variables to include in the environment ContData.env.
 
 v2.0.1.9006
 ===========

@@ -28,7 +28,7 @@
 #UserDefinedValues <- NA # default value so shows up in help files
 #####################################################################
 # Environment for use only by ContDataQC library
-ContData.env <- new.env(parent = emptyenv())
+#ContData.env <- new.env(parent = emptyenv())
 # assign variables to new environment requires editing of all lines.
 # For example, myDelim <- "_" BECOMES ContData.env$myDelim, "_"
 ###

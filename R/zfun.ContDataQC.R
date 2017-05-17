@@ -44,7 +44,7 @@
 # source(paste(myDir.BASE,myDir.Scripts,"fun.QCReport.R",sep="/"))
 # source(paste(myDir.BASE,myDir.Scripts,"fun.AggregateData.R",sep="/"))
 # source(paste(myDir.BASE,myDir.Scripts,"fun.GageData.R",sep="/"))
-#source(paste(myDir.BASE,myDir.Scripts,"fun.Stats.R",sep="/"))
+# source(paste(myDir.BASE,myDir.Scripts,"fun.Stats.R",sep="/"))
 #' @param fun.myData.Operation Operation to be performed; c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 #' @param fun.myData.SiteID Station/SiteID.
 #' @param fun.myData.Type data type; c("Air","Water","AW","Gage","AWG","AG","WG")
@@ -54,6 +54,7 @@
 #' @param fun.myDir.SUB.import Subdirectory for import data.  If blank will use root directory.
 #' @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
 #' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
+#' @param fun.myConfig Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
 #' @keywords continuous data, aggregate
 #' @examples
@@ -97,13 +98,21 @@
 #'   write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20140901_20140930.csv"))
 #' myData <- data_raw_test4_AW_20160418_20160726
 #'   write.csv(myData,paste0("./",Selection.SUB[1],"/test4_AW_20160418_20160726.csv"))
-#'
+#' myFile <- "config.TZ.Central.R"
+#'   file.copy(file.path(path.package("ContDataQC"),"extdata",myFile),file.path(getwd(),Selection.SUB[1],myFile))
 #'
 #' # Get Gage Data
 #' myData.Operation    <- "GetGageData" #Selection.Operation[1]
-#' myData.SiteID       <- "01187300"
+#' myData.SiteID       <- "01187300" # Hubbard River near West Hartland, CT
 #' myData.Type         <- Selection.Type[4] #"Gage"
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "")
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
+#'
+#' # Get Gage Data (central time zone)
+#' myData.Operation    <- "GetGageData" #Selection.Operation[1]
+#' myData.SiteID       <- "07032000" # Mississippi River at Memphis, TN
+#' myData.Type         <- Selection.Type[4] #"Gage"
+#' myConfig            <- file.path(getwd(),Selection.SUB[1],"config.TZ.central.R") # include path if not in working directory
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", myConfig)
 #'
 #' # QC Raw Data
 #' myData.Operation <- "QCRaw" #Selection.Operation[2]
@@ -111,7 +120,7 @@
 #' myData.Type      <- Selection.Type[3] #"AW"
 #' myDir.SUB.import <- Selection.SUB[1] #"Data1_RAW"
 #' myDir.SUB.export <- Selection.SUB[2] #"Data2_QC"
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "")
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
 #'
 #' # Aggregate Data
 #' myData.Operation <- "Aggregate" #Selection.Operation[3]
@@ -119,7 +128,7 @@
 #' myData.Type      <- Selection.Type[3] #"AW"
 #' myDir.SUB.import <- Selection.SUB[2] #"Data2_QC"
 #' myDir.SUB.export <- Selection.SUB[3] #"Data3_Aggregated"
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "")
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
 #'
 #' # Summary Stats
 #' myData.Operation <- "SummaryStats" #Selection.Operation[4]
@@ -127,7 +136,7 @@
 #' myData.Type      <- Selection.Type[3] #"AW"
 #' myDir.SUB.import <- Selection.SUB[3] #"Data3_Aggregated"
 #' myDir.SUB.export <- Selection.SUB[4] #"Data4_Stats"
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "")
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
 #
 # Function - Master
 # Run different scripts depending upon user input
@@ -139,8 +148,14 @@ ContDataQC <- function(fun.myData.Operation
                       ,fun.myData.DateRange.End
                       ,fun.myDir.BASE=getwd()
                       ,fun.myDir.SUB.import=""
-                      ,fun.myDir.SUB.export="")
+                      ,fun.myDir.SUB.export=""
+                      ,fun.myConfig="")
   {##FUN.fun.Master.START
+  #
+  # config file load, 20170517
+  if (fun.myConfig!="") {##IF.fun.myConfig.START
+    config.load(fun.myConfig)
+  }##IF.fun.myConfig.START
   #
   # Error checking.  If any null then kick back
   ## (add later)

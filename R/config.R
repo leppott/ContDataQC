@@ -414,7 +414,7 @@ ContData.env$myFormat.Time           <- "%H:%M:%S"
 ContData.env$myFormat.DateTime       <- "%Y-%m-%d %H:%M:%S"
 ContData.env$DateRange.Start.Default <- format(as.Date("1900-01-01"),ContData.env$myFormat.Date) #YYYY-MM-DD
 ContData.env$DateRange.End.Default   <- format(Sys.Date(),ContData.env$myFormat.Date)
-# Time Zone, used in Gage script in dataRetrieval
+# Time Zone, used in Gage script in dataRetrieval, OlsonNames()
 ContData.env$myTZ <- Sys.timezone() #"America/New_York" (local time zone)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Time Frames (MM-DD) ####
