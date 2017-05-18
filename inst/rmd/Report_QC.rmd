@@ -3,13 +3,13 @@ title: "Data Quality Control Report"
 output: word_document
 ---
 
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r report_date, results='asis', echo=FALSE, warning=FALSE}
   myReportDate <- format(Sys.Date(),ContData.env$myFormat.Date)
   cat(paste("**Report Date:** ",myReportDate,"\n\n",sep=""))
 ```
 
 # DATA FILE INFORMATION
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r data_file_info, results='asis', echo=FALSE, warning=FALSE}
   
   #filename
   cat("**Filename:** ",strFile,"\n\n",sep="")
@@ -47,7 +47,7 @@ output: word_document
 
 # DATA SUMMARY, OVERALL
 
-```{r, results='asis',echo=FALSE, warning=FALSE}
+```{r data_summary_overall, results='asis',echo=FALSE, warning=FALSE}
 #     2.1. Records by Month/Day
 #     split so easier to put on paper
 #     number of records by month/day (split 1:15 and 16:31)
@@ -134,7 +134,7 @@ output: word_document
 # FLAGS, OVERALL, BY PARAMETER
 Flags are assigned to each data point (a single measured parameter at a unique point in time) first by each of the QC tests below.  Flags are assigned numerical values;
 
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r flags_legend, results='asis', echo=FALSE, warning=FALSE}
 cat(paste("* **",ContData.env$myFlagVal.Pass,"** = Pass,",sep=""))
 cat("\n")
 cat(paste("* **",ContData.env$myFlagVal.Suspect,"** = Suspect,",sep=""))  
@@ -146,7 +146,7 @@ cat(paste("* **",ContData.env$myFlagVal.NoData,"** = No Data or Not Applicable (
 
 Overall flags are assigned by examining the results of the four tests below. 
 
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r flags_overall, results='asis', echo=FALSE, warning=FALSE}
 cat(paste("* **",ContData.env$myFlagVal.Pass,"** = no Fail or Suspect and at least one Pass,",sep=""))
 cat("\n")
 cat(paste("* **",ContData.env$myFlagVal.Suspect,"** = no Fail and at least one Suspect,",sep="")) 
@@ -158,7 +158,7 @@ cat(paste("* **",ContData.env$myFlagVal.NoData,"** = all tests were Missing Data
 
 Overall flags by parameter
 
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r flags_parameters, results='asis', echo=FALSE, warning=FALSE}
 #
      for (j in 1:length(myParameters)) {##FOR.j.START
 #       #
@@ -192,7 +192,7 @@ Overall flags by parameter
 * **Flat Line Test (Flat):** Test if a data point is within a user defined threshold from previous data points over a user defined range.  Default is 3 previous points for suspect and 5 points for failure.  The threshold is user defined and based on the measured parameter and sensitivity of the measuring instrument.
 
 
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r qc_tests_parameters, results='asis', echo=FALSE, warning=FALSE}
  # 3. Data Info, by Parameter
     # Individual Data Type Report
     # QC
@@ -289,7 +289,7 @@ Overall flags by parameter
       myAT <- c(1,round(n.Total * pct,0))
       myLab <- data.plot[,ContData.env$myName.Date][myAT]
       #
-      myPlot.Y <- data.plot[,i]
+      myPlot.Y <- na.omit(as.numeric(data.plot[,i])) #20170518, v2.0.1.9008, coming in as text add na.omit(as.numeric(x))
       myPlot.Ylab <- myParameters.Lab[i.num]
       plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="gray", xaxt="n")
       axis(1,at=myAT,labels=myLab,tick=TRUE)
@@ -314,7 +314,7 @@ Overall flags by parameter
 # PLOTS, MULTIPARAMETER
 Multiparameter plots if exist in the data.
 
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r plots, results='asis', echo=FALSE, warning=FALSE}
  # BOTH plots
     
     # 3.3. Plot
@@ -332,16 +332,19 @@ Multiparameter plots if exist in the data.
     # Temp, Air vs. Water
     if (ContData.env$myName.AirTemp %in% myParameters & ContData.env$myName.WaterTemp %in% myParameters == TRUE){##IF.Temp.START
       cat("##PLOT, Temperature (Air vs. Water) \n\n" )
-
+      #
       par.orig <- par(no.readonly=TRUE) # save original par settings
       layout(rbind(1,2),heights=c(7,1))
-      
-      
-      myPlot.Y <- data.plot[,ContData.env$myName.AirTemp]
-      myPlot.Y2 <- data.plot[,ContData.env$myName.WaterTemp]
+      #
+      myPlot.Y <- na.omit(as.numeric(data.plot[,ContData.env$myName.AirTemp])) # 20170518, v2.0.1.9008
+      myPlot.Y2 <- na.omit(as.numeric(data.plot[,ContData.env$myName.WaterTemp])) # 20170518, v2.0.1.9008
       myPlot.Ylab <- ContData.env$myLab.Temp.BOTH
       plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="green", xaxt="n")
-      axis(1,at=myAT,labels=ContData.env$myLab,tick=TRUE)
+      # Revised myAT for lots of NA (20170518)
+      data.length <- length(myPlot.Y)
+      myAT <- c(1,round(data.length * pct,0))
+      #
+      axis(1,at=myAT,labels=myLab,tick=TRUE)
       lines(myPlot.Y2,type="l",col="blue")
       #legend(x="bottomright",lty=1,col=c("green","blue"),legend=c("air","water"))
       # Add discrete, AirTemp (only if present)
@@ -363,12 +366,13 @@ Multiparameter plots if exist in the data.
         points(myPoints.Y~myPoints.X,col="blue",pch=19) 
       }##IF.Discrete.END
       #
+      # LEGEND
       par(mar=c(0,0,0,0))
       plot.new()
-      legend(x="center",lty=1,col=c("green","blue"),legend=c("air","water"))
-      
+      legend(x="center",lty=1,col=c("green","blue"),legend=c("air","water"),bty="n")
+      #
       par(par.orig) # return to original par settings
-      
+      #
       # Future mod, add points to legend
       cat("\n\n")
       cat("Discrete measurements, if any, show up as points on the plot.")
@@ -380,48 +384,59 @@ Multiparameter plots if exist in the data.
     # Water, Temp vs Level
     if (ContData.env$myName.WaterTemp %in% myParameters & ContData.env$myName.SensorDepth %in% myParameters == TRUE){##IF.Temp_Level.START
       cat("##PLOT, Water Level vs. Water Temperature \n\n")
-      
+      #
       par.orig <- par(no.readonly=TRUE) # save original par settings
-        par(oma=c(0,0,0,2))
-        myPlot.Y <- data.plot[,ContData.env$myName.WaterTemp]
-        myPlot.Ylab <- ContData.env$myLab.WaterTemp
-        myPlot.Y2 <- data.plot[,ContData.env$myName.SensorDepth]
-        myPlot.Y2lab <- ContData.env$myLab.SensorDepth
-        #
-        plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n")
-        axis(1,at=myAT,labels=ContData.env$myLab,tick=TRUE)
-        # Add discrete, Water.Temp (only if present)
-        myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterTemp,sep=".")
-        if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
-          data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
-          data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
-          myPoints.X <- as.numeric(rownames(data.plot.points))
-          myPoints.Y <- data.plot.points[,myDiscrete]
-          points(myPoints.Y~myPoints.X,col="blue",pch=19) 
-        }##IF.Discrete.END
-        #
-        # Add 2nd y axis (2nd color is black)
-        par(new=TRUE)
-        plot(myPlot.Y2,type="l",col="black",axes=FALSE,ann=FALSE)
-        axis(4)
-        mtext(myPlot.Y2lab,side=4,line=2.5)
-        # Add discrete, SensorDepth (only if present)
-        myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.SensorDepth,sep=".")
-        if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
-          data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
-          data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
-          myPoints.X <- as.numeric(rownames(data.plot.points))
-          myPoints.Y <- data.plot.points[,myDiscrete]
-          points(myPoints.Y~myPoints.X,col="black",pch=19) 
-        }##IF.Discrete.END
-        #
-        # Future mod, add points to legend
-        #
-      par(par.orig) # return to original par settings
-      cat("\n\n")
-      cat("Discrete measurements, if any, show up as points on the plot.")
-      cat("\n\n")
-    }##IF.Temp_Level.END
+      layout(rbind(1,2),heights=c(7,1))
+      par(oma=c(0,0,0,2))
+      #
+      myPlot.Y <- na.omit(as.numeric(data.plot[,ContData.env$myName.WaterTemp])) # 20170518, v2.0.1.9008
+      myPlot.Ylab <- ContData.env$myLab.WaterTemp
+      myPlot.Y2 <- na.omit(as.numeric(data.plot[,ContData.env$myName.SensorDepth])) # 20170518, v2.0.1.9008
+      myPlot.Y2lab <- ContData.env$myLab.SensorDepth
+      #
+      plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n")
+      # Revised myAT for lots of NA (20170518)
+      data.length <- length(myPlot.Y)
+      myAT <- c(1,round(data.length * pct,0))
+      #
+      axis(1,at=myAT,labels=myLab,tick=TRUE)
+      # Add discrete, Water.Temp (only if present)
+      myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterTemp,sep=".")
+      if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
+        data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
+        data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
+        myPoints.X <- as.numeric(rownames(data.plot.points))
+        myPoints.Y <- data.plot.points[,myDiscrete]
+        points(myPoints.Y~myPoints.X,col="blue",pch=19) 
+      }##IF.Discrete.END
+      #
+      # Add 2nd y axis (2nd color is black)
+      par(new=TRUE)
+      plot(myPlot.Y2,type="l",col="black",axes=FALSE,ann=FALSE)
+      axis(4)
+      mtext(myPlot.Y2lab,side=4,line=2.5)
+      # Add discrete, SensorDepth (only if present)
+      myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.SensorDepth,sep=".")
+      if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
+        data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
+        data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
+        myPoints.X <- as.numeric(rownames(data.plot.points))
+        myPoints.Y <- data.plot.points[,myDiscrete]
+        points(myPoints.Y~myPoints.X,col="black",pch=19) 
+      }##IF.Discrete.END
+      #
+      # LEGEND
+      par(mar=c(0,0,0,0))
+      plot.new()
+      legend(x="center",lty=1,col=c("black","blue"),legend=c("temperature","sensor depth"),bty="n")
+    #
+      # Future mod, add points to legend
+      #
+    par(par.orig) # return to original par settings
+    cat("\n\n")
+    cat("Discrete measurements, if any, show up as points on the plot.")
+    cat("\n\n")
+  }##IF.Temp_Level.END
     
    # '''
 ```

@@ -3,13 +3,13 @@ title: "Summary Statistics Report"
 output: word_document
 ---
 
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r report_date, results='asis', echo=FALSE, warning=FALSE}
   myReportDate <- format(Sys.Date(),ContData.env$myFormat.Date)
   cat(paste("**Report Date:** ",myReportDate,"\n\n",sep=""))
 ```
 
 # DATA FILE INFORMATION
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r data_file_info, results='asis', echo=FALSE, warning=FALSE}
   
   #filename
   cat("**Filename:** ",strFile,"\n\n",sep="")
@@ -42,7 +42,7 @@ output: word_document
 Summary statistics and plots by parameter and time frame (year, season, month, and daily)
 
 
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r stats_summary, results='asis', echo=FALSE, warning=FALSE}
 #  # 3. Data Info, by Parameter
 #     # Individual Data Type Report
 #     # QC

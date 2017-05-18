@@ -3,13 +3,13 @@ title: "Aggregate Report"
 output: word_document
 ---
 
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r report_date, results='asis', echo=FALSE, warning=FALSE}
   myReportDate <- format(Sys.Date(),ContData.env$myFormat.Date)
   cat(paste("**Report Date:** ",ContData.env$myReportDate,"\n\n",sep=""))
 ```
 
 # DATA FILE INFORMATION
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r data_file_info, results='asis', echo=FALSE, warning=FALSE}
   
   #filename
   cat("**Filename:** ",strFile,"\n\n",sep="")
@@ -44,7 +44,7 @@ output: word_document
 ```
 
 #DATA SUMMARY, OVERALL
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r data_summary_overall, results='asis', echo=FALSE, warning=FALSE}
     #
     cat("Number of records by year and month (with totals).")
     cat("\n")
@@ -96,7 +96,7 @@ output: word_document
 
 # PLOTS, PARAMETERS
 
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r plots_single, results='asis', echo=FALSE, warning=FALSE}
  # 3. Data Info, by Parameter
     # Individual Data Type Report
     # QC
@@ -149,7 +149,7 @@ output: word_document
 # PLOTS, MULTIPARAMETER
 Multiparameter plots if exist in the data.
 
-```{r, results='asis', echo=FALSE, warning=FALSE}
+```{r plots_multi, results='asis', echo=FALSE, warning=FALSE}
  # BOTH plots
     
     # 3.3. Plot

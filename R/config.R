@@ -68,9 +68,9 @@ ContData.env$myName.LoggerID.Air  <- "Air.LoggerID"
 ## Parameters as appear in logger files
 ContData.env$myName.WaterTemp     <- paste0("Water.Temp.",ContData.env$myUnits.WaterTemp)  # "deg" from HoboWare files sometimes adds "A " in front.  Replace with "." in R.
 ContData.env$myName.AirTemp       <- paste0("Air.Temp.",ContData.env$myUnits.AirTemp)   # "deg" from HoboWare files sometimes adds "A " in front.  Replace with "." in R.
-ContData.env$myName.WaterP        <- paste0("Water.BP.",ContData.env$myUnits.WaterP)
+ContData.env$myName.WaterP        <- paste0("Water.P.",ContData.env$myUnits.WaterP)
 ContData.env$myName.AirBP         <- paste0("Air.BP.",ContData.env$myUnits.WaterP)
-ContData.env$myName.SensorDepth    <- paste0("Water.Level.",ContData.env$myUnits.SensorDepth)
+ContData.env$myName.SensorDepth   <- paste0("Sensor.Depth.",ContData.env$myUnits.SensorDepth)
 ContData.env$myName.Discharge     <- paste0("Discharge.",ContData.env$myUnits.Discharge)
 ContData.env$myName.Cond          <- paste0("Conductivity.",ContData.env$myUnits.Cond)
 ContData.env$myName.DO            <- paste0("DO.",ContData.env$myUnits.DO)
@@ -83,9 +83,9 @@ ContData.env$myLab.WaterTemp      <- paste0("Temperature, Water (deg ",ContData.
 ContData.env$myLab.AirTemp        <- paste0("Temperature, Air (deg ",ContData.env$myUnits.AirTemp,")")
 ContData.env$myLab.Date           <- "Date"
 ContData.env$myLab.DateTime       <- "Date"
-ContData.env$myLab.WaterP         <- paste0("Pressure<- Water (",ContData.env$myUnits.AirBP,")")
+ContData.env$myLab.WaterP         <- paste0("Pressure, Water (",ContData.env$myUnits.AirBP,")")
 ContData.env$myLab.AirBP          <- paste0("Barometric Pressure, Air (",ContData.env$myUnits.WaterP,")")
-ContData.env$myLab.SensorDepth     <- paste0("Water Level (",ContData.env$myUnits.SensorDepth,")",sep="")
+ContData.env$myLab.SensorDepth    <- paste0("Sensor Depth (",ContData.env$myUnits.SensorDepth,")",sep="")
 ContData.env$myLab.Temp.BOTH      <- paste0("Temperature (deg ",ContData.env$myUnits.WaterTemp,")")
 ContData.env$myLab.Discharge      <- paste0("Discharge (",sub("\\.","/",ContData.env$myUnits.Discharge),")")  #replace "." with "/"
 ContData.env$myLab.Cond           <- paste0("Conductivity (",sub("\\.","/",ContData.env$myUnits.Cond),")")    #replace "." with "/"

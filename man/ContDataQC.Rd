@@ -114,6 +114,16 @@ myDir.SUB.import <- Selection.SUB[1] #"Data1_RAW"
 myDir.SUB.export <- Selection.SUB[2] #"Data2_QC"
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
 
+#' # QC Raw Data (offset collection times for air and water sensors)
+myData.Operation <- "QCRaw" #Selection.Operation[2]
+myData.SiteID    <- "test4"
+myData.Type      <- Selection.Type[3] #"AW"
+myData.DateRange.Start  <- "2016-04-28"
+myData.DateRange.End    <- "2016-07-26"
+myDir.SUB.import <- Selection.SUB[1] #"Data1_RAW"
+myDir.SUB.export <- Selection.SUB[2] #"Data2_QC"
+ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
+
 # Aggregate Data
 myData.Operation <- "Aggregate" #Selection.Operation[3]
 myData.SiteID    <- "test2"

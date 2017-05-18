@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-05-17 18:09:09
+    #> Last Update: 2017-05-18 15:34:54
 
 Version history.
 
@@ -11,13 +11,24 @@ Planned Updates
 
 -   Spell out "AW"" and other abbreviations (e.g., AirWater). 20170308. On hold.
 
--   When Air and Water measurements are at different times the plots and QC aren't working. 20170308.
-
 -   Gaps in data not always evident in the plots. 20170308.
 
--   QC Report, plots are blank for offset data (after v2.0.1.9004). 20170515.
+-   May need to port updates from QC Report to Aggregate Report. 20170518.
 
--   QC Report, plot legend is below but doesn't have a full outline. 20170517.
+v2.0.1.9008
+===========
+
+2017-05-18
+
+-   Add example for offset data for QC in main function (ContDataQC()). 20170518.
+
+-   Fix plots (legend) in Report\_QC.R (remove box as it is only partially displaying). 20170518.
+
+-   Config file. Upate Sensor Depth and Water Pressure display names. 20170518.
+
+-   Label code chunks in RMD files. 20170518.
+
+-   Fix plots (blank) in Report\_QC.R for "offset" data. With point type of "line" the NAs in the data caused nothing to be plotted. Fixed with na.omit(as.numeric(x)) when subsetted data for plotting. Then had to fix date range on x-axis. 20170518.
 
 v2.0.1.9007
 ===========
