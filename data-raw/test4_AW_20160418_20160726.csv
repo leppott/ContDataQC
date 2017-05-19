@@ -1,4 +1,4 @@
-Water RowID,Date.Time,Water BP psi,Water Temp C,Air BP psi,Water Level ft,Air Temp C,SiteID
+Water RowID,Date.Time,Water P psi,Water Temp C,Air BP psi,Sensor Depth ft,Air Temp C,SiteID
 0,2016-04-18 08:55,11.819,14.6294,,,,test4
 1,2016-04-18 09:07,,,,12.207,14.379,test4
 2,2016-04-18 09:25,12.11,14.5067,0.302,,,test4

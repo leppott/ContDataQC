@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-05-18 15:34:54
+    #> Last Update: 2017-05-19 15:29:31
 
 Version history.
 
@@ -13,7 +13,22 @@ Planned Updates
 
 -   Gaps in data not always evident in the plots. 20170308.
 
--   May need to port updates from QC Report to Aggregate Report. 20170518.
+-   Additional functions for Stats. 20170519.
+
+-   Change directory (input and output) so can be in different locations. 20170519.
+
+v2.0.1.9009
+===========
+
+2017-05-19
+
+-   Report\_Aggregate.rmd. Fix sampling interval (seconds to minutes,line 23). Left plots as dots instead of lines. 20170519.
+
+-   ContDataQC(). Update examples to with date range. After adding in "test4" the dates don't match for "test2". 20170519.
+
+-   Update "test4" dataset. Change "Water Level ft"" to "Sensor Depth ft". 20170519.
+
+-   Summary Stats quit with error. Fixed in summaryBy statements. 20170519.
 
 v2.0.1.9008
 ===========

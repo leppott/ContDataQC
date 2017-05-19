@@ -65,8 +65,6 @@ install.pandoc()
 # Parameters
 Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
-myData.DateRange.Start  <- "2013-01-01"
-myData.DateRange.End    <- "2014-12-31"
 Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
 myDir.SUB.import <- ""
 myDir.SUB.export <- ""
@@ -97,12 +95,16 @@ myFile <- "config.TZ.Central.R"
 myData.Operation    <- "GetGageData" #Selection.Operation[1]
 myData.SiteID       <- "01187300" # Hubbard River near West Hartland, CT
 myData.Type         <- Selection.Type[4] #"Gage"
+myData.DateRange.Start  <- "2013-01-01"
+myData.DateRange.End    <- "2014-12-31"
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
 
 # Get Gage Data (central time zone)
 myData.Operation    <- "GetGageData" #Selection.Operation[1]
 myData.SiteID       <- "07032000" # Mississippi River at Memphis, TN
 myData.Type         <- Selection.Type[4] #"Gage"
+myData.DateRange.Start  <- "2013-01-01"
+myData.DateRange.End    <- "2014-12-31"
 myConfig            <- file.path(getwd(),Selection.SUB[1],"config.TZ.central.R") # include path if not in working directory
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", myConfig)
 
@@ -128,6 +130,8 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start,
 myData.Operation <- "Aggregate" #Selection.Operation[3]
 myData.SiteID    <- "test2"
 myData.Type      <- Selection.Type[3] #"AW"
+myData.DateRange.Start  <- "2013-01-01"
+myData.DateRange.End    <- "2014-12-31"
 myDir.SUB.import <- Selection.SUB[2] #"Data2_QC"
 myDir.SUB.export <- Selection.SUB[3] #"Data3_Aggregated"
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
@@ -136,6 +140,8 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start,
 myData.Operation <- "SummaryStats" #Selection.Operation[4]
 myData.SiteID    <- "test2"
 myData.Type      <- Selection.Type[3] #"AW"
+myData.DateRange.Start  <- "2013-01-01"
+myData.DateRange.End    <- "2014-12-31"
 myDir.SUB.import <- Selection.SUB[3] #"Data3_Aggregated"
 myDir.SUB.export <- Selection.SUB[4] #"Data4_Stats"
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")

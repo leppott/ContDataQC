@@ -20,7 +20,7 @@ output: word_document
        
   #myTimeDiff <- difftime(data.import[11,ContData.env$myName.DateTime],data.import[10,ContData.env$myName.DateTime],units="mins")
   x <- data.import[,ContData.env$myName.DateTime]
-  myTimeDiff.all <- difftime(x[-1],x[-length(x)])
+  myTimeDiff.all <- difftime(x[-1],x[-length(x)],units="mins")
   myTimeDiff <- median(as.vector(myTimeDiff.all))
   
   cat(paste("\n\n**Period of Record, Actual:** ",min(data.import[,ContData.env$myName.Date])," to ",max(data.import[,ContData.env$myName.Date]),"\n\n",sep=""))

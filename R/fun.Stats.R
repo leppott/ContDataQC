@@ -152,8 +152,10 @@ fun.Stats <- function(fun.myData.SiteID
   ## Flow (SensorDepth and Discharge)
   ## Nothing on Pressure (used to calculate SensorDepth)
   # future add pH, Cond, etc from USGS gages
-  myFields.Data       <- c(ContData.env$myName.WaterTemp, ContData.env$myName.AirTemp, ContData.env$myName.SensorDepth)
-  myFields.Data.Flags <- c(ContData.env$myName.Flag.WaterTemp, ContData.env$myName.Flag.AirTemp, ContData.env$myName.Flag.SensorDepth)
+  myFields.Data       <- c(ContData.env$myName.WaterTemp, ContData.env$myName.AirTemp, ContData.env$myName.SensorDepth
+                           ,ContData.env$myName.Discharge, ContData.env$myName.Cond, ContData.env$myName.DO, ContData.env$myName.pH
+                           ,ContData.env$myName.Turbidity, ContData.env$myName.Chlorophylla, ContData.env$myName.GageHeight)
+  myFields.Data.Flags <- paste0(ContData.env$myName.Flag,".",myFields.Data)
   myFields.Type       <- c("Thermal","Thermal","Hydrologic")
   myFields.Keep <- c(ContData.env$myName.SiteID
                      , ContData.env$myName.Date
@@ -174,7 +176,7 @@ fun.Stats <- function(fun.myData.SiteID
       flush.console()
 
   ############## QC
-  #i <- myFields.Data[1] #QC
+  #i <- data2process[1] #QC
   ####################### change from myFields.Data to data2process (need to fix)
 
   for (i in data2process) {##FOR.i.START
@@ -187,6 +189,9 @@ fun.Stats <- function(fun.myData.SiteID
       myFlag <- myFields.Data.Flags[i.num]
     #data.stats.nofail <- data.stats[data.stats[,myFields.Data.Flags[i.num]]!=myFlagVal.Fail,]
 
+    # 20180519, feedback to user
+    print(paste0("Processing item ",i.num," of ",length(data2process),"; ",i))
+      flush.console()
     #data.stats.nofail <- data.stats
     #data.stats.nofail[data.stats.nofail[,data.stats[,myFields.Data.Flags[i.num]]=myFlagVal.Fail]] <- na
 
@@ -197,6 +202,11 @@ fun.Stats <- function(fun.myData.SiteID
       #
     }##IF.myStats.Fails.Exclude.END
 
+    # #QC test where fails
+    # qc.section <- "For.i.A"
+    # print(paste0("QC.Section: ",qc.section))
+    #   flush.console()
+
     #
     # summaryBy doesn't work with Group as variable (change value for running here)
     # have to change some back for dv.i when save
@@ -205,6 +215,11 @@ fun.Stats <- function(fun.myData.SiteID
     names(data.stats)[names(data.stats) %in% ContData.env$myName.YrSeason] <- "YearSeason"
     names(data.stats)[names(data.stats) %in% ContData.env$myName.Yr] <- "Year"
 
+    #QC test where fails
+    # qc.section <- "For.i.B.namechanges"
+    # print(paste0("QC.Section: ",qc.section))
+    # print(dim(data.stats))
+    # flush.console()
 
     # summaryBy not working with "i" as variable.  Have to do an ugly hack to get it working
 
@@ -233,24 +248,63 @@ fun.Stats <- function(fun.myData.SiteID
 
     # Create Daily Values (mean) (DV is USGS term so use that)
 
-    if(i==myFields.Data[1]) {
-      dv.i <- doBy::summaryBy(as.numeric(Water.Temp.C)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
-                        , var.names="i",id=c(ContData.env$myName.SiteID, "Year", "YearMonth", ContData.env$myName.Mo, ContData.env$myName.MoDa
-                                             , ContData.env$myName.JuDa, ContData.env$myName.Season,"YearSeason"))
-    } else if(i==myFields.Data[2]) {
-      dv.i <- doBy::summaryBy(as.numeric(Air.Temp.C)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
-                        , var.names="i",id=c(ContData.env$myName.SiteID, "Year", "YearMonth", ContData.env$myName.Mo, ContData.env$myName.MoDa
-                                             , ContData.env$myName.JuDa, ContData.env$myName.Season,"YearSeason"))
-    } else if (i==myFields.Data[3]) {
-      dv.i <- doBy::summaryBy(as.numeric(Water.Level.ft)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
-                        , var.names="i",id=c(ContData.env$myName.SiteID, "Year", "YearMonth", ContData.env$myName.Mo, ContData.env$myName.MoDa
-                                             , ContData.env$myName.JuDa, ContData.env$myName.Season,"YearSeason"))
-    }
-
-
+    # if(i==myFields.Data[1]) {
+      # dv.i <- doBy::summaryBy(as.numeric(Water.Temp.C)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
+      #                   , var.names="i",id=c(ContData.env$myName.SiteID, "Year", "YearMonth", ContData.env$myName.Mo, ContData.env$myName.MoDa
+      #                                        , ContData.env$myName.JuDa, ContData.env$myName.Season,"YearSeason"))
+    # } else if(i==myFields.Data[2]) {
+    #   dv.i <- doBy::summaryBy(as.numeric(Air.Temp.C)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
+    #                     , var.names="i",id=c(ContData.env$myName.SiteID, "Year", "YearMonth", ContData.env$myName.Mo, ContData.env$myName.MoDa
+    #                                          , ContData.env$myName.JuDa, ContData.env$myName.Season,"YearSeason"))
+    # } else if (i==myFields.Data[3]) {
+    #   dv.i <- doBy::summaryBy(as.numeric(Water.Level.ft)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
+    #                     , var.names="i",id=c(ContData.env$myName.SiteID, "Year", "YearMonth", ContData.env$myName.Mo, ContData.env$myName.MoDa
+    #                                          , ContData.env$myName.JuDa, ContData.env$myName.Season,"YearSeason"))
+    # }
+    # 20170519, fix hard coded names
+    #
+    # name to myVar then name back
+    ColNum.i <- match(i,names(data.stats))
+    names(data.stats)[ColNum.i] <- "myVar"
+    dv.i <- doBy::summaryBy(as.numeric(myVar)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
+                            , var.names="i",id=c(ContData.env$myName.SiteID, ContData.env$myName.Yr , ContData.env$myName.YrMo, ContData.env$myName.Mo, ContData.env$myName.MoDa
+                                                 , ContData.env$myName.JuDa, ContData.env$myName.Season, ContData.env$myName.YrSeason))
+    names(data.stats)[ColNum.i] <- i
+    #
+    #
+    #
+    # if(i==myFields.Data[1]) {
+    #
+    #   dv.i <- doBy::summaryBy(as.numeric(Water.Temp.C)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
+    #                           , var.names="i",id=c(ContData.env$myName.SiteID, ContData.env$myName.Yr , ContData.env$myName.YrMo, ContData.env$myName.Mo, ContData.env$myName.MoDa
+    #                                                , ContData.env$myName.JuDa, ContData.env$myName.Season, ContData.env$myName.YrSeason))
+    # } else if(i==myFields.Data[2]) {
+    #   dv.i <- doBy::summaryBy(as.numeric(data.stats[,ContData.env$myName.AirTemp])~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
+    #                           , var.names="i",id=c(ContData.env$myName.SiteID, ContData.env$myName.Yr , ContData.env$myName.YrMo, ContData.env$myName.Mo, ContData.env$myName.MoDa
+    #                                                , ContData.env$myName.JuDa, ContData.env$myName.Season, ContData.env$myName.YrSeason))
+    # } else if (i==myFields.Data[3]) {
+    #   dv.i <- doBy::summaryBy(as.numeric(data.stats[,ContData.env$myName.SensorDepth])~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
+    #                           , var.names="i",id=c(ContData.env$myName.SiteID, ContData.env$myName.Yr , ContData.env$myName.YrMo, ContData.env$myName.Mo, ContData.env$myName.MoDa
+    #                                                , ContData.env$myName.JuDa, ContData.env$myName.Season, ContData.env$myName.YrSeason))
+    # }
+    # 20170519, don't need "if" statement above.
+    # dv.i <- doBy::summaryBy(as.numeric(data.stats[,i])~Date, data=data.stats, FUN=c(mean), na.rm=TRUE, var.names="i"
+    #                         , id=c(ContData.env$myName.SiteID, ContData.env$myName.Yr , ContData.env$myName.YrMo
+    #                               , ContData.env$myName.Mo, ContData.env$myName.MoDa , ContData.env$myName.JuDa
+    #                               , ContData.env$myName.Season,ContData.env$myName.YrSeason)
+    #                         )
+    # dv.i <- doBy::summaryBy(as.numeric(data.stats[,i])~Date, data=data.stats, FUN=c(mean), na.rm=TRUE, var.names="i"
+    #                         , id=c(ContData.env$myName.SiteID, ContData.env$myName.Yr, ContData.env$myName.YrMo
+    #                                , ContData.env$myName.Mo, ContData.env$myName.MoDa, ContData.env$myName.JuDa
+    #                                , ContData.env$myName.Season,ContData.env$myName.YrSeason)
+    #                         )
 #     dv.i <- doBy::summaryBy(as.numeric(data.stats[,i])~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
 #                       , var.names="i")#,id=c(myName.SiteID,"Year","YearMonth",myName.MoDa,myName.JuDa,myName.Season,"YearSeason"))
-#
+
+    # #QC test where fails
+    # qc.section <- "For.i.C.dv.i"
+    # print(paste0("QC.Section: ",qc.section))
+    # flush.console()
 
 
     # rename fields back (use dv.i generated by summaryBy)
@@ -269,6 +323,11 @@ fun.Stats <- function(fun.myData.SiteID
     strFile.Prefix.Out <- "DV"
     strFile.Out <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,sep=ContData.env$myDelim),"csv",sep=".")
     write.csv(dv.i,paste(myDir.data.export,strFile.Out,sep="/"),quote=FALSE,row.names=FALSE)
+
+    # #QC test where fails
+    # qc.section <- "For.i.D.save.dv"
+    # print(paste0("QC.Section: ",qc.section))
+    # flush.console()
 
     # calculate daily mean, max, min, range, sd, n
     # Define FUNCTION for use with summaryBy
@@ -290,6 +349,11 @@ fun.Stats <- function(fun.myData.SiteID
     }##FUN.myFUN.sumBy.END
     #
     #
+    # #QC test where fails
+    # qc.section <- "For.i.E.calcDaily"
+    # print(paste0("QC.Section: ",qc.section))
+    # flush.console()
+    #
     # summaryBy doesn't work with Group as variable (change value for running here)
     # have to change some back for dv.i.* when save
     names(data.stats)[names(data.stats) %in% ContData.env$myName.Date] <- "Date"
@@ -299,266 +363,270 @@ fun.Stats <- function(fun.myData.SiteID
     names(data.stats)[names(data.stats) %in% ContData.env$myName.Yr] <- "Year"
     names(data.stats)[names(data.stats) %in% ContData.env$myName.Mo] <- "Month"
     names(data.stats)[names(data.stats) %in% ContData.env$myName.Season] <- "Season"
-
+    #
+    # #QC test where fails
+    # qc.section <- "For.i.F.namechanges"
+    # print(paste0("QC.Section: ",qc.section))
+    # flush.console()
     #
     #
-    # Save plots as PDF
-    strFile.Prefix.Out <- fun.myProcedure.Step
-    strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,sep=ContData.env$myDelim),"pdf",sep=".")
-    pdf(file=paste(myDir.data.export,strFile.plot,sep="/"),width=11,height=8.5)
-
-      #
-      # ## Daily
-      #   myTimeFrame <- "day"
-      #   myTF.Field <- ContData.env$myName.Date
-      #   myDF <- data.stats
-      #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~Date,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ####### ugly hack
-      #   if(i==myFields.Data[1]) {
-      #     stats.i <- doBy::summaryBy(as.numeric(Water.Temp.C)~Date,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   } else if(i==myFields.Data[2]) {
-      #     stats.i <- doBy::summaryBy(as.numeric(Air.Temp.C)~Date,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   } else if (i==myFields.Data[3]) {
-      #     stats.i <- doBy::summaryBy(as.numeric(Water.Level.ft)~Date,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   }
-      #   ##
-      #   # Range
-      #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
-      #   # rename
-      #   names(stats.i) <- c("TimeValue",myFUN.Names)
-      #   stats.i[,"Parameter"] <- i
-      #   stats.i[,"TimeFrame"] <- myTimeFrame
-      #   stats.i.d <- stats.i
-      #   # plot
-      #   myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
-      #   #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
-      #   #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
-      #     plot(stats.i$mean,type=myPlot.Type
-      #          ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
-      #          ,ylim=c(min(stats.i$min),max(stats.i$max)))
-      #     myCol <- "gray"
-      #     lines(stats.i$max,col=myCol)
-      #     lines(stats.i$min,col=myCol)
-      #     polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
-      #     lines(stats.i$mean)
-      #     # X-Axis
-      #     n.Total <- length(factor(stats.i[,"TimeValue"]))
-      #     pct <- c(20,40,60,80,100)*.01
-      #     myAT <- c(1,round(n.Total * pct,0))
-      #     myLab <- stats.i[,"TimeValue"][myAT]
-      #     axis(1,at=myAT,labels=myLab,tick=TRUE)
-      #   #dev.off()
-      #
-        # ## Julian Day
-        # myTimeFrame <- "JulianDay"
-        # myTF.Field <- ContData.env$myName.JuDa
-        # myDF <- dv.i
-        # #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-        # ## ugly hack
-        # stats.i <- doBy::summaryBy(as.numeric(mean)~JulianDay,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-        # ##
-        # #Range
-        # #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
-        # # rename
-        # names(stats.i) <- c("TimeValue",myFUN.Names)
-        # stats.i[,"Parameter"] <- i
-        # stats.i[,"TimeFrame"] <- myTimeFrame
-        # stats.i.jd <- stats.i
-        # # plot
-        # myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
-        # #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
-        # #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
-        # plot(stats.i$mean,type=myPlot.Type
-        #      ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
-        #      ,ylim=c(min(stats.i$min),max(stats.i$max)))
-        # myCol <- "gray"
-        # lines(stats.i$max,col=myCol)
-        # lines(stats.i$min,col=myCol)
-        # polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
-        # lines(stats.i$mean)
-        # # X-Axis
-        # n.Total <- length(factor(stats.i[,"TimeValue"]))
-        # pct <- c(20,40,60,80,100)*.01
-        # myAT <- c(1,round(n.Total * pct,0))
-        # myLab <- stats.i[,"TimeValue"][myAT]
-        # axis(1,at=myAT,labels=myLab,tick=TRUE)
-        # #dev.off()
-        #
-      # ## Year_Month
-      #   myTimeFrame <- "year_month"
-      #   myTF.Field <- ContData.env$myName.YrMo
-      #   myDF <- dv.i
-      #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ## ugly hack
-      #     stats.i <- doBy::summaryBy(as.numeric(mean)~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ##
-      #   #Range
-      #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
-      #   # rename
-      #   names(stats.i) <- c("TimeValue",myFUN.Names)
-      #   stats.i[,"Parameter"] <- i
-      #   stats.i[,"TimeFrame"] <- myTimeFrame
-      #   stats.i.ym <- stats.i
-      #   # plot
-      #   myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
-      #   #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
-      #   #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
-      #   plot(stats.i$mean,type=myPlot.Type
-      #        ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
-      #        ,ylim=c(min(stats.i$min),max(stats.i$max)))
-      #   myCol <- "gray"
-      #   lines(stats.i$max,col=myCol)
-      #   lines(stats.i$min,col=myCol)
-      #   polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
-      #   lines(stats.i$mean)
-      #   # X-Axis
-      #   n.Total <- length(factor(stats.i[,"TimeValue"]))
-      #   myAT <- 1:n.Total
-      #   myLab <- stats.i[,"TimeValue"][myAT]
-      #   axis(1,at=myAT,labels=myLab,tick=TRUE)
-      #   #dev.off()
-      # #
-        #
-      #   ## Month (all years)
-      #   myTimeFrame <- "month"
-      #   myTF.Field <- ContData.env$myName.Mo
-      #   myDF <- dv.i
-      #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ## ugly hack
-      #   stats.i <- doBy::summaryBy(as.numeric(mean)~Month,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ##
-      #   #Range
-      #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
-      #   # rename
-      #   names(stats.i) <- c("TimeValue",myFUN.Names)
-      #   stats.i[,"Parameter"] <- i
-      #   stats.i[,"TimeFrame"] <- myTimeFrame
-      #   stats.i.m <- stats.i
-      #   # plot
-      #   myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
-      #   #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
-      #   #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
-      #   plot(stats.i$mean,type=myPlot.Type
-      #        ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
-      #        ,ylim=c(min(stats.i$min),max(stats.i$max)))
-      #   myCol <- "gray"
-      #   lines(stats.i$max,col=myCol)
-      #   lines(stats.i$min,col=myCol)
-      #   polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
-      #   lines(stats.i$mean)
-      #   # X-Axis
-      #   n.Total <- length(factor(stats.i[,"TimeValue"]))
-      #   myAT <- 1:n.Total
-      #   myLab <- stats.i[,"TimeValue"][myAT]
-      #   axis(1,at=myAT,labels=myLab,tick=TRUE)
-      #   #dev.off()
-      #   #
-      # ## Year_Season
-      #   myTimeFrame <- "year_season"
-      #   myTF.Field <- ContData.env$myName.YrSeason
-      #   myDF <- dv.i
-      #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~SeasonYear,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ## ugly hack
-      #   stat.i <- doBy::summaryBy(as.numeric(mean)~YearSeason,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ###
-      #   # Range
-      #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
-      #   # rename
-      #   names(stats.i) <- c("TimeValue",myFUN.Names)
-      #   stats.i[,"Parameter"] <- i
-      #   stats.i[,"TimeFrame"] <- myTimeFrame
-      #   stats.i.ys <- stats.i
-      #   # plot
-      #   myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
-      #   #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
-      #   #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
-      #   plot(stats.i$mean,type=myPlot.Type
-      #        ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
-      #        ,ylim=c(min(stats.i$min),max(stats.i$max)))
-      #   myCol <- "gray"
-      #   lines(stats.i$max,col=myCol)
-      #   lines(stats.i$min,col=myCol)
-      #   polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
-      #   lines(stats.i$mean)
-      #   # X-Axis
-      #   n.Total <- length(factor(stats.i[,"TimeValue"]))
-      #   myAT <- 1:n.Total
-      #   myLab <- stats.i[,"TimeValue"][myAT]
-      #   axis(1,at=myAT,labels=myLab,tick=TRUE)
-      #   #dev.off()
-      # #
-      #   #
-      #   ## Season (all years)
-      #   myTimeFrame <- "season"
-      #   myTF.Field <- ContData.env$myName.Season
-      #   myDF <- dv.i
-      #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~SeasonYear,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ## ugly hack
-      #   stats.i <- doBy::summaryBy(as.numeric(mean)~Season,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ##
-      #   # Range
-      #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
-      #   # rename
-      #   names(stats.i) <- c("TimeValue",myFUN.Names)
-      #   stats.i[,"Parameter"] <- i
-      #   stats.i[,"TimeFrame"] <- myTimeFrame
-      #   stats.i.s <- stats.i
-      #   # plot
-      #   myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
-      #   #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
-      #   #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
-      #   plot(stats.i$mean,type=myPlot.Type
-      #        ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
-      #        ,ylim=c(min(stats.i$min),max(stats.i$max)))
-      #   myCol <- "gray"
-      #   lines(stats.i$max,col=myCol)
-      #   lines(stats.i$min,col=myCol)
-      #   polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
-      #   lines(stats.i$mean)
-      #   # X-Axis
-      #   n.Total <- length(factor(stats.i[,"TimeValue"]))
-      #   myAT <- 1:n.Total
-      #   myLab <- stats.i[,"TimeValue"][myAT]
-      #   axis(1,at=myAT,labels=myLab,tick=TRUE)
-      #   #dev.off()
-      #   #
-      # ## Year
-      #   myTimeFrame <- "year"
-      #   myTF.Field <- ContData.env$myName.Yr
-      #   myDF <- dv.i
-      #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~Year,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ## ugly hack
-      #   stats.i <- doBy::summaryBy(as.numeric(mean)~Year,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
-      #   ##
-      #   # Range
-      #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
-      #   # rename
-      #   names(stats.i) <- c("TimeValue",myFUN.Names)
-      #   stats.i[,"Parameter"] <- i
-      #   stats.i[,"TimeFrame"] <- myTimeFrame
-      #   stats.i.y <- stats.i
-      #   # plot
-      #   myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
-      #   #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
-      #   #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
-      #   plot(stats.i$mean,type=myPlot.Type
-      #        ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
-      #        ,ylim=c(min(stats.i$min),max(stats.i$max)))
-      #   myCol <- "gray"
-      #   lines(stats.i$max,col=myCol)
-      #   lines(stats.i$min,col=myCol)
-      #   polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
-      #   lines(stats.i$mean)
-      #   # X-Axis
-      #   n.Total <- length(factor(stats.i[,"TimeValue"]))
-      #   myAT <- 1:n.Total
-      #   myLab <- stats.i[,"TimeValue"][myAT]
-      #   axis(1,at=myAT,labels=myLab,tick=TRUE)
-      #   #dev.off()
-      # #
-      # #
-
-    dev.off()##PDF.END
+    # # Save plots as PDF
+    # strFile.Prefix.Out <- fun.myProcedure.Step
+    # strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,sep=ContData.env$myDelim),"pdf",sep=".")
+    # pdf(file=paste(myDir.data.export,strFile.plot,sep="/"),width=11,height=8.5)
+    #
+    #   #
+    #   # ## Daily
+    #   #   myTimeFrame <- "day"
+    #   #   myTF.Field <- ContData.env$myName.Date
+    #   #   myDF <- data.stats
+    #   #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~Date,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #   #   ####### ugly hack
+    #   #   if(i==myFields.Data[1]) {
+    #   #     stats.i <- doBy::summaryBy(as.numeric(Water.Temp.C)~Date,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #   #   } else if(i==myFields.Data[2]) {
+    #   #     stats.i <- doBy::summaryBy(as.numeric(Air.Temp.C)~Date,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #   #   } else if (i==myFields.Data[3]) {
+    #   #     stats.i <- doBy::summaryBy(as.numeric(Water.Level.ft)~Date,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #   #   }
+    #   #   ##
+    #   #   # Range
+    #   #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
+    #   #   # rename
+    #   #   names(stats.i) <- c("TimeValue",myFUN.Names)
+    #   #   stats.i[,"Parameter"] <- i
+    #   #   stats.i[,"TimeFrame"] <- myTimeFrame
+    #   #   stats.i.d <- stats.i
+    #   #   # plot
+    #   #   myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
+    #   #   #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
+    #   #   #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
+    #   #     plot(stats.i$mean,type=myPlot.Type
+    #   #          ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
+    #   #          ,ylim=c(min(stats.i$min),max(stats.i$max)))
+    #   #     myCol <- "gray"
+    #   #     lines(stats.i$max,col=myCol)
+    #   #     lines(stats.i$min,col=myCol)
+    #   #     polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+    #   #     lines(stats.i$mean)
+    #   #     # X-Axis
+    #   #     n.Total <- length(factor(stats.i[,"TimeValue"]))
+    #   #     pct <- c(20,40,60,80,100)*.01
+    #   #     myAT <- c(1,round(n.Total * pct,0))
+    #   #     myLab <- stats.i[,"TimeValue"][myAT]
+    #   #     axis(1,at=myAT,labels=myLab,tick=TRUE)
+    #   #   #dev.off()
+    #   #
+    #     # ## Julian Day
+    #     # myTimeFrame <- "JulianDay"
+    #     # myTF.Field <- ContData.env$myName.JuDa
+    #     # myDF <- dv.i
+    #     # #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #     # ## ugly hack
+    #     # stats.i <- doBy::summaryBy(as.numeric(mean)~JulianDay,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #     # ##
+    #     # #Range
+    #     # #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
+    #     # # rename
+    #     # names(stats.i) <- c("TimeValue",myFUN.Names)
+    #     # stats.i[,"Parameter"] <- i
+    #     # stats.i[,"TimeFrame"] <- myTimeFrame
+    #     # stats.i.jd <- stats.i
+    #     # # plot
+    #     # myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
+    #     # #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
+    #     # #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
+    #     # plot(stats.i$mean,type=myPlot.Type
+    #     #      ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
+    #     #      ,ylim=c(min(stats.i$min),max(stats.i$max)))
+    #     # myCol <- "gray"
+    #     # lines(stats.i$max,col=myCol)
+    #     # lines(stats.i$min,col=myCol)
+    #     # polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+    #     # lines(stats.i$mean)
+    #     # # X-Axis
+    #     # n.Total <- length(factor(stats.i[,"TimeValue"]))
+    #     # pct <- c(20,40,60,80,100)*.01
+    #     # myAT <- c(1,round(n.Total * pct,0))
+    #     # myLab <- stats.i[,"TimeValue"][myAT]
+    #     # axis(1,at=myAT,labels=myLab,tick=TRUE)
+    #     # #dev.off()
+    #     #
+    #   # ## Year_Month
+    #   #   myTimeFrame <- "year_month"
+    #   #   myTF.Field <- ContData.env$myName.YrMo
+    #   #   myDF <- dv.i
+    #   #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #   #   ## ugly hack
+    #   #     stats.i <- doBy::summaryBy(as.numeric(mean)~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #   #   ##
+    #   #   #Range
+    #   #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
+    #   #   # rename
+    #   #   names(stats.i) <- c("TimeValue",myFUN.Names)
+    #   #   stats.i[,"Parameter"] <- i
+    #   #   stats.i[,"TimeFrame"] <- myTimeFrame
+    #   #   stats.i.ym <- stats.i
+    #   #   # plot
+    #   #   myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
+    #   #   #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
+    #   #   #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
+    #   #   plot(stats.i$mean,type=myPlot.Type
+    #   #        ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
+    #   #        ,ylim=c(min(stats.i$min),max(stats.i$max)))
+    #   #   myCol <- "gray"
+    #   #   lines(stats.i$max,col=myCol)
+    #   #   lines(stats.i$min,col=myCol)
+    #   #   polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+    #   #   lines(stats.i$mean)
+    #   #   # X-Axis
+    #   #   n.Total <- length(factor(stats.i[,"TimeValue"]))
+    #   #   myAT <- 1:n.Total
+    #   #   myLab <- stats.i[,"TimeValue"][myAT]
+    #   #   axis(1,at=myAT,labels=myLab,tick=TRUE)
+    #   #   #dev.off()
+    #   # #
+    #     #
+    #   #   ## Month (all years)
+    #   #   myTimeFrame <- "month"
+    #   #   myTF.Field <- ContData.env$myName.Mo
+    #   #   myDF <- dv.i
+    #   #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #   #   ## ugly hack
+    #   #   stats.i <- doBy::summaryBy(as.numeric(mean)~Month,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #   #   ##
+    #   #   #Range
+    #   #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
+    #   #   # rename
+    #   #   names(stats.i) <- c("TimeValue",myFUN.Names)
+    #   #   stats.i[,"Parameter"] <- i
+    #   #   stats.i[,"TimeFrame"] <- myTimeFrame
+    #   #   stats.i.m <- stats.i
+    #   #   # plot
+    #   #   myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
+    #   #   #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
+    #   #   #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
+    #   #   plot(stats.i$mean,type=myPlot.Type
+    #   #        ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
+    #   #        ,ylim=c(min(stats.i$min),max(stats.i$max)))
+    #   #   myCol <- "gray"
+    #   #   lines(stats.i$max,col=myCol)
+    #   #   lines(stats.i$min,col=myCol)
+    #   #   polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+    #   #   lines(stats.i$mean)
+    #   #   # X-Axis
+    #   #   n.Total <- length(factor(stats.i[,"TimeValue"]))
+    #   #   myAT <- 1:n.Total
+    #   #   myLab <- stats.i[,"TimeValue"][myAT]
+    #   #   axis(1,at=myAT,labels=myLab,tick=TRUE)
+    #   #   #dev.off()
+    #   #   #
+    #   # ## Year_Season
+    #   #   myTimeFrame <- "year_season"
+    #   #   myTF.Field <- ContData.env$myName.YrSeason
+    #   #   myDF <- dv.i
+    #   #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~SeasonYear,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #   #   ## ugly hack
+    #   #   stat.i <- doBy::summaryBy(as.numeric(mean)~YearSeason,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #   #   ###
+    #   #   # Range
+    #   #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
+    #   #   # rename
+    #   #   names(stats.i) <- c("TimeValue",myFUN.Names)
+    #   #   stats.i[,"Parameter"] <- i
+    #   #   stats.i[,"TimeFrame"] <- myTimeFrame
+    #   #   stats.i.ys <- stats.i
+    #   #   # plot
+    #   #   myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
+    #   #   #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
+    #   #   #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
+    #   #   plot(stats.i$mean,type=myPlot.Type
+    #   #        ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
+    #   #        ,ylim=c(min(stats.i$min),max(stats.i$max)))
+    #   #   myCol <- "gray"
+    #   #   lines(stats.i$max,col=myCol)
+    #   #   lines(stats.i$min,col=myCol)
+    #   #   polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+    #   #   lines(stats.i$mean)
+    #   #   # X-Axis
+    #   #   n.Total <- length(factor(stats.i[,"TimeValue"]))
+    #   #   myAT <- 1:n.Total
+    #   #   myLab <- stats.i[,"TimeValue"][myAT]
+    #   #   axis(1,at=myAT,labels=myLab,tick=TRUE)
+    #   #   #dev.off()
+    #   # #
+    #   #   #
+    #   #   ## Season (all years)
+    #   #   myTimeFrame <- "season"
+    #   #   myTF.Field <- ContData.env$myName.Season
+    #   #   myDF <- dv.i
+    #   #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~SeasonYear,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #   #   ## ugly hack
+    #   #   stats.i <- doBy::summaryBy(as.numeric(mean)~Season,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #   #   ##
+    #   #   # Range
+    #   #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
+    #   #   # rename
+    #   #   names(stats.i) <- c("TimeValue",myFUN.Names)
+    #   #   stats.i[,"Parameter"] <- i
+    #   #   stats.i[,"TimeFrame"] <- myTimeFrame
+    #   #   stats.i.s <- stats.i
+    #   #   # plot
+    #   #   myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
+    #   #   #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
+    #   #   #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
+    #   #   plot(stats.i$mean,type=myPlot.Type
+    #   #        ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
+    #   #        ,ylim=c(min(stats.i$min),max(stats.i$max)))
+    #   #   myCol <- "gray"
+    #   #   lines(stats.i$max,col=myCol)
+    #   #   lines(stats.i$min,col=myCol)
+    #   #   polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+    #   #   lines(stats.i$mean)
+    #   #   # X-Axis
+    #   #   n.Total <- length(factor(stats.i[,"TimeValue"]))
+    #   #   myAT <- 1:n.Total
+    #   #   myLab <- stats.i[,"TimeValue"][myAT]
+    #   #   axis(1,at=myAT,labels=myLab,tick=TRUE)
+    #   #   #dev.off()
+    #   #   #
+    #   # ## Year
+    #   #   myTimeFrame <- "year"
+    #   #   myTF.Field <- ContData.env$myName.Yr
+    #   #   myDF <- dv.i
+    #   #   #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~Year,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #   #   ## ugly hack
+    #   #   stats.i <- doBy::summaryBy(as.numeric(mean)~Year,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+    #   #   ##
+    #   #   # Range
+    #   #   #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
+    #   #   # rename
+    #   #   names(stats.i) <- c("TimeValue",myFUN.Names)
+    #   #   stats.i[,"Parameter"] <- i
+    #   #   stats.i[,"TimeFrame"] <- myTimeFrame
+    #   #   stats.i.y <- stats.i
+    #   #   # plot
+    #   #   myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
+    #   #   #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
+    #   #   #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
+    #   #   plot(stats.i$mean,type=myPlot.Type
+    #   #        ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
+    #   #        ,ylim=c(min(stats.i$min),max(stats.i$max)))
+    #   #   myCol <- "gray"
+    #   #   lines(stats.i$max,col=myCol)
+    #   #   lines(stats.i$min,col=myCol)
+    #   #   polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+    #   #   lines(stats.i$mean)
+    #   #   # X-Axis
+    #   #   n.Total <- length(factor(stats.i[,"TimeValue"]))
+    #   #   myAT <- 1:n.Total
+    #   #   myLab <- stats.i[,"TimeValue"][myAT]
+    #   #   axis(1,at=myAT,labels=myLab,tick=TRUE)
+    #   #   #dev.off()
+    #   # #
+    #   # #
+    #
+    # dev.off()##PDF.END
 
     #
     #

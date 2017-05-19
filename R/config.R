@@ -439,6 +439,14 @@ ContData.env$myName.JuDa     <- "JulianDay"
 ContData.env$myName.Day      <- "Day"
 ContData.env$myName.Season   <- "Season"
 ContData.env$myName.YrSeason <- "YearSeason"
+# for summary stats
+ContData.env$myNames.Fields.TimePeriods <- c(ContData.env$myName.Yr
+											,ContData.env$myName.YrMo
+											,ContData.env$myName.Mo
+											,ContData.env$myName.MoDa
+											,ContData.env$myName.JuDa
+											,ContData.env$myName.Season
+											,ContData.env$myName.YrSeason)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Exclude Trigger ####
 # Trigger for Stats to exclude (TRUE) or include (FALSE) where flag = "fail"
