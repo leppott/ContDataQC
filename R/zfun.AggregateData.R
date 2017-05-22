@@ -32,9 +32,8 @@
 #' @param fun.myData.Type data type; c("Air","Water","AW","Gage","AWG","AG","WG")
 #' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
 #' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
-#' @param fun.myDir.BASE Root directory for data.  If blank will use current working directory.
-#' @param fun.myDir.SUB.import Subdirectory for import data.  If blank will use root directory.
-#' @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
+#' @param fun.myDir.import Directory for import data.  Default is current working directory.
+#' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
 #' @keywords continuous data, aggregate
 #' @examples
@@ -45,9 +44,8 @@ fun.AggregateData <- function(fun.myData.SiteID
                              ,fun.myData.Type
                              ,fun.myData.DateRange.Start
                              ,fun.myData.DateRange.End
-                             ,fun.myDir.BASE=getwd()
-                             ,fun.myDir.SUB.import=""
-                             ,fun.myDir.SUB.export="") {##FUN.fun.QCauto.START
+                             ,fun.myDir.import=getwd()
+                             ,fun.myDir.export=getwd()) {##FUN.fun.QCauto.START
   #
   # Error Checking - only 1 SiteID and 1 DataType
   if(length(fun.myData.SiteID)!=1){
@@ -63,8 +61,10 @@ fun.AggregateData <- function(fun.myData.SiteID
   fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1)),tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
   #
   # data directories
-  myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="","",paste("/",fun.myDir.SUB.import,sep="")),sep="")
-  myDir.data.export <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.export=="","",paste("/",fun.myDir.SUB.export,sep="")),sep="")
+  #myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="","",paste("/",fun.myDir.SUB.import,sep="")),sep="")
+  #myDir.data.export <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.export=="","",paste("/",fun.myDir.SUB.export,sep="")),sep="")
+  myDir.data.import <- fun.myDir.import
+  myDir.data.export <- fun.myDir.export
   #
   myDate <- format(Sys.Date(),"%Y%m%d")
   myTime <- format(Sys.time(),"%H%M%S")
@@ -331,9 +331,8 @@ fun.AggregateData <- function(fun.myData.SiteID
                      ,strFile.DataType
                      ,fun.myData.DateRange.Start
                      ,fun.myData.DateRange.End
-                     ,fun.myDir.BASE
-                     ,fun.myDir.SUB.export
-                     ,fun.myDir.SUB.export
+                     ,fun.myDir.export
+                     ,fun.myDir.export
                      ,"DATA")
 #                 ##
 #                 # QC
@@ -472,9 +471,8 @@ fun.AggregateData <- function(fun.myData.SiteID
                  ,fun.myPrefix.merge
                  ,fun.myData.DateRange.Start
                  ,fun.myData.DateRange.End
-                 ,fun.myDir.BASE
-                 ,fun.myDir.SUB.export
-                 ,fun.myDir.SUB.export
+                 ,fun.myDir.export
+                 ,fun.myDir.export
                  ,"DATA")
     # inform user
     print(paste("Done merging ",fun.myPrefix.merge," files; ",strFile.Out,sep=""))

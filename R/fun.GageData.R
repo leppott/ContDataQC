@@ -15,9 +15,9 @@
 #' @param fun.myData.Type data type is "Gage".
 #' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
 #' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
-#' @param fun.myDir.BASE Root directory for data.  If blank will use current working directory.
-#' @param fun.myDir.SUB.import Subdirectory for import data.  If blank will use root directory.
-#' @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
+# @param fun.myDir.import Directory for import data.  Default is current working directory.
+# @param fun.myDir.export Directory for export data.  Default is current working directory.
+#' @param fun.myDir.export SDirectory for export data.  Default is current working directory.
 #' @param myTZ Timezone for requested gage.  Default is in env.UserDefinedValues.R.  Can also be set with Sys.timezone().
 #' @return Returns a csv file to specified directory with the requested daily mean data.  During the data retrieval a summary is output to the console.
 #' @keywords continuous data, USGS, gage, dataRetrieval
@@ -32,14 +32,14 @@ fun.GageData <- function(fun.myData.SiteID
                      ,fun.myData.Type="Gage"
                      ,fun.myData.DateRange.Start
                      ,fun.myData.DateRange.End
-                     ,fun.myDir.BASE=getwd()
-                     ,fun.myDir.SUB.import=""
-                     ,fun.myDir.SUB.export=""
+                     ,fun.myDir.export=getwd()
                      ,myTZ=ContData.env$myTZ) {##FUN.fun.GageData.START
   #
   # data directories
-  myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="","",paste("/",fun.myDir.SUB.import,sep="")),sep="")
-  myDir.data.export <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.export=="","",paste("/",fun.myDir.SUB.export,sep="")),sep="")
+  #myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="","",paste("/",fun.myDir.SUB.import,sep="")),sep="")
+  #myDir.data.export <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.export=="","",paste("/",fun.myDir.SUB.export,sep="")),sep="")
+ # myDir.data.import <- fun.myDir.import
+  myDir.data.export <- fun.myDir.export
   #
   myDate <- format(Sys.Date(),"%Y%m%d")
   myTime <- format(Sys.time(),"%H%M%S")

@@ -5,9 +5,8 @@
 \title{Statistical Summary}
 \usage{
 fun.Stats(fun.myData.SiteID, fun.myData.Type, fun.myData.DateRange.Start,
-  fun.myData.DateRange.End, fun.myDir.BASE = getwd(),
-  fun.myDir.SUB.import = "", fun.myDir.SUB.export = "",
-  fun.myProcedure.Step, fun.myFile.Prefix)
+  fun.myData.DateRange.End, fun.myDir.import = getwd(),
+  fun.myDir.export = getwd(), fun.myProcedure.Step, fun.myFile.Prefix)
 }
 \arguments{
 \item{fun.myData.SiteID}{Station/SiteID.}
@@ -18,11 +17,9 @@ fun.Stats(fun.myData.SiteID, fun.myData.Type, fun.myData.DateRange.Start,
 
 \item{fun.myData.DateRange.End}{End date for requested data. Format = YYYY-MM-DD.}
 
-\item{fun.myDir.BASE}{Root directory for data.  If blank will use current working directory.}
+\item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
 
-\item{fun.myDir.SUB.import}{Subdirectory for import data.  If blank will use root directory.}
-
-\item{fun.myDir.SUB.export}{Subdirectory for export data.  If blank will use root directory.}
+\item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
 
 \item{fun.myFile.Prefix}{Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.}
 }

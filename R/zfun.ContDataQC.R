@@ -50,9 +50,11 @@
 #' @param fun.myData.Type data type; c("Air","Water","AW","Gage","AWG","AG","WG")
 #' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
 #' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
-#' @param fun.myDir.BASE Root directory for data.  If blank will use current working directory.
-#' @param fun.myDir.SUB.import Subdirectory for import data.  If blank will use root directory.
-#' @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
+# @param fun.myDir.BASE Root directory for data.  If blank will use current working directory.
+# @param fun.myDir.SUB.import Subdirectory for import data.  If blank will use root directory.
+# @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
+#' @param fun.myDir.import Directory for import data.  Default is current working directory.
+#' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
 #' @param fun.myConfig Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
@@ -74,8 +76,7 @@
 #' Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 #' Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
 #' Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
-#' myDir.SUB.import <- ""
-#' myDir.SUB.export <- ""
+#' myDir.BASE <- getwd()
 #'
 #' # Create data directories
 #' myDir.create <- paste0("./",Selection.SUB[1])
@@ -105,7 +106,9 @@
 #' myData.Type         <- Selection.Type[4] #"Gage"
 #' myData.DateRange.Start  <- "2013-01-01"
 #' myData.DateRange.End    <- "2014-12-31"
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
+#' myDir.import <- ""
+#' myDir.export <- file.path(myDir.BASE,Selection.SUB[1])
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
 #'
 #' # Get Gage Data (central time zone)
 #' myData.Operation    <- "GetGageData" #Selection.Operation[1]
@@ -113,26 +116,30 @@
 #' myData.Type         <- Selection.Type[4] #"Gage"
 #' myData.DateRange.Start  <- "2013-01-01"
 #' myData.DateRange.End    <- "2014-12-31"
+#' myDir.import <- ""
+#' myDir.export <- file.path(myDir.BASE,Selection.SUB[1])
 #' myConfig            <- file.path(getwd(),Selection.SUB[1],"config.TZ.central.R") # include path if not in working directory
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", myConfig)
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export, myConfig)
 #'
 #' # QC Raw Data
 #' myData.Operation <- "QCRaw" #Selection.Operation[2]
 #' myData.SiteID    <- "test2"
 #' myData.Type      <- Selection.Type[3] #"AW"
-#' myDir.SUB.import <- Selection.SUB[1] #"Data1_RAW"
-#' myDir.SUB.export <- Selection.SUB[2] #"Data2_QC"
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
+#' myData.DateRange.Start  <- "2013-01-01"
+#' myData.DateRange.End    <- "2014-12-31"
+#' myDir.import <- file.path(myDir.BASE,Selection.SUB[1]) #"Data1_RAW"
+#' myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
 #'
-#'#' # QC Raw Data (offset collection times for air and water sensors)
+#' # QC Raw Data (offset collection times for air and water sensors)
 #' myData.Operation <- "QCRaw" #Selection.Operation[2]
 #' myData.SiteID    <- "test4"
 #' myData.Type      <- Selection.Type[3] #"AW"
 #' myData.DateRange.Start  <- "2016-04-28"
 #' myData.DateRange.End    <- "2016-07-26"
-#' myDir.SUB.import <- Selection.SUB[1] #"Data1_RAW"
-#' myDir.SUB.export <- Selection.SUB[2] #"Data2_QC"
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
+#' myDir.import <- file.path(myDir.BASE,Selection.SUB[1]) #"Data1_RAW"
+#' myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
 #'
 #' # Aggregate Data
 #' myData.Operation <- "Aggregate" #Selection.Operation[3]
@@ -140,9 +147,9 @@
 #' myData.Type      <- Selection.Type[3] #"AW"
 #' myData.DateRange.Start  <- "2013-01-01"
 #' myData.DateRange.End    <- "2014-12-31"
-#' myDir.SUB.import <- Selection.SUB[2] #"Data2_QC"
-#' myDir.SUB.export <- Selection.SUB[3] #"Data3_Aggregated"
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
+#' myDir.import <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
+#' myDir.export <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
 #'
 #' # Summary Stats
 #' myData.Operation <- "SummaryStats" #Selection.Operation[4]
@@ -150,9 +157,9 @@
 #' myData.Type      <- Selection.Type[3] #"AW"
 #' myData.DateRange.Start  <- "2013-01-01"
 #' myData.DateRange.End    <- "2014-12-31"
-#' myDir.SUB.import <- Selection.SUB[3] #"Data3_Aggregated"
-#' myDir.SUB.export <- Selection.SUB[4] #"Data4_Stats"
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
+#' myDir.import <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
+#' myDir.export <- file.path(myDir.BASE,Selection.SUB[4]) #"Data4_Stats"
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
 #
 # Function - Master
 # Run different scripts depending upon user input
@@ -162,9 +169,8 @@ ContDataQC <- function(fun.myData.Operation
                       ,fun.myData.Type
                       ,fun.myData.DateRange.Start
                       ,fun.myData.DateRange.End
-                      ,fun.myDir.BASE=getwd()
-                      ,fun.myDir.SUB.import=""
-                      ,fun.myDir.SUB.export=""
+                      ,fun.myDir.import=getwd()
+                      ,fun.myDir.export=getwd()
                       ,fun.myConfig="")
   {##FUN.fun.Master.START
   #
@@ -196,74 +202,68 @@ ContDataQC <- function(fun.myData.Operation
   #
   # Run different functions based on "fun.myOperation"
   if (fun.myData.Operation=="GetGageData"){##IF.fun.myOperation.START
-    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.1Raw}
-    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.1Raw}
+    #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.1Raw}
+    #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.1Raw}
     fun.myData.Type <- "Gage"
+    # does not need import directory so one less input than the others
     fun.GageData(fun.myData.SiteID
                  ,fun.myData.Type
                  ,fun.myData.DateRange.Start
                  ,fun.myData.DateRange.End
-                 ,fun.myDir.BASE
-                 ,fun.myDir.SUB.import
-                 ,fun.myDir.SUB.export)
+                 ,fun.myDir.export)
     # runs the QC Report as part of sourced function but can run independantly below
   } else if (fun.myData.Operation=="QCRaw"){
-    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.1Raw}
-    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.2QC}
+    #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.1Raw}
+    #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.2QC}
     fun.QC(fun.myData.SiteID
            ,fun.myData.Type
            ,fun.myData.DateRange.Start
            ,fun.myData.DateRange.End
-           ,fun.myDir.BASE
-           ,fun.myDir.SUB.import
-           ,fun.myDir.SUB.export)
+           ,fun.myDir.import
+           ,fun.myDir.export)
     # runs the QC Report as part of sourced function but can run independantly below
   } else if (fun.myData.Operation=="ReportQC") {
-    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.2QC}
-    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.2QC}
+    #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.2QC}
+    #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.2QC}
     myProcedure.Step <- "QC"
     fun.Report(fun.myData.SiteID
                  ,fun.myData.Type
                  ,fun.myData.DateRange.Start
                  ,fun.myData.DateRange.End
-                 ,fun.myDir.BASE
-                 ,fun.myDir.SUB.import
-                 ,fun.myDir.SUB.export
+                 ,fun.myDir.import
+                 ,fun.myDir.export
                  ,myProcedure.Step)
   } else if (fun.myData.Operation=="Aggregate") {
-    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.2QC}
-    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.3Agg}
+    #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.2QC}
+    #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.3Agg}
     fun.AggregateData(fun.myData.SiteID
                       ,fun.myData.Type
                       ,fun.myData.DateRange.Start
                       ,fun.myData.DateRange.End
-                      ,fun.myDir.BASE
-                      ,fun.myDir.SUB.import
-                      ,fun.myDir.SUB.export)
+                      ,fun.myDir.import
+                      ,fun.myDir.export)
   } else if (fun.myData.Operation=="ReportAggregate") {
-    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.3Agg}
-    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.3Agg}
+    #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.3Agg}
+    #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.3Agg}
     myProcedure.Step <- "DATA"
     fun.Report(fun.myData.SiteID
                  ,fun.myData.Type
                  ,fun.myData.DateRange.Start
                  ,fun.myData.DateRange.End
-                 ,fun.myDir.BASE
-                 ,fun.myDir.SUB.import
-                 ,fun.myDir.SUB.export
+                 ,fun.myDir.import
+                 ,fun.myDir.export
                  ,myProcedure.Step)
   } else if (fun.myData.Operation=="SummaryStats") {
-    if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.3Agg}
-    if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.4Stats}
+    #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.3Agg}
+    #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.4Stats}
     myProcedure.Step <- "STATS"
     fun.myFile.Prefix <- "DATA"
     fun.Stats(fun.myData.SiteID
               ,fun.myData.Type
               ,fun.myData.DateRange.Start
               ,fun.myData.DateRange.End
-              ,fun.myDir.BASE
-              ,fun.myDir.SUB.import
-              ,fun.myDir.SUB.export
+              ,fun.myDir.import
+              ,fun.myDir.export
               ,myProcedure.Step
               ,fun.myFile.Prefix)
   } else {

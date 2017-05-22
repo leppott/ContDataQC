@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-05-19 15:29:31
+    #> Last Update: 2017-05-22 15:02:47
 
 Version history.
 
@@ -15,7 +15,12 @@ Planned Updates
 
 -   Additional functions for Stats. 20170519.
 
--   Change directory (input and output) so can be in different locations. 20170519.
+v2.0.1.9010
+===========
+
+2017-05-22
+
+-   Modify input and export directories so can be any folder. The default directory is now the working directory. Modified input parameters for ContDataQC() by removing "fun.myDir.BASE". Modified examples and all other necessary scripts.
 
 v2.0.1.9009
 ===========

@@ -6,8 +6,8 @@
 \usage{
 ContDataQC(fun.myData.Operation, fun.myData.SiteID, fun.myData.Type,
   fun.myData.DateRange.Start, fun.myData.DateRange.End,
-  fun.myDir.BASE = getwd(), fun.myDir.SUB.import = "",
-  fun.myDir.SUB.export = "", fun.myConfig = "")
+  fun.myDir.import = getwd(), fun.myDir.export = getwd(),
+  fun.myConfig = "")
 }
 \arguments{
 \item{fun.myData.Operation}{Operation to be performed; c("GetGageData","QCRaw", "Aggregate", "SummaryStats")}
@@ -20,11 +20,9 @@ ContDataQC(fun.myData.Operation, fun.myData.SiteID, fun.myData.Type,
 
 \item{fun.myData.DateRange.End}{End date for requested data. Format = YYYY-MM-DD.}
 
-\item{fun.myDir.BASE}{Root directory for data.  If blank will use current working directory.}
+\item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
 
-\item{fun.myDir.SUB.import}{Subdirectory for import data.  If blank will use root directory.}
-
-\item{fun.myDir.SUB.export}{Subdirectory for export data.  If blank will use root directory.}
+\item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
 
 \item{fun.myConfig}{Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.}
 
@@ -66,8 +64,7 @@ install.pandoc()
 Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
 Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
-myDir.SUB.import <- ""
-myDir.SUB.export <- ""
+myDir.BASE <- getwd()
 
 # Create data directories
 myDir.create <- paste0("./",Selection.SUB[1])
@@ -97,7 +94,9 @@ myData.SiteID       <- "01187300" # Hubbard River near West Hartland, CT
 myData.Type         <- Selection.Type[4] #"Gage"
 myData.DateRange.Start  <- "2013-01-01"
 myData.DateRange.End    <- "2014-12-31"
-ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
+myDir.import <- ""
+myDir.export <- file.path(myDir.BASE,Selection.SUB[1])
+ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
 
 # Get Gage Data (central time zone)
 myData.Operation    <- "GetGageData" #Selection.Operation[1]
@@ -105,26 +104,30 @@ myData.SiteID       <- "07032000" # Mississippi River at Memphis, TN
 myData.Type         <- Selection.Type[4] #"Gage"
 myData.DateRange.Start  <- "2013-01-01"
 myData.DateRange.End    <- "2014-12-31"
+myDir.import <- ""
+myDir.export <- file.path(myDir.BASE,Selection.SUB[1])
 myConfig            <- file.path(getwd(),Selection.SUB[1],"config.TZ.central.R") # include path if not in working directory
-ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", myConfig)
+ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export, myConfig)
 
 # QC Raw Data
 myData.Operation <- "QCRaw" #Selection.Operation[2]
 myData.SiteID    <- "test2"
 myData.Type      <- Selection.Type[3] #"AW"
-myDir.SUB.import <- Selection.SUB[1] #"Data1_RAW"
-myDir.SUB.export <- Selection.SUB[2] #"Data2_QC"
-ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
+myData.DateRange.Start  <- "2013-01-01"
+myData.DateRange.End    <- "2014-12-31"
+myDir.import <- file.path(myDir.BASE,Selection.SUB[1]) #"Data1_RAW"
+myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
+ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
 
-#' # QC Raw Data (offset collection times for air and water sensors)
+# QC Raw Data (offset collection times for air and water sensors)
 myData.Operation <- "QCRaw" #Selection.Operation[2]
 myData.SiteID    <- "test4"
 myData.Type      <- Selection.Type[3] #"AW"
 myData.DateRange.Start  <- "2016-04-28"
 myData.DateRange.End    <- "2016-07-26"
-myDir.SUB.import <- Selection.SUB[1] #"Data1_RAW"
-myDir.SUB.export <- Selection.SUB[2] #"Data2_QC"
-ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
+myDir.import <- file.path(myDir.BASE,Selection.SUB[1]) #"Data1_RAW"
+myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
+ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
 
 # Aggregate Data
 myData.Operation <- "Aggregate" #Selection.Operation[3]
@@ -132,9 +135,9 @@ myData.SiteID    <- "test2"
 myData.Type      <- Selection.Type[3] #"AW"
 myData.DateRange.Start  <- "2013-01-01"
 myData.DateRange.End    <- "2014-12-31"
-myDir.SUB.import <- Selection.SUB[2] #"Data2_QC"
-myDir.SUB.export <- Selection.SUB[3] #"Data3_Aggregated"
-ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
+myDir.import <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
+myDir.export <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
+ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
 
 # Summary Stats
 myData.Operation <- "SummaryStats" #Selection.Operation[4]
@@ -142,9 +145,9 @@ myData.SiteID    <- "test2"
 myData.Type      <- Selection.Type[3] #"AW"
 myData.DateRange.Start  <- "2013-01-01"
 myData.DateRange.End    <- "2014-12-31"
-myDir.SUB.import <- Selection.SUB[3] #"Data3_Aggregated"
-myDir.SUB.export <- Selection.SUB[4] #"Data4_Stats"
-ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, getwd(), "", "", "")
+myDir.import <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
+myDir.export <- file.path(myDir.BASE,Selection.SUB[4]) #"Data4_Stats"
+ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
 }
 \keyword{aggregate}
 \keyword{continuous}

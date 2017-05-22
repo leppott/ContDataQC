@@ -6,8 +6,7 @@
 \usage{
 fun.GageData(fun.myData.SiteID, fun.myData.Type = "Gage",
   fun.myData.DateRange.Start, fun.myData.DateRange.End,
-  fun.myDir.BASE = getwd(), fun.myDir.SUB.import = "",
-  fun.myDir.SUB.export = "", myTZ = ContData.env$myTZ)
+  fun.myDir.export = getwd(), myTZ = ContData.env$myTZ)
 }
 \arguments{
 \item{fun.myData.SiteID}{Station/SiteID (can be a vector).}
@@ -18,11 +17,7 @@ fun.GageData(fun.myData.SiteID, fun.myData.Type = "Gage",
 
 \item{fun.myData.DateRange.End}{End date for requested data. Format = YYYY-MM-DD.}
 
-\item{fun.myDir.BASE}{Root directory for data.  If blank will use current working directory.}
-
-\item{fun.myDir.SUB.import}{Subdirectory for import data.  If blank will use root directory.}
-
-\item{fun.myDir.SUB.export}{Subdirectory for export data.  If blank will use root directory.}
+\item{fun.myDir.export}{SDirectory for export data.  Default is current working directory.}
 
 \item{myTZ}{Timezone for requested gage.  Default is in env.UserDefinedValues.R.  Can also be set with Sys.timezone().}
 }

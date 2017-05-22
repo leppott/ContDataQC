@@ -40,9 +40,8 @@
 #' @param fun.myData.Type data type; c("Air","Water","AW","Gage","AWG","AG","WG")
 #' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
 #' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
-#' @param fun.myDir.BASE Root directory for data.  If blank will use current working directory.
-#' @param fun.myDir.SUB.import Subdirectory for import data.  If blank will use root directory.
-#' @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
+#' @param fun.myDir.import Directory for import data.  Default is current working directory.
+#' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
 #' @return Creates a Word file in the specified directory.
 #' @keywords continuous data, report
@@ -55,17 +54,18 @@ fun.Report <- function(fun.myData.SiteID
                          ,fun.myData.Type
                          ,fun.myData.DateRange.Start
                          ,fun.myData.DateRange.End
-                         ,fun.myDir.BASE=getwd()
-                         ,fun.myDir.SUB.import=""
-                         ,fun.myDir.SUB.export=""
+                         ,fun.myDir.import=getwd()
+                         ,fun.myDir.export=getwd()
                          ,fun.myFile.Prefix) {##FUN.fun.Report.START
   #
   # Convert Data Type to proper case
   fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1)),tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
   #
   # data directories
-  myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="","",paste("/",fun.myDir.SUB.import,sep="")),sep="")
-  myDir.data.export <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.export=="","",paste("/",fun.myDir.SUB.export,sep="")),sep="")
+  # myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="","",paste("/",fun.myDir.SUB.import,sep="")),sep="")
+  # myDir.data.export <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.export=="","",paste("/",fun.myDir.SUB.export,sep="")),sep="")
+  myDir.data.import <- fun.myDir.import
+  myDir.data.export <- fun.myDir.export
   #
   myDate <- format(Sys.Date(),"%Y%m%d")
   myTime <- format(Sys.time(),"%H%M%S")
@@ -115,7 +115,7 @@ fun.Report <- function(fun.myData.SiteID
     strFile.RMD <- system.file(paste0("rmd/",myReport.Name,".rmd"),package=myPkg)
     strFile.DOCX <- paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,myReport.Name,sep=ContData.env$myDelim),".docx",sep="")
     #suppressWarnings(
-      rmarkdown::render(strFile.RMD,output_file=strFile.DOCX,output_dir=paste(fun.myDir.BASE,fun.myDir.SUB.export,sep="/"),quiet=TRUE)
+      rmarkdown::render(strFile.RMD, output_file=strFile.DOCX, output_dir=fun.myDir.export, quiet=TRUE)
     #)
 
 
