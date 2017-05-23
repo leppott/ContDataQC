@@ -29,6 +29,13 @@ Version history.
 
 * Additional functions for Stats.  20170519.
 
+* Ability to work on single file.  Currently searches directory for all files that match user specified criteria.  20170523.
+
+# v2.0.1.9011
+2017-05-23
+
+* Remove unused arguement "fun.myFile.Prefix" from help file for ContDataQC().  201705-23.
+
 # v2.0.1.9010
 2017-05-22
 

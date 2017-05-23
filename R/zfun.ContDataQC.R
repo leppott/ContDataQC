@@ -55,7 +55,7 @@
 # @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
+# @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the output.
 #' @param fun.myConfig Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
 #' @keywords continuous data, aggregate
