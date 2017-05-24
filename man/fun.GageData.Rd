@@ -6,7 +6,7 @@
 \usage{
 fun.GageData(fun.myData.SiteID, fun.myData.Type = "Gage",
   fun.myData.DateRange.Start, fun.myData.DateRange.End,
-  fun.myDir.export = getwd(), myTZ = ContData.env$myTZ)
+  fun.myDir.export = getwd(), fun.myTZ = ContData.env$myTZ)
 }
 \arguments{
 \item{fun.myData.SiteID}{Station/SiteID (can be a vector).}
@@ -17,9 +17,9 @@ fun.GageData(fun.myData.SiteID, fun.myData.Type = "Gage",
 
 \item{fun.myData.DateRange.End}{End date for requested data. Format = YYYY-MM-DD.}
 
-\item{fun.myDir.export}{SDirectory for export data.  Default is current working directory.}
+\item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
 
-\item{myTZ}{Timezone for requested gage.  Default is in env.UserDefinedValues.R.  Can also be set with Sys.timezone().}
+\item{fun.myTZ}{Timezone for requested gage.  Default is in env.UserDefinedValues.R.  Can also be set with Sys.timezone().}
 }
 \value{
 Returns a csv file to specified directory with the requested daily mean data.  During the data retrieval a summary is output to the console.

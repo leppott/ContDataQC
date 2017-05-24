@@ -17,8 +17,8 @@
 #' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
 # @param fun.myDir.import Directory for import data.  Default is current working directory.
 # @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.myDir.export SDirectory for export data.  Default is current working directory.
-#' @param myTZ Timezone for requested gage.  Default is in env.UserDefinedValues.R.  Can also be set with Sys.timezone().
+#' @param fun.myDir.export Directory for export data.  Default is current working directory.
+#' @param fun.myTZ Timezone for requested gage.  Default is in env.UserDefinedValues.R.  Can also be set with Sys.timezone().
 #' @return Returns a csv file to specified directory with the requested daily mean data.  During the data retrieval a summary is output to the console.
 #' @keywords continuous data, USGS, gage, dataRetrieval
 #' @examples
@@ -33,7 +33,7 @@ fun.GageData <- function(fun.myData.SiteID
                      ,fun.myData.DateRange.Start
                      ,fun.myData.DateRange.End
                      ,fun.myDir.export=getwd()
-                     ,myTZ=ContData.env$myTZ) {##FUN.fun.GageData.START
+                     ,fun.myTZ=ContData.env$myTZ) {##FUN.fun.GageData.START
   #
   # data directories
   #myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="","",paste("/",fun.myDir.SUB.import,sep="")),sep="")
@@ -128,7 +128,7 @@ fun.GageData <- function(fun.myData.SiteID
     myCode <- data.what.Codes #"00060" #c("00060","00065") # can download multiple at one time
     myStat <- "00003"  #data, not daily values
     data.myGage <- dataRetrieval::readNWISuv(strGage, myCode
-                              , startDate=fun.myData.DateRange.Start, endDate=fun.myData.DateRange.End, tz=myTZ )
+                              , startDate=fun.myData.DateRange.Start, endDate=fun.myData.DateRange.End, tz=fun.myTZ )
 
     # column headers are "X_myCode_myStat"
     # can put in multipe and it only runs on those present

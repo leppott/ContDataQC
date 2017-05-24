@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-05-23 10:40:46
+    #> Last Update: 2017-05-24 08:32:08
 
 Version history.
 
@@ -17,12 +17,19 @@ Planned Updates
 
 -   Ability to work on single file. Currently searches directory for all files that match user specified criteria. 20170523.
 
+v2.0..1.9012
+============
+
+2017-05-24
+
+-   fun.Gage.R. Changed variable "myTZ" to "fun.myTZ" for consistency. 20170524.
+
 v2.0.1.9011
 ===========
 
 2017-05-23
 
--   Remove unused arguement "fun.myFile.Prefix" from help file for ContDataQC(). 201705-23.
+-   Remove unused arguement "fun.myFile.Prefix" from help file for ContDataQC(). 20170523.
 
 v2.0.1.9010
 ===========
