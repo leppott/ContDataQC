@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-05-24 08:32:08
+    #> Last Update: 2017-05-24 15:13:54
 
 Version history.
 
@@ -13,9 +13,14 @@ Planned Updates
 
 -   Gaps in data not always evident in the plots. 20170308.
 
--   Additional functions for Stats. 20170519.
-
 -   Ability to work on single file. Currently searches directory for all files that match user specified criteria. 20170523.
+
+v2.0..1.9013
+============
+
+2017-05-24
+
+-   fun.Stats.R. Had previously commented out stats and plots due to errors. Single typo fixed in year season stats and reworked daily summaryBy stats section. 20170524.
 
 v2.0..1.9012
 ============
