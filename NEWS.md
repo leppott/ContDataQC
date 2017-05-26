@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-05-24 15:13:54
+    #> Last Update: 2017-05-26 13:58:33
 
 Version history.
 
@@ -14,6 +14,13 @@ Planned Updates
 -   Gaps in data not always evident in the plots. 20170308.
 
 -   Ability to work on single file. Currently searches directory for all files that match user specified criteria. 20170523.
+
+v2.0.1.9014
+===========
+
+2017-05-26
+
+-   Time interval. Fixed calculation of time interval. Certain date time formats would stop processing or be reported as zero. fun.QC.R, Report\_Aggregate.rmd, Report\_QC.rmd, and Report\_Stats.rmd. 20170526.
 
 v2.0..1.9013
 ============

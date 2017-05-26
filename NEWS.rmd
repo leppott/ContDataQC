@@ -29,6 +29,11 @@ Version history.
 
 * Ability to work on single file.  Currently searches directory for all files that match user specified criteria.  20170523.
 
+# v2.0.1.9014
+2017-05-26
+
+* Time interval.  Fixed calculation of time interval.  Certain date time formats would stop processing or be reported as zero.  fun.QC.R, Report_Aggregate.rmd, Report_QC.rmd, and Report_Stats.rmd.  20170526.
+
 # v2.0..1.9013
 2017-05-24
 

@@ -943,11 +943,12 @@ fun.CalcQCStats <- function(fun.data.import
     #   #                                                     format=myFormat,
     #   #                                                     tz=ContData.env$myTZ)
     # }
-    x <- df.check[,ContData.env$myName.DateTime]
-    myTimeDiff.all <- difftime(x[-1],x[-length(x)])
-    myTimeDiff <- median(as.vector(myTimeDiff.all))
+    #x <- df.check[,ContData.env$myName.DateTime]
+    myT <- strptime(df.check[,ContData.env$myName.DateTime],format=ContData.env$myFormat.DateTime)
+    myTimeDiff.all <- difftime(myT[-1],myT[-length(myT)])
+    myTimeDiff <- median(as.vector(myTimeDiff.all),na.rm=TRUE)
     # create time series
-    myTS <- seq(as.POSIXlt(min(x),tz=ContData.env$myTZ),as.POSIXlt(max(x),tz=ContData.env$myTZ),by="30 min") #by=paste0(myTimeDiff," min"))
+    myTS <- seq(as.POSIXlt(min(myT),tz=ContData.env$myTZ),as.POSIXlt(max(myT),tz=ContData.env$myTZ),by="30 min") #by=paste0(myTimeDiff," min"))
     length(myTS)
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # remove other data fields (and extra times) before proceeding
@@ -1028,9 +1029,10 @@ fun.CalcQCStats <- function(fun.data.import
   # myT.diff <- difftime(fun.data.import.mod[5,ContData.env$myName.DateTime],fun.data.import.mod[4,ContData.env$myName.DateTime],units="mins")
   # myT.diff[[1]]
   # use median of all (no lower limit)
-  x <- fun.data.import.mod[,ContData.env$myName.DateTime]
-  myT.diff.all <- difftime(x[-1],x[-length(x)], units="mins")
-  myT.diff <- median(as.vector(myT.diff.all))
+  #x <- strptime(fun.data.import.mod[,ContData.env$myName.DateTime],format=ContData.env$myFormat.DateTime)
+  #myT <- strptime(fun.data.import.mod[,ContData.env$myName.DateTime],format=ContData.env$myFormat.DateTime)
+  myT.diff.all <- difftime(myT[-1],myT[-length(myT)], units="mins")
+  myT.diff <- median(as.vector(myT.diff.all),na.rm=TRUE)
   # convert DateTime to POSIX object (already done above)
   #myT <- strptime(fun.data.import.mod[,myName.DateTime],format=myFormat.DateTime)
   # A.2. Use data "as is"

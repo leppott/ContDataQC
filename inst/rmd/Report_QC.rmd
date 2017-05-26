@@ -21,9 +21,10 @@ output: word_document
   myNumRecords <- nrow(data.import) # 20170228, mod from records 10 and 11 to half way point
   
   # myTimeDiff <- difftime(data.import[10,ContData.env$myName.DateTime],data.import[11,ContData.env$myName.DateTime],units="mins")
-  x <- data.import[,ContData.env$myName.DateTime]
-  myTimeDiff.all <- difftime(x[-1],x[-length(x)])
-  myTimeDiff <- median(as.vector(myTimeDiff.all))
+  #x <- data.import[,ContData.env$myName.DateTime]
+  myT <- strptime(data.import[,ContData.env$myName.DateTime],format=ContData.env$myFormat.DateTime)
+  myTimeDiff.all <- difftime(myT[-1],myT[-length(myT)],units="mins")
+  myTimeDiff <- median(as.vector(myTimeDiff.all),na.rm=TRUE)
 
   cat(paste("\n\n**Period of Record, Actual:** ",min(data.import[,ContData.env$myName.Date])," to ",max(data.import[,ContData.env$myName.Date]),"\n\n",sep=""))
        
