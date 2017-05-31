@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-05-31 12:12:17
+    #> Last Update: 2017-05-31 12:40:29
 
 Version history.
 
@@ -14,6 +14,13 @@ Planned Updates
 -   Gaps in data not always evident in the plots. 20170308.
 
 -   Ability to work on single file. Currently searches directory for all files that match user specified criteria. 20170523.
+
+v2.0.1.9016
+===========
+
+2017-05-31
+
+-   File delimiter for strsplit(). Also a regex issue with "." (dot). Created special check. 20170531.
 
 v2.0.1.9015
 ===========

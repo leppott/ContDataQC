@@ -29,6 +29,11 @@ Version history.
 
 * Ability to work on single file.  Currently searches directory for all files that match user specified criteria.  20170523.
 
+# v2.0.1.9016
+2017-05-31
+
+* File delimiter for strsplit().  Also a regex issue with "." (dot).  Created special check.  20170531.
+
 # v2.0.1.9015
 2017-05-31
 

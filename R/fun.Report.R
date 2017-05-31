@@ -74,6 +74,13 @@ fun.Report <- function(fun.myData.SiteID
   myTime.Start <- Sys.time()
   #
     # 0. Load Single file
+    # QC Check - delimiter for strsplit
+    if(ContData.env$myDelim==".") {##IF.myDelim.START
+      # special case for regex check to follow (20170531)
+      myDelim.strsplit <- "\\."
+    } else {
+      myDelim.strsplit <- ContData.env$myDelim
+    }##IF.myDelim.END
     strFile.Prefix     <- toupper(fun.myFile.Prefix)     # DATA = Aggregate, QC = QC
     strFile.SiteID     <- fun.myData.SiteID
     strFile.DataType   <- fun.myData.Type
@@ -81,7 +88,7 @@ fun.Report <- function(fun.myData.SiteID
     strFile.Date.End   <- format(as.Date(fun.myData.DateRange.End,"%Y-%m-%d"),"%Y%m%d")
     strFile = paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
     strFile.Base <- substr(strFile,1,nchar(strFile)-nchar(".csv"))
-    strFile.parts <- strsplit(strFile.Base,ContData.env$myDelim)
+    strFile.parts <- strsplit(strFile.Base, myDelim.strsplit)
 
     #QC, make sure file exists
     if(strFile %in% list.files(path=myDir.data.import)==FALSE) {##IF.file.START

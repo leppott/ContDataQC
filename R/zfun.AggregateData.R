@@ -121,8 +121,15 @@ fun.AggregateData <- function(fun.myData.SiteID
     # 1.0. File Name, Define
     strFile = files2process[intCounter]
     # 1.1. File Name, Parse
+    # QC Check - delimiter for strsplit
+    if(ContData.env$myDelim==".") {##IF.myDelim.START
+      # special case for regex check to follow (20170531)
+      myDelim.strsplit <- "\\."
+    } else {
+      myDelim.strsplit <- ContData.env$myDelim
+    }##IF.myDelim.END
     strFile.Base <- substr(strFile,1,nchar(strFile)-nchar(".csv"))
-    strFile.parts <- strsplit(strFile.Base, ContData.env$myDelim)
+    strFile.parts <- strsplit(strFile.Base, myDelim.strsplit)
     strFile.SiteID     <- strFile.parts[[1]][2]
     strFile.DataType   <- strFile.parts[[1]][3]
     # Convert Data Type to proper case
