@@ -184,8 +184,15 @@ ContDataQC <- function(fun.myData.Operation
   # 20160204, Check for required fields
   #   Add to individual scripts as need to load the file first
   # QC Check - delimiter in site ID
-  QC.SiteID.myDelim <- grepl(ContData.env$myDelim,fun.myData.SiteID) #T/F
+  if(ContData.env$myDelim==".") {##IF.myDelim.START
+    # special case for regex check to follow (20170531)
+    myDelim2Check <- "\\."
+  } else {
+    myDelim2Check <- ContData.env$myDelim
+  }##IF.myDelim.END
+    QC.SiteID.myDelim <- grepl(myDelim2Check, fun.myData.SiteID) #T/F
   if(QC.SiteID.myDelim==TRUE){##IF.QC.SiteID.myDelim.START
+    #
     myMsg <- paste("\n
               SiteID (",fun.myData.SiteID,") contains the same delimiter (",ContData.env$myDelim,") as in your file names.
               \n
@@ -193,7 +200,7 @@ ContDataQC <- function(fun.myData.Operation
               \n
               Change SiteID names so they do not include the same delimiter.
               \n
-              Or change file names and the variable 'myDelim' in the script 'UserDefinedValue.R'.",sep="")
+              Or change file names and the variable 'myDelim' in the configuration script 'config.R' (or in the file specified by the user).",sep="")
     stop(myMsg)
     #
   }##IF.QC.SiteID.myDelim.END
