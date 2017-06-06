@@ -152,7 +152,7 @@ cat(paste("* **",ContData.env$myFlagVal.Pass,"** = no Fail or Suspect and at lea
 cat("\n")
 cat(paste("* **",ContData.env$myFlagVal.Suspect,"** = no Fail and at least one Suspect,",sep="")) 
 cat("\n") 
-cat(paste("* **",ContData.env$myFlagVal.Fail,"** = at least one Fail,,",sep=""))
+cat(paste("* **",ContData.env$myFlagVal.Fail,"** = at least one Fail,",sep=""))
 cat("\n")
 cat(paste("* **",ContData.env$myFlagVal.NoData,"** = all tests were Missing Data.",sep=""))
 ```

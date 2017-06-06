@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-05-31 12:40:29
+    #> Last Update: 2017-06-06 08:53:50
 
 Version history.
 
@@ -14,6 +14,15 @@ Planned Updates
 -   Gaps in data not always evident in the plots. 20170308.
 
 -   Ability to work on single file. Currently searches directory for all files that match user specified criteria. 20170523.
+
+-   Use futile.logger to better log output for user. 20170606.
+
+v2.0.1.9017
+===========
+
+2017-06-06
+
+-   Report\_QC.rmd. Correct typo in "Flags" descriptions. Issue \#28. 20170606.
 
 v2.0.1.9016
 ===========
