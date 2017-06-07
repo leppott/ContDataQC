@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-06-07 11:31:09
+    #> Last Update: 2017-06-07 11:45:59
 
 Version history.
 
@@ -13,16 +13,21 @@ Planned Updates
 
 -   Gaps in data not always evident in the plots. 20170308.
 
--   Use futile.logger to better log output for user. 20170606.
+-   Use futile.logger to better log output for user. Issue \#29. 20170606.
 
--   Fix "Aggregate" step to create QC report on large file. 20170607. (v9018)
+v2.0.1.9019
+===========
+
+2017-06-07
+
+-   Updated data flow for "aggregate" step so the QC report is generated "after" the compiled file is created. Issue \#31. 20170607.
 
 v2.0.1.9018
 ===========
 
 2017-06-07
 
--   Updated main function to allow for a single file or a vector of files. New "file" versions of most scripts. Some updates to the Reports (rmd files).
+-   Updated main function to allow for a single file or a vector of files. New "file" versions of most scripts. Some updates to the Reports (rmd files). Issue \#24. 20170607.
 
 v2.0.1.9017
 ===========

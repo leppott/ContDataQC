@@ -333,7 +333,7 @@ fun.AggregateData <- function(fun.myData.SiteID
     ###
     # will run repeatedly for each subfile when aggregating
 
-
+#
         fun.Report(strFile.SiteID
                      ,strFile.DataType
                      ,fun.myData.DateRange.Start
@@ -373,6 +373,13 @@ fun.AggregateData <- function(fun.myData.SiteID
     #
   }##while.END
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  # Run report on Aggregated file (20170607)
+  strFile.Out.NoPrefix <- substr(strFile.Out,nchar(strFile.Out.Prefix)+2,nchar(strFile.Out))
+  fun.Report.File(strFile.Out.NoPrefix
+                  , fun.myDir.export
+                  , fun.myDir.export
+                  , strFile.Out.Prefix)
 
 
 
