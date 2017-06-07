@@ -57,6 +57,7 @@
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
 # @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the output.
 #' @param fun.myConfig Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.
+#' @param fun.myFile Single file (or vector of files) to perform functions.  SiteID, Type, and Date Range not used when file name(s) provided.
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
 #' @keywords continuous data, aggregate
 #' @examples
@@ -160,40 +161,68 @@
 #' myDir.import <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
 #' myDir.export <- file.path(myDir.BASE,Selection.SUB[4]) #"Data4_Stats"
 #' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
-#
-# Function - Master
-# Run different scripts depending upon user input
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # File Versions
+#' #~~~~~~~~~~~~~~
+#'
+#' # QC Data
+#' myData.Operation <- "QCRaw" #Selection.Operation[2]
+#' #myFile <- "test2_AW_20130426_20130725.csv"
+#' myFile <- c("test2_AW_20130426_20130725.csv", "test2_AW_20130725_20131015.csv", "test2_AW_20140901_20140930.csv")
+#' myDir.import <- file.path(".","Data1_RAW")
+#' myDir.export <- file.path(".","Data2_QC")
+#' ContDataQC(myData.Operation, fun.myDir.import=myDir.import, fun.myDir.export=myDir.export, fun.myFile=myFile)
+#'
+#' # Aggregate Data
+#' myData.Operation <- "Aggregate" #Selection.Operation[3]
+#' myFile <- c("QC_test2_AW_20130426_20130725.csv", "QC_test2_AW_20130725_20131015.csv", "QC_test2_AW_20140901_20140930.csv")
+#' myDir.import <- file.path(".","Data2_QC")
+#' myDir.export <- file.path(".","Data3_Aggregated")
+#' ContDataQC(myData.Operation, fun.myDir.import=myDir.import, fun.myDir.export=myDir.export, fun.myFile=myFile)
+#'
+#' # Summary Stats
+#' myData.Operation <- "SummaryStats" #Selection.Operation[4]
+#' myFile <- "QC_test2_AW_20130426_20130725.csv"
+#' #myFile <- c("QC_test2_AW_20130426_20130725.csv", "QC_test2_AW_20130725_20131015.csv", "QC_test2_AW_20140901_20140930.csv")
+#' myDir.import <- file.path(".","Data2_QC")
+#' myDir.export <- file.path(".","Data4_Stats")
+#' ContDataQC(myData.Operation, fun.myDir.import=myDir.import, fun.myDir.export=myDir.export, fun.myFile=myFile)
 #' @export
 ContDataQC <- function(fun.myData.Operation
-                      ,fun.myData.SiteID
-                      ,fun.myData.Type
-                      ,fun.myData.DateRange.Start
-                      ,fun.myData.DateRange.End
-                      ,fun.myDir.import=getwd()
-                      ,fun.myDir.export=getwd()
-                      ,fun.myConfig="")
+                       , fun.myData.SiteID
+                       , fun.myData.Type
+                       , fun.myData.DateRange.Start
+                       , fun.myData.DateRange.End
+                       , fun.myDir.import=getwd()
+                       , fun.myDir.export=getwd()
+                       , fun.myConfig=""
+                       , fun.myFile="")
   {##FUN.fun.Master.START
-  #
   # config file load, 20170517
   if (fun.myConfig!="") {##IF.fun.myConfig.START
     config.load(fun.myConfig)
   }##IF.fun.myConfig.START
   #
-  # Error checking.  If any null then kick back
-  ## (add later)
-  # 20160204, Check for required fields
-  #   Add to individual scripts as need to load the file first
-  # QC Check - delimiter in site ID
-  if(ContData.env$myDelim==".") {##IF.myDelim.START
-    # special case for regex check to follow (20170531)
-    myDelim2Check <- "\\."
-  } else {
-    myDelim2Check <- ContData.env$myDelim
-  }##IF.myDelim.END
-    QC.SiteID.myDelim <- grepl(myDelim2Check, fun.myData.SiteID) #T/F
-  if(QC.SiteID.myDelim==TRUE){##IF.QC.SiteID.myDelim.START
+  ## dont need check if using "files" version
+  if(fun.myFile==""){##IF.fun.myFile.START
+    # Error checking.  If any null then kick back
+    ## (add later)
+    # 20160204, Check for required fields
+    #   Add to individual scripts as need to load the file first
+    # QC Check - delimiter in site ID
+    if(ContData.env$myDelim==".") {##IF.myDelim.START
+      # special case for regex check to follow (20170531)
+      myDelim2Check <- "\\."
+    } else {
+      myDelim2Check <- ContData.env$myDelim
+    }##IF.myDelim.END
     #
-    myMsg <- paste("\n
+    QC.SiteID.myDelim <- grepl(myDelim2Check, fun.myData.SiteID) #T/F
+    #
+    if(QC.SiteID.myDelim==TRUE){##IF.QC.SiteID.myDelim.START
+      #
+      myMsg <- paste("\n
               SiteID (",fun.myData.SiteID,") contains the same delimiter (",ContData.env$myDelim,") as in your file names.
               \n
               Scripts will not work properly while this is true.
@@ -201,11 +230,13 @@ ContDataQC <- function(fun.myData.Operation
               Change SiteID names so they do not include the same delimiter.
               \n
               Or change file names and the variable 'myDelim' in the configuration script 'config.R' (or in the file specified by the user).",sep="")
-    stop(myMsg)
-    #
-  }##IF.QC.SiteID.myDelim.END
+      stop(myMsg)
+      #
+    }##IF.QC.SiteID.myDelim.END
+  }##IF.fun.myFile.END
   #
   # 20151202, default directories
+  ## Run different functions if fun.myFile is provided (20170607)
   #
   # Run different functions based on "fun.myOperation"
   if (fun.myData.Operation=="GetGageData"){##IF.fun.myOperation.START
@@ -214,65 +245,111 @@ ContDataQC <- function(fun.myData.Operation
     fun.myData.Type <- "Gage"
     # does not need import directory so one less input than the others
     fun.GageData(fun.myData.SiteID
-                 ,fun.myData.Type
-                 ,fun.myData.DateRange.Start
-                 ,fun.myData.DateRange.End
-                 ,fun.myDir.export)
+                 , fun.myData.Type
+                 , fun.myData.DateRange.Start
+                 , fun.myData.DateRange.End
+                 , fun.myDir.export)
     # runs the QC Report as part of sourced function but can run independantly below
   } else if (fun.myData.Operation=="QCRaw"){
     #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.1Raw}
     #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.2QC}
-    fun.QC(fun.myData.SiteID
-           ,fun.myData.Type
-           ,fun.myData.DateRange.Start
-           ,fun.myData.DateRange.End
-           ,fun.myDir.import
-           ,fun.myDir.export)
+    if(fun.myFile==""){##IF.fun.myFile.START
+      #normal version
+      fun.QC(fun.myData.SiteID
+             , fun.myData.Type
+             , fun.myData.DateRange.Start
+             , fun.myData.DateRange.End
+             , fun.myDir.import
+             , fun.myDir.export)
+    }  else {
+      #file version
+      fun.QC.File(fun.myFile
+                  , fun.myDir.import
+                  , fun.myDir.export)
+    }##IF.fun.myFile.END
     # runs the QC Report as part of sourced function but can run independantly below
   } else if (fun.myData.Operation=="ReportQC") {
     #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.2QC}
     #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.2QC}
     myProcedure.Step <- "QC"
-    fun.Report(fun.myData.SiteID
-                 ,fun.myData.Type
-                 ,fun.myData.DateRange.Start
-                 ,fun.myData.DateRange.End
-                 ,fun.myDir.import
-                 ,fun.myDir.export
-                 ,myProcedure.Step)
+    if(fun.myFile==""){##IF.fun.myFile.START
+      #normal version
+      fun.Report(fun.myData.SiteID
+                 , fun.myData.Type
+                 , fun.myData.DateRange.Start
+                 , fun.myData.DateRange.End
+                 , fun.myDir.import
+                 , fun.myDir.export
+                 , myProcedure.Step)
+    } else {
+      #file version
+      fun.Report.File(fun.myFile
+                      , fun.myDir.export
+                      , fun.myDir.export
+                      , myProcedure.Step)
+    }##IF.fun.myFile.END
+    #
   } else if (fun.myData.Operation=="Aggregate") {
     #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.2QC}
     #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.3Agg}
-    fun.AggregateData(fun.myData.SiteID
-                      ,fun.myData.Type
-                      ,fun.myData.DateRange.Start
-                      ,fun.myData.DateRange.End
-                      ,fun.myDir.import
-                      ,fun.myDir.export)
+    if(fun.myFile==""){##IF.fun.myFile.START
+      #normal version
+      fun.AggregateData(fun.myData.SiteID
+                        , fun.myData.Type
+                        , fun.myData.DateRange.Start
+                        , fun.myData.DateRange.End
+                        , fun.myDir.import
+                        , fun.myDir.export)
+    } else {
+      #file version
+      fun.AggregateData.File(fun.myFile
+                             , fun.myDir.import
+                             , fun.myDir.export)
+    }##IF.fun.myFile.END
+    #
   } else if (fun.myData.Operation=="ReportAggregate") {
     #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.3Agg}
     #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.3Agg}
     myProcedure.Step <- "DATA"
-    fun.Report(fun.myData.SiteID
-                 ,fun.myData.Type
-                 ,fun.myData.DateRange.Start
-                 ,fun.myData.DateRange.End
-                 ,fun.myDir.import
-                 ,fun.myDir.export
-                 ,myProcedure.Step)
+    if(fun.myFile==""){##IF.fun.myFile.START
+      #normal version
+      fun.Report(fun.myData.SiteID
+                 , fun.myData.Type
+                 , fun.myData.DateRange.Start
+                 , fun.myData.DateRange.End
+                 , fun.myDir.import
+                 , fun.myDir.export
+                 , myProcedure.Step)
+    } else {
+      #file version
+      fun.Report.File(fun.myFile
+                      , fun.myDir.export
+                      , fun.myDir.export
+                      , myProcedure.Step)
+    }##IF.fun.myFile.END
+    #
   } else if (fun.myData.Operation=="SummaryStats") {
     #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.3Agg}
     #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.4Stats}
     myProcedure.Step <- "STATS"
     fun.myFile.Prefix <- "DATA"
-    fun.Stats(fun.myData.SiteID
-              ,fun.myData.Type
-              ,fun.myData.DateRange.Start
-              ,fun.myData.DateRange.End
-              ,fun.myDir.import
-              ,fun.myDir.export
-              ,myProcedure.Step
-              ,fun.myFile.Prefix)
+    if(fun.myFile==""){##IF.fun.myFile.START
+      #normal version
+      fun.Stats(fun.myData.SiteID
+                , fun.myData.Type
+                , fun.myData.DateRange.Start
+                , fun.myData.DateRange.End
+                , fun.myDir.import
+                , fun.myDir.export
+                , myProcedure.Step
+                , fun.myFile.Prefix)
+    } else {
+      #file version
+      fun.Stats.File(fun.myFile
+                     , fun.myDir.import
+                     , fun.myDir.export)
+    }##IF.fun.myFile.END
+    #
   } else {
     myMsg <- "No operation provided."
     stop(myMsg)

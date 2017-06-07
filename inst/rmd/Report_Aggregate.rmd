@@ -5,7 +5,7 @@ output: word_document
 
 ```{r report_date, results='asis', echo=FALSE, warning=FALSE}
   myReportDate <- format(Sys.Date(),ContData.env$myFormat.Date)
-  cat(paste("**Report Date:** ",ContData.env$myReportDate,"\n\n",sep=""))
+  cat(paste("**Report Date:** ",myReportDate,"\n\n",sep=""))
 ```
 
 # DATA FILE INFORMATION
@@ -14,9 +14,15 @@ output: word_document
   #filename
   cat("**Filename:** ",strFile,"\n\n",sep="")
   
-  cat(paste("**SiteID:** ",strFile.SiteID,"\n\n",sep=""))
+  mySiteID <- data.import[1,ContData.env$myName.SiteID]
+  cat(paste("**SiteID:** ",mySiteID,"\n\n",sep=""))
   
-  cat(paste("**Period of Record, Requested:** ",fun.myData.DateRange.Start," to ",fun.myData.DateRange.End,sep="",collapse="\n\n"))
+  if(exists("fun.myData.DateRange.Start")==TRUE){
+    POR.Requested <- paste(fun.myData.DateRange.Start," to ",fun.myData.DateRange.End, sep="")
+  } else {
+    POR.Requested <- "NA"
+  }
+  cat(paste("**Period of Record, Requested:** ",POR.Requested,sep="",collapse="\n\n"))
        
   #myTimeDiff <- difftime(data.import[11,ContData.env$myName.DateTime],data.import[10,ContData.env$myName.DateTime],units="mins")
   #x <- data.import[,ContData.env$myName.DateTime]
@@ -28,7 +34,12 @@ output: word_document
        
   cat(paste("**Recording Interval:** ",myTimeDiff[1]," minutes\n\n",sep=""))
   
-  cat(paste("**Data Type:** ",strFile.DataType,"\n\n",sep=""))  # need to do better
+  if(exists("strFile.DataType")==TRUE){
+    myDataType <- strFile.DataType
+  } else {
+    myDataType <- "NA"
+  }
+  cat(paste("**Data Type:** ",myDataType,"\n\n",sep=""))  # need to do better
   
    myParameters.ALL     <- ContData.env$myNames.DataFields[ContData.env$myNames.DataFields %in% names(data.import)==TRUE] 
    myParameters.Lab.ALL <- ContData.env$myNames.DataFields.Lab[ContData.env$myNames.DataFields %in% names(data.import)==TRUE]
@@ -79,18 +90,24 @@ output: word_document
     #   print(kable(myTable, format="markdown", row.names=TRUE))
       
     # Missing Dates
-    myDateRange.Target <- seq(as.Date(fun.myData.DateRange.Start)
-                              ,as.Date(fun.myData.DateRange.End)
-                              ,by="day")
-    myDateRange.Data <- seq(as.Date(min(data.import[,ContData.env$myName.Date]))
+     myDateRange.Data <- seq(as.Date(min(data.import[,ContData.env$myName.Date]))
                             ,as.Date(max(data.import[,ContData.env$myName.Date]))
                             ,by="day")
+    
+    if(exists("fun.myData.DateRange.Start")==TRUE){
+      myDateRange.Target <- seq(as.Date(fun.myData.DateRange.Start)
+                              ,as.Date(fun.myData.DateRange.End)
+                              ,by="day")
+    } else {
+      myDateRange.Target <- myDateRange.Data
+    }
+    
     myDateRange.Target.Missing <- myDateRange.Target[!myDateRange.Target %in% myDateRange.Data]
     cat(paste0("Below are the dates with missing data between the min (",min(myDateRange.Data)
                ,") and max(",max(myDateRange.Data)," for the provided data. There are "
                ,length(myDateRange.Target.Missing)," records."))
     cat("\n\n")
-    print(ifelse(length(myDateRange.Target.Missing)==0,"",myDateRange.Target.Missing))      
+    print(ifelse(length(myDateRange.Target.Missing)==0,"",myDateRange.Target.Missing))     
       
 
 ```
@@ -126,8 +143,8 @@ output: word_document
       #myPlot.X <- strptime(data.import[,myName.DateTime],myFormat.DateTime)
       
       myPlot.Ylab <- myParameters.Lab[i.num]
-     # plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="gray", xaxt="n")
-       plot(myPlot.Y,type="p",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="gray", xaxt="n",cex=0.5)
+     # plot(myPlot.Y,type="l",main=mySiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="gray", xaxt="n")
+       plot(myPlot.Y,type="p",main=mySiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="gray", xaxt="n",cex=0.5)
       axis(1,at=myAT,labels=myLab,tick=TRUE)
       # Add discrete (only if present)
       myDiscrete <- paste(ContData.env$myPrefix.Discrete,i,sep=".")
@@ -173,8 +190,8 @@ Multiparameter plots if exist in the data.
       myPlot.Y <- data.plot[,ContData.env$myName.AirTemp]
       myPlot.Y2 <- data.plot[,ContData.env$myName.WaterTemp]
       myPlot.Ylab <- ContData.env$myLab.Temp.BOTH
-      #plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="green", xaxt="n")
-      plot(myPlot.Y,type="p",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="green", xaxt="n",cex=0.5)
+      #plot(myPlot.Y,type="l",main=mySiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="green", xaxt="n")
+      plot(myPlot.Y,type="p",main=mySiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="green", xaxt="n",cex=0.5)
       axis(1,at=myAT,labels=myLab,tick=TRUE)
       #lines(myPlot.Y2,type="l",col="blue")
       points(myPlot.Y2,type="p",col="blue",cex=0.5)
@@ -216,8 +233,8 @@ Multiparameter plots if exist in the data.
         myPlot.Y2 <- data.plot[,ContData.env$myName.SensorDepth]
         myPlot.Y2lab <- ContData.env$myLab.SensorDepth
         #
-        #plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n")
-        plot(myPlot.Y,type="p",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n",cex=0.5)
+        #plot(myPlot.Y,type="l",main=mySiteID,xlab=myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n")
+        plot(myPlot.Y,type="p",main=mySiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n",cex=0.5)
         axis(1,at=myAT,labels=myLab,tick=TRUE)
         # Add discrete, Water.Temp (only if present)
         myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterTemp,sep=".")

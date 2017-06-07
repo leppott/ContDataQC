@@ -7,7 +7,7 @@
 ContDataQC(fun.myData.Operation, fun.myData.SiteID, fun.myData.Type,
   fun.myData.DateRange.Start, fun.myData.DateRange.End,
   fun.myDir.import = getwd(), fun.myDir.export = getwd(),
-  fun.myConfig = "")
+  fun.myConfig = "", fun.myFile = "")
 }
 \arguments{
 \item{fun.myData.Operation}{Operation to be performed; c("GetGageData","QCRaw", "Aggregate", "SummaryStats")}
@@ -25,6 +25,8 @@ ContDataQC(fun.myData.Operation, fun.myData.SiteID, fun.myData.Type,
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
 
 \item{fun.myConfig}{Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.}
+
+\item{fun.myFile}{Single file (or vector of files) to perform functions.  SiteID, Type, and Date Range not used when file name(s) provided.}
 }
 \value{
 Returns a csv into the specified export directory with additional columns for calculated statistics.
@@ -146,6 +148,33 @@ myData.DateRange.End    <- "2014-12-31"
 myDir.import <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
 myDir.export <- file.path(myDir.BASE,Selection.SUB[4]) #"Data4_Stats"
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# File Versions
+#~~~~~~~~~~~~~~
+
+# QC Data
+myData.Operation <- "QCRaw" #Selection.Operation[2]
+#myFile <- "test2_AW_20130426_20130725.csv"
+myFile <- c("test2_AW_20130426_20130725.csv", "test2_AW_20130725_20131015.csv", "test2_AW_20140901_20140930.csv")
+myDir.import <- file.path(".","Data1_RAW")
+myDir.export <- file.path(".","Data2_QC")
+ContDataQC(myData.Operation, fun.myDir.import=myDir.import, fun.myDir.export=myDir.export, fun.myFile=myFile)
+
+# Aggregate Data
+myData.Operation <- "Aggregate" #Selection.Operation[3]
+myFile <- c("QC_test2_AW_20130426_20130725.csv", "QC_test2_AW_20130725_20131015.csv", "QC_test2_AW_20140901_20140930.csv")
+myDir.import <- file.path(".","Data2_QC")
+myDir.export <- file.path(".","Data3_Aggregated")
+ContDataQC(myData.Operation, fun.myDir.import=myDir.import, fun.myDir.export=myDir.export, fun.myFile=myFile)
+
+# Summary Stats
+myData.Operation <- "SummaryStats" #Selection.Operation[4]
+myFile <- "QC_test2_AW_20130426_20130725.csv"
+#myFile <- c("QC_test2_AW_20130426_20130725.csv", "QC_test2_AW_20130725_20131015.csv", "QC_test2_AW_20140901_20140930.csv")
+myDir.import <- file.path(".","Data2_QC")
+myDir.export <- file.path(".","Data4_Stats")
+ContDataQC(myData.Operation, fun.myDir.import=myDir.import, fun.myDir.export=myDir.export, fun.myFile=myFile)
 }
 \keyword{aggregate}
 \keyword{continuous}

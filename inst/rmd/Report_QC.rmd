@@ -13,11 +13,18 @@ output: word_document
   
   #filename
   cat("**Filename:** ",strFile,"\n\n",sep="")
+
+  mySiteID <- data.import[1,ContData.env$myName.SiteID]
   
-  cat(paste("**SiteID:** ",strFile.SiteID,"\n\n",sep=""))
+  cat(paste("**SiteID:** ",mySiteID,"\n\n",sep=""))
   
-  cat(paste("**Period of Record, Requested:** ",fun.myData.DateRange.Start," to ",fun.myData.DateRange.End,sep="",collapse="\n\n"))
-       
+  if(exists("fun.myData.DateRange.Start")==TRUE){
+    POR.Requested <- paste(fun.myData.DateRange.Start," to ",fun.myData.DateRange.End, sep="")
+  } else {
+    POR.Requested <- "NA"
+  }
+  cat(paste("**Period of Record, Requested:** ",POR.Requested,sep="",collapse="\n\n"))
+  
   myNumRecords <- nrow(data.import) # 20170228, mod from records 10 and 11 to half way point
   
   # myTimeDiff <- difftime(data.import[10,ContData.env$myName.DateTime],data.import[11,ContData.env$myName.DateTime],units="mins")
@@ -30,10 +37,17 @@ output: word_document
        
   cat(paste("**Recording Interval:** ",myTimeDiff[1]," minutes\n\n",sep=""))
   
-  cat(paste("**Data Type:** ",strFile.DataType,"\n\n",sep=""))  # need to do better
+  if(exists("strFile.DataType")==TRUE){
+    myDataType <- strFile.DataType
+  } else {
+    myDataType <- "NA"
+  }
+  cat(paste("**Data Type:** ",myDataType,"\n\n",sep=""))  # need to do better
   
-   myParameters.ALL     <- ContData.env$myNames.DataFields[ContData.env$myNames.DataFields %in% names(data.import)==TRUE] 
-   myParameters.Lab.ALL <- ContData.env$myNames.DataFields.Lab[ContData.env$myNames.DataFields %in% names(data.import)==TRUE]
+   myParameters.ALL     <- ContData.env$myNames.DataFields[ContData.env$myNames.DataFields 
+                                                           %in% names(data.import)==TRUE] 
+   myParameters.Lab.ALL <- ContData.env$myNames.DataFields.Lab[ContData.env$myNames.DataFields 
+                                                               %in% names(data.import)==TRUE]
    # Filter out Discrete
    myParameters     <- myParameters.ALL[!grepl(ContData.env$myPrefix.Discrete,myParameters.ALL)]
    myParameters.Lab <- myParameters.Lab.ALL[!grepl(ContData.env$myPrefix.Discrete,myParameters.Lab.ALL)]
@@ -107,7 +121,8 @@ output: word_document
     
 
     #
-    myTable.DateTime.N <- aggregate(data.import[,ContData.env$myName.SiteID]  ~ data.import[,ContData.env$myName.DateTime]
+    myTable.DateTime.N <- aggregate(data.import[,ContData.env$myName.SiteID]  
+                                    ~ data.import[,ContData.env$myName.DateTime]
                                     , data=data.import,FUN=length)
     # myTable <- myTable.DateTime.N[myTable.DateTime.N[,ContData.env$myName.SiteID]!=1,]
     # cat(paste0("Date and time records with more than one entry; N=",nrow(myTable),". Duplicate date.time records are shown below."))
@@ -116,12 +131,19 @@ output: word_document
     # mask error, 20170307
     
     # Missing Dates
-    myDateRange.Target <- seq(as.Date(fun.myData.DateRange.Start)
-                              ,as.Date(fun.myData.DateRange.End)
-                              ,by="day")
+    
     myDateRange.Data <- seq(as.Date(min(data.import[,ContData.env$myName.Date]))
                             ,as.Date(max(data.import[,ContData.env$myName.Date]))
                             ,by="day")
+    
+    if(exists("fun.myData.DateRange.Start")==TRUE){
+      myDateRange.Target <- seq(as.Date(fun.myData.DateRange.Start)
+                              ,as.Date(fun.myData.DateRange.End)
+                              ,by="day")
+    } else {
+      myDateRange.Target <- myDateRange.Data
+    }
+    
     myDateRange.Target.Missing <- myDateRange.Target[!myDateRange.Target %in% myDateRange.Data]
     cat(paste0("Below are the dates with missing data between the min (",min(myDateRange.Data)
                ,") and max(",max(myDateRange.Data)," for the provided data. There are "
@@ -292,7 +314,7 @@ Overall flags by parameter
       #
       myPlot.Y <- na.omit(as.numeric(data.plot[,i])) #20170518, v2.0.1.9008, coming in as text add na.omit(as.numeric(x))
       myPlot.Ylab <- myParameters.Lab[i.num]
-      plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="gray", xaxt="n")
+      plot(myPlot.Y,type="l",main=mySiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="gray", xaxt="n")
       axis(1,at=myAT,labels=myLab,tick=TRUE)
       # Add discrete (only if present)
       myDiscrete <- paste(ContData.env$myPrefix.Discrete,i,sep=".")
@@ -331,7 +353,8 @@ Multiparameter plots if exist in the data.
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
     
     # Temp, Air vs. Water
-    if (ContData.env$myName.AirTemp %in% myParameters & ContData.env$myName.WaterTemp %in% myParameters == TRUE){##IF.Temp.START
+    if (ContData.env$myName.AirTemp %in% myParameters & ContData.env$myName.WaterTemp 
+        %in% myParameters == TRUE){##IF.Temp.START
       cat("##PLOT, Temperature (Air vs. Water) \n\n" )
       #
       par.orig <- par(no.readonly=TRUE) # save original par settings
@@ -340,7 +363,7 @@ Multiparameter plots if exist in the data.
       myPlot.Y <- na.omit(as.numeric(data.plot[,ContData.env$myName.AirTemp])) # 20170518, v2.0.1.9008
       myPlot.Y2 <- na.omit(as.numeric(data.plot[,ContData.env$myName.WaterTemp])) # 20170518, v2.0.1.9008
       myPlot.Ylab <- ContData.env$myLab.Temp.BOTH
-      plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="green", xaxt="n")
+      plot(myPlot.Y,type="l",main=mySiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="green", xaxt="n")
       # Revised myAT for lots of NA (20170518)
       data.length <- length(myPlot.Y)
       myAT <- c(1,round(data.length * pct,0))
@@ -383,7 +406,8 @@ Multiparameter plots if exist in the data.
     }##IF.Temp.END
     #
     # Water, Temp vs Level
-    if (ContData.env$myName.WaterTemp %in% myParameters & ContData.env$myName.SensorDepth %in% myParameters == TRUE){##IF.Temp_Level.START
+    if (ContData.env$myName.WaterTemp %in% myParameters & ContData.env$myName.SensorDepth 
+        %in% myParameters == TRUE){##IF.Temp_Level.START
       cat("##PLOT, Water Level vs. Water Temperature \n\n")
       #
       par.orig <- par(no.readonly=TRUE) # save original par settings
@@ -395,7 +419,7 @@ Multiparameter plots if exist in the data.
       myPlot.Y2 <- na.omit(as.numeric(data.plot[,ContData.env$myName.SensorDepth])) # 20170518, v2.0.1.9008
       myPlot.Y2lab <- ContData.env$myLab.SensorDepth
       #
-      plot(myPlot.Y,type="l",main=fun.myData.SiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n")
+      plot(myPlot.Y,type="l",main=mySiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n")
       # Revised myAT for lots of NA (20170518)
       data.length <- length(myPlot.Y)
       myAT <- c(1,round(data.length * pct,0))
