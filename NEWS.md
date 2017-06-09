@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-06-07 11:45:59
+    #> Last Update: 2017-06-09 13:37:27
 
 Version history.
 
@@ -14,6 +14,19 @@ Planned Updates
 -   Gaps in data not always evident in the plots. 20170308.
 
 -   Use futile.logger to better log output for user. Issue \#29. 20170606.
+
+v2.0.1.9020
+===========
+
+2017-06-09
+
+-   QC of gage data not using all parameters present. Fixed. Issue \#32. 20170609.
+
+-   Added air and water pressure in psi to gage download. fun.GageData.R. 20170609.
+
+-   ContData.env$myNames.Order missing new fields. Was dropping fields not included (e.g., gage height). config.R. 20170609.
+
+-   fun.QC.R missing QC routine for gage height. 20170609.
 
 v2.0.1.9019
 ===========

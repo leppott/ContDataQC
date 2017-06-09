@@ -145,6 +145,12 @@ ContData.env$myNames.DataFields <- c(ContData.env$myName.WaterTemp
                                      , ContData.env$myName.AirBP
                                      , ContData.env$myName.SensorDepth
                                      , ContData.env$myName.Discharge
+                                     , ContData.env$myName.Cond
+                                     , ContData.env$myName.DO
+                                     , ContData.env$myName.pH
+                                     , ContData.env$myName.Turbidity
+                                     , ContData.env$myName.Chlorophylla
+                                     , ContData.env$myName.GageHeight
                                      , ContData.env$myName.Discrete.WaterTemp
                                      , ContData.env$myName.Discrete.AirTemp
                                      , ContData.env$myName.Discrete.WaterP
@@ -164,6 +170,12 @@ ContData.env$myNames.DataFields.Lab <- c(ContData.env$myLab.WaterTemp
                                          , ContData.env$myLab.AirBP
                                          , ContData.env$myLab.SensorDepth
                                          , ContData.env$myLab.Discharge
+                                         , ContData.env$myLab.Cond
+                                         , ContData.env$myLab.DO
+                                         , ContData.env$myLab.pH
+                                         , ContData.env$myLab.Turbidity
+                                         , ContData.env$myLab.Chlorophylla
+                                         , ContData.env$myLab.GageHeight
                                          , ContData.env$myLab.Discrete.WaterTemp
                                          , ContData.env$myLab.Discrete.AirTemp
                                          , ContData.env$myLab.Discrete.WaterP
@@ -192,9 +204,15 @@ ContData.env$myNames.Order <- c(ContData.env$myName.SiteID
                                 , ContData.env$myName.WaterP
                                 , ContData.env$myName.AirBP
                                 , ContData.env$myName.SensorDepth
+                                , ContData.env$myName.Discharge
+                                , ContData.env$myName.Cond
+                                , ContData.env$myName.DO
+                                , ContData.env$myName.pH
+                                , ContData.env$myName.Turbidity
+                                , ContData.env$myName.Chlorophylla
+                                , ContData.env$myName.GageHeight
                                 , ContData.env$myName.LoggerID.Water
                                 , ContData.env$myName.RowID.Water
-                                , ContData.env$myName.Discharge
                                 , ContData.env$myName.Discrete.WaterTemp
                                 , ContData.env$myName.Discrete.AirTemp
                                 , ContData.env$myName.Discrete.WaterP
@@ -360,11 +378,12 @@ ContData.env$myThresh.Flat.Hi.pH                <- ContData.env$myDefault.Flat.H
 ContData.env$myThresh.Flat.Lo.pH                <- ContData.env$myDefault.Flat.Lo * 2
 ContData.env$myThresh.Flat.Tolerance.pH         <- 0.01
 ContData.env$myThresh.Flat.Hi.Turbidity               <- ContData.env$myDefault.Flat.Hi * 2
-ContData.env$myThresh.Flat.Lo.Turbidity                <- ContData.env$myDefault.Flat.Lo * 2
-ContData.env$myThresh.Flat.Tolerance.Turbidity         <- 0.01
+ContData.env$myThresh.Flat.Lo.Turbidity               <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.Turbidity        <- 0.01
 ContData.env$myThresh.Flat.Hi.Chlorophylla                <- ContData.env$myDefault.Flat.Hi * 2
 ContData.env$myThresh.Flat.Lo.Chlorophylla                <- ContData.env$myDefault.Flat.Lo * 2
-ContData.env$myThresh.Flat.Tolerance.Chlorophylla        <- 0.01
+ContData.env$myThresh.Flat.Tolerance.Chlorophylla         <- 0.01
+ContData.env$myThresh.Flat.Hi.GageHeight               <- ContData.env$myDefault.Flat.Hi * 2
 ContData.env$myThresh.Flat.Lo.GageHeight               <- ContData.env$myDefault.Flat.Lo * 2
 ContData.env$myThresh.Flat.Tolerance.GageHeight        <- 0.01
 #

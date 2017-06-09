@@ -132,6 +132,7 @@ fun.GageData <- function(fun.myData.SiteID
 
     # column headers are "X_myCode_myStat"
     # can put in multipe and it only runs on those present
+    # https://nwis.waterdata.usgs.gov/usa/nwis/pmcodes
     data.myGage <- dataRetrieval::renameNWISColumns(data.myGage
                       ,p00060=ContData.env$myName.Discharge
                       ,p00065=ContData.env$myName.GageHeight
@@ -140,10 +141,11 @@ fun.GageData <- function(fun.myData.SiteID
                       ,p00040="pH"
                       ,p00045="Precip.Total.in"
                       ,p00011=gsub(".C",".F",ContData.env$myName.WaterTemp)
+                      ,p72204=ContData.env$myName.AirBP
+                      ,p72151=ContData.env$myName.WaterP
                       )
     # different data structure for dataRetrieval
     names(data.myGage)
-
 
     # drop columns for Agency Code and TimeZone
     myDrop <- c("agency_cd","tz_cd")

@@ -718,7 +718,32 @@ fun.QC <- function(fun.myData.SiteID
                                      ,ContData.env$myThresh.Flat.Lo.Chlorophylla
                                      ,ContData.env$myThresh.Flat.Tolerance.Chlorophylla)
     }##IF.myField.END
-            #
+    #
+    # B.6.12. Gage Height
+    myField <- ContData.env$myName.GageHeight
+    if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
+      #
+      myMsg.data <- "GageHeight"
+      myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter,2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      flush.console()
+      #
+      data.import <- fun.CalcQCStats(data.import
+                                     ,myField
+                                     ,ContData.env$myThresh.Gross.Fail.Hi.GageHeight
+                                     ,ContData.env$myThresh.Gross.Fail.Lo.GageHeight
+                                     ,ContData.env$myThresh.Gross.Suspect.Hi.GageHeight
+                                     ,ContData.env$myThresh.Gross.Suspect.Lo.GageHeight
+                                     ,ContData.env$myThresh.Spike.Hi.GageHeight
+                                     ,ContData.env$myThresh.Spike.Lo.GageHeight
+                                     ,ContData.env$myThresh.RoC.SD.period.GageHeight
+                                     ,ContData.env$myThresh.RoC.SD.number.GageHeight
+                                     ,ContData.env$myThresh.Flat.Hi.GageHeight
+                                     ,ContData.env$myThresh.Flat.Lo.GageHeight
+                                     ,ContData.env$myThresh.Flat.Tolerance.GageHeight)
+    }##IF.myField.END
     #
     #
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
