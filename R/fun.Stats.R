@@ -150,7 +150,7 @@ fun.Stats <- function(fun.myData.SiteID
   data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric(ContData.env$myTimeFrame.Season.Spring.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Summer.Start)] <- "Spring"
   data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric(ContData.env$myTimeFrame.Season.Summer.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Fall.Start)] <- "Summer"
   data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric(ContData.env$myTimeFrame.Season.Fall.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Winter.Start)] <- "Fall"
-  data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric(ContData.env$myTimeFrame.Season.Winter.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric("1231")] <- "Winter"
+  data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric(ContData.env$myTimeFrame.Season.Winter.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<=as.numeric("1231")] <- "Winter"
   data.import[,ContData.env$myName.YrSeason] <- paste(data.import[,ContData.env$myName.Yr],data.import[,ContData.env$myName.Season],sep="")
 
   #

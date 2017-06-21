@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-06-09 13:37:27
+    #> Last Update: 2017-06-21 15:23:13
 
 Version history.
 
@@ -14,6 +14,13 @@ Planned Updates
 -   Gaps in data not always evident in the plots. 20170308.
 
 -   Use futile.logger to better log output for user. Issue \#29. 20170606.
+
+v2.0.1.9021
+===========
+
+2017-06-21
+
+-   Dec 31 not being assigned a season in summar stats. Fixed. Issue \#33. 20170621.
 
 v2.0.1.9020
 ===========
