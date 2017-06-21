@@ -408,7 +408,7 @@ Multiparameter plots if exist in the data.
     # Water, Temp vs Level
     if (ContData.env$myName.WaterTemp %in% myParameters & ContData.env$myName.SensorDepth 
         %in% myParameters == TRUE){##IF.Temp_Level.START
-      cat("##PLOT, Water Level vs. Water Temperature \n\n")
+      cat("##PLOT, Sensor Depth vs. Water Temperature \n\n")
       #
       par.orig <- par(no.readonly=TRUE) # save original par settings
       layout(rbind(1,2),heights=c(7,1))

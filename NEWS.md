@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-06-21 15:23:13
+    #> Last Update: 2017-06-21 15:52:56
 
 Version history.
 
@@ -14,6 +14,13 @@ Planned Updates
 -   Gaps in data not always evident in the plots. 20170308.
 
 -   Use futile.logger to better log output for user. Issue \#29. 20170606.
+
+v2.0.1.9022
+===========
+
+2017-06-21
+
+-   QC report header for water temp and sensor depth says water level. Fixed. Issue \#34. 20170621.
 
 v2.0.1.9021
 ===========
