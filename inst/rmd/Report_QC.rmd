@@ -453,7 +453,7 @@ Multiparameter plots if exist in the data.
       # LEGEND
       par(mar=c(0,0,0,0))
       plot.new()
-      legend(x="center",lty=1,col=c("black","blue"),legend=c("temperature","sensor depth"),bty="n")
+      legend(x="center",lty=1,col=c("blue","black"),legend=c("temperature","sensor depth"),bty="n")
     #
       # Future mod, add points to legend
       #

@@ -263,6 +263,11 @@ Multiparameter plots if exist in the data.
         }##IF.Discrete.END
         #
         # Future mod, add points to legend
+        # LEGEND
+        par(mar=c(0,0,0,0))
+        plot.new()
+        legend(x="center",lty=1,col=c("blue","black"),legend=c("temperature","sensor depth"),bty="n")
+    #
         #
       par(par.orig) # return to original par settings
       cat("\n\n")
