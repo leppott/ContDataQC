@@ -179,4 +179,3 @@ ContDataQC(myData.Operation, fun.myDir.import=myDir.import, fun.myDir.export=myD
 \keyword{aggregate}
 \keyword{continuous}
 \keyword{data,}
-

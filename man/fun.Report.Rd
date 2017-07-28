@@ -38,4 +38,3 @@ Values are "QC", "DATA", or "STATS".
 \keyword{continuous}
 \keyword{data,}
 \keyword{report}
-

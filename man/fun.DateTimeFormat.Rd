@@ -31,4 +31,3 @@ fun.DateTimeFormat(Sys.time(),"datetime")
 \keyword{datetime,}
 \keyword{format}
 \keyword{time,}
-

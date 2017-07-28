@@ -12,4 +12,3 @@ data_raw_test2_AW_20130426_20130725
 Test data
 }
 \keyword{datasets}
-

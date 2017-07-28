@@ -37,4 +37,3 @@ Calculates statistics on input data and saves to a new csv.
 \keyword{continuous}
 \keyword{data,}
 \keyword{statistics}
-

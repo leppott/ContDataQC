@@ -25,4 +25,3 @@ fun.dt.Type2(Sys.Date(),"date")
 \keyword{datetime,}
 \keyword{format}
 \keyword{time,}
-

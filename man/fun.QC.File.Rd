@@ -35,4 +35,3 @@ fun.QC.File(myFile, myDir.import, myDir.export)
 \keyword{data,}
 \keyword{qc,}
 \keyword{quality}
-

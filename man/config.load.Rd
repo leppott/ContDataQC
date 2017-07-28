@@ -18,4 +18,3 @@ NA, values in file added to environment "ContData.env".
 Function to load custom configuration of user defined values.  Only need to include elements that need to be changed.
 Adds to the existing environment.  User should load a new configuration prior to master script.
 }
-

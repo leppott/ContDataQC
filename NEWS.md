@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-06-22 10:25:26
+    #> Last Update: 2017-07-28 09:42:00
 
 Version history.
 
@@ -14,6 +14,15 @@ Planned Updates
 -   Gaps in data not always evident in the plots. 20170308.
 
 -   Use futile.logger to better log output for user. Issue \#29. 20170606.
+
+v2.0.1.9024
+===========
+
+2017-07-27
+
+-   Thresholds. Updated config.R with more informed thresholds after working with more data. Issues \#36. 20170728.
+
+-   DESCRIPTION. Added Jen Stamp as contributer and added my middle initial. 20170728.
 
 v2.0.1.9023
 ===========

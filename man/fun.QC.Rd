@@ -35,4 +35,3 @@ Requires zoo().
 \keyword{data,}
 \keyword{qc,}
 \keyword{quality}
-

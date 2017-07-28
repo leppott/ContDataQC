@@ -33,4 +33,3 @@ fun.Stats.File(myFile, myDir.import, myDir.export)
 \keyword{continuous}
 \keyword{data,}
 \keyword{statistics}
-

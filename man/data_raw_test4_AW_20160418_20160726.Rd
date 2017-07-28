@@ -12,4 +12,3 @@ data_raw_test4_AW_20160418_20160726
 Test data.  Includes air and water data at different start times.
 }
 \keyword{datasets}
-
