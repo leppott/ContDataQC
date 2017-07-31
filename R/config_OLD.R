@@ -277,9 +277,9 @@ ContData.env$myThresh.Gross.Fail.Lo.GageHeight          <- -1
 ### if value >= Hi or <= Lo then flagged as "Suspect"
 ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp  <- 25
 ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp  <- -0.1
-ContData.env$myThresh.Gross.Suspect.Hi.AirTemp    <- 35
-ContData.env$myThresh.Gross.Suspect.Lo.AirTemp    <- -23
-ContData.env$myThresh.Gross.Suspect.Hi.WaterP     <- 16.8
+ContData.env$myThresh.Gross.Suspect.Hi.AirTemp    <- 30
+ContData.env$myThresh.Gross.Suspect.Lo.AirTemp    <- -21
+ContData.env$myThresh.Gross.Suspect.Hi.WaterP     <- 16
 ContData.env$myThresh.Gross.Suspect.Lo.WaterP     <- 13.5
 ContData.env$myThresh.Gross.Suspect.Hi.AirBP      <- 14.8
 ContData.env$myThresh.Gross.Suspect.Lo.AirBP      <- 13.5
@@ -304,13 +304,13 @@ ContData.env$myThresh.Gross.Suspect.Lo.GageHeight        <- 1
 ### if delta >= Hi then flagged as "Fail"
 ### if delta >= Lo then flagged as "Suspect"
 ContData.env$myThresh.Spike.Hi.WaterTemp  <- 1.5
-ContData.env$myThresh.Spike.Lo.WaterTemp  <- 1
-ContData.env$myThresh.Spike.Hi.AirTemp    <- 10
-ContData.env$myThresh.Spike.Lo.AirTemp    <- 8
-ContData.env$myThresh.Spike.Hi.WaterP     <- 0.7
-ContData.env$myThresh.Spike.Lo.WaterP     <- 0.5
-ContData.env$myThresh.Spike.Hi.AirBP      <- 0.25
-ContData.env$myThresh.Spike.Lo.AirBP      <- 0.15
+ContData.env$myThresh.Spike.Lo.WaterTemp  <- 0.7
+ContData.env$myThresh.Spike.Hi.AirTemp    <- 8
+ContData.env$myThresh.Spike.Lo.AirTemp    <- 7
+ContData.env$myThresh.Spike.Hi.WaterP     <- 0.5
+ContData.env$myThresh.Spike.Lo.WaterP     <- 0.37
+ContData.env$myThresh.Spike.Hi.AirBP      <- 0.2
+ContData.env$myThresh.Spike.Lo.AirBP      <- 0.1
 ContData.env$myThresh.Spike.Hi.SensorDepth <- 5
 ContData.env$myThresh.Spike.Lo.SensorDepth <- 3
 ContData.env$myThresh.Spike.Hi.Discharge  <- 10^4 # dependant upon stream size
