@@ -49,6 +49,7 @@ Below are the default data directories assumed to exist in the working directory
 }
 \examples{
 # Install Pandoc
+install.packages("installr") # not needed if already have this package.
 require(installr)
 install.pandoc()
 # The above won't work if don't have admin rights on your computer.

@@ -62,6 +62,7 @@
 #' @keywords continuous data, aggregate
 #' @examples
 #' # Install Pandoc
+#' install.packages("installr") # not needed if already have this package.
 #' require(installr)
 #' install.pandoc()
 #' # The above won't work if don't have admin rights on your computer.

@@ -31,6 +31,13 @@ Version history.
 
 * Add option for Report output for PDF or DOCX.  Defaults to HTML.  Will need to change documentation for report functions. 20170823.
 
+# v2.0.1.9032
+2017-08-23
+
+* Added rmarkdown to dependencies in Description.  It should install with Pandoc but some users had to install separately.  20170823
+
+* Added install.packages("installr") to example in ContDataQC() for installing Pandoc.  20170823.
+
 # v2.0.1.9031
 2017-08-23
 
