@@ -31,10 +31,15 @@ Version history.
 
 * Add option for Report output for PDF or DOCX.  Defaults to HTML.  Will need to change documentation for report functions. 20170823.
 
+# v2.0.1.9031
+2017-08-23
+
+* Reload on GitHub.  Shiny can't download.  20170823.
+
 # v2.0.1.9030
 2017-08-23
 
-* Another DOCX reference fix..  20170823.
+* Another DOCX reference fix. 20170823.
 
 # v2.0.1.9029
 2017-08-23
