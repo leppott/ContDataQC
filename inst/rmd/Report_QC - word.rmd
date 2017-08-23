@@ -1,6 +1,6 @@
 ---
 title: "Data Quality Control Report"
-output: html_document
+output: word_document
 ---
 
 ```{r report_date, results='asis', echo=FALSE, warning=FALSE}

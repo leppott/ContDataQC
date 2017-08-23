@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-08-23 08:34:11
+    #> Last Update: 2017-08-23 10:09:14
 
 Version history.
 
@@ -14,6 +14,22 @@ Planned Updates
 -   Gaps in data not always evident in the plots. 20170308.
 
 -   Use futile.logger to better log output for user. Issue \#29. 20170606.
+
+-   Add option for Report output for PDF or DOCX. Defaults to HTML. 20170823.
+
+v2.0.1.9028
+===========
+
+2017-08-23
+
+-   Convert Reports from DOCX to HTML. Needed for use with Shiny. 20170823.
+
+v2.0.1.9027
+===========
+
+2017-08-23
+
+-   Rebuild before update to GitHub. 20170823.
 
 v2.0.1.9026
 ===========
