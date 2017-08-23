@@ -29,6 +29,11 @@ Version history.
 
 * Use futile.logger to better log output for user.  Issue #29. 20170606.
 
+# v2.0.1.9026
+2017-08-23
+
+* Ensure use file.path when read and save files.  20170823.
+
 # v2.0.1.9025
 2017-07-31
 

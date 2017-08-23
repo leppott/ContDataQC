@@ -103,7 +103,8 @@ fun.Report.File <- function(fun.myFile
     }##IF.file.END
 
     # B.2.1. Check File Size
-    if(file.info(paste(myDir.data.import,"/",strFile,sep=""))$size==0){
+    #if(file.info(paste(myDir.data.import,"/",strFile,sep=""))$size==0){
+    if(file.info(file.path(myDir.data.import,strFile))$size==0){
       # inform user of progress and update LOG
       myMsg <- "SKIPPED (file blank)"
       myItems.Skipped <- myItems.Skipped + 1

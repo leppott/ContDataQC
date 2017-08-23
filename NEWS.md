@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-07-31 13:44:06
+    #> Last Update: 2017-08-23 08:34:11
 
 Version history.
 
@@ -14,6 +14,13 @@ Planned Updates
 -   Gaps in data not always evident in the plots. 20170308.
 
 -   Use futile.logger to better log output for user. Issue \#29. 20170606.
+
+v2.0.1.9026
+===========
+
+2017-08-23
+
+-   Ensure use file.path when read and save files. 20170823.
 
 v2.0.1.9025
 ===========

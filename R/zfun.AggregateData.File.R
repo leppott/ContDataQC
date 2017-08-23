@@ -174,7 +174,8 @@ fun.AggregateData.File <- function(fun.myFile
     # #str  #code fragment, 20160418
     #
     # 2.1. Check File Size
-    if(file.info(paste(myDir.data.import,"/",strFile,sep=""))$size==0){
+    #if(file.info(paste(myDir.data.import,"/",strFile,sep=""))$size==0){
+    if(file.info(file.path(myDir.data.import,strFile))$size==0){
       # inform user of progress and update LOG
       myMsg <- "SKIPPED (file blank)"
       myItems.Skipped <- myItems.Skipped + 1
@@ -346,7 +347,8 @@ fun.AggregateData.File <- function(fun.myFile
     #   write.table(data.append,file=strFile.Out,sep=varSep,quote=FALSE,row.names=FALSE,col.names=TRUE)
     #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
     #flush.console()
-    write.csv(data.append, file=paste(myDir.data.export,"/",strFile.Out,sep=""), quote=FALSE, row.names=FALSE)
+    #write.csv(data.append, file=paste(myDir.data.export,"/",strFile.Out,sep=""), quote=FALSE, row.names=FALSE)
+    write.csv(data.append, file=file.path(myDir.data.export,strFile.Out), quote=FALSE, row.names=FALSE)
     # saves but if gets another one in the time range it will append as append is recycled between loop iterations
     # when gets a new data type it gets a new data.append
     # need trigger for different SiteID (won't combine across sites)

@@ -153,7 +153,8 @@ fun.AggregateData <- function(fun.myData.SiteID
     #str  #code fragment, 20160418
     #
     # 2.1. Check File Size
-    if(file.info(paste(myDir.data.import,"/",strFile,sep=""))$size==0){
+    #if(file.info(paste(myDir.data.import,"/",strFile,sep=""))$size==0){
+    if(file.info(file.path(myDir.data.import,strFile))$size==0){
       # inform user of progress and update LOG
       myMsg <- "SKIPPED (file blank)"
       myItems.Skipped <- myItems.Skipped + 1
@@ -221,10 +222,12 @@ fun.AggregateData <- function(fun.myData.SiteID
     #varSep = "\t" (use read.delim instead of read.table)
     # as.is = T so dates come in as text rather than factor
     #data.import <- read.delim(strFile,as.is=TRUE,na.strings="")
-    data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings="")
+    #data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings="")
+    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings="")
     #
     # QC required fields: SiteID & (DateTime | (Date & Time))
-    fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
+    #fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
+    fun.QC.ReqFlds(names(data.import),file.path(myDir.data.import,strFile))
     #
     #
     #
@@ -318,7 +321,8 @@ fun.AggregateData <- function(fun.myData.SiteID
     #   write.table(data.append,file=strFile.Out,sep=varSep,quote=FALSE,row.names=FALSE,col.names=TRUE)
     #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
     #flush.console()
-    write.csv(data.append, file=paste(myDir.data.export,"/",strFile.Out,sep=""), quote=FALSE, row.names=FALSE)
+    #write.csv(data.append, file=paste(myDir.data.export,"/",strFile.Out,sep=""), quote=FALSE, row.names=FALSE)
+    write.csv(data.append, file=file.path(myDir.data.export,strFile.Out), quote=FALSE, row.names=FALSE)
     # saves but if gets another one in the time range it will append as append is recycled between loop iterations
     # when gets a new data type it gets a new data.append
     # need trigger for different SiteID (won't combine across sites)
@@ -420,8 +424,10 @@ fun.AggregateData <- function(fun.myData.SiteID
     #     fun.Name.myDF.2    <- myDF.Name.2
     #
     # Load Files
-    data.DF.1 <- read.csv(paste(myDir.data.export,fun.Name.myDF.1,sep="/"),as.is=TRUE,na.strings="")
-    data.DF.2 <- read.csv(paste(myDir.data.export,fun.Name.myDF.2,sep="/"),as.is=TRUE,na.strings="")
+    #data.DF.1 <- read.csv(paste(myDir.data.export,fun.Name.myDF.1,sep="/"),as.is=TRUE,na.strings="")
+    #data.DF.2 <- read.csv(paste(myDir.data.export,fun.Name.myDF.2,sep="/"),as.is=TRUE,na.strings="")
+    data.DF.1 <- read.csv(file.path(myDir.data.export,fun.Name.myDF.1),as.is=TRUE,na.strings="")
+    data.DF.2 <- read.csv(file.path(myDir.data.export,fun.Name.myDF.2),as.is=TRUE,na.strings="")
     #
     # strip non file specific columns ????
     # drop overlapping field names in data.DF.2 (typically the gage file) but keep DateTime
@@ -464,7 +470,8 @@ fun.AggregateData <- function(fun.myData.SiteID
     # save file
     #File.Date.Start <- format(as.Date(fun.myData.DateRange.Start,myFormat.Date),"%Y%m%d")
     #File.Date.End   <- format(as.Date(fun.myData.DateRange.End,myFormat.Date),"%Y%m%d")
-    strFile.Out <- paste(myDir.data.export,paste(paste("DATA",fun.myData.SiteID,fun.myPrefix.merge,File.Date.Start,File.Date.End,sep=myDelim),"csv",sep="."),sep="/")
+    #strFile.Out <- paste(myDir.data.export,paste(paste("DATA",fun.myData.SiteID,fun.myPrefix.merge,File.Date.Start,File.Date.End,sep=myDelim),"csv",sep="."),sep="/")
+    strFile.Out <- file.path(myDir.data.export,paste(paste("DATA",fun.myData.SiteID,fun.myPrefix.merge,File.Date.Start,File.Date.End,sep=myDelim),"csv",sep="."))
     write.csv(data.merge,file=strFile.Out,quote=FALSE,row.names=FALSE)
     # QC report (fails on render - lines 41-83 in rmd)
     #

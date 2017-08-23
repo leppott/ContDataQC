@@ -113,10 +113,12 @@ fun.Stats <- function(fun.myData.SiteID
   }##IF.file.END
 
   #import the file
-  data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings="")
+  #data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings="")
+  data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings="")
   #
   # QC required fields: SiteID & (DateTime | (Date & Time))
-  fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
+  #fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
+  fun.QC.ReqFlds(names(data.import),file.path(myDir.data.import,strFile))
   #
 
   #
@@ -331,7 +333,8 @@ fun.Stats <- function(fun.myData.SiteID
     # save dv
     strFile.Prefix.Out <- "DV"
     strFile.Out <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,sep=ContData.env$myDelim),"csv",sep=".")
-    write.csv(dv.i,paste(myDir.data.export,strFile.Out,sep="/"),quote=FALSE,row.names=FALSE)
+    #write.csv(dv.i,paste(myDir.data.export,strFile.Out,sep="/"),quote=FALSE,row.names=FALSE)
+    write.csv(dv.i,file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
 
     # #QC test where fails
     # qc.section <- "For.i.D.save.dv"
@@ -382,8 +385,8 @@ fun.Stats <- function(fun.myData.SiteID
     # Save plots as PDF
     strFile.Prefix.Out <- fun.myProcedure.Step
     strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,sep=ContData.env$myDelim),"pdf",sep=".")
-    pdf(file=paste(myDir.data.export,strFile.plot,sep="/"),width=11,height=8.5)
-
+    #pdf(file=paste(myDir.data.export,strFile.plot,sep="/"),width=11,height=8.5)
+    pdf(file=file.path(myDir.data.export,strFile.plot),width=11,height=8.5)
 
       ## Daily
         myTimeFrame <- "day"
@@ -655,7 +658,8 @@ fun.Stats <- function(fun.myData.SiteID
     # save stats
     strFile.Prefix.Out <- fun.myProcedure.Step
     strFile.Out <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,sep=ContData.env$myDelim),"csv",sep=".")
-    write.csv(stats.i.ALL,paste(myDir.data.export,strFile.Out,sep="/"),quote=FALSE,row.names=FALSE)
+    #write.csv(stats.i.ALL,paste(myDir.data.export,strFile.Out,sep="/"),quote=FALSE,row.names=FALSE)
+    write.csv(stats.i.ALL,file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
     #
 
     # need to inform user what part of loop

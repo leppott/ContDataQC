@@ -131,7 +131,8 @@ fun.QC <- function(fun.myData.SiteID
     #
     # B.2. Check File and skip if doesn't match user defined parameters
     # B.2.1. Check File Size
-    if(file.info(paste(myDir.data.import,"/",strFile,sep=""))$size==0){
+    #if(file.info(paste(myDir.data.import,"/",strFile,sep=""))$size==0){
+    if(file.info(file.path(myDir.data.import,strFile))$size==0){
       # inform user of progress and update LOG
       myMsg <- "SKIPPED (file blank)"
       myItems.Skipped <- myItems.Skipped + 1
@@ -199,7 +200,8 @@ fun.QC <- function(fun.myData.SiteID
     #varSep = "\t" (use read.delim instead of read.table)
     # as.is = T so dates come in as text rather than factor
     #data.import <- read.delim(strFile,as.is=TRUE,na.strings="")
-    data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings="")
+   # data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings="")
+    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings="")
     #
     # QC required fields: SiteID & (DateTime | (Date & Time))
     fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
@@ -828,7 +830,8 @@ fun.QC <- function(fun.myData.SiteID
     # 10.2. Save to File the data (overwrites any existing file).
     #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
     #flush.console()
-    write.csv(data.import,file=paste(myDir.data.export,"/",strFile.Out,sep=""),quote=FALSE,row.names=FALSE)
+    #write.csv(data.import,file=paste(myDir.data.export,"/",strFile.Out,sep=""),quote=FALSE,row.names=FALSE)
+    write.csv(data.import,file=file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
     #
 #     # B.11. Clean up
 #     # B.11.1. Inform user of progress and update LOG

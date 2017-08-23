@@ -183,7 +183,8 @@ fun.GageData <- function(fun.myData.SiteID
     # 10.2. Save to File the data (overwrites any existing file).
     #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
     #flush.console()
-    write.csv(data.myGage,file=paste(myDir.data.export,"/",strFile.Out,sep=""),quote=FALSE,row.names=FALSE)
+    #write.csv(data.myGage,file=paste(myDir.data.export,"/",strFile.Out,sep=""),quote=FALSE,row.names=FALSE)
+    write.csv(data.myGage,file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
     #
     # 11. Clean up
     cat("\n")

@@ -148,7 +148,8 @@ fun.Stats.File <- function(fun.myFile
     }##IF.file.END
 
     # B.2.1. Check File Size
-    if(file.info(paste(myDir.data.import,"/",strFile,sep=""))$size==0){
+    #if(file.info(paste(myDir.data.import,"/",strFile,sep=""))$size==0){
+    if(file.info(file.path(myDir.data.import,strFile))$size==0){
       # inform user of progress and update LOG
       myMsg <- "SKIPPED (file blank)"
       myItems.Skipped <- myItems.Skipped + 1
@@ -165,7 +166,8 @@ fun.Stats.File <- function(fun.myFile
     data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings="")
     #
     # QC required fields: SiteID & (DateTime | (Date & Time))
-    fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
+    #fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
+    fun.QC.ReqFlds(names(data.import),file.path(myDir.data.import,strFile))
     #
 
     #
@@ -380,7 +382,8 @@ fun.Stats.File <- function(fun.myFile
       # save dv
       strFile.Prefix.Out <- "DV"
       strFile.Out <- paste(paste(strFile.Prefix.Out,strFile.Base,i,sep=ContData.env$myDelim),"csv",sep=".")
-      write.csv(dv.i,paste(myDir.data.export,strFile.Out,sep="/"),quote=FALSE,row.names=FALSE)
+      #write.csv(dv.i,paste(myDir.data.export,strFile.Out,sep="/"),quote=FALSE,row.names=FALSE)
+      write.csv(dv.i,file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
 
       # #QC test where fails
       # qc.section <- "For.i.D.save.dv"
@@ -431,7 +434,9 @@ fun.Stats.File <- function(fun.myFile
       # Save plots as PDF ####
       strFile.Prefix.Out <- fun.myProcedure.Step
       strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.Base,i,sep=ContData.env$myDelim),"pdf",sep=".")
-      pdf(file=paste(myDir.data.export,strFile.plot,sep="/"),width=11,height=8.5)
+      #pdf(file=paste(myDir.data.export,strFile.plot,sep="/"),width=11,height=8.5)
+      pdf(file=file.path(myDir.data.export,strFile.plot),width=11,height=8.5)
+
 
 
         ## Daily
@@ -705,7 +710,8 @@ fun.Stats.File <- function(fun.myFile
       # save stats
       strFile.Prefix.Out <- fun.myProcedure.Step
       strFile.Out <- paste(paste(strFile.Prefix.Out,strFile.Base,i,sep=ContData.env$myDelim),"csv",sep=".")
-      write.csv(stats.i.ALL,paste(myDir.data.export,strFile.Out,sep="/"),quote=FALSE,row.names=FALSE)
+      #write.csv(stats.i.ALL,paste(myDir.data.export,strFile.Out,sep="/"),quote=FALSE,row.names=FALSE)
+      write.csv(stats.i.ALL,file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
       #
 
       # need to inform user what part of loop
