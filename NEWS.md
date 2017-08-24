@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-08-23 14:10:42
+    #> Last Update: 2017-08-24 07:06:59
 
 Version history.
 
@@ -15,7 +15,14 @@ Planned Updates
 
 -   Use futile.logger to better log output for user. Issue \#29. 20170606.
 
--   Add option for Report output for PDF or DOCX. Defaults to HTML. Will need to change documentation for report functions. 20170823.
+-   Add option for Report output for PDF or DOCX or HTML. Defaults to DOCSX. Will need to change documentation for report functions. 20170823.
+
+v2.0.1.9033
+===========
+
+2017-08-24
+
+-   Changed reports back to DOCX. Will add a user parameter to change in the future. 20170824.
 
 v2.0.1.9032
 ===========

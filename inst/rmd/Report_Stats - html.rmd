@@ -1,6 +1,6 @@
 ---
 title: "Summary Statistics Report"
-output: word_document
+output: html_document
 ---
 
 ```{r report_date, results='asis', echo=FALSE, warning=FALSE}

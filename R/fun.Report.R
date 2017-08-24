@@ -121,7 +121,7 @@ fun.Report <- function(fun.myData.SiteID
     # much cleaner DOCX than the 2-step process of MD with knit to RMD with pandoc
     #strFile.RMD <- paste(myDir.BASE,"Scripts",paste(myReport.Name,"rmd",sep="."),sep="/") #"QCReport.rmd"
     strFile.RMD <- system.file(paste0("rmd/",myReport.Name,".rmd"),package=myPkg)
-    strFile.out.ext <- ".html" # ".docx"
+    strFile.out.ext <- ".docx" #".html" # ".docx"
     strFile.out <- paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,myReport.Name,sep=ContData.env$myDelim),strFile.out.ext,sep="")
     #suppressWarnings(
       rmarkdown::render(strFile.RMD, output_file=strFile.out, output_dir=fun.myDir.export, quiet=TRUE)
