@@ -33,3 +33,12 @@
 #'
 #'
 "data_raw_test4_AW_20160418_20160726"
+
+#' DATA_period_test2_Aw_20130101_20141231
+#'
+#' Test data for PeriodStats().  Includes air and water data at different start times.
+#'
+#' @format a data frame with 9699 observations and 72 variables:
+#'
+#'
+"DATA_period_test2_Aw_20130101_20141231"

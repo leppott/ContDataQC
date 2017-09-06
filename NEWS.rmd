@@ -31,6 +31,11 @@ Version history.
 
 * Add option for Report output for PDF or DOCX or HTML.  Defaults to DOCSX.  Will need to change documentation for report functions. 20170823.
 
+# v2.0.1.9034
+2017-09-06
+
+* Added PeriodStats() to calculate daily stats (mean, min, max, etc) for a period (N) before a given date.  Outputs a CSV of data and DOCX report.  20170905.
+
 # v2.0.1.9033
 2017-08-24
 
