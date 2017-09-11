@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-09-06 10:53:43
+    #> Last Update: 2017-09-11 15:02:27
 
 Version history.
 
@@ -16,6 +16,13 @@ Planned Updates
 -   Use futile.logger to better log output for user. Issue \#29. 20170606.
 
 -   Add option for Report output for PDF or DOCX or HTML. Defaults to DOCSX. Will need to change documentation for report functions. 20170823.
+
+v2.0.1.9035
+===========
+
+2017-09-11
+
+-   Updated fun.GageData.R. USGS updated their webservices to use https instead of http. dataRetrieval package updated to v2.7.3 on GitHub. Some functions modified within dataRetrieval as had to modify some code in ContDataQC package. Version number of dataRetrieval *not* added to DESCRIPTION (not available on CRAN yet).
 
 v2.0.1.9034
 ===========

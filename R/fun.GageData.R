@@ -110,9 +110,9 @@ fun.GageData <- function(fun.myData.SiteID
     strGage <- fun.myData.SiteID[intCounter]
     #
     # Get available data
-    data.what.uv <- dataRetrieval::whatNWISdata(strGage,service="uv")
+    data.what.uv <- dataRetrieval::whatNWISdata(siteNumber=strGage,service="uv")
     # future versions to get all available data
-    data.what.uv.param <- data.what.uv[,"parameter_nm"]
+    #data.what.uv.param <- data.what.uv[,"parameter_nm"]  # column deprecated in dataRetrieval v2.7.3.
     #
     #data.what.Codes <- as.vector(USGS.Code.Desc[,"Code"][data.what.uv[,"parameter_nm"]%in%USGS.Code.Desc$Desc])
     data.what.Codes <- data.what.uv[,"parm_cd"]
