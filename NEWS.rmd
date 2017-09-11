@@ -31,6 +31,11 @@ Version history.
 
 * Add option for Report output for PDF or DOCX or HTML.  Defaults to DOCSX.  Will need to change documentation for report functions. 20170823.
 
+# v2.0.1.9036
+2017-09-11
+
+* Added function, fun.Export.IHA(), to export data in format ready to use in IHA package.
+
 # v2.0.1.9035
 2017-09-11
 
