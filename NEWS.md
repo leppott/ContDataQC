@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-09-12 13:13:27
+    #> Last Update: 2017-09-12 15:43:23
 
 Version history.
 
@@ -17,30 +17,37 @@ Planned Updates
 
 -   Add option for Report output for PDF or DOCX or HTML. Defaults to DOCSX. Will need to change documentation for report functions. 20170823.
 
+v2.0.1.9038
+===========
+
+2017-09-12
+
+-   Rename fun.Export.IHA() to Export.IHA(). 20170912.
+
 v2.0.1.9037
 ===========
 
 2017-09-12
 
--   Added function, rarify(), from RIVPACS code by John van Sickles (USEPA). Modified to be a stand alone function and with a seed parameter for reproducible results. Included example dataset with 2 samples.
+-   Added function, rarify(), from RIVPACS code by John van Sickles (USEPA). Modified to be a stand alone function and with a seed parameter for reproducible results. Included example dataset with 2 samples. 20170912.
 
--   Added "Bug Reports" to DESCRIPTION file.
+-   Added "Bug Reports" to DESCRIPTION file. 20170912.
 
--   Modified fun.Export.IHA() argument fun.myCol.Discharge to fun.myCol.Parameter.
+-   Modified fun.Export.IHA() argument fun.myCol.Discharge to fun.myCol.Parameter. 20170912.
 
 v2.0.1.9036
 ===========
 
 2017-09-11
 
--   Added function, fun.Export.IHA(), to export data in format ready to use in IHA package.
+-   Added function, fun.Export.IHA(), to export data in format ready to use in IHA package. 20170911.
 
 v2.0.1.9035
 ===========
 
 2017-09-11
 
--   Updated fun.GageData.R. USGS updated their webservices to use https instead of http. dataRetrieval package updated to v2.7.3 on GitHub. Some functions modified within dataRetrieval as had to modify some code in ContDataQC package. Version number of dataRetrieval *not* added to DESCRIPTION (not available on CRAN yet).
+-   Updated fun.GageData.R. USGS updated their webservices to use https instead of http. dataRetrieval package updated to v2.7.3 on GitHub. Some functions modified within dataRetrieval as had to modify some code in ContDataQC package. Version number of dataRetrieval *not* added to DESCRIPTION (not available on CRAN yet). 20170911.
 
 v2.0.1.9034
 ===========

@@ -43,10 +43,10 @@
 #' myCol.Discharge <- "Discharge.ft3.s"
 #' #
 #' # 2. Prep Data
-#' myData.IHA <- fun.Export.IHA(myFile
-#'                              , fun.myCol.DateTime = myCol.DateTime
-#'                              , fun.myCol.Parameter = myCol.Discharge
-#'                             )
+#' myData.IHA <- Export.IHA(myFile
+#'                          , fun.myCol.DateTime = myCol.DateTime
+#'                          , fun.myCol.Parameter = myCol.Discharge
+#'                          )
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # 3. Run IHA
@@ -125,15 +125,15 @@
 # fun.myCol.Discharge <- myCol.Discharge
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
-fun.Export.IHA <- function(fun.myFile
-                          ,fun.myDir.import=getwd()
-                          ,fun.myDir.export=getwd()
-                          ,fun.myDateRange.Start=NA
-                          ,fun.myDateRange.End=NA
-                          ,fun.myCol.DateTime="Date.Time"
-                          ,fun.myCol.Parameter="Discharge.ft3.s"
-                          )
-{##FUNCTION.fun.Export.IHA.START
+Export.IHA <- function(fun.myFile
+                      ,fun.myDir.import=getwd()
+                      ,fun.myDir.export=getwd()
+                      ,fun.myDateRange.Start=NA
+                      ,fun.myDateRange.End=NA
+                      ,fun.myCol.DateTime="Date.Time"
+                      ,fun.myCol.Parameter="Discharge.ft3.s"
+                      )
+{##FUNCTION.Export.IHA.START
   # import file
   myDF <- read.csv(myFile, stringsAsFactors = FALSE)
   myCols <- c(fun.myCol.DateTime, fun.myCol.Parameter)
@@ -167,4 +167,4 @@ fun.Export.IHA <- function(fun.myFile
   write.csv(myData,myFile.IHA)
   # Return DF to user
   return(myData)
-}##FUNCTION.fun.Export.IHA.END
+}##FUNCTION.Export.IHA.END
