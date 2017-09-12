@@ -19,7 +19,7 @@
 #' @param fun.myDateRange.Start Start date for IHA analysis.  File will be filtered on this date.  Default is NA (no filtering).
 #' @param fun.myDateRange.End End date for IHA analysis.  File will be filtered on this date.  Default is NA (no filtering).
 #' @param fun.myCol.DateTime Column name in myFile with Date/Time.  Assumes format of \%Y-\%m-\%d \%H:\%M:\%S.  Default = "Date.Time".
-#' @param fun.myCo.Discharge Column name in myFile for discharge measurements.  Default = "Discharge.ft3.s".
+#' @param fun.myCol.Parameter Column name in myFile for measurements.  Default = "Discharge.ft3.s".
 #' @return Returns a data frame with daily mean values by date (in the specified range).  Also, a csv file is saved to the specified directory with the prefix "IHA" and the date range before the file extension.
 #' @keywords continuous data, daily mean, IHA
 #' @examples
@@ -45,7 +45,7 @@
 #' # 2. Prep Data
 #' myData.IHA <- fun.Export.IHA(myFile
 #'                              , fun.myCol.DateTime = myCol.DateTime
-#'                              , fun.myCol.Discharge = myCol.Discharge
+#'                              , fun.myCol.Parameter = myCol.Discharge
 #'                             )
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -131,12 +131,12 @@ fun.Export.IHA <- function(fun.myFile
                           ,fun.myDateRange.Start=NA
                           ,fun.myDateRange.End=NA
                           ,fun.myCol.DateTime="Date.Time"
-                          ,fun.myCol.Discharge="Discharge.ft3.s"
+                          ,fun.myCol.Parameter="Discharge.ft3.s"
                           )
 {##FUNCTION.fun.Export.IHA.START
   # import file
   myDF <- read.csv(myFile, stringsAsFactors = FALSE)
-  myCols <- c(fun.myCol.DateTime,fun.myCol.Discharge)
+  myCols <- c(fun.myCol.DateTime, fun.myCol.Parameter)
   # add date
   myDF <- myDF[,myCols]
   myDF[,"Date"] <- as.Date(myDF[,fun.myCol.DateTime],format="%Y-%m-%d")
@@ -155,7 +155,7 @@ fun.Export.IHA <- function(fun.myFile
   }
   # generate daily values
   data.daily <- aggregate(myDF[,2] ~ myDF[,3], FUN=mean)
-  names(data.daily) <- c("Date",fun.myCol.Discharge)
+  names(data.daily) <- c("Date", fun.myCol.Parameter)
   #head(data.daily)
   # Create zoo object for use with IHA library
   myData <- zoo::zoo(data.daily[,2],order.by=data.daily[,1])

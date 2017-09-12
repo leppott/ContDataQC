@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-09-11 15:02:27
+    #> Last Update: 2017-09-12 13:13:27
 
 Version history.
 
@@ -16,6 +16,24 @@ Planned Updates
 -   Use futile.logger to better log output for user. Issue \#29. 20170606.
 
 -   Add option for Report output for PDF or DOCX or HTML. Defaults to DOCSX. Will need to change documentation for report functions. 20170823.
+
+v2.0.1.9037
+===========
+
+2017-09-12
+
+-   Added function, rarify(), from RIVPACS code by John van Sickles (USEPA). Modified to be a stand alone function and with a seed parameter for reproducible results. Included example dataset with 2 samples.
+
+-   Added "Bug Reports" to DESCRIPTION file.
+
+-   Modified fun.Export.IHA() argument fun.myCol.Discharge to fun.myCol.Parameter.
+
+v2.0.1.9036
+===========
+
+2017-09-11
+
+-   Added function, fun.Export.IHA(), to export data in format ready to use in IHA package.
 
 v2.0.1.9035
 ===========

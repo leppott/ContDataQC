@@ -7,7 +7,7 @@
 fun.Export.IHA(fun.myFile, fun.myDir.import = getwd(),
   fun.myDir.export = getwd(), fun.myDateRange.Start = NA,
   fun.myDateRange.End = NA, fun.myCol.DateTime = "Date.Time",
-  fun.myCol.Discharge = "Discharge.ft3.s")
+  fun.myCol.Parameter = "Discharge.ft3.s")
 }
 \arguments{
 \item{fun.myFile}{Filename (no directory) of data file.  Must be CSV file.  Includes Date/Time and Discharge fields.}
@@ -22,9 +22,9 @@ fun.Export.IHA(fun.myFile, fun.myDir.import = getwd(),
 
 \item{fun.myCol.DateTime}{Column name in myFile with Date/Time.  Assumes format of \%Y-\%m-\%d \%H:\%M:\%S.  Default = "Date.Time".}
 
-\item{fun.myDate.Format}{Format of benchmark date.  This should be the same format of the date in the data file.  Default is \%Y-\%m-\%d (e.g., 2017-12-31).}
+\item{fun.myCol.Parameter}{Column name in myFile for measurements.  Default = "Discharge.ft3.s".}
 
-\item{fun.myCo.Discharge}{Column name in myFile for discharge measurements.  Default = "Discharge.ft3.s".}
+\item{fun.myDate.Format}{Format of benchmark date.  This should be the same format of the date in the data file.  Default is \%Y-\%m-\%d (e.g., 2017-12-31).}
 }
 \value{
 Returns a data frame with daily mean values by date (in the specified range).  Also, a csv file is saved to the specified directory with the prefix "IHA" and the date range before the file extension.
@@ -63,7 +63,7 @@ myCol.Discharge <- "Discharge.ft3.s"
 # 2. Prep Data
 myData.IHA <- fun.Export.IHA(myFile
                              , fun.myCol.DateTime = myCol.DateTime
-                             , fun.myCol.Discharge = myCol.Discharge
+                             , fun.myCol.Parameter = myCol.Discharge
                             )
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -6,7 +6,7 @@
 #'
 #'
 "data_raw_test2_AW_20130426_20130725"
-
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' data_raw_test2_AW_20130725_20131015
 #'
 #' Test data.
@@ -15,7 +15,7 @@
 #'
 #'
 "data_raw_test2_AW_20130725_20131015"
-
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' data_raw_test2_AW_20140901_20140930
 #'
 #' Test data.
@@ -24,7 +24,7 @@
 #'
 #'
 "data_raw_test2_AW_20140901_20140930"
-
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' data_raw_test4_AW_20160418_20160726
 #'
 #' Test data.  Includes air and water data at different start times.
@@ -33,7 +33,7 @@
 #'
 #'
 "data_raw_test4_AW_20160418_20160726"
-
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DATA_period_test2_Aw_20130101_20141231
 #'
 #' Test data for PeriodStats().  Includes air and water data at different start times.
@@ -42,3 +42,13 @@
 #'
 #'
 "DATA_period_test2_Aw_20130101_20141231"
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' data_bio2rarify
+#'
+#' Test data for rarify().  Includes biological data for 2 samples that are both over the 240 total count limit.
+#'
+#' @format a data frame with 74 observations and 3 variables:
+#'
+#'
+"data_bio2rarify"
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
