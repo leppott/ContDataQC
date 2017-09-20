@@ -6,8 +6,8 @@
 #'
 #' The IHA package is not included in the ContDataQC package.  But an example is provided.
 #'
-#' To run the example IHA calculations you will need the IHA (from GitHub) and XLConnect packages.
-#' Install commands in the example
+#' To run the example IHA calculations you will need the IHA package (from GitHub) and for the example export the XLConnect packages
+#' Install commands in the example.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Erik.Leppo@tetratech.com (EWL)
 # 20170911

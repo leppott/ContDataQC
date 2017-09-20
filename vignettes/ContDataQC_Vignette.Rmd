@@ -928,10 +928,14 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start,
 ```
 
 ## Output for StreamThermal
-The Export.ST() function exports data for the `StreamThermal` library.  This library is only available on GitHub.
+The Export.StreamThermal() function exports data for use with the the `StreamThermal` library.  
+The data input for StreamThermal is a data frame with five columns (SiteID, Date, TMax, TMin, and TMean).
+
+The `StreamThermal` library is only available on GitHub.
 
 https://github.com/tsangyp/StreamThermal
 
+Install instructions for the `StreamThermal` library are below.
 
 ```{r, eval=FALSE}
 # Install Libraries (if needed)
@@ -940,47 +944,46 @@ library(devtools)
 install_github("tsangyp/StreamThermal")
 ```
 
-The `StreamThermal` package is set up to work with USGS gage data and this can be downloaded via the `dataRetrieval` library (as shown in the examples in the `StreamThermal` library).  However, the code below can be used to use the `StreamThermal` library functions with the user's own continuous monitoring data.
 
-Get USGS gage data with the `ContDataQC` library.
+The `StreamThermal` package is set up to work with USGS gage data and this can be downloaded via the `dataRetrieval` library (as shown in the examples in the `StreamThermal` library).
 
-```{r, eval=FALSE}
-#' # 1.  Get Gage Data
-#' #
-#' # 1.A. Use ContDataQC and Save (~ 1min for download)
-#' myData.Operation    <- "GetGageData" #Selection.Operation[1]
-#' myData.SiteID       <- "01187300" # Hubbard River near West Hartland, CT
-#' myData.Type         <- "Gage"
-#' myData.DateRange.Start  <- "2015-01-01"
-#' myData.DateRange.End    <- "2016-12-31"
-#' myDir.import <- getwd()
-#' myDir.export <- getwd()
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type
-#'            , myData.DateRange.Start, myData.DateRange.End
-#'            , myDir.import, myDir.export)
+```{r, echo=TRUE}
+# 1.1. Get USGS data
+# code from StreamThermal T_frequency example
+ExUSGSStreamTemp<-dataRetrieval::readNWISdv("01382310","00010","2011-01-01","2011-12-31",c("00001","00002","00003"))
+sitedata<-subset(ExUSGSStreamTemp, select=c("site_no","Date","X_00010_00001","X_00010_00002","X_00010_00003"))
+names(sitedata)<-c("siteID","Date","MaxT","MinT","MeanT")
+knitr::kable(head(sitedata))
 ```
 
-Get user data.
+It is possible to use the Summary Stats operation output from the ContDataQC() function.
 
-```{r, eval=FALSE}
-#' # 1.B. Use saved data
-#' myFile <- "01187300_Gage_20150101_20161231.csv"
-#' myCol.DateTime="Date.Time"
-#' myCol.Discharge <- "Water.Temp.C"
-#' #
+```{r, echo=TRUE}
+# 1.2. Use ContDataQC SummaryStats Data
+myFile <- "STATS_test2_Aw_20130101_20141231_Water.Temp.C.csv"
+myDir <- "Data4_Stats"
+setwd("..") #resets to vignette dir when run as code chunk
+myData <- read.csv(file.path(getwd(),myDir,myFile), stringsAsFactors=FALSE)
+# Subset
+Col.Keep <- c("SiteID", "TimeValue", "max", "min", "mean")
+sitedata <- myData[myData[,"TimeFrame"]=="day",Col.Keep]
+Names.ST <- c("SiteID", "Date", "MaxT", "MinT", "MeanT")
+names(sitedata) <- Names.ST
+# Convert date column to date type
+sitedata[,"Date"] <- as.Date(sitedata[,"Date"])
+knitr::kable(head(sitedata))
 ```
 
-Prepare data for use with `StreamThermal`.
+It is also possible to use data that has yet to be summarized.
 
-```{r, eval=FALSE}
-#' # 2. Prep Data
-#' myData.ST <- Export.IHA(myFile
-#'                        , fun.myCol.DateTime = myCol.DateTime
-#'                        , fun.myCol.Parameter = myCol.Discharge
-#'                        )
+```{r, echo=TRUE}
+# 1.3. Use user data that has been QCed
+myData <- DATA_period_test2_Aw_20130101_20141231
+sitedata <- Export.StreamThermal(myData)
+knitr::kable(head(sitedata))
 ```
 
-Run StreamThermal functions.
+Run StreamThermal functions with 'sitedata'.  The example below saves the output to a variable.
 
 ```{r, eval=FALSE}
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

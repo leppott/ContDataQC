@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-09-20 09:24:23
+    #> Last Update: 2017-09-20 13:49:24
 
 Version history.
 
@@ -17,7 +17,7 @@ Planned Updates
 
 -   Add option for Report output for PDF or DOCX or HTML. Defaults to DOCSX. Will need to change documentation for report functions. 20170823.
 
--   Flesh out export for StreamThermal. 20170919.
+-   ~~Flesh out export for StreamThermal. 20170919.~~
 
 -   Debug Aggregate operation. 20170919.
 
@@ -26,6 +26,15 @@ Planned Updates
 -   PeriodStats(), add number and/or percent of observations above given threshold. 20170919.
 
 -   Update Vignette when done. 20170919.
+
+v2.0.1.9041
+===========
+
+2017-09-20
+
+-   Export.StreamThermal. Rename from Export.ST() to Export.StreamThermal(). And update Vignette. 20170920.
+
+-   Export.IHA. Tweak opening text. 20170920.
 
 v2.0.1.9040
 ===========
