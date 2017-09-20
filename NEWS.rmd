@@ -31,6 +31,23 @@ Version history.
 
 * Add option for Report output for PDF or DOCX or HTML.  Defaults to DOCSX.  Will need to change documentation for report functions. 20170823.
 
+* Flesh out export for StreamThermal. 20170919.
+
+* Debug Aggregate operation.  20170919.
+
+* Create CDFs.  Similar to code already used in previous analyses by Lei.  20170919.
+
+* PeriodStats(), add number and/or percent of observations above given threshold.  20170919.
+
+* Update Vignette when done.  20170919.
+
+# v2.0.1.9039
+2017-09-19
+
+* Vignette added.  20170919.
+
+* Added daily mean visualization Excel file to \extdata.  20170919.
+
 # v2.0.1.9038
 2017-09-12
 
