@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-09-19 20:59:18
+    #> Last Update: 2017-09-20 09:24:23
 
 Version history.
 
@@ -16,6 +16,25 @@ Planned Updates
 -   Use futile.logger to better log output for user. Issue \#29. 20170606.
 
 -   Add option for Report output for PDF or DOCX or HTML. Defaults to DOCSX. Will need to change documentation for report functions. 20170823.
+
+-   Flesh out export for StreamThermal. 20170919.
+
+-   Debug Aggregate operation. 20170919.
+
+-   Create CDFs. Similar to code already used in previous analyses by Lei. 20170919.
+
+-   PeriodStats(), add number and/or percent of observations above given threshold. 20170919.
+
+-   Update Vignette when done. 20170919.
+
+v2.0.1.9040
+===========
+
+2017-09-20
+
+-   Vignette.
+-   Tweaked language. 20170919.
+-   Added section about requiring dataRetrieval v2.7.3 that isn't on CRAN yet. 20170919.
 
 v2.0.1.9039
 ===========

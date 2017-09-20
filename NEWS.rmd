@@ -41,6 +41,13 @@ Version history.
 
 * Update Vignette when done.  20170919.
 
+# v2.0.1.9040
+2017-09-20
+
+* Vignette. 
++ Tweaked language.  20170919.
++ Added section about requiring dataRetrieval v2.7.3 that isn't on CRAN yet.  20170919.
+
 # v2.0.1.9039
 2017-09-19
 
