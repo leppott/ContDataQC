@@ -39,6 +39,20 @@ Version history.
 
 * Update Vignette when done.  20170919.
 
+* Run devtools::check().  20170926.
+
+# v2.0.1.9043
+2017-09-27
+
+* DESCRIPTION.  As suggested by check(), move packages from Depends to Suggests.  20170927.
+
+* Update ReadMe.  20170927.
+
+# v2.0.1.9042
+2017-09-21
+
+* CompSiteCDF() to compare multiple sites on a site CDF.  20170921.
+
 # v2.0.1.9041
 2017-09-20
 

@@ -52,3 +52,12 @@
 #'
 "data_bio2rarify"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' data_CompSiteCDF
+#'
+#' Test data for CompSiteCDF().  Includes daily mean water temp (C) data for 5.
+#'
+#' @format a data frame with 349 observations and 6 variables:
+#'
+#'
+"data_CompSiteCDF"
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

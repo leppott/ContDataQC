@@ -2,22 +2,20 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-09-20 13:49:24
+    #> Last Update: 2017-09-27 09:50:48
 
 Version history.
 
 Planned Updates
 ===============
 
--   Spell out "AW"" and other abbreviations (e.g., AirWater). 20170308. On hold.
+-   ~~Spell out "AW"" and other abbreviations (e.g., AirWater). 20170308. On hold.~~
 
--   Gaps in data not always evident in the plots. 20170308.
+-   ~~Gaps in data not always evident in the plots. 20170308.~~
 
--   Use futile.logger to better log output for user. Issue \#29. 20170606.
+-   ~~Use futile.logger to better log output for user. Issue \#29. 20170606.~~
 
--   Add option for Report output for PDF or DOCX or HTML. Defaults to DOCSX. Will need to change documentation for report functions. 20170823.
-
--   ~~Flesh out export for StreamThermal. 20170919.~~
+-   ~~Add option for Report output for PDF or DOCX or HTML. Defaults to DOCSX. Will need to change documentation for report functions. 20170823.~~
 
 -   Debug Aggregate operation. 20170919.
 
@@ -27,12 +25,33 @@ Planned Updates
 
 -   Update Vignette when done. 20170919.
 
+-   Run devtools::check(). 20170926.
+
+v2.0.1.9043
+===========
+
+2017-09-27
+
+-   DESCRIPTION. As suggested by check(), move packages from Depends to Suggests. 20170927.
+
+-   Update ReadMe. 20170927.
+
+v2.0.1.9042
+===========
+
+2017-09-21
+
+-   CompSiteCDF() to compare multiple sites on a site CDF. 20170921.
+
 v2.0.1.9041
 ===========
 
 2017-09-20
 
--   Export.StreamThermal. Rename from Export.ST() to Export.StreamThermal(). And update Vignette. 20170920.
+-   Export.StreamThermal.
+-   Rename from Export.ST() to Export.StreamThermal() .20170920.
+-   Complete function and documentation. 20170920.
+-   Update Vignette. 20170920.
 
 -   Export.IHA. Tweak opening text. 20170920.
 

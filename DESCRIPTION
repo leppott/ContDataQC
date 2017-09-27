@@ -1,6 +1,6 @@
 Package: ContDataQC
 Title: Quality Control (QC) of Continous Monitoring Data
-Version: 2.0.1.9041
+Version: 2.0.1.9043
 Authors@R: c(
 	person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com",role=c("aut","cre")),
 	person("Ann","Roseberry Lincoln", role="ctb"),
@@ -8,13 +8,7 @@ Authors@R: c(
 	person("John", "van Sickles", role="ctb"))
 Description: Quality control checks on continuous data files from Hobo data loggers.  Also aggregates and subsets files by a given date range.  And runs basic statistics. Outputs reports to Word (requires knitr and Pandoc).  
 Depends:
-    R (>= 3.3.3),
-    dataRetrieval,
-    zoo,
-    knitr,
-    survival,
-    doBy,
-    rmarkdown
+    R (>= 3.3.3)
 License: CC0
 Encoding: UTF-8
 LazyData: true
@@ -22,5 +16,9 @@ URL: https://github.com/leppott/ContDataQC
 BugReports: https://github.com/leppott/ContDataQC/issues
 RoxygenNote: 6.0.1
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    dataRetrieval,
+    zoo,
+    survival,
+    doBy,
 VignetteBuilder: knitr
