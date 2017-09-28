@@ -159,6 +159,11 @@ myFile <- "config.TZ.Central.R"
 The GetGageData operation of the ContDataQC() function retrieves USGS gage data based on user input.  Example code and console output is below.
 
 ```{r, echo=TRUE}
+# Parameters
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.BASE <- getwd()
 # Get Gage Data
 myData.Operation    <- "GetGageData" #Selection.Operation[1]
 myData.SiteID       <- "01187300" # Hubbard River near West Hartland, CT
@@ -173,6 +178,11 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start,
 Example of getting gage data in a different time zone specified in user modified configuration file.
 
 ```{r, eval=FALSE}
+# Parameters
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.BASE <- getwd()
 # Get Gage Data (central time zone)
 myData.Operation    <- "GetGageData" #Selection.Operation[1]
 myData.SiteID       <- "07032000" # Mississippi River at Memphis, TN
@@ -189,6 +199,11 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start,
 This is operation is the main focus of the `ContDataQC` library.  The raw continuous data files are examined for multiple QC tests and the results saved in a new data file (CSV) and a summary report (DOCX file) are generated.
 
 ```{r, eval=FALSE}
+# Parameters
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.BASE <- getwd()
 # QC Raw Data
 myData.Operation <- "QCRaw" #Selection.Operation[2]
 myData.SiteID    <- "test2"
@@ -203,6 +218,11 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start,
 In some cases two sensors are used (one for air and one for water) and the timing of the sampling is off between the two.  The library handles this fine.  Example data below.
 
 ```{r, eval=FALSE}
+# Parameters
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.BASE <- getwd()
 # QC Raw Data (offset collection times for air and water sensors)
 myData.Operation <- "QCRaw" #Selection.Operation[2]
 myData.SiteID    <- "test4"
@@ -218,6 +238,11 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start,
 After QC the files are ready for analysis.  The Aggregate operation allows the user to combine (or split) files across time periods.
 
 ```{r, eval=FALSE} 
+# Parameters
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.BASE <- getwd()
 # Aggregate Data
 myData.Operation <- "Aggregate" #Selection.Operation[3]
 myData.SiteID    <- "test2"
@@ -234,6 +259,11 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start,
 The SummaryStats operation calculates a number of statistics on the data for each sampling day.
 
 ```{r, eval=FALSE}
+# Parameters
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.BASE <- getwd()
 # Summary Stats
 myData.Operation <- "SummaryStats" #Selection.Operation[4]
 myData.SiteID    <- "test2"
@@ -962,8 +992,7 @@ It is possible to use the Summary Stats operation output from the ContDataQC() f
 # 1.2. Use ContDataQC SummaryStats Data
 myFile <- "STATS_test2_Aw_20130101_20141231_Water.Temp.C.csv"
 myDir <- "Data4_Stats"
-setwd("..") #resets to vignette dir when run as code chunk
-myData <- read.csv(file.path(getwd(),myDir,myFile), stringsAsFactors=FALSE)
+myData <- read.csv(file.path(path.package("ContDataQC"),"extdata",myFile), stringsAsFactors=FALSE)
 # Subset
 Col.Keep <- c("SiteID", "TimeValue", "max", "min", "mean")
 sitedata <- myData[myData[,"TimeFrame"]=="day",Col.Keep]
@@ -1000,3 +1029,129 @@ ST.roc  <- T_rateofchange(sitedata)
 ST.tim  <- T_timing(sitedata)
 ST.var  <- T_variability(sitedata)
 ```
+
+## Comparison CDFs
+The function CompSite() allows the user to plot data from multiple sites on a single CDF.
+
+The function takes as  input a data frame with date and up to 8 columns of parameter data.  Column names are Date and SiteIDs and values are daily means for some measurement.
+
+More than 8 columns can be used but colors are recycled after 8 and the plot lines will be difficult to distinguish.
+
+CDFs are generate for all data, year, season, and year/season and saved to a PDF.
+Winter + Year is such that December is included with the following year (e.g., Dec 2013, Jan 2014, Feb 2014 are 2014Winter).
+
+Two plots per page are generated.  The first plot is the proportion of values at a certain value.  
+This plot is similar to a histogram.  
+The second plot is a CDF of values.  The line represents the proportion of values less than or equal to parameter values on the x-axis.
+
+An example table to be used as input for the function is shown below.  This table has data for five sites.  
+```{r CompSiteCDF_table, echo=FALSE}
+library(ContDataQC)
+knitr::kable(head(data_CompSiteCDF))
+```
+
+An example plot is shown below.  The column names from the input table will appear in the legend of the plot.
+```{r CompSiteCDF_plot, echo=FALSE}
+# Load Data
+myDF <- data_CompSiteCDF
+# X Label
+myXlab <- "Temperature, Water (deg C)"
+ParamName.xlab <- myXlab
+# get code from function
+data.import <- myDF
+# Site Names (Columns)
+  Col.Sites <- names(data.import)[!(names(data.import) %in% "Date")]
+  #
+  # Add columns for time periods
+  # add Year, Month, Season, YearSeason (names are in config.R)
+  # assume Date is POSIXct
+  #
+  # add time period fields
+  data.import[,"Year"]   <- format(as.Date(data.import[,"Date"]),format="%Y")
+  data.import[,"Month"]   <- format(as.Date(data.import[,"Date"]),format="%m")
+  data.import[,"YearMonth"] <- format(as.Date(data.import[,"Date"]),format="%Y%m")
+  data.import[,"MonthDay"] <- format(as.Date(data.import[,"Date"]),format="%m%d")
+  
+    # Remove bad date records
+  data.import <- data.import[!is.na(data.import[,"Year"]),]
+  
+  
+  # ## add Season fields
+  data.import[,"Season"] <- NA
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("0101") & as.numeric(data.import[,"MonthDay"])<as.numeric("0301")] <- "Winter"
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("0301") & as.numeric(data.import[,"MonthDay"])<as.numeric("0601")] <- "Spring"
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("0601") & as.numeric(data.import[,"MonthDay"])<as.numeric("0901")] <- "Summer"
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("0901") & as.numeric(data.import[,"MonthDay"])<as.numeric("1201")] <- "Fall"
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("1201") & as.numeric(data.import[,"MonthDay"])<=as.numeric("1231")] <- "Winter"
+  data.import[,"YearSeason"] <- paste(data.import[,"Year"],data.import[,"Season"],sep="")
+
+  # rectify December as part of winter of year + 1
+  mySelection <- data.import[,"Month"]=="12"
+  if(sum(mySelection) != 0){##IF.sum.START
+    data.import[,"YearSeason"][mySelection] <- paste(as.numeric(data.import[,"Year"])+1,data.import[,"Season"],sep="")
+  }##IF.sum.END
+  #
+  #View(data.import)
+  #
+  # Color Blind Palatte
+  # http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/
+  # The palette with grey:
+  cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  # The palette with black:
+  #cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  #
+  myColors <- cbPalette #rainbow(length(Col.Sites))
+  #
+  # Season Names
+  SeasonNames <- c("Fall", "Winter", "Spring","Summer")
+  #
+  #~~~~~~~~PLOT CODE~~~~~~~~~~~
+  CreatePlots <- function(...) {##FUNCTION.CreatePlots.START
+    # PLOT 1
+    for (i in 1:length(Col.Sites)){##FOR.j.START
+      # subset out NA
+      data.i <- data.plot[,Col.Sites[i]]
+      # different first iteration
+      if (i==1) {##IF.j==1,START
+        # need ylim
+        myYlim.max <- 0
+        for (ii in 1:length(Col.Sites)) {
+          myYlim.max <- max(hist(data.plot[,Col.Sites[ii]],plot=FALSE)$density, myYlim.max)
+        }
+        myYlim <- c(0,myYlim.max)
+        #
+        hist(data.plot[,Col.Sites[i]], prob=TRUE, border="white"
+             ,main=myMain, xlab=ParamName.xlab, ylab="Proportion = value"
+             ,ylim=myYlim)
+        box()
+      }##IF.j==1.END
+      # plot lines
+      lines(density(data.i, na.rm=TRUE), col=myColors[i], lwd=2)
+    }##FOR.j.END
+    legend("topright",Col.Sites,fill=myColors)
+    #
+    # Plot 2
+    myLWD <- 1.5
+    for (j in 1:length(Col.Sites)){##FOR.i.START
+      if(j==1){##IF.i==1.START
+        plot(ecdf(data.plot[,Col.Sites[j]]), col=myColors[j], verticals=TRUE, lwd=myLWD, do.p=FALSE #pch=19, cex=.75 #do.p=FALSE
+             #, col.01line="white"
+             , main=myMain, xlab=ParamName.xlab, ylab="Proportion <= value" )
+      } else {
+        plot(ecdf(data.plot[,Col.Sites[j]]), col=myColors[j], verticals=TRUE, lwd=myLWD, do.p=FALSE, add=T)
+      }##IF.i==1.END
+    }##FOR.i.END
+    legend("bottomright",Col.Sites,fill=myColors)
+  }##FUNCTION.CreatePlots.END
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  #
+  # 2 plots per page
+   # par(mfrow=c(2,1))
+    #
+    # ALL
+    myMain <- "All Data"
+    data.plot <- data.import
+    CreatePlots()
+```
+
+

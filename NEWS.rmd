@@ -41,6 +41,22 @@ Version history.
 
 * Run devtools::check().  20170926.
 
+
++ CDF function - complete
++ More check data stuff.
++ check on Aggregate function
++ Update vignette
++ Threshold number or pct on plot
++ CSV issue
+
+
+# v2.0.1.9044
+2017-09-28
+
+* CompSiteCDF funtion complete.  20170928.
+
+* Vignette updated.  20170928.
+
 # v2.0.1.9043
 2017-09-27
 

@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-09-27 09:50:48
+    #> Last Update: 2017-09-28 19:04:53
 
 Version history.
 
@@ -26,6 +26,22 @@ Planned Updates
 -   Update Vignette when done. 20170919.
 
 -   Run devtools::check(). 20170926.
+
+-   CDF function - complete
+-   More check data stuff.
+-   check on Aggregate function
+-   Update vignette
+-   Threshold number or pct on plot
+-   CSV issue
+
+v2.0.1.9044
+===========
+
+2017-09-28
+
+-   CompSiteCDF funtion complete. 20170928.
+
+-   Vignette updated. 20170928.
 
 v2.0.1.9043
 ===========

@@ -4,14 +4,15 @@
 \alias{CompSiteCDF}
 \title{CompSiteCDF, compare CDFs of sites}
 \usage{
-CompSiteCDF(df.input, dir.input, dir.output, ParamName.xlab)
+CompSiteCDF(file.input = NULL, dir.input = getwd(), dir.output = getwd(),
+  ParamName.xlab, df.input = NULL)
 }
 \arguments{
-\item{df.input}{Input data as CSV.  Needs 6 columns (SampleID and up to 5 SiteIDs).}
+\item{file.input}{Input data as CSV.  Needs Date column and it will handle up to 5 SiteIDs (with data under each SiteID).}
 
-\item{dir.input}{Directory where data file is located.}
+\item{dir.input}{Directory where data file is located.  Default is the working directory; getwd().}
 
-\item{dir.output}{Directory where PDF file is to be saved.}
+\item{dir.output}{Directory where PDF file is to be saved.  Default is the working directory; getwd().}
 
 \item{ParamName.xlab}{Parameter name for x-axis on plots}
 }
@@ -19,26 +20,37 @@ CompSiteCDF(df.input, dir.input, dir.output, ParamName.xlab)
 Returns a PDF of CDFs.
 }
 \description{
-Takes as an input a data frame with date and up to 5 columns of parameter data.
-Column names are SiteIDs and values are daily means for some measurement.
+Takes as an input a data frame with date and up to 8 columns of parameter data.
+Column names are Date and SiteIDs and values are daily means for some measurement.
 }
 \details{
-CDFs are generate for year, season, and year/season and saved to a PDF
+More than 8 columns can be used but colors are recycled after 8 and the plot lines will be difficult to distinguish.
+
+CDFs are generate for all data, year, season, and year/season and saved to a PDF.
+Winter + Year is such that December is included with the following year (e.g., Dec 2013, Jan 2014, Feb 2014 are 2014Winter).
+
+Two plots per page are generated.  The first plot is the proportion of values at a certain value.
+This plot is similar to a histogram.
+The second plot is a CDF of values.  The line represents the proportion of values less than or equal to parameter values on the x-axis.
 }
 \examples{
-# load bio data
-df.data <- data_CompSiteCDF
-dim(df.data)
-View(df.data)
+# Variant 1 (with File)
+# Load Data
+myFile <- "CDF_WaterTemp_2014_MA.csv"
+myDir.input <- file.path(path.package("ContDataQC"),"extdata") # example file from ContDataQC library files
+myDir.output <- getwd()
+# X Label
+myXlab <- "Temperature, Water (deg C)"
+# Run the Function
+CompSiteCDF(file.input=myFile, dir.input=myDir.input, dir.output=myDir.output, ParamName.xlab=myXlab)
 
-# subsample
-mySize <- 200
-Seed.MS <- 18171210
-bugs.mysize <- rarify(inbug=DF.biodata, sample.ID="SampRep",abund="Count",subsiz=mySize, mySeed=Seed.MS)
-dim(bugs.mysize)
-View(bugs.mysize)
-# save the data
-write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\\t")
+# Variant 2 (with Data Frame)
+# Load Data
+myDF <- data_CompSiteCDF
+# X Label
+myXlab <- "Temperature, Water (deg C)"
+# Run the Function (output will default to working directory)
+CompSiteCDF(ParamName.xlab=myXlab, df.input=myDF )
 }
 \keyword{CDF,}
 \keyword{comparison}
