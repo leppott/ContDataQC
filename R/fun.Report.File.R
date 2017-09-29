@@ -52,7 +52,7 @@ fun.Report.File <- function(fun.myFile
                             , fun.myDir.import=getwd()
                             , fun.myDir.export=getwd()
                             , fun.myFile.Prefix) {##FUN.fun.Report.START
-  #
+
   # Convert Data Type to proper case
   #fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1)),tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
 

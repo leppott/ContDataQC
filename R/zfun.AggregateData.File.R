@@ -36,12 +36,29 @@
 #' @keywords continuous data, aggregate
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
-#' myFile <- c("QC_test2_AW_20130426_20130725.csv"
-#'             , "QC_test2_AW_20130725_20131015.csv", "QC_test2_AW_20140901_20140930.csv")
-#' myDir.import <- file.path(".","Data2_QC")
-#' myDir.export <- file.path(".","Data3_Aggregated")
+#' myFile <- c("QC_test2_Aw_20130426_20130725.csv"
+#'             , "QC_test2_Aw_20130725_20131015.csv", "QC_test2_Aw_20140901_20140930.csv")
+#' myDir.import <- file.path(getwd(),"Data2_QC")
+#' myDir.export <- file.path(getwd(),"Data3_Aggregated")
 #' fun.AggregateData.File(myFile, myDir.import, myDir.export)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#QC
+# library(ContDataQC)
+# source(file.path(getwd(),"R","config.R"))
+# source(file.path(getwd(),"R","fun.Helper.R"))
+# #
+# myFile <- c("QC_test2_Aw_20130426_20130725.csv"
+#              , "QC_test2_Aw_20130725_20131015.csv", "QC_test2_Aw_20140901_20140930.csv")
+# myDir.import <- file.path(getwd(),"Data2_QC")
+# myDir.export <- file.path(getwd(),"Data3_Aggregated")
+# #
+# fun.myFile <- myFile
+# fun.myDir.import <- myDir.import
+# fun.myDir.export <- myDir.export
+# #
+# fun.AggregateData.File(myFile, myDir.import, myDir.export)
 #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 fun.AggregateData.File <- function(fun.myFile
                                   , fun.myDir.import=getwd()
@@ -406,10 +423,18 @@ fun.AggregateData.File <- function(fun.myFile
   rm(data.append)
 
   # 20170607, move outside of loop (and remove prefix for fun.Report.File)
-  fun.Report.File(strFile.Out.NoPrefix
-                  , fun.myDir.export
-                  , fun.myDir.export
-                  , strFile.Out.Prefix)
+  booDisableReport <- TRUE
+  if (booDisableReport==TRUE) {
+    myMsg <- "The reporting feature is disabled at this time.  A future verison may re-enable it."
+    cat(myMsg)
+    flush.console()
+  } else if (booDisableReport==FALSE) {
+    fun.Report.File(strFile.Out.NoPrefix
+                    , fun.myDir.export
+                    , fun.myDir.export
+                    , strFile.Out.Prefix)
+  }
+
 
   #
   print(paste("Processing of ",intCounter," of ",intCounter.Stop," files complete.",sep=""))

@@ -27,8 +27,8 @@ The 'file' version works on a single (or vector) of files.
 myFile <- "test2_AW_20130426_20130725.csv"
 #myFile <- c("test2_AW_20130426_20130725.csv", "test2_AW_20130725_20131015.csv"
 #             , "test2_AW_20140901_20140930.csv")
-myDir.import <- file.path(".","Data1_RAW")
-myDir.export <- file.path(".","Data2_QC")
+myDir.import <- file.path(getwd(),"Data1_RAW")
+myDir.export <- file.path(getwd(),"Data2_QC")
 fun.QC.File(myFile, myDir.import, myDir.export)
 }
 \keyword{continuous}

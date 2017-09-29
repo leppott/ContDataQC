@@ -32,8 +32,8 @@
 #' myFile <- "QC_test2_Aw_20130426_20130725.csv"
 #' #myFile <- c("QC_test2_Aw_20130426_20130725.csv"
 #' #           , "QC_test2_Aw_20130725_20131015.csv", "QC_test2_Aw_20140901_20140930.csv")
-#' myDir.import <- file.path(".","Data2_QC")
-#' myDir.export <- file.path(".","Data4_Stats")
+#' myDir.import <- file.path(getwd(),"Data2_QC")
+#' myDir.export <- file.path(getwd(),"Data4_Stats")
 #' fun.Stats.File(myFile, myDir.import, myDir.export)
 #
 #' @export

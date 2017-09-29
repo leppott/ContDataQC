@@ -45,9 +45,28 @@
 #' myFile <- "test2_AW_20130426_20130725.csv"
 #' #myFile <- c("test2_AW_20130426_20130725.csv", "test2_AW_20130725_20131015.csv"
 #' #             , "test2_AW_20140901_20140930.csv")
-#' myDir.import <- file.path(".","Data1_RAW")
-#' myDir.export <- file.path(".","Data2_QC")
+#' myDir.import <- file.path(getwd(),"Data1_RAW")
+#' myDir.export <- file.path(getwd(),"Data2_QC")
 #' fun.QC.File(myFile, myDir.import, myDir.export)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#QC
+# library(ContDataQC)
+# source(file.path(getwd(),"R","config.R"))
+# source(file.path(getwd(),"R","fun.Helper.R"))
+# source(file.path(getwd(),"R","fun.QC.R"))
+# #
+# myFile <- c("test2_AW_20130426_20130725.csv"
+#              , "QC_test2_AW_20130725_20131015.csv", "QC_test2_AW_20140901_20140930.csv")
+# myDir.import <- file.path(getwd(),"Data1_RAW")
+# myDir.export <- file.path(getwd(),"Data2_QC")
+# #
+# fun.myFile <- myFile
+# fun.myDir.import <- myDir.import
+# fun.myDir.export <- myDir.export
+# #
+# fun.QC.File(myFile, myDir.import, myDir.export)
+#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'@export
 fun.QC.File <- function(fun.myFile
                        , fun.myDir.import=getwd()
@@ -842,6 +861,9 @@ fun.QC.File <- function(fun.myFile
     # end QC manual stuff
   #************************
 
+    # # QC, 20170929, Mixed vs. Upper Case
+    # strFile.Report <- paste(paste(strFile.Base,sep=ContData.env$myDelim),"csv",sep=".")
+    #
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # insert QC Report so runs without user intervention
@@ -849,10 +871,19 @@ fun.QC.File <- function(fun.myFile
     # run with same import and export directory
     ###
     # B.10.3. Report ####
-    fun.Report.File(strFile
-                   , fun.myDir.export
-                   , fun.myDir.export
-                   , strFile.Out.Prefix)
+    booDisableReport <- TRUE
+    if (booDisableReport==TRUE) {
+      myMsg <- "The reporting feature is disabled at this time.  A future verison may re-enable it."
+      cat(myMsg)
+      flush.console()
+    } else if (booDisableReport==FALSE) {
+      fun.Report.File(strFile
+                      , fun.myDir.export
+                      , fun.myDir.export
+                      , strFile.Out.Prefix)
+    }
+
+
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC
 # ##

@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-09-28 22:21:54
+    #> Last Update: 2017-09-29 14:10:52
 
 Version history.
 
@@ -27,12 +27,25 @@ Planned Updates
 
 -   Run devtools::check(). 20170926.
 
+-   Fix mixed case issue with filenames in "file" versions of QCRaw, Aggregate, and Stats. And turn Reports back "on". 20170929.
+
 -   More check data stuff.
 -   check on Aggregate function
 -   Update vignette
 -   Threshold number or pct on plot
 -   CSV issue
 -   Excel file update (see 9/28 email)
+
+v2.0.1.9047
+===========
+
+2017-09-29
+
+-   Aggregate.File. Example file mispelled (AW vs. Aw). 20170928.
+
+-   File versions of QCRaw, Aggregate, and Stats; change input and output directory name. 20170929.
+
+-   File QC. Turn off report. Mixed case issue in file names. 20170929.
 
 v2.0.1.9046
 ===========
