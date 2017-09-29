@@ -1,6 +1,6 @@
 ---
 title: "Aggregate Report"
-output: html_document
+output: word_document
 ---
 
 ```{r report_date, results='asis', echo=FALSE, warning=FALSE}
@@ -61,7 +61,7 @@ output: html_document
     cat("Number of records by year and month (with totals).")
     cat("\n")
     myTable <- addmargins(table(data.import[,ContData.env$myName.Yr],data.import[,ContData.env$myName.Mo]))
-        print(kable(myTable, format="markdown", row.names=TRUE))
+        print(knitr::kable(myTable, format="markdown", row.names=TRUE))
     cat("\n\n")
 
     
@@ -69,7 +69,7 @@ output: html_document
     cat("Number of records by day and month (with totals).")
     cat("\n")
     myTable <- addmargins(table(data.import[,ContData.env$myName.Day],data.import[,ContData.env$myName.Mo]))
-        print(kable(myTable, format="markdown", row.names=TRUE))
+        print(knitr::kable(myTable, format="markdown", row.names=TRUE))
     cat("\n\n") 
 
 #     
@@ -87,7 +87,7 @@ output: html_document
     # myTable <- myTable.DateTime.N[myTable.DateTime.N[,ContData.env$myName.SiteID]!=1,]
     # cat(paste0("Date and time records with more than one entry; N=",nrow(myTable),". Duplicate date.time records are shown below."))
     # cat("\n")
-    #   print(kable(myTable, format="markdown", row.names=TRUE))
+    #   print(knitr::kable(myTable, format="markdown", row.names=TRUE))
       
     # Missing Dates
      myDateRange.Data <- seq(as.Date(min(data.import[,ContData.env$myName.Date]))

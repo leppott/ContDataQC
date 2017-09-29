@@ -1,6 +1,6 @@
 ---
 title: "Summary Statistics Report"
-output: html_document
+output: word_document
 ---
 
 ```{r report_date, results='asis', echo=FALSE, warning=FALSE}
@@ -64,7 +64,7 @@ Summary statistics and plots by parameter and time frame (year, season, month, a
 #       cat("####Flag summary, overall number of records.")
 #       cat("\n\n")
 #        myTable <- table(data.import[,paste("Flag",i,sep=".")])
-#        print(kable(t(as.matrix(myTable)), format = "markdown"))
+#        print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
 #       
 #       cat("\n\n")
 #        
@@ -77,12 +77,12 @@ Summary statistics and plots by parameter and time frame (year, season, month, a
 #       # filter for records by parameter that are not NA
 #       myTable <- table(data.import[,"month"][data.import[,"day"]<=15 & !is.na(data.import[,i]) & data.import[,i]!=""],data.import[,"day"][data.import[,"day"]<=15 & !is.na(data.import[,i]) & data.import[,i]!=""])
 #       #print(myTable)
-#       print(kable(as.matrix(myTable)), format = "markdown")
+#       print(knitr::kable(as.matrix(myTable)), format = "markdown")
 #       # don't (t)ransform this table
 #       
 #       myTable <- table(data.import[,"month"][data.import[,"day"]>15 & !is.na(data.import[,i]) & data.import[,i]!=""],data.import[,"day"][data.import[,"day"]>15 & !is.na(data.import[,i]) & data.import[,i]!=""])
 #       #print(myTable)
-#       print(kable(as.matrix(myTable)), format = "markdown")
+#       print(knitr::kable(as.matrix(myTable)), format = "markdown")
 #       # don't (t)ransform this table
 #       
 #       
@@ -111,22 +111,22 @@ Summary statistics and plots by parameter and time frame (year, season, month, a
 #       cat("#####Flags, Gross\n\n")
 #       
 #       myTable <- table(data.import[,paste("Flag.Gross",i,sep=".")])
-#       print(kable(t(as.matrix(myTable)), format = "markdown"))
+#       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
 #         cat("\n\n")
 #       cat("#####Flags, Spike\n\n")
 #       
 #       myTable <- table(data.import[,paste("Flag.Spike",i,sep=".")])
-#       print(kable(t(as.matrix(myTable)), format = "markdown"))
+#       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
 #         cat("\n\n")
 #       cat("#####Flags, RoC\n\n")
 #       
 #       myTable <- table(data.import[,paste("Flag.RoC",i,sep=".")])
-#       print(kable(t(as.matrix(myTable)), format = "markdown"))
+#       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
 #         cat("\n\n")
 #       cat("#####Flags, Flat\n\n")
 #       
 #       myTable <- table(data.import[,paste("Flag.Flat",i,sep=".")])
-#       print(kable(t(as.matrix(myTable)), format = "markdown"))
+#       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
 #         cat("\n\n")
 #       cat("QC Test Flag fields are saved in the data file so the user can identify data points that have been flagged as suspect or fail.")
 #      

@@ -1,6 +1,6 @@
 ---
 title: "Data Quality Control Report"
-output: html_document
+output: word_document
 ---
 
 ```{r report_date, results='asis', echo=FALSE, warning=FALSE}
@@ -68,24 +68,24 @@ output: html_document
 #     number of records by month/day (split 1:15 and 16:31)
 #     
   # format = markdown/pandoc = seems to be the same.  All rows but no columns in Word.
-  # Have to use on table not ftable.  ftable better by itself but doesn't work with kable.
+  # Have to use on table not ftable.  ftable better by itself but doesn't work with knitr::kable.
 
     # # QC, if days less than count = 15
     #*Error in table.  Only printing half.* (fixed for sites with <15 days)
     # if((max(data.import[,"day"])-min(data.import[,"day"]))<15) {##IF.daycount.START
     #   myTable <- table(data.import[,"month"],data.import[,"day"])
-    #   print(kable(myTable, format="markdown",row.names=TRUE))
+    #   print(knitr::kable(myTable, format="markdown",row.names=TRUE))
     # } else {
     #   #
     #   #myTable.month.day.rec.LTE15 <-
     #   myTable <- table(data.import[,"month"][data.import[,"day"]<=15],data.import[,"day"][data.import[,"day"]<=15])
-    #     print(kable(myTable, format="markdown", row.names=TRUE))
-    #     #kable(myTable.month.day.rec.LTE15, format="pandoc", caption = "Title of the table")
+    #     print(knitr::kable(myTable, format="markdown", row.names=TRUE))
+    #     #knitr::kable(myTable.month.day.rec.LTE15, format="pandoc", caption = "Title of the table")
     #   cat("\n\n")  
     #   #   
     #   # myTable.month.day.rec.GT15 <-
     #   myTable <- table(data.import[,"month"][data.import[,"day"]>15],data.import[,"day"][data.import[,"day"]>15])
-    #     print(kable(myTable, format="markdown", row.names=TRUE))
+    #     print(knitr::kable(myTable, format="markdown", row.names=TRUE))
       #   
    # }##IF.daycount.END
 
@@ -100,7 +100,7 @@ output: html_document
     cat("Number of records by year and month (with totals).")
     cat("\n")
     myTable <- addmargins(table(data.import[,ContData.env$myName.Yr],data.import[,ContData.env$myName.Mo]))
-        print(kable(myTable, format="markdown", row.names=TRUE))
+        print(knitr::kable(myTable, format="markdown", row.names=TRUE))
     cat("\n\n")
 
     
@@ -108,7 +108,7 @@ output: html_document
     cat("Number of records by day and month (with totals).")
     cat("\n")
     myTable <- addmargins(table(data.import[,ContData.env$myName.Day],data.import[,ContData.env$myName.Mo]))
-        print(kable(myTable, format="markdown", row.names=TRUE))
+        print(knitr::kable(myTable, format="markdown", row.names=TRUE))
     cat("\n\n") 
 
 #     
@@ -127,7 +127,7 @@ output: html_document
     # myTable <- myTable.DateTime.N[myTable.DateTime.N[,ContData.env$myName.SiteID]!=1,]
     # cat(paste0("Date and time records with more than one entry; N=",nrow(myTable),". Duplicate date.time records are shown below."))
     # cat("\n")
-    #   print(kable(myTable, format="markdown", row.names=TRUE))
+    #   print(knitr::kable(myTable, format="markdown", row.names=TRUE))
     # mask error, 20170307
     
     # Missing Dates
@@ -188,7 +188,7 @@ Overall flags by parameter
        #j.num <- match(j,myParameters)
  #   cat(paste(myParameters.Lab[j.num],"/n/n",sep=""))
        
-       # ISSUE WITH KABLE INSIDE OF LOOPS
+       # ISSUE WITH knitr::kable INSIDE OF LOOPS
        
     cat(paste("##",myParameters[j],"\n\n",sep=""))
 
@@ -196,7 +196,7 @@ Overall flags by parameter
        
        #print(myTable.Flags.Overall <- ftable(data.import[,colnum]))
        myTable <- addmargins(table(data.import[,colnum]),1)
-       print(kable(t(as.matrix(myTable)), format = "markdown"))
+       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
        # future mod, 1,3,4,9 to Pass, Suspect, Fail, NA
        # exclude=NA to get all
        # future mod, 2nd line in table to include Percent of row total
@@ -237,7 +237,7 @@ Overall flags by parameter
       cat("####Flag summary, overall number of records.")
       cat("\n\n")
        myTable <- addmargins(table(data.import[,paste("Flag",i,sep=".")]),1)
-       print(kable(t(as.matrix(myTable)), format = "markdown"))
+       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
       
       cat("\n\n")
        
@@ -251,13 +251,13 @@ Overall flags by parameter
       cat("Number of records by year and month (with totals)")
       cat("\n")
       myTable <- addmargins(table(data.import[,ContData.env$myName.Yr],data.import[,ContData.env$myName.Mo]))
-      print(kable(myTable, format="markdown", row.names=TRUE))
+      print(knitr::kable(myTable, format="markdown", row.names=TRUE))
       cat("\n\n")
       #
       cat("Number of records by day and month (with totals)")
       cat("\n")
       myTable <- addmargins(table(data.import[,ContData.env$myName.Day],data.import[,ContData.env$myName.Mo]))
-      print(kable(myTable, format="markdown", row.names=TRUE))
+      print(knitr::kable(myTable, format="markdown", row.names=TRUE))
       cat("\n\n") 
       #
       # identify days/months where not the expected number of records
@@ -275,22 +275,22 @@ Overall flags by parameter
       cat("#####Flags, Gross\n\n")
       
       myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"Gross",i,sep=".")]),1)
-      print(kable(t(as.matrix(myTable)), format = "markdown"))
+      print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
       cat("#####Flags, Spike\n\n")
       
       myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"Spike",i,sep=".")]),1)
-      print(kable(t(as.matrix(myTable)), format = "markdown"))
+      print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
       cat("#####Flags, RoC\n\n")
       
       myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"RoC",i,sep=".")]),1)
-      print(kable(t(as.matrix(myTable)), format = "markdown"))
+      print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
       cat("#####Flags, Flat\n\n")
       
       myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"Flat",i,sep=".")]),1)
-      print(kable(t(as.matrix(myTable)), format = "markdown"))
+      print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
       cat("QC Test Flag fields are saved in the data file so the user can identify data points that have been flagged as suspect or fail.")
      

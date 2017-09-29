@@ -49,6 +49,12 @@ Version history.
 + Threshold number or pct on plot
 + CSV issue
 
+# v2.0.1.9045
+2017-09-28
+
+* Add knitr:: to all kable commands in RMD files.  Had error after moving knitr from Depends to Suggests. 20170928.
+
+* Renamed RMD files with ' - ' to '_'.  Recommended in check().  20170928.
 
 # v2.0.1.9044
 2017-09-28
