@@ -89,7 +89,8 @@
 #' myDate <- format(Sys.Date(),"%Y%m%d")
 #' myTime <- format(Sys.time(),"%H%M%S")
 #' # Notes section (add min/max dates)
-#' Notes.Names <- c("Dataset (SiteID)","IHA.Year","Analysis.Date (YYYYMMDD)","Analysis.Time (HHMMSS)","Analysis.User")
+#' Notes.Names <- c("Dataset (SiteID)","IHA.Year","Analysis.Date (YYYYMMDD)"
+#'                  ,"Analysis.Time (HHMMSS)","Analysis.User")
 #' Notes.Data <- c(SiteID, myYr, myDate, myTime, Notes.User)
 #' df.Notes <- as.data.frame(cbind(Notes.Names,Notes.Data))
 #' Notes.Summary <- summary(myData.IHA)

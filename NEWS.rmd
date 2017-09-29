@@ -42,12 +42,24 @@ Version history.
 * Run devtools::check().  20170926.
 
 
-+ CDF function - complete
+
 + More check data stuff.
 + check on Aggregate function
 + Update vignette
 + Threshold number or pct on plot
 + CSV issue
++ Excel file update (see 9/28 email)
+
+# v2.0.1.9046
+2017-09-28
+
+* Add packages used in vignette to "Suggests" in DESCRIPTION.
+
+* Fixed function example lines wider than 100 characters.
+
+* Moved necessary packages from "Suggests" to "Imports" in DESCRIPTION.
+
+* DESCRIPTION, License, out of sync with GitHub.  Fixed.
 
 # v2.0.1.9045
 2017-09-28

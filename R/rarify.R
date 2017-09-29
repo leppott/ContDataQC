@@ -28,7 +28,8 @@
 #' # subsample
 #' mySize <- 200
 #' Seed.MS <- 18171210
-#' bugs.mysize <- rarify(inbug=DF.biodata, sample.ID="SampRep",abund="Count",subsiz=mySize, mySeed=Seed.MS)
+#' bugs.mysize <- rarify(inbug=DF.biodata, sample.ID="SampRep"
+#'                      ,abund="Count",subsiz=mySize, mySeed=Seed.MS)
 #' dim(bugs.mysize)
 #' View(bugs.mysize)
 #' # save the data

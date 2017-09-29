@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-09-28 19:04:53
+    #> Last Update: 2017-09-28 22:21:54
 
 Version history.
 
@@ -27,12 +27,34 @@ Planned Updates
 
 -   Run devtools::check(). 20170926.
 
--   CDF function - complete
 -   More check data stuff.
 -   check on Aggregate function
 -   Update vignette
 -   Threshold number or pct on plot
 -   CSV issue
+-   Excel file update (see 9/28 email)
+
+v2.0.1.9046
+===========
+
+2017-09-28
+
+-   Add packages used in vignette to "Suggests" in DESCRIPTION.
+
+-   Fixed function example lines wider than 100 characters.
+
+-   Moved necessary packages from "Suggests" to "Imports" in DESCRIPTION.
+
+-   DESCRIPTION, License, out of sync with GitHub. Fixed.
+
+v2.0.1.9045
+===========
+
+2017-09-28
+
+-   Add knitr:: to all kable commands in RMD files. Had error after moving knitr from Depends to Suggests. 20170928.
+
+-   Renamed RMD files with ' - ' to '\_'. Recommended in check(). 20170928.
 
 v2.0.1.9044
 ===========

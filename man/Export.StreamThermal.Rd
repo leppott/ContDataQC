@@ -38,8 +38,10 @@ install_github("tsangyp/StreamThermal")
 #
 # 1.1. Get USGS data
 # code from StreamThermal T_frequency example
-ExUSGSStreamTemp<-readNWISdv("01382310","00010","2011-01-01","2011-12-31",c("00001","00002","00003"))
-sitedata<-subset(ExUSGSStreamTemp, select=c("site_no","Date","X_00010_00001","X_00010_00002","X_00010_00003"))
+ExUSGSStreamTemp<-readNWISdv("01382310","00010","2011-01-01","2011-12-31"
+                             ,c("00001","00002","00003"))
+sitedata<-subset(ExUSGSStreamTemp, select=c("site_no","Date"
+                 ,"X_00010_00001","X_00010_00002","X_00010_00003"))
 names(sitedata)<-c("siteID","Date","MaxT","MinT","MeanT")
 #
 # 1.2. Use ContDataQC SummaryStats Data

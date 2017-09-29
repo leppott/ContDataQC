@@ -100,7 +100,8 @@
 #' myData <- data_raw_test4_AW_20160418_20160726
 #'   write.csv(myData,paste0("./",Selection.SUB[1],"/test4_AW_20160418_20160726.csv"))
 #' myFile <- "config.TZ.Central.R"
-#'   file.copy(file.path(path.package("ContDataQC"),"extdata",myFile),file.path(getwd(),Selection.SUB[1],myFile))
+#'   file.copy(file.path(path.package("ContDataQC"),"extdata",myFile)
+#'             ,file.path(getwd(),Selection.SUB[1],myFile))
 #'
 #' # Get Gage Data
 #' myData.Operation    <- "GetGageData" #Selection.Operation[1]
@@ -110,7 +111,8 @@
 #' myData.DateRange.End    <- "2014-12-31"
 #' myDir.import <- ""
 #' myDir.export <- file.path(myDir.BASE,Selection.SUB[1])
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
+#'           , myData.DateRange.End, myDir.import, myDir.export)
 #'
 #' # Get Gage Data (central time zone)
 #' myData.Operation    <- "GetGageData" #Selection.Operation[1]
@@ -120,8 +122,10 @@
 #' myData.DateRange.End    <- "2014-12-31"
 #' myDir.import <- ""
 #' myDir.export <- file.path(myDir.BASE,Selection.SUB[1])
-#' myConfig            <- file.path(getwd(),Selection.SUB[1],"config.TZ.central.R") # include path if not in working directory
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export, myConfig)
+#' # include path if not in working directory
+#' myConfig            <- file.path(getwd(),Selection.SUB[1],"config.TZ.central.R")
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
+#'            , myData.DateRange.End, myDir.import, myDir.export, myConfig)
 #'
 #' # QC Raw Data
 #' myData.Operation <- "QCRaw" #Selection.Operation[2]
@@ -131,7 +135,8 @@
 #' myData.DateRange.End    <- "2014-12-31"
 #' myDir.import <- file.path(myDir.BASE,Selection.SUB[1]) #"Data1_RAW"
 #' myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
+#'            , myData.DateRange.End, myDir.import, myDir.export)
 #'
 #' # QC Raw Data (offset collection times for air and water sensors)
 #' myData.Operation <- "QCRaw" #Selection.Operation[2]
@@ -141,7 +146,8 @@
 #' myData.DateRange.End    <- "2016-07-26"
 #' myDir.import <- file.path(myDir.BASE,Selection.SUB[1]) #"Data1_RAW"
 #' myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
+#'            , myData.DateRange.End, myDir.import, myDir.export)
 #'
 #' # Aggregate Data
 #' myData.Operation <- "Aggregate" #Selection.Operation[3]
@@ -151,7 +157,8 @@
 #' myData.DateRange.End    <- "2014-12-31"
 #' myDir.import <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
 #' myDir.export <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
+#'            , myData.DateRange.End, myDir.import, myDir.export)
 #'
 #' # Summary Stats
 #' myData.Operation <- "SummaryStats" #Selection.Operation[4]
@@ -161,7 +168,8 @@
 #' myData.DateRange.End    <- "2014-12-31"
 #' myDir.import <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
 #' myDir.export <- file.path(myDir.BASE,Selection.SUB[4]) #"Data4_Stats"
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
+#' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
+#'           , myData.DateRange.End, myDir.import, myDir.export)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # File Versions
@@ -170,25 +178,31 @@
 #' # QC Data
 #' myData.Operation <- "QCRaw" #Selection.Operation[2]
 #' #myFile <- "test2_AW_20130426_20130725.csv"
-#' myFile <- c("test2_AW_20130426_20130725.csv", "test2_AW_20130725_20131015.csv", "test2_AW_20140901_20140930.csv")
+#' myFile <- c("test2_AW_20130426_20130725.csv", "test2_AW_20130725_20131015.csv"
+#'            , "test2_AW_20140901_20140930.csv")
 #' myDir.import <- file.path(".","Data1_RAW")
 #' myDir.export <- file.path(".","Data2_QC")
-#' ContDataQC(myData.Operation, fun.myDir.import=myDir.import, fun.myDir.export=myDir.export, fun.myFile=myFile)
+#' ContDataQC(myData.Operation, fun.myDir.import=myDir.import
+#'           , fun.myDir.export=myDir.export, fun.myFile=myFile)
 #'
 #' # Aggregate Data
 #' myData.Operation <- "Aggregate" #Selection.Operation[3]
-#' myFile <- c("QC_test2_AW_20130426_20130725.csv", "QC_test2_AW_20130725_20131015.csv", "QC_test2_AW_20140901_20140930.csv")
+#' myFile <- c("QC_test2_AW_20130426_20130725.csv", "QC_test2_AW_20130725_20131015.csv"
+#'            , "QC_test2_AW_20140901_20140930.csv")
 #' myDir.import <- file.path(".","Data2_QC")
 #' myDir.export <- file.path(".","Data3_Aggregated")
-#' ContDataQC(myData.Operation, fun.myDir.import=myDir.import, fun.myDir.export=myDir.export, fun.myFile=myFile)
+#' ContDataQC(myData.Operation, fun.myDir.import=myDir.import
+#'            , fun.myDir.export=myDir.export, fun.myFile=myFile)
 #'
 #' # Summary Stats
 #' myData.Operation <- "SummaryStats" #Selection.Operation[4]
 #' myFile <- "QC_test2_AW_20130426_20130725.csv"
-#' #myFile <- c("QC_test2_AW_20130426_20130725.csv", "QC_test2_AW_20130725_20131015.csv", "QC_test2_AW_20140901_20140930.csv")
+#' #myFile <- c("QC_test2_AW_20130426_20130725.csv", "QC_test2_AW_20130725_20131015.csv"
+#'             , "QC_test2_AW_20140901_20140930.csv")
 #' myDir.import <- file.path(".","Data2_QC")
 #' myDir.export <- file.path(".","Data4_Stats")
-#' ContDataQC(myData.Operation, fun.myDir.import=myDir.import, fun.myDir.export=myDir.export, fun.myFile=myFile)
+#' ContDataQC(myData.Operation, fun.myDir.import=myDir.import
+#'           , fun.myDir.export=myDir.export, fun.myFile=myFile)
 #' @export
 ContDataQC <- function(fun.myData.Operation
                        , fun.myData.SiteID
