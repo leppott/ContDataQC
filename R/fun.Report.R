@@ -43,6 +43,7 @@
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
+#' @param fun.myReport.format Report format (docx or html).  Default = "docx".
 #' @return Creates a Word file in the specified directory.
 #' @keywords continuous data, report
 #' @examples
@@ -56,7 +57,8 @@ fun.Report <- function(fun.myData.SiteID
                          ,fun.myData.DateRange.End
                          ,fun.myDir.import=getwd()
                          ,fun.myDir.export=getwd()
-                         ,fun.myFile.Prefix) {##FUN.fun.Report.START
+                         ,fun.myFile.Prefix
+                         ,fun.myReport.format) {##FUN.fun.Report.START
   #
   # Convert Data Type to proper case
   fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1)),tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
@@ -121,7 +123,7 @@ fun.Report <- function(fun.myData.SiteID
     # much cleaner DOCX than the 2-step process of MD with knit to RMD with pandoc
     #strFile.RMD <- paste(myDir.BASE,"Scripts",paste(myReport.Name,"rmd",sep="."),sep="/") #"QCReport.rmd"
     strFile.RMD <- system.file(paste0("rmd/",myReport.Name,".rmd"),package=myPkg)
-    strFile.out.ext <- ".docx" #".html" # ".docx"
+    strFile.out.ext <- paste0(".",fun.myReport.format) #".docx" # ".html"
     strFile.out <- paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,myReport.Name,sep=ContData.env$myDelim),strFile.out.ext,sep="")
     #suppressWarnings(
       rmarkdown::render(strFile.RMD, output_file=strFile.out, output_dir=fun.myDir.export, quiet=TRUE)

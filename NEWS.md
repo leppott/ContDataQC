@@ -2,9 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-09-29 14:10:52
-
-Version history.
+    #> Last Update: 2017-11-15 11:10:12
 
 Planned Updates
 ===============
@@ -14,8 +12,6 @@ Planned Updates
 -   ~~Gaps in data not always evident in the plots. 20170308.~~
 
 -   ~~Use futile.logger to better log output for user. Issue \#29. 20170606.~~
-
--   ~~Add option for Report output for PDF or DOCX or HTML. Defaults to DOCSX. Will need to change documentation for report functions. 20170823.~~
 
 -   Debug Aggregate operation. 20170919.
 
@@ -36,8 +32,20 @@ Planned Updates
 -   CSV issue
 -   Excel file update (see 9/28 email)
 
+Version History
+===============
+
+v2.0.1.9048
+-----------
+
+2017-11-15
+
+-   Add variable for report format (docx or html). Default will be "docx". Needed for Shiny app since won't have Pandoc. Pandoc now ships with RStudio but still don't have when run package via Shiny.
+
+-   Test version. Not complete. Vignette needs to be rebuilt.
+
 v2.0.1.9047
-===========
+-----------
 
 2017-09-29
 
@@ -48,7 +56,7 @@ v2.0.1.9047
 -   File QC. Turn off report. Mixed case issue in file names. 20170929.
 
 v2.0.1.9046
-===========
+-----------
 
 2017-09-28
 
@@ -61,7 +69,7 @@ v2.0.1.9046
 -   DESCRIPTION, License, out of sync with GitHub. Fixed.
 
 v2.0.1.9045
-===========
+-----------
 
 2017-09-28
 
@@ -70,7 +78,7 @@ v2.0.1.9045
 -   Renamed RMD files with ' - ' to '\_'. Recommended in check(). 20170928.
 
 v2.0.1.9044
-===========
+-----------
 
 2017-09-28
 
@@ -79,7 +87,7 @@ v2.0.1.9044
 -   Vignette updated. 20170928.
 
 v2.0.1.9043
-===========
+-----------
 
 2017-09-27
 
@@ -88,14 +96,14 @@ v2.0.1.9043
 -   Update ReadMe. 20170927.
 
 v2.0.1.9042
-===========
+-----------
 
 2017-09-21
 
 -   CompSiteCDF() to compare multiple sites on a site CDF. 20170921.
 
 v2.0.1.9041
-===========
+-----------
 
 2017-09-20
 
@@ -107,7 +115,7 @@ v2.0.1.9041
 -   Export.IHA. Tweak opening text. 20170920.
 
 v2.0.1.9040
-===========
+-----------
 
 2017-09-20
 
@@ -116,7 +124,7 @@ v2.0.1.9040
 -   Added section about requiring dataRetrieval v2.7.3 that isn't on CRAN yet. 20170919.
 
 v2.0.1.9039
-===========
+-----------
 
 2017-09-19
 
@@ -125,14 +133,14 @@ v2.0.1.9039
 -   Added daily mean visualization Excel file to . 20170919.
 
 v2.0.1.9038
-===========
+-----------
 
 2017-09-12
 
 -   Rename fun.Export.IHA() to Export.IHA(). 20170912.
 
 v2.0.1.9037
-===========
+-----------
 
 2017-09-12
 
@@ -143,35 +151,35 @@ v2.0.1.9037
 -   Modified fun.Export.IHA() argument fun.myCol.Discharge to fun.myCol.Parameter. 20170912.
 
 v2.0.1.9036
-===========
+-----------
 
 2017-09-11
 
 -   Added function, fun.Export.IHA(), to export data in format ready to use in IHA package. 20170911.
 
 v2.0.1.9035
-===========
+-----------
 
 2017-09-11
 
 -   Updated fun.GageData.R. USGS updated their webservices to use https instead of http. dataRetrieval package updated to v2.7.3 on GitHub. Some functions modified within dataRetrieval as had to modify some code in ContDataQC package. Version number of dataRetrieval *not* added to DESCRIPTION (not available on CRAN yet). 20170911.
 
 v2.0.1.9034
-===========
+-----------
 
 2017-09-06
 
 -   Added PeriodStats() to calculate daily stats (mean, min, max, etc) for a period (N) before a given date. Outputs a CSV of data and DOCX report. 20170905.
 
 v2.0.1.9033
-===========
+-----------
 
 2017-08-24
 
 -   Changed reports back to DOCX. Will add a user parameter to change in the future. 20170824.
 
 v2.0.1.9032
-===========
+-----------
 
 2017-08-23
 
@@ -180,56 +188,56 @@ v2.0.1.9032
 -   Added install.packages("installr") to example in ContDataQC() for installing Pandoc. 20170823.
 
 v2.0.1.9031
-===========
+-----------
 
 2017-08-23
 
 -   Reload on GitHub. Shiny can't download. 20170823.
 
 v2.0.1.9030
-===========
+-----------
 
 2017-08-23
 
 -   Another DOCX reference fix. 20170823.
 
 v2.0.1.9029
-===========
+-----------
 
 2017-08-23
 
 -   Change reference to DOCX variable to .ext to easier to change in the future. 20170823.
 
 v2.0.1.9028
-===========
+-----------
 
 2017-08-23
 
 -   Convert Reports from DOCX to HTML. Needed for use with Shiny. 20170823.
 
 v2.0.1.9027
-===========
+-----------
 
 2017-08-23
 
 -   Rebuild before update to GitHub. 20170823.
 
 v2.0.1.9026
-===========
+-----------
 
 2017-08-23
 
 -   Ensure use file.path when read and save files. 20170823.
 
 v2.0.1.9025
-===========
+-----------
 
 2017-07-31
 
 -   Thresholds. Tweaked config.R. Issue \#36. 20170731.
 
 v2.0.1.9024
-===========
+-----------
 
 2017-07-27
 
@@ -238,28 +246,28 @@ v2.0.1.9024
 -   DESCRIPTION. Added Jen Stamp as contributer and added my middle initial. 20170728.
 
 v2.0.1.9023
-===========
+-----------
 
 2017-06-22
 
 -   QC report (and aggregate report), fixed water temp vs. sensor depth legend. Colors were swapped. Issue \# 35. 20170622.
 
 v2.0.1.9022
-===========
+-----------
 
 2017-06-21
 
 -   QC report header for water temp and sensor depth says water level. Fixed. Issue \#34. 20170621.
 
 v2.0.1.9021
-===========
+-----------
 
 2017-06-21
 
 -   Dec 31 not being assigned a season in summar stats. Fixed. Issue \#33. 20170621.
 
 v2.0.1.9020
-===========
+-----------
 
 2017-06-09
 
@@ -272,77 +280,77 @@ v2.0.1.9020
 -   fun.QC.R missing QC routine for gage height. 20170609.
 
 v2.0.1.9019
-===========
+-----------
 
 2017-06-07
 
 -   Updated data flow for "aggregate" step so the QC report is generated "after" the compiled file is created. Issue \#31. 20170607.
 
 v2.0.1.9018
-===========
+-----------
 
 2017-06-07
 
 -   Updated main function to allow for a single file or a vector of files. New "file" versions of most scripts. Some updates to the Reports (rmd files). Issue \#24. 20170607.
 
 v2.0.1.9017
-===========
+-----------
 
 2017-06-06
 
 -   Report\_QC.rmd. Correct typo in "Flags" descriptions. Issue \#28. 20170606.
 
 v2.0.1.9016
-===========
+-----------
 
 2017-05-31
 
 -   File delimiter for strsplit(). Also a regex issue with "." (dot). Created special check. 20170531.
 
 v2.0.1.9015
-===========
+-----------
 
 2017-05-31
 
 -   File delimiter. Configuration file allows for user defined values. However, the QC check for StationIDs containing this value uses regular expressions. Added a special condition for the dot, ".", delimiter as regex treats this character as a match for (almost) any character. 20170531.
 
 v2.0.1.9014
-===========
+-----------
 
 2017-05-26
 
 -   Time interval. Fixed calculation of time interval. Certain date time formats would stop processing or be reported as zero. fun.QC.R, Report\_Aggregate.rmd, Report\_QC.rmd, and Report\_Stats.rmd. 20170526.
 
 v2.0..1.9013
-============
+------------
 
 2017-05-24
 
 -   fun.Stats.R. Had previously commented out stats and plots due to errors. Single typo fixed in year season stats and reworked daily summaryBy stats section. 20170524.
 
 v2.0..1.9012
-============
+------------
 
 2017-05-24
 
 -   fun.Gage.R. Changed variable "myTZ" to "fun.myTZ" for consistency. 20170524.
 
 v2.0.1.9011
-===========
+-----------
 
 2017-05-23
 
 -   Remove unused arguement "fun.myFile.Prefix" from help file for ContDataQC(). 20170523.
 
 v2.0.1.9010
-===========
+-----------
 
 2017-05-22
 
 -   Modify input and export directories so can be any folder. The default directory is now the working directory. Modified input parameters for ContDataQC() by removing "fun.myDir.BASE". Modified examples and all other necessary scripts.
 
 v2.0.1.9009
-===========
+-----------
 
 2017-05-19
 
@@ -355,7 +363,7 @@ v2.0.1.9009
 -   Summary Stats quit with error. Fixed in summaryBy statements. 20170519.
 
 v2.0.1.9008
-===========
+-----------
 
 2017-05-18
 
@@ -370,14 +378,14 @@ v2.0.1.9008
 -   Fix plots (blank) in Report\_QC.R for "offset" data. With point type of "line" the NAs in the data caused nothing to be plotted. Fixed with na.omit(as.numeric(x)) when subsetted data for plotting. Then had to fix date range on x-axis. 20170518.
 
 v2.0.1.9007
-===========
+-----------
 
 2017-05-17
 
 -   Add additional config file. Modified config.R to include OlsonNames() in timezone section. Added /extdata/config.TZ.central.R with only time zone change. Modified examples in zfun.ContaDataQC.R to include a USGS gage in the central time zone. Modified ContDataQC() with optional parameter to use helper functions to include different config files. Will only need paramters that are different. User provides path to the new R file for new variables to include in the environment ContData.env.
 
 v2.0.1.9006
-===========
+-----------
 
 2017-05-17
 
@@ -392,7 +400,7 @@ v2.0.1.9006
 -   Confirmed that steps/tasks in the process are independant of each other. That is, someone can use some or all routines as each is a separate function. 20170517.
 
 v2.0.1.9005
-===========
+-----------
 
 2017-05-15
 
@@ -421,7 +429,7 @@ v2.0.1.9005
 -   Offset data files. Fix overall data flags for each parameters. Currently giving "NA" if any "NA". And have "NA" due to offset data. fun.QC.R. 20170512.
 
 v2.0.1.9004
-===========
+-----------
 
 2017-05-05
 
@@ -432,7 +440,7 @@ v2.0.1.9004
 -   Update Description with version number (last edit was 2.0.1.0000). 20170505.
 
 v2.0.1.0003
-===========
+-----------
 
 2017-05-05
 
@@ -443,7 +451,7 @@ v2.0.1.0003
 -   Corrected flag names for Turbidity and Chlorophyll a; config.R. 20170505.
 
 v2.0.1.0002
-===========
+-----------
 
 2017-05-04
 
@@ -458,14 +466,14 @@ v2.0.1.0002
 -   Tweak Reports (Report\_Aggregate.RMD, Report\_QC.RMD, and Report\_Stats.RMD) and fun.QC.R for determining time frequency for sampling. Was using interval for 10th and 11th samples (or 4th and 5th in fun.QC.R). Now using median of all time differences. Will always work as long as have at least 1 sample. Previously could fail with less than 5 samples (or 11).
 
 v2.0.1.0001
-===========
+-----------
 
 2017-03-08
 
 -   Bug fix for missed references to new environment for variables introduced in v2.0.1. Multiple files affected. Gage data, QC, and Aggregate working but not Stats. One table in the QC and Aggregate reports has been commented out. (To be fixed later).
 
 v2.0.1
-======
+------
 
 2017-03-06
 
@@ -484,7 +492,7 @@ v2.0.1
 -   Create RMD files for ReadMe and NEWS. Added RMD to ignore list.
 
 v2.0.0
-======
+------
 
 2017-02-28
 
@@ -499,7 +507,7 @@ v2.0.0
 -   Uploaded to GitHub.
 
 v1.2.1
-======
+------
 
 2017-01-16
 
@@ -508,14 +516,14 @@ v1.2.1
 -   Added date/time QC process to be run again at the aggregate step.
 
 v1.2.0
-======
+------
 
 2016-05-04
 
 -   NWQMC 2016, Tampa, FL
 
 v1.1.0
-======
+------
 
 2016-03-31
 
@@ -524,7 +532,7 @@ v1.1.0
 -   Minor
 
 v1.0.0
-======
+------
 
 2015-10-26
 

@@ -34,6 +34,7 @@
 #' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
+#' @param fun.myReport.format Report format (docx or html).  Default = "docx".
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
 #' @keywords continuous data, aggregate
 #' @examples
@@ -45,7 +46,8 @@ fun.AggregateData <- function(fun.myData.SiteID
                              ,fun.myData.DateRange.Start
                              ,fun.myData.DateRange.End
                              ,fun.myDir.import=getwd()
-                             ,fun.myDir.export=getwd()) {##FUN.fun.QCauto.START
+                             ,fun.myDir.export=getwd()
+                             ,fun.myReport.format) {##FUN.fun.QCauto.START
   #
   # Error Checking - only 1 SiteID and 1 DataType
   if(length(fun.myData.SiteID)!=1){
@@ -328,7 +330,7 @@ fun.AggregateData <- function(fun.myData.SiteID
     # need trigger for different SiteID (won't combine across sites)
 
 
-
+    # Report ####
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # insert QC Report so runs without user intervention
 

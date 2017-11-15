@@ -26,6 +26,7 @@
 #' @param fun.myFile Single (or vector of) file name(s).
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
+#' @param fun.myReport.format Report format (docx or html).  Default = "docx".
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.  And a PDF of summary plots by different time periods.
 #' @keywords continuous data, statistics
 #' @examples
@@ -40,6 +41,7 @@
 fun.Stats.File <- function(fun.myFile
                           , fun.myDir.import=getwd()
                           , fun.myDir.export=getwd()
+                          , fun.myReport.format
                           ) {##FUN.fun.Stats.START
   #
 #   ##

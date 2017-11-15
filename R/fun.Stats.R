@@ -29,6 +29,8 @@
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
+#' @param fun.myReport.format Report format (docx or html).  Default = "docx".
+
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
 #' @keywords continuous data, statistics
 #' @examples
@@ -42,7 +44,8 @@ fun.Stats <- function(fun.myData.SiteID
                      ,fun.myDir.import=getwd()
                      ,fun.myDir.export=getwd()
                      ,fun.myProcedure.Step
-                     ,fun.myFile.Prefix) {##FUN.fun.Stats.START
+                     ,fun.myFile.Prefix
+                     ,fun.myReport.format) {##FUN.fun.Stats.START
   #
 #   ##
 #   # QC (from fun.Master.R)

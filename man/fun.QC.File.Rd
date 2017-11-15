@@ -5,7 +5,7 @@
 \title{Quality Control, File}
 \usage{
 fun.QC.File(fun.myFile, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd())
+  fun.myDir.export = getwd(), fun.myReport.format)
 }
 \arguments{
 \item{fun.myFile}{Single (or vector of) file name(s).}
@@ -13,6 +13,8 @@ fun.QC.File(fun.myFile, fun.myDir.import = getwd(),
 \item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
 
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+
+\item{fun.myReport.format}{Report format (docx or html).  Default = "docx".}
 }
 \value{
 Returns a csv file to specified directory with QC flags.

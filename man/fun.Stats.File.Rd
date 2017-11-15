@@ -5,7 +5,7 @@
 \title{Statistical Summary, File}
 \usage{
 fun.Stats.File(fun.myFile, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd())
+  fun.myDir.export = getwd(), fun.myReport.format)
 }
 \arguments{
 \item{fun.myFile}{Single (or vector of) file name(s).}
@@ -13,6 +13,8 @@ fun.Stats.File(fun.myFile, fun.myDir.import = getwd(),
 \item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
 
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+
+\item{fun.myReport.format}{Report format (docx or html).  Default = "docx".}
 }
 \value{
 Returns a csv into the specified export directory with additional columns for calculated statistics.  And a PDF of summary plots by different time periods.

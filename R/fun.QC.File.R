@@ -38,6 +38,7 @@
 #' @param fun.myFile Single (or vector of) file name(s).
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
+#' @param fun.myReport.format Report format (docx or html).  Default = "docx".
 #' @return Returns a csv file to specified directory with QC flags.
 #' @keywords continuous data, qc, quality control
 #' @examples
@@ -71,6 +72,7 @@
 fun.QC.File <- function(fun.myFile
                        , fun.myDir.import=getwd()
                        , fun.myDir.export=getwd()
+                       , fun.myReport.format
                        ) {##FUN.fun.QC.START
   #
   # # A. Data Prep ####
@@ -860,7 +862,7 @@ fun.QC.File <- function(fun.myFile
 #*********************
     # end QC manual stuff
   #************************
-
+    # Report ####
     # # QC, 20170929, Mixed vs. Upper Case
     # strFile.Report <- paste(paste(strFile.Base,sep=ContData.env$myDelim),"csv",sep=".")
     #
@@ -880,7 +882,8 @@ fun.QC.File <- function(fun.myFile
       fun.Report.File(strFile
                       , fun.myDir.export
                       , fun.myDir.export
-                      , strFile.Out.Prefix)
+                      , strFile.Out.Prefix
+                      , fun.myReport.format)
     }
 
 

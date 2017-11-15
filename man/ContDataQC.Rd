@@ -7,7 +7,7 @@
 ContDataQC(fun.myData.Operation, fun.myData.SiteID, fun.myData.Type,
   fun.myData.DateRange.Start, fun.myData.DateRange.End,
   fun.myDir.import = getwd(), fun.myDir.export = getwd(),
-  fun.myConfig = "", fun.myFile = "")
+  fun.myConfig = "", fun.myFile = "", fun.myReport.format = "docx")
 }
 \arguments{
 \item{fun.myData.Operation}{Operation to be performed; c("GetGageData","QCRaw", "Aggregate", "SummaryStats")}
@@ -27,6 +27,8 @@ ContDataQC(fun.myData.Operation, fun.myData.SiteID, fun.myData.Type,
 \item{fun.myConfig}{Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.}
 
 \item{fun.myFile}{Single file (or vector of files) to perform functions.  SiteID, Type, and Date Range not used when file name(s) provided.}
+
+\item{fun.myReport.format}{Report format (docx or html).  Default = "docx".}
 }
 \value{
 Returns a csv into the specified export directory with additional columns for calculated statistics.
@@ -48,7 +50,8 @@ Below are the default data directories assumed to exist in the working directory
 ./Data4_Stats/ = Repository for library output for statistical summary files.
 }
 \examples{
-# Install Pandoc
+# Install Pandoc (for docx Reports)
+# (if using recent version of RStudio do not have to install separately)
 install.packages("installr") # not needed if already have this package.
 require(installr)
 install.pandoc()
@@ -122,8 +125,9 @@ myData.DateRange.Start  <- "2013-01-01"
 myData.DateRange.End    <- "2014-12-31"
 myDir.import <- file.path(myDir.BASE,Selection.SUB[1]) #"Data1_RAW"
 myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
+myReport.format <- "docx"
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
-           , myData.DateRange.End, myDir.import, myDir.export)
+           , myData.DateRange.End, myDir.import, myDir.export, myReport.format)
 
 # QC Raw Data (offset collection times for air and water sensors)
 myData.Operation <- "QCRaw" #Selection.Operation[2]
@@ -133,8 +137,9 @@ myData.DateRange.Start  <- "2016-04-28"
 myData.DateRange.End    <- "2016-07-26"
 myDir.import <- file.path(myDir.BASE,Selection.SUB[1]) #"Data1_RAW"
 myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
+myReport.format <- "html"
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
-           , myData.DateRange.End, myDir.import, myDir.export)
+           , myData.DateRange.End, myDir.import, myDir.export, myReport.format)
 
 # Aggregate Data
 myData.Operation <- "Aggregate" #Selection.Operation[3]
@@ -144,6 +149,7 @@ myData.DateRange.Start  <- "2013-01-01"
 myData.DateRange.End    <- "2014-12-31"
 myDir.import <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
 myDir.export <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
+#Leave off myReport.format and get default (docx).
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
            , myData.DateRange.End, myDir.import, myDir.export)
 
@@ -155,6 +161,7 @@ myData.DateRange.Start  <- "2013-01-01"
 myData.DateRange.End    <- "2014-12-31"
 myDir.import <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
 myDir.export <- file.path(myDir.BASE,Selection.SUB[4]) #"Data4_Stats"
+#Leave off myReport.format and get default (docx).
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
           , myData.DateRange.End, myDir.import, myDir.export)
 
@@ -169,8 +176,9 @@ myFile <- c("test2_AW_20130426_20130725.csv", "test2_AW_20130725_20131015.csv"
            , "test2_AW_20140901_20140930.csv")
 myDir.import <- file.path(".","Data1_RAW")
 myDir.export <- file.path(".","Data2_QC")
+myReport.format <- "docx"
 ContDataQC(myData.Operation, fun.myDir.import=myDir.import
-          , fun.myDir.export=myDir.export, fun.myFile=myFile)
+          , fun.myDir.export=myDir.export, fun.myFile=myFile, myReport.format)
 
 # Aggregate Data
 myData.Operation <- "Aggregate" #Selection.Operation[3]
@@ -178,8 +186,9 @@ myFile <- c("QC_test2_AW_20130426_20130725.csv", "QC_test2_AW_20130725_20131015.
            , "QC_test2_AW_20140901_20140930.csv")
 myDir.import <- file.path(".","Data2_QC")
 myDir.export <- file.path(".","Data3_Aggregated")
+myReport.format <- "html"
 ContDataQC(myData.Operation, fun.myDir.import=myDir.import
-           , fun.myDir.export=myDir.export, fun.myFile=myFile)
+           , fun.myDir.export=myDir.export, fun.myFile=myFile, myReport.format)
 
 # Summary Stats
 myData.Operation <- "SummaryStats" #Selection.Operation[4]
@@ -188,6 +197,7 @@ myFile <- "QC_test2_AW_20130426_20130725.csv"
             , "QC_test2_AW_20140901_20140930.csv")
 myDir.import <- file.path(".","Data2_QC")
 myDir.export <- file.path(".","Data4_Stats")
+#Leave off myReport.format and get default (docx).
 ContDataQC(myData.Operation, fun.myDir.import=myDir.import
           , fun.myDir.export=myDir.export, fun.myFile=myFile)
 }

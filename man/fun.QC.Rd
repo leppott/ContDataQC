@@ -5,7 +5,8 @@
 \title{Quality Control}
 \usage{
 fun.QC(fun.myData.SiteID, fun.myData.Type = "QC", fun.myData.DateRange.Start,
-  fun.myData.DateRange.End, fun.myDir.import = "", fun.myDir.export = "")
+  fun.myData.DateRange.End, fun.myDir.import = "", fun.myDir.export = "",
+  fun.myReport.format)
 }
 \arguments{
 \item{fun.myData.SiteID}{Station/SiteID.}
@@ -19,6 +20,8 @@ fun.QC(fun.myData.SiteID, fun.myData.Type = "QC", fun.myData.DateRange.Start,
 \item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
 
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+
+\item{fun.myReport.format}{Report format (docx or html).  Default = "docx".}
 }
 \value{
 Returns a csv file to specified directory with QC flags.

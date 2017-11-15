@@ -5,7 +5,7 @@
 \title{Aggregate Data Files, File}
 \usage{
 fun.AggregateData.File(fun.myFile, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd())
+  fun.myDir.export = getwd(), fun.myReport.format)
 }
 \arguments{
 \item{fun.myFile}{Vector of file names.}
@@ -13,6 +13,8 @@ fun.AggregateData.File(fun.myFile, fun.myDir.import = getwd(),
 \item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
 
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+
+\item{fun.myReport.format}{Report format (docx or html).  Default = "docx".}
 }
 \value{
 Returns a csv into the specified export directory of each file appended into a single file.

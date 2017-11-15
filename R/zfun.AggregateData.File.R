@@ -32,6 +32,7 @@
 #' @param fun.myFile Vector of file names.
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
+#' @param fun.myReport.format Report format (docx or html).  Default = "docx".
 #' @return Returns a csv into the specified export directory of each file appended into a single file.
 #' @keywords continuous data, aggregate
 #' @examples
@@ -62,7 +63,8 @@
 #' @export
 fun.AggregateData.File <- function(fun.myFile
                                   , fun.myDir.import=getwd()
-                                  , fun.myDir.export=getwd()) {##FUN.fun.QCauto.START
+                                  , fun.myDir.export=getwd()
+                                  , fun.myReport.format) {##FUN.fun.QCauto.START
   #
   # Error Checking - only 1 SiteID and 1 DataType
   if(length(fun.myFile)==1){

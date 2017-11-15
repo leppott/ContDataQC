@@ -5,7 +5,7 @@
 \title{Generate Reports, File}
 \usage{
 fun.Report.File(fun.myFile, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.myFile.Prefix)
+  fun.myDir.export = getwd(), fun.myFile.Prefix, fun.myReport.format)
 }
 \arguments{
 \item{fun.myFile}{Single file name.}
@@ -15,6 +15,8 @@ fun.Report.File(fun.myFile, fun.myDir.import = getwd(),
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
 
 \item{fun.myFile.Prefix}{Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.}
+
+\item{fun.myReport.format}{Report format (docx or html).  Default = "docx".}
 }
 \value{
 Creates a Word file in the specified directory.

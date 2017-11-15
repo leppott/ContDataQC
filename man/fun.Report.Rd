@@ -6,7 +6,7 @@
 \usage{
 fun.Report(fun.myData.SiteID, fun.myData.Type, fun.myData.DateRange.Start,
   fun.myData.DateRange.End, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.myFile.Prefix)
+  fun.myDir.export = getwd(), fun.myFile.Prefix, fun.myReport.format)
 }
 \arguments{
 \item{fun.myData.SiteID}{Station/SiteID.}
@@ -22,6 +22,8 @@ fun.Report(fun.myData.SiteID, fun.myData.Type, fun.myData.DateRange.Start,
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
 
 \item{fun.myFile.Prefix}{Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.}
+
+\item{fun.myReport.format}{Report format (docx or html).  Default = "docx".}
 }
 \value{
 Creates a Word file in the specified directory.
