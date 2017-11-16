@@ -24,7 +24,7 @@ There is a configuration file (config.R) that allows for customization.
 # Installation
 The R library is saved on GitHub for ease of updating and distribution.  Issues can be tracked, fixed, and code made available for download.  Current users can update the library using the same code used to install the library (see below).  Devtools is required for the installation.
 
-```{r, eval=FALSE}
+```{r LoadPkg, eval=FALSE}
 install.packages("devtools")
 library(devtools)
 install_github("leppott/ContDataQC")
@@ -34,7 +34,7 @@ To contact the authors directly email Erik.Leppo@tetratech.com or Jen.Stamp@tetr
 
 Occassionaly R does not import all of the necessary dependant libraries.  Below is code to install all of the necessary libraries for using the ContDataQC library.
 
-```{r, eval=FALSE}
+```{r LoadDependancies, eval=FALSE}
 # install all dependant libraries manually
 # libraries to be installed
 data.packages = c(
@@ -56,11 +56,11 @@ print("Task complete.  Check statements above for errors.")
 
 ```
 
-An additional dependancy that needs to be installed separately is Pandoc.  This package is used to create the Reports.  See R code below to install Pandoc.  The package 'installr' allows for installation in a single step.  IF this doesn't work you may need help from your IT department using the web links listed below.  For users of RStudio Pandoc installs with the more recent versions so no extra install is needed.
+An additional dependancy that needs to be installed separately is Pandoc.  This package is used to create the Reports.  See R code below to install Pandoc.  The package 'installr' allows for installation in a single step.  IF this doesn't work you may need help from your IT department using the web links listed below.  For users of RStudio Pandoc installs with RStudio so no extra install is needed.
 
-In version 2.0.1.9048 of the `ContDataQC` package report format was added as a variable.  The default is "docx".  If you do not have Pandoc installed the package will still work but the reports will not be created (will show an error) unless you change the format to "html".
+In version 2.0.1.9048 (2017-11-16) of the `ContDataQC` package report format was added as a variable.  The default is "html".  This can be changed in config.R. If you do not have Pandoc installed the package will still work but the reports in docx format will not be created (will show an error) unless you change the format to "html".
 
-```{r, eval=FALSE}
+```{r LoadPandoc, eval=FALSE}
 # Install Pandoc (for docx Reports)
 # (if using recent version of RStudio do not have to install separately)
 install.packages("installr") # not needed if already have this package.
@@ -75,7 +75,7 @@ install.pandoc()
 
 During the summer of 2017 USGS changed their webservices from http to https.  This necessitated a change in the R library `dataRetrieval`.  As of the date of this Vignette the 2.7.2 version of `dataRetrieval` on CRAN is not the most current and fails when retrieving data inside of `ContDataQC`.  The error statement is "Error in x[[1]] : subscript out of bounds".  If using the GetGageData operation in the ContDataQC() function it is necessary to get the most current version (>=2.7.3) of `dataRetrieval` (see code below).  The `ContDataQC` library was tweaked on 11 September 2017 (version v2.0.1.9035) to work with the revised version of `dataRetrieval` (v2.7.3).
 
-```{r, eval=FALSE}
+```{r LoadPkg_USGS, eval=FALSE}
 # inter-CRAN release hosted on USGS website
 install.packages("dataRetrieval",repos="https://owi.usgs.gov/R")
 # from GitHub
@@ -85,9 +85,11 @@ install.packages("dataRetrieval",repos="https://owi.usgs.gov/R")
 ```
 
 # Contents
-1. ContDataQC Operations
+1. Preparing Raw Data
 
-2. Other Features
+2. ContDataQC Operations
+
+3. Other Features
 
 # Preparing Raw Data
 The `ContDataQC` library makes some assumptions on file names and structure.
@@ -128,7 +130,7 @@ For each operation associated with the ContDataQC() function a report is generat
 
 The code below should be run before using the examples of each operation.  The code below sets up the directories and some parameters for use in the later code.
 
-```{r, eval=FALSE}
+```{r PkgVariables, eval=FALSE}
 # Parameters
 Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
@@ -162,7 +164,8 @@ myFile <- "config.TZ.Central.R"
 ### GetGageData
 The GetGageData operation of the ContDataQC() function retrieves USGS gage data based on user input.  Example code and console output is below.
 
-```{r, echo=TRUE}
+```{r GetGageData_base, echo=TRUE}
+library(ContDataQC)
 # Parameters
 Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
@@ -176,12 +179,13 @@ myData.DateRange.Start  <- "2013-01-01"
 myData.DateRange.End    <- "2014-12-31"
 myDir.import <- ""
 myDir.export <- file.path(myDir.BASE,Selection.SUB[1])
-ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
-````
+ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
+           , myData.DateRange.End, myDir.import, myDir.export)
+```
 
 Example of getting gage data in a different time zone specified in user modified configuration file.
 
-```{r, eval=FALSE}
+```{r GetGageData_TZ, eval=FALSE}
 # Parameters
 Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
@@ -197,12 +201,12 @@ myDir.import <- ""
 myDir.export <- file.path(myDir.BASE,Selection.SUB[1])
 myConfig            <- file.path(getwd(),Selection.SUB[1],"config.TZ.central.R") # include path if not in working directory
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export, myConfig)
-````
+```
 
 ### QCRaw
 This is operation is the main focus of the `ContDataQC` library.  The raw continuous data files are examined for multiple QC tests and the results saved in a new data file (CSV) and a summary report (DOCX file) are generated.
 
-```{r, eval=FALSE}
+```{r QCRaw_base, eval=FALSE}
 # Parameters
 Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
@@ -223,7 +227,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 
 In some cases two sensors are used (one for air and one for water) and the timing of the sampling is off between the two.  The library handles this fine.  Example data below.  For this example the report output was changed to "html".
 
-```{r, eval=FALSE}
+```{r QCRaw_timeoffset, eval=FALSE}
 # Parameters
 Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
@@ -245,7 +249,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 ### Aggregate
 After QC the files are ready for analysis.  The Aggregate operation allows the user to combine (or split) files across time periods.  No report format was specified so the default "docx" format will be generated.
 
-```{r, eval=FALSE} 
+```{r Aggregate, eval=FALSE} 
 # Parameters
 Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
@@ -268,7 +272,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 ### SummaryStats
 The SummaryStats operation calculates a number of statistics on the data for each sampling day.  No report format was specified so the default "docx" format will be generated.
 
-```{r, eval=FALSE}
+```{r SummaryStats, eval=FALSE}
 # Parameters
 Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
@@ -290,7 +294,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 ## Single File Versions of ContDataQC Operatations
 The base version of the ContDataQC() function searches the specified directories for files that match the data type and date range.  This set up does not work for everyone.  Included in the `ContDataQC` package are "file" versions of the same QCRaw, Aggregate, and SummaryStat functions.  These work on a vector of file names (so multiple files can be processed this way).Different report options are used in each example in the code below.
 
-```{r, eval=FALSE}
+```{r ContDataQC_FileVersions, eval=FALSE}
 #~~~~~~~~~~~~~~
 # File Versions
 #~~~~~~~~~~~~~~
@@ -333,7 +337,7 @@ The ContDataQC() function allows the user to input their own configuration file.
 
 The contents of the configuration file (config.R) are listed below.
 
-```{r, eval=FALSE}
+```{r Config, eval=FALSE}
 # User Defined Values
 #
 # User defined values for variables used across multiple functions in this library.
@@ -820,6 +824,8 @@ ContData.env$myNames.Fields.TimePeriods <- c(ContData.env$myName.Yr
 # Trigger for Stats to exclude (TRUE) or include (FALSE) where flag = "fail"
 ContData.env$myStats.Fails.Exclude <- TRUE  #FALSE #TRUE
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Report Format
+ContData.env$myReport.Format <- "html"  # "html" or "docx" # DOCX requires Pandoc.
 ```
 
 ## Export for IHA
@@ -829,7 +835,7 @@ https://www.conservationgateway.org/ConservationPractices/Freshwater/Environment
 
 https://github.com/jasonelaw/iha
 
-```{r, eval=FALSE}
+```{r IHA_dataprep, eval=FALSE}
 # 1.  Get Gage Data
 #
 # 1.A. Use ContDataQC and Save (~1min for download)
@@ -858,7 +864,7 @@ myData.IHA <- Export.IHA(myFile
 
 The example code below runs the data (generated above) through IHA package.  This example makes use of the `XLConnect` R library to save the IHA output into a single Excel file.  Before running the IHA code the `IHA` and `XLConnect` packages need to be installed.  The `devtools` package allows for easy installation from GitHub (where the IHA package resides).
 
-```{r, eval=FALSE}
+```{r IHA_getPkg, eval=FALSE}
 # Install Libraries (if needed)
 install.packages("devtools")
 library(devtools)
@@ -868,7 +874,7 @@ install.packages("XLConnect")
 
 IHA example code below that uses the IHA.Export file and produces an Excel file of the IHA output.
 
-```{r, eval=FALSE}
+```{r IHA_run, eval=FALSE}
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # 3. Run IHA
 # Example using returned DF with IHA
@@ -938,7 +944,7 @@ At time benthic samples include more individuals than the target number or when 
 
 The function takes a three column data frame (SampleID, TaxonID, Count) and returns a similar dataframe with revised Counts.
 
-```{r, eval=FALSE}
+```{r RarifyTaxa, eval=FALSE}
 # load bio data
 DF.biodata <- data_bio2rarify
 dim(DF.biodata)
@@ -960,7 +966,7 @@ The daily values from the SummaryStats operation of the ContDataQC() function ca
 
 These plots could be created in R but the Excel file was included to make the plots available to a wider audience.
 
-```{r, eval=FALSE}
+```{r PlotDailyMeans, eval=FALSE}
 # Summary Stats
 myData.Operation <- "SummaryStats" #Selection.Operation[4]
 myData.SiteID    <- "test2"
@@ -982,7 +988,7 @@ https://github.com/tsangyp/StreamThermal
 
 Install instructions for the `StreamThermal` library are below.
 
-```{r, eval=FALSE}
+```{r StreamThermal_dataprep, eval=FALSE}
 # Install Libraries (if needed)
 install.packages("devtools")
 library(devtools)
@@ -992,7 +998,7 @@ install_github("tsangyp/StreamThermal")
 
 The `StreamThermal` package is set up to work with USGS gage data and this can be downloaded via the `dataRetrieval` library (as shown in the examples in the `StreamThermal` library).
 
-```{r, echo=TRUE}
+```{r StreamThermal_run, echo=TRUE}
 # 1.1. Get USGS data
 # code from StreamThermal T_frequency example
 ExUSGSStreamTemp<-dataRetrieval::readNWISdv("01382310","00010","2011-01-01","2011-12-31"
@@ -1004,7 +1010,7 @@ knitr::kable(head(sitedata))
 
 It is possible to use the Summary Stats operation output from the ContDataQC() function.
 
-```{r, echo=TRUE}
+```{r StreamThermal_SummaryStats_x, echo=TRUE}
 # 1.2. Use ContDataQC SummaryStats Data
 myFile <- "STATS_test2_Aw_20130101_20141231_Water.Temp.C.csv"
 myDir <- "Data4_Stats"
@@ -1021,7 +1027,7 @@ knitr::kable(head(sitedata))
 
 It is also possible to use data that has yet to be summarized.
 
-```{r, echo=TRUE}
+```{r StreamThermal_SummaryStats_y, echo=TRUE}
 # 1.3. Use user data that has been QCed
 myData <- DATA_period_test2_Aw_20130101_20141231
 sitedata <- Export.StreamThermal(myData)
@@ -1030,7 +1036,7 @@ knitr::kable(head(sitedata))
 
 Run StreamThermal functions with 'sitedata'.  The example below saves the output to a variable.
 
-```{r, eval=FALSE}
+```{r StreamThermal_sitedata, eval=FALSE}
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # 3. Run StreamThermal
 # Example using returned DF with StreamThermal

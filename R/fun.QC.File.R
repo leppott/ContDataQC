@@ -38,7 +38,7 @@
 #' @param fun.myFile Single (or vector of) file name(s).
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.myReport.format Report format (docx or html).  Default = "docx".
+#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
 #' @return Returns a csv file to specified directory with QC flags.
 #' @keywords continuous data, qc, quality control
 #' @examples
@@ -873,7 +873,7 @@ fun.QC.File <- function(fun.myFile
     # run with same import and export directory
     ###
     # B.10.3. Report ####
-    booDisableReport <- TRUE
+    booDisableReport <- FALSE
     if (booDisableReport==TRUE) {
       myMsg <- "The reporting feature is disabled at this time.  A future verison may re-enable it."
       cat(myMsg)

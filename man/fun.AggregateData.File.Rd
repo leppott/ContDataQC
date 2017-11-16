@@ -14,7 +14,7 @@ fun.AggregateData.File(fun.myFile, fun.myDir.import = getwd(),
 
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default = "docx".}
+\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).}
 }
 \value{
 Returns a csv into the specified export directory of each file appended into a single file.

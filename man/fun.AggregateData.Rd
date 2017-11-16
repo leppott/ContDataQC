@@ -22,7 +22,7 @@ fun.AggregateData(fun.myData.SiteID, fun.myData.Type,
 
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default = "docx".}
+\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).}
 }
 \value{
 Returns a csv into the specified export directory with additional columns for calculated statistics.

@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-11-15 11:10:12
+    #> Last Update: 2017-11-16 09:15:32
 
 Planned Updates
 ===============
@@ -23,10 +23,9 @@ Planned Updates
 
 -   Run devtools::check(). 20170926.
 
--   Fix mixed case issue with filenames in "file" versions of QCRaw, Aggregate, and Stats. And turn Reports back "on". 20170929.
+-   Fix mixed case issue with filenames in "file" versions of QCRaw, Aggregate, and Stats. 20170929.
 
 -   More check data stuff.
--   check on Aggregate function
 -   Update vignette
 -   Threshold number or pct on plot
 -   CSV issue
@@ -34,6 +33,17 @@ Planned Updates
 
 Version History
 ===============
+
+v2.0.1.9049
+-----------
+
+2017-11-15
+
+-   Fix error in myReport.format and then examples.
+
+-   Renamed report RMD files and altered reference in PeriodStats().
+
+-   Added myReport.Format to config.R and set the default there rather than in code.
 
 v2.0.1.9048
 -----------

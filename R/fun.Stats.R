@@ -29,8 +29,7 @@
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
-#' @param fun.myReport.format Report format (docx or html).  Default = "docx".
-
+#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
 #' @keywords continuous data, statistics
 #' @examples

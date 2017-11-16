@@ -24,6 +24,7 @@
 #' @param fun.myDateTime.Format Format of DateTime field.  Default = \%Y-\%m-\%d \%H:\%M:\%S.
 #' @param fun.myThreshold Value to draw line on plot.  For example, a regulatory limit.  Default = NA
 #' @param fun.myConfig Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control date and time formats.
+#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
 #' @return Returns a csv with daily means and a PDF summary with plots into the specified export directory for the specified time period before the given date.
 #' @keywords continuous data, daily mean, period
 #' @examples
@@ -44,8 +45,10 @@
 #' myDateTime.Format <- "%Y-%m-%d %H:%M:%S"
 #' myThreshold <- 20
 #' myConfig <- ""
+#' myReport.format <- "html"
 #'
 #' # Run Function
+#' ## default report format (docx)
 #' PeriodStats(myDate
 #'           , myDate.Format
 #'           , myPeriod.N
@@ -58,6 +61,21 @@
 #'           , myDateTime.Format
 #'           , myThreshold
 #'           , myConfig)
+#'
+#' ## HTML report format
+#' PeriodStats(myDate
+#'           , myDate.Format
+#'           , myPeriod.N
+#'           , myPeriod.Units
+#'           , myFile
+#'           , myDir.import
+#'           , myDir.export
+#'           , myParam.Name
+#'           , myDateTime.Name
+#'           , myDateTime.Format
+#'           , myThreshold
+#'           , myConfig
+#'           , myReport.format)
 #
 #' @export
 PeriodStats <- function(fun.myDate
@@ -72,9 +90,10 @@ PeriodStats <- function(fun.myDate
                        , fun.myDateTime.Format = NA
                        , fun.myThreshold = NA
                        , fun.myConfig = ""
+                       , fun.myReport.format=""
                        )
 {##FUN.fun.Stats.START
-  # 00. Debugging Variables
+  # 00. Debugging Variables####
   boo.DEBUG <- 0
   if(boo.DEBUG==1) {##IF.boo.DEBUG.START
     fun.myDate <- "2013-09-30"
@@ -118,7 +137,7 @@ PeriodStats <- function(fun.myDate
     stop(myMsg)
   }##IF.length.END
 
-  # 1.0 Convert date format to YYYY-MM-DD
+  # 1.0 Convert date format to YYYY-MM-DD####
   fd01 <- "%Y-%m-%d" #ContData.env$myFormat.Date
   myDate.End <- as.POSIXlt(format(as.Date(fun.myDate, fun.myDate.Format), fd01))
   # use POSIX so can access parts
@@ -129,7 +148,7 @@ PeriodStats <- function(fun.myDate
     stop(myMsg)
   }
 
-  # 2.0. Load Data
+  # 2.0. Load Data####
   # 2.1. Error Checking, make sure file exists
   if(fun.myFile %in% list.files(path=fun.myDir.import)==FALSE) {##IF.file.START
     #
@@ -151,7 +170,7 @@ PeriodStats <- function(fun.myDate
   #df.load[,fun.myDateTime.Name] <- as.Date()
 
 
-  # 3. Munge Data
+  # 3. Munge Data####
   # 3.1. Subset Fields
   df.param <- df.load[,c(fun.myDateTime.Name,fun.myParam.Name)]
   # 3.2. Add "Date" field
@@ -165,7 +184,7 @@ PeriodStats <- function(fun.myDate
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~
   # OLD method using doBy
-  # 4. Daily Stats for data
+  # 4. Daily Stats for data####
   # Calculate daily mean, max, min, range, sd, n
   # 4.1. Define FUNCTION for use with summaryBy
   myQ <- c(0.01,0.05,0.10,0.25,0.50,0.75,0.90,0.95,0.99)
@@ -202,7 +221,7 @@ PeriodStats <- function(fun.myDate
   #                                    # ,sd=sd(fun.myParam.Name,na.rm=TRUE)
   #                                    )
 
-  # 5. Determine period start date
+  # 5. Determine period start date####
   # Loop through each Period (N and Units)
   numPeriods <- length(fun.myPeriod.N)
   myDate.Start <- rep(myDate.End, numPeriods)
@@ -242,7 +261,7 @@ PeriodStats <- function(fun.myDate
   # #               dplyr::filter(myDate.Name>=myDate.Start, myDate.Name<=myDate.End)
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  # 6. Subset and Save summary file
+  # 6. Subset and Save summary file ####
   myDate <- format(Sys.Date(),"%Y%m%d")
   myTime <- format(Sys.time(),"%H%M%S")
   myFile.Export.ext <- ".csv"
@@ -268,8 +287,14 @@ PeriodStats <- function(fun.myDate
     write.csv(df.summary.subset, file.path(fun.myDir.export,myFile.Export.full),quote=FALSE,row.names=FALSE)
   }##FOR.j.END
 
-  # 7. Generate markdown summary file with plots
-  myReport.Name <- "Report_PeriodStats - word"
+  # 7. Generate markdown summary file with plots ####
+  # Error Check, Report Format
+  if(fun.myReport.format==""){
+    fun.myReport.format <- ContData.env$myReport.Format
+  }
+  fun.myReport.format <- tolower(fun.myReport.format)
+
+  myReport.Name <- paste0("Report_PeriodStats","_",fun.myReport.format)
   myPkg <- "ContDataQC"
   if(boo.DEBUG==1){
     strFile.RMD <- file.path(getwd(),"inst","rmd",paste0(myReport.Name,".rmd")) # for testing
@@ -277,14 +302,14 @@ PeriodStats <- function(fun.myDate
     strFile.RMD <- system.file(paste0("rmd/",myReport.Name,".rmd"),package=myPkg)
   }
   #
-  strFile.out.ext <- ".docx" #".html" # ".docx"
+  strFile.out.ext <- paste0(".",fun.myReport.format) #".docx" # ".html"
   strFile.out <- paste0(myFile.Export.base,"_PeriodStats_",fun.myDate,"_",myDate,"_",myTime,strFile.out.ext)
   #suppressWarnings(
   rmarkdown::render(strFile.RMD, output_file=strFile.out, output_dir=fun.myDir.export, quiet=TRUE)
   #)
 
-  # 8. Inform user task is complete.
-  cat("Task complete.  CSV and DOCX files saved to directory:\n")
+  # 8. Inform user task is complete.####
+  cat("Task complete.  Data (CSV) and report (",fun.myReport.format,") files saved to directory:\n")
   cat(fun.myDir.export)
   flush.console()
 

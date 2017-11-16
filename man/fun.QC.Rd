@@ -21,7 +21,7 @@ fun.QC(fun.myData.SiteID, fun.myData.Type = "QC", fun.myData.DateRange.Start,
 
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default = "docx".}
+\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).}
 }
 \value{
 Returns a csv file to specified directory with QC flags.

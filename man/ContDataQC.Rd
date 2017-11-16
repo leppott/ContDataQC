@@ -7,7 +7,7 @@
 ContDataQC(fun.myData.Operation, fun.myData.SiteID, fun.myData.Type,
   fun.myData.DateRange.Start, fun.myData.DateRange.End,
   fun.myDir.import = getwd(), fun.myDir.export = getwd(),
-  fun.myConfig = "", fun.myFile = "", fun.myReport.format = "docx")
+  fun.myConfig = "", fun.myFile = "", fun.myReport.format = "")
 }
 \arguments{
 \item{fun.myData.Operation}{Operation to be performed; c("GetGageData","QCRaw", "Aggregate", "SummaryStats")}
@@ -28,7 +28,7 @@ ContDataQC(fun.myData.Operation, fun.myData.SiteID, fun.myData.Type,
 
 \item{fun.myFile}{Single file (or vector of files) to perform functions.  SiteID, Type, and Date Range not used when file name(s) provided.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default = "docx".}
+\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).}
 }
 \value{
 Returns a csv into the specified export directory with additional columns for calculated statistics.
@@ -127,7 +127,8 @@ myDir.import <- file.path(myDir.BASE,Selection.SUB[1]) #"Data1_RAW"
 myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
 myReport.format <- "docx"
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
-           , myData.DateRange.End, myDir.import, myDir.export, myReport.format)
+           , myData.DateRange.End, myDir.import, myDir.export
+           , fun.myReport.format=myReport.format)
 
 # QC Raw Data (offset collection times for air and water sensors)
 myData.Operation <- "QCRaw" #Selection.Operation[2]
@@ -139,7 +140,8 @@ myDir.import <- file.path(myDir.BASE,Selection.SUB[1]) #"Data1_RAW"
 myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
 myReport.format <- "html"
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
-           , myData.DateRange.End, myDir.import, myDir.export, myReport.format)
+           , myData.DateRange.End, myDir.import, myDir.export
+           , fun.myReport.format=myReport.format)
 
 # Aggregate Data
 myData.Operation <- "Aggregate" #Selection.Operation[3]
@@ -178,7 +180,8 @@ myDir.import <- file.path(".","Data1_RAW")
 myDir.export <- file.path(".","Data2_QC")
 myReport.format <- "docx"
 ContDataQC(myData.Operation, fun.myDir.import=myDir.import
-          , fun.myDir.export=myDir.export, fun.myFile=myFile, myReport.format)
+          , fun.myDir.export=myDir.export, fun.myFile=myFile
+          , fun.myReport.format=myReport.format)
 
 # Aggregate Data
 myData.Operation <- "Aggregate" #Selection.Operation[3]
@@ -188,7 +191,8 @@ myDir.import <- file.path(".","Data2_QC")
 myDir.export <- file.path(".","Data3_Aggregated")
 myReport.format <- "html"
 ContDataQC(myData.Operation, fun.myDir.import=myDir.import
-           , fun.myDir.export=myDir.export, fun.myFile=myFile, myReport.format)
+           , fun.myDir.export=myDir.export, fun.myFile=myFile
+           , fun.myReport.format=myReport.format)
 
 # Summary Stats
 myData.Operation <- "SummaryStats" #Selection.Operation[4]

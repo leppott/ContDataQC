@@ -8,7 +8,7 @@ PeriodStats(fun.myDate, fun.myDate.Format = NA, fun.myPeriod.N = 30,
   fun.myPeriod.Units = "d", fun.myFile, fun.myDir.import = getwd(),
   fun.myDir.export = getwd(), fun.myParam.Name,
   fun.myDateTime.Name = "Date.Time", fun.myDateTime.Format = NA,
-  fun.myThreshold = NA, fun.myConfig = "")
+  fun.myThreshold = NA, fun.myConfig = "", fun.myReport.format = "")
 }
 \arguments{
 \item{fun.myDate}{Benchmark date.}
@@ -34,6 +34,8 @@ PeriodStats(fun.myDate, fun.myDate.Format = NA, fun.myPeriod.N = 30,
 \item{fun.myThreshold}{Value to draw line on plot.  For example, a regulatory limit.  Default = NA}
 
 \item{fun.myConfig}{Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control date and time formats.}
+
+\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).}
 }
 \value{
 Returns a csv with daily means and a PDF summary with plots into the specified export directory for the specified time period before the given date.
@@ -66,8 +68,10 @@ myDateTime.Name <- "Date.Time"
 myDateTime.Format <- "\%Y-\%m-\%d \%H:\%M:\%S"
 myThreshold <- 20
 myConfig <- ""
+myReport.format <- "html"
 
 # Run Function
+## default report format (docx)
 PeriodStats(myDate
           , myDate.Format
           , myPeriod.N
@@ -80,6 +84,21 @@ PeriodStats(myDate
           , myDateTime.Format
           , myThreshold
           , myConfig)
+
+## HTML report format
+PeriodStats(myDate
+          , myDate.Format
+          , myPeriod.N
+          , myPeriod.Units
+          , myFile
+          , myDir.import
+          , myDir.export
+          , myParam.Name
+          , myDateTime.Name
+          , myDateTime.Format
+          , myThreshold
+          , myConfig
+          , myReport.format)
 }
 \keyword{continuous}
 \keyword{daily}

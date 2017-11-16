@@ -1,12 +1,14 @@
 ---
 title: "Period Statistics Report"
-output: word_document
+output: html_document
 ---
 # DATA FILE INFORMATION
 ```{r data_file_info, results='asis', echo=FALSE, warning=FALSE}
   myReportDate <- format(Sys.Date(),fun.myDate.Format)
  # myReportDate <- format(Sys.Date(),fd01)
   cat(paste("**Report Date: ** ",myReportDate,"\n\n",sep=""))
+  myUser <- Sys.getenv("USERNAME")
+  cat(paste("**Generate By:** ",myUser,"\n\n",sep=""))
   
 cat("**Benchmark Date: ** ",fun.myDate,collapse="\n\n",sep="")
 

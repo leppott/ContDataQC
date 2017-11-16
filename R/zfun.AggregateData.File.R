@@ -32,7 +32,7 @@
 #' @param fun.myFile Vector of file names.
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.myReport.format Report format (docx or html).  Default = "docx".
+#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
 #' @return Returns a csv into the specified export directory of each file appended into a single file.
 #' @keywords continuous data, aggregate
 #' @examples
@@ -424,8 +424,10 @@ fun.AggregateData.File <- function(fun.myFile
 
   rm(data.append)
 
+  # Report ####
   # 20170607, move outside of loop (and remove prefix for fun.Report.File)
-  booDisableReport <- TRUE
+
+  booDisableReport <- FALSE
   if (booDisableReport==TRUE) {
     myMsg <- "The reporting feature is disabled at this time.  A future verison may re-enable it."
     cat(myMsg)
@@ -434,7 +436,8 @@ fun.AggregateData.File <- function(fun.myFile
     fun.Report.File(strFile.Out.NoPrefix
                     , fun.myDir.export
                     , fun.myDir.export
-                    , strFile.Out.Prefix)
+                    , strFile.Out.Prefix
+                    , fun.myReport.format)
   }
 
 

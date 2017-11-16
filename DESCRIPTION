@@ -1,6 +1,6 @@
 Package: ContDataQC
 Title: Quality Control (QC) of Continous Monitoring Data
-Version: 2.0.1.9048
+Version: 2.0.1.9049
 Authors@R: c(
 	person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com",role=c("aut","cre")),
 	person("Ann","Roseberry Lincoln", role="ctb"),
@@ -15,16 +15,18 @@ LazyData: true
 URL: https://github.com/leppott/ContDataQC
 BugReports: https://github.com/leppott/ContDataQC/issues
 RoxygenNote: 6.0.1
-Imports: 
+Imports:
     knitr,
     rmarkdown,
     dataRetrieval,
     zoo,
     survival,
     doBy
-Suggests: 
+Suggests:
     XLConnect,
     installr,
     IHA,
-    StreamThermal
+    StreamThermal,
+    knitr,
+    rmarkdown
 VignetteBuilder: knitr

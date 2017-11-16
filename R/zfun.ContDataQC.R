@@ -58,7 +58,7 @@
 # @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the output.
 #' @param fun.myConfig Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.
 #' @param fun.myFile Single file (or vector of files) to perform functions.  SiteID, Type, and Date Range not used when file name(s) provided.
-#' @param fun.myReport.format Report format (docx or html).  Default = "docx".
+#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
 #' @keywords continuous data, aggregate
 #' @examples
@@ -139,7 +139,8 @@
 #' myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
 #' myReport.format <- "docx"
 #' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
-#'            , myData.DateRange.End, myDir.import, myDir.export, myReport.format)
+#'            , myData.DateRange.End, myDir.import, myDir.export
+#'            , fun.myReport.format=myReport.format)
 #'
 #' # QC Raw Data (offset collection times for air and water sensors)
 #' myData.Operation <- "QCRaw" #Selection.Operation[2]
@@ -151,7 +152,8 @@
 #' myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
 #' myReport.format <- "html"
 #' ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
-#'            , myData.DateRange.End, myDir.import, myDir.export, myReport.format)
+#'            , myData.DateRange.End, myDir.import, myDir.export
+#'            , fun.myReport.format=myReport.format)
 #'
 #' # Aggregate Data
 #' myData.Operation <- "Aggregate" #Selection.Operation[3]
@@ -190,7 +192,8 @@
 #' myDir.export <- file.path(".","Data2_QC")
 #' myReport.format <- "docx"
 #' ContDataQC(myData.Operation, fun.myDir.import=myDir.import
-#'           , fun.myDir.export=myDir.export, fun.myFile=myFile, myReport.format)
+#'           , fun.myDir.export=myDir.export, fun.myFile=myFile
+#'           , fun.myReport.format=myReport.format)
 #'
 #' # Aggregate Data
 #' myData.Operation <- "Aggregate" #Selection.Operation[3]
@@ -200,7 +203,8 @@
 #' myDir.export <- file.path(".","Data3_Aggregated")
 #' myReport.format <- "html"
 #' ContDataQC(myData.Operation, fun.myDir.import=myDir.import
-#'            , fun.myDir.export=myDir.export, fun.myFile=myFile, myReport.format)
+#'            , fun.myDir.export=myDir.export, fun.myFile=myFile
+#'            , fun.myReport.format=myReport.format)
 #'
 #' # Summary Stats
 #' myData.Operation <- "SummaryStats" #Selection.Operation[4]
@@ -222,12 +226,19 @@ ContDataQC <- function(fun.myData.Operation
                        , fun.myDir.export=getwd()
                        , fun.myConfig=""
                        , fun.myFile=""
-                       , fun.myReport.format="docx")
+                       , fun.myReport.format="")
   {##FUN.fun.Master.START
   # config file load, 20170517
   if (fun.myConfig!="") {##IF.fun.myConfig.START
     config.load(fun.myConfig)
   }##IF.fun.myConfig.START
+  #
+  # 20171115
+  # Error Check, Report Format
+  if(fun.myReport.format==""){
+    fun.myReport.format <- ContData.env$myReport.Format
+  }
+  fun.myReport.format <- tolower(fun.myReport.format)
   #
   ## dont need check if using "files" version
   if(fun.myFile==""){##IF.fun.myFile.START

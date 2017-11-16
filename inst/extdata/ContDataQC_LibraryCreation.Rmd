@@ -13,13 +13,58 @@ Erik.Leppo@tetratech.com
 Package related code.
 
 ## Vignette
-```{r, eval=FALSE}
+
+1. Need to run code below to add data to "vignette" directory so it will work.
+
+```{r Vignette_Data, eval=FALSE}
+# 1. change wd to vignettes
+setwd(file.path("C:","Users","Erik.Leppo","OneDrive - Tetra Tech, Inc"
+                ,"MyDocs_OneDrive","GitHub","ContDataQC","vignettes"))
+#
+# 2. Add data for vignette examples
+# Parameters
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.BASE <- getwd()
+#
+# Create data directories
+myDir.create <- paste0("./",Selection.SUB[1])
+  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+myDir.create <- paste0("./",Selection.SUB[2])
+  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+myDir.create <- paste0("./",Selection.SUB[3])
+  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+myDir.create <- paste0("./",Selection.SUB[4])
+  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+#
+# Save example data (assumes directory ./Data1_RAW/ exists)
+myData <- data_raw_test2_AW_20130426_20130725
+  write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20130426_20130725.csv"))
+myData <- data_raw_test2_AW_20130725_20131015
+  write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20130725_20131015.csv"))
+myData <- data_raw_test2_AW_20140901_20140930
+  write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20140901_20140930.csv"))
+myData <- data_raw_test4_AW_20160418_20160726
+  write.csv(myData,paste0("./",Selection.SUB[1],"/test4_AW_20160418_20160726.csv"))
+myFile <- "config.TZ.Central.R"
+  file.copy(file.path(path.package("ContDataQC"),"extdata",myFile)
+            ,file.path(getwd(),Selection.SUB[1],myFile))
+```
+
+2. Knit the vignette in the vignette folder to ensure all of the code works and 
+is properly displayed.
+
+3. Use the code below to "build" the vignette and then use it in the pkg.
+
+```{r Vignette_Build, eval=FALSE}
 # generate Vignette
 library(ContDataQC)
 library(devtools)
 devtools::build_vignettes()
 
-devtools::use_vignette("ContDataQC_Vignette")
+# create vignette folder and default file
+#devtools::use_vignette("ContDataQC_Vignette")
 ```
 devtools::build() more useful and build_vignettes()
 

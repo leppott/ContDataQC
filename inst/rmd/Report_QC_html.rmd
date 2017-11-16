@@ -6,6 +6,8 @@ output: html_document
 ```{r report_date, results='asis', echo=FALSE, warning=FALSE}
   myReportDate <- format(Sys.Date(),ContData.env$myFormat.Date)
   cat(paste("**Report Date:** ",myReportDate,"\n\n",sep=""))
+  myUser <- Sys.getenv("USERNAME")
+  cat(paste("**Generate By:** ",myUser,"\n\n",sep=""))
 ```
 
 # DATA FILE INFORMATION

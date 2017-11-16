@@ -40,7 +40,7 @@
 #' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.myReport.format Report format (docx or html).  Default = "docx".
+#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
 #' @return Returns a csv file to specified directory with QC flags.
 #' @keywords continuous data, qc, quality control
 #' @examples

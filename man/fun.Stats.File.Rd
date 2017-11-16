@@ -14,7 +14,7 @@ fun.Stats.File(fun.myFile, fun.myDir.import = getwd(),
 
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default = "docx".}
+\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).}
 }
 \value{
 Returns a csv into the specified export directory with additional columns for calculated statistics.  And a PDF of summary plots by different time periods.

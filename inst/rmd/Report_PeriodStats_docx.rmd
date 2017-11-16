@@ -1,0 +1,40 @@
+---
+title: "Period Statistics Report"
+output: word_document
+---
+# DATA FILE INFORMATION
+```{r data_file_info, results='asis', echo=FALSE, warning=FALSE}
+  myReportDate <- format(Sys.Date(),fun.myDate.Format)
+ # myReportDate <- format(Sys.Date(),fd01)
+  cat(paste("**Report Date: ** ",myReportDate,"\n\n",sep=""))
+  myUser <- Sys.getenv("USERNAME")
+  cat(paste("**Generate By:** ",myUser,"\n\n",sep=""))
+  
+cat("**Benchmark Date: ** ",fun.myDate,collapse="\n\n",sep="")
+
+cat("**Period (N, Units): ** ",paste(fun.myPeriod.N[1:numPeriods],fun.myPeriod.Units[1:numPeriods], collapse=", "),collapse="\n\n",sep="")
+
+cat(paste("**Period Start Date: **",paste(as.Date(myDate.Start[1:numPeriods]),collapse=", "),sep=""),collapse="\n\n")
+
+cat("**Parameter: ** ",fun.myParam.Name,collapse="\n\n",sep="")
+
+cat("**Threshold: ** ",fun.myThreshold,collapse="\n\n",sep="")
+
+cat("**Filename, Input: ** ",fun.myFile,"\n\n",sep="")
+  
+#cat("**Filename, Output: ** ",paste0(myFile.Export.part,myFile.Export.ext),sep="")
+```
+
+#Plot
+Mean daily values for requested date ranges with line for threshold (if provided).
+```{r stats_summary, results='asis', echo=FALSE, warning=FALSE}
+  for (k in 1:numPeriods){##FOR.j.START
+      # subset
+      df.plot <- df.summary[df.summary[,myDate.Name]>=as.Date(myDate.Start[k]) & df.summary[,myDate.Name]<=as.Date(myDate.End),]
+      # create file name
+      plot(df.plot[,1:2],main=paste0(fun.myDate," \n(",fun.myPeriod.N[k],fun.myPeriod.Units[k],")"))
+      if(!is.na(fun.myThreshold)){
+        abline(h=fun.myThreshold)
+      }
+    }##FOR.j.END
+```

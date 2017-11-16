@@ -34,7 +34,7 @@
 #' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.myReport.format Report format (docx or html).  Default = "docx".
+#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
 #' @keywords continuous data, aggregate
 #' @examples
@@ -346,7 +346,8 @@ fun.AggregateData <- function(fun.myData.SiteID
                      ,fun.myData.DateRange.End
                      ,fun.myDir.export
                      ,fun.myDir.export
-                     ,"DATA")
+                     ,fun.myFile.Prefix = "DATA"
+                     ,fun.myReport.format)
 #                 ##
 #                 # QC
 #                 ##
@@ -385,7 +386,8 @@ fun.AggregateData <- function(fun.myData.SiteID
   fun.Report.File(strFile.Out.NoPrefix
                   , fun.myDir.export
                   , fun.myDir.export
-                  , strFile.Out.Prefix)
+                  , strFile.Out.Prefix
+                  , fun.myReport.format)
 
 
 

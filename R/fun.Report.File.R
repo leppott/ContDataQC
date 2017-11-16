@@ -41,7 +41,7 @@
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
-#' @param fun.myReport.format Report format (docx or html).  Default = "docx".
+#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
 #' @return Creates a Word file in the specified directory.
 #' @keywords continuous data, report
 #' @examples
@@ -136,7 +136,7 @@ fun.Report.File <- function(fun.myFile
     # use RMD with embedded code
     # much cleaner DOCX than the 2-step process of MD with knit to RMD with pandoc
     #strFile.RMD <- paste(myDir.BASE,"Scripts",paste(myReport.Name,"rmd",sep="."),sep="/") #"QCReport.rmd"
-    strFile.RMD <- system.file(paste0("rmd/",myReport.Name,".rmd"),package=myPkg)
+    strFile.RMD <- system.file(paste0("rmd/",myReport.Name,"_",fun.myReport.format,".rmd"),package=myPkg)
     strFile.out.ext <- paste0(".",fun.myReport.format) #".docx" # ".html"
     strFile.out <- paste(paste(strFile.Base,myReport.Name,sep=ContData.env$myDelim),strFile.out.ext,sep="")
     #suppressWarnings(

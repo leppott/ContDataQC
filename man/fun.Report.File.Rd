@@ -16,7 +16,7 @@ fun.Report.File(fun.myFile, fun.myDir.import = getwd(),
 
 \item{fun.myFile.Prefix}{Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default = "docx".}
+\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).}
 }
 \value{
 Creates a Word file in the specified directory.

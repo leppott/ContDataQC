@@ -37,16 +37,28 @@ cat(paste0("Last Update: ",Sys.time()))
 
 * Run devtools::check().  20170926.
 
-* Fix mixed case issue with filenames in "file" versions of QCRaw, Aggregate, and Stats. And turn Reports back "on".  20170929.
+* Fix mixed case issue with filenames in "file" versions of QCRaw, Aggregate, and Stats.  20170929.
 
 + More check data stuff.
-+ check on Aggregate function
 + Update vignette
 + Threshold number or pct on plot
 + CSV issue
 + Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.1.9049
+2017-11-16
+
+* Fix error in myReport.format and then examples.  20171115.
+
+* Renamed report RMD files and altered reference in PeriodStats().  20171115.
+
+* Added myReport.Format to config.R and set the default there rather than in code.  20171115.
+
+* Add "username" to reports.  20171116.
+
+* Update vignette.  20171116.
 
 ## v2.0.1.9048
 2017-11-15
