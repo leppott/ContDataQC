@@ -53,7 +53,7 @@ myFile <- "config.TZ.Central.R"
 ```
 
 2. Knit the vignette in the vignette folder to ensure all of the code works and 
-is properly displayed.
+is properly displayed.  This can take 2 to 5 min.
 
 3. Use the code below to "build" the vignette and then use it in the pkg.
 
@@ -171,3 +171,40 @@ search() # find
 
 ```
 
+# Test Stats only
+
+
+```{r Stats_Gage, eval=FALSE}
+# Parameters
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.BASE <- getwd()
+#
+# Summary Stats, File
+## Have to use "file" version.  
+## Base version builds file name and expects "DATA" prefix
+
+# Gage File + Other File
+myData.Operation <- "SummaryStats" #Selection.Operation[4]
+myFile <- c("Data4Stats_01187300_Gage_20130101_20141231.csv"
+            ,"Data4Stats_test2_Aw_20130101_20141231.csv")
+myDir.import <- file.path(".","data-raw")
+myDir.export <- file.path(".","Data4_Stats")
+
+#Leave off myReport.format and get default (docx).
+ContDataQC(myData.Operation
+           , fun.myDir.import=myDir.import
+           , fun.myDir.export=myDir.export
+           , fun.myFile=myFile)
+
+
+```
+
+SiteID, Date, Time, Date.Time, Parameters, Flag.Parameters
+
+Only one flag per parameter.  Do not need individual test flags.
+
+"F" (fail) flags are changed to NA so they are dropped from the statistics that calculated.
+
+Mocked up 2 files.

@@ -2,13 +2,13 @@
 title: "ContDataQC Vignette"
 author: "Erik W. Leppo"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+rmarkdown::html_vignette:
 vignette: >
   %\VignetteIndexEntry{ContDataQC_Vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
 
 # Introduction
 `ContDataQC` was created by Tetra Tech, Inc. for USEPA in 2017 to meet the needs of the Regional Monitoring Networks to apply a minimum level of quality control to the continuous monitoring data they were collecting.
@@ -1178,4 +1178,26 @@ data.import <- myDF
     CreatePlots()
 ```
 
+## Richards-Baker (Flashiness) Index
+Calculates the RBI from a vector of flow measurements.  Inputs are are vector of flow measurements over some time period (e.g., water year).  Output is a single value that represents the RBI.
 
+The RBI is the sum of absolute differences between days divided by the total flow for the given time period.
+
+Baker, D.B., R.P. Richards, T.T. Loftus, and J.W. Kramer.  2004.  A New Flashiness Index:
+Characteristics and Applications to Midwestern Rivers and Streams.  April 2004.
+Journal of the American Water Resources Association (JAWRA).  Pages 503:522.
+
+```{r RBI}
+# Get Gage Data via the dataRetrieval package from USGS 01187300 2013
+data.gage <- dataRetrieval::readNWISdv("03238500", "00060", "1974-10-01", "1975-09-30")
+head(data.gage)
+# flow data
+data.Q <- data.gage[,4]
+# remove zeros
+data.Q[data.Q==0] <- NA
+RBIcalc(data.Q)
+```
+
+The calculated value from this function was QCed against data in the journal article.
+
+Whiteoak Creek near Georgetown, Ohio (03238500) for the water year 1975 was download via the `dataRetrieval` package and used to generate the RBI.  The value calculated by RBIcalc() matches the value in Figure 8 in the journal (0.98).  The value was also verified using Excel.

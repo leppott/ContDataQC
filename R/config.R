@@ -282,7 +282,7 @@ ContData.env$myThresh.Gross.Suspect.Lo.AirTemp    <- -23
 ContData.env$myThresh.Gross.Suspect.Hi.WaterP     <- 16.8
 ContData.env$myThresh.Gross.Suspect.Lo.WaterP     <- 13.5
 ContData.env$myThresh.Gross.Suspect.Hi.AirBP      <- 14.8
-ContData.env$myThresh.Gross.Suspect.Lo.AirBP      <- 13.5
+ContData.env$myThresh.Gross.Suspect.Lo.AirBP      <- 13.0
 ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth <- 5    # no longer used (only check for negative values for SensorDepth)
 ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth <- 0    # no longer used (only check for negative values for SensorDepth)
 ContData.env$myThresh.Gross.Suspect.Hi.Discharge  <-  10^3 #dependant upon stream size (only checkf or negative values
@@ -366,8 +366,8 @@ ContData.env$myDefault.Flat.Tolerance <- 0.01 # set to one sigdig less than meas
 ContData.env$myThresh.Flat.Hi.WaterTemp         <- 30
 ContData.env$myThresh.Flat.Lo.WaterTemp         <- 20
 ContData.env$myThresh.Flat.Tolerance.WaterTemp  <- 0.01
-ContData.env$myThresh.Flat.Hi.AirTemp           <- 15
-ContData.env$myThresh.Flat.Lo.AirTemp           <- 10
+ContData.env$myThresh.Flat.Hi.AirTemp           <- 20
+ContData.env$myThresh.Flat.Lo.AirTemp           <- 15
 ContData.env$myThresh.Flat.Tolerance.AirTemp    <- 0.01
 ContData.env$myThresh.Flat.Hi.WaterP            <- 15
 ContData.env$myThresh.Flat.Lo.WaterP            <- 10

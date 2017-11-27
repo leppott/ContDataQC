@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-11-16 09:15:32
+    #> Last Update: 2017-11-27 14:25:54
 
 Planned Updates
 ===============
@@ -34,16 +34,27 @@ Planned Updates
 Version History
 ===============
 
+v2.0.1.9050
+-----------
+
+2017-11-27
+
+-   Updated some QC thresholds in config.R. 20171127.
+
 v2.0.1.9049
 -----------
 
-2017-11-15
+2017-11-16
 
--   Fix error in myReport.format and then examples.
+-   Fix error in myReport.format and then examples. 20171115.
 
--   Renamed report RMD files and altered reference in PeriodStats().
+-   Renamed report RMD files and altered reference in PeriodStats(). 20171115.
 
--   Added myReport.Format to config.R and set the default there rather than in code.
+-   Added myReport.Format to config.R and set the default there rather than in code. 20171115.
+
+-   Add "username" to reports. 20171116.
+
+-   Update vignette. 20171116.
 
 v2.0.1.9048
 -----------

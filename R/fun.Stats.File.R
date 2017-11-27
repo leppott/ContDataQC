@@ -37,6 +37,12 @@
 #' myDir.export <- file.path(getwd(),"Data4_Stats")
 #' fun.Stats.File(myFile, myDir.import, myDir.export)
 #
+# # QC
+# fun.myFile <- myFile
+# fun.myDir.import <- myDir.import
+# fun.myDir.export <- myDir.export
+# fun.myReport.format <- ""
+#
 #' @export
 fun.Stats.File <- function(fun.myFile
                           , fun.myDir.import=getwd()
@@ -101,7 +107,7 @@ fun.Stats.File <- function(fun.myFile
 
   # Check on number of files
   files2process <- fun.myFile
-  head(files2process)
+  #head(files2process)
 
   # Define Counters for the Loop
   intCounter <- 0
