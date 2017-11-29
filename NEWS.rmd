@@ -47,6 +47,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.1.9053
+2017-11-29
+
+* Readme, fix typo in github install function.  20171129.
+
+* Update example in Export.StreamThermal so is self contained. Vignette did not need to be updated. Included example code for export to Excel (same as in Export.IHA example).  20171129.
+
 ## v2.0.1.9052
 2017-11-29
 

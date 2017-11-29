@@ -2,7 +2,7 @@ README-ContDataQC
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-    #> Last Update: 2017-11-28 11:50:31
+    #> Last Update: 2017-11-29 17:29:17
 
 ContDataQC
 ==========
@@ -15,7 +15,7 @@ Installation
 ``` r
 # Installing just this library (should get all dependancies)
 library(devtools) 
-install.git_hub("leppott/ContDataQC")
+install_github("leppott/ContDataQC")
 ```
 
 If dependant libraries do not load you can install them separately.

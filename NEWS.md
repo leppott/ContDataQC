@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-11-29 15:29:11
+    #> Last Update: 2017-11-29 18:30:25
 
 Planned Updates
 ===============
@@ -33,6 +33,15 @@ Planned Updates
 
 Version History
 ===============
+
+v2.0.1.9053
+-----------
+
+2017-11-29
+
+-   Readme, fix typo in github install function. 20171129.
+
+-   Update example in Export.StreamThermal so is self contained. Vignette did not need to be updated. Included example code for export to Excel (same as in Export.IHA example). 20171129.
 
 v2.0.1.9052
 -----------
