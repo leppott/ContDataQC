@@ -622,7 +622,7 @@ ContData.env$myThresh.Gross.Suspect.Lo.AirTemp    <- -23
 ContData.env$myThresh.Gross.Suspect.Hi.WaterP     <- 16.8
 ContData.env$myThresh.Gross.Suspect.Lo.WaterP     <- 13.5
 ContData.env$myThresh.Gross.Suspect.Hi.AirBP      <- 14.8
-ContData.env$myThresh.Gross.Suspect.Lo.AirBP      <- 13.5
+ContData.env$myThresh.Gross.Suspect.Lo.AirBP      <- 13.0
 ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth <- 5    # no longer used (only check for negative values for SensorDepth)
 ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth <- 0    # no longer used (only check for negative values for SensorDepth)
 ContData.env$myThresh.Gross.Suspect.Hi.Discharge  <-  10^3 #dependant upon stream size (only checkf or negative values
@@ -706,8 +706,8 @@ ContData.env$myDefault.Flat.Tolerance <- 0.01 # set to one sigdig less than meas
 ContData.env$myThresh.Flat.Hi.WaterTemp         <- 30
 ContData.env$myThresh.Flat.Lo.WaterTemp         <- 20
 ContData.env$myThresh.Flat.Tolerance.WaterTemp  <- 0.01
-ContData.env$myThresh.Flat.Hi.AirTemp           <- 15
-ContData.env$myThresh.Flat.Lo.AirTemp           <- 10
+ContData.env$myThresh.Flat.Hi.AirTemp           <- 20
+ContData.env$myThresh.Flat.Lo.AirTemp           <- 15
 ContData.env$myThresh.Flat.Tolerance.AirTemp    <- 0.01
 ContData.env$myThresh.Flat.Hi.WaterP            <- 15
 ContData.env$myThresh.Flat.Lo.WaterP            <- 10
@@ -852,7 +852,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type
 #
 # 1.B. Use saved data
 myFile <- "01187300_Gage_20150101_20161231.csv"
-myCol.DateTime="Date.Time"
+myCol.DateTime <- "Date.Time"
 myCol.Discharge <- "Discharge.ft3.s"
 #
 # 2. Prep Data
@@ -1201,3 +1201,50 @@ RBIcalc(data.Q)
 The calculated value from this function was QCed against data in the journal article.
 
 Whiteoak Creek near Georgetown, Ohio (03238500) for the water year 1975 was download via the `dataRetrieval` package and used to generate the RBI.  The value calculated by RBIcalc() matches the value in Figure 8 in the journal (0.98).  The value was also verified using Excel.
+
+## Summary Stats Only
+The user sometimes will have data that is already QCed or that just needs summary stats.  It is possible to run just the summary stats from `ContDataQC` but need to require certain fields.
+
+* SiteID
+* Date
+* Time
+* Date.Time
+* Parameter names in ContDataQC format (config.R).  Examples below:
+    + Water.Temp.C
+    + Discharge.ft3.s
+* QC Flag fields for each parameter in the data ("Flag." + Parameter Name).  Examples below:
+    + Flag.Water.Temp.C
+    + Flag.Discharge.ft3.s
+    
+The example code below will download 2 years of discharge data from a the USGS gage 0118730, add the necessary fields, save the file, and run SummaryStats.
+    
+```{r SummarStats_NonContDataQC_Data, eval=FALSE}
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Summary Stats from Other Data
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Get Data, e.g., USGS gage data
+# Get Gage Data via the dataRetrieval package from USGS 01187300 2013 (~4 seconds)
+data.gage <- dataRetrieval::readNWISuv("01187300", "00060", "2013-01-01", "2014-12-31")
+head(data.gage)
+# Rename fields
+myNames <- c("Agency", "SiteID", "Date.Time", "Discharge.ft3.s", "Code", "TZ")
+names(data.gage) <- myNames
+# Add Date and Time
+data.gage[,"Date"] <- as.Date(data.gage[,"Date.Time"])
+data.gage[,"Time"] <-  strftime(data.gage[,"Date.Time"], format="%H:%M:%S")
+# Add "flag" fields that are added by QC function.
+Names.Flags <- paste0("Flag.",c("Date.Time", "Discharge.ft3.s"))
+data.gage[,Names.Flags] <- "P"
+# Save File
+myFile <- "01187300_Gage_20130101_20141231.csv"
+write.csv(data.gage, myFile, row.names=FALSE)
+# Run Stats (File)
+myData.Operation <- "SummaryStats"
+myDir.import <- getwd()
+myDir.export <- getwd()
+ContDataQC(myData.Operation
+           , fun.myDir.import=myDir.import
+           , fun.myDir.export=myDir.export
+           , fun.myFile=myFile)
+```
+

@@ -169,7 +169,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # File Versions
-#~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # QC Data
 myData.Operation <- "QCRaw" #Selection.Operation[2]
@@ -204,6 +204,32 @@ myDir.export <- file.path(".","Data4_Stats")
 #Leave off myReport.format and get default (docx).
 ContDataQC(myData.Operation, fun.myDir.import=myDir.import
           , fun.myDir.export=myDir.export, fun.myFile=myFile)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Summary Stats from Other Data
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Get Data, e.g., USGS gage data
+# Get Gage Data via the dataRetrieval package from USGS 01187300 2013 (~4 seconds)
+data.gage <- dataRetrieval::readNWISuv("01187300", "00060", "2013-01-01", "2014-12-31")
+head(data.gage)
+# Rename fields
+myNames <- c("Agency", "SiteID", "Date.Time", "Discharge.ft3.s", "Code", "TZ")
+names(data.gage) <- myNames
+# Add Date and Time
+data.gage[,"Date"] <- as.Date(data.gage[,"Date.Time"])
+data.gage[,"Time"] <-  strftime(data.gage[,"Date.Time"], format="\%H:\%M:\%S")
+# Add "flag" fields that are added by QC function.
+Names.Flags <- paste0("Flag.",c("Date.Time", "Discharge.ft3.s"))
+data.gage[,Names.Flags] <- "P"
+# Save File
+myFile <- "01187300_Gage_20130101_20141231.csv"
+write.csv(data.gage, myFile, row.names=FALSE)
+# Run Stats (File)
+myData.Operation <- "SummaryStats"
+myDir.import <- getwd()
+myDir.export <- getwd()
+ContDataQC(myData.Operation, fun.myDir.import=myDir.import
+                     , fun.myDir.export=myDir.export, fun.myFile=myFile)
 }
 \keyword{aggregate}
 \keyword{continuous}

@@ -57,7 +57,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type
 #
 # 1.B. Use saved data
 myFile <- "01187300_Gage_20150101_20161231.csv"
-myCol.DateTime="Date.Time"
+myCol.DateTime <- "Date.Time"
 myCol.Discharge <- "Discharge.ft3.s"
 #
 # 2. Prep Data
