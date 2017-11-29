@@ -2,7 +2,7 @@ README-ContDataQC
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-    #> Last Update: 2017-09-27 09:12:41
+    #> Last Update: 2017-11-28 11:50:31
 
 ContDataQC
 ==========
@@ -68,7 +68,7 @@ The code was presented at the following workshops. And further developed under c
 
 Functions were developed to help data generators handle data from continuous data sensors (e.g., HOBO data loggers).
 
-From a single function, ContDataQC(), can QC, aggregate, or calculate summary stats on data. `ContDataQC` Uses the USGS dataRetrieval library to get USGS gage data. Reports are generated in Word (through the use of knitr and Pandoc).
+From a single function, ContDataQC(), can QC, aggregate, or calculate summary stats on data. `ContDataQC` Uses the USGS `dataRetrieval` library to get USGS gage data. Reports are generated in Word (through the use of knitr and Pandoc).
 
 Usage
 -----

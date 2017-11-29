@@ -25,7 +25,7 @@ Installation
 ```{r, eval=FALSE}
 # Installing just this library (should get all dependancies)
 library(devtools) 
-install.git_hub("leppott/ContDataQC")
+install_github("leppott/ContDataQC")
 ```
 
 If dependant libraries do not load you can install them separately.
