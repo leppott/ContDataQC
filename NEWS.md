@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-11-29 18:30:25
+    #> Last Update: 2017-11-30 09:34:17
 
 Planned Updates
 ===============
@@ -33,6 +33,19 @@ Planned Updates
 
 Version History
 ===============
+
+v2.0.1.9054
+-----------
+
+2017-11-30
+
+-   StreamThermal
+
+    -   Update Excel file with category definitions from journal article. 20171130.
+
+    -   Add metric definition Excel file to extdata so can use when create data export. 20171130.
+
+    -   Update examples in vignette. 20171130.
 
 v2.0.1.9053
 -----------

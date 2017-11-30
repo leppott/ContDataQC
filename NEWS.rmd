@@ -47,6 +47,17 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.1.9054
+2017-11-30
+
+* StreamThermal
+
+    + Update Excel file with category definitions from journal article.  20171130.
+    
+    + Add metric definition Excel file to extdata so can use when create data export.  20171130.
+    
+    + Update examples in vignette.  20171130.
+
 ## v2.0.1.9053
 2017-11-29
 

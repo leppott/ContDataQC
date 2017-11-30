@@ -66,21 +66,38 @@
 #' (ST.mag  <- T_magnitude(sitedata))
 #' (ST.roc  <- T_rateofchange(sitedata))
 #' (ST.tim  <- T_timing(sitedata))
-#' (ST.var  <- T_variability(sitedata)) # example in package doesn't work
-#'
+#' (ST.var  <- T_variability(sitedata))
 #'
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Save Results to Excel (each group on its own worksheet)
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' library(XLConnect)
-#'
-#' Group.Desc <- c("metrics of stream thermal frequency"
-#'                 ,"metrics that characterize magnitude of stream temperature"
-#'                 ,"metrics that characterize rate of change of stream temperature"
-#'                 ,"summarize the timing of a variety metrics"
-#'                 ,"metrics that characterize variability of stream temperature"
-#'                 )
+#' # Descriptions
+#' #
+#' Desc.freq <- "Frequency metrics indicate numbers of days in months or seasons
+#' that key events exceed user-defined temperatures. "
+#' #
+#' Desc.mag <- "Magnitude metrics characterize monthly and seasonal averages and
+#' the maximum and minimum from daily temperatures as well as 3-, 7-, 14-, 21-,
+#' and 30-day moving averages for mean and maximum daily temperatures."
+#' #
+#' Desc.roc <- "Rate of change metrics include monthly and seasonal rate of
+#' change, which indicates the difference in magnitude of maximum and minimum
+#' temperatures divided by number of days between these events."
+#' #
+#' Desc.tim <- "Timing metrics indicate Julian days of key events including
+#' mean, maximum, and minimum temperatures; they also indicate Julian days of
+#' mean, maximum, and minimum values over moving windows of specified size."
+#' #
+#' Desc.var <- "Variability metrics summarize monthly and seasonal range in
+#' daily mean temperatures as well as monthly coefficient of variation of daily
+#' mean, maximum, and minimum temperatures. Variability metrics also include
+#' moving averages for daily ranges and moving variability in extreme
+#' temperatures, calculated from differences in average high and low
+#' temperatures over various time periods"
+#' #
+#' Group.Desc <- c(Desc.freq, Desc.mag, Desc.roc, Desc.tim, Desc.var)
 #' df.Groups <- as.data.frame(cbind(c("freq","mag","roc","tim","var"),Group.Desc))
 #' #
 #' SiteID <- sitedata[1,1]
@@ -94,8 +111,13 @@
 #' df.Notes <- as.data.frame(cbind(Notes.Names, Notes.Data))
 #' Notes.Summary <- summary(sitedata)
 #' # Open/Create file
+#' ## New File Name
 #' myFile.XLSX <- paste("StreamThermal", SiteID, myDate, myTime, "xlsx", sep=".")
-#' wb <- loadWorkbook(myFile.XLSX, create = TRUE) # load workbook, create if not existing
+#' ## Copy over template with Metric Definitions
+#' file.copy(file.path(path.package("ContDataQC"),"extdata","StreamThermal_MetricList.xlsx")
+#'           , myFile.XLSX)
+#' ## load workbook, create if not existing
+#' wb <- loadWorkbook(myFile.XLSX, create = TRUE)
 #' # create sheets
 #' createSheet(wb, name = "NOTES")
 #' createSheet(wb, name = "freq")
