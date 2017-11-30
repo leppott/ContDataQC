@@ -47,6 +47,17 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.1.9056
+2017-11-30
+
+* PeriodStats
+
+    + Added data input requirements.  20171130.
+    
+    + Updated example for default report from DOCX to HTML.  20171130.
+    
+    + Updated Vignette.  20171130.
+    
 ## v2.0.1.9055
 2017-11-30
 

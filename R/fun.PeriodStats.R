@@ -1,10 +1,18 @@
+# ~~~~~ Title ~~~~~
 #' Daily stats for a given time period
 #'
-#' Generates daily stats (N, mean, min, max, range, std deviation) for the specified time period before a given date.
-#' Output is a multiple column CSV (Date and Parameter Name by statistic) and a DOCX report with plots.
+# ~~~~~ Description ~~~~~
+#' Generates daily stats (N, mean, min, max, range, std deviation) for the
+#' specified time period before a given date. Output is a multiple column CSV
+#' (Date and Parameter Name by statistic) and a report (HTML or DOCX) with plots.
+#' Input is the ouput file of the QC operation of ContDataQC().
+#'
+# ~~~~~ Details ~~~~~
+#' The input is output file of the QC operation in ContDataQC().  That is, a file with
+#' Date.Time, and parameters (matching formats in config.R).
 #'
 #' To get different periods (30, 60, or 90 days) change function input "fun.myPeriod.N".
-#' It is possible to provide a vector for Period.N and Period.Units
+#' It is possible to provide a vector for Period.N and Period.Units.
 #'
 #' Requires doBy library for the statistics summary and rmarkdown for the report.
 #
@@ -45,10 +53,10 @@
 #' myDateTime.Format <- "%Y-%m-%d %H:%M:%S"
 #' myThreshold <- 20
 #' myConfig <- ""
-#' myReport.format <- "html"
+#' myReport.format <- "docx"
 #'
 #' # Run Function
-#' ## default report format (docx)
+#' ## default report format (html)
 #' PeriodStats(myDate
 #'           , myDate.Format
 #'           , myPeriod.N
@@ -62,7 +70,7 @@
 #'           , myThreshold
 #'           , myConfig)
 #'
-#' ## HTML report format
+#' ## DOCX report format
 #' PeriodStats(myDate
 #'           , myDate.Format
 #'           , myPeriod.N

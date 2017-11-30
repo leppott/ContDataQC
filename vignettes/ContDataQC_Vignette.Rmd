@@ -828,6 +828,51 @@ ContData.env$myStats.Fails.Exclude <- TRUE  #FALSE #TRUE
 ContData.env$myReport.Format <- "html"  # "html" or "docx" # DOCX requires Pandoc.
 ```
 
+## Period Stats
+The function PeriodStats() generates daily stats (N, mean, min, max, range, std deviation) for the specified time period before a given date. Output is a multiple column CSV (Date and Parameter Name by statistic) and a report (HTML or DOCX) with plots.
+
+The input is output of the QC function in ContDataQC. That is, a file with SiteID, Date, Time, Date.Time, and parameters.
+
+To get different periods (30, 60, or 90 days) change function input "fun.myPeriod.N". It is possible to provide a vector for Period.N and Period.Units.
+
+The function returns a csv with daily means and a PDF summary with plots into the specified export directory for the specified time period before the given date.
+
+```{r PeriodStats, eval=FALSE}
+# Save example file
+df.x <- DATA_period_test2_Aw_20130101_20141231
+write.csv(df.x,"DATA_period_test2_Aw_20130101_20141231.csv")
+
+# function inputs
+myDate <- "2013-09-30"
+myDate.Format <- "%Y-%m-%d"
+myPeriod.N <- c(30, 60, 90, 120, 1)
+myPeriod.Units <- c("d", "d", "d", "d", "y")
+myFile <- "DATA_period_test2_Aw_20130101_20141231.csv"
+myDir.import <- getwd()
+myDir.export <- getwd()
+myParam.Name <- "Water.Temp.C"
+myDateTime.Name <- "Date.Time"
+myDateTime.Format <- "%Y-%m-%d %H:%M:%S"
+myThreshold <- 20
+myConfig <- ""
+myReport.format <- "docx"
+
+# Run Function
+## default report format (html)
+PeriodStats(myDate
+          , myDate.Format
+          , myPeriod.N
+          , myPeriod.Units
+          , myFile
+          , myDir.import
+          , myDir.export
+          , myParam.Name
+          , myDateTime.Name
+          , myDateTime.Format
+          , myThreshold
+          , myConfig)
+```
+
 ## Export for IHA
 The function Export.IHA() allows for the formatting of data for use with the Nature Conservancy's IHA program as converted to R.
 

@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-11-30 12:04:20
+    #> Last Update: 2017-11-30 12:44:37
 
 Planned Updates
 ===============
@@ -33,6 +33,19 @@ Planned Updates
 
 Version History
 ===============
+
+v2.0.1.9056
+-----------
+
+2017-11-30
+
+-   PeriodStats
+
+    -   Added data input requirements. 20171130.
+
+    -   Updated example for default report from DOCX to HTML. 20171130.
+
+    -   Updated Vignette. 20171130.
 
 v2.0.1.9055
 -----------
