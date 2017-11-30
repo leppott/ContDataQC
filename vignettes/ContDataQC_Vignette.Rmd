@@ -56,7 +56,7 @@ print("Task complete.  Check statements above for errors.")
 
 ```
 
-An additional dependancy that needs to be installed separately is Pandoc.  This package is used to create the Reports.  See R code below to install Pandoc.  The package 'installr' allows for installation in a single step.  IF this doesn't work you may need help from your IT department using the web links listed below.  For users of RStudio Pandoc installs with RStudio so no extra install is needed.
+An additional dependancy that needs to be installed separately is Pandoc.  This package is used to create the Reports.  See R code below to install Pandoc.  The package 'installr' allows for installation in a single step.  If this doesn't work you may need help from your IT department using the web links listed below.  For users of RStudio Pandoc installs with RStudio so no extra install is needed.
 
 In version 2.0.1.9048 (2017-11-16) of the `ContDataQC` package report format was added as a variable.  The default is "html".  This can be changed in config.R. If you do not have Pandoc installed the package will still work but the reports in docx format will not be created (will show an error) unless you change the format to "html".
 
@@ -881,7 +881,7 @@ IHA example code below that uses the IHA.Export file and produces an Excel file 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # User info
 SiteID <- myData.SiteID
-Notes.User <- "Erik.Leppo@tetratech.com"
+Notes.User <- Sys.getenv("USERNAME")
 #~~~~~
 # Library (load)
 require(IHA)

@@ -56,8 +56,9 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type
            , myDir.import, myDir.export)
 #
 # 1.B. Use saved data
-myFile <- "01187300_Gage_20150101_20161231.csv"
-myCol.DateTime <- "Date.Time"
+myData.SiteID   <- "01187300"
+myFile          <- "01187300_Gage_20150101_20161231.csv"
+myCol.DateTime  <- "Date.Time"
 myCol.Discharge <- "Discharge.ft3.s"
 #
 # 2. Prep Data
@@ -72,7 +73,7 @@ myData.IHA <- Export.IHA(myFile
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # User info
 SiteID <- myData.SiteID
-Notes.User <- "Erik.Leppo@tetratech.com"
+Notes.User <- Sys.getenv("USERNAME")
 #~~~~~
 # Library (install if needed)
 # devtools::install_github("jasonelaw/IHA")

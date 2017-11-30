@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2017-11-30 09:34:17
+    #> Last Update: 2017-11-30 12:04:20
 
 Planned Updates
 ===============
@@ -34,12 +34,25 @@ Planned Updates
 Version History
 ===============
 
+v2.0.1.9055
+-----------
+
+2017-11-30
+
+-   Export.IHA
+
+    -   Updated example to use system username. 20171130.
+
+    -   Repeated SiteID line in example. 20171130.
+
+    -   Updated Vignette. 20171130.
+
 v2.0.1.9054
 -----------
 
 2017-11-30
 
--   StreamThermal
+-   Export.StreamThermal
 
     -   Update Excel file with category definitions from journal article. 20171130.
 
