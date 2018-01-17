@@ -56,7 +56,7 @@ print("Task complete.  Check statements above for errors.")
 
 ```
 
-An additional dependancy that needs to be installed separately is Pandoc.  This package is used to create the Reports.  See R code below to install Pandoc.  The package 'installr' allows for installation in a single step.  IF this doesn't work you may need help from your IT department using the web links listed below.  For users of RStudio Pandoc installs with RStudio so no extra install is needed.
+An additional dependancy that needs to be installed separately is Pandoc.  This package is used to create the Reports.  See R code below to install Pandoc.  The package 'installr' allows for installation in a single step.  If this doesn't work you may need help from your IT department using the web links listed below.  For users of RStudio Pandoc installs with RStudio so no extra install is needed.
 
 In version 2.0.1.9048 (2017-11-16) of the `ContDataQC` package report format was added as a variable.  The default is "html".  This can be changed in config.R. If you do not have Pandoc installed the package will still work but the reports in docx format will not be created (will show an error) unless you change the format to "html".
 
@@ -828,6 +828,51 @@ ContData.env$myStats.Fails.Exclude <- TRUE  #FALSE #TRUE
 ContData.env$myReport.Format <- "html"  # "html" or "docx" # DOCX requires Pandoc.
 ```
 
+## Period Stats
+The function PeriodStats() generates daily stats (N, mean, min, max, range, std deviation) for the specified time period before a given date. Output is a multiple column CSV (Date and Parameter Name by statistic) and a report (HTML or DOCX) with plots.
+
+The input is output of the QC function in ContDataQC. That is, a file with SiteID, Date, Time, Date.Time, and parameters.
+
+To get different periods (30, 60, or 90 days) change function input "fun.myPeriod.N". It is possible to provide a vector for Period.N and Period.Units.
+
+The function returns a csv with daily means and a PDF summary with plots into the specified export directory for the specified time period before the given date.
+
+```{r PeriodStats, eval=FALSE}
+# Save example file
+df.x <- DATA_period_test2_Aw_20130101_20141231
+write.csv(df.x,"DATA_period_test2_Aw_20130101_20141231.csv")
+
+# function inputs
+myDate <- "2013-09-30"
+myDate.Format <- "%Y-%m-%d"
+myPeriod.N <- c(30, 60, 90, 120, 1)
+myPeriod.Units <- c("d", "d", "d", "d", "y")
+myFile <- "DATA_period_test2_Aw_20130101_20141231.csv"
+myDir.import <- getwd()
+myDir.export <- getwd()
+myParam.Name <- "Water.Temp.C"
+myDateTime.Name <- "Date.Time"
+myDateTime.Format <- "%Y-%m-%d %H:%M:%S"
+myThreshold <- 20
+myConfig <- ""
+myReport.format <- "docx"
+
+# Run Function
+## default report format (html)
+PeriodStats(myDate
+          , myDate.Format
+          , myPeriod.N
+          , myPeriod.Units
+          , myFile
+          , myDir.import
+          , myDir.export
+          , myParam.Name
+          , myDateTime.Name
+          , myDateTime.Format
+          , myThreshold
+          , myConfig)
+```
+
 ## Export for IHA
 The function Export.IHA() allows for the formatting of data for use with the Nature Conservancy's IHA program as converted to R.
 
@@ -874,14 +919,14 @@ install.packages("XLConnect")
 
 IHA example code below that uses the IHA.Export file and produces an Excel file of the IHA output.
 
-```{r IHA_run, eval=FALSE}
+```{r IHA_run_ExcelSave, eval=FALSE}
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # 3. Run IHA
 # Example using returned DF with IHA
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # User info
 SiteID <- myData.SiteID
-Notes.User <- "Erik.Leppo@tetratech.com"
+Notes.User <- Sys.getenv("USERNAME")
 #~~~~~
 # Library (load)
 require(IHA)
@@ -1008,26 +1053,23 @@ names(sitedata)<-c("siteID","Date","MaxT","MinT","MeanT")
 knitr::kable(head(sitedata))
 ```
 
-It is possible to use the Summary Stats operation output from the ContDataQC() function.
+It is possible to use data that has been summarized with SummaryStats.
 
-```{r StreamThermal_SummaryStats_x, echo=TRUE}
-# 1.2. Use ContDataQC SummaryStats Data
-myFile <- "STATS_test2_Aw_20130101_20141231_Water.Temp.C.csv"
-myDir <- "Data4_Stats"
+```{r StreamThermal_SummaryStats_Data, echo=TRUE}
+# 1.2. Use Unsummarrized data
+myFile <- "DATA_test2_Aw_20130101_20141231.csv"
 myData <- read.csv(file.path(path.package("ContDataQC"),"extdata",myFile), stringsAsFactors=FALSE)
 # Subset
-Col.Keep <- c("SiteID", "TimeValue", "max", "min", "mean")
-sitedata <- myData[myData[,"TimeFrame"]=="day",Col.Keep]
-Names.ST <- c("SiteID", "Date", "MaxT", "MinT", "MeanT")
-names(sitedata) <- Names.ST
-# Convert date column to date type
-sitedata[,"Date"] <- as.Date(sitedata[,"Date"])
+Col.Keep <- c("SiteID", "Date", "Water.Temp.C")
+sitedata <- myData[,Col.Keep]
+sitedata <- Export.StreamThermal(myData)
+# Show data table
 knitr::kable(head(sitedata))
 ```
 
-It is also possible to use data that has yet to be summarized.
+It is also possible to use data that has been calculated by Period Stats.
 
-```{r StreamThermal_SummaryStats_y, echo=TRUE}
+```{r StreamThermal_PeriodStats_Data, echo=TRUE}
 # 1.3. Use user data that has been QCed
 myData <- DATA_period_test2_Aw_20130101_20141231
 sitedata <- Export.StreamThermal(myData)
@@ -1051,6 +1093,79 @@ ST.roc  <- T_rateofchange(sitedata)
 ST.tim  <- T_timing(sitedata)
 ST.var  <- T_variability(sitedata)
 ```
+
+The output of StreamThermal is 5 separate objects.  It may be convenient to export that data to Excel with each object on a separate tab.  Example code is below using the `XLConnect` library.  This code is similar that provided in the Export.IHA example.
+```{r StreamThermal_Excel, eval=FALSE}
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Save Results to Excel (each group on its own worksheet)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+library(XLConnect)
+# Descriptions
+#
+Desc.freq <- "Frequency metrics indicate numbers of days in months or seasons
+that key events exceed user-defined temperatures. "
+#
+Desc.mag <- "Magnitude metrics characterize monthly and seasonal averages and
+the maximum and minimum from daily temperatures as well as 3-, 7-, 14-, 21-,
+and 30-day moving averages for mean and maximum daily temperatures."
+#
+Desc.roc <- "Rate of change metrics include monthly and seasonal rate of
+change, which indicates the difference in magnitude of maximum and minimum
+temperatures divided by number of days between these events."
+#
+Desc.tim <- "Timing metrics indicate Julian days of key events including
+mean, maximum, and minimum temperatures; they also indicate Julian days of
+mean, maximum, and minimum values over moving windows of specified size."
+#
+Desc.var <- "Variability metrics summarize monthly and seasonal range in
+daily mean temperatures as well as monthly coefficient of variation of daily
+mean, maximum, and minimum temperatures. Variability metrics also include
+moving averages for daily ranges and moving variability in extreme
+temperatures, calculated from differences in average high and low
+temperatures over various time periods"
+#
+Group.Desc <- c(Desc.freq, Desc.mag, Desc.roc, Desc.tim, Desc.var)
+df.Groups <- as.data.frame(cbind(c("freq","mag","roc","tim","var"),Group.Desc))
+#
+SiteID <- sitedata[1,1]
+myDate <- format(Sys.Date(),"%Y%m%d")
+myTime <- format(Sys.time(),"%H%M%S")
+Notes.User <- Sys.getenv("USERNAME")
+# Notes section (add min/max dates)
+Notes.Names <- c("Dataset (SiteID)", "Analysis.Date (YYYYMMDD)"
+                 , "Analysis.Time (HHMMSS)", "Analysis.User")
+Notes.Data <- c(SiteID, myDate, myTime, Notes.User)
+df.Notes <- as.data.frame(cbind(Notes.Names, Notes.Data))
+Notes.Summary <- summary(sitedata)
+# Open/Create file
+## New File Name
+myFile.XLSX <- paste("StreamThermal", SiteID, myDate, myTime, "xlsx", sep=".")
+## Copy over template with Metric Definitions
+file.copy(file.path(path.package("ContDataQC"),"extdata","StreamThermal_MetricList.xlsx")
+          , myFile.XLSX)
+## load workbook, create if not existing
+wb <- loadWorkbook(myFile.XLSX, create = TRUE)
+# create sheets
+createSheet(wb, name = "NOTES")
+createSheet(wb, name = "freq")
+createSheet(wb, name = "mag")
+createSheet(wb, name = "roc")
+createSheet(wb, name = "tim")
+createSheet(wb, name = "var")
+# write to worksheet
+writeWorksheet(wb, df.Notes, sheet = "NOTES", startRow=1)
+writeWorksheet(wb, df.Groups, sheet="NOTES", startRow=10)
+writeWorksheet(wb, Notes.Summary, sheet = "NOTES", startRow=20)
+writeWorksheet(wb, ST.freq, sheet = "freq")
+writeWorksheet(wb, ST.mag, sheet = "mag")
+writeWorksheet(wb, ST.roc, sheet = "roc")
+writeWorksheet(wb, ST.tim, sheet = "tim")
+writeWorksheet(wb, ST.var, sheet = "var")
+# save workbook
+saveWorkbook(wb, myFile.XLSX)
+```
+
+
 
 ## Comparison CDFs
 The function CompSite() allows the user to plot data from multiple sites on a single CDF.

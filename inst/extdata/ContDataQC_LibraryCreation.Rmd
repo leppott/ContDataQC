@@ -1,6 +1,12 @@
 ---
 title: "ContDataQC Library Creation"
-output: html_notebook
+author: "Erik.Leppo@tetratech.com"
+date: "`r Sys.time()`"
+output: 
+  html_notebook:
+    toc: yes
+    depth: 3
+    toc_float: no
 ---
 
 Helper code for creating library.
@@ -101,6 +107,9 @@ After creating the package reload it after restarting R within RStudio (Ctrl + S
 ```{r, eval=FALSE}
 # Restart R within RStudio:  Ctrl + Shift + F10
 library(ContDataQC)
+help(package="ContDataQC")
+#
+?PeriodStats
 #?CompSiteCDF
 ??ContDataQC
 ?fun.Export.IHA
