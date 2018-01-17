@@ -47,11 +47,14 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+<<<<<<< HEAD
 ## v2.0.1.9057
 2018-01-17
 
 * OneDrive created multiple versions of files on computer.  Clean up and resubmit.  Some minor work done on package.
 
+=======
+>>>>>>> origin/master
 ## v2.0.1.9056
 2017-11-30
 
