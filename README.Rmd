@@ -107,7 +107,18 @@ Every function has a help file with a working example.  There is also a vignette
 ?ContDataQC
 ```
 
+The vignette file is located in the “doc” directory of the library in the R install folder.  Below is the path to the file on my PC.
+
+"C:\Programs\R\R-3.4.2\library\ContDataQC\doc\ContDataQC_Vignette.html"
+
 ```{r, eval=FALSE}
 vignette("ContDataQC_Vignette",package="ContDataQC")
+```
+
+If the vignette fails to load.  Run the code below.
+
+```{r, eval=FALSE}
+library(devtools)
+install_github("leppott/ContDataQC", force=TRUE, build_vignettes=TRUE)
 ```
 

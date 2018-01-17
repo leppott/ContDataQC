@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-01-17 13:03:18
+    #> Last Update: 2018-01-17 14:04:03
 
 # Planned Updates
 
@@ -38,6 +38,14 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.1.9059
+
+2018-01-17
+
+  - No reproducible error with vignette not being present. Added code to
+    ReadMe that forces the vignette to build on users computer when the
+    package is installed. Issue \#49.
 
 ## v2.0.1.9058
 

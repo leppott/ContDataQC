@@ -47,6 +47,11 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.1.9059
+2018-01-17
+
+* No reproducible error with vignette not being present.  Added code to ReadMe that forces the vignette to build on users computer when the package is installed.  Issue #49.
+
 ## v2.0.1.9058
 2018-01-17
 
