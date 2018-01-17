@@ -37,3 +37,4 @@ Combines or splits files based on given data range.  Saves a new CSV in the expo
 \keyword{aggregate}
 \keyword{continuous}
 \keyword{data,}
+\keyword{internal}

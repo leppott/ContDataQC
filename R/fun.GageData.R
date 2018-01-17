@@ -20,7 +20,7 @@
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myTZ Timezone for requested gage.  Default is in env.UserDefinedValues.R.  Can also be set with Sys.timezone().
 #' @return Returns a csv file to specified directory with the requested daily mean data.  During the data retrieval a summary is output to the console.
-#' @keywords continuous data, USGS, gage, dataRetrieval
+#' @keywords internal continuous data, USGS, gage, dataRetrieval
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
 #' fun.GageData("01187300","Gage","2013-01-01","2013-12-31",getwd(),"","")

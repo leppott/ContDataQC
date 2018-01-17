@@ -33,4 +33,5 @@ The 'file' version works on a single (or vector) of files.
 }
 \keyword{continuous}
 \keyword{data,}
+\keyword{internal}
 \keyword{report}

@@ -31,7 +31,7 @@
 #' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
 #' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
-#' @keywords continuous data, statistics
+#' @keywords internal continuous data, statistics
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
 #

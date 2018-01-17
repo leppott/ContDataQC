@@ -15,7 +15,7 @@
 #' @param fun.DateTime Date, Time, or DateTime data
 #' @param fun.dt.Type type of input; date, time, or date
 #' @return Returns a text string representing the date/time format of the input fun.DateTime.  Wrapper function for fun.dt.Type2().
-#' @keywords date, time, datetime, format
+#' @keywords internal date, time, datetime, format
 #' @examples
 #' #Not intended to be accessed indepedantly.
 #' #format of current date
@@ -102,7 +102,7 @@ fun.DateTimeFormat <- function(fun.DateTime,fun.dt.Type) { ##FUN.START
 #' @param fun.dt Date, Time, or DateTime data
 #' @param fun.dt2.Type type of input; date, time, or date
 #' @return Returns a text string representing the date/time format of the input fun.dt.  Wrapped in function fun.DateTimeFormat().
-#' @keywords date, time, datetime, format
+#' @keywords internal date, time, datetime, format
 #' @examples
 #' #Not intended to be accessed indepedant of function "fun.DateTimeFormat()".
 #' fun.dt.Type2(Sys.Date(),"date")

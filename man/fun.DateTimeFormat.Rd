@@ -30,4 +30,5 @@ fun.DateTimeFormat(Sys.time(),"datetime")
 \keyword{date,}
 \keyword{datetime,}
 \keyword{format}
+\keyword{internal}
 \keyword{time,}

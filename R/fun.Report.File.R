@@ -43,7 +43,7 @@
 #' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
 #' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
 #' @return Creates a Word file in the specified directory.
-#' @keywords continuous data, report
+#' @keywords internal continuous data, report
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
 #

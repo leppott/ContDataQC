@@ -42,7 +42,7 @@
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
 #' @return Returns a csv file to specified directory with QC flags.
-#' @keywords continuous data, qc, quality control
+#' @keywords internal continuous data, qc, quality control
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
 #

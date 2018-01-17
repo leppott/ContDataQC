@@ -36,5 +36,6 @@ Requires zoo().
 \keyword{continuous}
 \keyword{control}
 \keyword{data,}
+\keyword{internal}
 \keyword{qc,}
 \keyword{quality}

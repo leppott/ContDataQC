@@ -11,6 +11,7 @@
 # @param fun.item.num.total total items
 # @param fun.item.name name of current item
 # @return Returns a message to the console
+# @keywords internal
 # @examples
 # #Not intended to be accessed indepedently.
 #
@@ -29,6 +30,7 @@ fun.Msg.Status <- function(fun.status, fun.item.num.current, fun.item.num.total,
 # @param fun.Time current time (HHMMSS)
 # @param fun.item.name item name
 # @return Returns a message to the console
+# @keywords internal
 # @examples
 # #Not intended to be accessed indepedantly.
 #
@@ -44,6 +46,7 @@ fun.write.log <- function(fun.Log,fun.Date,fun.Time) {#FUNCTION.START
 #
 # @param fun.names required names
 # @param fun.File file to check
+# @keywords internal
 # @examples
 # #Not intended to be accessed indepedently.
 #
@@ -96,6 +99,7 @@ fun.QC.ReqFlds <- function(fun.names,fun.File) {##FUNCTION.fun.QC.ReqFlds.START
 # Subroutine to check a data frame for dates
 #
 # @param fun.df data frame to check
+# @keywords internal
 # @examples
 # #Not intended to be accessed indepedantly.
 #
@@ -273,6 +277,7 @@ fun.QC.datetime <- function(fun.df){##FUNCTION.fun.QC.datetime.START
 # @param myFld.Data data fields to check
 # @param myFld.DateTime date time field; defaults to ContData.env$myName.DateTime
 # @return A boolean value (0=FALSE, no offset times or 1=TRUE, offset times).
+# @keywords internal
 # @examples
 # myDF <- test4_AW_20160418_20160726
 # myDataType <- "AW"

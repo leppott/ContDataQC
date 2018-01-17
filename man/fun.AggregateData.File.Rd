@@ -35,3 +35,4 @@ fun.AggregateData.File(myFile, myDir.import, myDir.export)
 \keyword{aggregate}
 \keyword{continuous}
 \keyword{data,}
+\keyword{internal}

@@ -24,4 +24,5 @@ fun.dt.Type2(Sys.Date(),"date")
 \keyword{date,}
 \keyword{datetime,}
 \keyword{format}
+\keyword{internal}
 \keyword{time,}

@@ -2,12 +2,8 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-<<<<<<< HEAD
-=======
-    #> Last Update: 2017-11-30 12:44:37
->>>>>>> origin/master
 
-    #> Last Update: 2018-01-17 12:25:15
+    #> Last Update: 2018-01-17 13:03:18
 
 # Planned Updates
 
@@ -43,7 +39,14 @@ NEWS-ContDataQC
 
 # Version History
 
-<<<<<<< HEAD
+## v2.0.1.9058
+
+2018-01-17
+
+  - Updated functions with keywords ‘internal’ so they won’t show up in
+    help file index. These are functions that shouldn’t be accessed
+    individually.
+
 ## v2.0.1.9057
 
 2018-01-17
@@ -90,58 +93,6 @@ NEWS-ContDataQC
       - Update examples in vignette. 20171130.
 
 ## v2.0.1.9053
-=======
-v2.0.1.9056
------------
-
-2017-11-30
-
--   PeriodStats
-
-    -   Added data input requirements. 20171130.
-
-    -   Updated example for default report from DOCX to HTML. 20171130.
-
-    -   Updated Vignette. 20171130.
-
-v2.0.1.9055
------------
-
-2017-11-30
-
--   Export.IHA
-
-    -   Updated example to use system username. 20171130.
-
-    -   Repeated SiteID line in example. 20171130.
-
-    -   Updated Vignette. 20171130.
-
-v2.0.1.9054
------------
-
-2017-11-30
-
--   Export.StreamThermal
-
-    -   Update Excel file with category definitions from journal article. 20171130.
-
-    -   Add metric definition Excel file to extdata so can use when create data export. 20171130.
-
-    -   Update examples in vignette. 20171130.
-
-v2.0.1.9053
------------
-
-2017-11-29
-
--   Readme, fix typo in github install function. 20171129.
-
--   Update example in Export.StreamThermal so is self contained. Vignette did not need to be updated. Included example code for export to Excel (same as in Export.IHA example). 20171129.
-
-v2.0.1.9052
------------
->>>>>>> origin/master
 
 2017-11-29
 

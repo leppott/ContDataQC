@@ -38,3 +38,4 @@ fun.GageData("01187300","Gage","2013-01-01","2013-12-31")
 \keyword{data,}
 \keyword{dataRetrieval}
 \keyword{gage,}
+\keyword{internal}

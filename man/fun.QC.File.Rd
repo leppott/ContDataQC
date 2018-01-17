@@ -36,5 +36,6 @@ fun.QC.File(myFile, myDir.import, myDir.export)
 \keyword{continuous}
 \keyword{control}
 \keyword{data,}
+\keyword{internal}
 \keyword{qc,}
 \keyword{quality}

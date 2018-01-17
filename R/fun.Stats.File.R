@@ -28,7 +28,7 @@
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.  And a PDF of summary plots by different time periods.
-#' @keywords continuous data, statistics
+#' @keywords internal continuous data, statistics
 #' @examples
 #' myFile <- "QC_test2_Aw_20130426_20130725.csv"
 #' #myFile <- c("QC_test2_Aw_20130426_20130725.csv"
