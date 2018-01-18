@@ -56,14 +56,14 @@ Summary statistics and plots by parameter and time frame (year, season, month, a
 #        myTitle.Sub <- myParameters.Lab[i.num]
 #        
 #        
-#       cat("##QC TESTS, ",i,"\n\n",sep="")
+#       cat("## QC TESTS, ",i,"\n\n",sep="")
 #        
 #        #cat(paste("**QC TESTS,",myTitle.Sub,sep=""))
 #        
 #        # 3.1. Flags, overall
-#        cat(myTitle.Sub <- "###Flags")
+#        cat(myTitle.Sub <- "### Flags")
 #              cat("\n\n")
-#       cat("####Flag summary, overall number of records.")
+#       cat("#### Flag summary, overall number of records.")
 #       cat("\n\n")
 #        myTable <- table(data.import[,paste("Flag",i,sep=".")])
 #        print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
@@ -106,26 +106,26 @@ Summary statistics and plots by parameter and time frame (year, season, month, a
 #       
 #       cat("\n\n")
 #       
-#       cat("####Flags by QC Test")
+#       cat("#### Flags by QC Test")
 #       
 #       cat("\n\n")
 #       
-#       cat("#####Flags, Gross\n\n")
+#       cat("##### Flags, Gross\n\n")
 #       
 #       myTable <- table(data.import[,paste("Flag.Gross",i,sep=".")])
 #       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
 #         cat("\n\n")
-#       cat("#####Flags, Spike\n\n")
+#       cat("##### Flags, Spike\n\n")
 #       
 #       myTable <- table(data.import[,paste("Flag.Spike",i,sep=".")])
 #       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
 #         cat("\n\n")
-#       cat("#####Flags, RoC\n\n")
+#       cat("##### Flags, RoC\n\n")
 #       
 #       myTable <- table(data.import[,paste("Flag.RoC",i,sep=".")])
 #       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
 #         cat("\n\n")
-#       cat("#####Flags, Flat\n\n")
+#       cat("##### Flags, Flat\n\n")
 #       
 #       myTable <- table(data.import[,paste("Flag.Flat",i,sep=".")])
 #       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))

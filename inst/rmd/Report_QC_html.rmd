@@ -192,7 +192,7 @@ Overall flags by parameter
        
        # ISSUE WITH knitr::kable INSIDE OF LOOPS
        
-    cat(paste("##",myParameters[j],"\n\n",sep=""))
+    cat(paste("## ",myParameters[j],"\n\n",sep=""))
 
        colnum <- match(paste("Flag",myParameters[j],sep="."),names(data.import))
        
@@ -229,14 +229,14 @@ Overall flags by parameter
        myTitle.Sub <- myParameters.Lab[i.num]
        
        
-      cat("##QC TESTS, ",i,"\n\n",sep="")
+      cat("## QC TESTS, ",i,"\n\n",sep="")
        
        #cat(paste("**QC TESTS,",myTitle.Sub,sep=""))
        
        # 3.1. Flags, overall
-       cat(myTitle.Sub <- "###Flags")
+       cat(myTitle.Sub <- "### Flags")
              cat("\n\n")
-      cat("####Flag summary, overall number of records.")
+      cat("#### Flag summary, overall number of records.")
       cat("\n\n")
        myTable <- addmargins(table(data.import[,paste("Flag",i,sep=".")]),1)
        print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
@@ -270,26 +270,26 @@ Overall flags by parameter
       
       cat("\n\n")
       
-      cat("####Flags by QC Test")
+      cat("#### Flags by QC Test")
       
       cat("\n\n")
       
-      cat("#####Flags, Gross\n\n")
+      cat("##### Flags, Gross\n\n")
       
       myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"Gross",i,sep=".")]),1)
       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
-      cat("#####Flags, Spike\n\n")
+      cat("##### Flags, Spike\n\n")
       
       myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"Spike",i,sep=".")]),1)
       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
-      cat("#####Flags, RoC\n\n")
+      cat("##### Flags, RoC\n\n")
       
       myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"RoC",i,sep=".")]),1)
       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
-      cat("#####Flags, Flat\n\n")
+      cat("##### Flags, Flat\n\n")
       
       myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"Flat",i,sep=".")]),1)
       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
@@ -357,7 +357,7 @@ Multiparameter plots if exist in the data.
     # Temp, Air vs. Water
     if (ContData.env$myName.AirTemp %in% myParameters & ContData.env$myName.WaterTemp 
         %in% myParameters == TRUE){##IF.Temp.START
-      cat("##PLOT, Temperature (Air vs. Water) \n\n" )
+      cat("## PLOT, Temperature (Air vs. Water) \n\n" )
       #
       par.orig <- par(no.readonly=TRUE) # save original par settings
       layout(rbind(1,2),heights=c(7,1))
@@ -410,7 +410,7 @@ Multiparameter plots if exist in the data.
     # Water, Temp vs Level
     if (ContData.env$myName.WaterTemp %in% myParameters & ContData.env$myName.SensorDepth 
         %in% myParameters == TRUE){##IF.Temp_Level.START
-      cat("##PLOT, Sensor Depth vs. Water Temperature \n\n")
+      cat("## PLOT, Sensor Depth vs. Water Temperature \n\n")
       #
       par.orig <- par(no.readonly=TRUE) # save original par settings
       layout(rbind(1,2),heights=c(7,1))

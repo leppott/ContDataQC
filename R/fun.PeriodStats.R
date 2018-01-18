@@ -15,6 +15,9 @@
 #' It is possible to provide a vector for Period.N and Period.Units.
 #' If the date range is longer than that in the data provided the stats will not calculate properly.
 #'
+#' The dates must be in the standard format (Y-m-d) or the function may not work as intended.
+#' For example, the date is used in the file name and dates with "/" will result in an invalid file name.
+#'
 #' Requires doBy library for the statistics summary and rmarkdown for the report.
 #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -187,7 +187,7 @@ Multiparameter plots if exist in the data.
     
     # Temp, Air vs. Water
     if (ContData.env$myName.AirTemp %in% myParameters & ContData.env$myName.WaterTemp %in% myParameters == TRUE){##IF.Temp.START
-      cat("##PLOT, Temperature (Air vs. Water) \n\n" )
+      cat("## PLOT, Temperature (Air vs. Water) \n\n" )
 
       myPlot.Y <- data.plot[,ContData.env$myName.AirTemp]
       myPlot.Y2 <- data.plot[,ContData.env$myName.WaterTemp]
@@ -226,7 +226,7 @@ Multiparameter plots if exist in the data.
     #
     # Water, Temp vs Level
     if (ContData.env$myName.WaterTemp %in% myParameters & ContData.env$myName.SensorDepth %in% myParameters == TRUE){##IF.Temp_Level.START
-      cat("##PLOT, Sensor Depth vs. Water Temperature \n\n")
+      cat("## PLOT, Sensor Depth vs. Water Temperature \n\n")
       
       par.orig <- par(no.readonly=TRUE) # save original par settings
         par(oma=c(0,0,0,2))

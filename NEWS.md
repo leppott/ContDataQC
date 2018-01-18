@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-01-18 11:42:26
+    #> Last Update: 2018-01-18 13:10:56
 
 # Planned Updates
 
@@ -39,18 +39,26 @@ NEWS-ContDataQC
 
 # Version History
 
+## v2.0.1.9061
+
+2018-01-18
+
+  - Reports. Missed updating some headers. Searched all files
+    thoroughly. Issue \#56.
+  - PeriodStats. Minor update to description in help file.
+
 ## v2.0.1.9060
 
 2018-01-18
 
   - PeriodStats
-      - Make example easier to follow.
+      - Make example easier to follow. Issue \#55.
       - Allow for use of config file for inclusion/exclusion of
-        parameter flag “fails”.
+        parameter flag “fails”. Issue \#54.
       - Report to user in console number of fails removed.
       - Added example with config file with exclude.fails = FALSE.
   - Update some section headers in report RMD files. Add space between
-    pound sign and header text.
+    pound sign and header text. Issue \#56.
   - Added more information to the header section of the PeriodStats
     report.
       - Minimum date in file.
