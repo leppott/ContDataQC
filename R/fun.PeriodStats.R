@@ -13,6 +13,7 @@
 #'
 #' To get different periods (30, 60, or 90 days) change function input "fun.myPeriod.N".
 #' It is possible to provide a vector for Period.N and Period.Units.
+#' If the date range is longer than that in the data provided the stats will not calculate properly.
 #'
 #' Requires doBy library for the statistics summary and rmarkdown for the report.
 #
@@ -36,9 +37,20 @@
 #' @return Returns a csv with daily means and a PDF summary with plots into the specified export directory for the specified time period before the given date.
 #' @keywords continuous data, daily mean, period
 #' @examples
-#' # Save example file
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Save example files from Package to use for example
+#' ## This step not needed for users working on their own files
 #' df.x <- DATA_period_test2_Aw_20130101_20141231
 #' write.csv(df.x,"DATA_period_test2_Aw_20130101_20141231.csv")
+#' myFile <- "config.ExcludeFailsFalse.R"
+#' file.copy(file.path(path.package("ContDataQC"), "extdata", myFile)
+#'           , file.path(getwd(), myFile))
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' # Load File to use for PeriodStats
+#' myDir <- getwd()
+#' myFile <- "DATA_period_test2_Aw_20130101_20141231.csv"
+#' df.x <- read.csv(file.path(myDir, myFile))
 #'
 #' # function inputs
 #' myDate <- "2013-09-30"
@@ -54,9 +66,11 @@
 #' myThreshold <- 20
 #' myConfig <- ""
 #' myReport.format <- "docx"
+#' # Custom Config
+#' myConfig.Fail.Include  <- "config.ExcludeFailsFalse.R"
 #'
 #' # Run Function
-#' ## default report format (html)
+#' ## Example 1. default report format (html)
 #' PeriodStats(myDate
 #'           , myDate.Format
 #'           , myPeriod.N
@@ -70,7 +84,7 @@
 #'           , myThreshold
 #'           , myConfig)
 #'
-#' ## DOCX report format
+#' ## Example 2. DOCX report format
 #' PeriodStats(myDate
 #'           , myDate.Format
 #'           , myPeriod.N
@@ -84,6 +98,22 @@
 #'           , myThreshold
 #'           , myConfig
 #'           , myReport.format)
+#'
+#'## Example 3. DOCX report format and Include Flag Failures
+#' PeriodStats(myDate
+#'           , myDate.Format
+#'           , myPeriod.N
+#'           , myPeriod.Units
+#'           , myFile
+#'           , myDir.import
+#'           , myDir.export
+#'           , myParam.Name
+#'           , myDateTime.Name
+#'           , myDateTime.Format
+#'           , myThreshold
+#'           , myConfig.Fail.Include
+#'           , myReport.format)
+#'
 #
 #' @export
 PeriodStats <- function(fun.myDate
@@ -116,9 +146,11 @@ PeriodStats <- function(fun.myDate
     fun.myDateTime.Format = NA
     fun.myThreshold <- 20
     fun.myConfig=""
+    fun.myReport.format=""
     # Load environment
-    ContData.env <- new.env(parent = emptyenv())
-    source(file.path(".","R","fun.CustomConfig.R"), local=TRUE)
+    #ContData.env <- new.env(parent = emptyenv()) # in config.R
+    source(file.path(getwd(),"R","fun.CustomConfig.R"), local=TRUE)
+    # might have to load manually
   }##IF.boo.DEBUG.END
 
   # 0a.0. Load environment
@@ -132,7 +164,7 @@ PeriodStats <- function(fun.myDate
   if (is.na(fun.myDate.Format)) {
     fun.myDate.Format = ContData.env$myFormat.Date
   }
-  # 0b.2. Format, DatTime
+  # 0b.2. Format, DateTime
   if (is.na(fun.myDateTime.Format)) {##IF.fun.myConfig.START
     fun.myDateTime.Format = ContData.env$myFormat.DateTime
   }##IF.fun.myConfig.START
@@ -178,16 +210,54 @@ PeriodStats <- function(fun.myDate
   #df.load[,fun.myDateTime.Name] <- as.Date()
 
 
+  # QC.0. FLAGs ####
+  # check if flag field is in data
+  # Default values from config.R
+  # ContData.env$myFlagVal.Fail    <- "F"
+  # ContData.env$myName.Flag        <- "Flag" # flag prefix
+  # ContData.env$myName.Flag.WaterTemp  <- paste(ContData.env$myName.Flag,ContData.env$myName.WaterTemp,sep=".")
+  # #Trigger for Stats to exclude (TRUE) or include (FALSE) where flag = "fail"
+  # ContData.env$myStats.Fails.Exclude <- TRUE
+  #
+  # QC.1. Define parameter flag field
+  ## If flag parameter names is different from config then it won't be found
+  myParam.Name.Flag <- paste(ContData.env$myName.Flag, fun.myParam.Name, sep=".")
+  # QC.2. Modify columns to keep (see 3.2.) based on presence of "flag" field
+  ## give user feedback
+  if (myParam.Name.Flag %in% names(df.load)) {##IF.flagINnames.START
+    # QC.2.1. Flag field present in data
+    myCol <- c(fun.myDateTime.Name, fun.myParam.Name, myParam.Name.Flag)
+    # QC.2.1.1. Convert "Fails" to NA where appropriate
+    if (ContData.env$myStats.Fails.Exclude == TRUE) {##IF.Fails.START
+      # find Fails
+      myFails <- df.load[,myParam.Name.Flag]==ContData.env$myFlagVal.Fail
+      myFails.Num <- sum(myFails)
+      # convert to NA
+      df.load[myFails, fun.myParam.Name] <- NA
+      # Message to User
+      myMsg <- paste0("QC Flag field was found and ", myFails.Num, " fails were excluded based on user's config file.")
+    } else {
+      # Message to User
+      myMsg <- "QC Flag field was found and fails were all included based on user's config file."
+    }##IF.Fails.END
+    #
+  } else {
+    # QC.2.2. No Flag column
+    myCol <- c(fun.myDateTime.Name, fun.myParam.Name)
+    myMsg <- "No QC Flag field was found so all data points were used in calculations."
+  }##IF.flagINnames.END
+  cat(paste0(myMsg, "\n"))
+
+
   # 3. Munge Data####
   # 3.1. Subset Fields
-  df.param <- df.load[,c(fun.myDateTime.Name,fun.myParam.Name)]
+  df.param <- df.load[,myCol]
   # 3.2. Add "Date" field
   myDate.Name <- "Date"
   df.param[,myDate.Name] <- as.Date(df.param[,fun.myDateTime.Name], fd01)
   # 3.3. Data column to numeric
   # may get "NAs introduced by coercion" so suppress
   df.param[,fun.myParam.Name] <- suppressWarnings(as.numeric(df.param[,fun.myParam.Name]))
-
 
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -296,6 +366,10 @@ PeriodStats <- function(fun.myDate
   }##FOR.j.END
 
   # 7. Generate markdown summary file with plots ####
+  # extra info for report (20180118)
+  myDate.File.Min <- min(df.load$Date)
+  myDate.Diff.FileMin.Benchmark <- as.Date(fun.myDate) - as.Date(myDate.File.Min)
+
   # Error Check, Report Format
   if(fun.myReport.format==""){
     fun.myReport.format <- ContData.env$myReport.Format
@@ -317,7 +391,7 @@ PeriodStats <- function(fun.myDate
   #)
 
   # 8. Inform user task is complete.####
-  cat("Task complete.  Data (CSV) and report (",fun.myReport.format,") files saved to directory:\n")
+  cat("Task complete.  Data (CSV) and report (",toupper(fun.myReport.format),") files saved to directory:\n")
   cat(fun.myDir.export)
   flush.console()
 

@@ -47,6 +47,19 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.1.9060
+2018-01-18
+
+* PeriodStats
+    + Make example easier to follow.
+    + Allow for use of config file for inclusion/exclusion of parameter flag "fails".
+    + Report to user in console number of fails removed.
+    + Added example with config file with exclude.fails = FALSE.
+* Update some section headers in report RMD files.  Add space between pound sign and header text.
+* Added more information to the header section of the PeriodStats report.
+    + Minimum date in file.
+    + Difference between minimum date in file and benchmark date.
+
 ## v2.0.1.9059
 2018-01-17
 

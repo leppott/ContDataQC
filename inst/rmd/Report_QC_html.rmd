@@ -210,7 +210,7 @@ Overall flags by parameter
      }##FOR.j.END
 ```
 
-#QC TESTS, BY PARAMETER
+# QC TESTS, BY PARAMETER
 * **Gross Range Test (Gross):** Test if data point exceeds sensor or user defined min/max.  The values are user defined based on parameter being measured and measuring instrument.
 * **Spike Test (Spike):** Test if data point exceeds a user defined threshold relative to the previous data point.  The user defined values are based on the parameter being measured.
 * **Rate of Change Test (RoC):** Test if a data point exceeds a number of standard deviations from the previous data points over a user defined time period.  Default is a 25 hour time period and 3 standard deviations.

@@ -16,6 +16,10 @@ cat("**Period (N, Units): ** ",paste(fun.myPeriod.N[1:numPeriods],fun.myPeriod.U
 
 cat(paste("**Period Start Date: **",paste(as.Date(myDate.Start[1:numPeriods]),collapse=", "),sep=""),collapse="\n\n")
 
+cat("**Minimum Date in File: **", myDate.File.Min, collapse="\n\n", sep="")
+
+cat("**Difference (Benchmark-Minimum Date): **", myDate.Diff.FileMin.Benchmark, collapse="\n\n", sep="")
+
 cat("**Parameter: ** ",fun.myParam.Name,collapse="\n\n",sep="")
 
 cat("**Threshold: ** ",fun.myThreshold,collapse="\n\n",sep="")
@@ -25,7 +29,7 @@ cat("**Filename, Input: ** ",fun.myFile,"\n\n",sep="")
 #cat("**Filename, Output: ** ",paste0(myFile.Export.part,myFile.Export.ext),sep="")
 ```
 
-#Plot
+# Plot
 Mean daily values for requested date ranges with line for threshold (if provided).
 ```{r stats_summary, results='asis', echo=FALSE, warning=FALSE}
   for (k in 1:numPeriods){##FOR.j.START

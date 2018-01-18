@@ -57,7 +57,7 @@ output: word_document
 
 ```
 
-#DATA SUMMARY, OVERALL
+# DATA SUMMARY, OVERALL
 ```{r data_summary_overall, results='asis', echo=FALSE, warning=FALSE}
     #
     cat("Number of records by year and month (with totals).")

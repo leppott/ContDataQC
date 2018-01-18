@@ -52,13 +52,25 @@ Date.Time, and parameters (matching formats in config.R).
 
 To get different periods (30, 60, or 90 days) change function input "fun.myPeriod.N".
 It is possible to provide a vector for Period.N and Period.Units.
+If the date range is longer than that in the data provided the stats will not calculate properly.
 
 Requires doBy library for the statistics summary and rmarkdown for the report.
 }
 \examples{
-# Save example file
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Save example files from Package to use for example
+## This step not needed for users working on their own files
 df.x <- DATA_period_test2_Aw_20130101_20141231
 write.csv(df.x,"DATA_period_test2_Aw_20130101_20141231.csv")
+myFile <- "config.ExcludeFailsFalse.R"
+file.copy(file.path(path.package("ContDataQC"), "extdata", myFile)
+          , file.path(getwd(), myFile))
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Load File to use for PeriodStats
+myDir <- getwd()
+myFile <- "DATA_period_test2_Aw_20130101_20141231.csv"
+df.x <- read.csv(file.path(myDir, myFile))
 
 # function inputs
 myDate <- "2013-09-30"
@@ -74,9 +86,11 @@ myDateTime.Format <- "\%Y-\%m-\%d \%H:\%M:\%S"
 myThreshold <- 20
 myConfig <- ""
 myReport.format <- "docx"
+# Custom Config
+myConfig.Fail.Include  <- "config.ExcludeFailsFalse.R"
 
 # Run Function
-## default report format (html)
+## Example 1. default report format (html)
 PeriodStats(myDate
           , myDate.Format
           , myPeriod.N
@@ -90,7 +104,7 @@ PeriodStats(myDate
           , myThreshold
           , myConfig)
 
-## DOCX report format
+## Example 2. DOCX report format
 PeriodStats(myDate
           , myDate.Format
           , myPeriod.N
@@ -104,6 +118,22 @@ PeriodStats(myDate
           , myThreshold
           , myConfig
           , myReport.format)
+
+## Example 3. DOCX report format and Include Flag Failures
+PeriodStats(myDate
+          , myDate.Format
+          , myPeriod.N
+          , myPeriod.Units
+          , myFile
+          , myDir.import
+          , myDir.export
+          , myParam.Name
+          , myDateTime.Name
+          , myDateTime.Format
+          , myThreshold
+          , myConfig.Fail.Include
+          , myReport.format)
+
 }
 \keyword{continuous}
 \keyword{daily}

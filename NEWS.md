@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-01-17 14:04:03
+    #> Last Update: 2018-01-18 11:42:26
 
 # Planned Updates
 
@@ -38,6 +38,23 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.1.9060
+
+2018-01-18
+
+  - PeriodStats
+      - Make example easier to follow.
+      - Allow for use of config file for inclusion/exclusion of
+        parameter flag “fails”.
+      - Report to user in console number of fails removed.
+      - Added example with config file with exclude.fails = FALSE.
+  - Update some section headers in report RMD files. Add space between
+    pound sign and header text.
+  - Added more information to the header section of the PeriodStats
+    report.
+      - Minimum date in file.
+      - Difference between minimum date in file and benchmark date.
 
 ## v2.0.1.9059
 
