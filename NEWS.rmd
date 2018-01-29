@@ -42,10 +42,14 @@ cat(paste0("Last Update: ",Sys.time()))
     + More check data stuff.
     + Update vignette
     + Threshold number or pct on plot
-    + CSV issue
     + Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.1.9062
+2018-01-29
+
+* Add an unmodified version of config.R to external data as config.ORIG.R.  Need for guide videos examples.
 
 ## v2.0.1.9061
 2018-01-18

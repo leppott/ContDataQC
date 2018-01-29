@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-01-18 13:10:56
+    #> Last Update: 2018-01-29 12:53:06
 
 # Planned Updates
 
@@ -34,10 +34,16 @@ NEWS-ContDataQC
       - More check data stuff.
       - Update vignette
       - Threshold number or pct on plot
-      - CSV issue
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.1.9062
+
+2018-01-29
+
+  - Add an unmodified version of config.R to external data as
+    config.ORIG.R. Need for guide videos examples.
 
 ## v2.0.1.9061
 
