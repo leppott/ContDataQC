@@ -46,8 +46,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.2
+2018-01-31
+
+* Set release on GitHub.
+
 ## v2.0.1.9063
-2018-01-29
+2018-01-31
 
 * Updated ReadMe.
     + Provide links to "Guides"; training videos on YouTube with powerpoint slides and R Notebooks (with video files) on GitHub.

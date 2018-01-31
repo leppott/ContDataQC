@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-01-31 10:23:54
+    #> Last Update: 2018-01-31 11:12:17
 
 # Planned Updates
 
@@ -38,9 +38,15 @@ NEWS-ContDataQC
 
 # Version History
 
+## v2.0.2
+
+2018-01-31
+
+  - Set release on GitHub.
+
 ## v2.0.1.9063
 
-2018-01-29
+2018-01-31
 
   - Updated ReadMe.
       - Provide links to “Guides”; training videos on YouTube with
