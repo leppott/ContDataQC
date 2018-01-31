@@ -22,15 +22,24 @@ Quality control checks on continuous data.  Example data is from a HOBO data log
 
 Installation
 -----------------
-```{r, eval=FALSE}
+```{r Install_Basic, eval=FALSE}
 # Installing just this library (should get all dependancies)
 library(devtools) 
 install_github("leppott/ContDataQC")
 ```
 
+The vignette (big help file) isn't created when installing from GitHub with the above command.  If you want the vignette download the compressed file from GitHub and install from that file or install with the command below.
+
+```{r Install_Vignette, eval=FALSE}
+# Installing just this library (should get all dependancies)
+library(devtools) 
+install_github("leppott/ContDataQC", force=TRUE, build_vignettes=TRUE)
+```
+
+
 If dependant libraries do not load you can install them separately.
 
-```{r, eval=FALSE}
+```{r Install_Libraries, eval=FALSE}
 # Choose a CRAN mirror (dowload site) first (can change number)
 chooseCRANmirror(ind=21) 
 # libraries to be installed
@@ -55,7 +64,7 @@ lapply(data.packages,function(x) install.packages(x))
 
 Additionally Pandoc is required for creating the reports and needs to be installed separately.
 
-```{r, eval=FALSE}
+```{r Install_Pandoc, eval=FALSE}
 ## pandoc
 require(installr)
 install.pandoc()
@@ -82,14 +91,14 @@ From a single function, ContDataQC(), can QC, aggregate, or calculate summary st
 Usage
 ------------
 Everytime R is launched the `ContDataQC` package needs to be loaded.
-```{r, eval=FALSE}
+```{r LoadLibrary, eval=FALSE}
 # load library and dependant libraries
 require("ContDataQC")
 ```
 
 The default working directory is based on how R was installed but is typically the user's 'MyDocuments' folder.  You can change it through the menu bar in R (File - Change dir) or RStudio (Session - Set Working Directory).  You can also change it from the command line.
 
-```{r, eval=FALSE}
+```{r Directory, eval=FALSE}
 # if specify directory use "/" not "\" (as used in Windows) and leave off final "/" (example below).
 #myDir.BASE  <- "C:/Users/Erik.Leppo/Documents/NCEA_DataInfrastructure/Erik"
 myDir.BASE <- getwd()
@@ -101,24 +110,49 @@ Help
 ------------
 Every function has a help file with a working example.  There is also a vignette with descriptions and examples of all functions in the `ContDataQC` library.
 
-```{r, eval=FALSE}
+```{r Help_Function, eval=FALSE}
 # To get help on a function
 # library(ContDataQC) # the library must be loaded before accessing help
 ?ContDataQC
 ```
 
-The vignette file is located in the “doc” directory of the library in the R install folder.  Below is the path to the file on my PC.
+To see all available functions in the package use the command below.
 
-"C:\Programs\R\R-3.4.2\library\ContDataQC\doc\ContDataQC_Vignette.html"
-
-```{r, eval=FALSE}
-vignette("ContDataQC_Vignette",package="ContDataQC")
+```{r Help_Index, eval=FALSE}
+# To get index of help on all functions
+# library(ContDataQC) # the library must be loaded before accessing help
+help(package="ContDataQC")
 ```
 
-If the vignette fails to load.  Run the code below.
+The vignette file is located in the “doc” directory of the library in the R install folder.  Below is the path to the file on my PC.  But it is much easier to use the code below to call the vignette by name.  There is also be a link to the vignette at the top of the help index for the package.
 
-```{r, eval=FALSE}
+"C:\\Programs\\R\\R-3.4.2\\library\\ContDataQC\\doc\\ContDataQC_Vignette.html"
+
+```{r Help_Vignette, eval=FALSE}
+vignette("ContDataQC_Vignette", package="ContDataQC")
+```
+
+If the vignette fails to show on your computer.  Run the code below to reinstall the package and specify the creation of the vignette.
+
+```{r Install_Vignette2, eval=FALSE}
 library(devtools)
 install_github("leppott/ContDataQC", force=TRUE, build_vignettes=TRUE)
 ```
+
+## Guides
+Guide videos were created for the ContDataQC package and posted on YouTube.  The Powerpoint slides (pptx), R code notebooks (html), and videos are hosted on a companion GitHub site.
+
+https://github.com/leppott/ContDataQC_Guide
+
+YouTube video links below.
+
+* Introduction
+    + https://youtu.be/FJAv7g9GPHI
+* Config
+    + https://youtu.be/qbUgPczdfdo
+* Basic Functions
+    + https://youtu.be/zlq1YDPTBsw
+* Gage Data
+    + https://youtu.be/vXyvp9r2tv4
+
 

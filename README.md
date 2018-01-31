@@ -3,7 +3,7 @@ README-ContDataQC
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-01-17 14:04:06
+    #> Last Update: 2018-01-31 10:23:18
 
 # ContDataQC
 
@@ -16,6 +16,17 @@ data logger with 30 minute intervals.
 # Installing just this library (should get all dependancies)
 library(devtools) 
 install_github("leppott/ContDataQC")
+```
+
+The vignette (big help file) isn’t created when installing from GitHub
+with the above command. If you want the vignette download the compressed
+file from GitHub and install from that file or install with the command
+below.
+
+``` r
+# Installing just this library (should get all dependancies)
+library(devtools) 
+install_github("leppott/ContDataQC", force=TRUE, build_vignettes=TRUE)
 ```
 
 If dependant libraries do not load you can install them separately.
@@ -115,18 +126,49 @@ vignette with descriptions and examples of all functions in the
 ?ContDataQC
 ```
 
-The vignette file is located in the “doc” directory of the library in
-the R install folder. Below is the path to the file on my PC.
-
-“C:-3.4.2\_Vignette.html"
+To see all available functions in the package use the command below.
 
 ``` r
-vignette("ContDataQC_Vignette",package="ContDataQC")
+# To get index of help on all functions
+# library(ContDataQC) # the library must be loaded before accessing help
+help(package="ContDataQC")
 ```
 
-If the vignette fails to load. Run the code below.
+The vignette file is located in the “doc” directory of the library in
+the R install folder. Below is the path to the file on my PC. But it is
+much easier to use the code below to call the vignette by name. There is
+also be a link to the vignette at the top of the help index for the
+package.
+
+“C:\\Programs\\R\\R-3.4.2\\library\\ContDataQC\\doc\\ContDataQC\_Vignette.html”
+
+``` r
+vignette("ContDataQC_Vignette", package="ContDataQC")
+```
+
+If the vignette fails to show on your computer. Run the code below to
+reinstall the package and specify the creation of the vignette.
 
 ``` r
 library(devtools)
 install_github("leppott/ContDataQC", force=TRUE, build_vignettes=TRUE)
 ```
+
+## Guides
+
+Guide videos were created for the ContDataQC package and posted on
+YouTube. The Powerpoint slides (pptx), R code notebooks (html), and
+videos are hosted on a companion GitHub site.
+
+<https://github.com/leppott/ContDataQC_Guide>
+
+YouTube video links below.
+
+  - Introduction
+      - <https://youtu.be/FJAv7g9GPHI>
+  - Config
+      - <https://youtu.be/qbUgPczdfdo>
+  - Basic Functions
+      - <https://youtu.be/zlq1YDPTBsw>
+  - Gage Data
+      - <https://youtu.be/vXyvp9r2tv4>

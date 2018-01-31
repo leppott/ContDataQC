@@ -46,6 +46,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.1.9063
+2018-01-29
+
+* Updated ReadMe.
+    + Provide links to "Guides"; training videos on YouTube with powerpoint slides and R Notebooks (with video files) on GitHub.
+
 ## v2.0.1.9062
 2018-01-29
 
