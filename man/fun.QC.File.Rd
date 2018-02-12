@@ -5,7 +5,7 @@
 \title{Quality Control, File}
 \usage{
 fun.QC.File(fun.myFile, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.myReport.format)
+  fun.myDir.export = getwd(), fun.myReport.format, fun.myReport.Dir)
 }
 \arguments{
 \item{fun.myFile}{Single (or vector of) file name(s).}
@@ -14,7 +14,9 @@ fun.QC.File(fun.myFile, fun.myDir.import = getwd(),
 
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).}
+\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).Can be customized in config.R; ContData.env$myReport.Format.}
+
+\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
 }
 \value{
 Returns a csv file to specified directory with QC flags.

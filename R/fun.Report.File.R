@@ -41,7 +41,8 @@
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
-#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
+#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
+#' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
 #' @return Creates a Word file in the specified directory.
 #' @keywords internal continuous data, report
 #' @examples
@@ -53,7 +54,8 @@ fun.Report.File <- function(fun.myFile
                             , fun.myDir.import=getwd()
                             , fun.myDir.export=getwd()
                             , fun.myFile.Prefix
-                            , fun.myReport.format) {##FUN.fun.Report.START
+                            , fun.myReport.format
+                            , fun.myReport.Dir) {##FUN.fun.Report.START
 
   # Convert Data Type to proper case
   #fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1)),tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
@@ -96,7 +98,7 @@ fun.Report.File <- function(fun.myFile
     #QC, make sure file exists
     if(strFile %in% list.files(path=myDir.data.import)==FALSE) {##IF.file.START
       #
-      print("ERROR; no such file exits.  Cannot create QC Report.")
+      print("ERROR; no such file exists.  Cannot create QC Report.")
       print(paste("PATH = ",myDir.data.import,sep=""))
       print(paste("FILE = ",strFile,sep=""))
         flush.console()
@@ -136,12 +138,29 @@ fun.Report.File <- function(fun.myFile
     # use RMD with embedded code
     # much cleaner DOCX than the 2-step process of MD with knit to RMD with pandoc
     #strFile.RMD <- paste(myDir.BASE,"Scripts",paste(myReport.Name,"rmd",sep="."),sep="/") #"QCReport.rmd"
-    strFile.RMD <- system.file(paste0("rmd/",myReport.Name,"_",fun.myReport.format,".rmd"),package=myPkg)
+    #strFile.RMD <- system.file(paste0("rmd/",myReport.Name,"_",fun.myReport.format,".rmd"),package=myPkg)
+    # use provided dir for template
+    strFile.RMD <- file.path(fun.myReport.Dir, paste0(myReport.Name, "_", fun.myReport.format, ".rmd"))
     strFile.out.ext <- paste0(".",fun.myReport.format) #".docx" # ".html"
     strFile.out <- paste(paste(strFile.Base,myReport.Name,sep=ContData.env$myDelim),strFile.out.ext,sep="")
-    #suppressWarnings(
+    #
+    # 20180212
+    # Test if RMD file exists
+    if (file.exists(strFile.RMD)){##IF.file.exists.START
+      #suppressWarnings(
       rmarkdown::render(strFile.RMD, output_file=strFile.out, output_dir=fun.myDir.export, quiet=TRUE)
-    #)
+      #)
+    } else {
+      Msg.Line0 <- "\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+      Msg.Line1 <- "Provided report template file directory does not include the necessary RMD file to generate the report.  So no report will be generated."
+      Msg.Line2 <- "The default report directory can be modified in config.R (ContData.env$myReport.Dir) and used as input to the function (fun.myConfig)."
+      Msg.Line3 <- paste0("file = ", paste0(myReport.Name, "_", fun.myReport.format, ".rmd"))
+      Msg.Line4 <- paste0("directory = ", fun.myReport.Dir)
+      Msg <- paste(Msg.Line0, Msg.Line1, Msg.Line2, Msg.Line3, Msg.Line4, Msg.Line0, sep="\n\n")
+      cat(Msg)
+      flush.console()
+    }##IF.file.exists.END
+    #
 
 
       #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -46,6 +46,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.2.9001
+2018-02-12
+
+* Added parameter for RMD (report template) directory.
+    + For Shiny (Issue #39) and custom reports.  Includes error checking for no RMD file found.
+* Added config.RMDdir.R to "extdata" as a test.
+
 ## v2.0.2
 2018-01-31
 

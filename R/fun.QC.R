@@ -40,7 +40,8 @@
 #' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
+#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
+#' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
 #' @return Returns a csv file to specified directory with QC flags.
 #' @keywords internal continuous data, qc, quality control
 #' @examples
@@ -48,12 +49,13 @@
 #
 #'@export
 fun.QC <- function(fun.myData.SiteID
-                   ,fun.myData.Type="QC"
-                   ,fun.myData.DateRange.Start
-                   ,fun.myData.DateRange.End
-                   ,fun.myDir.import=""
-                   ,fun.myDir.export=""
-                   ,fun.myReport.format) {##FUN.fun.QC.START
+                   , fun.myData.Type="QC"
+                   , fun.myData.DateRange.Start
+                   , fun.myData.DateRange.End
+                   , fun.myDir.import=""
+                   , fun.myDir.export=""
+                   , fun.myReport.format
+                   , fun.myReport.Dir) {##FUN.fun.QC.START
   #
   # A. Data Prep ####
   # Convert Data Type to proper case
@@ -859,13 +861,14 @@ fun.QC <- function(fun.myData.SiteID
     ###
     # B.10.3. Report ####
     fun.Report(strFile.SiteID
-                 ,strFile.DataType
-                 ,strFile.Date.Start
-                 ,strFile.Date.End
-                 ,fun.myDir.export
-                 ,fun.myDir.export
-                 ,strFile.Out.Prefix
-                 ,fun.myReport.format)
+                 , strFile.DataType
+                 , strFile.Date.Start
+                 , strFile.Date.End
+                 , fun.myDir.export
+                 , fun.myDir.export
+                 , strFile.Out.Prefix
+                 , fun.myReport.format
+                 , fun.myReport.Dir)
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC
 # ##

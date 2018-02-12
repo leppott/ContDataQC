@@ -5,7 +5,8 @@
 \title{Generate Reports, File}
 \usage{
 fun.Report.File(fun.myFile, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.myFile.Prefix, fun.myReport.format)
+  fun.myDir.export = getwd(), fun.myFile.Prefix, fun.myReport.format,
+  fun.myReport.Dir)
 }
 \arguments{
 \item{fun.myFile}{Single file name.}
@@ -16,7 +17,9 @@ fun.Report.File(fun.myFile, fun.myDir.import = getwd(),
 
 \item{fun.myFile.Prefix}{Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).}
+\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.}
+
+\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
 }
 \value{
 Creates a Word file in the specified directory.

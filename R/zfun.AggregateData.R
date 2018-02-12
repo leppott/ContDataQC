@@ -34,7 +34,8 @@
 #' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
+#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
+#' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
 #' @keywords internal continuous data, aggregate
 #' @examples
@@ -42,12 +43,13 @@
 #
 #' @export
 fun.AggregateData <- function(fun.myData.SiteID
-                             ,fun.myData.Type
-                             ,fun.myData.DateRange.Start
-                             ,fun.myData.DateRange.End
-                             ,fun.myDir.import=getwd()
-                             ,fun.myDir.export=getwd()
-                             ,fun.myReport.format) {##FUN.fun.QCauto.START
+                             , fun.myData.Type
+                             , fun.myData.DateRange.Start
+                             , fun.myData.DateRange.End
+                             , fun.myDir.import=getwd()
+                             , fun.myDir.export=getwd()
+                             , fun.myReport.format
+                             , fun.myReport.Dir) {##FUN.fun.QCauto.START
   #
   # Error Checking - only 1 SiteID and 1 DataType
   if(length(fun.myData.SiteID)!=1){
@@ -341,13 +343,14 @@ fun.AggregateData <- function(fun.myData.SiteID
 
 #
         fun.Report(strFile.SiteID
-                     ,strFile.DataType
-                     ,fun.myData.DateRange.Start
-                     ,fun.myData.DateRange.End
-                     ,fun.myDir.export
-                     ,fun.myDir.export
-                     ,fun.myFile.Prefix = "DATA"
-                     ,fun.myReport.format)
+                     , strFile.DataType
+                     , fun.myData.DateRange.Start
+                     , fun.myData.DateRange.End
+                     , fun.myDir.export
+                     , fun.myDir.export
+                     , fun.myFile.Prefix = "DATA"
+                     , fun.myReport.format
+                     , fun.myReport.Dir)
 #                 ##
 #                 # QC
 #                 ##
@@ -387,7 +390,8 @@ fun.AggregateData <- function(fun.myData.SiteID
                   , fun.myDir.export
                   , fun.myDir.export
                   , strFile.Out.Prefix
-                  , fun.myReport.format)
+                  , fun.myReport.format
+                  , fun.myReport.Dir)
 
 
 

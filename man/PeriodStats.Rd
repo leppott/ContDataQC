@@ -8,7 +8,8 @@ PeriodStats(fun.myDate, fun.myDate.Format = NA, fun.myPeriod.N = 30,
   fun.myPeriod.Units = "d", fun.myFile, fun.myDir.import = getwd(),
   fun.myDir.export = getwd(), fun.myParam.Name,
   fun.myDateTime.Name = "Date.Time", fun.myDateTime.Format = NA,
-  fun.myThreshold = NA, fun.myConfig = "", fun.myReport.format = "")
+  fun.myThreshold = NA, fun.myConfig = "", fun.myReport.format = "",
+  fun.myReport.Dir = "")
 }
 \arguments{
 \item{fun.myDate}{Benchmark date.}
@@ -35,7 +36,9 @@ PeriodStats(fun.myDate, fun.myDate.Format = NA, fun.myPeriod.N = 30,
 
 \item{fun.myConfig}{Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control date and time formats.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).}
+\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).Can be customized in config.R; ContData.env$myReport.Format.}
+
+\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
 }
 \value{
 Returns a csv with daily means and a PDF summary with plots into the specified export directory for the specified time period before the given date.

@@ -486,17 +486,5 @@ ContData.env$myStats.Fails.Exclude <- TRUE  #FALSE #TRUE
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Report Format
 ContData.env$myReport.Format <- "html"  # "html" or "docx" # DOCX requires Pandoc.
-
-
-
-
-
-
-
-
-
-
-
-
-
+ContData.env$myReport.Dir    <- file.path(system.file(package="ContDataQC"), "rmd")
 

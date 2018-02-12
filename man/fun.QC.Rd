@@ -6,7 +6,7 @@
 \usage{
 fun.QC(fun.myData.SiteID, fun.myData.Type = "QC", fun.myData.DateRange.Start,
   fun.myData.DateRange.End, fun.myDir.import = "", fun.myDir.export = "",
-  fun.myReport.format)
+  fun.myReport.format, fun.myReport.Dir)
 }
 \arguments{
 \item{fun.myData.SiteID}{Station/SiteID.}
@@ -21,7 +21,9 @@ fun.QC(fun.myData.SiteID, fun.myData.Type = "QC", fun.myData.DateRange.Start,
 
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).}
+\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.}
+
+\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
 }
 \value{
 Returns a csv file to specified directory with QC flags.

@@ -36,7 +36,8 @@
 #' @param fun.myDateTime.Format Format of DateTime field.  Default = \%Y-\%m-\%d \%H:\%M:\%S.
 #' @param fun.myThreshold Value to draw line on plot.  For example, a regulatory limit.  Default = NA
 #' @param fun.myConfig Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control date and time formats.
-#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
+#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).Can be customized in config.R; ContData.env$myReport.Format.
+#' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
 #' @return Returns a csv with daily means and a PDF summary with plots into the specified export directory for the specified time period before the given date.
 #' @keywords continuous data, daily mean, period
 #' @examples
@@ -132,6 +133,7 @@ PeriodStats <- function(fun.myDate
                        , fun.myThreshold = NA
                        , fun.myConfig = ""
                        , fun.myReport.format=""
+                       , fun.myReport.Dir=""
                        )
 {##FUN.fun.Stats.START
   # 00. Debugging Variables####
@@ -150,6 +152,7 @@ PeriodStats <- function(fun.myDate
     fun.myThreshold <- 20
     fun.myConfig=""
     fun.myReport.format=""
+    fun.myReport.Dir <- ""
     # Load environment
     #ContData.env <- new.env(parent = emptyenv()) # in config.R
     source(file.path(getwd(),"R","fun.CustomConfig.R"), local=TRUE)
@@ -379,19 +382,43 @@ PeriodStats <- function(fun.myDate
   }
   fun.myReport.format <- tolower(fun.myReport.format)
 
+  # 20180212
+  # Error Check, Report Directory
+  if(fun.myReport.Dir==""){
+    fun.myReport.Dir <- ContData.env$myReport.Dir
+  }
+
   myReport.Name <- paste0("Report_PeriodStats","_",fun.myReport.format)
   myPkg <- "ContDataQC"
   if(boo.DEBUG==1){
     strFile.RMD <- file.path(getwd(),"inst","rmd",paste0(myReport.Name,".rmd")) # for testing
   } else {
-    strFile.RMD <- system.file(paste0("rmd/",myReport.Name,".rmd"),package=myPkg)
+    #strFile.RMD <- system.file(paste0("rmd/",myReport.Name,".rmd"),package=myPkg)
+    # use provided dir for template
+    strFile.RMD <- file.path(fun.myReport.Dir, paste0(myReport.Name, ".rmd"))
   }
+  #
   #
   strFile.out.ext <- paste0(".",fun.myReport.format) #".docx" # ".html"
   strFile.out <- paste0(myFile.Export.base,"_PeriodStats_",fun.myDate,"_",myDate,"_",myTime,strFile.out.ext)
-  #suppressWarnings(
-  rmarkdown::render(strFile.RMD, output_file=strFile.out, output_dir=fun.myDir.export, quiet=TRUE)
-  #)
+  #
+  # 20180212
+  # Test if RMD file exists
+  if (file.exists(strFile.RMD)){##IF.file.exists.START
+    #suppressWarnings(
+    rmarkdown::render(strFile.RMD, output_file=strFile.out, output_dir=fun.myDir.export, quiet=TRUE)
+    #)
+  } else {
+    Msg.Line0 <- "\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+    Msg.Line1 <- "Provided report template file directory does not include the necessary RMD file to generate the report.  So no report will be generated."
+    Msg.Line2 <- "The default report directory can be modified in config.R (ContData.env$myReport.Dir) and used as input to the function (fun.myConfig)."
+    Msg.Line3 <- paste0("report file = ", paste0(myReport.Name, ".rmd"))
+    Msg.Line4 <- paste0("directory = ", fun.myReport.Dir)
+    Msg <- paste(Msg.Line0, Msg.Line1, Msg.Line2, Msg.Line3, Msg.Line4, Msg.Line0, sep="\n\n")
+    cat(Msg)
+    flush.console()
+  }##IF.file.exists.END
+  #
 
   # 8. Inform user task is complete.####
   cat("Task complete.  Data (CSV) and report (",toupper(fun.myReport.format),") files saved to directory:\n")

@@ -38,7 +38,8 @@
 #' @param fun.myFile Single (or vector of) file name(s).
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
+#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).Can be customized in config.R; ContData.env$myReport.Format.
+#' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
 #' @return Returns a csv file to specified directory with QC flags.
 #' @keywords internal continuous data, qc, quality control
 #' @examples
@@ -73,6 +74,7 @@ fun.QC.File <- function(fun.myFile
                        , fun.myDir.import=getwd()
                        , fun.myDir.export=getwd()
                        , fun.myReport.format
+                       , fun.myReport.Dir
                        ) {##FUN.fun.QC.START
   #
   # # A. Data Prep ####
@@ -883,7 +885,8 @@ fun.QC.File <- function(fun.myFile
                       , fun.myDir.export
                       , fun.myDir.export
                       , strFile.Out.Prefix
-                      , fun.myReport.format)
+                      , fun.myReport.format
+                      , fun.myReport.Dir)
     }
 
 

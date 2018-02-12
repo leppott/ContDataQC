@@ -29,7 +29,8 @@
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
-#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).
+#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
+#' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
 #' @keywords internal continuous data, statistics
 #' @examples
@@ -37,14 +38,15 @@
 #
 #' @export
 fun.Stats <- function(fun.myData.SiteID
-                     ,fun.myData.Type
-                     ,fun.myData.DateRange.Start
-                     ,fun.myData.DateRange.End
-                     ,fun.myDir.import=getwd()
-                     ,fun.myDir.export=getwd()
-                     ,fun.myProcedure.Step
-                     ,fun.myFile.Prefix
-                     ,fun.myReport.format) {##FUN.fun.Stats.START
+                     , fun.myData.Type
+                     , fun.myData.DateRange.Start
+                     , fun.myData.DateRange.End
+                     , fun.myDir.import=getwd()
+                     , fun.myDir.export=getwd()
+                     , fun.myProcedure.Step
+                     , fun.myFile.Prefix
+                     , fun.myReport.format
+                     , fun.myReport.Dir) {##FUN.fun.Stats.START
   #
 #   ##
 #   # QC (from fun.Master.R)
