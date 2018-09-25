@@ -17,23 +17,32 @@
 #' @param sample.ID Column name in inbug for sample identifier.
 #' @param abund Column name in inbug for organism count.
 #' @param subsiz Target subsample size for each sample.
-#' @param mySeed Seed for random number generator.  If provided the results with the same inbug file will produce the same results.. Defaut = NA (random seed will be used.)
+#' @param mySeed Seed for random number generator.  If provided the results with the same inbug file will produce the same results. Defaut = NA (random seed will be used.)
 #' @return Returns a data frame with the same three columns but the abund field has been modified so the total count for each sample is no longer above the target (subsiz).
-#' @keywords rarify, subsample
 #' @examples
+#' # Subsample to 200 organisms for a single sample from MS.
+#'
 #' # load bio data
 #' DF.biodata <- data_bio2rarify
 #' dim(DF.biodata)
 #' View(DF.biodata)
+#'
 #' # subsample
 #' mySize <- 200
 #' Seed.MS <- 18171210
 #' bugs.mysize <- rarify(inbug=DF.biodata, sample.ID="SampRep"
 #'                      ,abund="Count",subsiz=mySize, mySeed=Seed.MS)
+#'
+#' # view results
 #' dim(bugs.mysize)
 #' View(bugs.mysize)
+#'
+#' # Compare pre- and post- subsample counts
+#' df.compare <- merge(DF.biodata, bugs.mysize, by=c("SampRep", "tax"))
+#' View(df.compare)
+#'
 #' # save the data
-#' write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\t")
+#' #write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\t")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 rarify<-function(inbug, sample.ID, abund, subsiz, mySeed=NA){##FUNCTION.rarify.START

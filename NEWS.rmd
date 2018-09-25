@@ -46,6 +46,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.2.9002
+2018-09-25
+
+* Update help file for rarify.  Make the same as BCGcalc::rarify.  Issue #65.
+* Still need to modify vignette.
+
 ## v2.0.2.9001
 2018-02-12
 

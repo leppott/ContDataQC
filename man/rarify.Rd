@@ -15,7 +15,7 @@ rarify(inbug, sample.ID, abund, subsiz, mySeed = NA)
 
 \item{subsiz}{Target subsample size for each sample.}
 
-\item{mySeed}{Seed for random number generator.  If provided the results with the same inbug file will produce the same results.. Defaut = NA (random seed will be used.)}
+\item{mySeed}{Seed for random number generator.  If provided the results with the same inbug file will produce the same results. Defaut = NA (random seed will be used.)}
 }
 \value{
 Returns a data frame with the same three columns but the abund field has been modified so the total count for each sample is no longer above the target (subsiz).
@@ -33,19 +33,27 @@ rarify function:
  Version 1.0, 06/10/05;
 }
 \examples{
+# Subsample to 200 organisms for a single sample from MS.
+
 # load bio data
 DF.biodata <- data_bio2rarify
 dim(DF.biodata)
 View(DF.biodata)
+
 # subsample
 mySize <- 200
 Seed.MS <- 18171210
 bugs.mysize <- rarify(inbug=DF.biodata, sample.ID="SampRep"
                      ,abund="Count",subsiz=mySize, mySeed=Seed.MS)
+
+# view results
 dim(bugs.mysize)
 View(bugs.mysize)
+
+# Compare pre- and post- subsample counts
+df.compare <- merge(DF.biodata, bugs.mysize, by=c("SampRep", "tax"))
+View(df.compare)
+
 # save the data
-write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\\t")
+#write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\\t")
 }
-\keyword{rarify,}
-\keyword{subsample}

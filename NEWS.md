@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-02-12 13:53:16
+    #> Last Update: 2018-09-25 08:58:21
 
 # Planned Updates
 
@@ -37,6 +37,14 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.2.9002
+
+2018-09-25
+
+  - Update help file for rarify. Make the same as BCGcalc::rarify. Issue
+    \#65.
+  - Still need to modify vignette.
 
 ## v2.0.2.9001
 
