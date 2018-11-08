@@ -46,6 +46,15 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.2.9003
+2018-11-08
+
+* Configuration Report, Issue #15
+    + Report_Config.rmd
+        - New report in RMD folder
+    + fun.ConfigOut.R
+        - New function to output new report
+
 ## v2.0.2.9002
 2018-09-25
 
