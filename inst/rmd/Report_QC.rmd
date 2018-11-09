@@ -2,6 +2,12 @@
 title: "Data Quality Control Report"
 output: word_document
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE)
+# needed for trouble shooting
+#myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+#source(myConfig)
+```
 
 ```{r report_date, results='asis', echo=FALSE, warning=FALSE}
   myReportDate <- format(Sys.Date(),ContData.env$myFormat.Date)
@@ -156,7 +162,14 @@ output: word_document
 ```
 
 
-# FLAGS, OVERALL, BY PARAMETER
+# FLAGS
+Each data point is checked by each of the four QC tests below. 
+
+* **Gross Range Test (Gross):** Test if data point exceeds sensor or user defined min/max.  The values are user defined based on parameter being measured and measuring instrument.
+* **Spike Test (Spike):** Test if data point exceeds a user defined threshold relative to the previous data point.  The user defined values are based on the parameter being measured.
+* **Rate of Change Test (RoC):** Test if a data point exceeds a number of standard deviations from the previous data points over a user defined time period.  Default is a 25 hour time period and 3 standard deviations.
+* **Flat Line Test (Flat):** Test if a data point is within a user defined threshold from previous data points over a user defined range.  Default is 3 previous points for suspect and 5 points for failure.  The threshold is user defined and based on the measured parameter and sensitivity of the measuring instrument.
+
 Flags are assigned to each data point (a single measured parameter at a unique point in time) first by each of the QC tests below.  Flags are assigned numerical values;
 
 ```{r flags_legend, results='asis', echo=FALSE, warning=FALSE}
@@ -169,6 +182,7 @@ cat("\n")
 cat(paste("* **",ContData.env$myFlagVal.NoData,"** = No Data or Not Applicable (NA).",sep=""))
 ```
 
+
 Overall flags are assigned by examining the results of the four tests below. 
 
 ```{r flags_overall, results='asis', echo=FALSE, warning=FALSE}
@@ -179,6 +193,525 @@ cat("\n")
 cat(paste("* **",ContData.env$myFlagVal.Fail,"** = at least one Fail,",sep=""))
 cat("\n")
 cat(paste("* **",ContData.env$myFlagVal.NoData,"** = all tests were Missing Data.",sep=""))
+```
+
+The thresholds used in the tests are defined in the config file and are listed below.
+
+```{r Thresholds}
+kbl_caption <- "Thresholds, Quick Reference"
+txt_header <- c("Analyte", "Flag", "Gross", "Spike", "Rate of Change", "Flat Line")
+# WaterTemp
+nam_WaterTemp <- c("myLab.WaterTemp"                       #1
+                   , "myUnits.WaterTemp"                    #2
+                   , "myThresh.Gross.Fail.Hi.WaterTemp"     #3
+                   , "myThresh.Gross.Fail.Lo.WaterTemp"     #4
+                   , "myThresh.Gross.Suspect.Hi.WaterTemp"  #5
+                   , "myThresh.Gross.Suspect.Lo.WaterTemp"  #6
+                   , "myThresh.Spike.Hi.WaterTemp"          #7
+                   , "myThresh.Spike.Lo.WaterTemp"          #8
+                   , "myThresh.RoC.SD.number.WaterTemp"     #9
+                   , "myThresh.RoC.SD.period.WaterTemp"     #10
+                   , "myThresh.Flat.Hi.WaterTemp"           #11
+                   , "myThresh.Flat.Lo.WaterTemp"           #12
+                   , "myThresh.Flat.Tolerance.WaterTemp"    #13
+                   )
+val_WaterTemp <- mget(nam_WaterTemp, envir=ContData.env)
+txt_WaterTemp_F <- c(val_WaterTemp[1]
+                     , "Fail"
+                     , paste0("> ",val_WaterTemp[3]," deg ",val_WaterTemp[2]
+                              ,"  or < ",val_WaterTemp[4]," deg ",val_WaterTemp[2])
+                     , paste0(">= ", val_WaterTemp[7]," deg ",val_WaterTemp[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_WaterTemp[11]
+                              ," consecutive measurements within ",val_WaterTemp[13]
+                              ," units of one another"))
+txt_WaterTemp_S <- c(val_WaterTemp[1]
+                     , "Suspect"
+                     , paste0("> ",val_WaterTemp[4]," deg ",val_WaterTemp[2]
+                              ," or < ",val_WaterTemp[6]," deg ",val_WaterTemp[2])
+                     , paste0(">= ", val_WaterTemp[8]," deg ",val_WaterTemp[2]," (+/-)")
+                     , paste0(">= ",val_WaterTemp[9]," standard deviations within "
+                              ,val_WaterTemp[10]," hours")
+                     , paste0("> ",val_WaterTemp[12]
+                              ," consecutive measurements within ",val_WaterTemp[13]
+                              ," units of one another"))
+# AirTemp
+nam_AirTemp <- c("myLab.AirTemp"                          #1
+                   , "myUnits.AirTemp"                    #2
+                   , "myThresh.Gross.Fail.Hi.AirTemp"     #3
+                   , "myThresh.Gross.Fail.Lo.AirTemp"     #4
+                   , "myThresh.Gross.Suspect.Hi.AirTemp"  #5
+                   , "myThresh.Gross.Suspect.Lo.AirTemp"  #6
+                   , "myThresh.Spike.Hi.AirTemp"          #7
+                   , "myThresh.Spike.Lo.AirTemp"          #8
+                   , "myThresh.RoC.SD.number.AirTemp"     #9
+                   , "myThresh.RoC.SD.period.AirTemp"     #10
+                   , "myThresh.Flat.Hi.AirTemp"           #11
+                   , "myThresh.Flat.Lo.AirTemp"           #12
+                   , "myThresh.Flat.Tolerance.AirTemp"    #13
+                   )
+val_AirTemp <- mget(nam_AirTemp, envir=ContData.env)
+txt_AirTemp_F <- c(val_AirTemp[1]
+                     , "Fail"
+                     , paste0("> ",val_AirTemp[3]," deg ",val_AirTemp[2]
+                              ,"  or < ",val_AirTemp[4]," deg ",val_AirTemp[2])
+                     , paste0(">= ", val_AirTemp[7]," deg ",val_AirTemp[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_AirTemp[11]
+                              ," consecutive measurements within ",val_AirTemp[13]
+                              ," units of one another"))
+txt_AirTemp_S <- c(val_AirTemp[1]
+                     , "Suspect"
+                     , paste0("> ",val_AirTemp[4]," deg ",val_AirTemp[2]
+                              ," or < ",val_AirTemp[6]," deg ",val_AirTemp[2])
+                     , paste0(">= ", val_AirTemp[8]," deg ",val_AirTemp[2]," (+/-)")
+                     , paste0(">= ",val_AirTemp[9]," standard deviations within "
+                              ,val_AirTemp[10]," hours")
+                     , paste0("> ",val_AirTemp[12]
+                              ," consecutive measurements within ",val_AirTemp[13]
+                              ," units of one another"))
+# WaterP
+nam_WaterP <- c("myLab.WaterP"                          #1
+                   , "myUnits.WaterP"                    #2
+                   , "myThresh.Gross.Fail.Hi.WaterP"     #3
+                   , "myThresh.Gross.Fail.Lo.WaterP"     #4
+                   , "myThresh.Gross.Suspect.Hi.WaterP"  #5
+                   , "myThresh.Gross.Suspect.Lo.WaterP"  #6
+                   , "myThresh.Spike.Hi.WaterP"          #7
+                   , "myThresh.Spike.Lo.WaterP"          #8
+                   , "myThresh.RoC.SD.number.WaterP"     #9
+                   , "myThresh.RoC.SD.period.WaterP"     #10
+                   , "myThresh.Flat.Hi.WaterP"           #11
+                   , "myThresh.Flat.Lo.WaterP"           #12
+                   , "myThresh.Flat.Tolerance.WaterP"    #13
+                   )
+val_WaterP <- mget(nam_WaterP, envir=ContData.env)
+txt_WaterP_F <- c(val_WaterP[1]
+                     , "Fail"
+                     , paste0("> ",val_WaterP[3]," ",val_WaterP[2]
+                              ,"  or < ",val_WaterP[4]," ",val_WaterP[2])
+                     , paste0(">= ", val_WaterP[7]," ",val_WaterP[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_WaterP[11]
+                              ," consecutive measurements within ",val_WaterP[13]
+                              ," units of one another"))
+txt_WaterP_S <- c(val_WaterP[1]
+                     , "Suspect"
+                     , paste0("> ",val_WaterP[4]," ",val_WaterP[2]
+                              ," or < ",val_WaterP[6]," ",val_WaterP[2])
+                     , paste0(">= ", val_WaterP[8]," ",val_WaterP[2]," (+/-)")
+                     , paste0(">= ",val_WaterP[9]," standard deviations within "
+                              ,val_WaterP[10]," hours")
+                     , paste0("> ",val_WaterP[12]
+                              ," consecutive measurements within ",val_WaterP[13]
+                              ," units of one another"))
+# AirBP
+nam_AirBP <- c("myLab.AirBP"                          #1
+                   , "myUnits.AirBP"                    #2
+                   , "myThresh.Gross.Fail.Hi.AirBP"     #3
+                   , "myThresh.Gross.Fail.Lo.AirBP"     #4
+                   , "myThresh.Gross.Suspect.Hi.AirBP"  #5
+                   , "myThresh.Gross.Suspect.Lo.AirBP"  #6
+                   , "myThresh.Spike.Hi.AirBP"          #7
+                   , "myThresh.Spike.Lo.AirBP"          #8
+                   , "myThresh.RoC.SD.number.AirBP"     #9
+                   , "myThresh.RoC.SD.period.AirBP"     #10
+                   , "myThresh.Flat.Hi.AirBP"           #11
+                   , "myThresh.Flat.Lo.AirBP"           #12
+                   , "myThresh.Flat.Tolerance.AirBP"    #13
+                   )
+val_AirBP <- mget(nam_AirBP, envir=ContData.env)
+txt_AirBP_F <- c(val_AirBP[1]
+                     , "Fail"
+                     , paste0("> ",val_AirBP[3]," ",val_AirBP[2]
+                              ,"  or < ",val_AirBP[4]," ",val_AirBP[2])
+                     , paste0(">= ", val_AirBP[7]," ",val_AirBP[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_AirBP[11]
+                              ," consecutive measurements within ",val_AirBP[13]
+                              ," units of one another"))
+txt_AirBP_S <- c(val_AirBP[1]
+                     , "Suspect"
+                     , paste0("> ",val_AirBP[4]," ",val_AirBP[2]
+                              ," or < ",val_AirBP[6]," ",val_AirBP[2])
+                     , paste0(">= ", val_AirBP[8]," ",val_AirBP[2]," (+/-)")
+                     , paste0(">= ",val_AirBP[9]," standard deviations within "
+                              ,val_AirBP[10]," hours")
+                     , paste0("> ",val_AirBP[12]
+                              ," consecutive measurements within ",val_AirBP[13]
+                              ," units of one another"))
+# SensorDepth
+nam_SensorDepth <- c("myLab.SensorDepth"                          #1
+                   , "myUnits.SensorDepth"                    #2
+                   , "myThresh.Gross.Fail.Hi.SensorDepth"     #3
+                   , "myThresh.Gross.Fail.Lo.SensorDepth"     #4
+                   , "myThresh.Gross.Suspect.Hi.SensorDepth"  #5
+                   , "myThresh.Gross.Suspect.Lo.SensorDepth"  #6
+                   , "myThresh.Spike.Hi.SensorDepth"          #7
+                   , "myThresh.Spike.Lo.SensorDepth"          #8
+                   , "myThresh.RoC.SD.number.SensorDepth"     #9
+                   , "myThresh.RoC.SD.period.SensorDepth"     #10
+                   , "myThresh.Flat.Hi.SensorDepth"           #11
+                   , "myThresh.Flat.Lo.SensorDepth"           #12
+                   , "myThresh.Flat.Tolerance.SensorDepth"    #13
+                   )
+val_SensorDepth <- mget(nam_SensorDepth, envir=ContData.env)
+txt_SensorDepth_F <- c(val_SensorDepth[1]
+                     , "Fail"
+                     , paste0("> ",val_SensorDepth[3]," ",val_SensorDepth[2]
+                              ,"  or < ",val_SensorDepth[4]," ",val_SensorDepth[2])
+                     , paste0(">= ", val_SensorDepth[7]," ",val_SensorDepth[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_SensorDepth[11]
+                              ," consecutive measurements within ",val_SensorDepth[13]
+                              ," units of one another"))
+txt_SensorDepth_S <- c(val_SensorDepth[1]
+                     , "Suspect"
+                     , paste0("> ",val_SensorDepth[4]," ",val_SensorDepth[2]
+                              ," or < ",val_SensorDepth[6]," ",val_SensorDepth[2])
+                     , paste0(">= ", val_SensorDepth[8]," ",val_SensorDepth[2]," (+/-)")
+                     , paste0(">= ",val_SensorDepth[9]," standard deviations within "
+                              ,val_SensorDepth[10]," hours")
+                     , paste0("> ",val_SensorDepth[12]
+                              ," consecutive measurements within ",val_SensorDepth[13]
+                              ," units of one another"))
+# Discharge
+nam_Discharge <- c("myLab.Discharge"                          #1
+                   , "myUnits.Discharge"                    #2
+                   , "myThresh.Gross.Fail.Hi.Discharge"     #3
+                   , "myThresh.Gross.Fail.Lo.Discharge"     #4
+                   , "myThresh.Gross.Suspect.Hi.Discharge"  #5
+                   , "myThresh.Gross.Suspect.Lo.Discharge"  #6
+                   , "myThresh.Spike.Hi.Discharge"          #7
+                   , "myThresh.Spike.Lo.Discharge"          #8
+                   , "myThresh.RoC.SD.number.Discharge"     #9
+                   , "myThresh.RoC.SD.period.Discharge"     #10
+                   , "myThresh.Flat.Hi.Discharge"           #11
+                   , "myThresh.Flat.Lo.Discharge"           #12
+                   , "myThresh.Flat.Tolerance.Discharge"    #13
+                   )
+val_Discharge <- mget(nam_Discharge, envir=ContData.env)
+txt_Discharge_F <- c(val_Discharge[1]
+                     , "Fail"
+                     , paste0("> ",val_Discharge[3]," ",val_Discharge[2]
+                              ,"  or < ",val_Discharge[4]," ",val_Discharge[2])
+                     , paste0(">= ", val_Discharge[7]," ",val_Discharge[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_Discharge[11]
+                              ," consecutive measurements within ",val_Discharge[13]
+                              ," units of one another"))
+txt_Discharge_S <- c(val_Discharge[1]
+                     , "Suspect"
+                     , paste0("> ",val_Discharge[4]," ",val_Discharge[2]
+                              ," or < ",val_Discharge[6]," ",val_Discharge[2])
+                     , paste0(">= ", val_Discharge[8]," ",val_Discharge[2]," (+/-)")
+                     , paste0(">= ",val_Discharge[9]," standard deviations within "
+                              ,val_Discharge[10]," hours")
+                     , paste0("> ",val_Discharge[12]
+                              ," consecutive measurements within ",val_Discharge[13]
+                              ," units of one another"))
+# Cond
+nam_Cond <- c("myLab.Cond"                          #1
+                   , "myUnits.Cond"                    #2
+                   , "myThresh.Gross.Fail.Hi.Cond"     #3
+                   , "myThresh.Gross.Fail.Lo.Cond"     #4
+                   , "myThresh.Gross.Suspect.Hi.Cond"  #5
+                   , "myThresh.Gross.Suspect.Lo.Cond"  #6
+                   , "myThresh.Spike.Hi.Cond"          #7
+                   , "myThresh.Spike.Lo.Cond"          #8
+                   , "myThresh.RoC.SD.number.Cond"     #9
+                   , "myThresh.RoC.SD.period.Cond"     #10
+                   , "myThresh.Flat.Hi.Cond"           #11
+                   , "myThresh.Flat.Lo.Cond"           #12
+                   , "myThresh.Flat.Tolerance.Cond"    #13
+                   )
+val_Cond <- mget(nam_Cond, envir=ContData.env)
+txt_Cond_F <- c(val_Cond[1]
+                     , "Fail"
+                     , paste0("> ",val_Cond[3]," ",val_Cond[2]
+                              ,"  or < ",val_Cond[4]," ",val_Cond[2])
+                     , paste0(">= ", val_Cond[7]," ",val_Cond[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_Cond[11]
+                              ," consecutive measurements within ",val_Cond[13]
+                              ," units of one another"))
+txt_Cond_S <- c(val_Cond[1]
+                     , "Suspect"
+                     , paste0("> ",val_Cond[4]," ",val_Cond[2]
+                              ," or < ",val_Cond[6]," ",val_Cond[2])
+                     , paste0(">= ", val_Cond[8]," ",val_Cond[2]," (+/-)")
+                     , paste0(">= ",val_Cond[9]," standard deviations within "
+                              ,val_Cond[10]," hours")
+                     , paste0("> ",val_Cond[12]
+                              ," consecutive measurements within ",val_Cond[13]
+                              ," units of one another"))
+# DO
+nam_DO <- c("myLab.DO"                          #1
+                   , "myUnits.DO"                    #2
+                   , "myThresh.Gross.Fail.Hi.DO"     #3
+                   , "myThresh.Gross.Fail.Lo.DO"     #4
+                   , "myThresh.Gross.Suspect.Hi.DO"  #5
+                   , "myThresh.Gross.Suspect.Lo.DO"  #6
+                   , "myThresh.Spike.Hi.DO"          #7
+                   , "myThresh.Spike.Lo.DO"          #8
+                   , "myThresh.RoC.SD.number.DO"     #9
+                   , "myThresh.RoC.SD.period.DO"     #10
+                   , "myThresh.Flat.Hi.DO"           #11
+                   , "myThresh.Flat.Lo.DO"           #12
+                   , "myThresh.Flat.Tolerance.DO"    #13
+                   )
+val_DO <- mget(nam_DO, envir=ContData.env)
+txt_DO_F <- c(val_DO[1]
+                     , "Fail"
+                     , paste0("> ",val_DO[3]," ",val_DO[2]
+                              ,"  or < ",val_DO[4]," ",val_DO[2])
+                     , paste0(">= ", val_DO[7]," ",val_DO[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_DO[11]
+                              ," consecutive measurements within ",val_DO[13]
+                              ," units of one another"))
+txt_DO_S <- c(val_DO[1]
+                     , "Suspect"
+                     , paste0("> ",val_DO[4]," ",val_DO[2]
+                              ," or < ",val_DO[6]," ",val_DO[2])
+                     , paste0(">= ", val_DO[8]," ",val_DO[2]," (+/-)")
+                     , paste0(">= ",val_DO[9]," standard deviations within "
+                              ,val_DO[10]," hours")
+                     , paste0("> ",val_DO[12]
+                              ," consecutive measurements within ",val_DO[13]
+                              ," units of one another"))
+# pH
+nam_pH <- c("myLab.pH"                          #1
+                   , "myUnits.pH"                    #2
+                   , "myThresh.Gross.Fail.Hi.pH"     #3
+                   , "myThresh.Gross.Fail.Lo.pH"     #4
+                   , "myThresh.Gross.Suspect.Hi.pH"  #5
+                   , "myThresh.Gross.Suspect.Lo.pH"  #6
+                   , "myThresh.Spike.Hi.pH"          #7
+                   , "myThresh.Spike.Lo.pH"          #8
+                   , "myThresh.RoC.SD.number.pH"     #9
+                   , "myThresh.RoC.SD.period.pH"     #10
+                   , "myThresh.Flat.Hi.pH"           #11
+                   , "myThresh.Flat.Lo.pH"           #12
+                   , "myThresh.Flat.Tolerance.pH"    #13
+                   )
+val_pH <- mget(nam_pH, envir=ContData.env)
+txt_pH_F <- c(val_pH[1]
+                     , "Fail"
+                     , paste0("> ",val_pH[3]," ",val_pH[2]
+                              ,"  or < ",val_pH[4]," ",val_pH[2])
+                     , paste0(">= ", val_pH[7]," ",val_pH[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_pH[11]
+                              ," consecutive measurements within ",val_pH[13]
+                              ," units of one another"))
+txt_pH_S <- c(val_pH[1]
+                     , "Suspect"
+                     , paste0("> ",val_pH[4]," ",val_pH[2]
+                              ," or < ",val_pH[6]," ",val_pH[2])
+                     , paste0(">= ", val_pH[8]," ",val_pH[2]," (+/-)")
+                     , paste0(">= ",val_pH[9]," standard deviations within "
+                              ,val_pH[10]," hours")
+                     , paste0("> ",val_pH[12]
+                              ," consecutive measurements within ",val_pH[13]
+                              ," units of one another"))
+# Turbidity
+nam_Turbidity <- c("myLab.Turbidity"                          #1
+                   , "myUnits.Turbidity"                    #2
+                   , "myThresh.Gross.Fail.Hi.Turbidity"     #3
+                   , "myThresh.Gross.Fail.Lo.Turbidity"     #4
+                   , "myThresh.Gross.Suspect.Hi.Turbidity"  #5
+                   , "myThresh.Gross.Suspect.Lo.Turbidity"  #6
+                   , "myThresh.Spike.Hi.Turbidity"          #7
+                   , "myThresh.Spike.Lo.Turbidity"          #8
+                   , "myThresh.RoC.SD.number.Turbidity"     #9
+                   , "myThresh.RoC.SD.period.Turbidity"     #10
+                   , "myThresh.Flat.Hi.Turbidity"           #11
+                   , "myThresh.Flat.Lo.Turbidity"           #12
+                   , "myThresh.Flat.Tolerance.Turbidity"    #13
+                   )
+val_Turbidity <- mget(nam_Turbidity, envir=ContData.env)
+txt_Turbidity_F <- c(val_Turbidity[1]
+                     , "Fail"
+                     , paste0("> ",val_Turbidity[3]," ",val_Turbidity[2]
+                              ,"  or < ",val_Turbidity[4]," ",val_Turbidity[2])
+                     , paste0(">= ", val_Turbidity[7]," ",val_Turbidity[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_Turbidity[11]
+                              ," consecutive measurements within ",val_Turbidity[13]
+                              ," units of one another"))
+txt_Turbidity_S <- c(val_Turbidity[1]
+                     , "Suspect"
+                     , paste0("> ",val_Turbidity[4]," ",val_Turbidity[2]
+                              ," or < ",val_Turbidity[6]," ",val_Turbidity[2])
+                     , paste0(">= ", val_Turbidity[8]," ",val_Turbidity[2]," (+/-)")
+                     , paste0(">= ",val_Turbidity[9]," standard deviations within "
+                              ,val_Turbidity[10]," hours")
+                     , paste0("> ",val_Turbidity[12]
+                              ," consecutive measurements within ",val_Turbidity[13]
+                              ," units of one another"))
+# Chlorophylla
+nam_Chlorophylla <- c("myLab.Chlorophylla"                          #1
+                   , "myUnits.Chlorophylla"                    #2
+                   , "myThresh.Gross.Fail.Hi.Chlorophylla"     #3
+                   , "myThresh.Gross.Fail.Lo.Chlorophylla"     #4
+                   , "myThresh.Gross.Suspect.Hi.Chlorophylla"  #5
+                   , "myThresh.Gross.Suspect.Lo.Chlorophylla"  #6
+                   , "myThresh.Spike.Hi.Chlorophylla"          #7
+                   , "myThresh.Spike.Lo.Chlorophylla"          #8
+                   , "myThresh.RoC.SD.number.Chlorophylla"     #9
+                   , "myThresh.RoC.SD.period.Chlorophylla"     #10
+                   , "myThresh.Flat.Hi.Chlorophylla"           #11
+                   , "myThresh.Flat.Lo.Chlorophylla"           #12
+                   , "myThresh.Flat.Tolerance.Chlorophylla"    #13
+                   )
+val_Chlorophylla <- mget(nam_Chlorophylla, envir=ContData.env)
+txt_Chlorophylla_F <- c(val_Chlorophylla[1]
+                     , "Fail"
+                     , paste0("> ",val_Chlorophylla[3]," ",val_Chlorophylla[2]
+                              ,"  or < ",val_Chlorophylla[4]," ",val_Chlorophylla[2])
+                     , paste0(">= ", val_Chlorophylla[7]," ",val_Chlorophylla[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_Chlorophylla[11]
+                              ," consecutive measurements within ",val_Chlorophylla[13]
+                              ," units of one another"))
+txt_Chlorophylla_S <- c(val_Chlorophylla[1]
+                     , "Suspect"
+                     , paste0("> ",val_Chlorophylla[4]," ",val_Chlorophylla[2]
+                              ," or < ",val_Chlorophylla[6]," ",val_Chlorophylla[2])
+                     , paste0(">= ", val_Chlorophylla[8]," ",val_Chlorophylla[2]," (+/-)")
+                     , paste0(">= ",val_Chlorophylla[9]," standard deviations within "
+                              ,val_Chlorophylla[10]," hours")
+                     , paste0("> ",val_Chlorophylla[12]
+                              ," consecutive measurements within ",val_Chlorophylla[13]
+                              ," units of one another"))
+# GageHeight
+nam_GageHeight <- c("myLab.GageHeight"                          #1
+                   , "myUnits.GageHeight"                    #2
+                   , "myThresh.Gross.Fail.Hi.GageHeight"     #3
+                   , "myThresh.Gross.Fail.Lo.GageHeight"     #4
+                   , "myThresh.Gross.Suspect.Hi.GageHeight"  #5
+                   , "myThresh.Gross.Suspect.Lo.GageHeight"  #6
+                   #, "myThresh.Spike.Hi.GageHeight"          #7 -removed
+                   #, "myThresh.Spike.Lo.GageHeight"          #8 - removed
+                   , "myThresh.RoC.SD.number.GageHeight"     #9 - 7
+                   , "myThresh.RoC.SD.period.GageHeight"     #10 - 8
+                   , "myThresh.Flat.Hi.GageHeight"           #11 - 9
+                   , "myThresh.Flat.Lo.GageHeight"           #12 - 10
+                   , "myThresh.Flat.Tolerance.GageHeight"    #13 - 11
+                   )
+val_GageHeight <- mget(nam_GageHeight, envir=ContData.env)
+txt_GageHeight_F <- c(val_GageHeight[1]
+                     , "Fail"
+                     , paste0("> ",val_GageHeight[3]," ",val_GageHeight[2]
+                              ,"  or < ",val_GageHeight[4]," ",val_GageHeight[2])
+                     , "NA"
+                     , "NA"
+                     , paste0("> ",val_GageHeight[9]
+                              ," consecutive measurements within ",val_GageHeight[11]
+                              ," units of one another"))
+txt_GageHeight_S <- c(val_GageHeight[1]
+                     , "Suspect"
+                     , paste0("> ",val_GageHeight[4]," ",val_GageHeight[2]
+                              ," or < ",val_GageHeight[6]," ",val_GageHeight[2])
+                     , "NA"
+                     , paste0(">= ",val_GageHeight[7]," standard deviations within "
+                              ,val_GageHeight[8]," hours")
+                     , paste0("> ",val_GageHeight[10]
+                              ," consecutive measurements within ",val_GageHeight[11]
+                              ," units of one another"))
+# Create Table
+## Display only those parameters used in current dataset (data.import)
+# QC
+boo.QC <- FALSE
+if(boo.QC==TRUE){##IF.boo.QC.START
+  # Ensure have ContDat.env loaded
+  myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  source(myConfig)
+  # load dat.import
+  fn.import <- file.path(getwd(), "Data1_RAW", "test2_AW_20130426_20130725.csv")
+  data.import <- read.csv(fn.import)
+}##IF.boo.QC.END
+#
+# Check for Presence of each Analyte in data
+# if not present convert to NULL
+# if NULL then won't be included in result data.frame
+if(!(ContData.env$myName.WaterTemp %in% names(data.import))){
+  txt_WaterTemp_F <- NULL
+  txt_WaterTemp_S <- NULL
+}
+#                    
+if(!(ContData.env$myName.AirTemp %in% names(data.import))){
+  txt_AirTemp_F <- NULL
+  txt_AirTemp_S <- NULL
+} 
+#
+if(!(ContData.env$myName.WaterP %in% names(data.import))){
+  txt_WaterP_F <- NULL
+  txt_WaterP_S <- NULL
+}
+#
+if(!(ContData.env$myName.AirBP %in% names(data.import))){
+  txt_AirBP_F <- NULL
+  txt_AirBP_S <- NULL
+} 
+#
+if(!(ContData.env$myName.SensorDepth %in% names(data.import))){
+  txt_SensorDepth_F <- NULL
+  txt_SensorDepth_S <- NULL
+} 
+#
+if(!(ContData.env$myName.Discharge %in% names(data.import))){
+  txt_Discharge_F <- NULL
+  txt_Discharge_S <- NULL
+} 
+#
+if(!(ContData.env$myName.Cond %in% names(data.import))){
+  txt_Cond_F <- NULL
+  txt_Cond_S <- NULL
+} 
+#
+if(!(ContData.env$myName.DO %in% names(data.import))){
+  txt_DO_F <- NULL
+  txt_DO_S <- NULL
+}
+#
+if(!(ContData.env$myName.pH %in% names(data.import))){
+  txt_pH_F <- NULL
+  txt_pH_S <- NULL
+}
+#
+if(!(ContData.env$myName.Turbidity %in% names(data.import))){
+  txt_Turbidity_F <- NULL
+  txt_Turbidity_S <- NULL
+} 
+#
+if(!(ContData.env$myName.Chlorophylla %in% names(data.import))){
+  txt_Chlorophylla_F <- NULL
+  txt_Chlorophylla_S <- NULL
+} 
+#
+if(!(ContData.env$myName.GageHeight %in% names(data.import))){
+  txt_GageHeight_F <- NULL
+  txt_GageHeight_S <- NULL
+} 
+# Table
+df_Env <- data.frame(rbind(txt_WaterTemp_F, txt_WaterTemp_S
+                           ,txt_AirTemp_F, txt_AirTemp_S
+                           , txt_WaterP_F, txt_WaterP_S
+                           , txt_AirBP_F, txt_AirBP_S
+                           , txt_SensorDepth_F, txt_SensorDepth_S
+                           , txt_Discharge_F, txt_Discharge_S
+                           , txt_Cond_F, txt_Cond_S
+                           , txt_DO_F, txt_DO_S
+                           , txt_pH_F, txt_pH_S
+                           , txt_Turbidity_F, txt_Turbidity_S
+                           , txt_Chlorophylla_F, txt_Chlorophylla_S
+                           , txt_GageHeight_F, txt_GageHeight_S
+                           )
+                     , row.names = NULL)
+names(df_Env) <- txt_header
+knitr::kable(df_Env, caption = kbl_caption)
 ```
 
 Overall flags by parameter
@@ -211,11 +744,6 @@ Overall flags by parameter
 ```
 
 # QC TESTS, BY PARAMETER
-* **Gross Range Test (Gross):** Test if data point exceeds sensor or user defined min/max.  The values are user defined based on parameter being measured and measuring instrument.
-* **Spike Test (Spike):** Test if data point exceeds a user defined threshold relative to the previous data point.  The user defined values are based on the parameter being measured.
-* **Rate of Change Test (RoC):** Test if a data point exceeds a number of standard deviations from the previous data points over a user defined time period.  Default is a 25 hour time period and 3 standard deviations.
-* **Flat Line Test (Flat):** Test if a data point is within a user defined threshold from previous data points over a user defined range.  Default is 3 previous points for suspect and 5 points for failure.  The threshold is user defined and based on the measured parameter and sensitivity of the measuring instrument.
-
 
 ```{r qc_tests_parameters, results='asis', echo=FALSE, warning=FALSE}
  # 3. Data Info, by Parameter

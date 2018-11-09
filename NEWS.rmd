@@ -46,6 +46,14 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.2.9004
+2018-11-09
+
+* Thresholds in QC Report, Issue #15
+    + Report_QC.rmd
+    + Report_QC_docx.rmd
+    + Report_QC_html.rmd
+
 ## v2.0.2.9003
 2018-11-08
 
