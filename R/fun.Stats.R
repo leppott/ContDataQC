@@ -56,6 +56,29 @@ fun.Stats <- function(fun.myData.SiteID
 #   fun.myProcedure.Step <- "STATS"
 #   fun.myFile.Prefix <- "DATA"
 #   ##
+  # 00. Debugging Variables####
+  boo.DEBUG <- 0
+  if(boo.DEBUG==1) {##IF.boo.DEBUG.START
+    #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=myName.Dir.3Agg}
+    #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=myName.Dir.4Stats}
+    fun.myData.SiteID          <- "test2"
+    fun.myData.Type            <- Selection.Type[3] #"AW"
+    fun.myData.DateRange.Start <- "2013-01-01"
+    fun.myData.DateRange.End   <- "2014-12-31"
+    fun.myDir.import           <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
+    fun.myDir.export           <- myDir.export <- file.path(myDir.BASE,Selection.SUB[4]) #"Data4_Stats"
+    fun.myProcedure.Step       <- "STATS"
+    fun.myFile.Prefix          <- "DATA"
+    fun.myReport.format        <- "docx"
+    #fun.myReport.Dir           <- ""
+    # Load environment
+    #ContData.env <- new.env(parent = emptyenv()) # in config.R
+    #source(file.path(getwd(),"R","fun.CustomConfig.R"), local=TRUE)
+    source(file.path(getwd(), "R", "config.R"))
+    source(file.path(getwd(), "R", "fun.Helper.R"))
+    # might have to load manually
+  }##IF.boo.DEBUG.END
+
   #
   # Error Checking - only 1 SiteID and 1 DataType
   if(length(fun.myData.SiteID)!=1){
@@ -191,9 +214,11 @@ fun.Stats <- function(fun.myData.SiteID
       flush.console()
 
   ############## QC
-  #i <- data2process[1] #QC
+  i <- data2process[1] #QC
+  # ok to leave in since gets remapped in FOR loop.
   ####################### change from myFields.Data to data2process (need to fix)
 
+  # Loop ####
   for (i in data2process) {##FOR.i.START
     #
     i.num <- match(i,myFields.Data)
@@ -278,21 +303,29 @@ fun.Stats <- function(fun.myData.SiteID
     # }
     # 20170519, fix hard coded names
     #
-    # name to myVar then name back
+    # Convert format
+    data.stats[,i] <- as.numeric(data.stats[,i])
+    data.stats[,"Date"] <- as.Date(data.stats[,"Date"], format="%Y-%m-%d")
+    # name to myVar then name back (summaryBy won't work on i)
     ColNum.i <- match(i,names(data.stats))
     names(data.stats)[ColNum.i] <- "myVar"
-    dv.i <- doBy::summaryBy(as.numeric(myVar)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
-                            , var.names="i",id=c(ContData.env$myName.SiteID, ContData.env$myName.Yr , ContData.env$myName.YrMo, ContData.env$myName.Mo, ContData.env$myName.MoDa
-                                                 , ContData.env$myName.JuDa, ContData.env$myName.Season, ContData.env$myName.YrSeason))
+    # Summary (could use dplyr but already using doBy package)
+    dv.i <- doBy::summaryBy(myVar ~ Date, data=data.stats, FUN=c(mean), na.rm=TRUE
+                            , var.names="i"
+                            ,id=c(ContData.env$myName.SiteID, ContData.env$myName.Yr
+                                  , ContData.env$myName.YrMo, ContData.env$myName.Mo
+                                  , ContData.env$myName.MoDa, ContData.env$myName.JuDa
+                                  , ContData.env$myName.Season, ContData.env$myName.YrSeason))
     names(data.stats)[ColNum.i] <- i
+    #
     #
     #
     #
     # if(i==myFields.Data[1]) {
     #
-    #   dv.i <- doBy::summaryBy(as.numeric(Water.Temp.C)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
-    #                           , var.names="i",id=c(ContData.env$myName.SiteID, ContData.env$myName.Yr , ContData.env$myName.YrMo, ContData.env$myName.Mo, ContData.env$myName.MoDa
-    #                                                , ContData.env$myName.JuDa, ContData.env$myName.Season, ContData.env$myName.YrSeason))
+      # dv.i <- doBy::summaryBy(as.numeric(Water.Temp.C)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
+      #                         , var.names="i",id=c(ContData.env$myName.SiteID, ContData.env$myName.Yr , ContData.env$myName.YrMo, ContData.env$myName.Mo, ContData.env$myName.MoDa
+      #                                              , ContData.env$myName.JuDa, ContData.env$myName.Season, ContData.env$myName.YrSeason))
     # } else if(i==myFields.Data[2]) {
     #   dv.i <- doBy::summaryBy(as.numeric(data.stats[,ContData.env$myName.AirTemp])~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
     #                           , var.names="i",id=c(ContData.env$myName.SiteID, ContData.env$myName.Yr , ContData.env$myName.YrMo, ContData.env$myName.Mo, ContData.env$myName.MoDa
@@ -333,6 +366,9 @@ fun.Stats <- function(fun.myData.SiteID
     # rearrange columns
     dv.i.ColOrder <- c(ContData.env$myName.SiteID, "Parameter", "mean", ContData.env$myName.Date, ContData.env$myNames.Fields.TimePeriods)
     dv.i <- dv.i[,dv.i.ColOrder]
+
+    # For later summaryBy, ensure mean is numeric
+    dv.i[,"mean"] <- as.numeric(dv.i[,"mean"])
 
     # save dv
     strFile.Prefix.Out <- "DV"
@@ -408,7 +444,7 @@ fun.Stats <- function(fun.myData.SiteID
         # 20170524, use dv.i (line 270) hack
           ColNum.i <- match(i,names(myDF))
           names(myDF)[ColNum.i] <- "myVar"
-          stats.i <- doBy::summaryBy(as.numeric(myVar)~Date, data=myDF, FUN=myFUN.sumBy, na.rm=TRUE, var.names=myTimeFrame)
+          stats.i <- doBy::summaryBy(myVar ~ Date, data=myDF, FUN=myFUN.sumBy, na.rm=TRUE, var.names=myTimeFrame)
           names(myDF)[ColNum.i] <- i
         ##
         # Range
@@ -444,7 +480,7 @@ fun.Stats <- function(fun.myData.SiteID
       myDF <- dv.i
       #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
       ## ugly hack
-      stats.i <- doBy::summaryBy(as.numeric(mean)~JulianDay,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+      stats.i <- doBy::summaryBy(mean ~ JulianDay, data=myDF, FUN=myFUN.sumBy, var.names=myTimeFrame)
       ##
       #Range
       #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
@@ -479,7 +515,7 @@ fun.Stats <- function(fun.myData.SiteID
         myDF <- dv.i
         #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
         ## ugly hack
-          stats.i <- doBy::summaryBy(as.numeric(mean)~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+          stats.i <- doBy::summaryBy(mean ~ YearMonth, data=myDF, FUN=myFUN.sumBy, var.names=myTimeFrame)
         ##
         #Range
         #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
@@ -514,7 +550,7 @@ fun.Stats <- function(fun.myData.SiteID
         myDF <- dv.i
         #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
         ## ugly hack
-        stats.i <- doBy::summaryBy(as.numeric(mean)~Month,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+        stats.i <- doBy::summaryBy(mean ~ Month, data=myDF, FUN=myFUN.sumBy, var.names=myTimeFrame)
         ##
         #Range
         #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
@@ -548,7 +584,7 @@ fun.Stats <- function(fun.myData.SiteID
         myDF <- dv.i
         #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~SeasonYear,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
         ## ugly hack
-        stats.i <- doBy::summaryBy(as.numeric(mean)~YearSeason,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+        stats.i <- doBy::summaryBy(mean ~ YearSeason, data=myDF, FUN=myFUN.sumBy, var.names=myTimeFrame)
         ###
         # Range
         #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
@@ -583,7 +619,7 @@ fun.Stats <- function(fun.myData.SiteID
         myDF <- dv.i
         #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~SeasonYear,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
         ## ugly hack
-        stats.i <- doBy::summaryBy(as.numeric(mean)~Season,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+        stats.i <- doBy::summaryBy(mean ~ Season, data=myDF, FUN=myFUN.sumBy, var.names=myTimeFrame)
         ##
         # Range
         #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
@@ -617,7 +653,7 @@ fun.Stats <- function(fun.myData.SiteID
         myDF <- dv.i
         #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~Year,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
         ## ugly hack
-        stats.i <- doBy::summaryBy(as.numeric(mean)~Year,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+        stats.i <- doBy::summaryBy(mean ~ Year, data=myDF, FUN=myFUN.sumBy, var.names=myTimeFrame)
         ##
         # Range
         #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]

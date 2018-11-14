@@ -46,6 +46,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.2.9007
+2018-11-14
+
+* fun.Stats.R
+    + Fix tapply arguments must have same length error.  Issue # 60.
+
 ## v2.0.2.9006
 2018-11-14
 
