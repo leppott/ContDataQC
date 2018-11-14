@@ -1,9 +1,10 @@
 #' Generate Configuration Report
 #'
-#' Function to output configuration settings to report (HTML).
+#' Function to output configuration settings to report.
 #'
 #' @param fun.myConfig Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
+#' @param fun.myReport.format Report format (docx or html).  Default = html.
 #' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
 #'
 #' @examples
@@ -11,7 +12,10 @@
 #' Config.Out()
 #
 #' @export
-Config.Out <- function(fun.myConfig="", fun.myDir.export=getwd(), fun.myReport.Dir=""){##FUNCTION.START
+Config.Out <- function(fun.myConfig=""
+                       , fun.myDir.export=getwd()
+                       , fun.myReport.format="html"
+                       , fun.myReport.Dir=""){##FUNCTION.START
 	#
   # config file load, 20170517
   if (fun.myConfig!="") {##IF.fun.myConfig.START
@@ -23,21 +27,27 @@ Config.Out <- function(fun.myConfig="", fun.myDir.export=getwd(), fun.myReport.D
     fun.myReport.Dir <- ContData.env$myReport.Dir
   }
   #
+  # QC, ensure inputs are in the proper case
+  fun.myReport.format <- tolower(fun.myReport.format)
+
   myDate <- format(Sys.Date(),"%Y%m%d")
   myTime <- format(Sys.time(),"%H%M%S")
   #
 	myReport.Name <- "Report_Config"
-	fun.myReport.format <- "html"
+	#fun.myReport.format <- "html"
 	#
   strFile.RMD <- file.path(fun.myReport.Dir, paste0(myReport.Name, ".rmd"))
   strFile.out.ext <- paste0(".",fun.myReport.format) #".docx" # ".html"
   strFile.out <- paste0(paste(myReport.Name,myDate,myTime,sep=ContData.env$myDelim),strFile.out.ext)
+  strFile.RMD.format <-  paste0(ifelse(fun.myReport.format=="docx","word",fun.myReport.format),"_document")
   #paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,,myReport.Name,sep=ContData.env$myDelim),strFile.out.ext,sep="")
   #
   # Test if RMD file exists
   if (file.exists(strFile.RMD)){##IF.file.exists.START
     #suppressWarnings(
-    rmarkdown::render(strFile.RMD, output_file=strFile.out, output_dir=fun.myDir.export, quiet=TRUE)
+    rmarkdown::render(strFile.RMD, output_format=strFile.RMD.format
+                      , output_file=strFile.out, output_dir=fun.myDir.export
+                      , quiet=TRUE)
     #)
   } else {
     Msg.Line0 <- "\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n"

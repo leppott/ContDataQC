@@ -5,17 +5,19 @@
 \title{Generate Configuration Report}
 \usage{
 Config.Out(fun.myConfig = "", fun.myDir.export = getwd(),
-  fun.myReport.Dir = "")
+  fun.myReport.format = "html", fun.myReport.Dir = "")
 }
 \arguments{
 \item{fun.myConfig}{Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.}
 
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
 
+\item{fun.myReport.format}{Report format (docx or html).  Default = html.}
+
 \item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
 }
 \description{
-Function to output configuration settings to report (HTML).
+Function to output configuration settings to report.
 }
 \examples{
 # default outputs to working directory

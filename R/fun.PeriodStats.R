@@ -388,7 +388,8 @@ PeriodStats <- function(fun.myDate
     fun.myReport.Dir <- ContData.env$myReport.Dir
   }
 
-  myReport.Name <- paste0("Report_PeriodStats","_",fun.myReport.format)
+  #myReport.Name <- paste0("Report_PeriodStats","_",fun.myReport.format)
+  myReport.Name <- "Report_PeriodStats"
   myPkg <- "ContDataQC"
   if(boo.DEBUG==1){
     strFile.RMD <- file.path(getwd(),"inst","rmd",paste0(myReport.Name,".rmd")) # for testing
@@ -401,12 +402,15 @@ PeriodStats <- function(fun.myDate
   #
   strFile.out.ext <- paste0(".",fun.myReport.format) #".docx" # ".html"
   strFile.out <- paste0(myFile.Export.base,"_PeriodStats_",fun.myDate,"_",myDate,"_",myTime,strFile.out.ext)
+  strFile.RMD.format <- paste0(ifelse(fun.myReport.format=="docx","word",fun.myReport.format),"_document")
   #
   # 20180212
   # Test if RMD file exists
   if (file.exists(strFile.RMD)){##IF.file.exists.START
     #suppressWarnings(
-    rmarkdown::render(strFile.RMD, output_file=strFile.out, output_dir=fun.myDir.export, quiet=TRUE)
+    rmarkdown::render(strFile.RMD, output_format=strFile.RMD.format
+                      ,output_file=strFile.out, output_dir=fun.myDir.export
+                      , quiet=TRUE)
     #)
   } else {
     Msg.Line0 <- "\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n"

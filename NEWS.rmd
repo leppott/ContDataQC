@@ -46,6 +46,33 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.2.9005
+2018-11-14
+
+* Reports, Issue #57 and Issue #59.
+    + Modify function to use a single report rather than one for each output format (docx and html).
+        - fun.Report.R
+        - fun.Report.File.R
+        - fun.Config.Out.R
+        - fun.PeriodStats.R
+        - fun.QC.R
+        - fun.QC.File.R
+        - zfun.AggregateData.R
+        - zfun.AggregateData.File.R
+        - fun.Stats.R
+        - fun.Stats.File.R
+    + RMD Report files.
+        - Update YAML header for multiple formats (word and html).
+        - Update YAML header for table of contents and other items.
+        - Add "setup" chunk with knitr options so don't need to specify in each chunk.
+        - Make render statement consistent by specifying output format.
+        - Removed docx and html versions of RMD files.  Only 1 RMD file per report.
+        - Report_Aggregate.RMD
+        - Report_PeriodStats.RMD
+        - Report_QC.RMD
+        - Report_Stats.RMD
+        - Report_Config.RMD
+
 ## v2.0.2.9004
 2018-11-09
 

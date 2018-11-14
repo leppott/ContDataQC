@@ -59,6 +59,8 @@ fun.Report.File <- function(fun.myFile
 
   # Convert Data Type to proper case
   #fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1)),tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
+  # QC, ensure inputs are in the proper case
+  fun.myReport.format <- tolower(fun.myReport.format)
 
   strFile.Prefix <- fun.myFile.Prefix
 
@@ -140,15 +142,19 @@ fun.Report.File <- function(fun.myFile
     #strFile.RMD <- paste(myDir.BASE,"Scripts",paste(myReport.Name,"rmd",sep="."),sep="/") #"QCReport.rmd"
     #strFile.RMD <- system.file(paste0("rmd/",myReport.Name,"_",fun.myReport.format,".rmd"),package=myPkg)
     # use provided dir for template
-    strFile.RMD <- file.path(fun.myReport.Dir, paste0(myReport.Name, "_", fun.myReport.format, ".rmd"))
+    #strFile.RMD <- file.path(fun.myReport.Dir, paste0(myReport.Name, "_", fun.myReport.format, ".rmd"))
+    strFile.RMD <- file.path(fun.myReport.Dir, paste0(myReport.Name, ".rmd"))
     strFile.out.ext <- paste0(".",fun.myReport.format) #".docx" # ".html"
     strFile.out <- paste(paste(strFile.Base,myReport.Name,sep=ContData.env$myDelim),strFile.out.ext,sep="")
+    strFile.RMD.format <- paste0(ifelse(fun.myReport.format=="docx","word",fun.myReport.format),"_document")
     #
     # 20180212
     # Test if RMD file exists
     if (file.exists(strFile.RMD)){##IF.file.exists.START
       #suppressWarnings(
-      rmarkdown::render(strFile.RMD, output_file=strFile.out, output_dir=fun.myDir.export, quiet=TRUE)
+      rmarkdown::render(strFile.RMD, output_format=strFile.RMD.format
+                        , output_file=strFile.out, output_dir=fun.myDir.export
+                        , quiet=TRUE)
       #)
     } else {
       Msg.Line0 <- "\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n"

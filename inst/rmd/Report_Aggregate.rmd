@@ -1,17 +1,31 @@
 ---
-title: "Aggregate Report"
-output: word_document
+title: "Report, Aggregate"
+subtitle: "ContDataQC"
+author: "`r Sys.getenv('USERNAME')`"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 3
+    toc_float: no
+  word_document:
+    toc: yes
 ---
 
-```{r report_date, results='asis', echo=FALSE, warning=FALSE}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE)
+# needed for trouble shooting
+#myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+#source(myConfig)
+```
+
+# DATA FILE INFORMATION
+```{r data_file_info}
+  # Report Info
   myReportDate <- format(Sys.Date(),ContData.env$myFormat.Date)
   cat(paste("**Report Date:** ",myReportDate,"\n\n",sep=""))
   myUser <- Sys.getenv("USERNAME")
   cat(paste("**Generate By:** ",myUser,"\n\n",sep=""))
-```
-
-# DATA FILE INFORMATION
-```{r data_file_info, results='asis', echo=FALSE, warning=FALSE}
   
   #filename
   cat("**Filename:** ",strFile,"\n\n",sep="")
@@ -58,7 +72,7 @@ output: word_document
 ```
 
 # DATA SUMMARY, OVERALL
-```{r data_summary_overall, results='asis', echo=FALSE, warning=FALSE}
+```{r data_summary_overall}
     #
     cat("Number of records by year and month (with totals).")
     cat("\n")
@@ -116,7 +130,7 @@ output: word_document
 
 # PLOTS, PARAMETERS
 
-```{r plots_single, results='asis', echo=FALSE, warning=FALSE}
+```{r plots_single}
  # 3. Data Info, by Parameter
     # Individual Data Type Report
     # QC
@@ -169,7 +183,7 @@ output: word_document
 # PLOTS, MULTIPARAMETER
 Multiparameter plots if exist in the data.
 
-```{r plots_multi, results='asis', echo=FALSE, warning=FALSE}
+```{r plots_multi}
  # BOTH plots
     
     # 3.3. Plot

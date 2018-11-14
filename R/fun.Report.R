@@ -64,6 +64,8 @@ fun.Report <- function(fun.myData.SiteID
   #
   # Convert Data Type to proper case
   fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1)),tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
+  # QC, ensure inputs are in the proper case
+  fun.myReport.format <- tolower(fun.myReport.format)
   #
   # data directories
   # myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="","",paste("/",fun.myDir.SUB.import,sep="")),sep="")
@@ -126,21 +128,25 @@ fun.Report <- function(fun.myData.SiteID
     #strFile.RMD <- paste(myDir.BASE,"Scripts",paste(myReport.Name,"rmd",sep="."),sep="/") #"QCReport.rmd"
     #strFile.RMD <- system.file(paste0("rmd/",myReport.Name,"_",fun.myReport.format,".rmd"),package=myPkg)
     # use provided dir for template
-    strFile.RMD <- file.path(fun.myReport.Dir, paste0(myReport.Name, "_", fun.myReport.format, ".rmd"))
+    #strFile.RMD <- file.path(fun.myReport.Dir, paste0(myReport.Name, "_", fun.myReport.format, ".rmd"))
+    strFile.RMD <- file.path(fun.myReport.Dir, paste0(myReport.Name, ".rmd"))
     strFile.out.ext <- paste0(".",fun.myReport.format) #".docx" # ".html"
     strFile.out <- paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,myReport.Name,sep=ContData.env$myDelim),strFile.out.ext,sep="")
+    strFile.RMD.format <- paste0(ifelse(fun.myReport.format=="docx","word",fun.myReport.format),"_document")
     #
     # 20180212
     # Test if RMD file exists
     if (file.exists(strFile.RMD)){##IF.file.exists.START
       #suppressWarnings(
-      rmarkdown::render(strFile.RMD, output_file=strFile.out, output_dir=fun.myDir.export, quiet=TRUE)
+      rmarkdown::render(strFile.RMD, output_format=strFile.RMD.format
+                        , output_file=strFile.out, output_dir=fun.myDir.export
+                        , quiet=TRUE)
       #)
     } else {
       Msg.Line0 <- "\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
       Msg.Line1 <- "Provided report template file directory does not include the necessary RMD file to generate the report.  So no report will be generated."
       Msg.Line2 <- "The default report directory can be modified in config.R (ContData.env$myReport.Dir) and used as input to the function (fun.myConfig)."
-      Msg.Line3 <- paste0("file = ", paste0(myReport.Name, "_", fun.myReport.format, ".rmd"))
+      Msg.Line3 <- paste0("file = ", paste0(myReport.Name, ".rmd"))
       Msg.Line4 <- paste0("directory = ", fun.myReport.Dir)
       Msg <- paste(Msg.Line0, Msg.Line1, Msg.Line2, Msg.Line3, Msg.Line4, Msg.Line0, sep="\n\n")
       cat(Msg)
