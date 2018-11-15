@@ -46,6 +46,17 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.2.9008
+2018-11-15
+
+* PeriodStats
+    + Modify for input of 1 or 2 parameters.
+    + If have 2 parameters get:
+        - 2 sets of output stat files.  
+        - And get plots with 2 y-axes (i.e., both are plotted).
+    + fun.PeriodStats.R
+    + Report_PeriodStats.rmd
+
 ## v2.0.2.9007
 2018-11-14
 

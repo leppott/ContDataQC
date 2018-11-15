@@ -14,7 +14,8 @@ PeriodStats(fun.myDate, fun.myDate.Format = NA, fun.myPeriod.N = 30,
 \arguments{
 \item{fun.myDate}{Benchmark date.}
 
-\item{fun.myDate.Format}{Format of benchmark date.  This should be the same format of the date in the data file.  Default is \%Y-\%m-\%d (e.g., 2017-12-31).}
+\item{fun.myDate.Format}{Format of benchmark date.  This should be the same
+format of the date in the data file.  Default is \%Y-\%m-\%d (e.g., 2017-12-31).}
 
 \item{fun.myPeriod.N}{Period length.  Default = 30.}
 
@@ -26,22 +27,28 @@ PeriodStats(fun.myDate, fun.myDate.Format = NA, fun.myPeriod.N = 30,
 
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
 
-\item{fun.myParam.Name}{Column name in myFile to perform summary statistics.}
+\item{fun.myParam.Name}{Column name in myFile to perform summary statistics.
+One or two parameters can be specified.}
 
 \item{fun.myDateTime.Name}{Column name in myFile for date time.  Default = "Date.Time".}
 
 \item{fun.myDateTime.Format}{Format of DateTime field.  Default = \%Y-\%m-\%d \%H:\%M:\%S.}
 
-\item{fun.myThreshold}{Value to draw line on plot.  For example, a regulatory limit.  Default = NA}
+\item{fun.myThreshold}{Value to draw line on plot.  For example, a regulatory limit.
+Default = NA}
 
-\item{fun.myConfig}{Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control date and time formats.}
+\item{fun.myConfig}{Configuration file to use for this data analysis.
+The default is always loaded first so only "new" values need to be included.  This is the easiest way to control date and time formats.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).Can be customized in config.R; ContData.env$myReport.Format.}
+\item{fun.myReport.format}{Report format (docx or html).
+Default is specified in config.R (docx).Can be customized in config.R; ContData.env$myReport.Format.}
 
-\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
+\item{fun.myReport.Dir}{Report (rmd) template folder.
+Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
 }
 \value{
-Returns a csv with daily means and a PDF summary with plots into the specified export directory for the specified time period before the given date.
+Returns a csv with daily means and a PDF summary with plots into the
+specified export directory for the specified time period before the given date.
 }
 \description{
 Generates daily stats (N, mean, min, max, range, std deviation) for the
@@ -60,7 +67,11 @@ If the date range is longer than that in the data provided the stats will not ca
 The dates must be in the standard format (Y-m-d) or the function may not work as intended.
 For example, the date is used in the file name and dates with "/" will result in an invalid file name.
 
-Requires doBy library for the statistics summary and rmarkdown for the report.
+One or two parameters can be analyzed at a time.
+If provide 2 parameters both will produce period statistic summaries.
+And the plots will have both parameters.  The 2nd parameter will be on the 2nd (right) y-axis.
+
+Requires doBy library for the period statistics summary and rmarkdown for the report.
 }
 \examples{
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -140,9 +151,20 @@ PeriodStats(myDate
           , myConfig.Fail.Include
           , myReport.format)
 
+## Example 4. DOCX report format with two parameters
+myParam.Name <- c("Water.Temp.C", "Sensor.Depth.ft")
+PeriodStats(myDate
+          , myDate.Format
+          , myPeriod.N
+          , myPeriod.Units
+          , myFile
+          , myDir.import
+          , myDir.export
+          , myParam.Name
+          , myDateTime.Name
+          , myDateTime.Format
+          , myThreshold
+          , myConfig
+          , myReport.format)
+
 }
-\keyword{continuous}
-\keyword{daily}
-\keyword{data,}
-\keyword{mean,}
-\keyword{period}
