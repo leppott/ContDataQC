@@ -43,15 +43,6 @@
 #'
 "DATA_period_test2_Aw_20130101_20141231"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' data_bio2rarify
-#'
-#' Test data for rarify().  Includes biological data for 2 samples that are both over the 240 total count limit.
-#'
-#' @format a data frame with 74 observations and 3 variables:
-#'
-#'
-"data_bio2rarify"
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' data_CompSiteCDF
 #'
 #' Test data for CompSiteCDF().  Includes daily mean water temp (C) data for 5.

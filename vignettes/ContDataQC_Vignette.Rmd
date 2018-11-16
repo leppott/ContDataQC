@@ -985,23 +985,48 @@ saveWorkbook(wb, myFile.XLSX)
 ```
 
 ## Rarify Taxa Data
-At time benthic samples include more individuals than the target number or when combining data from multiple programs it is necessary to subsample all samples down to a common number.  As part of the RIVPACS set of R scripts written by USEPA Corvallis the rarify funtion is included in this library.
+At times benthic samples include more individuals than the target number or when combining data from multiple programs it is necessary to subsample all samples down to a common number.  The rarify funtion is part of the RIVPACS set of R scripts written by USEPA Corvallis.  The rarify function is in the package BioMonTools.  The example below is from the help file from that package.  The BioMonTools package should install with the ContDataQC package. 
+
+https://github.com/leppott/BioMonTools
 
 The function takes a three column data frame (SampleID, TaxonID, Count) and returns a similar dataframe with revised Counts.
 
 ```{r RarifyTaxa, eval=FALSE}
+# library(BioMonTools)
+
+# Subsample to 500 organisms (from over 500 organisms) for 12 samples.
+
 # load bio data
-DF.biodata <- data_bio2rarify
-dim(DF.biodata)
-View(DF.biodata)
+df_biodata <- data_bio2rarify
+dim(df_biodata)
+View(df_biodata)
+
 # subsample
-mySize <- 200
-Seed.MS <- 18171210
-bugs.mysize <- rarify(inbug=DF.biodata, sample.ID="SampRep",abund="Count",subsiz=mySize, mySeed=Seed.MS)
-dim(bugs.mysize)
-View(bugs.mysize)
+mySize <- 500
+Seed_OR <- 18590214
+Seed_WA <- 18891111
+Seed_US <- 17760704
+bugs_mysize <- BioMonTools::rarify(inbug=df_biodata, sample.ID="SampleID"
+                     ,abund="N_Taxa",subsiz=mySize, mySeed=Seed_US)
+
+# view results
+dim(bugs_mysize)
+View(bugs_mysize)
+
+# Compare pre- and post- subsample counts
+df_compare <- merge(df_biodata, bugs_mysize, by=c("SampleID", "TaxaID")
+                    , suffixes = c("_Orig","_500"))
+df_compare <- df_compare[,c("SampleID", "TaxaID", "N_Taxa_Orig", "N_Taxa_500")]
+View(df_compare)
+
+# compare totals
+tbl_totals <- aggregate(cbind(N_Taxa_Orig, N_Taxa_500) ~ SampleID, df_compare, sum)
+View(tbl_totals)
+
+## Not run: 
 # save the data
-write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\t")
+write.table(bugs_mysize, paste("bugs",mySize,"txt",sep="."),sep="\t")
+## End(Not run)
 ```
 
 ## Visualization of Daily Means

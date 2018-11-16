@@ -46,6 +46,26 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.2.9009
+2018-11-16
+
+* rarify, move to another package, Issue #67
+    + Moved to separate package.  
+        _ https://github.com/leppott/BioMonTools
+        - BioMonTools is for bioassessment and biomonitoring.
+        - ContDataQC should stay focused on continuous dat.
+    + DESCRIPTION
+        - Remote: leppott/BioMonTools
+    + Vignette
+        - rarify section updated.
+    + R/data.R
+        - Remove reference to data_bio2rarify
+    + Remove
+        - R/rarify.R
+        - data-raw/ProcessData_rarify.R
+        - data-raw/data_bio2rarify.txt
+        - dat/data_bio2rarify.rda
+
 ## v2.0.2.9008
 2018-11-15
 
