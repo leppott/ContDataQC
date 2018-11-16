@@ -46,6 +46,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.2.9010
+2018-11-16
+
+* DESCRIPTION
+    + Remove Jon van Sickles as contributor since removed rarify function.
+
 ## v2.0.2.9009
 2018-11-16
 
