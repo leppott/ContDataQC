@@ -33,8 +33,6 @@ cat(paste0("Last Update: ",Sys.time()))
 
 * PeriodStats(), add number and/or percent of observations above given threshold.  20170919.
 
-* Update Vignette after any updates to help or documentation.  20170919.
-
 * Run devtools::check().  20170926.
 
 * Fix mixed case issue with filenames in "file" versions of QCRaw, Aggregate, and Stats.  20170929.
@@ -45,6 +43,11 @@ cat(paste0("Last Update: ",Sys.time()))
     + Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.2.9011
+2018-11-27
+
+* Add function for reformatting HoboWare files.
 
 ## v2.0.2.9010
 2018-11-16

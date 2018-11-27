@@ -106,8 +106,9 @@ After creating the package reload it after restarting R within RStudio (Ctrl + S
 
 ```{r, eval=FALSE}
 # Restart R within RStudio:  Ctrl + Shift + F10
-library(ContDataQC)
-help(package="ContDataQC")
+pkg <- "ContDataQC"
+library(pkg, character.only = TRUE)
+help(package=(pkg))
 #
 ?PeriodStats
 #?CompSiteCDF
