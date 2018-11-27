@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-09-25 08:58:21
+    #> Last Update: 2018-11-27 16:41:47
 
 # Planned Updates
 
@@ -23,9 +23,6 @@ NEWS-ContDataQC
   - PeriodStats(), add number and/or percent of observations above given
     threshold. 20170919.
 
-  - Update Vignette after any updates to help or documentation.
-    20170919.
-
   - Run devtools::check(). 20170926.
 
   - Fix mixed case issue with filenames in “file” versions of QCRaw,
@@ -37,6 +34,124 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.2.9013
+
+2018-11-27
+
+  - Fix file version of functions error. Issue \#68
+      - zfun.ContDataQC.R
+
+## v2.0.2.9012
+
+2018-11-27
+
+  - Add function for reformatting HoboWare files.
+
+## v2.0.2.9010
+
+2018-11-16
+
+  - DESCRIPTION
+      - Remove Jon van Sickles as contributor since removed rarify
+        function.
+
+## v2.0.2.9009
+
+2018-11-16
+
+  - rarify, move to another package, Issue \#67
+      - Moved to separate package.  
+        \_ <https://github.com/leppott/BioMonTools>
+          - BioMonTools is for bioassessment and biomonitoring.
+          - ContDataQC should stay focused on continuous dat.
+      - DESCRIPTION
+          - Remote: leppott/BioMonTools
+      - Vignette
+          - rarify section updated.
+      - R/data.R
+          - Remove reference to data\_bio2rarify
+      - Remove
+          - R/rarify.R
+          - data-raw/ProcessData\_rarify.R
+          - data-raw/data\_bio2rarify.txt
+          - dat/data\_bio2rarify.rda
+
+## v2.0.2.9008
+
+2018-11-15
+
+  - PeriodStats
+      - Modify for input of 1 or 2 parameters.
+      - If have 2 parameters get:
+          - 2 sets of output stat files.  
+          - And get plots with 2 y-axes (i.e., both are plotted).
+      - fun.PeriodStats.R
+      - Report\_PeriodStats.rmd
+
+## v2.0.2.9007
+
+2018-11-14
+
+  - fun.Stats.R
+      - Fix tapply arguments must have same length error. Issue \# 60.
+
+## v2.0.2.9006
+
+2018-11-14
+
+  - Add links to issues in commit. Issues \#57 and \#59.
+
+## v2.0.2.9005
+
+2018-11-14
+
+  - Reports, Issue \#57 and Issue \#59.
+      - Modify function to use a single report rather than one for each
+        output format (docx and html).
+          - fun.Report.R
+          - fun.Report.File.R
+          - fun.Config.Out.R
+          - fun.PeriodStats.R
+          - fun.QC.R
+          - fun.QC.File.R
+          - zfun.AggregateData.R
+          - zfun.AggregateData.File.R
+          - fun.Stats.R
+          - fun.Stats.File.R
+      - RMD Report files.
+          - Update YAML header for multiple formats (word and html).
+          - Update YAML header for table of contents and other items.
+          - Add “setup” chunk with knitr options so don’t need to
+            specify in each chunk.
+          - Make render statement consistent by specifying output
+            format.
+          - Removed docx and html versions of RMD files. Only 1 RMD file
+            per report.
+          - Report\_Aggregate.RMD
+          - Report\_PeriodStats.RMD
+          - Report\_QC.RMD
+          - Report\_Stats.RMD
+          - Report\_Config.RMD
+
+## v2.0.2.9004
+
+2018-11-09
+
+  - Thresholds in QC Report, Issue \#15
+      - Report\_QC.rmd
+      - Report\_QC\_docx.rmd
+      - Report\_QC\_html.rmd
+
+## v2.0.2.9003
+
+2018-11-08
+
+  - Configuration Report, Issue \#15
+      - Report\_Config.rmd
+          - New report in RMD folder
+      - fun.ConfigOut.R
+          - New function to output new report
 
 ## v2.0.2.9002
 

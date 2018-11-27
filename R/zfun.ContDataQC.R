@@ -276,7 +276,7 @@ ContDataQC <- function(fun.myData.Operation
   }
   #
   ## dont need check if using "files" version
-  if(fun.myFile==""){##IF.fun.myFile.START
+  if(length(fun.myFile)==0){##IF.fun.myFile.START
     # Error checking.  If any null then kick back
     ## (add later)
     # 20160204, Check for required fields
@@ -326,7 +326,7 @@ ContDataQC <- function(fun.myData.Operation
     # QCRaw ####
     #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.1Raw}
     #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.2QC}
-    if(fun.myFile==""){##IF.fun.myFile.START
+    if(length(fun.myFile)==0){##IF.fun.myFile.START
       #normal version
       fun.QC(fun.myData.SiteID
              , fun.myData.Type
@@ -350,7 +350,7 @@ ContDataQC <- function(fun.myData.Operation
     #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.2QC}
     #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.2QC}
     myProcedure.Step <- "QC"
-    if(fun.myFile==""){##IF.fun.myFile.START
+    if(length(fun.myFile)==0){##IF.fun.myFile.START
       #normal version
       fun.Report(fun.myData.SiteID
                  , fun.myData.Type
@@ -375,7 +375,7 @@ ContDataQC <- function(fun.myData.Operation
     # Aggregate ####
     #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.2QC}
     #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.3Agg}
-    if(fun.myFile==""){##IF.fun.myFile.START
+    if(length(fun.myFile)==0){##IF.fun.myFile.START
       #normal version
       fun.AggregateData(fun.myData.SiteID
                         , fun.myData.Type
@@ -399,7 +399,7 @@ ContDataQC <- function(fun.myData.Operation
     #if (fun.myDir.SUB.import=="") {fun.myDir.SUB.import=ContData.env$myName.Dir.3Agg}
     #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.3Agg}
     myProcedure.Step <- "DATA"
-    if(fun.myFile==""){##IF.fun.myFile.START
+    if(length(fun.myFile)==0){##IF.fun.myFile.START
       #normal version
       fun.Report(fun.myData.SiteID
                  , fun.myData.Type
@@ -426,7 +426,7 @@ ContDataQC <- function(fun.myData.Operation
     #if (fun.myDir.SUB.export=="") {fun.myDir.SUB.export=ContData.env$myName.Dir.4Stats}
     myProcedure.Step <- "STATS"
     fun.myFile.Prefix <- "DATA"
-    if(fun.myFile==""){##IF.fun.myFile.START
+    if(length(fun.myFile)==0){##IF.fun.myFile.START
       #normal version
       fun.Stats(fun.myData.SiteID
                 , fun.myData.Type

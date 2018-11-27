@@ -44,7 +44,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
-## v2.0.2.9011
+## v2.0.2.9013
+2018-11-27
+
+* Fix file version of functions error.  Issue #68
+    + zfun.ContDataQC.R
+
+## v2.0.2.9012
 2018-11-27
 
 * Add function for reformatting HoboWare files.
