@@ -335,6 +335,8 @@ Through the use of a configuration file the user can change many of the variable
 
 The ContDataQC() function allows the user to input their own configuration file.  Only variables that are different from the default need to be added.  That is, the default configuration is loaded in the library and then the user supplied configuration.  This allows the user configuration to overwrite the defaults for that session.
 
+The Config.out will output the contents of the configuration file.
+
 The contents of the configuration file (config.R) are listed below.
 
 ```{r Config, eval=FALSE}
@@ -1386,5 +1388,84 @@ ContDataQC(myData.Operation
            , fun.myDir.import=myDir.import
            , fun.myDir.export=myDir.export
            , fun.myFile=myFile)
+```
+
+## Format of HOBOware Output
+Following the suggested RMN guidelines for creating HOBOware (PDF files included in help section of the package) will produce files with a known structure.  HOBOware will not create files for use with R.  The function formatHobo was created to bridge this gap.
+
+Imports a HoboWare output (with minimal tweaks) from a folder, reformats it using defaults from the ContDataQC config file, and exports a CSV to another folder for use with ContDataQC.
+
+Below are the default data directories assumed to exist in the working directory. These can be created with code as in the example. Using this function as an example, files will be imported from Data0_Original and exported to Data1_RAW.
+
+* ./Data0_Original/ = Unmodified data logger files.
+
+* ./Data1_RAW/ = Data logger files modified for use with library. Modifications for extra rows and file and column names.
+
+* ./Data2_QC/ = Repository for library output for QCed files.
+
+* ./Data3_Aggregated/ = Repository for library output for aggregated (or split) files.
+
+* ./Data4_Stats/ = Repository for library output for statistical summary files.
+
+File format should be "SiteID_SensorType_StartDate_EndData.csv".
+
+* SiteID = no spaces or underscores
+
+* SensorType = Air, Water, or AW (Air + Water in the same file)
+
+* Dates = YYYYMMDD (no delimiter)
+
+* Delimiter = underscore (as specified in the config file)
+
+No data frames are returned. A CSV file ready for use with the ContDataQC QC function will be generated in the specified output directory.
+
+```{r formatHobo, eval=FALSE}
+# Parameters
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB       <- c("Data0_Original", "Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.BASE          <- getwd()
+
+# Create data directories
+myDir.create <- paste0("./",Selection.SUB[1])
+  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+myDir.create <- paste0("./",Selection.SUB[2])
+  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+myDir.create <- paste0("./",Selection.SUB[3])
+  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+myDir.create <- paste0("./",Selection.SUB[4])
+  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+myDir.create <- paste0("./",Selection.SUB[5])
+  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+
+# Save example data (assumes directory ./Data0_Original/ exists)
+fn_1 <- "Charlies_Air_20170726_20170926.csv"
+fn_2 <- "Charlies_AW_20170726_20170926.csv"
+fn_3 <- "Charlies_Water_20170726_20170926.csv"
+lapply(c(fn_1,fn_2,fn_3), function(x)
+       file.copy(system.file("extdata", x, package="ContDataQC")
+       , file.path(myDir.BASE, Selection.SUB[1], x)))
+
+# Function Inputs
+myFiles <- c("Charlies_Air_20170726_20170926.csv"
+             , "Charlies_AW_20170726_20170926.csv"
+             , "Charlies_Water_20170726_20170926.csv")
+myDir.import <- file.path(getwd(), "Data0_Original")
+myDir.export <- file.path(getwd(), "Data1_RAW")
+
+# Run Function (with default config)
+formatHobo(myFiles, myDir.import, myDir.export)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# QC the generated file with ContDataQC
+myData.Operation <- "QCRaw" #Selection.Operation[2]
+myFile <- myFiles
+myDir.import <- file.path(".","Data1_RAW")
+myDir.export <- file.path(".","Data2_QC")
+myReport.format <- "html"
+ContDataQC(myData.Operation, fun.myDir.import=myDir.import
+          , fun.myDir.export=myDir.export, fun.myFile=myFile
+          , fun.myReport.format=myReport.format)
+
 ```
 

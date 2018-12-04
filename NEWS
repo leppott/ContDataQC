@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-11-27 16:41:47
+    #> Last Update: 2018-12-04 10:30:49
 
 # Planned Updates
 
@@ -34,6 +34,12 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.2.9014
+
+2018-12-04
+
+  - Add formatHobo to Vignette.
 
 ## v2.0.2.9013
 

@@ -10,7 +10,7 @@
 #' The default is always loaded first so only "new" values need to be included.
 #' This is the easiest way to control time zones.
 #'
-#' @return No data frames are retruend.  A CSV file ready for use with the ContDataQC
+#' @return No data frames are returned.  A CSV file ready for use with the ContDataQC
 #' QC function will be generated in the specified output directory.
 #'
 #' @details Imports a HoboWare output (with minimal tweaks) from a folder
