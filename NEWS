@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-12-04 10:30:49
+    #> Last Update: 2018-12-04 10:36:53
 
 # Planned Updates
 
@@ -34,6 +34,12 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.3
+
+2018-12-04
+
+  - New release version.
 
 ## v2.0.2.9014
 
