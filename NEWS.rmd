@@ -44,6 +44,11 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.4
+2018-12-05
+
+* New release version.
+
 ## v2.0.3.9001
 2018-12-05
 
