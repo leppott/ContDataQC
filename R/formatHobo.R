@@ -107,7 +107,7 @@ formatHobo <- function(fun.myFile=""
   #
 
   ## dont need check if using "files" version
-  if(length(fun.myFile)==0){##IF.fun.myFile.START
+  if(fun.myFile[1]==""){##IF.fun.myFile.START
     # Error checking.  If any null then kick back
     ## (add later)
     # 20160204, Check for required fields

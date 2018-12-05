@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-12-04 10:36:53
+    #> Last Update: 2018-12-05 09:46:04
 
 # Planned Updates
 
@@ -35,6 +35,13 @@ NEWS-ContDataQC
 
 # Version History
 
+## v2.0.3.9001
+
+2018-12-05
+
+  - Fix error introduced in v2.0.2.9013, Issue \#68.
+  - Moved fun.CalcQCStats from fun.QC.R to fun.Helper.R.
+
 ## v2.0.3
 
 2018-12-04
@@ -45,7 +52,7 @@ NEWS-ContDataQC
 
 2018-12-04
 
-  - Add formatHobo to Vignette.
+  - Add formatHobo to Vignette. Issue \#69
 
 ## v2.0.2.9013
 
