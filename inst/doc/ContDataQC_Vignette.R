@@ -1,0 +1,1198 @@
+## ----LoadPkg, eval=FALSE-------------------------------------------------
+#  install.packages("devtools")
+#  library(devtools)
+#  install_github("leppott/ContDataQC")
+
+## ----LoadDependancies, eval=FALSE----------------------------------------
+#  # install all dependant libraries manually
+#  # libraries to be installed
+#  data.packages = c(
+#                    "dataRetrieval"   # loads USGS data into R
+#                    "zoo",
+#                    "knitr",
+#                    "survival",
+#                    "doBy",
+#                    "rmarkdown"
+#                    )
+#  
+#  # install packages via a 'for' loop
+#  for (i in 1:length(data.packages)) {
+#    #install.packages("doBy",dependencies=TRUE)
+#    install.packages(data.packages[i])
+#  } # end loop
+#  
+#  print("Task complete.  Check statements above for errors.")
+#  
+
+## ----LoadPandoc, eval=FALSE----------------------------------------------
+#  # Install Pandoc (for docx Reports)
+#  # (if using recent version of RStudio do not have to install separately)
+#  install.packages("installr") # not needed if already have this package.
+#  require(installr)
+#  install.pandoc()
+#  # The above won't work if don't have admin rights on your computer.
+#  # Alternative = Download the file below and have your IT dept install for you.
+#  # https://github.com/jgm/pandoc/releases/download/1.16.0.2/pandoc-1.16.0.2-windows.msi
+#  # For help for installing via command window:
+#  # http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-prompt-in-windows/
+
+## ----LoadPkg_USGS, eval=FALSE--------------------------------------------
+#  # inter-CRAN release hosted on USGS website
+#  install.packages("dataRetrieval",repos="https://owi.usgs.gov/R")
+#  # from GitHub
+#  # install.packages("devtools")
+#  # library(devtools)
+#  # install_github("USGS-R/dataRetrieval")
+
+## ----PkgVariables, eval=FALSE--------------------------------------------
+#  # Parameters
+#  Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+#  Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+#  Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+#  myDir.BASE <- getwd()
+#  
+#  # Create data directories
+#  myDir.create <- paste0("./",Selection.SUB[1])
+#    ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+#  myDir.create <- paste0("./",Selection.SUB[2])
+#    ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+#  myDir.create <- paste0("./",Selection.SUB[3])
+#    ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+#  myDir.create <- paste0("./",Selection.SUB[4])
+#    ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+#  
+#  # Save example data (assumes directory ./Data1_RAW/ exists)
+#  myData <- data_raw_test2_AW_20130426_20130725
+#    write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20130426_20130725.csv"))
+#  myData <- data_raw_test2_AW_20130725_20131015
+#    write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20130725_20131015.csv"))
+#  myData <- data_raw_test2_AW_20140901_20140930
+#    write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20140901_20140930.csv"))
+#  myData <- data_raw_test4_AW_20160418_20160726
+#    write.csv(myData,paste0("./",Selection.SUB[1],"/test4_AW_20160418_20160726.csv"))
+#  myFile <- "config.TZ.Central.R"
+#    file.copy(file.path(path.package("ContDataQC"),"extdata",myFile)
+#              ,file.path(getwd(),Selection.SUB[1],myFile))
+
+## ----GetGageData_base, echo=TRUE-----------------------------------------
+library(ContDataQC)
+# Parameters
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.BASE <- getwd()
+# Get Gage Data
+myData.Operation    <- "GetGageData" #Selection.Operation[1]
+myData.SiteID       <- "01187300" # Hubbard River near West Hartland, CT
+myData.Type         <- "Gage" #Selection.Type[4] 
+myData.DateRange.Start  <- "2013-01-01"
+myData.DateRange.End    <- "2014-12-31"
+myDir.import <- ""
+myDir.export <- file.path(myDir.BASE,Selection.SUB[1])
+ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
+           , myData.DateRange.End, myDir.import, myDir.export)
+
+## ----GetGageData_TZ, eval=FALSE------------------------------------------
+#  # Parameters
+#  Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+#  Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+#  Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+#  myDir.BASE <- getwd()
+#  # Get Gage Data (central time zone)
+#  myData.Operation    <- "GetGageData" #Selection.Operation[1]
+#  myData.SiteID       <- "07032000" # Mississippi River at Memphis, TN
+#  myData.Type         <- Selection.Type[4] #"Gage"
+#  myData.DateRange.Start  <- "2013-01-01"
+#  myData.DateRange.End    <- "2014-12-31"
+#  myDir.import <- ""
+#  myDir.export <- file.path(myDir.BASE,Selection.SUB[1])
+#  myConfig            <- file.path(getwd(),Selection.SUB[1],"config.TZ.central.R") # include path if not in working directory
+#  ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export, myConfig)
+
+## ----QCRaw_base, eval=FALSE----------------------------------------------
+#  # Parameters
+#  Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+#  Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+#  Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+#  myDir.BASE <- getwd()
+#  # QC Raw Data
+#  myData.Operation <- "QCRaw" #Selection.Operation[2]
+#  myData.SiteID    <- "test2"
+#  myData.Type      <- Selection.Type[3] #"AW"
+#  myData.DateRange.Start  <- "2013-01-01"
+#  myData.DateRange.End    <- "2014-12-31"
+#  myDir.import <- file.path(myDir.BASE,Selection.SUB[1]) #"Data1_RAW"
+#  myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
+#  myReport.format <- "docx"
+#  ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
+#             , myData.DateRange.End, myDir.import, myDir.export, myReport.format)
+
+## ----QCRaw_timeoffset, eval=FALSE----------------------------------------
+#  # Parameters
+#  Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+#  Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+#  Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+#  myDir.BASE <- getwd()
+#  # QC Raw Data (offset collection times for air and water sensors)
+#  myData.Operation <- "QCRaw" #Selection.Operation[2]
+#  myData.SiteID    <- "test4"
+#  myData.Type      <- Selection.Type[3] #"AW"
+#  myData.DateRange.Start  <- "2016-04-28"
+#  myData.DateRange.End    <- "2016-07-26"
+#  myDir.import <- file.path(myDir.BASE,Selection.SUB[1]) #"Data1_RAW"
+#  myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
+#  myReport.format <- "html"
+#  ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
+#             , myData.DateRange.End, myDir.import, myDir.export, myReport.format)
+
+## ----Aggregate, eval=FALSE-----------------------------------------------
+#  # Parameters
+#  Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+#  Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+#  Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+#  myDir.BASE <- getwd()
+#  # Aggregate Data
+#  myData.Operation <- "Aggregate" #Selection.Operation[3]
+#  myData.SiteID    <- "test2"
+#  myData.Type      <- Selection.Type[3] #"AW"
+#  myData.DateRange.Start  <- "2013-01-01"
+#  myData.DateRange.End    <- "2014-12-31"
+#  myDir.import <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
+#  myDir.export <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
+#  #Leave off myReport.format and get default (docx).
+#  ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
+#             , myData.DateRange.End, myDir.import, myDir.export)
+#  
+
+## ----SummaryStats, eval=FALSE--------------------------------------------
+#  # Parameters
+#  Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+#  Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+#  Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+#  myDir.BASE <- getwd()
+#  # Summary Stats
+#  myData.Operation <- "SummaryStats" #Selection.Operation[4]
+#  myData.SiteID    <- "test2"
+#  myData.Type      <- Selection.Type[3] #"AW"
+#  myData.DateRange.Start  <- "2013-01-01"
+#  myData.DateRange.End    <- "2014-12-31"
+#  myDir.import <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
+#  myDir.export <- file.path(myDir.BASE,Selection.SUB[4]) #"Data4_Stats"
+#  #Leave off myReport.format and get default (docx).
+#  ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
+#             , myData.DateRange.End, myDir.import, myDir.export)
+
+## ----ContDataQC_FileVersions, eval=FALSE---------------------------------
+#  #~~~~~~~~~~~~~~
+#  # File Versions
+#  #~~~~~~~~~~~~~~
+#  
+#  # QC Data
+#  myData.Operation <- "QCRaw" #Selection.Operation[2]
+#  #myFile <- "test2_AW_20130426_20130725.csv"
+#  myFile <- c("test2_AW_20130426_20130725.csv", "test2_AW_20130725_20131015.csv", "test2_AW_20140901_20140930.csv")
+#  myDir.import <- file.path(".","Data1_RAW")
+#  myDir.export <- file.path(".","Data2_QC")
+#  myReport.format <- "docx"
+#  ContDataQC(myData.Operation, fun.myDir.import=myDir.import, fun.myDir.export=myDir.export, fun.myFile=myFile, myReport.format)
+#  
+#  # Aggregate Data
+#  myData.Operation <- "Aggregate" #Selection.Operation[3]
+#  myFile <- c("QC_test2_AW_20130426_20130725.csv", "QC_test2_AW_20130725_20131015.csv", "QC_test2_AW_20140901_20140930.csv")
+#  myDir.import <- file.path(".","Data2_QC")
+#  myDir.export <- file.path(".","Data3_Aggregated")
+#  myReport.format <- "html"
+#  ContDataQC(myData.Operation, fun.myDir.import=myDir.import, fun.myDir.export=myDir.export, fun.myFile=myFile, myReport.format)
+#  
+#  # Summary Stats
+#  myData.Operation <- "SummaryStats" #Selection.Operation[4]
+#  myFile <- "QC_test2_AW_20130426_20130725.csv"
+#  #myFile <- c("QC_test2_AW_20130426_20130725.csv", "QC_test2_AW_20130725_20131015.csv", "QC_test2_AW_20140901_20140930.csv")
+#  myDir.import <- file.path(".","Data2_QC")
+#  myDir.export <- file.path(".","Data4_Stats")
+#  #Leave off myReport.format and get default (docx).
+#  ContDataQC(myData.Operation, fun.myDir.import=myDir.import, fun.myDir.export=myDir.export, fun.myFile=myFile)
+#  
+
+## ----Config, eval=FALSE--------------------------------------------------
+#  # User Defined Values
+#  #
+#  # User defined values for variables used across multiple functions in this library.
+#  # The user has the ability to modify the values for names, units, QC thresholds, etc.
+#  #
+#  # Saved in a separate environment.
+#  #
+#  # https://www.r-bloggers.com/package-wide-variablescache-in-r-packages/
+#  #
+#  # Continuous data helper script
+#  # Default Values
+#  # Erik.Leppo@tetratech.com (EWL)
+#  # 20150928
+#  # 20170323, add 3 parameters (Cond, DO, pH)
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # User defined variable names for input data
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # It is assumed that this R script is stored in a directory with the data files as subdirectories
+#  # This script is intended to be "source"d from the main script.
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # @keywords continuous data
+#  # @examples
+#  # #Not intended to be accessed indepedant of function ContDataQC().
+#  # #Data values only.  No functions.  Add to environment so only visible inside library.
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # USER may make modifications in this section but not mandatory
+#  # this section could be sourced so can use between scripts
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  #UserDefinedValues <- NA # default value so shows up in help files
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Environment Name ####
+#  # Environment for use only by ContDataQC library
+#  ContData.env <- new.env(parent = emptyenv())
+#  # assign variables to new environment requires editing of all lines.
+#  # For example, myDelim <- "_" BECOMES ContData.env$myDelim, "_"
+#  ###
+#  # list all elements in environment
+#  # ls(ContData.env)  # all elements in environment
+#  # as.list(ContData.env)  # all elements in environment with assigned values
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Delimiter in File Names (e.g., test2_AW_201301_20131231.csv)
+#  ContData.env$myDelim <- "_"
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Acceptable column names for the data ####
+#  ## Basic
+#  ContData.env$myName.SiteID        <- "SiteID"
+#  ContData.env$myName.Date          <- "Date"
+#  ContData.env$myName.Time          <- "Time"
+#  ContData.env$myName.DateTime      <- "Date.Time"
+#  #(special characters (e.g., %, space, or /) are converted to "." by R, "deg" converted to "A")
+#  ### IF CHANGE UNITS WILL NEED TO MODIFY THRESHOLDS ###
+#  ContData.env$myUnits.AirTemp    <- "C" # C or F
+#  ContData.env$myUnits.WaterTemp  <- ContData.env$myUnits.AirTemp
+#  ContData.env$myUnits.AirBP      <- "psi"
+#  ContData.env$myUnits.WaterP     <- ContData.env$myUnits.AirBP
+#  ContData.env$myUnits.SensorDepth <- "ft"
+#  ContData.env$myUnits.Discharge  <- "ft3.s"
+#  ContData.env$myUnits.Cond       <- "uS.cm"
+#  ContData.env$myUnits.DO         <- "mg.L"
+#  ContData.env$myUnits.pH         <- "SU"
+#  ContData.env$myUnits.Turbidity  <- "NTU"
+#  ContData.env$myUnits.Chlorophylla <- "g.cm3"
+#  ContData.env$myUnits.GageHeight <- "ft"
+#  ## Logger Fields
+#  ContData.env$myName.RowID.Water   <- "Water.RowID"
+#  ContData.env$myName.LoggerID.Water<- "Water.LoggerID"
+#  ContData.env$myName.RowID.Air     <- "Air.RowID"
+#  ContData.env$myName.LoggerID.Air  <- "Air.LoggerID"
+#  ## Parameters as appear in logger files
+#  ContData.env$myName.WaterTemp     <- paste0("Water.Temp.",ContData.env$myUnits.WaterTemp)  # "deg" from HoboWare files sometimes adds "A " in front.  Replace with "." in R.
+#  ContData.env$myName.AirTemp       <- paste0("Air.Temp.",ContData.env$myUnits.AirTemp)   # "deg" from HoboWare files sometimes adds "A " in front.  Replace with "." in R.
+#  ContData.env$myName.WaterP        <- paste0("Water.P.",ContData.env$myUnits.WaterP)
+#  ContData.env$myName.AirBP         <- paste0("Air.BP.",ContData.env$myUnits.WaterP)
+#  ContData.env$myName.SensorDepth   <- paste0("Sensor.Depth.",ContData.env$myUnits.SensorDepth)
+#  ContData.env$myName.Discharge     <- paste0("Discharge.",ContData.env$myUnits.Discharge)
+#  ContData.env$myName.Cond          <- paste0("Conductivity.",ContData.env$myUnits.Cond)
+#  ContData.env$myName.DO            <- paste0("DO.",ContData.env$myUnits.DO)
+#  ContData.env$myName.pH            <- paste0("pH.",ContData.env$myUnits.pH)
+#  ContData.env$myName.Turbidity     <- paste0("Turbidity.",ContData.env$myUnits.DO)
+#  ContData.env$myName.Chlorophylla   <- paste0("Chlorophylla.",ContData.env$myUnits.pH)
+#  ContData.env$myName.GageHeight    <- paste0("GageHeight.",ContData.env$myUnits.GageHeight)
+#  ## Plot Labels
+#  ContData.env$myLab.WaterTemp      <- paste0("Temperature, Water (deg ",ContData.env$myUnits.WaterTemp,")")
+#  ContData.env$myLab.AirTemp        <- paste0("Temperature, Air (deg ",ContData.env$myUnits.AirTemp,")")
+#  ContData.env$myLab.Date           <- "Date"
+#  ContData.env$myLab.DateTime       <- "Date"
+#  ContData.env$myLab.WaterP         <- paste0("Pressure, Water (",ContData.env$myUnits.AirBP,")")
+#  ContData.env$myLab.AirBP          <- paste0("Barometric Pressure, Air (",ContData.env$myUnits.WaterP,")")
+#  ContData.env$myLab.SensorDepth    <- paste0("Sensor Depth (",ContData.env$myUnits.SensorDepth,")",sep="")
+#  ContData.env$myLab.Temp.BOTH      <- paste0("Temperature (deg ",ContData.env$myUnits.WaterTemp,")")
+#  ContData.env$myLab.Discharge      <- paste0("Discharge (",sub("\\.","/",ContData.env$myUnits.Discharge),")")  #replace "." with "/"
+#  ContData.env$myLab.Cond           <- paste0("Conductivity (",sub("\\.","/",ContData.env$myUnits.Cond),")")    #replace "." with "/"
+#  ContData.env$myLab.DO             <- paste0("Dissolved Oxygen (",sub("\\.","/",ContData.env$myUnits.DO),")")  #replace "." with "/"
+#  ContData.env$myLab.pH             <- paste0("pH (",ContData.env$myUnits.pH,")")
+#  ContData.env$myLab.Turbidity      <- paste0("Turbidity (",ContData.env$myUnits.Turbidity,")")
+#  ContData.env$myLab.Chlorophylla   <- paste0("Chlorophyll a (",sub("\\.","/",ContData.env$myUnits.Chlorophylla),")")    #replace "." with "/"
+#  ContData.env$myLab.GageHeight     <- paste0("Gage Height (",ContData.env$myUnits.GageHeight,")")
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Discrete Measurements ####
+#  ContData.env$myPrefix.Discrete          <- "Discrete"
+#  # Discrete, Names
+#  ContData.env$myName.Discrete.WaterTemp  <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterTemp,sep=".")
+#  ContData.env$myName.Discrete.AirTemp    <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.AirTemp,sep=".")
+#  ContData.env$myName.Discrete.WaterP     <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterP,sep=".")
+#  ContData.env$myName.Discrete.AirBP      <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.AirBP,sep=".")
+#  ContData.env$myName.Discrete.SensorDepth <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.SensorDepth,sep=".")
+#  ContData.env$myName.Discrete.Discharge  <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.Discharge,sep=".")
+#  ContData.env$myName.Discrete.Cond       <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.Cond,sep=".")
+#  ContData.env$myName.Discrete.DO         <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.DO,sep=".")
+#  ContData.env$myName.Discrete.pH         <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.pH,sep=".")
+#  ContData.env$myName.Discrete.Turbidity  <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.Turbidity,sep=".")
+#  ContData.env$myName.Discrete.Chlorophylla <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.Chlorophylla,sep=".")
+#  ContData.env$myName.Discrete.GageHeight <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.GageHeight,sep=".")
+#  # Discrete, Labels
+#  ContData.env$myLab.Discrete.WaterTemp   <- paste(ContData.env$myLab.WaterTemp,"(Discrete)",sep=" ")
+#  ContData.env$myLab.Discrete.AirTemp     <- paste(ContData.env$myLab.AirTemp,"(Discrete)",sep=" ")
+#  ContData.env$myLab.Discrete.WaterP      <- paste(ContData.env$myLab.WaterP,"(Discrete)",sep=" ")
+#  ContData.env$myLab.Discrete.AirBP       <- paste(ContData.env$myLab.AirBP,"(Discrete)",sep=" ")
+#  ContData.env$myLab.Discrete.SensorDepth <- paste(ContData.env$myLab.SensorDepth,"(Discrete)",sep=" ")
+#  ContData.env$myLab.Discrete.Discharge   <- paste(ContData.env$myLab.Discharge,"(Discrete)",sep=" ")
+#  ContData.env$myLab.Discrete.Cond        <- paste(ContData.env$myLab.Cond,"(Discrete)",sep=" ")
+#  ContData.env$myLab.Discrete.DO          <- paste(ContData.env$myLab.DO,"(Discrete)",sep=" ")
+#  ContData.env$myLab.Discrete.pH          <- paste(ContData.env$myLab.pH,"(Discrete)",sep=" ")
+#  ContData.env$myLab.Discrete.Turbidity   <- paste(ContData.env$myLab.Turbidity,"(Discrete)",sep=" ")
+#  ContData.env$myLab.Discrete.Chlorophylla<- paste(ContData.env$myLab.Chlorophylla,"(Discrete)",sep=" ")
+#  ContData.env$myLab.Discrete.GageHeight  <- paste(ContData.env$myLab.GageHeight,"(Discrete)",sep=" ")
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Automated QC stuff ####
+#  ## data type/stages
+#  ContData.env$myDataQuality.Raw        <- "RAW"
+#  ContData.env$myDataQuality.QCauto     <- "QCauto"
+#  ContData.env$myDataQuality.QCmanual   <- "QCmanual"
+#  ContData.env$myDataQuality.Final      <- "Final"
+#  ContData.env$myDataQuality.Aggregated <- "Aggregated"
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Directory Names ####
+#  ContData.env$myName.Dir.1Raw  <- "Data1_Raw"
+#  ContData.env$myName.Dir.2QC   <- "Data2_QC"
+#  ContData.env$myName.Dir.3Agg  <- "Data3_Aggregated"
+#  ContData.env$myName.Dir.4Stats<- "Data4_Stats"
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Data Fields ####
+#  ContData.env$myNames.DataFields <- c(ContData.env$myName.WaterTemp
+#                                       , ContData.env$myName.AirTemp
+#                                       , ContData.env$myName.WaterP
+#                                       , ContData.env$myName.AirBP
+#                                       , ContData.env$myName.SensorDepth
+#                                       , ContData.env$myName.Discharge
+#                                       , ContData.env$myName.Cond
+#                                       , ContData.env$myName.DO
+#                                       , ContData.env$myName.pH
+#                                       , ContData.env$myName.Turbidity
+#                                       , ContData.env$myName.Chlorophylla
+#                                       , ContData.env$myName.GageHeight
+#                                       , ContData.env$myName.Discrete.WaterTemp
+#                                       , ContData.env$myName.Discrete.AirTemp
+#                                       , ContData.env$myName.Discrete.WaterP
+#                                       , ContData.env$myName.Discrete.AirBP
+#                                       , ContData.env$myName.Discrete.SensorDepth
+#                                       , ContData.env$myName.Discrete.Discharge
+#                                       , ContData.env$myName.Discrete.Cond
+#                                       , ContData.env$myName.Discrete.DO
+#                                       , ContData.env$myName.Discrete.pH
+#                                       , ContData.env$myName.Discrete.Turbidity
+#                                       , ContData.env$myName.Discrete.Chlorophylla
+#                                       , ContData.env$myName.Discrete.GageHeight
+#                                       )
+#  ContData.env$myNames.DataFields.Lab <- c(ContData.env$myLab.WaterTemp
+#                                           , ContData.env$myLab.AirTemp
+#                                           , ContData.env$myLab.WaterP
+#                                           , ContData.env$myLab.AirBP
+#                                           , ContData.env$myLab.SensorDepth
+#                                           , ContData.env$myLab.Discharge
+#                                           , ContData.env$myLab.Cond
+#                                           , ContData.env$myLab.DO
+#                                           , ContData.env$myLab.pH
+#                                           , ContData.env$myLab.Turbidity
+#                                           , ContData.env$myLab.Chlorophylla
+#                                           , ContData.env$myLab.GageHeight
+#                                           , ContData.env$myLab.Discrete.WaterTemp
+#                                           , ContData.env$myLab.Discrete.AirTemp
+#                                           , ContData.env$myLab.Discrete.WaterP
+#                                           , ContData.env$myLab.Discrete.AirBP
+#                                           , ContData.env$myLab.Discrete.SensorDepth
+#                                           , ContData.env$myLab.Discrete.Discharge
+#                                           , ContData.env$myLab.Discrete.Cond
+#                                           , ContData.env$myLab.Discrete.DO
+#                                           , ContData.env$myLab.Discrete.pH
+#                                           , ContData.env$myLab.Discrete.Turbidity
+#                                           , ContData.env$myLab.Discrete.Chlorophylla
+#                                           , ContData.env$myLab.Discrete.GageHeight
+#                                           )
+#  ContData.env$myNames.DataFields.Col <- c("blue","green","gray","gray","black","brown"
+#                                           ,"purple","orange","salmon","rosybrown","aquamarine1")
+#  #
+#  ## Name Order (change order below to change order in output file)
+#  ContData.env$myNames.Order <- c(ContData.env$myName.SiteID
+#                                  , ContData.env$myName.Date
+#                                  , ContData.env$myName.Time
+#                                  , ContData.env$myName.DateTime
+#                                  , ContData.env$myName.WaterTemp
+#                                  , ContData.env$myName.LoggerID.Air
+#                                  , ContData.env$myName.RowID.Air
+#                                  , ContData.env$myName.AirTemp
+#                                  , ContData.env$myName.WaterP
+#                                  , ContData.env$myName.AirBP
+#                                  , ContData.env$myName.SensorDepth
+#                                  , ContData.env$myName.Discharge
+#                                  , ContData.env$myName.Cond
+#                                  , ContData.env$myName.DO
+#                                  , ContData.env$myName.pH
+#                                  , ContData.env$myName.Turbidity
+#                                  , ContData.env$myName.Chlorophylla
+#                                  , ContData.env$myName.GageHeight
+#                                  , ContData.env$myName.LoggerID.Water
+#                                  , ContData.env$myName.RowID.Water
+#                                  , ContData.env$myName.Discrete.WaterTemp
+#                                  , ContData.env$myName.Discrete.AirTemp
+#                                  , ContData.env$myName.Discrete.WaterP
+#                                  , ContData.env$myName.Discrete.AirBP
+#                                  , ContData.env$myName.Discrete.SensorDepth
+#                                  , ContData.env$myName.Discrete.Discharge
+#                                  , ContData.env$myName.Discrete.Cond
+#                                  , ContData.env$myName.Discrete.DO
+#                                  , ContData.env$myName.Discrete.pH
+#                                  , ContData.env$myName.Discrete.Turbidity
+#                                  , ContData.env$myName.Discrete.Chlorophylla
+#                                  , ContData.env$myName.Discrete.GageHeight
+#                                  )
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  ## Data Quality Flag Values ####
+#  ContData.env$myFlagVal.Pass    <- "P"
+#  ContData.env$myFlagVal.NotEval <- "NA"
+#  ContData.env$myFlagVal.Suspect <- "S"
+#  ContData.env$myFlagVal.Fail    <- "F"
+#  ContData.env$myFlagVal.NoData  <- "X"
+#  ContData.env$myFlagVal.Order   <- c(ContData.env$myFlagVal.Pass
+#                                      , ContData.env$myFlagVal.Suspect
+#                                      , ContData.env$myFlagVal.Fail
+#                                      , ContData.env$myFlagVal.NoData)
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # QC Tests and Calculations ####
+#  #http://stackoverflow.com/questions/16143700/pasting-two-vectors-with-combinations-of-all-vectors-elements
+#  #myNames.QCTests.Calcs.combo <- as.vector(t(outer(myNames.QCTests,myNames.QCTests.Calcs,paste,sep=".")))
+#  # combine so can check for and remove later.
+#  #myNames.DataFields.QCTests.Calcs.combo <- as.vector(t(outer(myNames.DataFields,myNames.QCTests.Calcs.combo,paste,sep=".")))
+#  # Data Quality Flag Thresholds
+#  ## Gross Min/Max, Fail (equipment)
+#  ### Examines values as outliers versus threholds
+#  ### if value >= Hi or <= Lo then flagged as "Fail"
+#  ContData.env$myThresh.Gross.Fail.Hi.WaterTemp  <- 30
+#  ContData.env$myThresh.Gross.Fail.Lo.WaterTemp  <- -2
+#  ContData.env$myThresh.Gross.Fail.Hi.AirTemp    <- 38
+#  ContData.env$myThresh.Gross.Fail.Lo.AirTemp    <- -25
+#  ContData.env$myThresh.Gross.Fail.Hi.WaterP     <- 17
+#  ContData.env$myThresh.Gross.Fail.Lo.WaterP     <- 13
+#  ContData.env$myThresh.Gross.Fail.Hi.AirBP      <- 15
+#  ContData.env$myThresh.Gross.Fail.Lo.AirBP      <- 13
+#  ContData.env$myThresh.Gross.Fail.Hi.SensorDepth <- 6   # no longer used (only check for negative values for SensorDepth)
+#  ContData.env$myThresh.Gross.Fail.Lo.SensorDepth <- -1  # no longer used (only check for negative values for SensorDepth)
+#  ContData.env$myThresh.Gross.Fail.Hi.Discharge  <-  10^5 #dependant upon stream size (only checkf or negative values)
+#  ContData.env$myThresh.Gross.Fail.Lo.Discharge  <-  -1  #dependant upon stream size
+#  ContData.env$myThresh.Gross.Fail.Hi.Cond       <- 1500 # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Fail.Lo.Cond       <- 10   # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Fail.Hi.DO         <- 20   # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Fail.Lo.DO         <- 1    # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Fail.Hi.pH         <- 12   # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Fail.Lo.pH         <- 3    # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Fail.Hi.Turbidity         <- 10^5     # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Fail.Lo.Turbidity         <- -1       # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla         <- 10^5  # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Fail.Lo.Chlorophylla          <- -1   # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Fail.Hi.GageHeight         <- 10^5
+#  ContData.env$myThresh.Gross.Fail.Lo.GageHeight          <- -1
+#  ## Gross Min/Max, Suspect (extreme)
+#  ### Examines values as outliers versus threholds
+#  ### if value >= Hi or <= Lo then flagged as "Suspect"
+#  ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp  <- 25
+#  ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp  <- -0.1
+#  ContData.env$myThresh.Gross.Suspect.Hi.AirTemp    <- 35
+#  ContData.env$myThresh.Gross.Suspect.Lo.AirTemp    <- -23
+#  ContData.env$myThresh.Gross.Suspect.Hi.WaterP     <- 16.8
+#  ContData.env$myThresh.Gross.Suspect.Lo.WaterP     <- 13.5
+#  ContData.env$myThresh.Gross.Suspect.Hi.AirBP      <- 14.8
+#  ContData.env$myThresh.Gross.Suspect.Lo.AirBP      <- 13.0
+#  ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth <- 5    # no longer used (only check for negative values for SensorDepth)
+#  ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth <- 0    # no longer used (only check for negative values for SensorDepth)
+#  ContData.env$myThresh.Gross.Suspect.Hi.Discharge  <-  10^3 #dependant upon stream size (only checkf or negative values
+#  ContData.env$myThresh.Gross.Suspect.Lo.Discharge  <-  -1   #dependant upon stream size
+#  ContData.env$myThresh.Gross.Suspect.Hi.Cond       <- 1200  # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Suspect.Lo.Cond       <- 20    # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Suspect.Hi.DO         <- 18    # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Suspect.Lo.DO         <- 2     # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Suspect.Hi.pH         <- 11    # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Suspect.Lo.pH         <- 4     # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Suspect.Hi.Turbidity         <- 10^3     # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Suspect.Lo.Turbidity          <- -1      # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla         <- 10^3  # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Suspect.Lo.Chlorophylla         <- 1     # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Gross.Suspect.Hi.GageHeight         <- 10^3
+#  ContData.env$myThresh.Gross.Suspect.Lo.GageHeight        <- 1
+#  ## Spike thresholds (absolute change)
+#  ### Examines difference between consecutive measurements
+#  ### if delta >= Hi then flagged as "Fail"
+#  ### if delta >= Lo then flagged as "Suspect"
+#  ContData.env$myThresh.Spike.Hi.WaterTemp  <- 1.5
+#  ContData.env$myThresh.Spike.Lo.WaterTemp  <- 1
+#  ContData.env$myThresh.Spike.Hi.AirTemp    <- 10
+#  ContData.env$myThresh.Spike.Lo.AirTemp    <- 8
+#  ContData.env$myThresh.Spike.Hi.WaterP     <- 0.7
+#  ContData.env$myThresh.Spike.Lo.WaterP     <- 0.5
+#  ContData.env$myThresh.Spike.Hi.AirBP      <- 0.25
+#  ContData.env$myThresh.Spike.Lo.AirBP      <- 0.15
+#  ContData.env$myThresh.Spike.Hi.SensorDepth <- 5
+#  ContData.env$myThresh.Spike.Lo.SensorDepth <- 3
+#  ContData.env$myThresh.Spike.Hi.Discharge  <- 10^4 # dependant upon stream size
+#  ContData.env$myThresh.Spike.Lo.Discharge  <- 10^3 # dependant upon stream size
+#  ContData.env$myThresh.Spike.Hi.Cond       <- 10   # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Spike.Lo.Cond       <- 5    # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Spike.Hi.DO         <- 10   # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Spike.Lo.DO         <- 5    # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Spike.Hi.pH         <- 10   # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Spike.Lo.pH         <- 5    # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Spike.Hi.Turbidity         <- 10^4         # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Spike.Lo.Turbidity         <- 10^3         # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Spike.Hi.Chlorophylla         <- 10^4      # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Spike.Lo.Chlorophylla         <- 10^3      # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Spike.Hi.Chlorophylla         <- 10^4      # this threshold has not been closely evaluated        # this threshold has not been closely evaluated
+#  ContData.env$myThresh.Spike.Lo.Chlorophylla         <- 10^3      # this threshold has not been closely evaluated
+#  ## Rate of Change (relative change)
+#  ### Examines SD over "period" and difference in consecutive values
+#  ### If delta >= SD.number * SD then flagged as "Suspect"
+#  ContData.env$myDefault.RoC.SD.number  <- 3
+#  ContData.env$myDefault.RoC.SD.period  <- 25 #hours
+#  ContData.env$myThresh.RoC.SD.number.WaterTemp  <- ContData.env$myDefault.RoC.SD.number
+#  ContData.env$myThresh.RoC.SD.period.WaterTemp  <- ContData.env$myDefault.RoC.SD.period
+#  ContData.env$myThresh.RoC.SD.number.AirTemp    <- ContData.env$myDefault.RoC.SD.number
+#  ContData.env$myThresh.RoC.SD.period.AirTemp    <- ContData.env$myDefault.RoC.SD.period
+#  ContData.env$myThresh.RoC.SD.number.WaterP     <- ContData.env$myDefault.RoC.SD.number
+#  ContData.env$myThresh.RoC.SD.period.WaterP     <- ContData.env$myDefault.RoC.SD.period
+#  ContData.env$myThresh.RoC.SD.number.AirBP      <- ContData.env$myDefault.RoC.SD.number
+#  ContData.env$myThresh.RoC.SD.period.AirBP      <- ContData.env$myDefault.RoC.SD.period
+#  ContData.env$myThresh.RoC.SD.number.SensorDepth <- ContData.env$myDefault.RoC.SD.number
+#  ContData.env$myThresh.RoC.SD.period.SensorDepth <- ContData.env$myDefault.RoC.SD.period
+#  ContData.env$myThresh.RoC.SD.number.Discharge  <- ContData.env$myDefault.RoC.SD.number
+#  ContData.env$myThresh.RoC.SD.period.Discharge  <- ContData.env$myDefault.RoC.SD.period
+#  ContData.env$myThresh.RoC.SD.number.Cond       <- ContData.env$myDefault.RoC.SD.number
+#  ContData.env$myThresh.RoC.SD.period.Cond       <- ContData.env$myDefault.RoC.SD.period
+#  ContData.env$myThresh.RoC.SD.number.DO         <- ContData.env$myDefault.RoC.SD.number
+#  ContData.env$myThresh.RoC.SD.period.DO         <- ContData.env$myDefault.RoC.SD.period
+#  ContData.env$myThresh.RoC.SD.number.pH         <- ContData.env$myDefault.RoC.SD.number
+#  ContData.env$myThresh.RoC.SD.period.pH         <- ContData.env$myDefault.RoC.SD.period
+#  ContData.env$myThresh.RoC.SD.number.Turbidity         <- ContData.env$myDefault.RoC.SD.number
+#  ContData.env$myThresh.RoC.SD.period.Turbidity         <- ContData.env$myDefault.RoC.SD.period
+#  ContData.env$myThresh.RoC.SD.number.Chlorophylla         <- ContData.env$myDefault.RoC.SD.number
+#  ContData.env$myThresh.RoC.SD.period.Chlorophylla        <- ContData.env$myDefault.RoC.SD.period
+#  ContData.env$myThresh.RoC.SD.number.GageHeight         <- ContData.env$myDefault.RoC.SD.number
+#  ContData.env$myThresh.RoC.SD.period.GageHeight        <- ContData.env$myDefault.RoC.SD.period
+#  ## No Change (flat-line)
+#  ### Examines consecutive values within "Tolerance" of each other
+#  ### If number of consecutive values >= Hi then flagged as "Fail"
+#  ### If number of consecutive values >= Lo (and < Hi) then flagged as "Suspect"
+#  ContData.env$myDefault.Flat.Hi        <- 30  # maximum is myThresh.Flat.MaxComp
+#  ContData.env$myDefault.Flat.Lo        <- 15
+#  ContData.env$myDefault.Flat.Tolerance <- 0.01 # set to one sigdig less than measurements.  Check with fivenum(x)
+#  ContData.env$myThresh.Flat.Hi.WaterTemp         <- 30
+#  ContData.env$myThresh.Flat.Lo.WaterTemp         <- 20
+#  ContData.env$myThresh.Flat.Tolerance.WaterTemp  <- 0.01
+#  ContData.env$myThresh.Flat.Hi.AirTemp           <- 20
+#  ContData.env$myThresh.Flat.Lo.AirTemp           <- 15
+#  ContData.env$myThresh.Flat.Tolerance.AirTemp    <- 0.01
+#  ContData.env$myThresh.Flat.Hi.WaterP            <- 15
+#  ContData.env$myThresh.Flat.Lo.WaterP            <- 10
+#  ContData.env$myThresh.Flat.Tolerance.WaterP     <- 0.001
+#  ContData.env$myThresh.Flat.Hi.AirBP             <- 15
+#  ContData.env$myThresh.Flat.Lo.AirBP             <- 10
+#  ContData.env$myThresh.Flat.Tolerance.AirBP      <- 0.001
+#  ContData.env$myThresh.Flat.Hi.SensorDepth        <- 60
+#  ContData.env$myThresh.Flat.Lo.SensorDepth        <- 20
+#  ContData.env$myThresh.Flat.Tolerance.SensorDepth <- 0.0
+#  ContData.env$myThresh.Flat.Hi.Discharge         <- ContData.env$myDefault.Flat.Hi * 2
+#  ContData.env$myThresh.Flat.Lo.Discharge         <- ContData.env$myDefault.Flat.Lo * 2
+#  ContData.env$myThresh.Flat.Tolerance.Discharge  <- 0.01
+#  ContData.env$myThresh.Flat.Hi.Cond              <- ContData.env$myDefault.Flat.Hi * 2
+#  ContData.env$myThresh.Flat.Lo.Cond              <- ContData.env$myDefault.Flat.Lo * 2
+#  ContData.env$myThresh.Flat.Tolerance.Cond       <- 0.01
+#  ContData.env$myThresh.Flat.Hi.DO                <- ContData.env$myDefault.Flat.Hi * 2
+#  ContData.env$myThresh.Flat.Lo.DO                <- ContData.env$myDefault.Flat.Lo * 2
+#  ContData.env$myThresh.Flat.Tolerance.DO         <- 0.01
+#  ContData.env$myThresh.Flat.Hi.pH                <- ContData.env$myDefault.Flat.Hi * 2
+#  ContData.env$myThresh.Flat.Lo.pH                <- ContData.env$myDefault.Flat.Lo * 2
+#  ContData.env$myThresh.Flat.Tolerance.pH         <- 0.01
+#  ContData.env$myThresh.Flat.Hi.Turbidity               <- ContData.env$myDefault.Flat.Hi * 2
+#  ContData.env$myThresh.Flat.Lo.Turbidity               <- ContData.env$myDefault.Flat.Lo * 2
+#  ContData.env$myThresh.Flat.Tolerance.Turbidity        <- 0.01
+#  ContData.env$myThresh.Flat.Hi.Chlorophylla                <- ContData.env$myDefault.Flat.Hi * 2
+#  ContData.env$myThresh.Flat.Lo.Chlorophylla                <- ContData.env$myDefault.Flat.Lo * 2
+#  ContData.env$myThresh.Flat.Tolerance.Chlorophylla         <- 0.01
+#  ContData.env$myThresh.Flat.Hi.GageHeight               <- ContData.env$myDefault.Flat.Hi * 2
+#  ContData.env$myThresh.Flat.Lo.GageHeight               <- ContData.env$myDefault.Flat.Lo * 2
+#  ContData.env$myThresh.Flat.Tolerance.GageHeight        <- 0.01
+#  #
+#  ContData.env$myThresh.Flat.MaxComp    <- max(ContData.env$myThresh.Flat.Hi.WaterTemp
+#                                               , ContData.env$myThresh.Flat.Hi.AirTemp
+#                                               , ContData.env$myThresh.Flat.Hi.WaterP
+#                                               , ContData.env$myThresh.Flat.Hi.AirBP
+#                                               , ContData.env$myThresh.Flat.Hi.Discharge
+#                                               , ContData.env$myThresh.Flat.Hi.Cond
+#                                               , ContData.env$myThresh.Flat.Hi.DO
+#                                               , ContData.env$myThresh.Flat.Hi.pH
+#                                               , ContData.env$myThresh.Flat.Hi.Turbidity
+#                                               , ContData.env$myThresh.Flat.Hi.Chlorophylla
+#                                               , ContData.env$myThresh.Flat.Hi.GageHeight
+#                                               )
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Data Fields with Flags ####
+#  ContData.env$myName.Flag        <- "Flag" # flag prefix
+#  ContData.env$myNames.Cols4Flags <- c(ContData.env$myName.DateTime,ContData.env$myNames.DataFields)
+#  ContData.env$myNames.Flags      <- paste(ContData.env$myName.Flag,ContData.env$myNames.Cols4Flags,sep=".")  # define ones using in the calling script
+#  ## flag labels
+#  ContData.env$myName.Flag.DateTime   <- paste(ContData.env$myName.Flag,ContData.env$myName.DateTime,sep=".")
+#  ContData.env$myName.Flag.WaterTemp  <- paste(ContData.env$myName.Flag,ContData.env$myName.WaterTemp,sep=".")
+#  ContData.env$myName.Flag.AirTemp    <- paste(ContData.env$myName.Flag,ContData.env$myName.AirTemp,sep=".")
+#  ContData.env$myName.Flag.WaterP     <- paste(ContData.env$myName.Flag,ContData.env$myName.WaterP,sep=".")
+#  ContData.env$myName.Flag.AirBP      <- paste(ContData.env$myName.Flag,ContData.env$myName.AirBP,sep=".")
+#  ContData.env$myName.Flag.SensorDepth <- paste(ContData.env$myName.Flag,ContData.env$myName.SensorDepth,sep=".")
+#  ContData.env$myName.Flag.Discharge  <- paste(ContData.env$myName.Flag,ContData.env$myName.Discharge,sep=".")
+#  ContData.env$myName.Flag.Cond       <- paste(ContData.env$myName.Flag,ContData.env$myName.Cond,sep=".")
+#  ContData.env$myName.Flag.DO         <- paste(ContData.env$myName.Flag,ContData.env$myName.DO,sep=".")
+#  ContData.env$myName.Flag.pH         <- paste(ContData.env$myName.Flag,ContData.env$myName.pH,sep=".")
+#  ContData.env$myName.Flag.Turbidity         <- paste(ContData.env$myName.Flag,ContData.env$myName.Turbidity,sep=".")
+#  ContData.env$myName.Flag.Chlorophylla        <- paste(ContData.env$myName.Flag,ContData.env$myName.Chlorophylla,sep=".")
+#  ContData.env$myName.Flag.GageHeight        <- paste(ContData.env$myName.Flag,ContData.env$myName.GageHeight,sep=".")
+#  # Data Quality Test Names
+#  ContData.env$myNames.QCTests <- c("Gross","Spike","RoC","Flat")
+#  ContData.env$myNames.QCCalcs <- c("SD.Time","SD","SDxN",paste("n",1:ContData.env$myThresh.Flat.MaxComp,sep="."),"flat.Lo","flat.Hi")
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Exceedance values for stats (default to Gross-Suspect-Hi value) ####
+#  ContData.env$myExceed.WaterTemp  <- ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp
+#  ContData.env$myExceed.AirTemp    <- ContData.env$myThresh.Gross.Suspect.Hi.AirTemp
+#  ContData.env$myExceed.SensorDepth <- ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Date and Time Formats ####
+#  ContData.env$myFormat.Date           <- "%Y-%m-%d"
+#  ContData.env$myFormat.Time           <- "%H:%M:%S"
+#  ContData.env$myFormat.DateTime       <- "%Y-%m-%d %H:%M:%S"
+#  ContData.env$DateRange.Start.Default <- format(as.Date("1900-01-01"),ContData.env$myFormat.Date) #YYYY-MM-DD
+#  ContData.env$DateRange.End.Default   <- format(Sys.Date(),ContData.env$myFormat.Date)
+#  # Time Zone, used in Gage script in dataRetrieval, OlsonNames()
+#  ContData.env$myTZ <- Sys.timezone() #"America/New_York" (local time zone)
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Time Frames (MM-DD) ####
+#  ContData.env$myTimeFrame.Annual.Start        <- "0101"
+#  ContData.env$myTimeFrame.Annual.End          <- "1231"
+#  ContData.env$myTimeFrame.WaterYear.Start     <- "1001"
+#  #ContData.env$myTimeFrame.WaterYear.End      <- "0930"
+#  ContData.env$myTimeFrame.Season.Spring.Start <- "0301"
+#  #ContData.env$myTimeFrame.Season.Spring.End  <- "0531"
+#  ContData.env$myTimeFrame.Season.Summer.Start <- "0601"
+#  #ContData.env$myTimeFrame.Season.Summer.End  <- "0831"
+#  ContData.env$myTimeFrame.Season.Fall.Start   <- "0901"
+#  #ContData.env$myTimeFrame.Season.Fall.End    <- "1130"
+#  ContData.env$myTimeFrame.Season.Winter.Start <- "1201"
+#  #ContData.env$myTimeFrame.Season.Winter.End  <- "0228" #but 0229 in leap year, use start dates only
+#  # Time Frame Names
+#  ContData.env$myName.Yr       <- "Year"
+#  ContData.env$myName.YrMo     <- "YearMonth"
+#  ContData.env$myName.Mo       <- "Month"
+#  ContData.env$myName.MoDa     <- "MonthDay"
+#  ContData.env$myName.JuDa     <- "JulianDay"
+#  ContData.env$myName.Day      <- "Day"
+#  ContData.env$myName.Season   <- "Season"
+#  ContData.env$myName.YrSeason <- "YearSeason"
+#  # for summary stats
+#  ContData.env$myNames.Fields.TimePeriods <- c(ContData.env$myName.Yr
+#  											,ContData.env$myName.YrMo
+#  											,ContData.env$myName.Mo
+#  											,ContData.env$myName.MoDa
+#  											,ContData.env$myName.JuDa
+#  											,ContData.env$myName.Season
+#  											,ContData.env$myName.YrSeason)
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Exclude Trigger ####
+#  # Trigger for Stats to exclude (TRUE) or include (FALSE) where flag = "fail"
+#  ContData.env$myStats.Fails.Exclude <- TRUE  #FALSE #TRUE
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Report Format
+#  ContData.env$myReport.Format <- "html"  # "html" or "docx" # DOCX requires Pandoc.
+
+## ----PeriodStats, eval=FALSE---------------------------------------------
+#  # Save example file
+#  df.x <- DATA_period_test2_Aw_20130101_20141231
+#  write.csv(df.x,"DATA_period_test2_Aw_20130101_20141231.csv")
+#  
+#  # function inputs
+#  myDate <- "2013-09-30"
+#  myDate.Format <- "%Y-%m-%d"
+#  myPeriod.N <- c(30, 60, 90, 120, 1)
+#  myPeriod.Units <- c("d", "d", "d", "d", "y")
+#  myFile <- "DATA_period_test2_Aw_20130101_20141231.csv"
+#  myDir.import <- getwd()
+#  myDir.export <- getwd()
+#  myParam.Name <- "Water.Temp.C"
+#  myDateTime.Name <- "Date.Time"
+#  myDateTime.Format <- "%Y-%m-%d %H:%M:%S"
+#  myThreshold <- 20
+#  myConfig <- ""
+#  myReport.format <- "docx"
+#  
+#  # Run Function
+#  ## default report format (html)
+#  PeriodStats(myDate
+#            , myDate.Format
+#            , myPeriod.N
+#            , myPeriod.Units
+#            , myFile
+#            , myDir.import
+#            , myDir.export
+#            , myParam.Name
+#            , myDateTime.Name
+#            , myDateTime.Format
+#            , myThreshold
+#            , myConfig)
+
+## ----IHA_dataprep, eval=FALSE--------------------------------------------
+#  # 1.  Get Gage Data
+#  #
+#  # 1.A. Use ContDataQC and Save (~1min for download)
+#  myData.Operation    <- "GetGageData" #Selection.Operation[1]
+#  myData.SiteID       <- "01187300" # Hubbard River near West Hartland, CT
+#  myData.Type         <- "Gage"
+#  myData.DateRange.Start  <- "2015-01-01"
+#  myData.DateRange.End    <- "2016-12-31"
+#  myDir.import <- getwd()
+#  myDir.export <- getwd()
+#  ContDataQC(myData.Operation, myData.SiteID, myData.Type
+#             , myData.DateRange.Start, myData.DateRange.End
+#             , myDir.import, myDir.export)
+#  #
+#  # 1.B. Use saved data
+#  myFile <- "01187300_Gage_20150101_20161231.csv"
+#  myCol.DateTime <- "Date.Time"
+#  myCol.Discharge <- "Discharge.ft3.s"
+#  #
+#  # 2. Prep Data
+#  myData.IHA <- Export.IHA(myFile
+#                           , fun.myCol.DateTime = myCol.DateTime
+#                           , fun.myCol.Parameter = myCol.Discharge
+#                           )
+
+## ----IHA_getPkg, eval=FALSE----------------------------------------------
+#  # Install Libraries (if needed)
+#  install.packages("devtools")
+#  library(devtools)
+#  install_github("jasonelaw/IHA")
+#  install.packages("XLConnect")
+
+## ----IHA_run_ExcelSave, eval=FALSE---------------------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # 3. Run IHA
+#  # Example using returned DF with IHA
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # User info
+#  SiteID <- myData.SiteID
+#  Notes.User <- Sys.getenv("USERNAME")
+#  #~~~~~
+#  # Library (load)
+#  require(IHA)
+#  require(XLConnect)
+#  #~~~~~
+#  # IHA
+#  myYr <- "calendar" # "water" or "calendar"
+#  # IHA Metrics
+#  ## IHA parameters group 1; Magnitude of monthly water conditions
+#  Analysis.Group.1 <- group1(myData.IHA, year=myYr)
+#  ## IHA parameters group 2: Magnitude of monthly water condition and include 12 parameters
+#  Analysis.Group.2 <- group2(myData.IHA, year=myYr)
+#  Analysis.Group.3 <- group3(myData.IHA, year=myYr)
+#  ## IHA parameters group 4; Frequency and duration of high and low pulses
+#  # defaults to 25th and 75th percentiles
+#  Analysis.Group.4 <- group4(myData.IHA, year=myYr)
+#  ## IHA parameters group 5; Rate and frequency of water condition changes
+#  Analysis.Group.5 <- group5(myData.IHA, year=myYr)
+#  #~~~~~
+#  # Save Results to Excel (each group on its own worksheet)
+#  Group.Desc <- c("Magnitude of monthly water conditions"
+#                  ,"Magnitude of monthly water condition and include 12 parameters"
+#                  ,"Timing of annual extreme water conditions"
+#                  ,"Frequency and duration of high and low pulses"
+#                  ,"Rate and frequency of water condition changes")
+#  df.Groups <- as.data.frame(cbind(paste0("Group",1:5),Group.Desc))
+#  #
+#  myDate <- format(Sys.Date(),"%Y%m%d")
+#  myTime <- format(Sys.time(),"%H%M%S")
+#  # Notes section (add min/max dates)
+#  Notes.Names <- c("Dataset (SiteID)","IHA.Year","Analysis.Date (YYYYMMDD)","Analysis.Time (HHMMSS)","Analysis.User")
+#  Notes.Data <- c(SiteID, myYr, myDate, myTime, Notes.User)
+#  df.Notes <- as.data.frame(cbind(Notes.Names,Notes.Data))
+#  Notes.Summary <- summary(myData.IHA)
+#  # Open/Create file
+#  myFile.XLSX <- paste("IHA", SiteID, myYr, myDate, myTime, "xlsx", sep=".")
+#  wb <- loadWorkbook(myFile.XLSX, create = TRUE) # load workbook, create if not existing
+#  # create sheets
+#  createSheet(wb, name = "NOTES")
+#  createSheet(wb, name = "Group1")
+#  createSheet(wb, name = "Group2")
+#  createSheet(wb, name = "Group3")
+#  createSheet(wb, name = "Group4")
+#  createSheet(wb, name = "Group5")
+#  # write to worksheet
+#  writeWorksheet(wb, df.Notes, sheet = "NOTES", startRow=1)
+#  writeWorksheet(wb, Notes.Summary, sheet = "NOTES", startRow=10)
+#  writeWorksheet(wb, df.Groups, sheet="NOTES", startRow=25)
+#  writeWorksheet(wb, Analysis.Group.1, sheet = "Group1")
+#  writeWorksheet(wb, Analysis.Group.2, sheet = "Group2")
+#  writeWorksheet(wb, Analysis.Group.3, sheet = "Group3")
+#  writeWorksheet(wb, Analysis.Group.4, sheet = "Group4")
+#  writeWorksheet(wb, Analysis.Group.5, sheet = "Group5")
+#  # save workbook
+#  saveWorkbook(wb, myFile.XLSX)
+
+## ----RarifyTaxa, eval=FALSE----------------------------------------------
+#  # library(BioMonTools)
+#  
+#  # Subsample to 500 organisms (from over 500 organisms) for 12 samples.
+#  
+#  # load bio data
+#  df_biodata <- data_bio2rarify
+#  dim(df_biodata)
+#  View(df_biodata)
+#  
+#  # subsample
+#  mySize <- 500
+#  Seed_OR <- 18590214
+#  Seed_WA <- 18891111
+#  Seed_US <- 17760704
+#  bugs_mysize <- BioMonTools::rarify(inbug=df_biodata, sample.ID="SampleID"
+#                       ,abund="N_Taxa",subsiz=mySize, mySeed=Seed_US)
+#  
+#  # view results
+#  dim(bugs_mysize)
+#  View(bugs_mysize)
+#  
+#  # Compare pre- and post- subsample counts
+#  df_compare <- merge(df_biodata, bugs_mysize, by=c("SampleID", "TaxaID")
+#                      , suffixes = c("_Orig","_500"))
+#  df_compare <- df_compare[,c("SampleID", "TaxaID", "N_Taxa_Orig", "N_Taxa_500")]
+#  View(df_compare)
+#  
+#  # compare totals
+#  tbl_totals <- aggregate(cbind(N_Taxa_Orig, N_Taxa_500) ~ SampleID, df_compare, sum)
+#  View(tbl_totals)
+#  
+#  ## Not run:
+#  # save the data
+#  write.table(bugs_mysize, paste("bugs",mySize,"txt",sep="."),sep="\t")
+#  ## End(Not run)
+
+## ----PlotDailyMeans, eval=FALSE------------------------------------------
+#  # Summary Stats
+#  myData.Operation <- "SummaryStats" #Selection.Operation[4]
+#  myData.SiteID    <- "test2"
+#  myData.Type      <- Selection.Type[3] #"AW"
+#  myData.DateRange.Start  <- "2013-01-01"
+#  myData.DateRange.End    <- "2014-12-31"
+#  myDir.import <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
+#  myDir.export <- file.path(myDir.BASE,Selection.SUB[4]) #"Data4_Stats"
+#  ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
+
+## ----StreamThermal_dataprep, eval=FALSE----------------------------------
+#  # Install Libraries (if needed)
+#  install.packages("devtools")
+#  library(devtools)
+#  install_github("tsangyp/StreamThermal")
+
+## ----StreamThermal_run, echo=TRUE----------------------------------------
+# 1.1. Get USGS data
+# code from StreamThermal T_frequency example
+ExUSGSStreamTemp<-dataRetrieval::readNWISdv("01382310","00010","2011-01-01","2011-12-31"
+                                            ,c("00001","00002","00003"))
+sitedata<-subset(ExUSGSStreamTemp, select=c("site_no","Date","X_00010_00001","X_00010_00002","X_00010_00003"))
+names(sitedata)<-c("siteID","Date","MaxT","MinT","MeanT")
+knitr::kable(head(sitedata))
+
+## ----StreamThermal_SummaryStats_Data, echo=TRUE--------------------------
+# 1.2. Use Unsummarrized data
+myFile <- "DATA_test2_Aw_20130101_20141231.csv"
+myData <- read.csv(file.path(path.package("ContDataQC"),"extdata",myFile), stringsAsFactors=FALSE)
+# Subset
+Col.Keep <- c("SiteID", "Date", "Water.Temp.C")
+sitedata <- myData[,Col.Keep]
+sitedata <- Export.StreamThermal(myData)
+# Show data table
+knitr::kable(head(sitedata))
+
+## ----StreamThermal_PeriodStats_Data, echo=TRUE---------------------------
+# 1.3. Use user data that has been QCed
+myData <- DATA_period_test2_Aw_20130101_20141231
+sitedata <- Export.StreamThermal(myData)
+knitr::kable(head(sitedata))
+
+## ----StreamThermal_sitedata, eval=FALSE----------------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # 3. Run StreamThermal
+#  # Example using returned DF with StreamThermal
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Library (load)
+#  require(StreamThermal)
+#  #~~~~~
+#  # StreamThermal
+#  ST.freq <- T_frequency(sitedata)
+#  ST.mag  <- T_magnitude(sitedata)
+#  ST.roc  <- T_rateofchange(sitedata)
+#  ST.tim  <- T_timing(sitedata)
+#  ST.var  <- T_variability(sitedata)
+
+## ----StreamThermal_Excel, eval=FALSE-------------------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Save Results to Excel (each group on its own worksheet)
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  library(XLConnect)
+#  # Descriptions
+#  #
+#  Desc.freq <- "Frequency metrics indicate numbers of days in months or seasons
+#  that key events exceed user-defined temperatures. "
+#  #
+#  Desc.mag <- "Magnitude metrics characterize monthly and seasonal averages and
+#  the maximum and minimum from daily temperatures as well as 3-, 7-, 14-, 21-,
+#  and 30-day moving averages for mean and maximum daily temperatures."
+#  #
+#  Desc.roc <- "Rate of change metrics include monthly and seasonal rate of
+#  change, which indicates the difference in magnitude of maximum and minimum
+#  temperatures divided by number of days between these events."
+#  #
+#  Desc.tim <- "Timing metrics indicate Julian days of key events including
+#  mean, maximum, and minimum temperatures; they also indicate Julian days of
+#  mean, maximum, and minimum values over moving windows of specified size."
+#  #
+#  Desc.var <- "Variability metrics summarize monthly and seasonal range in
+#  daily mean temperatures as well as monthly coefficient of variation of daily
+#  mean, maximum, and minimum temperatures. Variability metrics also include
+#  moving averages for daily ranges and moving variability in extreme
+#  temperatures, calculated from differences in average high and low
+#  temperatures over various time periods"
+#  #
+#  Group.Desc <- c(Desc.freq, Desc.mag, Desc.roc, Desc.tim, Desc.var)
+#  df.Groups <- as.data.frame(cbind(c("freq","mag","roc","tim","var"),Group.Desc))
+#  #
+#  SiteID <- sitedata[1,1]
+#  myDate <- format(Sys.Date(),"%Y%m%d")
+#  myTime <- format(Sys.time(),"%H%M%S")
+#  Notes.User <- Sys.getenv("USERNAME")
+#  # Notes section (add min/max dates)
+#  Notes.Names <- c("Dataset (SiteID)", "Analysis.Date (YYYYMMDD)"
+#                   , "Analysis.Time (HHMMSS)", "Analysis.User")
+#  Notes.Data <- c(SiteID, myDate, myTime, Notes.User)
+#  df.Notes <- as.data.frame(cbind(Notes.Names, Notes.Data))
+#  Notes.Summary <- summary(sitedata)
+#  # Open/Create file
+#  ## New File Name
+#  myFile.XLSX <- paste("StreamThermal", SiteID, myDate, myTime, "xlsx", sep=".")
+#  ## Copy over template with Metric Definitions
+#  file.copy(file.path(path.package("ContDataQC"),"extdata","StreamThermal_MetricList.xlsx")
+#            , myFile.XLSX)
+#  ## load workbook, create if not existing
+#  wb <- loadWorkbook(myFile.XLSX, create = TRUE)
+#  # create sheets
+#  createSheet(wb, name = "NOTES")
+#  createSheet(wb, name = "freq")
+#  createSheet(wb, name = "mag")
+#  createSheet(wb, name = "roc")
+#  createSheet(wb, name = "tim")
+#  createSheet(wb, name = "var")
+#  # write to worksheet
+#  writeWorksheet(wb, df.Notes, sheet = "NOTES", startRow=1)
+#  writeWorksheet(wb, df.Groups, sheet="NOTES", startRow=10)
+#  writeWorksheet(wb, Notes.Summary, sheet = "NOTES", startRow=20)
+#  writeWorksheet(wb, ST.freq, sheet = "freq")
+#  writeWorksheet(wb, ST.mag, sheet = "mag")
+#  writeWorksheet(wb, ST.roc, sheet = "roc")
+#  writeWorksheet(wb, ST.tim, sheet = "tim")
+#  writeWorksheet(wb, ST.var, sheet = "var")
+#  # save workbook
+#  saveWorkbook(wb, myFile.XLSX)
+
+## ----CompSiteCDF_table, echo=FALSE---------------------------------------
+library(ContDataQC)
+knitr::kable(head(data_CompSiteCDF))
+
+## ----CompSiteCDF_plot, echo=FALSE,fig.width=7, fig.height=7--------------
+# fig size in inches
+
+# Load Data
+myDF <- data_CompSiteCDF
+# X Label
+myXlab <- "Temperature, Water (deg C)"
+ParamName.xlab <- myXlab
+# get code from function
+data.import <- myDF
+# Site Names (Columns)
+  Col.Sites <- names(data.import)[!(names(data.import) %in% "Date")]
+  #
+  # Add columns for time periods
+  # add Year, Month, Season, YearSeason (names are in config.R)
+  # assume Date is POSIXct
+  #
+  # add time period fields
+  data.import[,"Year"]   <- format(as.Date(data.import[,"Date"]),format="%Y")
+  data.import[,"Month"]   <- format(as.Date(data.import[,"Date"]),format="%m")
+  data.import[,"YearMonth"] <- format(as.Date(data.import[,"Date"]),format="%Y%m")
+  data.import[,"MonthDay"] <- format(as.Date(data.import[,"Date"]),format="%m%d")
+  
+    # Remove bad date records
+  data.import <- data.import[!is.na(data.import[,"Year"]),]
+  
+  
+  # ## add Season fields
+  data.import[,"Season"] <- NA
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("0101") & as.numeric(data.import[,"MonthDay"])<as.numeric("0301")] <- "Winter"
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("0301") & as.numeric(data.import[,"MonthDay"])<as.numeric("0601")] <- "Spring"
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("0601") & as.numeric(data.import[,"MonthDay"])<as.numeric("0901")] <- "Summer"
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("0901") & as.numeric(data.import[,"MonthDay"])<as.numeric("1201")] <- "Fall"
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("1201") & as.numeric(data.import[,"MonthDay"])<=as.numeric("1231")] <- "Winter"
+  data.import[,"YearSeason"] <- paste(data.import[,"Year"],data.import[,"Season"],sep="")
+
+  # rectify December as part of winter of year + 1
+  mySelection <- data.import[,"Month"]=="12"
+  if(sum(mySelection) != 0){##IF.sum.START
+    data.import[,"YearSeason"][mySelection] <- paste(as.numeric(data.import[,"Year"])+1,data.import[,"Season"],sep="")
+  }##IF.sum.END
+  #
+  #View(data.import)
+  #
+  # Color Blind Palatte
+  # http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/
+  # The palette with grey:
+  cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  # The palette with black:
+  #cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  #
+  myColors <- cbPalette #rainbow(length(Col.Sites))
+  #
+  # Season Names
+  SeasonNames <- c("Fall", "Winter", "Spring","Summer")
+  #
+  #~~~~~~~~PLOT CODE~~~~~~~~~~~
+  CreatePlots <- function(...) {##FUNCTION.CreatePlots.START
+    # PLOT 1
+    for (i in 1:length(Col.Sites)){##FOR.j.START
+      # subset out NA
+      data.i <- data.plot[,Col.Sites[i]]
+      # different first iteration
+      if (i==1) {##IF.j==1,START
+        # need ylim
+        myYlim.max <- 0
+        for (ii in 1:length(Col.Sites)) {
+          myYlim.max <- max(hist(data.plot[,Col.Sites[ii]],plot=FALSE)$density, myYlim.max)
+        }
+        myYlim <- c(0,myYlim.max)
+        #
+        hist(data.plot[,Col.Sites[i]], prob=TRUE, border="white"
+             ,main=myMain, xlab=ParamName.xlab, ylab="Proportion = value"
+             ,ylim=myYlim)
+        box()
+      }##IF.j==1.END
+      # plot lines
+      lines(density(data.i, na.rm=TRUE), col=myColors[i], lwd=2)
+    }##FOR.j.END
+    legend("topright",Col.Sites,fill=myColors)
+    #
+    # Plot 2
+    myLWD <- 1.5
+    for (j in 1:length(Col.Sites)){##FOR.i.START
+      if(j==1){##IF.i==1.START
+        plot(ecdf(data.plot[,Col.Sites[j]]), col=myColors[j], verticals=TRUE, lwd=myLWD, do.p=FALSE #pch=19, cex=.75 #do.p=FALSE
+             #, col.01line="white"
+             , main=myMain, xlab=ParamName.xlab, ylab="Proportion <= value" )
+      } else {
+        plot(ecdf(data.plot[,Col.Sites[j]]), col=myColors[j], verticals=TRUE, lwd=myLWD, do.p=FALSE, add=T)
+      }##IF.i==1.END
+    }##FOR.i.END
+    legend("bottomright",Col.Sites,fill=myColors)
+  }##FUNCTION.CreatePlots.END
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  #
+  # 2 plots per page
+    #par(mfrow=c(1,2))
+    #
+    # ALL
+    myMain <- "All Data"
+    data.plot <- data.import
+    CreatePlots()
+
+## ----RBI-----------------------------------------------------------------
+# Get Gage Data via the dataRetrieval package from USGS 01187300 2013
+data.gage <- dataRetrieval::readNWISdv("03238500", "00060", "1974-10-01", "1975-09-30")
+head(data.gage)
+# flow data
+data.Q <- data.gage[,4]
+# remove zeros
+data.Q[data.Q==0] <- NA
+RBIcalc(data.Q)
+
+## ----SummarStats_NonContDataQC_Data, eval=FALSE--------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Summary Stats from Other Data
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Get Data, e.g., USGS gage data
+#  # Get Gage Data via the dataRetrieval package from USGS 01187300 2013 (~4 seconds)
+#  data.gage <- dataRetrieval::readNWISuv("01187300", "00060", "2013-01-01", "2014-12-31")
+#  head(data.gage)
+#  # Rename fields
+#  myNames <- c("Agency", "SiteID", "Date.Time", "Discharge.ft3.s", "Code", "TZ")
+#  names(data.gage) <- myNames
+#  # Add Date and Time
+#  data.gage[,"Date"] <- as.Date(data.gage[,"Date.Time"])
+#  data.gage[,"Time"] <-  strftime(data.gage[,"Date.Time"], format="%H:%M:%S")
+#  # Add "flag" fields that are added by QC function.
+#  Names.Flags <- paste0("Flag.",c("Date.Time", "Discharge.ft3.s"))
+#  data.gage[,Names.Flags] <- "P"
+#  # Save File
+#  myFile <- "01187300_Gage_20130101_20141231.csv"
+#  write.csv(data.gage, myFile, row.names=FALSE)
+#  # Run Stats (File)
+#  myData.Operation <- "SummaryStats"
+#  myDir.import <- getwd()
+#  myDir.export <- getwd()
+#  ContDataQC(myData.Operation
+#             , fun.myDir.import=myDir.import
+#             , fun.myDir.export=myDir.export
+#             , fun.myFile=myFile)
+
+## ----formatHobo, eval=FALSE----------------------------------------------
+#  # Parameters
+#  Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+#  Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+#  Selection.SUB       <- c("Data0_Original", "Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+#  myDir.BASE          <- getwd()
+#  
+#  # Create data directories
+#  myDir.create <- paste0("./",Selection.SUB[1])
+#    ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+#  myDir.create <- paste0("./",Selection.SUB[2])
+#    ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+#  myDir.create <- paste0("./",Selection.SUB[3])
+#    ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+#  myDir.create <- paste0("./",Selection.SUB[4])
+#    ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+#  myDir.create <- paste0("./",Selection.SUB[5])
+#    ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+#  
+#  # Save example data (assumes directory ./Data0_Original/ exists)
+#  fn_1 <- "Charlies_Air_20170726_20170926.csv"
+#  fn_2 <- "Charlies_AW_20170726_20170926.csv"
+#  fn_3 <- "Charlies_Water_20170726_20170926.csv"
+#  lapply(c(fn_1,fn_2,fn_3), function(x)
+#         file.copy(system.file("extdata", x, package="ContDataQC")
+#         , file.path(myDir.BASE, Selection.SUB[1], x)))
+#  
+#  # Function Inputs
+#  myFiles <- c("Charlies_Air_20170726_20170926.csv"
+#               , "Charlies_AW_20170726_20170926.csv"
+#               , "Charlies_Water_20170726_20170926.csv")
+#  myDir.import <- file.path(getwd(), "Data0_Original")
+#  myDir.export <- file.path(getwd(), "Data1_RAW")
+#  
+#  # Run Function (with default config)
+#  formatHobo(myFiles, myDir.import, myDir.export)
+#  
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # QC the generated file with ContDataQC
+#  myData.Operation <- "QCRaw" #Selection.Operation[2]
+#  myFile <- myFiles
+#  myDir.import <- file.path(".","Data1_RAW")
+#  myDir.export <- file.path(".","Data2_QC")
+#  myReport.format <- "html"
+#  ContDataQC(myData.Operation, fun.myDir.import=myDir.import
+#            , fun.myDir.export=myDir.export, fun.myFile=myFile
+#            , fun.myReport.format=myReport.format)
+#  
+

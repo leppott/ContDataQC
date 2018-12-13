@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-12-13 09:49:14
+    #> Last Update: 2018-12-13 09:57:33
 
 # Planned Updates
 
@@ -34,6 +34,13 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.4.9002
+
+2018-12-13
+
+  - gitignore contained inst/doc. Removed so will load correctly to
+    GitHub.
 
 ## v2.0.4.9001
 
