@@ -44,6 +44,11 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.4.9001
+2018-12-13
+
+* Rebuild Vignette.  Not visible in v2.0.4.
+
 ## v2.0.4
 2018-12-05
 

@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-12-05 09:48:29
+    #> Last Update: 2018-12-13 09:49:14
 
 # Planned Updates
 
@@ -34,6 +34,12 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.4.9001
+
+2018-12-13
+
+  - Rebuild Vignette. Not visible in v2.0.4.
 
 ## v2.0.4
 
