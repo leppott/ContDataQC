@@ -14,10 +14,10 @@
 # # value that will change
 # ContData.env$myDefault.Flat.Hi # 30
 # # load configuration from R file
-# config.load(file.path(.libPaths(),"ContDataQC","inst","extdata","config.COLD.R"),myExt="R")
+# config.load(file.path(.libPaths(),"ContDataQC","inst","extdata","config.COOL.R"),myExt="R")
 # ContData.env$myDefault.Flat.Hi # 22
 # # save configuration as RDS file
-# config.export("config.COLD")
+# config.export("config.COOL")
 # # load configuration from RDS file
 # #config.load(file.path(getwd(),"config.COLD.RDS"),myExt="RDS")
 #' @export

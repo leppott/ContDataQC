@@ -44,6 +44,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9001
+2018-12-21
+
+* Config.
+    + Add Warm.
+    + Rename Cold to Cool.
+
 ## v2.0.5
 2018-12-13
 

@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-12-13 10:06:49
+    #> Last Update: 2018-12-21 10:10:56
 
 # Planned Updates
 
@@ -34,6 +34,14 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.5.9001
+
+2018-12-21
+
+  - Config.
+      - Add Warm.
+      - Rename Cold to Cool.
 
 ## v2.0.5
 
