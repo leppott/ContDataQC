@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-12-21 10:10:56
+    #> Last Update: 2019-01-07 17:30:50
 
 # Planned Updates
 
@@ -34,6 +34,15 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.5.9002
+
+2019-01-07
+
+  - folder “Data0\_Original”, Issue \#73.
+      - Function ContDataQC
+          - So is the same as the formatHobo function.
+      - Update Vignette.
 
 ## v2.0.5.9001
 

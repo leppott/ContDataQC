@@ -48,7 +48,7 @@
 #  # Parameters
 #  Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 #  Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
-#  Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+#  Selection.SUB <- c("Data0_Original", "Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
 #  myDir.BASE <- getwd()
 #  
 #  # Create data directories
@@ -60,26 +60,28 @@
 #    ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
 #  myDir.create <- paste0("./",Selection.SUB[4])
 #    ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+#  myDir.create <- paste0("./",Selection.SUB[5])
+#    ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
 #  
 #  # Save example data (assumes directory ./Data1_RAW/ exists)
 #  myData <- data_raw_test2_AW_20130426_20130725
-#    write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20130426_20130725.csv"))
+#    write.csv(myData,paste0("./",Selection.SUB[2],"/test2_AW_20130426_20130725.csv"))
 #  myData <- data_raw_test2_AW_20130725_20131015
-#    write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20130725_20131015.csv"))
+#    write.csv(myData,paste0("./",Selection.SUB[2],"/test2_AW_20130725_20131015.csv"))
 #  myData <- data_raw_test2_AW_20140901_20140930
-#    write.csv(myData,paste0("./",Selection.SUB[1],"/test2_AW_20140901_20140930.csv"))
+#    write.csv(myData,paste0("./",Selection.SUB[2],"/test2_AW_20140901_20140930.csv"))
 #  myData <- data_raw_test4_AW_20160418_20160726
-#    write.csv(myData,paste0("./",Selection.SUB[1],"/test4_AW_20160418_20160726.csv"))
+#    write.csv(myData,paste0("./",Selection.SUB[2],"/test4_AW_20160418_20160726.csv"))
 #  myFile <- "config.TZ.Central.R"
 #    file.copy(file.path(path.package("ContDataQC"),"extdata",myFile)
-#              ,file.path(getwd(),Selection.SUB[1],myFile))
+#              ,file.path(getwd(),Selection.SUB[2],myFile))
 
 ## ----GetGageData_base, echo=TRUE-----------------------------------------
 library(ContDataQC)
 # Parameters
 Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
-Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+Selection.SUB <- c("Data0_Original","Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
 myDir.BASE <- getwd()
 # Get Gage Data
 myData.Operation    <- "GetGageData" #Selection.Operation[1]
@@ -88,7 +90,7 @@ myData.Type         <- "Gage" #Selection.Type[4]
 myData.DateRange.Start  <- "2013-01-01"
 myData.DateRange.End    <- "2014-12-31"
 myDir.import <- ""
-myDir.export <- file.path(myDir.BASE,Selection.SUB[1])
+myDir.export <- file.path(myDir.BASE,Selection.SUB[2])
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
            , myData.DateRange.End, myDir.import, myDir.export)
 
@@ -96,7 +98,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 #  # Parameters
 #  Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 #  Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
-#  Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+#  Selection.SUB <- c("Data0_Original","Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
 #  myDir.BASE <- getwd()
 #  # Get Gage Data (central time zone)
 #  myData.Operation    <- "GetGageData" #Selection.Operation[1]
@@ -105,15 +107,15 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 #  myData.DateRange.Start  <- "2013-01-01"
 #  myData.DateRange.End    <- "2014-12-31"
 #  myDir.import <- ""
-#  myDir.export <- file.path(myDir.BASE,Selection.SUB[1])
-#  myConfig            <- file.path(getwd(),Selection.SUB[1],"config.TZ.central.R") # include path if not in working directory
+#  myDir.export <- file.path(myDir.BASE,Selection.SUB[2])
+#  myConfig            <- file.path(getwd(),Selection.SUB[2],"config.TZ.central.R") # include path if not in working directory
 #  ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export, myConfig)
 
 ## ----QCRaw_base, eval=FALSE----------------------------------------------
 #  # Parameters
 #  Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 #  Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
-#  Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+#  Selection.SUB <- c("Data0_Original","Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
 #  myDir.BASE <- getwd()
 #  # QC Raw Data
 #  myData.Operation <- "QCRaw" #Selection.Operation[2]
@@ -121,8 +123,8 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 #  myData.Type      <- Selection.Type[3] #"AW"
 #  myData.DateRange.Start  <- "2013-01-01"
 #  myData.DateRange.End    <- "2014-12-31"
-#  myDir.import <- file.path(myDir.BASE,Selection.SUB[1]) #"Data1_RAW"
-#  myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
+#  myDir.import <- file.path(myDir.BASE,Selection.SUB[2]) #"Data1_RAW"
+#  myDir.export <- file.path(myDir.BASE,Selection.SUB[3]) #"Data2_QC"
 #  myReport.format <- "docx"
 #  ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 #             , myData.DateRange.End, myDir.import, myDir.export, myReport.format)
@@ -131,7 +133,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 #  # Parameters
 #  Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 #  Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
-#  Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+#  Selection.SUB <- c("Data0_Original","Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
 #  myDir.BASE <- getwd()
 #  # QC Raw Data (offset collection times for air and water sensors)
 #  myData.Operation <- "QCRaw" #Selection.Operation[2]
@@ -139,8 +141,8 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 #  myData.Type      <- Selection.Type[3] #"AW"
 #  myData.DateRange.Start  <- "2016-04-28"
 #  myData.DateRange.End    <- "2016-07-26"
-#  myDir.import <- file.path(myDir.BASE,Selection.SUB[1]) #"Data1_RAW"
-#  myDir.export <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
+#  myDir.import <- file.path(myDir.BASE,Selection.SUB[2]) #"Data1_RAW"
+#  myDir.export <- file.path(myDir.BASE,Selection.SUB[3]) #"Data2_QC"
 #  myReport.format <- "html"
 #  ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 #             , myData.DateRange.End, myDir.import, myDir.export, myReport.format)
@@ -149,7 +151,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 #  # Parameters
 #  Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 #  Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
-#  Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+#  Selection.SUB <- c("Data0_Original","Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
 #  myDir.BASE <- getwd()
 #  # Aggregate Data
 #  myData.Operation <- "Aggregate" #Selection.Operation[3]
@@ -157,8 +159,8 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 #  myData.Type      <- Selection.Type[3] #"AW"
 #  myData.DateRange.Start  <- "2013-01-01"
 #  myData.DateRange.End    <- "2014-12-31"
-#  myDir.import <- file.path(myDir.BASE,Selection.SUB[2]) #"Data2_QC"
-#  myDir.export <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
+#  myDir.import <- file.path(myDir.BASE,Selection.SUB[3]) #"Data2_QC"
+#  myDir.export <- file.path(myDir.BASE,Selection.SUB[4]) #"Data3_Aggregated"
 #  #Leave off myReport.format and get default (docx).
 #  ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 #             , myData.DateRange.End, myDir.import, myDir.export)
@@ -168,7 +170,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 #  # Parameters
 #  Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 #  Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
-#  Selection.SUB <- c("Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+#  Selection.SUB <- c("Data0_Original","Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
 #  myDir.BASE <- getwd()
 #  # Summary Stats
 #  myData.Operation <- "SummaryStats" #Selection.Operation[4]
@@ -176,8 +178,8 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 #  myData.Type      <- Selection.Type[3] #"AW"
 #  myData.DateRange.Start  <- "2013-01-01"
 #  myData.DateRange.End    <- "2014-12-31"
-#  myDir.import <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
-#  myDir.export <- file.path(myDir.BASE,Selection.SUB[4]) #"Data4_Stats"
+#  myDir.import <- file.path(myDir.BASE,Selection.SUB[4]) #"Data3_Aggregated"
+#  myDir.export <- file.path(myDir.BASE,Selection.SUB[5]) #"Data4_Stats"
 #  #Leave off myReport.format and get default (docx).
 #  ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 #             , myData.DateRange.End, myDir.import, myDir.export)
@@ -874,14 +876,19 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 #  ## End(Not run)
 
 ## ----PlotDailyMeans, eval=FALSE------------------------------------------
+#  # Parameters
+#  Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+#  Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+#  Selection.SUB <- c("Data0_Original","Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+#  myDir.BASE <- getwd()
 #  # Summary Stats
 #  myData.Operation <- "SummaryStats" #Selection.Operation[4]
 #  myData.SiteID    <- "test2"
 #  myData.Type      <- Selection.Type[3] #"AW"
 #  myData.DateRange.Start  <- "2013-01-01"
 #  myData.DateRange.End    <- "2014-12-31"
-#  myDir.import <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
-#  myDir.export <- file.path(myDir.BASE,Selection.SUB[4]) #"Data4_Stats"
+#  myDir.import <- file.path(myDir.BASE,Selection.SUB[4]) #"Data3_Aggregated"
+#  myDir.export <- file.path(myDir.BASE,Selection.SUB[5]) #"Data4_Stats"
 #  ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
 
 ## ----StreamThermal_dataprep, eval=FALSE----------------------------------

@@ -44,6 +44,14 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9002
+2019-01-07
+
+* folder "Data0_Original", Issue #73.
+    + Function ContDataQC
+        - So is the same as the formatHobo function.
+    + Update Vignette.
+
 ## v2.0.5.9001
 2018-12-21
 

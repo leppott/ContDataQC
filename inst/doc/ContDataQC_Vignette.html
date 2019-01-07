@@ -11,7 +11,7 @@
 
 <meta name="author" content="Erik W. Leppo" />
 
-<meta name="date" content="2018-12-13" />
+<meta name="date" content="2019-01-07" />
 
 <title>ContDataQC Vignette</title>
 
@@ -372,7 +372,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">ContDataQC Vignette</h1>
 <h4 class="author"><em>Erik W. Leppo</em></h4>
-<h4 class="date"><em>2018-12-13</em></h4>
+<h4 class="date"><em>2019-01-07</em></h4>
 
 </div>
 
@@ -458,8 +458,9 @@ install.packages(&quot;dataRetrieval&quot;,repos=&quot;https://owi.usgs.gov/R&qu
 <div id="operations" class="section level2">
 <h2>Operations</h2>
 <p>The operations of the ContDataQC() function are listed below but will be explained in more detail in their own section. <em>GetGageData </em>QCRaw <em>Aggregate </em>SummaryStats</p>
-<p>The library assumes that there are the following folders in the working directory: <em>Data1_RAW </em>Data2_QC <em>Data3_Aggregated </em>Data4_Stats</p>
-<p>The folder “Data1_RAW” is for the files exported from Hoboware (or other data logger software). This folder contains the files as input for the QC portion of the library.</p>
+<p>The library assumes that there are the following folders in the working directory: <em>Data0_Original </em>Data1_RAW <em>Data2_QC </em>Data3_Aggregated *Data4_Stats</p>
+<p>The folder “Data0_Original” is for the files exported from Hoboware (or other data logger software). These are the unedited files.</p>
+<p>The folder “Data1_RAW” is for the files exported from Hoboware (or other data logger software). This folder contains the files as input for the QC portion of the library. These files may have been modified manually or with the formatHobo function.</p>
 <p>The folder “Data2_QC” is for the output of the QCRaw operation of the library and the input for the Aggregate operation.</p>
 <p>The folder “Data3_Aggregated” is the output of the Aggregate operation and the input for the Stats operation.</p>
 <p>The folder “Data4_Stats” is the output of the SummaryStats operation.</p>
@@ -468,7 +469,7 @@ install.packages(&quot;dataRetrieval&quot;,repos=&quot;https://owi.usgs.gov/R&qu
 <pre class="r"><code># Parameters
 Selection.Operation &lt;- c(&quot;GetGageData&quot;,&quot;QCRaw&quot;, &quot;Aggregate&quot;, &quot;SummaryStats&quot;)
 Selection.Type      &lt;- c(&quot;Air&quot;,&quot;Water&quot;,&quot;AW&quot;,&quot;Gage&quot;,&quot;AWG&quot;,&quot;AG&quot;,&quot;WG&quot;)
-Selection.SUB &lt;- c(&quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
+Selection.SUB &lt;- c(&quot;Data0_Original&quot;, &quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
 myDir.BASE &lt;- getwd()
 
 # Create data directories
@@ -480,19 +481,21 @@ myDir.create &lt;- paste0(&quot;./&quot;,Selection.SUB[3])
   ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),&quot;Directory already exists&quot;)
 myDir.create &lt;- paste0(&quot;./&quot;,Selection.SUB[4])
   ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),&quot;Directory already exists&quot;)
+myDir.create &lt;- paste0(&quot;./&quot;,Selection.SUB[5])
+  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),&quot;Directory already exists&quot;)
 
 # Save example data (assumes directory ./Data1_RAW/ exists)
 myData &lt;- data_raw_test2_AW_20130426_20130725
-  write.csv(myData,paste0(&quot;./&quot;,Selection.SUB[1],&quot;/test2_AW_20130426_20130725.csv&quot;))
+  write.csv(myData,paste0(&quot;./&quot;,Selection.SUB[2],&quot;/test2_AW_20130426_20130725.csv&quot;))
 myData &lt;- data_raw_test2_AW_20130725_20131015
-  write.csv(myData,paste0(&quot;./&quot;,Selection.SUB[1],&quot;/test2_AW_20130725_20131015.csv&quot;))
+  write.csv(myData,paste0(&quot;./&quot;,Selection.SUB[2],&quot;/test2_AW_20130725_20131015.csv&quot;))
 myData &lt;- data_raw_test2_AW_20140901_20140930
-  write.csv(myData,paste0(&quot;./&quot;,Selection.SUB[1],&quot;/test2_AW_20140901_20140930.csv&quot;))
+  write.csv(myData,paste0(&quot;./&quot;,Selection.SUB[2],&quot;/test2_AW_20140901_20140930.csv&quot;))
 myData &lt;- data_raw_test4_AW_20160418_20160726
-  write.csv(myData,paste0(&quot;./&quot;,Selection.SUB[1],&quot;/test4_AW_20160418_20160726.csv&quot;))
+  write.csv(myData,paste0(&quot;./&quot;,Selection.SUB[2],&quot;/test4_AW_20160418_20160726.csv&quot;))
 myFile &lt;- &quot;config.TZ.Central.R&quot;
   file.copy(file.path(path.package(&quot;ContDataQC&quot;),&quot;extdata&quot;,myFile)
-            ,file.path(getwd(),Selection.SUB[1],myFile))</code></pre>
+            ,file.path(getwd(),Selection.SUB[2],myFile))</code></pre>
 <div id="getgagedata" class="section level3">
 <h3>GetGageData</h3>
 <p>The GetGageData operation of the ContDataQC() function retrieves USGS gage data based on user input. Example code and console output is below.</p>
@@ -500,7 +503,7 @@ myFile &lt;- &quot;config.TZ.Central.R&quot;
 # Parameters
 Selection.Operation &lt;- c(&quot;GetGageData&quot;,&quot;QCRaw&quot;, &quot;Aggregate&quot;, &quot;SummaryStats&quot;)
 Selection.Type      &lt;- c(&quot;Air&quot;,&quot;Water&quot;,&quot;AW&quot;,&quot;Gage&quot;,&quot;AWG&quot;,&quot;AG&quot;,&quot;WG&quot;)
-Selection.SUB &lt;- c(&quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
+Selection.SUB &lt;- c(&quot;Data0_Original&quot;,&quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
 myDir.BASE &lt;- getwd()
 # Get Gage Data
 myData.Operation    &lt;- &quot;GetGageData&quot; #Selection.Operation[1]
@@ -509,7 +512,7 @@ myData.Type         &lt;- &quot;Gage&quot; #Selection.Type[4]
 myData.DateRange.Start  &lt;- &quot;2013-01-01&quot;
 myData.DateRange.End    &lt;- &quot;2014-12-31&quot;
 myDir.import &lt;- &quot;&quot;
-myDir.export &lt;- file.path(myDir.BASE,Selection.SUB[1])
+myDir.export &lt;- file.path(myDir.BASE,Selection.SUB[2])
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
            , myData.DateRange.End, myDir.import, myDir.export)</code></pre>
 <pre><code>## [1] &quot;Total items to process = 1&quot;
@@ -533,14 +536,14 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 ## 434       0.01       NGVD29 01080207           uv   00065    &lt;NA&gt; 66867
 ##     loc_web_ds medium_grp_cd parm_grp_cd   srs_id access_cd begin_date
 ## 431       &lt;NA&gt;           wat        &lt;NA&gt;  1645597         0 2015-11-04
-## 432       &lt;NA&gt;           wat        &lt;NA&gt;  1645720         0 2018-08-15
+## 432       &lt;NA&gt;           wat        &lt;NA&gt;  1645720         0 2018-09-09
 ## 433       &lt;NA&gt;           wat        &lt;NA&gt;  1645423         0 1990-10-01
 ## 434       &lt;NA&gt;           wat        &lt;NA&gt; 17164583         0 2007-10-01
 ##       end_date count_nu
-## 431 2018-12-13     1135
-## 432 2018-12-13      120
-## 433 2018-12-13    10300
-## 434 2018-12-13     4091
+## 431 2019-01-07     1160
+## 432 2019-01-07      120
+## 433 2019-01-07    10325
+## 434 2019-01-07     4116
 ## 
 ## 
 ## [1] &quot;Processing item 1 of 1, COMPLETE, 01187300.&quot;
@@ -550,7 +553,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 <pre class="r"><code># Parameters
 Selection.Operation &lt;- c(&quot;GetGageData&quot;,&quot;QCRaw&quot;, &quot;Aggregate&quot;, &quot;SummaryStats&quot;)
 Selection.Type      &lt;- c(&quot;Air&quot;,&quot;Water&quot;,&quot;AW&quot;,&quot;Gage&quot;,&quot;AWG&quot;,&quot;AG&quot;,&quot;WG&quot;)
-Selection.SUB &lt;- c(&quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
+Selection.SUB &lt;- c(&quot;Data0_Original&quot;,&quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
 myDir.BASE &lt;- getwd()
 # Get Gage Data (central time zone)
 myData.Operation    &lt;- &quot;GetGageData&quot; #Selection.Operation[1]
@@ -559,8 +562,8 @@ myData.Type         &lt;- Selection.Type[4] #&quot;Gage&quot;
 myData.DateRange.Start  &lt;- &quot;2013-01-01&quot;
 myData.DateRange.End    &lt;- &quot;2014-12-31&quot;
 myDir.import &lt;- &quot;&quot;
-myDir.export &lt;- file.path(myDir.BASE,Selection.SUB[1])
-myConfig            &lt;- file.path(getwd(),Selection.SUB[1],&quot;config.TZ.central.R&quot;) # include path if not in working directory
+myDir.export &lt;- file.path(myDir.BASE,Selection.SUB[2])
+myConfig            &lt;- file.path(getwd(),Selection.SUB[2],&quot;config.TZ.central.R&quot;) # include path if not in working directory
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export, myConfig)</code></pre>
 </div>
 <div id="qcraw" class="section level3">
@@ -569,7 +572,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start,
 <pre class="r"><code># Parameters
 Selection.Operation &lt;- c(&quot;GetGageData&quot;,&quot;QCRaw&quot;, &quot;Aggregate&quot;, &quot;SummaryStats&quot;)
 Selection.Type      &lt;- c(&quot;Air&quot;,&quot;Water&quot;,&quot;AW&quot;,&quot;Gage&quot;,&quot;AWG&quot;,&quot;AG&quot;,&quot;WG&quot;)
-Selection.SUB &lt;- c(&quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
+Selection.SUB &lt;- c(&quot;Data0_Original&quot;,&quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
 myDir.BASE &lt;- getwd()
 # QC Raw Data
 myData.Operation &lt;- &quot;QCRaw&quot; #Selection.Operation[2]
@@ -577,8 +580,8 @@ myData.SiteID    &lt;- &quot;test2&quot;
 myData.Type      &lt;- Selection.Type[3] #&quot;AW&quot;
 myData.DateRange.Start  &lt;- &quot;2013-01-01&quot;
 myData.DateRange.End    &lt;- &quot;2014-12-31&quot;
-myDir.import &lt;- file.path(myDir.BASE,Selection.SUB[1]) #&quot;Data1_RAW&quot;
-myDir.export &lt;- file.path(myDir.BASE,Selection.SUB[2]) #&quot;Data2_QC&quot;
+myDir.import &lt;- file.path(myDir.BASE,Selection.SUB[2]) #&quot;Data1_RAW&quot;
+myDir.export &lt;- file.path(myDir.BASE,Selection.SUB[3]) #&quot;Data2_QC&quot;
 myReport.format &lt;- &quot;docx&quot;
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
            , myData.DateRange.End, myDir.import, myDir.export, myReport.format)</code></pre>
@@ -586,7 +589,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 <pre class="r"><code># Parameters
 Selection.Operation &lt;- c(&quot;GetGageData&quot;,&quot;QCRaw&quot;, &quot;Aggregate&quot;, &quot;SummaryStats&quot;)
 Selection.Type      &lt;- c(&quot;Air&quot;,&quot;Water&quot;,&quot;AW&quot;,&quot;Gage&quot;,&quot;AWG&quot;,&quot;AG&quot;,&quot;WG&quot;)
-Selection.SUB &lt;- c(&quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
+Selection.SUB &lt;- c(&quot;Data0_Original&quot;,&quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
 myDir.BASE &lt;- getwd()
 # QC Raw Data (offset collection times for air and water sensors)
 myData.Operation &lt;- &quot;QCRaw&quot; #Selection.Operation[2]
@@ -594,8 +597,8 @@ myData.SiteID    &lt;- &quot;test4&quot;
 myData.Type      &lt;- Selection.Type[3] #&quot;AW&quot;
 myData.DateRange.Start  &lt;- &quot;2016-04-28&quot;
 myData.DateRange.End    &lt;- &quot;2016-07-26&quot;
-myDir.import &lt;- file.path(myDir.BASE,Selection.SUB[1]) #&quot;Data1_RAW&quot;
-myDir.export &lt;- file.path(myDir.BASE,Selection.SUB[2]) #&quot;Data2_QC&quot;
+myDir.import &lt;- file.path(myDir.BASE,Selection.SUB[2]) #&quot;Data1_RAW&quot;
+myDir.export &lt;- file.path(myDir.BASE,Selection.SUB[3]) #&quot;Data2_QC&quot;
 myReport.format &lt;- &quot;html&quot;
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
            , myData.DateRange.End, myDir.import, myDir.export, myReport.format)</code></pre>
@@ -606,7 +609,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 <pre class="r"><code># Parameters
 Selection.Operation &lt;- c(&quot;GetGageData&quot;,&quot;QCRaw&quot;, &quot;Aggregate&quot;, &quot;SummaryStats&quot;)
 Selection.Type      &lt;- c(&quot;Air&quot;,&quot;Water&quot;,&quot;AW&quot;,&quot;Gage&quot;,&quot;AWG&quot;,&quot;AG&quot;,&quot;WG&quot;)
-Selection.SUB &lt;- c(&quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
+Selection.SUB &lt;- c(&quot;Data0_Original&quot;,&quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
 myDir.BASE &lt;- getwd()
 # Aggregate Data
 myData.Operation &lt;- &quot;Aggregate&quot; #Selection.Operation[3]
@@ -614,8 +617,8 @@ myData.SiteID    &lt;- &quot;test2&quot;
 myData.Type      &lt;- Selection.Type[3] #&quot;AW&quot;
 myData.DateRange.Start  &lt;- &quot;2013-01-01&quot;
 myData.DateRange.End    &lt;- &quot;2014-12-31&quot;
-myDir.import &lt;- file.path(myDir.BASE,Selection.SUB[2]) #&quot;Data2_QC&quot;
-myDir.export &lt;- file.path(myDir.BASE,Selection.SUB[3]) #&quot;Data3_Aggregated&quot;
+myDir.import &lt;- file.path(myDir.BASE,Selection.SUB[3]) #&quot;Data2_QC&quot;
+myDir.export &lt;- file.path(myDir.BASE,Selection.SUB[4]) #&quot;Data3_Aggregated&quot;
 #Leave off myReport.format and get default (docx).
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
            , myData.DateRange.End, myDir.import, myDir.export)</code></pre>
@@ -626,7 +629,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 <pre class="r"><code># Parameters
 Selection.Operation &lt;- c(&quot;GetGageData&quot;,&quot;QCRaw&quot;, &quot;Aggregate&quot;, &quot;SummaryStats&quot;)
 Selection.Type      &lt;- c(&quot;Air&quot;,&quot;Water&quot;,&quot;AW&quot;,&quot;Gage&quot;,&quot;AWG&quot;,&quot;AG&quot;,&quot;WG&quot;)
-Selection.SUB &lt;- c(&quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
+Selection.SUB &lt;- c(&quot;Data0_Original&quot;,&quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
 myDir.BASE &lt;- getwd()
 # Summary Stats
 myData.Operation &lt;- &quot;SummaryStats&quot; #Selection.Operation[4]
@@ -634,8 +637,8 @@ myData.SiteID    &lt;- &quot;test2&quot;
 myData.Type      &lt;- Selection.Type[3] #&quot;AW&quot;
 myData.DateRange.Start  &lt;- &quot;2013-01-01&quot;
 myData.DateRange.End    &lt;- &quot;2014-12-31&quot;
-myDir.import &lt;- file.path(myDir.BASE,Selection.SUB[3]) #&quot;Data3_Aggregated&quot;
-myDir.export &lt;- file.path(myDir.BASE,Selection.SUB[4]) #&quot;Data4_Stats&quot;
+myDir.import &lt;- file.path(myDir.BASE,Selection.SUB[4]) #&quot;Data3_Aggregated&quot;
+myDir.export &lt;- file.path(myDir.BASE,Selection.SUB[5]) #&quot;Data4_Stats&quot;
 #Leave off myReport.format and get default (docx).
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
            , myData.DateRange.End, myDir.import, myDir.export)</code></pre>
@@ -1358,14 +1361,19 @@ write.table(bugs_mysize, paste(&quot;bugs&quot;,mySize,&quot;txt&quot;,sep=&quot
 <p>An Excel file is included in the folder of the library that allows for the plotting of up to five years of data for water temperature, sensor depth, and air temperature.</p>
 <p>The daily values from the SummaryStats operation of the ContDataQC() function can be copied into the Excel file and the plots are auto-updated.</p>
 <p>These plots could be created in R but the Excel file was included to make the plots available to a wider audience.</p>
-<pre class="r"><code># Summary Stats
+<pre class="r"><code># Parameters
+Selection.Operation &lt;- c(&quot;GetGageData&quot;,&quot;QCRaw&quot;, &quot;Aggregate&quot;, &quot;SummaryStats&quot;)
+Selection.Type      &lt;- c(&quot;Air&quot;,&quot;Water&quot;,&quot;AW&quot;,&quot;Gage&quot;,&quot;AWG&quot;,&quot;AG&quot;,&quot;WG&quot;)
+Selection.SUB &lt;- c(&quot;Data0_Original&quot;,&quot;Data1_RAW&quot;,&quot;Data2_QC&quot;,&quot;Data3_Aggregated&quot;,&quot;Data4_Stats&quot;)
+myDir.BASE &lt;- getwd()
+# Summary Stats
 myData.Operation &lt;- &quot;SummaryStats&quot; #Selection.Operation[4]
 myData.SiteID    &lt;- &quot;test2&quot;
 myData.Type      &lt;- Selection.Type[3] #&quot;AW&quot;
 myData.DateRange.Start  &lt;- &quot;2013-01-01&quot;
 myData.DateRange.End    &lt;- &quot;2014-12-31&quot;
-myDir.import &lt;- file.path(myDir.BASE,Selection.SUB[3]) #&quot;Data3_Aggregated&quot;
-myDir.export &lt;- file.path(myDir.BASE,Selection.SUB[4]) #&quot;Data4_Stats&quot;
+myDir.import &lt;- file.path(myDir.BASE,Selection.SUB[4]) #&quot;Data3_Aggregated&quot;
+myDir.export &lt;- file.path(myDir.BASE,Selection.SUB[5]) #&quot;Data4_Stats&quot;
 ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)</code></pre>
 </div>
 <div id="output-for-streamthermal" class="section level2">
