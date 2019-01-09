@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-01-09 14:37:20
+    #> Last Update: 2019-01-09 15:57:04
 
 # Planned Updates
 
@@ -34,6 +34,14 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.5.9006
+
+2019-01-09
+
+  - Example script to get data from Aquarius.
+      - Vignette (at end)
+      - extdata/Aquarius\_Data\_Aquisition\_PADEP.r
 
 ## v2.0.5.9005
 

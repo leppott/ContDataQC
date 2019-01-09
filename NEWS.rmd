@@ -44,6 +44,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9006
+2019-01-09
+
+* Example script to get data from Aquarius.
+    + Vignette (at end)
+    + extdata/Aquarius_Data_Aquisition_PADEP.r
+
 ## v2.0.5.9005
 2019-01-09
 
