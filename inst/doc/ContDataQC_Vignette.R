@@ -691,7 +691,8 @@ RBIcalc(data.Q)
 #  fn_1 <- "Charlies_Air_20170726_20170926.csv"
 #  fn_2 <- "Charlies_AW_20170726_20170926.csv"
 #  fn_3 <- "Charlies_Water_20170726_20170926.csv"
-#  lapply(c(fn_1,fn_2,fn_3), function(x)
+#  fn_4 <- "ECO66G12_AW_20160128_20160418.csv"
+#  lapply(c(fn_1, fn_2, fn_3, fn_4), function(x)
 #         file.copy(system.file("extdata", x, package="ContDataQC")
 #         , file.path(myDir.BASE, Selection.SUB[1], x)))
 #  
@@ -716,4 +717,13 @@ RBIcalc(data.Q)
 #            , fun.myDir.export=myDir.export, fun.myFile=myFile
 #            , fun.myReport.format=myReport.format)
 #  
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Example with unmodified dates
+#  myFiles <- "ECO66G12_AW_20160128_20160418.csv"
+#  myDir.import <- file.path(getwd(), "Data0_Original")
+#  myDir.export <- file.path(getwd(), "Data1_RAW")
+#  HoboDateFormat <- "MDY"
+#  
+#  # Run Function (with default config)
+#  formatHobo(myFiles, myDir.import, myDir.export, HoboDateFormat)
 

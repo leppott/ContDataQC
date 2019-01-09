@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-01-09 10:53:47
+    #> Last Update: 2019-01-09 13:19:31
 
 # Planned Updates
 
@@ -34,6 +34,12 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.5.9004
+
+2019-01-09
+
+  - formatHobo, deal with 2 digit years in Date Time field, Issue \#75
 
 ## v2.0.5.9003
 

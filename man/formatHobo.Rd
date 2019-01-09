@@ -5,7 +5,8 @@
 \title{Format Hoboware output}
 \usage{
 formatHobo(fun.myFile = "", fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.myConfig = "")
+  fun.myDir.export = getwd(), fun.HoboDateFormat = NULL,
+  fun.myConfig = "")
 }
 \arguments{
 \item{fun.myFile}{Single file (or vector of files) to perform functions.}
@@ -13,6 +14,9 @@ formatHobo(fun.myFile = "", fun.myDir.import = getwd(),
 \item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
 
 \item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+
+\item{fun.HoboDateFormat}{Date format of Hoboware output, excluding a delimter (e.g., DMY not D/M/Y).
+Default is NULL and no transformation of the dates is performed.}
 
 \item{fun.myConfig}{Configuration file to use for this data analysis.
 The default is always loaded first so only "new" values need to be included.
@@ -54,6 +58,13 @@ File format should be "SiteID_SensorType_StartDate_EndData.csv".
  * Dates = YYYYMMDD (no delimiter)
 
  * Delimiter = underscore (as specified in the config file)
+
+HOBOware will only output ambiguous dates with 2 digits.
+There are two delimiters (/ and -) and three formats (MDY, DMY, and YMD) resulting in six possible formats.
+If the user provides input for fun.HoboDateFormat the function will modify the data to proper 4 digit years.
+The default of NULL will not modify the date format.
+
+Assumes the user has a single Date Time field rather than two fields (Date and Time).
 }
 \examples{
 \dontrun{
@@ -80,7 +91,8 @@ myDir.create <- paste0("./",Selection.SUB[5])
 fn_1 <- "Charlies_Air_20170726_20170926.csv"
 fn_2 <- "Charlies_AW_20170726_20170926.csv"
 fn_3 <- "Charlies_Water_20170726_20170926.csv"
-lapply(c(fn_1,fn_2,fn_3), function(x)
+fn_4 <- "ECO66G12_AW_20160128_20160418.csv"
+lapply(c(fn_1, fn_2, fn_3, fn_4), function(x)
        file.copy(system.file("extdata", x, package="ContDataQC")
        , file.path(myDir.BASE, Selection.SUB[1], x)))
 
@@ -105,5 +117,14 @@ ContDataQC(myData.Operation, fun.myDir.import=myDir.import
           , fun.myDir.export=myDir.export, fun.myFile=myFile
           , fun.myReport.format=myReport.format)
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Example with unmodified dates
+myFiles <- "ECO66G12_AW_20160128_20160418.csv"
+myDir.import <- file.path(getwd(), "Data0_Original")
+myDir.export <- file.path(getwd(), "Data1_RAW")
+HoboDateFormat <- "MDY"
+
+# Run Function (with default config)
+formatHobo(myFiles, myDir.import, myDir.export, HoboDateFormat)
 }
 }

@@ -6,6 +6,8 @@
 #' @param fun.myFile Single file (or vector of files) to perform functions.
 #' @param fun.myDir.import Directory for import data.  Default is current working directory.
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
+#' @param fun.HoboDateFormat Date format of Hoboware output, excluding a delimter (e.g., DMY not D/M/Y).
+#' Default is NULL and no transformation of the dates is performed.
 #' @param fun.myConfig Configuration file to use for this data analysis.
 #' The default is always loaded first so only "new" values need to be included.
 #' This is the easiest way to control time zones.
@@ -41,6 +43,13 @@
 #'
 #'  * Delimiter = underscore (as specified in the config file)
 #'
+#' HOBOware will only output ambiguous dates with 2 digits.
+#' There are two delimiters (/ and -) and three formats (MDY, DMY, and YMD) resulting in six possible formats.
+#' If the user provides input for fun.HoboDateFormat the function will modify the data to proper 4 digit years.
+#' The default of NULL will not modify the date format.
+#'
+#' Assumes the user has a single Date Time field rather than two fields (Date and Time).
+#'
 #' @examples
 #' \dontrun{
 #'
@@ -66,7 +75,8 @@
 #' fn_1 <- "Charlies_Air_20170726_20170926.csv"
 #' fn_2 <- "Charlies_AW_20170726_20170926.csv"
 #' fn_3 <- "Charlies_Water_20170726_20170926.csv"
-#' lapply(c(fn_1,fn_2,fn_3), function(x)
+#' fn_4 <- "ECO66G12_AW_20160128_20160418.csv"
+#' lapply(c(fn_1, fn_2, fn_3, fn_4), function(x)
 #'        file.copy(system.file("extdata", x, package="ContDataQC")
 #'        , file.path(myDir.BASE, Selection.SUB[1], x)))
 #'
@@ -91,14 +101,37 @@
 #'           , fun.myDir.export=myDir.export, fun.myFile=myFile
 #'           , fun.myReport.format=myReport.format)
 #'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Example with unmodified dates
+#' myFiles <- "ECO66G12_AW_20160128_20160418.csv"
+#' myDir.import <- file.path(getwd(), "Data0_Original")
+#' myDir.export <- file.path(getwd(), "Data1_RAW")
+#' HoboDateFormat <- "MDY"
+#'
+#' # Run Function (with default config)
+#' formatHobo(myFiles, myDir.import, myDir.export, HoboDateFormat)
 #' }
-#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 formatHobo <- function(fun.myFile=""
                        , fun.myDir.import=getwd()
                        , fun.myDir.export=getwd()
+                       , fun.HoboDateFormat=NULL
                        , fun.myConfig=""
                        ){##FUNCTION.START
+  # debug ####
+  boo.DEBUG<- FALSE
+  if(boo.DEBUG==TRUE){##IF.boo.DEBUG.START
+    fun.myFile <- "ECO66G12_AW_20160128_20160418.csv"
+    fun.myDir.import <- file.path(getwd(), "Data0_Original")
+    fun.myDir.export <- file.path(getwd(), "Data1_RAW")
+    fun.HoboDateFormat <- "MDY"
+    fun.myConfig <- ""
+    # Load environment
+    #ContData.env <- new.env(parent = emptyenv()) # in config.R
+    source(file.path(getwd(),"R","config.R"), local=TRUE)
+  }##IF.boo.DEBUG.END
+
 	# 00. QC ####
   ## config file load, 20170517
   if (fun.myConfig!="") {##IF.fun.myConfig.START
@@ -138,9 +171,12 @@ formatHobo <- function(fun.myFile=""
   }##IF.fun.myFile.END
 
   # 01. Loop Files ####
- # i <- fun.myFile[1]
   for (i in fun.myFile){##FOR.i.START
     #
+    if (boo.DEBUG==TRUE){##IF.boo.DEBUG.START
+      i <- fun.myFile[1]
+    }##IF.boo.DEBUG.END
+
     # 01.00. Setup ####
     # current file is "i"
     i.num <- match(i, fun.myFile)
@@ -203,6 +239,39 @@ formatHobo <- function(fun.myFile=""
     ### conditional so is below
     ## Logger, Air
     ### conditional so is below
+
+
+    # Modify Date ####
+    if(is.null(fun.HoboDateFormat)==FALSE){##IF.isnull.hobodate.START
+      # new date
+      date_new <- df_hobo[,col_Date]
+      # Determine delimiter
+      if(grepl("-", date_new[1])==TRUE){
+        HW_delim <- "-"
+      } else if (grepl("/", date_new[1])==TRUE){
+        HW_delim <- "/"
+      } else {
+        msg <- "Data format not discernable."
+        stop(msg)
+      }
+      # Determine format
+      if(toupper(fun.HoboDateFormat)=="MDY"){
+        HW_format <- paste0("%m",HW_delim,"%d",HW_delim,"%y %H:%M:%S")
+      } else if (toupper(fun.HoboDateFormat)=="DMY") {
+        HW_format <- paste0("%d",HW_delim,"%m",HW_delim,"%y %H:%M:%S")
+      } else if (toupper(fun.HoboDateFormat)=="YMD") {
+        HW_format <- paste0("%y",HW_delim,"%m",HW_delim,"%d %H:%M:%S")
+      } else {
+        msg <- paste0("Incorrect Hoboware format (MDY, DMY, YMD) specified, ", fun.HoboDateFormat)
+        stop(msg)
+      }
+
+      # Modify dates
+      date_new_mod <- format(strptime(date_new, format=HW_format), ContData.env$myFormat.DateTime)
+      # modify hobo data frame to updated date format
+      df_hobo[,col_Date] <- date_new_mod
+    }##IF.isnull.hobodate.END
+
 
     # Columns, Output
     ## same values as ContData.env$myName.*

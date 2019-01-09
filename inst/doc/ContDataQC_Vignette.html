@@ -548,7 +548,7 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 ## 
 ## [1] &quot;Processing item 1 of 1, COMPLETE, 01187300.&quot;
 ## 
-## [1] &quot;Task COMPLETE; 0.46 min.&quot;</code></pre>
+## [1] &quot;Task COMPLETE; 0.47 min.&quot;</code></pre>
 <p>Example of getting gage data in a different time zone specified in user modified configuration file.</p>
 <pre class="r"><code># Parameters
 Selection.Operation &lt;- c(&quot;GetGageData&quot;,&quot;QCRaw&quot;, &quot;Aggregate&quot;, &quot;SummaryStats&quot;)
@@ -1847,7 +1847,8 @@ myDir.create &lt;- paste0(&quot;./&quot;,Selection.SUB[5])
 fn_1 &lt;- &quot;Charlies_Air_20170726_20170926.csv&quot;
 fn_2 &lt;- &quot;Charlies_AW_20170726_20170926.csv&quot;
 fn_3 &lt;- &quot;Charlies_Water_20170726_20170926.csv&quot;
-lapply(c(fn_1,fn_2,fn_3), function(x)
+fn_4 &lt;- &quot;ECO66G12_AW_20160128_20160418.csv&quot;
+lapply(c(fn_1, fn_2, fn_3, fn_4), function(x)
        file.copy(system.file(&quot;extdata&quot;, x, package=&quot;ContDataQC&quot;)
        , file.path(myDir.BASE, Selection.SUB[1], x)))
 
@@ -1870,7 +1871,17 @@ myDir.export &lt;- file.path(&quot;.&quot;,&quot;Data2_QC&quot;)
 myReport.format &lt;- &quot;html&quot;
 ContDataQC(myData.Operation, fun.myDir.import=myDir.import
           , fun.myDir.export=myDir.export, fun.myFile=myFile
-          , fun.myReport.format=myReport.format)</code></pre>
+          , fun.myReport.format=myReport.format)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Example with unmodified dates
+myFiles &lt;- &quot;ECO66G12_AW_20160128_20160418.csv&quot;
+myDir.import &lt;- file.path(getwd(), &quot;Data0_Original&quot;)
+myDir.export &lt;- file.path(getwd(), &quot;Data1_RAW&quot;)
+HoboDateFormat &lt;- &quot;MDY&quot;
+
+# Run Function (with default config)
+formatHobo(myFiles, myDir.import, myDir.export, HoboDateFormat)</code></pre>
 </div>
 </div>
 
