@@ -484,19 +484,6 @@ ContData.env$myNames.Fields.TimePeriods <- c(ContData.env$myName.Yr
 # Trigger for Stats to exclude (TRUE) or include (FALSE) where flag = "fail"
 ContData.env$myStats.Fails.Exclude <- TRUE  #FALSE #TRUE
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Report Format
+# Report Format ####
 ContData.env$myReport.Format <- "html"  # "html" or "docx" # DOCX requires Pandoc.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ContData.env$myReport.Dir    <- file.path(system.file(package="ContDataQC"), "rmd")

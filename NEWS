@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-01-07 17:30:50
+    #> Last Update: 2019-01-09 10:53:47
 
 # Planned Updates
 
@@ -34,6 +34,25 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.5.9003
+
+2019-01-09
+
+  - Configuration thresholds not displaying correctly, Issue \#74.
+      - Suspect gross hi value was reported incorrectly for all
+        parameters.
+      - Used the gross fail low value.
+      - Updated RMD files.
+          - Report\_Config.rmd
+          - Report\_QC.rmd
+      - Updated Vignette to use extdata/config.ORIG.R rather than a
+        manual copy and paste of R/config.R.
+      - Ensured R/config.R and extdata/config.ORIG.R are identical (used
+        compare in Notepad++). Differences noted below.
+          - Section header for Report Format
+          - myReport.Dir
+          - different number of blank lines at end of file.
 
 ## v2.0.5.9002
 

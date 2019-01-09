@@ -44,6 +44,21 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9003
+2019-01-09
+
+* Configuration thresholds not displaying correctly, Issue #74.
+    + Suspect gross hi value was reported incorrectly for all parameters.
+    + Used the gross fail low value.
+    + Updated RMD files.
+        - Report_Config.rmd
+        - Report_QC.rmd
+    + Updated Vignette to use extdata/config.ORIG.R rather than a manual copy and paste of R/config.R.
+    + Ensured R/config.R and extdata/config.ORIG.R are identical (used compare in Notepad++).  Differences noted below.
+        - Section header for Report Format
+        - myReport.Dir
+        - different number of blank lines at end of file.
+
 ## v2.0.5.9002
 2019-01-07
 

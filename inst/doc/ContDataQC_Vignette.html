@@ -11,7 +11,7 @@
 
 <meta name="author" content="Erik W. Leppo" />
 
-<meta name="date" content="2019-01-07" />
+<meta name="date" content="2019-01-09" />
 
 <title>ContDataQC Vignette</title>
 
@@ -372,7 +372,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">ContDataQC Vignette</h1>
 <h4 class="author"><em>Erik W. Leppo</em></h4>
-<h4 class="date"><em>2019-01-07</em></h4>
+<h4 class="date"><em>2019-01-09</em></h4>
 
 </div>
 
@@ -536,19 +536,19 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 ## 434       0.01       NGVD29 01080207           uv   00065    &lt;NA&gt; 66867
 ##     loc_web_ds medium_grp_cd parm_grp_cd   srs_id access_cd begin_date
 ## 431       &lt;NA&gt;           wat        &lt;NA&gt;  1645597         0 2015-11-04
-## 432       &lt;NA&gt;           wat        &lt;NA&gt;  1645720         0 2018-09-09
+## 432       &lt;NA&gt;           wat        &lt;NA&gt;  1645720         0 2018-09-11
 ## 433       &lt;NA&gt;           wat        &lt;NA&gt;  1645423         0 1990-10-01
 ## 434       &lt;NA&gt;           wat        &lt;NA&gt; 17164583         0 2007-10-01
 ##       end_date count_nu
-## 431 2019-01-07     1160
-## 432 2019-01-07      120
-## 433 2019-01-07    10325
-## 434 2019-01-07     4116
+## 431 2019-01-09     1162
+## 432 2019-01-09      120
+## 433 2019-01-09    10327
+## 434 2019-01-09     4118
 ## 
 ## 
 ## [1] &quot;Processing item 1 of 1, COMPLETE, 01187300.&quot;
 ## 
-## [1] &quot;Task COMPLETE; 0.45 min.&quot;</code></pre>
+## [1] &quot;Task COMPLETE; 0.46 min.&quot;</code></pre>
 <p>Example of getting gage data in a different time zone specified in user modified configuration file.</p>
 <pre class="r"><code># Parameters
 Selection.Operation &lt;- c(&quot;GetGageData&quot;,&quot;QCRaw&quot;, &quot;Aggregate&quot;, &quot;SummaryStats&quot;)
@@ -685,9 +685,9 @@ ContDataQC(myData.Operation, fun.myDir.import=myDir.import, fun.myDir.export=myD
 <h2>Configuration File</h2>
 <p>Through the use of a configuration file the user can change many of the variables in the library (e.g., the names of fields, thresholds, and date formats).</p>
 <p>The ContDataQC() function allows the user to input their own configuration file. Only variables that are different from the default need to be added. That is, the default configuration is loaded in the library and then the user supplied configuration. This allows the user configuration to overwrite the defaults for that session.</p>
-<p>The Config.out will output the contents of the configuration file.</p>
-<p>The contents of the configuration file (config.R) are listed below.</p>
-<pre class="r"><code># User Defined Values
+<p>The Config.out will output the contents of the configuration file as used by the package and stored in the environment ContData.env.</p>
+<p>The contents of the configuration file (extdata/config.ORIG.R) are listed below.</p>
+<pre><code># User Defined Values
 #
 # User defined values for variables used across multiple functions in this library.
 # The user has the ability to modify the values for names, units, QC thresholds, etc.
@@ -1173,8 +1173,9 @@ ContData.env$myNames.Fields.TimePeriods &lt;- c(ContData.env$myName.Yr
 # Trigger for Stats to exclude (TRUE) or include (FALSE) where flag = &quot;fail&quot;
 ContData.env$myStats.Fails.Exclude &lt;- TRUE  #FALSE #TRUE
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Report Format
-ContData.env$myReport.Format &lt;- &quot;html&quot;  # &quot;html&quot; or &quot;docx&quot; # DOCX requires Pandoc.</code></pre>
+# Report Format ####
+ContData.env$myReport.Format &lt;- &quot;html&quot;  # &quot;html&quot; or &quot;docx&quot; # DOCX requires Pandoc.
+ContData.env$myReport.Dir    &lt;- file.path(system.file(package=&quot;ContDataQC&quot;), &quot;rmd&quot;)</code></pre>
 </div>
 <div id="period-stats" class="section level2">
 <h2>Period Stats</h2>
