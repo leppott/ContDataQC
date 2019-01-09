@@ -134,10 +134,11 @@ ContData.env$myDataQuality.Final      <- "Final"
 ContData.env$myDataQuality.Aggregated <- "Aggregated"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Directory Names ####
-ContData.env$myName.Dir.1Raw  <- "Data1_Raw"
-ContData.env$myName.Dir.2QC   <- "Data2_QC"
-ContData.env$myName.Dir.3Agg  <- "Data3_Aggregated"
-ContData.env$myName.Dir.4Stats<- "Data4_Stats"
+ContData.env$myName.Dir.0Original  <- "Data0_Original"
+ContData.env$myName.Dir.1Raw       <- "Data1_Raw"
+ContData.env$myName.Dir.2QC        <- "Data2_QC"
+ContData.env$myName.Dir.3Agg       <- "Data3_Aggregated"
+ContData.env$myName.Dir.4Stats     <- "Data4_Stats"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Data Fields ####
 ContData.env$myNames.DataFields <- c(ContData.env$myName.WaterTemp

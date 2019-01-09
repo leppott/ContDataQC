@@ -101,6 +101,7 @@
 # ContData.env$myDataQuality.Aggregated <- "Aggregated"
 # #####################################################################
 # # Directory Names
+# ContData.env$myName.Dir.0Original  <- "Data0_Original"
 # ContData.env$myName.Dir.1Raw  <- "Data1_Raw"
 # ContData.env$myName.Dir.2QC   <- "Data2_QC"
 # ContData.env$myName.Dir.3Agg  <- "Data3_Aggregated"

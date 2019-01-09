@@ -44,6 +44,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9005
+2019-01-09
+
+* configuration files.
+    + Add Data0_Original folder to each configuration file.
+
 ## v2.0.5.9004
 2019-01-09
 
