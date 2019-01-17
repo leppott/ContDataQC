@@ -44,6 +44,14 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9008
+2019-01-17
+
+* Add shiny app to package, Issue #81
+* DESCRIPTION
+    + Add David Gibbs
+    + Add packages for Shiny and sort.
+
 ## v2.0.5.9007
 2019-01-17
 

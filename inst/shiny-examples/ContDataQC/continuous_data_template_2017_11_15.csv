@@ -1,0 +1,5 @@
+RowID,SiteID,Date Time,Water Temp C,Air Temp C,Water P psi,Air BP psi,Sensor Depth ft,GageHeight,Discharge,Discrete Water Temp C,Discrete Air Temp C,Discrete Water P psi,Air BP psi,Discrete Sensor Depth ft,Water logger ID,Air logger ID
+1,B0997,3/5/2015 0:00,11.916,18.331,14.5947,14.1206,1.02,1.02,43,11.916,18.331,14.6,14.1,1.02,10246120,10246124
+2,B0997,3/5/2015 0:30,11.916,16.903,14.5972,14.118,1.032,1.032,47,,,,,,10246120,10246124
+3,B0997,3/5/2015 1:00,12.013,16.713,14.5928,14.1125,1.034,1.034,52,,,,,,10246120,10246124
+4,B0997,3/5/2015 1:30,12.013,16.903,14.5928,14.1083,1.044,1.044,52,,,,,,10246120,10246124
