@@ -40,8 +40,10 @@
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).Can be customized in config.R; ContData.env$myReport.Format.
 #' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
+#' @param fun.CreateReport Boolean parameter to create reports or not.  Default = TRUE.
+#'
 #' @return Returns a csv file to specified directory with QC flags.
-#' @keywords internal continuous data, qc, quality control
+#'
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
 #' myFile <- "test2_AW_20130426_20130725.csv"
@@ -75,6 +77,7 @@ fun.QC.File <- function(fun.myFile
                        , fun.myDir.export=getwd()
                        , fun.myReport.format
                        , fun.myReport.Dir
+                       , fun.CreateReport=TRUE
                        ) {##FUN.fun.QC.START
   #
   # # A. Data Prep ####
@@ -876,18 +879,20 @@ fun.QC.File <- function(fun.myFile
     ###
     # B.10.3. Report ####
     booDisableReport <- FALSE
-    if (booDisableReport==TRUE) {
+    if (booDisableReport==TRUE) {##IF.boo.DisableReport.START
       myMsg <- "The reporting feature is disabled at this time.  A future verison may re-enable it."
       cat(myMsg)
       flush.console()
     } else if (booDisableReport==FALSE) {
-      fun.Report.File(strFile
-                      , fun.myDir.export
-                      , fun.myDir.export
-                      , strFile.Out.Prefix
-                      , fun.myReport.format
-                      , fun.myReport.Dir)
-    }
+      if (fun.CreateReport==TRUE){##IF.CreateReport.START
+        fun.Report.File(strFile
+                        , fun.myDir.export
+                        , fun.myDir.export
+                        , strFile.Out.Prefix
+                        , fun.myReport.format
+                        , fun.myReport.Dir)
+      }##IF.CreateReport.END
+    }##IF.boo.DisableReport.END
 
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

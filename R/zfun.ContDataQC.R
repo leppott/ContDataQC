@@ -60,8 +60,10 @@
 #' @param fun.myFile Single file (or vector of files) to perform functions.  SiteID, Type, and Date Range not used when file name(s) provided.
 #' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
 #' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
+#' @param fun.CreateReport Boolean parameter to create reports or not.  Default = TRUE.
+#'
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
-#' @keywords continuous data, aggregate
+#'
 #' @examples
 #' # Install Pandoc (for docx Reports)
 #' # (if using recent version of RStudio do not have to install separately)
@@ -272,8 +274,8 @@ ContDataQC <- function(fun.myData.Operation
                        , fun.myConfig=""
                        , fun.myFile=""
                        , fun.myReport.format=""
-                       , fun.myReport.Dir="")
-  {##FUN.fun.Master.START
+                       , fun.myReport.Dir=""
+                       , fun.CreateReport=TRUE) {##FUN.fun.Master.START
   # config file load, 20170517
   if (fun.myConfig!="") {##IF.fun.myConfig.START
     config.load(fun.myConfig)
@@ -352,14 +354,16 @@ ContDataQC <- function(fun.myData.Operation
              , fun.myDir.import
              , fun.myDir.export
              , fun.myReport.format
-             , fun.myReport.Dir)
+             , fun.myReport.Dir
+             , fun.CreateReport)
     }  else {
       #file version
       fun.QC.File(fun.myFile
                   , fun.myDir.import
                   , fun.myDir.export
                   , fun.myReport.format
-                  , fun.myReport.Dir)
+                  , fun.myReport.Dir
+                  , fun.CreateReport)
     }##IF.fun.myFile.END
     # runs the QC Report as part of sourced function but can run independantly below
   } else if (fun.myData.Operation=="ReportQC") {
@@ -401,14 +405,16 @@ ContDataQC <- function(fun.myData.Operation
                         , fun.myDir.import
                         , fun.myDir.export
                         , fun.myReport.format
-                        , fun.myReport.Dir)
+                        , fun.myReport.Dir
+                        , fun.CreateReport)
     } else {
       #file version
       fun.AggregateData.File(fun.myFile
                              , fun.myDir.import
                              , fun.myDir.export
                              , fun.myReport.format
-                             , fun.myReport.Dir)
+                             , fun.myReport.Dir
+                             , fun.CreateReport)
     }##IF.fun.myFile.END
     #
   } else if (fun.myData.Operation=="ReportAggregate") {

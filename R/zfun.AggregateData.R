@@ -36,8 +36,10 @@
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
 #' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
+#' @param fun.CreateReport Boolean parameter to create reports or not.  Default = TRUE.
+#'
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
-#' @keywords internal continuous data, aggregate
+#'
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
 #
@@ -49,7 +51,8 @@ fun.AggregateData <- function(fun.myData.SiteID
                              , fun.myDir.import=getwd()
                              , fun.myDir.export=getwd()
                              , fun.myReport.format
-                             , fun.myReport.Dir) {##FUN.fun.QCauto.START
+                             , fun.myReport.Dir
+                             , fun.CreateReport=TRUE) {##FUN.fun.QCauto.START
   #
   # Error Checking - only 1 SiteID and 1 DataType
   if(length(fun.myData.SiteID)!=1){
@@ -341,16 +344,18 @@ fun.AggregateData <- function(fun.myData.SiteID
     ###
     # will run repeatedly for each subfile when aggregating
 
-#
+      if (fun.CreateReport==TRUE){##IF.CreateReport.START
         fun.Report(strFile.SiteID
-                     , strFile.DataType
-                     , fun.myData.DateRange.Start
-                     , fun.myData.DateRange.End
-                     , fun.myDir.export
-                     , fun.myDir.export
-                     , fun.myFile.Prefix = "DATA"
-                     , fun.myReport.format
-                     , fun.myReport.Dir)
+                   , strFile.DataType
+                   , fun.myData.DateRange.Start
+                   , fun.myData.DateRange.End
+                   , fun.myDir.export
+                   , fun.myDir.export
+                   , fun.myFile.Prefix = "DATA"
+                   , fun.myReport.format
+                   , fun.myReport.Dir)
+      }##IF.CreateReport.END
+
 #                 ##
 #                 # QC
 #                 ##
@@ -384,16 +389,17 @@ fun.AggregateData <- function(fun.myData.SiteID
   }##while.END
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+  # Report2 ####
   # Run report on Aggregated file (20170607)
   strFile.Out.NoPrefix <- substr(strFile.Out,nchar(strFile.Out.Prefix)+2,nchar(strFile.Out))
-  fun.Report.File(strFile.Out.NoPrefix
-                  , fun.myDir.export
-                  , fun.myDir.export
-                  , strFile.Out.Prefix
-                  , fun.myReport.format
-                  , fun.myReport.Dir)
-
-
+  if (fun.CreateReport==TRUE){##IF.CreateReport.START
+    fun.Report.File(strFile.Out.NoPrefix
+                    , fun.myDir.export
+                    , fun.myDir.export
+                    , strFile.Out.Prefix
+                    , fun.myReport.format
+                    , fun.myReport.Dir)
+  }##IF.CreateReport.START
 
   #
   print(paste("Processing of ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
@@ -496,13 +502,16 @@ fun.AggregateData <- function(fun.myData.SiteID
 #           fun.myDir.SUB.export        <- fun.myDir.SUB.export
 #           fun.myFile.Prefix           <- "DATA"
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    fun.Report(fun.myData.SiteID
+    # Report 3 ####
+    if (fun.CreateReport==TRUE){##IF.CreateReport.START
+      fun.Report(fun.myData.SiteID
                  ,fun.myPrefix.merge
                  ,fun.myData.DateRange.Start
                  ,fun.myData.DateRange.End
                  ,fun.myDir.export
                  ,fun.myDir.export
                  ,"DATA")
+    }##IF.CreateReport.START
     # inform user
     print(paste("Done merging ",fun.myPrefix.merge," files; ",strFile.Out,sep=""))
     flush.console()

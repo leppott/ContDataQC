@@ -34,7 +34,3 @@ The 'file' version works on a single (or vector) of files.
 \examples{
 #Not intended to be accessed indepedant of function ContDataQC().
 }
-\keyword{continuous}
-\keyword{data,}
-\keyword{internal}
-\keyword{report}

@@ -34,8 +34,10 @@
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
 #' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
+#' @param fun.CreateReport Boolean parameter to create reports or not.  Default = TRUE.
+#'
 #' @return Returns a csv into the specified export directory of each file appended into a single file.
-#' @keywords internal continuous data, aggregate
+#'
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
 #' myFile <- c("QC_test2_Aw_20130426_20130725.csv"
@@ -66,7 +68,8 @@ fun.AggregateData.File <- function(fun.myFile
                                   , fun.myDir.import=getwd()
                                   , fun.myDir.export=getwd()
                                   , fun.myReport.format
-                                  , fun.myReport.Dir) {##FUN.fun.QCauto.START
+                                  , fun.myReport.Dir
+                                  , fun.CreateReport=TRUE) {##FUN.fun.QCauto.START
   #
   # Error Checking - only 1 SiteID and 1 DataType
   if(length(fun.myFile)==1){
@@ -430,18 +433,20 @@ fun.AggregateData.File <- function(fun.myFile
   # 20170607, move outside of loop (and remove prefix for fun.Report.File)
 
   booDisableReport <- FALSE
-  if (booDisableReport==TRUE) {
+  if (booDisableReport==TRUE) {##IF.boo.DisableReport.START
     myMsg <- "The reporting feature is disabled at this time.  A future verison may re-enable it."
     cat(myMsg)
     flush.console()
   } else if (booDisableReport==FALSE) {
-    fun.Report.File(strFile.Out.NoPrefix
-                    , fun.myDir.export
-                    , fun.myDir.export
-                    , strFile.Out.Prefix
-                    , fun.myReport.format
-                    , fun.myReport.Dir)
-  }
+    if (fun.CreateReport==TRUE){##IF.CreateReport.START
+      fun.Report.File(strFile.Out.NoPrefix
+                      , fun.myDir.export
+                      , fun.myDir.export
+                      , strFile.Out.Prefix
+                      , fun.myReport.format
+                      , fun.myReport.Dir)
+    }##IF.CreateReport.END
+  }##IF.boo.DisableReport.END
 
 
   #

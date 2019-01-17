@@ -42,8 +42,10 @@
 #' @param fun.myDir.export Directory for export data.  Default is current working directory.
 #' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
 #' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
+#' @param fun.CreateReport Boolean parameter to create reports or not.  Default = TRUE.
+#'
 #' @return Returns a csv file to specified directory with QC flags.
-#' @keywords internal continuous data, qc, quality control
+#'
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
 #
@@ -55,7 +57,8 @@ fun.QC <- function(fun.myData.SiteID
                    , fun.myDir.import=""
                    , fun.myDir.export=""
                    , fun.myReport.format
-                   , fun.myReport.Dir) {##FUN.fun.QC.START
+                   , fun.myReport.Dir
+                   , fun.CreateReport=TRUE) {##FUN.fun.QC.START
   #
   # A. Data Prep ####
   # Convert Data Type to proper case
@@ -860,7 +863,8 @@ fun.QC <- function(fun.myData.SiteID
     # run with same import and export directory
     ###
     # B.10.3. Report ####
-    fun.Report(strFile.SiteID
+    if (fun.CreateReport==TRUE){##IF.CreateReport.START
+      fun.Report(strFile.SiteID
                  , strFile.DataType
                  , strFile.Date.Start
                  , strFile.Date.End
@@ -868,7 +872,9 @@ fun.QC <- function(fun.myData.SiteID
                  , fun.myDir.export
                  , strFile.Out.Prefix
                  , fun.myReport.format
-                 , fun.myReport.Dir)
+                 , fun.myReport.Dir
+                 ) }##IF.CreateReport.END
+
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC
 # ##

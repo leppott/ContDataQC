@@ -43,8 +43,9 @@
 #' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
 #' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
 #' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
+#'
 #' @return Creates a Word file in the specified directory.
-#' @keywords internal continuous data, report
+#'
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
 #

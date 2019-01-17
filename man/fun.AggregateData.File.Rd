@@ -5,7 +5,8 @@
 \title{Aggregate Data Files, File}
 \usage{
 fun.AggregateData.File(fun.myFile, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.myReport.format, fun.myReport.Dir)
+  fun.myDir.export = getwd(), fun.myReport.format, fun.myReport.Dir,
+  fun.CreateReport = TRUE)
 }
 \arguments{
 \item{fun.myFile}{Vector of file names.}
@@ -17,6 +18,8 @@ fun.AggregateData.File(fun.myFile, fun.myDir.import = getwd(),
 \item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.}
 
 \item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
+
+\item{fun.CreateReport}{Boolean parameter to create reports or not.  Default = TRUE.}
 }
 \value{
 Returns a csv into the specified export directory of each file appended into a single file.
@@ -34,7 +37,3 @@ myDir.import <- file.path(getwd(),"Data2_QC")
 myDir.export <- file.path(getwd(),"Data3_Aggregated")
 fun.AggregateData.File(myFile, myDir.import, myDir.export)
 }
-\keyword{aggregate}
-\keyword{continuous}
-\keyword{data,}
-\keyword{internal}

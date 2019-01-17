@@ -40,7 +40,3 @@ Values are "QC", "DATA", or "STATS".
 \examples{
 #Not intended to be accessed indepedant of function ContDataQC().
 }
-\keyword{continuous}
-\keyword{data,}
-\keyword{internal}
-\keyword{report}
