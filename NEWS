@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-01-17 15:07:24
+    #> Last Update: 2019-01-21 14:34:43
 
 # Planned Updates
 
@@ -34,6 +34,13 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.5.9009
+
+2019-01-21
+
+  - formatHobo
+      - Update to account for Lake SiteIDs to include depth.
 
 ## v2.0.5.9008
 

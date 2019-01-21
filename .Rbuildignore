@@ -1,5 +1,8 @@
+^Meta$
+^doc$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^README-.*\.png$
 ^NEWS\.Rmd$
+^_test$

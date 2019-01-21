@@ -122,14 +122,15 @@ formatHobo <- function(fun.myFile=""
   # debug ####
   boo.DEBUG<- FALSE
   if(boo.DEBUG==TRUE){##IF.boo.DEBUG.START
-    fun.myFile <- "ECO66G12_AW_20160128_20160418.csv"
+    fun.myFile <- "Ellis1.0m_Water_20180524_20180918.csv"
     fun.myDir.import <- file.path(getwd(), "Data0_Original")
     fun.myDir.export <- file.path(getwd(), "Data1_RAW")
-    fun.HoboDateFormat <- "MDY"
+    fun.HoboDateFormat <- "YMD"
     fun.myConfig <- ""
     # Load environment
     #ContData.env <- new.env(parent = emptyenv()) # in config.R
-    source(file.path(getwd(),"R","config.R"), local=TRUE)
+    dir_dev <- "C:\\Users\\Erik.Leppo\\OneDrive - Tetra Tech, Inc\\MyDocs_OneDrive\\GitHub\\ContDataQC"
+    source(file.path(dir_dev,"R","config.R"), local=TRUE)
   }##IF.boo.DEBUG.END
 
 	# 00. QC ####
@@ -192,13 +193,14 @@ formatHobo <- function(fun.myFile=""
 
     # 01.02. Munge ####
     # parse name on "." (for extension) or "_"
-
-    split_fn_hobo   <- unlist(strsplit(i, paste0("[.]|[",ContData.env$myDelim,"]")))
+    # Lake SiteID includes Depth.  Move "." parsing to end.
+    split_fn_hobo   <- unlist(strsplit(i, paste0("[",ContData.env$myDelim,"]")))
     SiteID          <- split_fn_hobo[1]
     Type            <- split_fn_hobo[2]
     DateRange.Start <- split_fn_hobo[3]
-    DateRange.End   <- split_fn_hobo[4]
-    FileFormat      <- split_fn_hobo[5]
+    split_fn_hobo_4 <- unlist(strsplit(split_fn_hobo[4], "[.]"))
+    DateRange.End   <- split_fn_hobo_4[1]
+    FileFormat      <- split_fn_hobo_4[2]
 
     # 01.03. Columns ####
     # Check for columns (all lower case)

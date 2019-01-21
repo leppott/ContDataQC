@@ -44,6 +44,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9009
+2019-01-21
+
+* formatHobo
+    + Update to account for Lake SiteIDs to include depth.
+
 ## v2.0.5.9008
 2019-01-17
 

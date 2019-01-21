@@ -11,7 +11,7 @@
 
 <meta name="author" content="Erik W. Leppo" />
 
-<meta name="date" content="2019-01-09" />
+<meta name="date" content="2019-01-21" />
 
 <title>ContDataQC Vignette</title>
 
@@ -372,7 +372,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">ContDataQC Vignette</h1>
 <h4 class="author"><em>Erik W. Leppo</em></h4>
-<h4 class="date"><em>2019-01-09</em></h4>
+<h4 class="date"><em>2019-01-21</em></h4>
 
 </div>
 
@@ -535,20 +535,20 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 ## 433       0.01       NGVD29 01080207           uv   00060    &lt;NA&gt; 66866
 ## 434       0.01       NGVD29 01080207           uv   00065    &lt;NA&gt; 66867
 ##     loc_web_ds medium_grp_cd parm_grp_cd   srs_id access_cd begin_date
-## 431       &lt;NA&gt;           wat        &lt;NA&gt;  1645597         0 2015-11-04
-## 432       &lt;NA&gt;           wat        &lt;NA&gt;  1645720         0 2018-09-11
-## 433       &lt;NA&gt;           wat        &lt;NA&gt;  1645423         0 1990-10-01
-## 434       &lt;NA&gt;           wat        &lt;NA&gt; 17164583         0 2007-10-01
+## 431         NA           wat        &lt;NA&gt;  1645597         0 2015-11-04
+## 432         NA           wat        &lt;NA&gt;  1645720         0 2018-09-23
+## 433         NA           wat        &lt;NA&gt;  1645423         0 1990-10-01
+## 434         NA           wat        &lt;NA&gt; 17164583         0 2007-10-01
 ##       end_date count_nu
-## 431 2019-01-09     1162
-## 432 2019-01-09      120
-## 433 2019-01-09    10327
-## 434 2019-01-09     4118
+## 431 2019-01-21     1174
+## 432 2019-01-21      120
+## 433 2019-01-21    10339
+## 434 2019-01-21     4130
 ## 
 ## 
 ## [1] &quot;Processing item 1 of 1, COMPLETE, 01187300.&quot;
 ## 
-## [1] &quot;Task COMPLETE; 0.45 min.&quot;</code></pre>
+## [1] &quot;Task COMPLETE; 0.46 min.&quot;</code></pre>
 <p>Example of getting gage data in a different time zone specified in user modified configuration file.</p>
 <pre class="r"><code># Parameters
 Selection.Operation &lt;- c(&quot;GetGageData&quot;,&quot;QCRaw&quot;, &quot;Aggregate&quot;, &quot;SummaryStats&quot;)

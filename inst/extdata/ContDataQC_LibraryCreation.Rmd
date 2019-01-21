@@ -1,5 +1,6 @@
 ---
-title: "ContDataQC Library Creation"
+title: "ContDataQC"
+subtitle: "Library Creation"
 author: "Erik.Leppo@tetratech.com"
 date: "`r Sys.time()`"
 output: 
