@@ -44,6 +44,16 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9010
+2019-02-13
+
+* Export.rLakeAnalyzer
+    + Add rLakeAnalyzer package description under suggests.
+    + Generate output function.  Issue #82.
+        - Include example for rLakeAnalyzer::wtr.heat.map
+        - Added example plot of multiple depths using ggplot2.
+        - Added ggplot2 to suggests.
+
 ## v2.0.5.9009
 2019-01-21
 

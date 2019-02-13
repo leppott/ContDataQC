@@ -14,7 +14,6 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/leppott/ContDataQC
 BugReports: https://github.com/leppott/ContDataQC/issues
-RoxygenNote: 6.1.1
 Imports:
     dataRetrieval,
     doBy,
@@ -24,8 +23,10 @@ Imports:
     survival,
     zoo
 Suggests:
+    ggplot2,
     IHA,
     installr,
+    rLakeAnalyzer,
     rsconnect,
     shinyFiles,
     shinythemes,
@@ -34,3 +35,4 @@ Suggests:
     zip
 VignetteBuilder: knitr
 Remotes: leppott/BioMonTools
+RoxygenNote: 6.0.1
