@@ -727,8 +727,88 @@ RBIcalc(data.Q)
 #  # Run Function (with default config)
 #  formatHobo(myFiles, myDir.import, myDir.export, HoboDateFormat)
 
+## ----rLA_Example---------------------------------------------------------
+
+# Convert Data for use with rLakeAnalyzer
+
+# Data
+fn_CDQC <- "TestLake_Water_20180702_20181012.csv"
+df_CDQC <- read.csv(file.path(system.file(package = "ContDataQC"), "extdata", fn_CDQC))
+
+# Convert Date.Time from factor to POSIXct (make it a date and time field in R)
+df_CDQC[, "Date.Time"] <- as.POSIXct(df_CDQC[, "Date.Time"])
+
+# Columns, date listed first
+col_depth <- "Depth"
+col_CDQC <- c("Date.Time", "temp_F", "DO_conc")
+col_rLA  <- c("datetime", "wtr", "doobs")
+
+# Output Options
+dir_export <- getwd()
+fn_export <- paste0("rLA_", fn_CDQC)
+
+# Run function
+df_rLA <- Export.rLakeAnalyzer(df_CDQC, col_depth, col_CDQC, col_rLA
+                               , dir_export, fn_export)
+
+# Visualize Input and Output
+knitr::kable(head(df_CDQC), caption = "Example ContDataQC to rLakeAnalyze format function input.")
+knitr::kable(head(df_rLA), caption = "Example ContDataQC to rLakeAnalyze format function output.")
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Plot original data in ggplot
+library(ggplot2)
+
+# Plot, Create
+p <- ggplot(df_CDQC, aes(x=Date.Time, y=temp_F)) +
+       geom_point(aes(color=Depth)) +
+       scale_color_continuous(trans="reverse") +
+       scale_x_datetime(date_labels = "%Y-%m")
+
+# Plot, Show
+print(p)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# use rLakeAnalyzer
+library(rLakeAnalyzer)
+#library(knitr)
+
+# Filter Data for only temperature
+col_wtr <- colnames(df_rLA)[grepl("wtr_", colnames(df_rLA))]
+df_rLA_wtr <- df_rLA[, c("datetime", col_wtr)]
+
+# Create bathymetry data frame
+df_rLA_bth <- data.frame(depths=c(3,6,9), areas=c(300,200,100))
+
+# Visualize Input Data
+knitr::kable(head(df_rLA_wtr), caption = "rLakeAnalyzer; Example water temperature data")
+knitr::kable(head(df_rLA_bth), caption = "rLakeAnalyzer; Example depth and area data")
+
+# Generate Heat Map
+wtr.heat.map(df_rLA_wtr)
+
+# Generate Schmidt Plot
+schmidt.plot(df_rLA_wtr, df_rLA_bth)
+
+# Generate Schmidt Stability Values
+df_rLA_Schmidt <- ts.schmidt.stability(df_rLA_wtr, df_rLA_bth)
+
+# Visualize Output Data
+knitr::kable(head(df_rLA_Schmidt), caption = "rLakeAnalyzer; Example Schmidt Stability output.")
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Plot original data in ggplot
+library(ggplot2)
+
+# Plot, Create
+p <- ggplot(df_CDQC, aes(x=Date.Time, y=temp_F)) +
+       geom_point(aes(color=Depth)) +
+       scale_color_continuous(trans="reverse") +
+       scale_x_datetime(date_labels = "%Y-%m")
+
+# Plot, Show
+p
+
 ## ----getData_Aquarius, eval=FALSE----------------------------------------
-#  #------------------------------------------------------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #  #
 #  # This script accesses data using AQUARIUS Time-Series 3.x's Publish API.
 #  #
@@ -746,9 +826,9 @@ RBIcalc(data.Q)
 #  # Mark Hoger
 #  # mhoger@pa.gov
 #  #
-#  #------------------------------------------------------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #  
-#  #------------------------------------------------------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #  #
 #  # Initialize Connection to Database
 #  #
@@ -767,11 +847,11 @@ RBIcalc(data.Q)
 #  # The above commands should result in a token that will be used to access
 #  # data stored in the database.
 #  #
-#  #------------------------------------------------------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #  
-#  #------------------------------------------------------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #  #
-#  # Data Aquisition
+#  # Data Acquisition
 #  #
 #  # Locations and datasets are selected prior to extracting data. This
 #  # approach reduces the time required to extract data since often only a
@@ -785,14 +865,14 @@ RBIcalc(data.Q)
 #  # 5. Extract data from datasets chosen. Can limit extraction by date/time
 #  #    during this process.
 #  #
-#  #------------------------------------------------------------------------
-#  # Step 1. Get a list of locations. --------------------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Step 1. Get a list of locations. ####
 #  #
 #  getlocations<-paste(service, '/GetLocations',sep='')
 #  locs.all=read.csv(textConnection(getURL(.opts=co, getlocations)))
 #  #
-#  #------------------------------------------------------------------------
-#  # Step 2. Choose locations. ---------------------------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Step 2. Choose locations. ####
 #  #
 #  # These steps will depend on the structure of how locations are stored in
 #  # the database you are pulling from. In PADEP's setup, the folders are
@@ -815,8 +895,8 @@ RBIcalc(data.Q)
 #  # in LOCATIONNAME
 #  locs.subset<-locs.subset[grepl('Swatara|Goose',locs.subset$LOCATIONNAME),]
 #  #
-#  #------------------------------------------------------------------------
-#  # Step 3. Get a list of datasets. ---------------------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Step 3. Get a list of datasets. ####
 #  #
 #  # A loop function is used to pull a list of all datasets at each location
 #  # in locs.subset.
@@ -836,8 +916,8 @@ RBIcalc(data.Q)
 #  # contain any data will cause problems. A good way to find the issue is
 #  # to see how many elements were created in the loop.
 #  #
-#  #------------------------------------------------------------------------
-#  # Step 4. Choose datasets. ----------------------------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Step 4. Choose datasets. ####
 #  #
 #  # Like with the locations, you now need to select only that datasets you
 #  # want. Again, it is recommended to maintain the dataframe name 'datasets'
@@ -872,8 +952,8 @@ RBIcalc(data.Q)
 #  # pH and DO concentration datasets:
 #  datasets <- datasets[datasets$Parameter=='PH' | datasets$Parameter=='WO',]
 #  #
-#  #------------------------------------------------------------------------
-#  # Step 5. Extract data. -------------------------------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  # Step 5. Extract data. ####
 #  #
 #  # The datasets dataframe does not contain much location information. To
 #  # better tie location data to the data about to be extracted, I use merge
@@ -905,5 +985,5 @@ RBIcalc(data.Q)
 #  #
 #  # See comments at end of Step 3 if you are getting errors during loop.
 #  #
-#  #------------------------------------------------------------------------
+#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

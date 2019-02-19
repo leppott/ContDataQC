@@ -72,15 +72,25 @@ fn_export <- paste0("rLA_", fn_CDQC)
 df_rLA <- Export.rLakeAnalyzer(df_CDQC, col_depth, col_CDQC, col_rLA
                                , dir_export, fn_export)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# use rLakeAnalyzer
+# use rLakeAnalyzer - heat map
 library(rLakeAnalyzer)
 
 # Filter Data for only temperature
 col_wtr <- colnames(df_rLA)[grepl("wtr_", colnames(df_rLA))]
 df_rLA_wtr <- df_rLA[, c("datetime", col_wtr)]
 
+# Create bathymetry data frame
+df_rLA_bth <- data.frame(depths=c(3,6,9), areas=c(300,200,100))
+
 # Generate Heat Map
 wtr.heat.map(df_rLA_wtr)
+
+# Generate Schmidt Plot
+schmidt.plot(df_rLA_wtr, df_rLA_bth)
+
+# Generate Schmidt Stability Values
+df_rLA_Schmidt <- ts.schmidt.stability(df_rLA_wtr, df_rLA_bth)
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Plot original data in ggplot
 library(ggplot2)
