@@ -60,6 +60,8 @@ fun.QC <- function(fun.myData.SiteID
                    , fun.myReport.Dir
                    , fun.CreateReport=TRUE) {##FUN.fun.QC.START
   #
+  boo_DEBUG <- "FALSE"
+
   # A. Data Prep ####
   # Convert Data Type to proper case
   fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1)),tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
@@ -207,8 +209,8 @@ fun.QC <- function(fun.myData.SiteID
     #varSep = "\t" (use read.delim instead of read.table)
     # as.is = T so dates come in as text rather than factor
     #data.import <- read.delim(strFile,as.is=TRUE,na.strings="")
-   # data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings="")
-    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings="")
+   # data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
     #
     # QC required fields: SiteID & (DateTime | (Date & Time))
     fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
@@ -794,7 +796,7 @@ fun.QC <- function(fun.myData.SiteID
     #************************
 
 
-    #data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings="")
+    #data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings=c("","NA"))
     #
     # B.4.0. Columns
     # B.4.1. Check for DataFields  (may have already been done)
@@ -860,6 +862,18 @@ fun.QC <- function(fun.myData.SiteID
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # insert QC Report so runs without user intervention
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # DEBUG, REPORT ####
+    if(boo_DEBUG==TRUE){##IF~boo_DEBUG~START
+      fun.myData.SiteID           <- strFile.SiteID
+      fun.myData.Type             <- strFile.DataType
+      fun.myData.DateRange.Start  <- fun.myData.DateRange.Start
+      fun.myData.DateRange.End    <- fun.myData.DateRange.End
+      fun.myDir.BASE              <- fun.myDir.BASE
+      fun.myDir.SUB.import        <- fun.myDir.SUB.export
+      fun.myDir.SUB.export        <- fun.myDir.SUB.export
+      fun.myFile.Prefix           <- strFile.Out.Prefix
+    }##IF~boo_DEBUG~END
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # run with same import and export directory
     ###
     # B.10.3. Report ####
@@ -874,19 +888,6 @@ fun.QC <- function(fun.myData.SiteID
                  , fun.myReport.format
                  , fun.myReport.Dir
                  ) }##IF.CreateReport.END
-
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# QC
-# ##
-#                     fun.myData.SiteID           <- strFile.SiteID
-#                     fun.myData.Type             <- strFile.DataType
-#                     fun.myData.DateRange.Start  <- fun.myData.DateRange.Start
-#                     fun.myData.DateRange.End    <- fun.myData.DateRange.End
-#                     fun.myDir.BASE              <- fun.myDir.BASE
-#                     fun.myDir.SUB.import        <- fun.myDir.SUB.export
-#                     fun.myDir.SUB.export        <- fun.myDir.SUB.export
-#                     fun.myFile.Prefix           <- strFile.Out.Prefix
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

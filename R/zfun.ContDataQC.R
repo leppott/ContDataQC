@@ -276,6 +276,25 @@ ContDataQC <- function(fun.myData.Operation
                        , fun.myReport.format=""
                        , fun.myReport.Dir=""
                        , fun.CreateReport=TRUE) {##FUN.fun.Master.START
+  # DEBUG ####
+  boo_DEBUG <- FALSE
+  if(boo_DEBUG==TRUE){##IF~boo_DEBUG~START
+    fun.myData.Operation       <- myData.Operation
+    fun.myData.SiteID          <- myData.SiteID
+    fun.myData.Type            <- myData.Type
+    fun.myData.DateRange.Start <- myData.DateRange.Start
+    fun.myData.DateRange.End   <- myData.DateRange.End
+    fun.myDir.import           <- myDir.import
+    fun.myDir.export           <- myDir.export
+    fun.myConfig               <- ""
+    #fun.myFile                 <- ""
+    fun.myFile                 <- myFile
+    fun.myReport.format        <- myReport.format
+    fun.myReport.Dir           <- ""
+    source(file.path(getwd(), "inst", "extdata", "config.ORIG.R"))
+    source(file.path(getwd(), "R", "fun.Helper.R"))
+  }##IF~boo_DEBUG~END
+
   # config file load, 20170517
   if (fun.myConfig!="") {##IF.fun.myConfig.START
     config.load(fun.myConfig)

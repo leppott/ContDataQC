@@ -228,9 +228,9 @@ fun.AggregateData <- function(fun.myData.SiteID
     #data.import=read.table(strFile,header=F,varSep)
     #varSep = "\t" (use read.delim instead of read.table)
     # as.is = T so dates come in as text rather than factor
-    #data.import <- read.delim(strFile,as.is=TRUE,na.strings="")
-    #data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings="")
-    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings="")
+    #data.import <- read.delim(strFile,as.is=TRUE,na.strings=c("","NA"))
+    #data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
     #
     # QC required fields: SiteID & (DateTime | (Date & Time))
     #fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
@@ -438,10 +438,10 @@ fun.AggregateData <- function(fun.myData.SiteID
     #     fun.Name.myDF.2    <- myDF.Name.2
     #
     # Load Files
-    #data.DF.1 <- read.csv(paste(myDir.data.export,fun.Name.myDF.1,sep="/"),as.is=TRUE,na.strings="")
-    #data.DF.2 <- read.csv(paste(myDir.data.export,fun.Name.myDF.2,sep="/"),as.is=TRUE,na.strings="")
-    data.DF.1 <- read.csv(file.path(myDir.data.export,fun.Name.myDF.1),as.is=TRUE,na.strings="")
-    data.DF.2 <- read.csv(file.path(myDir.data.export,fun.Name.myDF.2),as.is=TRUE,na.strings="")
+    #data.DF.1 <- read.csv(paste(myDir.data.export,fun.Name.myDF.1,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+    #data.DF.2 <- read.csv(paste(myDir.data.export,fun.Name.myDF.2,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+    data.DF.1 <- read.csv(file.path(myDir.data.export,fun.Name.myDF.1),as.is=TRUE,na.strings=c("","NA"))
+    data.DF.2 <- read.csv(file.path(myDir.data.export,fun.Name.myDF.2),as.is=TRUE,na.strings=c("","NA"))
     #
     # strip non file specific columns ????
     # drop overlapping field names in data.DF.2 (typically the gage file) but keep DateTime
@@ -759,8 +759,8 @@ fun.AggregateData <- function(fun.myData.SiteID
 #
 #
 #       # Load Files
-#       data.air <- read.csv(paste(myDir.data.export,Name.File.Air,sep="/"),as.is=TRUE,na.strings="")
-#       data.water <- read.csv(paste(myDir.data.export,Name.File.Water,sep="/"),as.is=TRUE,na.strings="")
+#       data.air <- read.csv(paste(myDir.data.export,Name.File.Air,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+#       data.water <- read.csv(paste(myDir.data.export,Name.File.Water,sep="/"),as.is=TRUE,na.strings=c("","NA"))
 #       # strip non-file specific columns
 #       myNames.Order.Air <- c(myName.SiteID,myName.Date,myName.Time,myName.DateTime,myName.AirTemp,myName.LoggerID.Air,myName.RowID.Air)
 #       myNames.Order.Water <-c(myName.DateTime,myName.WaterTemp,myName.WaterP,myName.AirBP,myName.SensorDepth,myName.LoggerID.Water,myName.RowID.Water)
@@ -822,7 +822,7 @@ fun.AggregateData <- function(fun.myData.SiteID
 #       #
 #     } else if (files.match[3]==TRUE) {
 #       #
-#       data.AW <- read.csv(paste(myDir.data.export,Name.File.AW,sep="/"),as.is=TRUE,na.strings="")
+#       data.AW <- read.csv(paste(myDir.data.export,Name.File.AW,sep="/"),as.is=TRUE,na.strings=c("","NA"))
 #       #
 #     }##IF.air/water.END
 #
@@ -904,7 +904,7 @@ fun.AggregateData <- function(fun.myData.SiteID
 #   # Air
 #   if(files.match[1]==TRUE){##IF.filesmatch_air.START
 #     #
-#     data.air <- read.csv(paste(myDir.data.export,Name.File.Air,sep="/"),as.is=TRUE,na.strings="")
+#     data.air <- read.csv(paste(myDir.data.export,Name.File.Air,sep="/"),as.is=TRUE,na.strings=c("","NA"))
 #     data.plot <- data.air
 #     # cheat on Date/Time axis
 #     n.Total <- length(data.plot[,myName.Date])
@@ -927,7 +927,7 @@ fun.AggregateData <- function(fun.myData.SiteID
 #   # Water
 #   if(files.match[2]==TRUE){##IF.filesmatch_water.START
 #     #
-#     data.water <- read.csv(paste(myDir.data.export,Name.File.Water,sep="/"),as.is=TRUE,na.strings="")
+#     data.water <- read.csv(paste(myDir.data.export,Name.File.Water,sep="/"),as.is=TRUE,na.strings=c("","NA"))
 #     data.plot <- data.water
 #     # cheat on Date/Time axis
 #     n.Total <- length(data.plot[,myName.Date])

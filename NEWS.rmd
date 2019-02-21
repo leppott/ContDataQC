@@ -44,6 +44,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9012
+2019-02-21
+
+* Update plots in QC Report to ggplot.  Issues #83 and 84.
+* Import files fix, na.strings=
+    + Use c("","NA") not just "".
+
 ## v2.0.5.9011
 2019-02-19
 

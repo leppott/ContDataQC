@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-02-19 13:24:28
+    #> Last Update: 2019-02-21 10:13:18
 
 # Planned Updates
 
@@ -34,6 +34,14 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.5.9012
+
+2019-02-21
+
+  - Update plots in QC Report to ggplot. Issues \#83 and 84.
+  - Import files fix, na.strings=
+      - Use c(“”,“NA”) not just “”.
 
 ## v2.0.5.9011
 

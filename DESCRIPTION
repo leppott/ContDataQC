@@ -1,6 +1,6 @@
 Package: ContDataQC
 Title: Quality Control (QC) of Continous Monitoring Data
-Version: 2.0.5.9011
+Version: 2.0.5.9012
 Authors@R: c(
 	person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com",role=c("aut","cre")),
 	person("Ann","Roseberry Lincoln", role="ctb"),
@@ -17,13 +17,13 @@ BugReports: https://github.com/leppott/ContDataQC/issues
 Imports:
     dataRetrieval,
     doBy,
+    ggplot2,
     knitr,
     rmarkdown,
     shiny,    
     survival,
     zoo
 Suggests:
-    ggplot2,
     IHA,
     installr,
     rLakeAnalyzer,

@@ -124,7 +124,7 @@ fun.Report.File <- function(fun.myFile
     }
 
     #import the file
-    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings="")
+    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
 
 
     # pick 'report' based on prefix

@@ -244,8 +244,8 @@ fun.QC.File <- function(fun.myFile
     #data.import=read.table(strFile,header=F,varSep)
     #varSep = "\t" (use read.delim instead of read.table)
     # as.is = T so dates come in as text rather than factor
-    #data.import <- read.delim(strFile,as.is=TRUE,na.strings="")
-    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings="")
+    #data.import <- read.delim(strFile,as.is=TRUE,na.strings=c("","NA"))
+    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
     #
     # QC required fields: SiteID & (DateTime | (Date & Time))
     fun.QC.ReqFlds(names(data.import),file.path(myDir.data.import,strFile))
@@ -806,7 +806,7 @@ fun.QC.File <- function(fun.myFile
     #************************
 
 
-    #data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings="")
+    #data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings=c("","NA"))
     #
     # B.4.0. Columns
     # B.4.1. Check for DataFields  (may have already been done)

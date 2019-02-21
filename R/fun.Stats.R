@@ -140,8 +140,8 @@ fun.Stats <- function(fun.myData.SiteID
   }##IF.file.END
 
   #import the file
-  #data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings="")
-  data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings="")
+  #data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+  data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
   #
   # QC required fields: SiteID & (DateTime | (Date & Time))
   #fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
