@@ -1057,9 +1057,10 @@ Multiparameter plots if exist in the data.
         cat("\n\n")
       }##IF.Temp_Level.END  
     } else if(plot_format=="ggplot"){
+      # plot, ggplot ####
       # date to POSIX
       data.plot[, ContData.env$myName.DateTime] <- as.POSIXct(data.plot[, ContData.env$myName.DateTime])
-      # plot, ggplot ####
+      #
       if (ContData.env$myName.AirTemp %in% myParameters & ContData.env$myName.WaterTemp %in% myParameters ){##IF.Temp.START
         cat("## PLOT, Temperature (Air vs. Water) \n\n" )
         #
@@ -1074,10 +1075,10 @@ Multiparameter plots if exist in the data.
                                                                 , shape="c")) +
                     ggplot2::geom_path(ggplot2::aes_q(x=as.name(ContData.env$myName.DateTime)
                                                     , y=as.name(ContData.env$myName.AirTemp)
-                                                    , color="air")) + 
+                                                    , color="air"), na.rm=TRUE) + 
                     ggplot2::geom_path(ggplot2::aes_q(x=as.name(ContData.env$myName.DateTime)
                                                     ,y=as.name(ContData.env$myName.WaterTemp)
-                                                    , color="water")) + 
+                                                    , color="water"), na.rm=TRUE) + 
                     ggplot2::scale_x_datetime(date_labels = "%Y-%m-%d") + 
                     ggplot2::labs(title=mySiteID
                                   , x=ContData.env$myLab.Date
@@ -1119,10 +1120,10 @@ Multiparameter plots if exist in the data.
         p3_td <- ggplot2::ggplot(data=data.plot) +
                     ggplot2::geom_path(ggplot2::aes_q(x=as.name(ContData.env$myName.DateTime)
                                                     , y=as.name(ContData.env$myName.WaterTemp)
-                                                    , color="water")) + 
+                                                    , color="water"), na.rm=TRUE) + 
                     ggplot2::geom_path(ggplot2::aes_q(x=as.name(ContData.env$myName.DateTime)
                                                       ,y=as.name("depth4plot")
-                                                      , color="depth")) + 
+                                                      , color="depth"), na.rm = TRUE) + 
                     ggplot2::scale_x_datetime(date_labels = "%Y-%m-%d") + 
                     ggplot2::labs(title=mySiteID
                                   , x=ContData.env$myLab.Date

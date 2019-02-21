@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-02-21 10:13:18
+    #> Last Update: 2019-02-21 12:44:11
 
 # Planned Updates
 
@@ -34,6 +34,12 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.5.9013
+
+2019-02-21
+
+  - Update plots in Aggregate Report to ggplot. Issues \#83 and 84.
 
 ## v2.0.5.9012
 
