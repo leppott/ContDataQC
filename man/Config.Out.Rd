@@ -16,6 +16,10 @@ Config.Out(fun.myConfig = "", fun.myDir.export = getwd(),
 
 \item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
 }
+\value{
+Creates a report of the user provided configuration file.
+A copy of the configuration file is also generated with "Config_Out", date, and time as a prefix to the provided configuration file.
+}
 \description{
 Function to output configuration settings to report.
 }

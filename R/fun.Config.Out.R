@@ -7,6 +7,8 @@
 #' @param fun.myReport.format Report format (docx or html).  Default = html.
 #' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
 #'
+#' @return Creates a report of the user provided configuration file.
+#' A copy of the configuration file is also generated with "Config_Out", date, and time as a prefix to the provided configuration file.
 #' @examples
 #' # default outputs to working directory
 #' Config.Out()
@@ -17,6 +19,17 @@ Config.Out <- function(fun.myConfig=""
                        , fun.myReport.format="html"
                        , fun.myReport.Dir=""){##FUNCTION.START
 	#
+  boo_DEBUG <- FALSE
+  if(boo_DEBUG==TRUE){##IF~boo_DEBUG~START
+    fun.myConfig        <- ""
+    fun.myDir.export    <- getwd()
+    fun.myReport.format <- "html"
+    fun.myReport.Dir    <- ""
+    # Load default config
+    myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+    #source(myConfig)
+  }##IF~boo_DEBUG~START
+
   # config file load, 20170517
   if (fun.myConfig!="") {##IF.fun.myConfig.START
     config.load(fun.myConfig)
@@ -59,5 +72,19 @@ Config.Out <- function(fun.myConfig=""
     cat(Msg)
     flush.console()
   }##IF.file.exists.END
+
+  # Config Copy ####
+
+  # Config Name
+  if (fun.myConfig!="") {##IF.fun.myConfig.START
+    fn_config_in <- fun.myConfig
+  } else {
+    fn_config_in  <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  }##IF.fun.myConfig.START
+
+  fn_config_out <- paste("Config_Out", myDate, myTime, basename(fn_config_in), sep="_")
+  file.copy(fn_config_in, file.path(fun.myDir.export, fn_config_out))
+
+  #
 	#
 }##FUNCTION.END
