@@ -161,8 +161,8 @@ PeriodStats <- function(fun.myDate
                        )
 {##FUN.fun.Stats.START
   # 00. Debugging Variables####
-  boo.DEBUG <- 0
-  if(boo.DEBUG==1) {##IF.boo.DEBUG.START
+  boo_DEBUG <- FALSE
+  if(boo_DEBUG==TRUE) {##IF.boo_DEBUG.START
     fun.myDate <- "2013-09-30"
     fun.myDate.Format <- "%Y-%m-%d"
     fun.myPeriod.N = c(30, 60, 90, 120, 1)
@@ -182,7 +182,7 @@ PeriodStats <- function(fun.myDate
     #ContData.env <- new.env(parent = emptyenv()) # in config.R
     source(file.path(getwd(),"R","config.R"), local=TRUE)
     # might have to load manually
-  }##IF.boo.DEBUG.END
+  }##IF.boo_DEBUG.END
 
   # 0a.0. Load environment
   # config file load, 20170517
@@ -248,7 +248,9 @@ PeriodStats <- function(fun.myDate
   param.len <- length(fun.myParam.Name)
 
   # Loop, Stats ####
-  i <- fun.myParam.Name[1]
+  if(boo_DEBUG==TRUE) {##IF.boo_DEBUG.START
+    i <- fun.myParam.Name[1]
+  }##IF.boo_DEBUG.END
   # 20181114, added for 2nd parameter
   for (i in fun.myParam.Name){##FOR.i.START
     #
@@ -442,7 +444,7 @@ PeriodStats <- function(fun.myDate
   #myReport.Name <- paste0("Report_PeriodStats","_",fun.myReport.format)
   myReport.Name <- "Report_PeriodStats"
   myPkg <- "ContDataQC"
-  if(boo.DEBUG==1){
+  if(boo_DEBUG==TRUE){
     strFile.RMD <- file.path(getwd(),"inst","rmd",paste0(myReport.Name,".rmd")) # for testing
   } else {
     #strFile.RMD <- system.file(paste0("rmd/",myReport.Name,".rmd"),package=myPkg)

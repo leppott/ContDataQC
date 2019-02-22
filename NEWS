@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-02-21 12:44:11
+    #> Last Update: 2019-02-22 10:16:43
 
 # Planned Updates
 
@@ -34,6 +34,14 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.5.9014
+
+2019-02-22
+
+  - Update code to allow for plots in PeriodStats Report to use ggplot.
+    Issues \#83 and 84.
+      - Incomplete. Still using base graphics.
 
 ## v2.0.5.9013
 

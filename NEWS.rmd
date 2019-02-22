@@ -44,6 +44,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9014
+2019-02-22
+
+* Update code to allow for plots in PeriodStats Report to use ggplot.  Issues #83 and 84.
+    + Incomplete.  Still using base graphics.
+
 ## v2.0.5.9013
 2019-02-21
 
