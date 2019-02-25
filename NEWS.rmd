@@ -44,6 +44,18 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9016
+2019-02-25
+
+* Ensure the package can handle "LakeID~Depth" as "SiteID"
+    + Add Lake delimiter to Config files.
+        - ContData.env$myDelim_LakeID <- "~"
+* Reporte_Aggregate.rmd
+    + Turn on ggplot for dual parameter plots.
+* ContDataQC
+    + Add example (and data) for File Aggregate with Lake data.  Issue #85.
+* Add a "Lakes" vignette.
+
 ## v2.0.5.9015
 2019-02-22
 

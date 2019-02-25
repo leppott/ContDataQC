@@ -235,7 +235,7 @@ Multiparameter plots if exist in the data.
     data.plot <- data.import
 
 
-    plot_format <- "base" # "base" or "ggplot"
+    plot_format <- "ggplot" # "base" or "ggplot"
     #
     if(plot_format=="base"){##IF~plot_format~START
     # plot, base ####

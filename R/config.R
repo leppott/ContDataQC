@@ -40,6 +40,7 @@ ContData.env <- new.env(parent = emptyenv())
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Delimiter in File Names (e.g., test2_AW_201301_20131231.csv)
 ContData.env$myDelim <- "_"
+ContData.env$myDelim_LakeID <- "~"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Acceptable column names for the data ####
 ## Basic

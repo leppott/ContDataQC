@@ -53,6 +53,12 @@ Below are the default data directories assumed to exist in the working directory
 ./Data3_Aggregated/ = Repository for library output for aggregated (or split) files.
 
 ./Data4_Stats/ = Repository for library output for statistical summary files.
+
+It is possible to call the Aggregate file portion of the script to meld together files
+from multiple sites (e.g., all sites in a watershed or from different depths on a lake).
+The file will be named by the first file named with "Append_x" where "x" is the
+number of files that were aggregated.  The purpose is to allow users to analyze the
+data in these files from a single file.
 }
 \examples{
 # Install Pandoc (for docx Reports)
@@ -192,8 +198,8 @@ ContDataQC(myData.Operation, fun.myDir.import=myDir.import
 
 # Aggregate Data
 myData.Operation <- "Aggregate" #Selection.Operation[3]
-myFile <- c("QC_test2_AW_20130426_20130725.csv", "QC_test2_AW_20130725_20131015.csv"
-           , "QC_test2_AW_20140901_20140930.csv")
+myFile <- c("QC_test2_Aw_20130426_20130725.csv", "QC_test2_Aw_20130725_20131015.csv"
+           , "QC_test2_Aw_20140901_20140930.csv")
 myDir.import <- file.path(".","Data2_QC")
 myDir.export <- file.path(".","Data3_Aggregated")
 myReport.format <- "html"
@@ -237,4 +243,23 @@ myDir.import <- getwd()
 myDir.export <- getwd()
 ContDataQC(myData.Operation, fun.myDir.import=myDir.import
                      , fun.myDir.export=myDir.export, fun.myFile=myFile)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Lake Data, Aggregate
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Save example data (assumes directory exists)
+myFile <- c("QC_Ellis~1.0m_Water_20180524_20180918.csv", "QC_Ellis~3.0m_Water_20180524_20180918.csv")
+file.copy(file.path(system.file("extdata", package="ContDataQC"), myFile)
+, file.path(getwd(), Selection.SUB[3], myFile))
+
+# Aggregate Data
+myData.Operation <- "Aggregate" #Selection.Operation[3]
+#myFile <- c("QC_Ellis~1.0m_Water_20180524_20180918.csv", "QC_Ellis~3.0m_Water_20180524_20180918.csv")
+myDir.import <- file.path(".","Data2_QC")
+myDir.export <- file.path(".","Data3_Aggregated")
+myReport.format <- "html"
+ContDataQC(myData.Operation, fun.myDir.import=myDir.import
+           , fun.myDir.export=myDir.export, fun.myFile=myFile
+           , fun.myReport.format=myReport.format)
+
 }

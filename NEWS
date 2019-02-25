@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-02-22 11:13:20
+    #> Last Update: 2019-02-25 16:29:18
 
 # Planned Updates
 
@@ -34,6 +34,20 @@ NEWS-ContDataQC
       - Excel file update (see 9/28 email)
 
 # Version History
+
+## v2.0.5.9016
+
+2019-02-25
+
+  - Ensure the package can handle “LakeID~Depth” as “SiteID”
+      - Add Lake delimiter to Config files.
+          - ContData.env$myDelim\_LakeID \<- “~”
+  - Reporte\_Aggregate.rmd
+      - Turn on ggplot for dual parameter plots.
+  - ContDataQC
+      - Add example (and data) for File Aggregate with Lake data. Issue
+        \#85.
+  - Add a “Lakes” vignette.
 
 ## v2.0.5.9015
 

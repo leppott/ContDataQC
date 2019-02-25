@@ -38,6 +38,7 @@
 # #####################################################################
 # # Delimiter in File Names (e.g., test2_AW_201301_20131231.csv)
 # ContData.env$myDelim <- "_"
+# ContData.env$myDelim_LakeID <- "~"
 # #####################################################################
 # # Acceptable column names for the data
 # #(special characters (e.g., %, space, or /) are converted to "." by R, "deg" converted to "A")
