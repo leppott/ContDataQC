@@ -94,11 +94,11 @@ library(devtools)
 # Create Package
 # create(myLibrary)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
+dir_base <- "C:/Users/Erik.Leppo/OneDrive - Tetra Tech, Inc/MyDocs_OneDrive/GitHub/"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Document, Install, and Reload Library
 ## Generate Documentation
-setwd(paste0("./",myLibrary))
+setwd(file.path(dir_base, myLibrary))
 devtools::document()
 ## Install New Package (locally)
 setwd("..") # return to root directory first
@@ -106,7 +106,7 @@ devtools::install(myLibrary)
 ## Reload library
 library(myLibrary,character.only = TRUE)
 # change wd back to package
-setwd(paste0("./",myLibrary))
+setwd(file.path(dir_base, myLibrary))
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
