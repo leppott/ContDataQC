@@ -44,10 +44,16 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9018
+2019-03-07
+
+* ReadMe
+    + Add link for config file modifications.  Issue #86
+
 ## v2.0.5.9017
 2019-03-05
 
-* Vignette for editing config file.
+* Vignette for editing config file.  Issue #86
 
 ## v2.0.5.9016
 2019-02-25

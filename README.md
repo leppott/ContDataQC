@@ -3,7 +3,7 @@ README-ContDataQC
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-01-31 10:23:18
+    #> Last Update: 2019-03-07 09:32:18
 
 # ContDataQC
 
@@ -172,3 +172,5 @@ YouTube video links below.
       - <https://youtu.be/zlq1YDPTBsw>
   - Gage Data
       - <https://youtu.be/vXyvp9r2tv4>
+  - Config File Modifications
+      - <https://youtu.be/LCHnFs-AdXc>

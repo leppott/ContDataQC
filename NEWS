@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-03-05 13:03:27
+    #> Last Update: 2019-03-07 09:32:40
 
 # Planned Updates
 
@@ -35,11 +35,18 @@ NEWS-ContDataQC
 
 # Version History
 
+## v2.0.5.9018
+
+2019-03-07
+
+  - ReadMe
+      - Add link for config file modifications. Issue \#86
+
 ## v2.0.5.9017
 
 2019-03-05
 
-  - Vignette for editing config file.
+  - Vignette for editing config file. Issue \#86
 
 ## v2.0.5.9016
 
