@@ -41,8 +41,17 @@ cat(paste0("Last Update: ",Sys.time()))
     + Update vignette
     + Threshold number or pct on plot
     + Excel file update (see 9/28 email)
+    
+* PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9018
+2019-03-26
+
+* Report_PeriodStats.rmd
+    + Points to lines.
+    + Add min/max shaded
 
 ## v2.0.5.9018
 2019-03-07

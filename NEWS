@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-03-07 09:32:40
+    #> Last Update: 2019-03-26 21:09:27
 
 # Planned Updates
 
@@ -33,7 +33,17 @@ NEWS-ContDataQC
       - Threshold number or pct on plot
       - Excel file update (see 9/28 email)
 
+  - PeriodStats, standardize range of y-axis for each time period.
+
 # Version History
+
+## v2.0.5.9018
+
+2019-03-26
+
+  - Report\_PeriodStats.rmd
+      - Points to lines.
+      - Add min/max shaded
 
 ## v2.0.5.9018
 

@@ -86,10 +86,17 @@ for (m in fun.myParam.Name){##FOR.m.START
       # main
       str_main <- paste0(fun.myDate," \n(",fun.myPeriod.N[n],fun.myPeriod.Units[n],")")
       # plot
-      plot(df.plot[,1:2], main=str_main)
-      # Add line
+      plot(df.plot[, 1:2], main=str_main, type="n")
+      # Add min/max range
+      myCol_minmax <- "light gray"
+      lines(df.plot[, c(1,5)], col=myCol_minmax) #max
+      lines(df.plot[, c(1,4)], col=myCol_minmax) #min
+      polygon(c(df.plot[, 1], rev(df.plot[, 1]))
+              , c(df.plot[, 5],rev(df.plot[, 4])), col=myCol_minmax, border=NA)
+      lines(df.plot[, 1:2], lwd=1) # mean (replot on top)
+            # Add line
       if(!is.na(fun.myThreshold)){##IF.threshold.START
-        abline(h=fun.myThreshold)
+        abline(h=fun.myThreshold, col="blue", lty="dashed")
       }##IF.threshold.END
       #
     } else if(plot_format=="ggplot"){
@@ -175,7 +182,8 @@ if(param.len==2){##IF.len.START
     plot(df.plot.multi[,1:2]
          , main=paste0(fun.myDate," \n(",fun.myPeriod.N[p],fun.myPeriod.Units[p],")")
          , col=col.Y
-         , pch=pch.Y
+         #, pch=pch.Y
+         , type="l"
          )
     # Add line
     if(!is.na(fun.myThreshold)){
@@ -186,7 +194,8 @@ if(param.len==2){##IF.len.START
     par(new=TRUE)
     plot(df.plot.multi[,c(1,3)]
          , col=col.Y2
-         , pch=pch.Y2
+         #, pch=pch.Y2
+         , type="l"
          , axes=FALSE
          , ann=FALSE)
     # Y2, axis numbers
