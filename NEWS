@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-03-26 21:09:27
+    #> Last Update: 2019-04-02 13:22:38
 
 # Planned Updates
 
@@ -37,11 +37,18 @@ NEWS-ContDataQC
 
 # Version History
 
-## v2.0.5.9018
+## v2.0.5.9020
+
+2019-04-02
+
+  - Update version number.
+      - Repeated 9018.
+
+## v2.0.5.9019
 
 2019-03-26
 
-  - Report\_PeriodStats.rmd
+  - Report\_PeriodStats.rmd, Issue \#76
       - Points to lines.
       - Add min/max shaded
 
