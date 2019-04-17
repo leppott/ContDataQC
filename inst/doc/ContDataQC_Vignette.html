@@ -11,7 +11,7 @@
 
 <meta name="author" content="Erik W. Leppo" />
 
-<meta name="date" content="2019-03-05" />
+<meta name="date" content="2019-04-17" />
 
 <title>ContDataQC Vignette</title>
 
@@ -256,9 +256,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type="text/css">
 .main-container {
@@ -289,8 +287,6 @@ summary {
 </style>
 
 
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -365,14 +361,23 @@ $(document).ready(function () {
 
 
 
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
 
 <div class="fluid-row" id="header">
 
 
 
 <h1 class="title toc-ignore">ContDataQC Vignette</h1>
-<h4 class="author"><em>Erik W. Leppo</em></h4>
-<h4 class="date"><em>2019-03-05</em></h4>
+<h4 class="author">Erik W. Leppo</h4>
+<h4 class="date">2019-04-17</h4>
 
 </div>
 
@@ -536,19 +541,19 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 ## 533       0.01       NGVD29 01080207           uv   00065    &lt;NA&gt; 66867
 ##     loc_web_ds medium_grp_cd parm_grp_cd   srs_id access_cd begin_date
 ## 530       &lt;NA&gt;           wat        &lt;NA&gt;  1645597         0 2015-11-04
-## 531       &lt;NA&gt;           wat        &lt;NA&gt;  1645720         0 2018-11-05
+## 531       &lt;NA&gt;           wat        &lt;NA&gt;  1645720         0 2018-12-18
 ## 532       &lt;NA&gt;           wat        &lt;NA&gt;  1645423         0 1990-10-01
 ## 533       &lt;NA&gt;           wat        &lt;NA&gt; 17164583         0 2007-10-01
 ##       end_date count_nu
-## 530 2019-03-05     1217
-## 531 2019-03-05      120
-## 532 2019-03-05    10382
-## 533 2019-03-05     4173
+## 530 2019-04-17     1260
+## 531 2019-04-17      120
+## 532 2019-04-17    10425
+## 533 2019-04-17     4216
 ## 
 ## 
 ## [1] &quot;Processing item 1 of 1, COMPLETE, 01187300.&quot;
 ## 
-## [1] &quot;Task COMPLETE; 0.46 min.&quot;</code></pre>
+## [1] &quot;Task COMPLETE; 0.55 min.&quot;</code></pre>
 <p>Example of getting gage data in a different time zone specified in user modified configuration file.</p>
 <pre class="r"><code># Parameters
 Selection.Operation &lt;- c(&quot;GetGageData&quot;,&quot;QCRaw&quot;, &quot;Aggregate&quot;, &quot;SummaryStats&quot;)
@@ -2045,8 +2050,7 @@ knitr::kable(head(df_CDQC), caption = &quot;Example ContDataQC to rLakeAnalyze f
 <pre class="r"><code>#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Plot original data in ggplot
 library(ggplot2)</code></pre>
-<pre><code>## Need help? Try Stackoverflow:
-## https://stackoverflow.com/tags/ggplot2.</code></pre>
+<pre><code>## Warning: package 'ggplot2' was built under R version 3.5.3</code></pre>
 <pre class="r"><code># Plot, Create
 p &lt;- ggplot(df_CDQC, aes(x=Date.Time, y=temp_F)) +
        geom_point(aes(color=Depth)) +

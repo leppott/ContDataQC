@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-04-02 13:22:38
+    #> Last Update: 2019-04-17 15:15:13
 
 # Planned Updates
 
@@ -36,6 +36,14 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9021
+
+2019-04-17
+
+  - Add formatting directions for Hoboware files.
+      - extdata powerpoint
+      - Meta PDF
 
 ## v2.0.5.9020
 
