@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-04-17 15:15:13
+    #> Last Update: 2019-05-02 09:25:52
 
 # Planned Updates
 
@@ -36,6 +36,13 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9022
+
+2019-05-02
+
+  - DESCRIPTION
+      - StagedInstall = false for R v3.6.0. Issue \#88.
 
 ## v2.0.5.9021
 

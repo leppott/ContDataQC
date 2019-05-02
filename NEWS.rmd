@@ -46,6 +46,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9022
+2019-05-02
+
+* DESCRIPTION
+    + StagedInstall = false for R v3.6.0.  Issue #88.
+
 ## v2.0.5.9021
 2019-04-17
 
