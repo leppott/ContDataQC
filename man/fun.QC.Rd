@@ -4,9 +4,10 @@
 \alias{fun.QC}
 \title{Quality Control}
 \usage{
-fun.QC(fun.myData.SiteID, fun.myData.Type = "QC", fun.myData.DateRange.Start,
-  fun.myData.DateRange.End, fun.myDir.import = "", fun.myDir.export = "",
-  fun.myReport.format, fun.myReport.Dir, fun.CreateReport = TRUE)
+fun.QC(fun.myData.SiteID, fun.myData.Type = "QC",
+  fun.myData.DateRange.Start, fun.myData.DateRange.End,
+  fun.myDir.import = "", fun.myDir.export = "", fun.myReport.format,
+  fun.myReport.Dir, fun.CreateReport = TRUE)
 }
 \arguments{
 \item{fun.myData.SiteID}{Station/SiteID.}

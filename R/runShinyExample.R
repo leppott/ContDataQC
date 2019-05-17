@@ -17,11 +17,11 @@
 #' @export
 runShinyExample <- function(){##FUNCTION.START
   #
-  appDir <- system.file("shiny-examples", "ContDataQC", package = "ContDataQC")
-  if (appDir == "") {
+  #appDir <- system.file("shiny-examples", "ContDataQC", package = "ContDataQC")
+  if (system.file("shiny-examples", "ContDataQC", package = "ContDataQC") == "") {
     stop("Could not find example directory. Try re-installing `ContDataQC`.", call. = FALSE)
   }
 
-  shiny::runApp(appDir, display.mode = "normal")
+  shiny::runApp(system.file("shiny-examples", "ContDataQC", package = "ContDataQC"), display.mode = "normal")
   #
 }##FUNCTION.END

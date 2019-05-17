@@ -3,18 +3,35 @@ README-ContDataQC
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-03-07 09:32:18
+    #> Last Update: 2019-05-17 09:23:59
 
 # ContDataQC
 
 Quality control checks on continuous data. Example data is from a HOBO
-data logger with 30 minute intervals.
+data logger with 30 minute
+intervals.
+
+## Badges
+
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/leppott/ContDataQC/graphs/commit-activity)
+[![GitHub
+license](https://img.shields.io/github/license/leppott/ContDataQC.svg)](https://github.com/leppott/ContDataQC/blob/master/LICENSE)
+[![Travis-CI Build
+Status](https://travis-ci.org/leppott/ContDataQC.svg?branch=master)](https://travis-ci.org/leppott/ContDataQC)
+[![GitHub
+issues](https://img.shields.io/github/issues/leppott/ContDataQC.svg)](https://GitHub.com/leppott/ContDataQC/issues/)
+
+[![GitHub
+release](https://img.shields.io/github/release/leppott/ContDataQC.svg)](https://GitHub.com/leppott/ContDataQC/releases/)
+[![Github all
+releases](https://img.shields.io/github/downloads/leppott/ContDataQC/total.svg)](https://GitHub.com/leppott/ContDataQC/releases/)
 
 ## Installation
 
 ``` r
 # Installing just this library (should get all dependancies)
 library(devtools) 
+Sys.setenv("TAR" = "internal") # needed if using R v3.6.0 or later
 install_github("leppott/ContDataQC")
 ```
 
@@ -26,6 +43,7 @@ below.
 ``` r
 # Installing just this library (should get all dependancies)
 library(devtools) 
+Sys.setenv("TAR" = "internal")
 install_github("leppott/ContDataQC", force=TRUE, build_vignettes=TRUE)
 ```
 

@@ -46,6 +46,17 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9024
+2019-05-17
+
+* Fix for R v3.6.0 staged install, Issue #88.
+    + DESCRIPTION
+        - Remove StagedInstall: no
+    + README
+        - Installation instructions, added extra line for devtools to work properly.
+* README
+    + Add badges.
+
 ## v2.0.5.9023
 2019-05-02
 

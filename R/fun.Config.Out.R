@@ -78,12 +78,26 @@ Config.Out <- function(fun.myConfig=""
   # Config Name
   if (fun.myConfig!="") {##IF.fun.myConfig.START
     fn_config_in <- fun.myConfig
+    fn_config_out <- paste("Config_Out", myDate, myTime, basename(fn_config_in), sep="_")
+    file.copy(fn_config_in, file.path(fun.myDir.export, fn_config_out))
   } else {
-    fn_config_in  <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+    #fn_config_in  <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+    # fn_config_out <- paste("Config_Out"
+    #                        , myDate
+    #                        , myTime
+    #                        , basename(file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")), sep="_")
+    file.copy(file.path(system.file(package="ContDataQC")
+                        , "extdata", "config.ORIG.R")
+              , file.path(fun.myDir.export
+                          , paste("Config_Out"
+                                  , myDate
+                                  , myTime
+                                  , basename(file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R"))
+                                  , sep="_")))
   }##IF.fun.myConfig.START
 
-  fn_config_out <- paste("Config_Out", myDate, myTime, basename(fn_config_in), sep="_")
-  file.copy(fn_config_in, file.path(fun.myDir.export, fn_config_out))
+  # fn_config_out <- paste("Config_Out", myDate, myTime, basename(fn_config_in), sep="_")
+  # file.copy(fn_config_in, file.path(fun.myDir.export, fn_config_out))
 
   #
 	#
