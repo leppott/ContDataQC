@@ -4,8 +4,7 @@
 \alias{Export.StreamThermal}
 \title{Export data for StreamThermal package}
 \usage{
-Export.StreamThermal(fun.myDF,
-  fun.col.SiteID = ContData.env$myName.SiteID,
+Export.StreamThermal(fun.myDF, fun.col.SiteID = ContData.env$myName.SiteID,
   fun.col.Date = ContData.env$myName.Date,
   fun.col.Temp = ContData.env$myName.WaterTemp)
 }
