@@ -49,6 +49,11 @@ cat(paste0("Last Update: ",Sys.time()))
 ## v2.0.5.9025
 2019-06-11
 
+* Add pkgdown website.
+
+## v2.0.5.9025
+2019-06-11
+
 * Update config vignette to be more specific on modifying variables.
 
 ## v2.0.5.9024
