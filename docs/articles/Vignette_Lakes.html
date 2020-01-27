@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9026</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9027</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       <h1>ContDataQC Lake ID String Vignette</h1>
                         <h4 class="author">Erik W. Leppo</h4>
             
-            <h4 class="date">2019-11-05</h4>
+            <h4 class="date">2020-01-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/leppott/ContDataQC/blob/master/vignettes/Vignette_Lakes.Rmd"><code>vignettes/Vignette_Lakes.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette_Lakes.Rmd</code></div>
@@ -100,7 +100,7 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p><code>ContDataQC</code> was created by Tetra Tech, Inc. for USEPA in 2017 to meet the needs of the Regional Monitoring Networks to apply a minimum level of quality control to the continuous monitoring data they were collecting.</p>
+<p><code>ContDataQC</code> was created by Tetra Tech, Inc. for USEPA in 2017 to meet the needs of the Regional Monitoring Networks to apply a minimum level of quality control to the continuous monitoring data they were collecting.</p>
 <p>It is envisioned that this library can be a living package and will add additional functions and routines in the future.</p>
 <p>Many of the examples in this vignette are included in the examples in the corresponding functions. Each function in the <code>ContDataQC</code> library includes example data.</p>
 <p>The typical user of this package is envisioned as a user of Hobo or other continuous data loggers. Measured parameters are water temperature, sensor depth, air temperature, water pressure, and air pressure. The typical user will retrieve data from their data logger using Hoboware. Once the data is extracted from the logger and save some minimal cleanup to the column heades is performed before using the ‘ContDataQC’ R library.</p>
@@ -113,119 +113,119 @@
 <div id="site-id" class="section level2">
 <h2 class="hasAnchor">
 <a href="#site-id" class="anchor"></a>Site ID</h2>
-<p>The <code>ContDataQC</code> package is set up to handle a single “SiteID” field. This is not appropriate for measurements at different depths for a single location. To work around this the package uses a delimiter, “~”, between the SiteID and depth (units optional). For example “Ellis~1.0m” would be entered into the “SiteID” field.</p>
+<p>The <code>ContDataQC</code> package is set up to handle a single “SiteID” field. This is not appropriate for measurements at different depths for a single location. To work around this the package uses a delimiter, “<sub>“, between the SiteID and depth (units optional). For example”Ellis</sub>1.0m” would be entered into the “SiteID” field.</p>
 </div>
 </div>
 <div id="formathobo" class="section level1">
 <h1 class="hasAnchor">
 <a href="#formathobo" class="anchor"></a>FormatHobo</h1>
 <p>The Format function works the same on depth profile data files.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Packages</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ContDataQC)</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Parameters</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># Selection.Operation &lt;- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># Selection.Type      &lt;- c("Air","Water","AW","Gage","AWG","AG","WG")</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Selection.SUB &lt;- c("Data0_Original", "Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>myDir.BASE &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>()</span>
-<span id="cb1-9"><a href="#cb1-9"></a></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># Function Inputs</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a>fn1 &lt;-<span class="st"> "Ellis~1.0m_Water_20180524_20180918.csv"</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a>fn2 &lt;-<span class="st"> "Ellis~3.0m_Water_20180524_20180918.csv"</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a></span>
-<span id="cb1-14"><a href="#cb1-14"></a>myFiles &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(fn1, fn2)</span>
-<span id="cb1-15"><a href="#cb1-15"></a>myDir.import &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>(), <span class="st">"Data0_Original"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16"></a>myDir.export &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>(), <span class="st">"Data1_RAW"</span>)</span>
-<span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a>myFormat =<span class="st"> "YMD"</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co"># Run Function (with default config)</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="kw"><a href="../reference/formatHobo.html">formatHobo</a></span>(myFiles, myDir.import, myDir.export, <span class="dt">fun.HoboDateFormat=</span>myFormat)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Packages</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ContDataQC)
+
+<span class="co"># Parameters</span>
+<span class="co"># Selection.Operation &lt;- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")</span>
+<span class="co"># Selection.Type      &lt;- c("Air","Water","AW","Gage","AWG","AG","WG")</span>
+<span class="co"># Selection.SUB &lt;- c("Data0_Original", "Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")</span>
+myDir.BASE &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>()
+
+<span class="co"># Function Inputs</span>
+fn1 &lt;-<span class="st"> "Ellis~1.0m_Water_20180524_20180918.csv"</span>
+fn2 &lt;-<span class="st"> "Ellis~3.0m_Water_20180524_20180918.csv"</span>
+
+myFiles &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(fn1, fn2)
+myDir.import &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>(), <span class="st">"Data0_Original"</span>)
+myDir.export &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>(), <span class="st">"Data1_RAW"</span>)
+
+myFormat =<span class="st"> "YMD"</span>
+
+<span class="co"># Run Function (with default config)</span>
+<span class="kw"><a href="../reference/formatHobo.html">formatHobo</a></span>(myFiles, myDir.import, myDir.export, <span class="dt">fun.HoboDateFormat=</span>myFormat)</code></pre></div>
 <div id="qc" class="section level2">
 <h2 class="hasAnchor">
 <a href="#qc" class="anchor"></a>QC</h2>
 <p>The QC function works the same on depth profile data files.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Packages</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ContDataQC)</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Parameters</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>Selection.Operation &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"GetGageData"</span>,<span class="st">"QCRaw"</span>, <span class="st">"Aggregate"</span>, <span class="st">"SummaryStats"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6"></a>Selection.Type      &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Air"</span>,<span class="st">"Water"</span>,<span class="st">"AW"</span>,<span class="st">"Gage"</span>,<span class="st">"AWG"</span>,<span class="st">"AG"</span>,<span class="st">"WG"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7"></a>Selection.SUB &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Data0_Original"</span>, <span class="st">"Data1_RAW"</span>,<span class="st">"Data2_QC"</span>,<span class="st">"Data3_Aggregated"</span>,<span class="st">"Data4_Stats"</span>)</span>
-<span id="cb2-8"><a href="#cb2-8"></a>myDir.BASE &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>()</span>
-<span id="cb2-9"><a href="#cb2-9"></a></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># Files</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>fn1 &lt;-<span class="st"> "Ellis~1.0m_Water_20180524_20180918.csv"</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a>fn2 &lt;-<span class="st"> "Ellis~3.0m_Water_20180524_20180918.csv"</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co"># QC Data</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a>myData.Operation &lt;-<span class="st"> "QCRaw"</span> <span class="co">#Selection.Operation[2]</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a>myFile &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(fn1, fn2)</span>
-<span id="cb2-17"><a href="#cb2-17"></a>myDir.import &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"."</span>,<span class="st">"Data1_RAW"</span>)</span>
-<span id="cb2-18"><a href="#cb2-18"></a>myDir.export &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"."</span>,<span class="st">"Data2_QC"</span>)</span>
-<span id="cb2-19"><a href="#cb2-19"></a>myReport.format &lt;-<span class="st"> "html"</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a><span class="kw"><a href="../reference/ContDataQC.html">ContDataQC</a></span>(myData.Operation, <span class="dt">fun.myDir.import=</span>myDir.import</span>
-<span id="cb2-21"><a href="#cb2-21"></a>          , <span class="dt">fun.myDir.export=</span>myDir.export, <span class="dt">fun.myFile=</span>myFile</span>
-<span id="cb2-22"><a href="#cb2-22"></a>          , <span class="dt">fun.myReport.format=</span>myReport.format)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Packages</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ContDataQC)
+
+<span class="co"># Parameters</span>
+Selection.Operation &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"GetGageData"</span>,<span class="st">"QCRaw"</span>, <span class="st">"Aggregate"</span>, <span class="st">"SummaryStats"</span>)
+Selection.Type      &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Air"</span>,<span class="st">"Water"</span>,<span class="st">"AW"</span>,<span class="st">"Gage"</span>,<span class="st">"AWG"</span>,<span class="st">"AG"</span>,<span class="st">"WG"</span>)
+Selection.SUB &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Data0_Original"</span>, <span class="st">"Data1_RAW"</span>,<span class="st">"Data2_QC"</span>,<span class="st">"Data3_Aggregated"</span>,<span class="st">"Data4_Stats"</span>)
+myDir.BASE &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>()
+
+<span class="co"># Files</span>
+fn1 &lt;-<span class="st"> "Ellis~1.0m_Water_20180524_20180918.csv"</span>
+fn2 &lt;-<span class="st"> "Ellis~3.0m_Water_20180524_20180918.csv"</span>
+
+<span class="co"># QC Data</span>
+myData.Operation &lt;-<span class="st"> "QCRaw"</span> <span class="co">#Selection.Operation[2]</span>
+myFile &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(fn1, fn2)
+myDir.import &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"."</span>,<span class="st">"Data1_RAW"</span>)
+myDir.export &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"."</span>,<span class="st">"Data2_QC"</span>)
+myReport.format &lt;-<span class="st"> "html"</span>
+<span class="kw"><a href="../reference/ContDataQC.html">ContDataQC</a></span>(myData.Operation, <span class="dt">fun.myDir.import=</span>myDir.import
+          , <span class="dt">fun.myDir.export=</span>myDir.export, <span class="dt">fun.myFile=</span>myFile
+          , <span class="dt">fun.myReport.format=</span>myReport.format)</code></pre></div>
 </div>
 <div id="aggregate" class="section level2">
 <h2 class="hasAnchor">
 <a href="#aggregate" class="anchor"></a>Aggregate</h2>
 <p>The file version of the aggregate function will merge all file provided in the fun.myFile parameter passed to ContDatQC(). The resulting file will have the name of the first file with “Append_X”. Where “X” will be the number of files that were aggregated.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Packages</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ContDataQC)</span>
-<span id="cb3-3"><a href="#cb3-3"></a></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># Files</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>myFile &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"QC_Ellis~1.0m_Water_20180524_20180918.csv"</span>, <span class="st">"QC_Ellis~3.0m_Water_20180524_20180918.csv"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6"></a></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># Aggregate Data</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>myData.Operation &lt;-<span class="st"> "Aggregate"</span> <span class="co">#Selection.Operation[3]</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a>myFile &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"QC_Ellis~1.0m_Water_20180524_20180918.csv"</span>, <span class="st">"QC_Ellis~3.0m_Water_20180524_20180918.csv"</span>)</span>
-<span id="cb3-10"><a href="#cb3-10"></a>myDir.import &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"."</span>,<span class="st">"Data2_QC"</span>)</span>
-<span id="cb3-11"><a href="#cb3-11"></a>myDir.export &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"."</span>,<span class="st">"Data3_Aggregated"</span>)</span>
-<span id="cb3-12"><a href="#cb3-12"></a>myReport.format &lt;-<span class="st"> "html"</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="kw"><a href="../reference/ContDataQC.html">ContDataQC</a></span>(myData.Operation, <span class="dt">fun.myDir.import=</span>myDir.import</span>
-<span id="cb3-14"><a href="#cb3-14"></a>           , <span class="dt">fun.myDir.export=</span>myDir.export, <span class="dt">fun.myFile=</span>myFile</span>
-<span id="cb3-15"><a href="#cb3-15"></a>           , <span class="dt">fun.myReport.format=</span>myReport.format)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Packages</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ContDataQC)
+
+<span class="co"># Files</span>
+myFile &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"QC_Ellis~1.0m_Water_20180524_20180918.csv"</span>, <span class="st">"QC_Ellis~3.0m_Water_20180524_20180918.csv"</span>)
+
+<span class="co"># Aggregate Data</span>
+myData.Operation &lt;-<span class="st"> "Aggregate"</span> <span class="co">#Selection.Operation[3]</span>
+myFile &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"QC_Ellis~1.0m_Water_20180524_20180918.csv"</span>, <span class="st">"QC_Ellis~3.0m_Water_20180524_20180918.csv"</span>)
+myDir.import &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"."</span>,<span class="st">"Data2_QC"</span>)
+myDir.export &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"."</span>,<span class="st">"Data3_Aggregated"</span>)
+myReport.format &lt;-<span class="st"> "html"</span>
+<span class="kw"><a href="../reference/ContDataQC.html">ContDataQC</a></span>(myData.Operation, <span class="dt">fun.myDir.import=</span>myDir.import
+           , <span class="dt">fun.myDir.export=</span>myDir.export, <span class="dt">fun.myFile=</span>myFile
+           , <span class="dt">fun.myReport.format=</span>myReport.format)</code></pre></div>
 </div>
 <div id="parse-id" class="section level2">
 <h2 class="hasAnchor">
 <a href="#parse-id" class="anchor"></a>Parse ID</h2>
 <p>An additional function, “ParseID”, is provided to parse the combined ID string with SiteID, depth, and units into 3 separate fields. The original SiteID is copied to SiteID_original and then the SiteID, depth, and depth_units are then populated. The configuration file contains the desired delimiter (defaulted as “~”).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Parse ID string and save</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>dir_files &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"./Data3_Aggregated"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span>(dir_files)</span>
-<span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a>fun.myFileName.In &lt;-<span class="st"> "DATA_QC_Ellis~1.0m_Water_20180524_20180918_Append_2.csv"</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>fun.myFileName.Out &lt;-<span class="st"> "Ellis_FixedID.csv"</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a>fun.ColName.ID &lt;-<span class="st"> "SiteID"</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>fun.Delim &lt;-<span class="st"> "~"</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="kw"><a href="../reference/fun.ParseID.html">fun.ParseID</a></span>(fun.myFileName.In</span>
-<span id="cb4-11"><a href="#cb4-11"></a>            , fun.myFileName.Out</span>
-<span id="cb4-12"><a href="#cb4-12"></a>            , fun.ColName.ID</span>
-<span id="cb4-13"><a href="#cb4-13"></a>            , fun.Delim)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Parse ID string and save</span>
+dir_files &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"./Data3_Aggregated"</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span>(dir_files)
+
+fun.myFileName.In &lt;-<span class="st"> "DATA_QC_Ellis~1.0m_Water_20180524_20180918_Append_2.csv"</span>
+fun.myFileName.Out &lt;-<span class="st"> "Ellis_FixedID.csv"</span>
+fun.ColName.ID &lt;-<span class="st"> "SiteID"</span>
+fun.Delim &lt;-<span class="st"> "~"</span>
+
+<span class="kw"><a href="../reference/fun.ParseID.html">fun.ParseID</a></span>(fun.myFileName.In
+            , fun.myFileName.Out
+            , fun.ColName.ID
+            , fun.Delim)</code></pre></div>
 </div>
 </div>
 <div id="example-analysis-of-aggregated-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#example-analysis-of-aggregated-data" class="anchor"></a>Example Analysis of Aggregated Data</h1>
 <p>Once the depth profiles have been individually QCed and then Aggregated the user can analyse the data from a single file. Example plot is below.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Example code to Plot data</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</span>
-<span id="cb5-3"><a href="#cb5-3"></a></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># Read file</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a>df_Ellis &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="dt">package=</span><span class="st">"ContDataQC"</span>), <span class="st">"Ellis.csv"</span>))</span>
-<span id="cb5-6"><a href="#cb5-6"></a>df_Ellis[, <span class="st">"Date.Time"</span>] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span>(df_Ellis[, <span class="st">"Date.Time"</span>])</span>
-<span id="cb5-7"><a href="#cb5-7"></a></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co"># Plot, Create</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df_Ellis, <span class="kw">aes</span>(<span class="dt">x=</span>Date.Time, <span class="dt">y=</span>Water.Temp.C, <span class="dt">group=</span>ID_Depth)) <span class="op">+</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>ID_Depth)) <span class="op">+</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">trans=</span><span class="st">"reverse"</span>) <span class="op">+</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="st">  </span><span class="kw">scale_x_datetime</span>(<span class="dt">date_labels =</span> <span class="st">"%Y-%m"</span>)</span>
-<span id="cb5-13"><a href="#cb5-13"></a></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co"># Plot, Show</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(p)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Example code to Plot data</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)
+
+<span class="co"># Read file</span>
+df_Ellis &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="dt">package=</span><span class="st">"ContDataQC"</span>), <span class="st">"Ellis.csv"</span>))
+df_Ellis[, <span class="st">"Date.Time"</span>] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span>(df_Ellis[, <span class="st">"Date.Time"</span>])
+
+<span class="co"># Plot, Create</span>
+p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df_Ellis, <span class="kw">aes</span>(<span class="dt">x=</span>Date.Time, <span class="dt">y=</span>Water.Temp.C, <span class="dt">group=</span>ID_Depth)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>ID_Depth)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">trans=</span><span class="st">"reverse"</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_datetime</span>(<span class="dt">date_labels =</span> <span class="st">"%Y-%m"</span>)
+
+<span class="co"># Plot, Show</span>
+<span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(p)</code></pre></div>
 <p><img src="Vignette_Lakes_files/figure-html/Example_Temp_Depth-1.png" width="700"></p>
 </div>
   </div>

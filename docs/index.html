@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9026</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9027</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#readme-contdataqc" class="anchor"></a>README-ContDataQC</h1></div>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&gt; Last Update: 2019-05-17 09:23:59</span></span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r"><span class="co">#&gt; Last Update: 2019-05-17 09:23:59</span></code></pre></div>
 </div>
 <div id="contdataqc" class="section level1">
 <h1 class="hasAnchor">
@@ -104,40 +104,40 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Installing just this library (should get all dependancies)</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools) </span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="kw"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span>(<span class="st">"TAR"</span> =<span class="st"> "internal"</span>) <span class="co"># needed if using R v3.6.0 or later</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">install_github</span>(<span class="st">"leppott/ContDataQC"</span>)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Installing just this library (should get all dependancies)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools) 
+<span class="kw"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span>(<span class="st">"TAR"</span> =<span class="st"> "internal"</span>) <span class="co"># needed if using R v3.6.0 or later</span>
+<span class="kw">install_github</span>(<span class="st">"leppott/ContDataQC"</span>)</code></pre></div>
 <p>The vignette (big help file) isn’t created when installing from GitHub with the above command. If you want the vignette download the compressed file from GitHub and install from that file or install with the command below.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Installing just this library (should get all dependancies)</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools) </span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="kw"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span>(<span class="st">"TAR"</span> =<span class="st"> "internal"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">install_github</span>(<span class="st">"leppott/ContDataQC"</span>, <span class="dt">force=</span><span class="ot">TRUE</span>, <span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Installing just this library (should get all dependancies)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools) 
+<span class="kw"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span>(<span class="st">"TAR"</span> =<span class="st"> "internal"</span>)
+<span class="kw">install_github</span>(<span class="st">"leppott/ContDataQC"</span>, <span class="dt">force=</span><span class="ot">TRUE</span>, <span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p>If dependant libraries do not load you can install them separately.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Choose a CRAN mirror (dowload site) first (can change number)</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/chooseCRANmirror.html">chooseCRANmirror</a></span>(<span class="dt">ind=</span><span class="dv">21</span>) </span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># libraries to be installed</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>data.packages =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(                  </span>
-<span id="cb4-5"><a href="#cb4-5"></a>                  <span class="st">"devtools"</span>        <span class="co"># install helper for non CRAN libraries</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>                  ,<span class="st">"installr"</span>       <span class="co"># install helper</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a>                  ,<span class="st">"digest"</span>         <span class="co"># caused error in R v3.2.3 without it</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>                  ,<span class="st">"dataRetrieval"</span>  <span class="co"># loads USGS data into R</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a>                  ,<span class="st">"knitr"</span>          <span class="co"># create documents in other formats (e.g., PDF or Word)</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a>                  ,<span class="st">"doBy"</span>           <span class="co"># summary stats</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a>                  ,<span class="st">"zoo"</span>            <span class="co"># z's ordered observations, use for rolling sd calc</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a>                  ,<span class="st">"htmltools"</span>      <span class="co"># needed for knitr and doesn't always install properly with Pandoc</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a>                  ,<span class="st">"rmarkdown"</span>      <span class="co"># needed for knitr and doesn't always install properly with Pandoc</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a>                  ,<span class="st">"htmltools"</span>      <span class="co"># a dependency that is sometimes missed.</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a>                  ,<span class="st">"evaluate"</span>       <span class="co"># a dependency that is sometimes missed.</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a>                  ,<span class="st">"highr"</span>          <span class="co"># a dependency that is sometimes missed.</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a>                  ,<span class="st">"rmarkdown"</span>      <span class="co"># a dependency that is sometimes missed.</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a>                  )</span>
-<span id="cb4-19"><a href="#cb4-19"></a>                  </span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(data.packages,<span class="cf">function</span>(x) <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(x))</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Choose a CRAN mirror (dowload site) first (can change number)</span>
+<span class="kw"><a href="https://rdrr.io/r/utils/chooseCRANmirror.html">chooseCRANmirror</a></span>(<span class="dt">ind=</span><span class="dv">21</span>) 
+<span class="co"># libraries to be installed</span>
+data.packages =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(                  
+                  <span class="st">"devtools"</span>        <span class="co"># install helper for non CRAN libraries</span>
+                  ,<span class="st">"installr"</span>       <span class="co"># install helper</span>
+                  ,<span class="st">"digest"</span>         <span class="co"># caused error in R v3.2.3 without it</span>
+                  ,<span class="st">"dataRetrieval"</span>  <span class="co"># loads USGS data into R</span>
+                  ,<span class="st">"knitr"</span>          <span class="co"># create documents in other formats (e.g., PDF or Word)</span>
+                  ,<span class="st">"doBy"</span>           <span class="co"># summary stats</span>
+                  ,<span class="st">"zoo"</span>            <span class="co"># z's ordered observations, use for rolling sd calc</span>
+                  ,<span class="st">"htmltools"</span>      <span class="co"># needed for knitr and doesn't always install properly with Pandoc</span>
+                  ,<span class="st">"rmarkdown"</span>      <span class="co"># needed for knitr and doesn't always install properly with Pandoc</span>
+                  ,<span class="st">"htmltools"</span>      <span class="co"># a dependency that is sometimes missed.</span>
+                  ,<span class="st">"evaluate"</span>       <span class="co"># a dependency that is sometimes missed.</span>
+                  ,<span class="st">"highr"</span>          <span class="co"># a dependency that is sometimes missed.</span>
+                  ,<span class="st">"rmarkdown"</span>      <span class="co"># a dependency that is sometimes missed.</span>
+                  )
+                  
+<span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(data.packages,<span class="cf">function</span>(x) <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(x))</code></pre></div>
 <p>Additionally Pandoc is required for creating the reports and needs to be installed separately.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">## pandoc</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(installr)</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">install.pandoc</span>()</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## pandoc
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(installr)
+<span class="kw">install.pandoc</span>()</code></pre></div>
 </div>
 <div id="purpose" class="section level2">
 <h2 class="hasAnchor">
@@ -157,31 +157,31 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Everytime R is launched the <code>ContDataQC</code> package needs to be loaded.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># load library and dependant libraries</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"ContDataQC"</span>)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load library and dependant libraries</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"ContDataQC"</span>)</code></pre></div>
 <p>The default working directory is based on how R was installed but is typically the user’s ‘MyDocuments’ folder. You can change it through the menu bar in R (File - Change dir) or RStudio (Session - Set Working Directory). You can also change it from the command line.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># if specify directory use "/" not "\" (as used in Windows) and leave off final "/" (example below).</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#myDir.BASE  &lt;- "C:/Users/Erik.Leppo/Documents/NCEA_DataInfrastructure/Erik"</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>myDir.BASE &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>()</span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span>(myDir.BASE)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># if specify directory use "/" not "\" (as used in Windows) and leave off final "/" (example below).</span>
+<span class="co">#myDir.BASE  &lt;- "C:/Users/Erik.Leppo/Documents/NCEA_DataInfrastructure/Erik"</span>
+myDir.BASE &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>()
+<span class="kw"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span>(myDir.BASE)</code></pre></div>
 </div>
 <div id="help" class="section level2">
 <h2 class="hasAnchor">
 <a href="#help" class="anchor"></a>Help</h2>
 <p>Every function has a help file with a working example. There is also a vignette with descriptions and examples of all functions in the <code>ContDataQC</code> library.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># To get help on a function</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="co"># library(ContDataQC) # the library must be loaded before accessing help</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>?ContDataQC</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To get help on a function</span>
+<span class="co"># library(ContDataQC) # the library must be loaded before accessing help</span>
+?ContDataQC</code></pre></div>
 <p>To see all available functions in the package use the command below.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># To get index of help on all functions</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="co"># library(ContDataQC) # the library must be loaded before accessing help</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="kw"><a href="https://rdrr.io/r/utils/help.html">help</a></span>(<span class="dt">package=</span><span class="st">"ContDataQC"</span>)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To get index of help on all functions</span>
+<span class="co"># library(ContDataQC) # the library must be loaded before accessing help</span>
+<span class="kw"><a href="https://rdrr.io/r/utils/help.html">help</a></span>(<span class="dt">package=</span><span class="st">"ContDataQC"</span>)</code></pre></div>
 <p>The vignette file is located in the “doc” directory of the library in the R install folder. Below is the path to the file on my PC. But it is much easier to use the code below to call the vignette by name. There is also be a link to the vignette at the top of the help index for the package.</p>
 <p>“C:\Programs\R\R-3.4.2\library\ContDataQC\doc\ContDataQC_Vignette.html”</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="st">"ContDataQC_Vignette"</span>, <span class="dt">package=</span><span class="st">"ContDataQC"</span>)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="st">"ContDataQC_Vignette"</span>, <span class="dt">package=</span><span class="st">"ContDataQC"</span>)</code></pre></div>
 <p>If the vignette fails to show on your computer. Run the code below to reinstall the package and specify the creation of the vignette.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools)</span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="kw">install_github</span>(<span class="st">"leppott/ContDataQC"</span>, <span class="dt">force=</span><span class="ot">TRUE</span>, <span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools)
+<span class="kw">install_github</span>(<span class="st">"leppott/ContDataQC"</span>, <span class="dt">force=</span><span class="ot">TRUE</span>, <span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
 </div>
 <div id="guides" class="section level2">
 <h2 class="hasAnchor">

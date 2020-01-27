@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9026</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9027</span>
       </span>
     </div>
 
@@ -132,9 +132,14 @@
     <p>This a wrapper function for the package dataRetrieval to get USGS data.  Daily means are the default data type.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fun.GageData</span>(<span class='no'>fun.myData.SiteID</span>, <span class='kw'>fun.myData.Type</span> <span class='kw'>=</span> <span class='st'>"Gage"</span>,
-  <span class='no'>fun.myData.DateRange.Start</span>, <span class='no'>fun.myData.DateRange.End</span>,
-  <span class='kw'>fun.myDir.export</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(), <span class='kw'>fun.myTZ</span> <span class='kw'>=</span> <span class='no'>ContData.env</span>$<span class='no'>myTZ</span>)</pre>
+    <pre class="usage"><span class='fu'>fun.GageData</span>(
+  <span class='no'>fun.myData.SiteID</span>,
+  <span class='kw'>fun.myData.Type</span> <span class='kw'>=</span> <span class='st'>"Gage"</span>,
+  <span class='no'>fun.myData.DateRange.Start</span>,
+  <span class='no'>fun.myData.DateRange.End</span>,
+  <span class='kw'>fun.myDir.export</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
+  <span class='kw'>fun.myTZ</span> <span class='kw'>=</span> <span class='no'>ContData.env</span>$<span class='no'>myTZ</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -189,14 +194,14 @@
 #&gt; 531       NGVD29 01080207           uv   00060    &lt;NA&gt; 66866         NA
 #&gt; 532       NGVD29 01080207           uv   00065    &lt;NA&gt; 66867         NA
 #&gt;     medium_grp_cd parm_grp_cd   srs_id access_cd begin_date   end_date count_nu
-#&gt; 530           wat        &lt;NA&gt;  1645597         0 2015-11-04 2019-11-05     1462
-#&gt; 531           wat        &lt;NA&gt;  1645423         0 1990-10-01 2019-11-05    10627
-#&gt; 532           wat        &lt;NA&gt; 17164583         0 2007-10-01 2019-11-05     4418
+#&gt; 530           wat        &lt;NA&gt;  1645597         0 2015-11-04 2020-01-27     1545
+#&gt; 531           wat        &lt;NA&gt;  1645423         0 1990-10-01 2020-01-27    10710
+#&gt; 532           wat        &lt;NA&gt; 17164583         0 2007-10-01 2020-01-27     4501
 #&gt; 
 #&gt; 
 #&gt; [1] "Processing item 1 of 1, COMPLETE, 01187300."
 #&gt; 
-#&gt; [1] "Task COMPLETE; 0.25 min."</div></pre>
+#&gt; [1] "Task COMPLETE; 0.16 min."</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

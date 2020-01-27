@@ -70,7 +70,7 @@ Column names are Date and SiteIDs and values are daily means for some measuremen
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9026</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9027</span>
       </span>
     </div>
 
@@ -134,8 +134,13 @@ Column names are Date and SiteIDs and values are daily means for some measuremen
 Column names are Date and SiteIDs and values are daily means for some measurement.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>CompSiteCDF</span>(<span class='kw'>file.input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dir.input</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(), <span class='kw'>dir.output</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
-  <span class='no'>ParamName.xlab</span>, <span class='kw'>df.input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>CompSiteCDF</span>(
+  <span class='kw'>file.input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>dir.input</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
+  <span class='kw'>dir.output</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
+  <span class='no'>ParamName.xlab</span>,
+  <span class='kw'>df.input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,7 +193,7 @@ The second plot is a CDF of values.  The line represents the proportion of value
 <span class='co'># X Label</span>
 <span class='no'>myXlab</span> <span class='kw'>&lt;-</span> <span class='st'>"Temperature, Water (deg C)"</span>
 <span class='co'># Run the Function (output will default to working directory)</span>
-<span class='fu'>CompSiteCDF</span>(<span class='kw'>ParamName.xlab</span><span class='kw'>=</span><span class='no'>myXlab</span>, <span class='kw'>df.input</span><span class='kw'>=</span><span class='no'>myDF</span> )</div><div class='output co'>#&gt; PDF created; CompSiteCDF_20191105_104917.pdf</div></pre>
+<span class='fu'>CompSiteCDF</span>(<span class='kw'>ParamName.xlab</span><span class='kw'>=</span><span class='no'>myXlab</span>, <span class='kw'>df.input</span><span class='kw'>=</span><span class='no'>myDF</span> )</div><div class='output co'>#&gt; PDF created; CompSiteCDF_20200127_105853.pdf</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

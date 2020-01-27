@@ -70,7 +70,7 @@ Combines or splits files based on given data range.  Saves a new CSV in the expo
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9026</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9027</span>
       </span>
     </div>
 
@@ -134,10 +134,17 @@ Combines or splits files based on given data range.  Saves a new CSV in the expo
 Combines or splits files based on given data range.  Saves a new CSV in the export directory.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fun.AggregateData</span>(<span class='no'>fun.myData.SiteID</span>, <span class='no'>fun.myData.Type</span>,
-  <span class='no'>fun.myData.DateRange.Start</span>, <span class='no'>fun.myData.DateRange.End</span>,
-  <span class='kw'>fun.myDir.import</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(), <span class='kw'>fun.myDir.export</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
-  <span class='no'>fun.myReport.format</span>, <span class='no'>fun.myReport.Dir</span>, <span class='kw'>fun.CreateReport</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>fun.AggregateData</span>(
+  <span class='no'>fun.myData.SiteID</span>,
+  <span class='no'>fun.myData.Type</span>,
+  <span class='no'>fun.myData.DateRange.Start</span>,
+  <span class='no'>fun.myData.DateRange.End</span>,
+  <span class='kw'>fun.myDir.import</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
+  <span class='kw'>fun.myDir.export</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
+  <span class='no'>fun.myReport.format</span>,
+  <span class='no'>fun.myReport.Dir</span>,
+  <span class='kw'>fun.CreateReport</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

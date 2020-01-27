@@ -70,7 +70,7 @@ the format used by the rLakeAnalyzer package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9026</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9027</span>
       </span>
     </div>
 
@@ -134,8 +134,14 @@ the format used by the rLakeAnalyzer package." />
 the format used by the rLakeAnalyzer package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Export.rLakeAnalyzer</span>(<span class='no'>df_CDQC</span>, <span class='kw'>col_depth</span> <span class='kw'>=</span> <span class='st'>"Depth"</span>, <span class='no'>col_CDQC</span>, <span class='no'>col_rLA</span>,
-  <span class='kw'>dir_export</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(), <span class='kw'>fn_export</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>Export.rLakeAnalyzer</span>(
+  <span class='no'>df_CDQC</span>,
+  <span class='kw'>col_depth</span> <span class='kw'>=</span> <span class='st'>"Depth"</span>,
+  <span class='no'>col_CDQC</span>,
+  <span class='no'>col_rLA</span>,
+  <span class='kw'>dir_export</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
+  <span class='kw'>fn_export</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,13 +225,14 @@ The header of these data columns is "Param_Depth"; e.g., wtr_0.5 is water temper
 <span class='co'># Generate Heat Map</span>
 <span class='fu'><a href='https://rdrr.io/pkg/rLakeAnalyzer/man/wtr.heat.map.html'>wtr.heat.map</a></span>(<span class='no'>df_rLA_wtr</span>)</div><div class='img'><img src='Export.rLakeAnalyzer-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Generate Schmidt Plot</span>
-<span class='fu'><a href='https://rdrr.io/pkg/rLakeAnalyzer/man/schmidt.plot.html'>schmidt.plot</a></span>(<span class='no'>df_rLA_wtr</span>, <span class='no'>df_rLA_bth</span>)</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/rLakeAnalyzer/man/schmidt.plot.html'>schmidt.plot</a></span>(<span class='no'>df_rLA_wtr</span>, <span class='no'>df_rLA_bth</span>)</div><div class='img'><img src='Export.rLakeAnalyzer-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Generate Schmidt Stability Values</span>
 <span class='no'>df_rLA_Schmidt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/rLakeAnalyzer/man/ts.schmidt.stability.html'>ts.schmidt.stability</a></span>(<span class='no'>df_rLA_wtr</span>, <span class='no'>df_rLA_bth</span>)
 
 <span class='co'>#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 <span class='co'># Plot original data in ggplot</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)</div><div class='img'><img src='Export.rLakeAnalyzer-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
+
 <span class='co'># Plot, Create</span>
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='no'>df_CDQC</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>Date.Time</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='no'>temp_F</span>)) +
        <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>color</span><span class='kw'>=</span><span class='no'>Depth</span>)) +

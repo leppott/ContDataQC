@@ -71,7 +71,7 @@ Calculates statistics on input data and saves to a new csv." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9026</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9027</span>
       </span>
     </div>
 
@@ -136,10 +136,18 @@ Requires doBy() and survival() [required by doBy]
 Calculates statistics on input data and saves to a new csv.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fun.Stats</span>(<span class='no'>fun.myData.SiteID</span>, <span class='no'>fun.myData.Type</span>, <span class='no'>fun.myData.DateRange.Start</span>,
-  <span class='no'>fun.myData.DateRange.End</span>, <span class='kw'>fun.myDir.import</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
-  <span class='kw'>fun.myDir.export</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(), <span class='no'>fun.myProcedure.Step</span>, <span class='no'>fun.myFile.Prefix</span>,
-  <span class='no'>fun.myReport.format</span>, <span class='no'>fun.myReport.Dir</span>)</pre>
+    <pre class="usage"><span class='fu'>fun.Stats</span>(
+  <span class='no'>fun.myData.SiteID</span>,
+  <span class='no'>fun.myData.Type</span>,
+  <span class='no'>fun.myData.DateRange.Start</span>,
+  <span class='no'>fun.myData.DateRange.End</span>,
+  <span class='kw'>fun.myDir.import</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
+  <span class='kw'>fun.myDir.export</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
+  <span class='no'>fun.myProcedure.Step</span>,
+  <span class='no'>fun.myFile.Prefix</span>,
+  <span class='no'>fun.myReport.format</span>,
+  <span class='no'>fun.myReport.Dir</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

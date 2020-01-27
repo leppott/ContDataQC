@@ -2,7 +2,7 @@ NEWS-ContDataQC
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-    #> Last Update: 2020-01-27 10:51:47
+    #> Last Update: 2020-01-27 11:02:47
 
 Planned Updates
 ===============
@@ -32,6 +32,13 @@ Planned Updates
 
 Version History
 ===============
+
+v2.0.5.9028
+-----------
+
+2020-01-27
+
+-   Rebuile pkgdown website.
 
 v2.0.5.9027
 -----------
