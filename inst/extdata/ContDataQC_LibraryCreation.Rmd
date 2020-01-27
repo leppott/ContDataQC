@@ -131,7 +131,7 @@ Use pkgdown to create site.
 https://www.r-bloggers.com/tvthemes-1-1-0-is-on-cran-creating-a-pkgdown-website-gravity-falls-palette-and-more/
 
 ```{r Pkgdown, eval=FALSE}
-library(pkgdown)
+#library(pkgdown)
 
 usethis::use_pkgdown()
 pkgdown::build_site()

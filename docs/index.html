@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9027</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9028</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#readme-contdataqc" class="anchor"></a>README-ContDataQC</h1></div>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r"><span class="co">#&gt; Last Update: 2019-05-17 09:23:59</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r"><span class="co">#&gt; Last Update: 2020-01-27 11:08:58</span></code></pre></div>
 </div>
 <div id="contdataqc" class="section level1">
 <h1 class="hasAnchor">
@@ -113,28 +113,40 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools) 
 <span class="kw"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span>(<span class="st">"TAR"</span> =<span class="st"> "internal"</span>)
 <span class="kw">install_github</span>(<span class="st">"leppott/ContDataQC"</span>, <span class="dt">force=</span><span class="ot">TRUE</span>, <span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
-<p>If dependant libraries do not load you can install them separately.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Choose a CRAN mirror (dowload site) first (can change number)</span>
-<span class="kw"><a href="https://rdrr.io/r/utils/chooseCRANmirror.html">chooseCRANmirror</a></span>(<span class="dt">ind=</span><span class="dv">21</span>) 
-<span class="co"># libraries to be installed</span>
-data.packages =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(                  
-                  <span class="st">"devtools"</span>        <span class="co"># install helper for non CRAN libraries</span>
-                  ,<span class="st">"installr"</span>       <span class="co"># install helper</span>
-                  ,<span class="st">"digest"</span>         <span class="co"># caused error in R v3.2.3 without it</span>
-                  ,<span class="st">"dataRetrieval"</span>  <span class="co"># loads USGS data into R</span>
-                  ,<span class="st">"knitr"</span>          <span class="co"># create documents in other formats (e.g., PDF or Word)</span>
-                  ,<span class="st">"doBy"</span>           <span class="co"># summary stats</span>
-                  ,<span class="st">"zoo"</span>            <span class="co"># z's ordered observations, use for rolling sd calc</span>
-                  ,<span class="st">"htmltools"</span>      <span class="co"># needed for knitr and doesn't always install properly with Pandoc</span>
-                  ,<span class="st">"rmarkdown"</span>      <span class="co"># needed for knitr and doesn't always install properly with Pandoc</span>
-                  ,<span class="st">"htmltools"</span>      <span class="co"># a dependency that is sometimes missed.</span>
-                  ,<span class="st">"evaluate"</span>       <span class="co"># a dependency that is sometimes missed.</span>
-                  ,<span class="st">"highr"</span>          <span class="co"># a dependency that is sometimes missed.</span>
-                  ,<span class="st">"rmarkdown"</span>      <span class="co"># a dependency that is sometimes missed.</span>
-                  )
-                  
-<span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(data.packages,<span class="cf">function</span>(x) <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(x))</code></pre></div>
-<p>Additionally Pandoc is required for creating the reports and needs to be installed separately.</p>
+<p>If dependant libraries do not install you can install them separately. This happens occassionally. And without all of the packages the main package and/or the vignettes will not install properly. Install the separate packages below and then retry installing ContDataQC.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># libraries to be installed</span>
+pkg &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"devtools"</span>        <span class="co"># install helper for non CRAN libraries</span>
+        , <span class="st">"installr"</span>       <span class="co"># install helper</span>
+        , <span class="st">"digest"</span>         <span class="co"># caused error in R v3.2.3 without it</span>
+        , <span class="st">"dataRetrieval"</span>  <span class="co"># loads USGS data into R</span>
+        , <span class="st">"knitr"</span>          <span class="co"># create documents in other formats (e.g., PDF or Word)</span>
+        , <span class="st">"doBy"</span>           <span class="co"># summary stats</span>
+        , <span class="st">"zoo"</span>            <span class="co"># z's ordered observations, use for rolling sd calc</span>
+        , <span class="st">"htmltools"</span>      <span class="co"># needed for knitr and doesn't always install properly with Pandoc</span>
+        , <span class="st">"rmarkdown"</span>      <span class="co"># needed for knitr and doesn't always install properly with Pandoc</span>
+        , <span class="st">"htmltools"</span>      <span class="co"># a dependency that is sometimes missed.</span>
+        , <span class="st">"evaluate"</span>       <span class="co"># a dependency that is sometimes missed.</span>
+        , <span class="st">"highr"</span>          <span class="co"># a dependency that is sometimes missed.</span>
+        , <span class="st">"rmarkdown"</span>      <span class="co"># a dependency that is sometimes missed.</span>
+        , <span class="st">"ggplot2"</span>        <span class="co"># plots</span>
+        , <span class="st">"installr"</span>       <span class="co"># used to install Pandoc</span>
+        , <span class="st">"rsconnect"</span>
+        , <span class="st">"rLakeAnalyzer"</span>
+        , <span class="st">"shiny"</span>          <span class="co"># shiny example</span>
+        , <span class="st">"survival"</span>
+        , <span class="st">"shinyFiles"</span>     <span class="co"># more Shiny</span>
+        , <span class="st">"shinyThemes"</span>    <span class="co"># more Shiny</span>
+        , <span class="st">"XLConnect"</span>      <span class="co"># read Excel files</span>
+        , <span class="st">"zip"</span>            <span class="co"># read/save zip files</span>
+        )
+<span class="co">#</span>
+<span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(pkg, <span class="cf">function</span>(x) <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(x))</code></pre></div>
+<p>Non-CRAN packages have to be installed separately from GitHub using devtools.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># non-CRAN packages</span>
+<span class="co">#</span>
+devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"jasonelaw/iha"</span>, <span class="dt">force=</span><span class="ot">TRUE</span>, <span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)
+devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"tsangyp/StreamThermal"</span>, <span class="dt">force=</span><span class="ot">TRUE</span>, <span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p>Additionally Pandoc is required for creating the reports and needs to be installed separately. If you have RStudio installed it comes with Pandoc and you don’t need to install Pandoc separately.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## pandoc
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(installr)
 <span class="kw">install.pandoc</span>()</code></pre></div>
@@ -179,7 +191,7 @@ myDir.BASE &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.
 <p>The vignette file is located in the “doc” directory of the library in the R install folder. Below is the path to the file on my PC. But it is much easier to use the code below to call the vignette by name. There is also be a link to the vignette at the top of the help index for the package.</p>
 <p>“C:\Programs\R\R-3.4.2\library\ContDataQC\doc\ContDataQC_Vignette.html”</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="st">"ContDataQC_Vignette"</span>, <span class="dt">package=</span><span class="st">"ContDataQC"</span>)</code></pre></div>
-<p>If the vignette fails to show on your computer. Run the code below to reinstall the package and specify the creation of the vignette.</p>
+<p>If the vignette fails to show on your computer. Run the code below to reinstall the package and specify the creation of the vignette. As noted above if dependent packages are not installed the vignette will fail to build. See above for installing packages.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools)
 <span class="kw">install_github</span>(<span class="st">"leppott/ContDataQC"</span>, <span class="dt">force=</span><span class="ot">TRUE</span>, <span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
 </div>
