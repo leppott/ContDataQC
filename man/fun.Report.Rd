@@ -4,10 +4,17 @@
 \alias{fun.Report}
 \title{Generate Reports}
 \usage{
-fun.Report(fun.myData.SiteID, fun.myData.Type, fun.myData.DateRange.Start,
-  fun.myData.DateRange.End, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.myFile.Prefix, fun.myReport.format,
-  fun.myReport.Dir)
+fun.Report(
+  fun.myData.SiteID,
+  fun.myData.Type,
+  fun.myData.DateRange.Start,
+  fun.myData.DateRange.End,
+  fun.myDir.import = getwd(),
+  fun.myDir.export = getwd(),
+  fun.myFile.Prefix,
+  fun.myReport.format,
+  fun.myReport.Dir
+)
 }
 \arguments{
 \item{fun.myData.SiteID}{Station/SiteID.}

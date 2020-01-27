@@ -4,9 +4,14 @@
 \alias{fun.QC.File}
 \title{Quality Control, File}
 \usage{
-fun.QC.File(fun.myFile, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.myReport.format, fun.myReport.Dir,
-  fun.CreateReport = TRUE)
+fun.QC.File(
+  fun.myFile,
+  fun.myDir.import = getwd(),
+  fun.myDir.export = getwd(),
+  fun.myReport.format,
+  fun.myReport.Dir,
+  fun.CreateReport = TRUE
+)
 }
 \arguments{
 \item{fun.myFile}{Single (or vector of) file name(s).}

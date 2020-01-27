@@ -4,10 +4,15 @@
 \alias{Export.IHA}
 \title{Export data for IHA package}
 \usage{
-Export.IHA(fun.myFile, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.myDateRange.Start = NA,
-  fun.myDateRange.End = NA, fun.myCol.DateTime = "Date.Time",
-  fun.myCol.Parameter = "Discharge.ft3.s")
+Export.IHA(
+  fun.myFile,
+  fun.myDir.import = getwd(),
+  fun.myDir.export = getwd(),
+  fun.myDateRange.Start = NA,
+  fun.myDateRange.End = NA,
+  fun.myCol.DateTime = "Date.Time",
+  fun.myCol.Parameter = "Discharge.ft3.s"
+)
 }
 \arguments{
 \item{fun.myFile}{Filename (no directory) of data file.  Must be CSV file.  Includes Date/Time and Discharge fields.}

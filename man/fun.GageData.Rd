@@ -4,9 +4,14 @@
 \alias{fun.GageData}
 \title{Download USGS Gage Data}
 \usage{
-fun.GageData(fun.myData.SiteID, fun.myData.Type = "Gage",
-  fun.myData.DateRange.Start, fun.myData.DateRange.End,
-  fun.myDir.export = getwd(), fun.myTZ = ContData.env$myTZ)
+fun.GageData(
+  fun.myData.SiteID,
+  fun.myData.Type = "Gage",
+  fun.myData.DateRange.Start,
+  fun.myData.DateRange.End,
+  fun.myDir.export = getwd(),
+  fun.myTZ = ContData.env$myTZ
+)
 }
 \arguments{
 \item{fun.myData.SiteID}{Station/SiteID (can be a vector).}

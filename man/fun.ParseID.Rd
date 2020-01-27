@@ -4,8 +4,12 @@
 \alias{fun.ParseID}
 \title{Parse ID string}
 \usage{
-fun.ParseID(fun.myFileName.In, fun.myFileName.Out, fun.ColName.ID,
-  fun.Delim = NA)
+fun.ParseID(
+  fun.myFileName.In,
+  fun.myFileName.Out,
+  fun.ColName.ID,
+  fun.Delim = NA
+)
 }
 \arguments{
 \item{fun.ColName.ID}{Column name for SiteID to be parsed.}

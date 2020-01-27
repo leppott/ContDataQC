@@ -4,9 +4,14 @@
 \alias{fun.Report.File}
 \title{Generate Reports, File}
 \usage{
-fun.Report.File(fun.myFile, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.myFile.Prefix, fun.myReport.format,
-  fun.myReport.Dir)
+fun.Report.File(
+  fun.myFile,
+  fun.myDir.import = getwd(),
+  fun.myDir.export = getwd(),
+  fun.myFile.Prefix,
+  fun.myReport.format,
+  fun.myReport.Dir
+)
 }
 \arguments{
 \item{fun.myFile}{Single file name.}

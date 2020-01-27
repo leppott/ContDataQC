@@ -4,9 +4,12 @@
 \alias{Export.StreamThermal}
 \title{Export data for StreamThermal package}
 \usage{
-Export.StreamThermal(fun.myDF, fun.col.SiteID = ContData.env$myName.SiteID,
+Export.StreamThermal(
+  fun.myDF,
+  fun.col.SiteID = ContData.env$myName.SiteID,
   fun.col.Date = ContData.env$myName.Date,
-  fun.col.Temp = ContData.env$myName.WaterTemp)
+  fun.col.Temp = ContData.env$myName.WaterTemp
+)
 }
 \arguments{
 \item{fun.myDF}{User data that has been through the QC process of ContDataQC.  Required fields are SiteID, Date, Water.Temp.C (or as defined in config.R).}

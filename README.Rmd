@@ -48,33 +48,48 @@ Sys.setenv("TAR" = "internal")
 install_github("leppott/ContDataQC", force=TRUE, build_vignettes=TRUE)
 ```
 
+If dependant libraries do not install you can install them separately.  This happens occassionally.  And without all of the packages the main package and/or the vignettes will not install properly.  Install the separate packages below and then retry installing ContDataQC.
 
-If dependant libraries do not load you can install them separately.
-
-```{r Install_Libraries, eval=FALSE}
-# Choose a CRAN mirror (dowload site) first (can change number)
-chooseCRANmirror(ind=21) 
+```{r Pkg_CRAN, eval=FALSE}
 # libraries to be installed
-data.packages = c(                  
-                  "devtools"        # install helper for non CRAN libraries
-                  ,"installr"       # install helper
-                  ,"digest"         # caused error in R v3.2.3 without it
-                  ,"dataRetrieval"  # loads USGS data into R
-                  ,"knitr"          # create documents in other formats (e.g., PDF or Word)
-                  ,"doBy"           # summary stats
-                  ,"zoo"            # z's ordered observations, use for rolling sd calc
-                  ,"htmltools"      # needed for knitr and doesn't always install properly with Pandoc
-                  ,"rmarkdown"      # needed for knitr and doesn't always install properly with Pandoc
-                  ,"htmltools"      # a dependency that is sometimes missed.
-                  ,"evaluate"       # a dependency that is sometimes missed.
-                  ,"highr"          # a dependency that is sometimes missed.
-                  ,"rmarkdown"      # a dependency that is sometimes missed.
-                  )
-                  
-lapply(data.packages,function(x) install.packages(x))
+pkg <- c("devtools"        # install helper for non CRAN libraries
+        , "installr"       # install helper
+        , "digest"         # caused error in R v3.2.3 without it
+        , "dataRetrieval"  # loads USGS data into R
+        , "knitr"          # create documents in other formats (e.g., PDF or Word)
+        , "doBy"           # summary stats
+        , "zoo"            # z's ordered observations, use for rolling sd calc
+        , "htmltools"      # needed for knitr and doesn't always install properly with Pandoc
+        , "rmarkdown"      # needed for knitr and doesn't always install properly with Pandoc
+        , "htmltools"      # a dependency that is sometimes missed.
+        , "evaluate"       # a dependency that is sometimes missed.
+        , "highr"          # a dependency that is sometimes missed.
+        , "rmarkdown"      # a dependency that is sometimes missed.
+        , "ggplot2"        # plots
+        , "installr"       # used to install Pandoc
+        , "rsconnect"
+        , "rLakeAnalyzer"
+        , "shiny"          # shiny example
+        , "survival"
+        , "shinyFiles"     # more Shiny
+        , "shinyThemes"    # more Shiny
+        , "XLConnect"      # read Excel files
+        , "zip"            # read/save zip files
+        )
+#
+lapply(pkg, function(x) install.packages(x))
 ```
 
-Additionally Pandoc is required for creating the reports and needs to be installed separately.
+Non-CRAN packages have to be installed separately from GitHub using devtools.
+
+```{r Pkg_GitHub, eval=FALSE}
+# non-CRAN packages
+#
+devtools::install_github("jasonelaw/iha", force=TRUE, build_vignettes=TRUE)
+devtools::install_github("tsangyp/StreamThermal", force=TRUE, build_vignettes=TRUE)
+```
+
+Additionally Pandoc is required for creating the reports and needs to be installed separately.  If you have RStudio installed it comes with Pandoc and you don't need to install Pandoc separately.
 
 ```{r Install_Pandoc, eval=FALSE}
 ## pandoc
@@ -144,7 +159,7 @@ The vignette file is located in the “doc” directory of the library in the R 
 vignette("ContDataQC_Vignette", package="ContDataQC")
 ```
 
-If the vignette fails to show on your computer.  Run the code below to reinstall the package and specify the creation of the vignette.
+If the vignette fails to show on your computer.  Run the code below to reinstall the package and specify the creation of the vignette.  As noted above if dependent packages are not installed the vignette will fail to build.  See above for installing packages.
 
 ```{r Install_Vignette2, eval=FALSE}
 library(devtools)

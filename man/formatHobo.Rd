@@ -4,9 +4,13 @@
 \alias{formatHobo}
 \title{Format Hoboware output}
 \usage{
-formatHobo(fun.myFile = "", fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.HoboDateFormat = NULL,
-  fun.myConfig = "")
+formatHobo(
+  fun.myFile = "",
+  fun.myDir.import = getwd(),
+  fun.myDir.export = getwd(),
+  fun.HoboDateFormat = NULL,
+  fun.myConfig = ""
+)
 }
 \arguments{
 \item{fun.myFile}{Single file (or vector of files) to perform functions.}

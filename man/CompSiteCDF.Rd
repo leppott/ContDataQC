@@ -4,8 +4,13 @@
 \alias{CompSiteCDF}
 \title{CompSiteCDF, compare CDFs of sites}
 \usage{
-CompSiteCDF(file.input = NULL, dir.input = getwd(), dir.output = getwd(),
-  ParamName.xlab, df.input = NULL)
+CompSiteCDF(
+  file.input = NULL,
+  dir.input = getwd(),
+  dir.output = getwd(),
+  ParamName.xlab,
+  df.input = NULL
+)
 }
 \arguments{
 \item{file.input}{Input data as CSV.  Needs Date column and it will handle up to 5 SiteIDs (with data under each SiteID).}

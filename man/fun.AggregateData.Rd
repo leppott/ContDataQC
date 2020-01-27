@@ -4,10 +4,17 @@
 \alias{fun.AggregateData}
 \title{Aggregate Data Files}
 \usage{
-fun.AggregateData(fun.myData.SiteID, fun.myData.Type,
-  fun.myData.DateRange.Start, fun.myData.DateRange.End,
-  fun.myDir.import = getwd(), fun.myDir.export = getwd(),
-  fun.myReport.format, fun.myReport.Dir, fun.CreateReport = TRUE)
+fun.AggregateData(
+  fun.myData.SiteID,
+  fun.myData.Type,
+  fun.myData.DateRange.Start,
+  fun.myData.DateRange.End,
+  fun.myDir.import = getwd(),
+  fun.myDir.export = getwd(),
+  fun.myReport.format,
+  fun.myReport.Dir,
+  fun.CreateReport = TRUE
+)
 }
 \arguments{
 \item{fun.myData.SiteID}{Station/SiteID.}

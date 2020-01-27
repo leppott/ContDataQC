@@ -4,9 +4,14 @@
 \alias{fun.AggregateData.File}
 \title{Aggregate Data Files, File}
 \usage{
-fun.AggregateData.File(fun.myFile, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.myReport.format, fun.myReport.Dir,
-  fun.CreateReport = TRUE)
+fun.AggregateData.File(
+  fun.myFile,
+  fun.myDir.import = getwd(),
+  fun.myDir.export = getwd(),
+  fun.myReport.format,
+  fun.myReport.Dir,
+  fun.CreateReport = TRUE
+)
 }
 \arguments{
 \item{fun.myFile}{Vector of file names.}

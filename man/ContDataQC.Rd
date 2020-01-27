@@ -4,11 +4,20 @@
 \alias{ContDataQC}
 \title{Master Script}
 \usage{
-ContDataQC(fun.myData.Operation, fun.myData.SiteID, fun.myData.Type,
-  fun.myData.DateRange.Start, fun.myData.DateRange.End,
-  fun.myDir.import = getwd(), fun.myDir.export = getwd(),
-  fun.myConfig = "", fun.myFile = "", fun.myReport.format = "",
-  fun.myReport.Dir = "", fun.CreateReport = TRUE)
+ContDataQC(
+  fun.myData.Operation,
+  fun.myData.SiteID,
+  fun.myData.Type,
+  fun.myData.DateRange.Start,
+  fun.myData.DateRange.End,
+  fun.myDir.import = getwd(),
+  fun.myDir.export = getwd(),
+  fun.myConfig = "",
+  fun.myFile = "",
+  fun.myReport.format = "",
+  fun.myReport.Dir = "",
+  fun.CreateReport = TRUE
+)
 }
 \arguments{
 \item{fun.myData.Operation}{Operation to be performed; c("GetGageData","QCRaw", "Aggregate", "SummaryStats")}

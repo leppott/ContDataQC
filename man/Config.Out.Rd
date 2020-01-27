@@ -4,8 +4,12 @@
 \alias{Config.Out}
 \title{Generate Configuration Report}
 \usage{
-Config.Out(fun.myConfig = "", fun.myDir.export = getwd(),
-  fun.myReport.format = "html", fun.myReport.Dir = "")
+Config.Out(
+  fun.myConfig = "",
+  fun.myDir.export = getwd(),
+  fun.myReport.format = "html",
+  fun.myReport.Dir = ""
+)
 }
 \arguments{
 \item{fun.myConfig}{Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.}

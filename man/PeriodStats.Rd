@@ -4,12 +4,22 @@
 \alias{PeriodStats}
 \title{Daily stats for a given time period}
 \usage{
-PeriodStats(fun.myDate, fun.myDate.Format = NA, fun.myPeriod.N = 30,
-  fun.myPeriod.Units = "d", fun.myFile, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.myParam.Name,
-  fun.myDateTime.Name = "Date.Time", fun.myDateTime.Format = NA,
-  fun.myThreshold = NA, fun.myConfig = "", fun.myReport.format = "",
-  fun.myReport.Dir = "")
+PeriodStats(
+  fun.myDate,
+  fun.myDate.Format = NA,
+  fun.myPeriod.N = 30,
+  fun.myPeriod.Units = "d",
+  fun.myFile,
+  fun.myDir.import = getwd(),
+  fun.myDir.export = getwd(),
+  fun.myParam.Name,
+  fun.myDateTime.Name = "Date.Time",
+  fun.myDateTime.Format = NA,
+  fun.myThreshold = NA,
+  fun.myConfig = "",
+  fun.myReport.format = "",
+  fun.myReport.Dir = ""
+)
 }
 \arguments{
 \item{fun.myDate}{Benchmark date.}

@@ -4,10 +4,18 @@
 \alias{fun.Stats}
 \title{Statistical Summary}
 \usage{
-fun.Stats(fun.myData.SiteID, fun.myData.Type, fun.myData.DateRange.Start,
-  fun.myData.DateRange.End, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.myProcedure.Step, fun.myFile.Prefix,
-  fun.myReport.format, fun.myReport.Dir)
+fun.Stats(
+  fun.myData.SiteID,
+  fun.myData.Type,
+  fun.myData.DateRange.Start,
+  fun.myData.DateRange.End,
+  fun.myDir.import = getwd(),
+  fun.myDir.export = getwd(),
+  fun.myProcedure.Step,
+  fun.myFile.Prefix,
+  fun.myReport.format,
+  fun.myReport.Dir
+)
 }
 \arguments{
 \item{fun.myData.SiteID}{Station/SiteID.}

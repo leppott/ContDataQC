@@ -4,8 +4,14 @@
 \alias{Export.rLakeAnalyzer}
 \title{Export data for rLakeAnalyzer package}
 \usage{
-Export.rLakeAnalyzer(df_CDQC, col_depth = "Depth", col_CDQC, col_rLA,
-  dir_export = getwd(), fn_export = NULL)
+Export.rLakeAnalyzer(
+  df_CDQC,
+  col_depth = "Depth",
+  col_CDQC,
+  col_rLA,
+  dir_export = getwd(),
+  fn_export = NULL
+)
 }
 \arguments{
 \item{df_CDQC}{Data frame to be converted for use with rLakeAnalyzer.}

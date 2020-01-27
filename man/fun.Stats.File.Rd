@@ -4,8 +4,13 @@
 \alias{fun.Stats.File}
 \title{Statistical Summary, File}
 \usage{
-fun.Stats.File(fun.myFile, fun.myDir.import = getwd(),
-  fun.myDir.export = getwd(), fun.myReport.format, fun.myReport.Dir)
+fun.Stats.File(
+  fun.myFile,
+  fun.myDir.import = getwd(),
+  fun.myDir.export = getwd(),
+  fun.myReport.format,
+  fun.myReport.Dir
+)
 }
 \arguments{
 \item{fun.myFile}{Single (or vector of) file name(s).}
