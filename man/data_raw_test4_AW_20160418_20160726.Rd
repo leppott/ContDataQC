@@ -4,7 +4,9 @@
 \name{data_raw_test4_AW_20160418_20160726}
 \alias{data_raw_test4_AW_20160418_20160726}
 \title{data_raw_test4_AW_20160418_20160726}
-\format{a data frame with 9508 observations and 8 variables:}
+\format{
+a data frame with 9508 observations and 8 variables:
+}
 \usage{
 data_raw_test4_AW_20160418_20160726
 }

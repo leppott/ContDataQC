@@ -4,7 +4,9 @@
 \name{DATA_period_test2_Aw_20130101_20141231}
 \alias{DATA_period_test2_Aw_20130101_20141231}
 \title{DATA_period_test2_Aw_20130101_20141231}
-\format{a data frame with 9699 observations and 72 variables:}
+\format{
+a data frame with 9699 observations and 72 variables:
+}
 \usage{
 DATA_period_test2_Aw_20130101_20141231
 }

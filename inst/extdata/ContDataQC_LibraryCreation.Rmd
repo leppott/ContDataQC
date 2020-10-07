@@ -79,6 +79,11 @@ devtools::build() more useful and build_vignettes()
 Use the code below to create the package.  Assumes you are in the development package directory
 
 ```{r, eval=FALSE}
+# Set working directory
+myLibrary <- "ContDataQC"
+dir_base <- "C:/Users/Erik.Leppo/OneDrive - Tetra Tech, Inc/MyDocs_OneDrive/GitHub"
+setwd(file.path(dir_base, myLibrary))
+#
 # NEWS
 # Render then Copy NEWS so picked up in help
 rmarkdown::render("NEWS.rmd", "all")
@@ -86,23 +91,19 @@ file.copy("NEWS.md", "NEWS", overwrite = TRUE)
 file.remove("NEWS.html")
 file.remove("NEWS.md")
 #
-# Library Name
-myLibrary <- "ContDataQC"
 # Load Library
 library(devtools)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Create Package
 # create(myLibrary)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-dir_base <- "C:/Users/Erik.Leppo/OneDrive - Tetra Tech, Inc/MyDocs_OneDrive/GitHub/"
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Document, Install, and Reload Library
 ## Generate Documentation
-setwd(file.path(dir_base, myLibrary))
 devtools::document()
 ## Install New Package (locally)
 setwd("..") # return to root directory first
 devtools::install(myLibrary, build_vignettes = TRUE, quick = FALSE, reload = TRUE)
+
 ## Reload library
 library(myLibrary,character.only = TRUE)
 # change wd back to package

@@ -3,6 +3,9 @@
 #' Function to load custom configuration of user defined values.  Only need to include elements that need to be changed.
 #' Adds to the existing environment.  User should load a new configuration prior to master script.
 #'
+#' Custom config files must **not** include `ContData.env <- new.env(parent = emptyenv())`.
+#' This will create a 2nd environment that will not be accessed by the functions in the package.
+#'
 #' @param myFile Configuration file (including path if not in working directory)
 #' @param myExt "R" or "RDS"
 #' @return NA, values in file added to environment "ContData.env".
@@ -24,10 +27,12 @@
 config.load <- function(myFile, myExt="R"){##FUNCTION.config.load.START
   #
   # 1.0. Rename current "environment" so can get back if needed
-  # intialize new env
-  ContData.env.original <- new.env(parent = emptyenv())
-  # copy current env to backup env
-  ContData.env.original <- ContData.env
+  if(exists("ContData.env", mode = "environment") == TRUE){
+    # intialize new env
+    ContData.env.original <- new.env(parent = emptyenv())
+    # copy current env to backup env
+    ContData.env.original <- ContData.env
+  }## exists ~ END
   #
   # 2.0. Load/Source threshold file
   myEXT <- toupper(myExt)

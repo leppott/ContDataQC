@@ -16,7 +16,7 @@ Returns a text string representing the date/time format of the input fun.DateTim
 }
 \description{
 Input a date/time string and output R date/time *format*. The format can then be used to convert to a different format.
-Determine Date and Time *format* from input (single record) using Perl regular expresions.
+Determine Date and Time *format* from input (single record) using Perl regular expressions.
 Perl Code prepared by Ann Roseberry Lincoln
 Not all possible formats recognized but the most common are accepted.
 If AM/PM is left off them assume 24 hr time.

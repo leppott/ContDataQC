@@ -46,15 +46,22 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9030
+2020-10-07
+
+* Update to config.load() to ensure custom config files load into the proper environment.
+* zfun.ContDataQC.R
+    + Load config.ORIG.R from package as first step before custom config.
+
 ## v2.0.5.9029
 2020-01-27
 
-* Rebuile pkgdown website.
+* Rebuild pkgdown website.
 
 ## v2.0.5.9028
 2020-01-27
 
-* Rebuile pkgdown website.
+* Rebuild pkgdown website.
 
 ## v2.0.5.9027
 2020-01-27

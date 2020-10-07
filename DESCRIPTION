@@ -1,6 +1,6 @@
 Package: ContDataQC
 Title: Quality Control (QC) of Continous Monitoring Data
-Version: 2.0.5.9029
+Version: 2.0.5.9030
 Authors@R: c(
 	person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com",role=c("aut","cre")),
 	person("Ann","Roseberry Lincoln", role="ctb"),
@@ -36,4 +36,4 @@ Suggests:
 VignetteBuilder: knitr
 Remotes: leppott/BioMonTools
 StagedInstall: no
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1

@@ -4,7 +4,9 @@
 \name{data_CompSiteCDF}
 \alias{data_CompSiteCDF}
 \title{data_CompSiteCDF}
-\format{a data frame with 349 observations and 6 variables:}
+\format{
+a data frame with 349 observations and 6 variables:
+}
 \usage{
 data_CompSiteCDF
 }

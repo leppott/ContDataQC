@@ -302,6 +302,7 @@ ContDataQC <- function(fun.myData.Operation
                        , fun.myReport.Dir=""
                        , fun.CreateReport=TRUE) {##FUN.fun.Master.START
   # DEBUG ####
+  #browser()
   boo_DEBUG <- FALSE
   if(boo_DEBUG==TRUE){##IF~boo_DEBUG~START
     fun.myData.Operation       <- myData.Operation
@@ -319,6 +320,12 @@ ContDataQC <- function(fun.myData.Operation
     source(file.path(getwd(), "inst", "extdata", "config.ORIG.R"))
     source(file.path(getwd(), "R", "fun.Helper.R"))
   }##IF~boo_DEBUG~END
+
+  # Load default config if not present
+  # 2020-10-02
+  if(exists("ContData.env", mode = "environment") == FALSE){
+    source(system.file(package = "ContDataQC", "extdata", "config.ORIG.R"), local = TRUE)
+  }## exists ~ END
 
   # config file load, 20170517
   if (fun.myConfig!="") {##IF.fun.myConfig.START
