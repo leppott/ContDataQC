@@ -153,7 +153,7 @@ Export.StreamThermal <- function(fun.myDF
 {##FUNCTION.Export.StreamThermal.START
   #
   # Calculate stats (max, min, mean) for SiteID and Date
-  agg.stats <- aggregate(fun.myDF[,fun.col.Temp] ~ fun.myDF[,fun.col.SiteID] + fun.myDF[,fun.col.Date]
+  agg.stats <- stats::aggregate(fun.myDF[,fun.col.Temp] ~ fun.myDF[,fun.col.SiteID] + fun.myDF[,fun.col.Date]
                          , FUN=function(x) c(MaxT=max(x), MinT=min(x), MeanT=mean(x) ) )
   # Convert to DF
   df.stats <- do.call(data.frame, agg.stats)

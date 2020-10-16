@@ -98,7 +98,7 @@ fun.GageData <- function(fun.myData.SiteID
   intCounter.Stop <- length(fun.myData.SiteID)
   intItems.Total <- intCounter.Stop
   print(paste("Total items to process = ",intItems.Total,sep=""))
-    flush.console()
+  utils::flush.console()
   myItems.Complete  <- 0
   #myItems.Skipped   <- 0
 
@@ -123,7 +123,7 @@ fun.GageData <- function(fun.myData.SiteID
     cat("\n")
     print(data.what.uv)
     cat("\n")
-    flush.console()
+    utils::flush.console()
 
     myCode <- data.what.Codes #"00060" #c("00060","00065") # can download multiple at one time
     myStat <- "00003"  #data, not daily values
@@ -182,9 +182,9 @@ fun.GageData <- function(fun.myData.SiteID
     strFile.Out <- paste(paste(strGage,fun.myData.Type,File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
     # 10.2. Save to File the data (overwrites any existing file).
     #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
-    #flush.console()
+    #utils::flush.console()
     #write.csv(data.myGage,file=paste(myDir.data.export,"/",strFile.Out,sep=""),quote=FALSE,row.names=FALSE)
-    write.csv(data.myGage,file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
+    utils::write.csv(data.myGage,file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
     #
     # 11. Clean up
     cat("\n")
@@ -195,7 +195,7 @@ fun.GageData <- function(fun.myData.SiteID
     #fun.write.log(myItems.Log,myDate,myTime)
     fun.Msg.Status(myMsg, intCounter, intItems.Total, strGage)
     cat("\n")
-    flush.console()
+    utils::flush.console()
     # 11.2. Remove data
     rm(data.myGage)
   #  rm(data.myGage.gh)
@@ -212,7 +212,7 @@ fun.GageData <- function(fun.myData.SiteID
 
   myTime.End <- Sys.time()
   print(paste("Task COMPLETE; ",round(difftime(myTime.End,myTime.Start,units="mins"),2)," min.",sep=""))
-  flush.console()
+  utils::flush.console()
 
   # encase in loop so can handle multiple SiteIDs
 

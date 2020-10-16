@@ -103,7 +103,7 @@ fun.AggregateData.File <- function(fun.myFile
   # ## if change formats will have to make modifications (pattern, import, export)
   #files2process = list.files(path=myDir.data.import, pattern=" *.csv")
   files2process <- fun.myFile
-  head(files2process)
+  utils::head(files2process)
   #
   #
   # Define Counters for the Loop
@@ -111,7 +111,7 @@ fun.AggregateData.File <- function(fun.myFile
   intCounter.Stop <- length(files2process)
   intItems.Total <- intCounter.Stop
   print(paste("Total files to process = ",intItems.Total,sep=""))
-    flush.console()
+  utils::flush.console()
   myItems.Complete  <- 0
   myItems.Skipped   <- 0
   # myFileTypeNum.Air <- 0
@@ -158,7 +158,7 @@ fun.AggregateData.File <- function(fun.myFile
       print("ERROR; no such file exits.  Cannot QC the data.")
       print(paste("PATH = ",myDir.data.import,sep=""))
       print(paste("FILE = ",strFile,sep=""))
-      flush.console()
+      utils::flush.console()
       #
       # maybe print similar files
       #
@@ -207,7 +207,7 @@ fun.AggregateData.File <- function(fun.myFile
       myItems.Log[intCounter,2] <- myMsg
       fun.write.log(myItems.Log,myDate,myTime)
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       # go to next Item
       next
     }
@@ -267,8 +267,8 @@ fun.AggregateData.File <- function(fun.myFile
     #data.import=read.table(strFile,header=F,varSep)
     #varSep = "\t" (use read.delim instead of read.table)
     # as.is = T so dates come in as text rather than factor
-    #data.import <- read.delim(strFile,as.is=TRUE,na.strings=c("","NA"))
-    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
+    #data.import <- utils::read.delim(strFile,as.is=TRUE,na.strings=c("","NA"))
+    data.import <- utils::read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
     #
     # QC required fields: SiteID & (DateTime | (Date & Time))
     fun.QC.ReqFlds(names(data.import),file.path(myDir.data.import,strFile))
@@ -373,7 +373,7 @@ fun.AggregateData.File <- function(fun.myFile
     #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
     #flush.console()
     #write.csv(data.append, file=paste(myDir.data.export,"/",strFile.Out,sep=""), quote=FALSE, row.names=FALSE)
-    write.csv(data.append, file=file.path(myDir.data.export,strFile.Out), quote=FALSE, row.names=FALSE)
+    utils::write.csv(data.append, file=file.path(myDir.data.export,strFile.Out), quote=FALSE, row.names=FALSE)
     # saves but if gets another one in the time range it will append as append is recycled between loop iterations
     # when gets a new data type it gets a new data.append
     # need trigger for different SiteID (won't combine across sites)
@@ -419,7 +419,7 @@ fun.AggregateData.File <- function(fun.myFile
     myItems.Log[intCounter,2] <- myMsg
     fun.write.log(myItems.Log,myDate,myTime)
     fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+    utils::flush.console()
     # 9.2. Remove data (import and subset)
     rm(data.import)
     #
@@ -436,7 +436,7 @@ fun.AggregateData.File <- function(fun.myFile
   if (booDisableReport==TRUE) {##IF.boo.DisableReport.START
     myMsg <- "The reporting feature is disabled at this time.  A future verison may re-enable it."
     cat(myMsg)
-    flush.console()
+    utils::flush.console()
   } else if (booDisableReport==FALSE) {
     if (fun.CreateReport==TRUE){##IF.CreateReport.START
       fun.Report.File(strFile.Out.NoPrefix
@@ -459,7 +459,7 @@ fun.AggregateData.File <- function(fun.myFile
   print(paste("Items SKIPPPED = ",myItems.Skipped,".",sep=""))
   # User defined parameters
   print(paste("User defined parameters: File Output(",strFile.Out,").",sep=""))
-    flush.console()
+  utils::flush.console()
 
 
   #

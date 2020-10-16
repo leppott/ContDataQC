@@ -70,7 +70,7 @@ Config.Out <- function(fun.myConfig=""
     Msg.Line4 <- paste0("directory = ", fun.myReport.Dir)
     Msg <- paste(Msg.Line0, Msg.Line1, Msg.Line2, Msg.Line3, Msg.Line4, Msg.Line0, sep="\n\n")
     cat(Msg)
-    flush.console()
+    utils::flush.console()
   }##IF.file.exists.END
 
   # Config Copy ####

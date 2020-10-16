@@ -116,7 +116,7 @@ fun.Stats.File <- function(fun.myFile
   intCounter.Stop <- length(files2process)
   intItems.Total <- intCounter.Stop
   print(paste("Total files to process = ",intItems.Total,sep=""))
-    flush.console()
+  utils::flush.console()
   myItems.Complete  <- 0
   myItems.Skipped   <- 0
 
@@ -150,7 +150,7 @@ fun.Stats.File <- function(fun.myFile
       print("ERROR; no such file exits.  Cannot generate summary statistics.")
       print(paste("PATH = ",myDir.data.import,sep=""))
       print(paste("FILE = ",strFile,sep=""))
-      flush.console()
+      utils::flush.console()
       #
       # maybe print similar files
       #
@@ -167,14 +167,14 @@ fun.Stats.File <- function(fun.myFile
       myItems.Log[intCounter,2] <- myMsg
       fun.write.log(myItems.Log,myDate,myTime)
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       # go to next Item
       next
     }
 
 
     #import the file
-    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
+    data.import <- utils::read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
     #
     # QC required fields: SiteID & (DateTime | (Date & Time))
     #fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
@@ -244,7 +244,7 @@ fun.Stats.File <- function(fun.myFile
       data2process <- myFields.Data[myFields.Data %in% names(data.import)]
       print(paste("Total items to process = ",length(data2process),":",sep=""))
       print(data2process)
-        flush.console()
+      utils::flush.console()
 
     ############## QC
     #i <- data2process[1] #QC
@@ -262,7 +262,7 @@ fun.Stats.File <- function(fun.myFile
 
       # 20170519, feedback to user
       print(paste0("Processing item ",i.num," of ",length(data2process),"; ",i))
-        flush.console()
+      utils::flush.console()
       #data.stats.nofail <- data.stats
       #data.stats.nofail[data.stats.nofail[,data.stats[,myFields.Data.Flags[i.num]]=myFlagVal.Fail]] <- na
 
@@ -276,7 +276,7 @@ fun.Stats.File <- function(fun.myFile
       # #QC test where fails
       # qc.section <- "For.i.A"
       # print(paste0("QC.Section: ",qc.section))
-      #   flush.console()
+      #   utils::flush.console()
 
       #
       # summaryBy doesn't work with Group as variable (change value for running here)
@@ -290,7 +290,7 @@ fun.Stats.File <- function(fun.myFile
       # qc.section <- "For.i.B.namechanges"
       # print(paste0("QC.Section: ",qc.section))
       # print(dim(data.stats))
-      # flush.console()
+      # utils::flush.console()
 
       # summaryBy not working with "i" as variable.  Have to do an ugly hack to get it working
 
@@ -299,7 +299,7 @@ fun.Stats.File <- function(fun.myFile
   #     print(i)
   #     print("data.stats")
   #     print(head(data.stats))
-  #     flush.console()
+  #     utils::flush.console()
   #
   #
   #     data(dietox)
@@ -394,7 +394,7 @@ fun.Stats.File <- function(fun.myFile
       strFile.Prefix.Out <- "DV"
       strFile.Out <- paste(paste(strFile.Prefix.Out,strFile.Base,i,sep=ContData.env$myDelim),"csv",sep=".")
       #write.csv(dv.i,paste(myDir.data.export,strFile.Out,sep="/"),quote=FALSE,row.names=FALSE)
-      write.csv(dv.i,file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
+      utils::write.csv(dv.i,file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
 
       # #QC test where fails
       # qc.section <- "For.i.D.save.dv"
@@ -408,15 +408,15 @@ fun.Stats.File <- function(fun.myFile
       #
       myFUN.sumBy <- function(x, ...){##FUN.myFUN.sumBy.START
         c(mean=mean(x,na.rm=TRUE)
-          ,median=median(x,na.rm=TRUE)
+          ,median=stats::median(x,na.rm=TRUE)
           ,min=min(x,na.rm=TRUE)
           ,max=max(x,na.rm=TRUE)
           ,range=max(x,na.rm=TRUE)-min(x,na.rm=TRUE)
-          ,sd=sd(x,na.rm=TRUE)
-          ,var=var(x,na.rm=TRUE)
-          ,cv=sd(x,na.rm=TRUE)/mean(x,na.rm=TRUE)
+          ,sd=stats::sd(x,na.rm=TRUE)
+          ,var=stats::var(x,na.rm=TRUE)
+          ,cv=stats::sd(x,na.rm=TRUE)/mean(x,na.rm=TRUE)
           ,n=length(x)
-          ,q=quantile(x,probs=myQ,na.rm=TRUE)
+          ,q=stats::quantile(x,probs=myQ,na.rm=TRUE)
           )
       }##FUN.myFUN.sumBy.END
       #
@@ -446,7 +446,7 @@ fun.Stats.File <- function(fun.myFile
       strFile.Prefix.Out <- fun.myProcedure.Step
       strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.Base,i,sep=ContData.env$myDelim),"pdf",sep=".")
       #pdf(file=paste(myDir.data.export,strFile.plot,sep="/"),width=11,height=8.5)
-      pdf(file=file.path(myDir.data.export,strFile.plot),width=11,height=8.5)
+      grDevices::pdf(file=file.path(myDir.data.export,strFile.plot),width=11,height=8.5)
 
 
 
@@ -484,16 +484,16 @@ fun.Stats.File <- function(fun.myFile
                  ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
                  ,ylim=c(min(stats.i$min),max(stats.i$max)))
             myCol <- "gray"
-            lines(stats.i$max,col=myCol)
-            lines(stats.i$min,col=myCol)
-            polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
-            lines(stats.i$mean)
+            graphics::lines(stats.i$max,col=myCol)
+            graphics::lines(stats.i$min,col=myCol)
+            graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+            graphics::lines(stats.i$mean)
             # X-Axis
             n.Total <- length(factor(stats.i[,"TimeValue"]))
             pct <- c(20,40,60,80,100)*.01
             myAT <- c(1,round(n.Total * pct,0))
             myLab <- stats.i[,"TimeValue"][myAT]
-            axis(1,at=myAT,labels=myLab,tick=TRUE)
+            graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
           #dev.off()
 
         ## Julian Day
@@ -519,16 +519,16 @@ fun.Stats.File <- function(fun.myFile
              ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
              ,ylim=c(min(stats.i$min),max(stats.i$max)))
         myCol <- "gray"
-        lines(stats.i$max,col=myCol)
-        lines(stats.i$min,col=myCol)
-        polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
-        lines(stats.i$mean)
+        graphics::lines(stats.i$max,col=myCol)
+        graphics::lines(stats.i$min,col=myCol)
+        graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+        graphics::lines(stats.i$mean)
         # X-Axis
         n.Total <- length(factor(stats.i[,"TimeValue"]))
         pct <- c(20,40,60,80,100)*.01
         myAT <- c(1,round(n.Total * pct,0))
         myLab <- stats.i[,"TimeValue"][myAT]
-        axis(1,at=myAT,labels=myLab,tick=TRUE)
+        graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
         #dev.off()
 
         ## Year_Month
@@ -554,15 +554,15 @@ fun.Stats.File <- function(fun.myFile
                ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
                ,ylim=c(min(stats.i$min),max(stats.i$max)))
           myCol <- "gray"
-          lines(stats.i$max,col=myCol)
-          lines(stats.i$min,col=myCol)
-          polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
-          lines(stats.i$mean)
+          graphics::lines(stats.i$max,col=myCol)
+          graphics::lines(stats.i$min,col=myCol)
+          graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+          graphics::lines(stats.i$mean)
           # X-Axis
           n.Total <- length(factor(stats.i[,"TimeValue"]))
           myAT <- 1:n.Total
           myLab <- stats.i[,"TimeValue"][myAT]
-          axis(1,at=myAT,labels=myLab,tick=TRUE)
+          graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
           #dev.off()
         #
 
@@ -589,15 +589,15 @@ fun.Stats.File <- function(fun.myFile
                ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
                ,ylim=c(min(stats.i$min),max(stats.i$max)))
           myCol <- "gray"
-          lines(stats.i$max,col=myCol)
-          lines(stats.i$min,col=myCol)
-          polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
-          lines(stats.i$mean)
+          graphics::lines(stats.i$max,col=myCol)
+          graphics::lines(stats.i$min,col=myCol)
+          graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+          graphics::lines(stats.i$mean)
           # X-Axis
           n.Total <- length(factor(stats.i[,"TimeValue"]))
           myAT <- 1:n.Total
           myLab <- stats.i[,"TimeValue"][myAT]
-          axis(1,at=myAT,labels=myLab,tick=TRUE)
+          graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
           #dev.off()
           #
         ## Year_Season
@@ -623,15 +623,15 @@ fun.Stats.File <- function(fun.myFile
                ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
                ,ylim=c(min(stats.i$min),max(stats.i$max)))
           myCol <- "gray"
-          lines(stats.i$max,col=myCol)
-          lines(stats.i$min,col=myCol)
-          polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
-          lines(stats.i$mean)
+          graphics::lines(stats.i$max,col=myCol)
+          graphics::lines(stats.i$min,col=myCol)
+          graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+          graphics::lines(stats.i$mean)
           # X-Axis
           n.Total <- length(factor(stats.i[,"TimeValue"]))
           myAT <- 1:n.Total
           myLab <- stats.i[,"TimeValue"][myAT]
-          axis(1,at=myAT,labels=myLab,tick=TRUE)
+          graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
           #dev.off()
         #
           #
@@ -658,15 +658,15 @@ fun.Stats.File <- function(fun.myFile
                ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
                ,ylim=c(min(stats.i$min),max(stats.i$max)))
           myCol <- "gray"
-          lines(stats.i$max,col=myCol)
-          lines(stats.i$min,col=myCol)
-          polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
-          lines(stats.i$mean)
+          graphics::lines(stats.i$max,col=myCol)
+          graphics::lines(stats.i$min,col=myCol)
+          graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+          graphics::lines(stats.i$mean)
           # X-Axis
           n.Total <- length(factor(stats.i[,"TimeValue"]))
           myAT <- 1:n.Total
           myLab <- stats.i[,"TimeValue"][myAT]
-          axis(1,at=myAT,labels=myLab,tick=TRUE)
+          graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
           #dev.off()
           #
         ## Year
@@ -692,20 +692,20 @@ fun.Stats.File <- function(fun.myFile
                ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
                ,ylim=c(min(stats.i$min),max(stats.i$max)))
           myCol <- "gray"
-          lines(stats.i$max,col=myCol)
-          lines(stats.i$min,col=myCol)
-          polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
-          lines(stats.i$mean)
+          graphics::lines(stats.i$max,col=myCol)
+          graphics::lines(stats.i$min,col=myCol)
+          graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+          graphics::lines(stats.i$mean)
           # X-Axis
           n.Total <- length(factor(stats.i[,"TimeValue"]))
           myAT <- 1:n.Total
           myLab <- stats.i[,"TimeValue"][myAT]
-          axis(1,at=myAT,labels=myLab,tick=TRUE)
+          graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
           #dev.off()
         #
         #
 
-      dev.off()##PDF.END
+      grDevices::dev.off()##PDF.END
 
 
 
@@ -722,7 +722,7 @@ fun.Stats.File <- function(fun.myFile
       strFile.Prefix.Out <- fun.myProcedure.Step
       strFile.Out <- paste(paste(strFile.Prefix.Out,strFile.Base,i,sep=ContData.env$myDelim),"csv",sep=".")
       #write.csv(stats.i.ALL,paste(myDir.data.export,strFile.Out,sep="/"),quote=FALSE,row.names=FALSE)
-      write.csv(stats.i.ALL,file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
+      utils::write.csv(stats.i.ALL,file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
       #
 
       # need to inform user what part of loop

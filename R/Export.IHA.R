@@ -137,7 +137,7 @@ Export.IHA <- function(fun.myFile
                       )
 {##FUNCTION.Export.IHA.START
   # import file
-  myDF <- read.csv(myFile, stringsAsFactors = FALSE)
+  myDF <- utils::read.csv(myFile, stringsAsFactors = FALSE)
   myCols <- c(fun.myCol.DateTime, fun.myCol.Parameter)
   # add date
   myDF <- myDF[,myCols]
@@ -156,7 +156,7 @@ Export.IHA <- function(fun.myFile
     date.end <- "NA"
   }
   # generate daily values
-  data.daily <- aggregate(myDF[,2] ~ myDF[,3], FUN=mean)
+  data.daily <- stats::aggregate(myDF[,2] ~ myDF[,3], FUN=mean)
   names(data.daily) <- c("Date", fun.myCol.Parameter)
   #head(data.daily)
   # Create zoo object for use with IHA library
@@ -166,7 +166,7 @@ Export.IHA <- function(fun.myFile
   myFile.ext <- substr(fun.myFile,nchar(myFile.base)+1,nchar(fun.myFile))
   myFile.dates <- paste0("_",date.start,"_",date.end)
   myFile.IHA <- paste0("IHA_",myFile.base,myFile.dates,myFile.ext)
-  write.csv(myData,myFile.IHA)
+  utils::write.csv(myData,myFile.IHA)
   # Return DF to user
   return(myData)
 }##FUNCTION.Export.IHA.END

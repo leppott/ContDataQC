@@ -39,7 +39,7 @@ fun.DateTimeFormat <- function(fun.DateTime,fun.dt.Type) { ##FUN.START
   #
   # Prep Data
   # Remove NA
-  dt <- na.omit(fun.DateTime)
+  dt <- stats::na.omit(fun.DateTime)
   # Remove white space (leading and trailing)
   dt <- trimws(fun.DateTime,"both")
   #
@@ -78,7 +78,7 @@ fun.DateTimeFormat <- function(fun.DateTime,fun.dt.Type) { ##FUN.START
     }##IF.ncol.END
     #
     # QC
-    head(dt.split.datetime)
+    utils::head(dt.split.datetime)
     #
     # Run date and time separate and combine formats
     myResult.d <- fun.dt.Type2(dt.split.datetime[,"date"],"date")

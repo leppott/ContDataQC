@@ -104,7 +104,7 @@ fun.Report.File <- function(fun.myFile
       print("ERROR; no such file exists.  Cannot create QC Report.")
       print(paste("PATH = ",myDir.data.import,sep=""))
       print(paste("FILE = ",strFile,sep=""))
-        flush.console()
+      utils::flush.console()
       stop("Bad file.")
       #
     }##IF.file.END
@@ -118,13 +118,13 @@ fun.Report.File <- function(fun.myFile
       myItems.Log[intCounter,2] <- myMsg
       fun.write.log(myItems.Log,myDate,myTime)
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       # go to next Item
       next
     }
 
     #import the file
-    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
+    data.import <- utils::read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
 
 
     # pick 'report' based on prefix
@@ -165,7 +165,7 @@ fun.Report.File <- function(fun.myFile
       Msg.Line4 <- paste0("directory = ", fun.myReport.Dir)
       Msg <- paste(Msg.Line0, Msg.Line1, Msg.Line2, Msg.Line3, Msg.Line4, Msg.Line0, sep="\n\n")
       cat(Msg)
-      flush.console()
+      utils::flush.console()
     }##IF.file.exists.END
     #
 
@@ -190,7 +190,7 @@ fun.Report.File <- function(fun.myFile
     print(paste("Task COMPLETE. QC Report.  Total time = ",format(difftime(myTime.End,myTime.Start)),".",sep=""))
   # User defined parameters
   print(paste("User defined parameters: File Name (",fun.myFile,").",sep=""))
-  flush.console()
+  utils::flush.console()
   #
 }##FUN.Report.END
 

@@ -46,6 +46,16 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9031
+2020-10-16
+
+* CRAN checks.
+    + Example lines longer than 100 characters.
+        - ContDataQC
+        - RBIcalc
+    + Add package names for all non base functions.
+        - 
+
 ## v2.0.5.9030
 2020-10-07
 

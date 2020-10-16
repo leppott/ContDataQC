@@ -142,7 +142,7 @@ Export.rLakeAnalyzer <- function(df_CDQC
 
   # write
   if(!is.null(fn_export)==TRUE){
-    write.csv(df_rLA, file.path(dir_export, fn_export), row.names=FALSE)
+    utils::write.csv(df_rLA, file.path(dir_export, fn_export), row.names=FALSE)
   }
 
 

@@ -256,7 +256,7 @@ PeriodStats <- function(fun.myDate
     #
     i.num <- match(i, fun.myParam.Name)
     print(paste0("WORKING on parameter (", i.num,"/",param.len,"); ", i))
-    flush.console()
+    utils::flush.console()
 
     # QC.0. FLAGs ####
     # check if flag field is in data
@@ -318,15 +318,15 @@ PeriodStats <- function(fun.myDate
     #
     myFUN.sumBy <- function(x, ...){##FUN.myFUN.sumBy.START
       c(mean=mean(x,na.rm=TRUE)
-        ,median=median(x,na.rm=TRUE)
+        ,median=stats::median(x,na.rm=TRUE)
         ,min=min(x,na.rm=TRUE)
         ,max=max(x,na.rm=TRUE)
         ,range=max(x,na.rm=TRUE)-min(x,na.rm=TRUE)
-        ,sd=sd(x,na.rm=TRUE)
-        ,var=var(x,na.rm=TRUE)
-        ,cv=sd(x,na.rm=TRUE)/mean(x,na.rm=TRUE)
+        ,sd=stats::sd(x,na.rm=TRUE)
+        ,var=stats::var(x,na.rm=TRUE)
+        ,cv=stats::sd(x,na.rm=TRUE)/mean(x,na.rm=TRUE)
         ,n=length(x)
-        ,q=quantile(x,probs=myQ,na.rm=TRUE)
+        ,q=stats::quantile(x,probs=myQ,na.rm=TRUE)
       )
     }##FUN.myFUN.sumBy.END
     # 4.2.  Rename data column (summaryBy doesn't like variables)
@@ -416,7 +416,7 @@ PeriodStats <- function(fun.myDate
                                          ,sep="_")
                                    ,myFile.Export.ext)
       # save
-      write.csv(df.summary.subset, file.path(fun.myDir.export, myFile.Export.full),quote=FALSE,row.names=FALSE)
+      utils::write.csv(df.summary.subset, file.path(fun.myDir.export, myFile.Export.full),quote=FALSE,row.names=FALSE)
     }##FOR.j.END
     #
   }##FOR.i.END
@@ -473,14 +473,14 @@ PeriodStats <- function(fun.myDate
     Msg.Line4 <- paste0("directory = ", fun.myReport.Dir)
     Msg <- paste(Msg.Line0, Msg.Line1, Msg.Line2, Msg.Line3, Msg.Line4, Msg.Line0, sep="\n\n")
     cat(Msg)
-    flush.console()
+    utils::flush.console()
   }##IF.file.exists.END
   #
 
   # 8. Inform user task is complete.####
   cat("Task complete.  Data (CSV) and report (",toupper(fun.myReport.format),") files saved to directory:\n")
   cat(fun.myDir.export)
-  flush.console()
+  utils::flush.console()
 
 }##FUNCTION.END
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -85,7 +85,7 @@ fun.AggregateData <- function(fun.myData.SiteID
   # Read in list of files to work on, uses all files matching pattern ("\\.csv$")
   # ## if change formats will have to make modifications (pattern, import, export)
   files2process = list.files(path=myDir.data.import, pattern=" *.csv")
-  head(files2process)
+  utils::head(files2process)
   #
   #
   # Define Counters for the Loop
@@ -93,7 +93,7 @@ fun.AggregateData <- function(fun.myData.SiteID
   intCounter.Stop <- length(files2process)
   intItems.Total <- intCounter.Stop
   print(paste("Total files to process = ",intItems.Total,sep=""))
-  flush.console()
+  utils::flush.console()
   myItems.Complete  <- 0
   myItems.Skipped   <- 0
   myFileTypeNum.Air <- 0
@@ -168,7 +168,7 @@ fun.AggregateData <- function(fun.myData.SiteID
       myItems.Log[intCounter,2] <- myMsg
       fun.write.log(myItems.Log,myDate,myTime)
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       # go to next Item
       next
     }
@@ -181,7 +181,7 @@ fun.AggregateData <- function(fun.myData.SiteID
       myItems.Log[intCounter,2] <- myMsg
       fun.write.log(myItems.Log,myDate,myTime)
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       # go to next Item
       next
     }
@@ -194,7 +194,7 @@ fun.AggregateData <- function(fun.myData.SiteID
       myItems.Log[intCounter,2] <- myMsg
       fun.write.log(myItems.Log,myDate,myTime)
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       # go to next Item
       next
     }
@@ -207,7 +207,7 @@ fun.AggregateData <- function(fun.myData.SiteID
       myItems.Log[intCounter,2] <- myMsg
       fun.write.log(myItems.Log,myDate,myTime)
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       # go to next Item
       next
     }
@@ -219,7 +219,7 @@ fun.AggregateData <- function(fun.myData.SiteID
       myItems.Log[intCounter,2] <- myMsg
       fun.write.log(myItems.Log,myDate,myTime)
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       # go to next Item
       next
     }
@@ -228,9 +228,9 @@ fun.AggregateData <- function(fun.myData.SiteID
     #data.import=read.table(strFile,header=F,varSep)
     #varSep = "\t" (use read.delim instead of read.table)
     # as.is = T so dates come in as text rather than factor
-    #data.import <- read.delim(strFile,as.is=TRUE,na.strings=c("","NA"))
-    #data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings=c("","NA"))
-    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
+    #data.import <- utils::read.delim(strFile,as.is=TRUE,na.strings=c("","NA"))
+    #data.import <- utils::read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+    data.import <- utils::read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
     #
     # QC required fields: SiteID & (DateTime | (Date & Time))
     #fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
@@ -329,7 +329,7 @@ fun.AggregateData <- function(fun.myData.SiteID
     #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
     #flush.console()
     #write.csv(data.append, file=paste(myDir.data.export,"/",strFile.Out,sep=""), quote=FALSE, row.names=FALSE)
-    write.csv(data.append, file=file.path(myDir.data.export,strFile.Out), quote=FALSE, row.names=FALSE)
+    utils::write.csv(data.append, file=file.path(myDir.data.export,strFile.Out), quote=FALSE, row.names=FALSE)
     # saves but if gets another one in the time range it will append as append is recycled between loop iterations
     # when gets a new data type it gets a new data.append
     # need trigger for different SiteID (won't combine across sites)
@@ -382,7 +382,7 @@ fun.AggregateData <- function(fun.myData.SiteID
     myItems.Log[intCounter,2] <- myMsg
     fun.write.log(myItems.Log,myDate,myTime)
     fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-    flush.console()
+    utils::flush.console()
     # 9.2. Remove data (import and subset)
     rm(data.import, data.subset)
     #
@@ -411,7 +411,7 @@ fun.AggregateData <- function(fun.myData.SiteID
   print(paste("Items SKIPPPED = ",myItems.Skipped,".",sep=""))
   # User defined parameters
   print(paste("User defined parameters: SiteID (",fun.myData.SiteID,"), Data Type (",fun.myData.Type,"), Date Range (",fun.myData.DateRange.Start," to ",fun.myData.DateRange.End,").",sep=""))
-  flush.console()
+  utils::flush.console()
 
 
   ### may have to move to inside of loop (original code for single SiteID)
@@ -438,10 +438,10 @@ fun.AggregateData <- function(fun.myData.SiteID
     #     fun.Name.myDF.2    <- myDF.Name.2
     #
     # Load Files
-    #data.DF.1 <- read.csv(paste(myDir.data.export,fun.Name.myDF.1,sep="/"),as.is=TRUE,na.strings=c("","NA"))
-    #data.DF.2 <- read.csv(paste(myDir.data.export,fun.Name.myDF.2,sep="/"),as.is=TRUE,na.strings=c("","NA"))
-    data.DF.1 <- read.csv(file.path(myDir.data.export,fun.Name.myDF.1),as.is=TRUE,na.strings=c("","NA"))
-    data.DF.2 <- read.csv(file.path(myDir.data.export,fun.Name.myDF.2),as.is=TRUE,na.strings=c("","NA"))
+    #data.DF.1 <- utils::read.csv(paste(myDir.data.export,fun.Name.myDF.1,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+    #data.DF.2 <- utils::read.csv(paste(myDir.data.export,fun.Name.myDF.2,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+    data.DF.1 <- utils::read.csv(file.path(myDir.data.export,fun.Name.myDF.1),as.is=TRUE,na.strings=c("","NA"))
+    data.DF.2 <- utils::read.csv(file.path(myDir.data.export,fun.Name.myDF.2),as.is=TRUE,na.strings=c("","NA"))
     #
     # strip non file specific columns ????
     # drop overlapping field names in data.DF.2 (typically the gage file) but keep DateTime
@@ -486,7 +486,7 @@ fun.AggregateData <- function(fun.myData.SiteID
     #File.Date.End   <- format(as.Date(fun.myData.DateRange.End,myFormat.Date),"%Y%m%d")
     #strFile.Out <- paste(myDir.data.export,paste(paste("DATA",fun.myData.SiteID,fun.myPrefix.merge,File.Date.Start,File.Date.End,sep=myDelim),"csv",sep="."),sep="/")
     strFile.Out <- file.path(myDir.data.export,paste(paste("DATA",fun.myData.SiteID,fun.myPrefix.merge,File.Date.Start,File.Date.End,sep=myDelim),"csv",sep="."))
-    write.csv(data.merge,file=strFile.Out,quote=FALSE,row.names=FALSE)
+    utils::write.csv(data.merge,file=strFile.Out,quote=FALSE,row.names=FALSE)
     # QC report (fails on render - lines 41-83 in rmd)
     #
 
@@ -514,7 +514,7 @@ fun.AggregateData <- function(fun.myData.SiteID
     }##IF.CreateReport.START
     # inform user
     print(paste("Done merging ",fun.myPrefix.merge," files; ",strFile.Out,sep=""))
-    flush.console()
+    utils::flush.console()
     # remove files
     rm(data.DF.1)
     rm(data.DF.2)
@@ -675,7 +675,7 @@ fun.AggregateData <- function(fun.myData.SiteID
     print(myMsg)
     print(files.mine[files.match==TRUE])
   }
-  flush.console()
+  utils::flush.console()
  #
 
 
@@ -759,8 +759,8 @@ fun.AggregateData <- function(fun.myData.SiteID
 #
 #
 #       # Load Files
-#       data.air <- read.csv(paste(myDir.data.export,Name.File.Air,sep="/"),as.is=TRUE,na.strings=c("","NA"))
-#       data.water <- read.csv(paste(myDir.data.export,Name.File.Water,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+#       data.air <- utils::read.csv(paste(myDir.data.export,Name.File.Air,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+#       data.water <- utils::read.csv(paste(myDir.data.export,Name.File.Water,sep="/"),as.is=TRUE,na.strings=c("","NA"))
 #       # strip non-file specific columns
 #       myNames.Order.Air <- c(myName.SiteID,myName.Date,myName.Time,myName.DateTime,myName.AirTemp,myName.LoggerID.Air,myName.RowID.Air)
 #       myNames.Order.Water <-c(myName.DateTime,myName.WaterTemp,myName.WaterP,myName.AirBP,myName.SensorDepth,myName.LoggerID.Water,myName.RowID.Water)
@@ -822,7 +822,7 @@ fun.AggregateData <- function(fun.myData.SiteID
 #       #
 #     } else if (files.match[3]==TRUE) {
 #       #
-#       data.AW <- read.csv(paste(myDir.data.export,Name.File.AW,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+#       data.AW <- utils::read.csv(paste(myDir.data.export,Name.File.AW,sep="/"),as.is=TRUE,na.strings=c("","NA"))
 #       #
 #     }##IF.air/water.END
 #
@@ -904,7 +904,7 @@ fun.AggregateData <- function(fun.myData.SiteID
 #   # Air
 #   if(files.match[1]==TRUE){##IF.filesmatch_air.START
 #     #
-#     data.air <- read.csv(paste(myDir.data.export,Name.File.Air,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+#     data.air <- utils::read.csv(paste(myDir.data.export,Name.File.Air,sep="/"),as.is=TRUE,na.strings=c("","NA"))
 #     data.plot <- data.air
 #     # cheat on Date/Time axis
 #     n.Total <- length(data.plot[,myName.Date])
@@ -927,7 +927,7 @@ fun.AggregateData <- function(fun.myData.SiteID
 #   # Water
 #   if(files.match[2]==TRUE){##IF.filesmatch_water.START
 #     #
-#     data.water <- read.csv(paste(myDir.data.export,Name.File.Water,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+#     data.water <- utils::read.csv(paste(myDir.data.export,Name.File.Water,sep="/"),as.is=TRUE,na.strings=c("","NA"))
 #     data.plot <- data.water
 #     # cheat on Date/Time axis
 #     n.Total <- length(data.plot[,myName.Date])

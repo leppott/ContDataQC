@@ -77,7 +77,7 @@ fun.ParseID <- function(fun.myFileName.In
     }##IF~file.exists~END
 
     # Import
-    df_import <- read.csv(i)
+    df_import <- utils::read.csv(i)
 
     # ID String
     str_ID <- as.character(unique(df_import[, fun.ColName.ID]))
@@ -118,12 +118,12 @@ fun.ParseID <- function(fun.myFileName.In
     df_import[, fun.ColName.ID]  <- df_split[, "SiteID"]
 
     # Export the file
-    write.csv(df_import, fun.myFileName.Out[i_num])
+    utils::write.csv(df_import, fun.myFileName.Out[i_num])
 
 
   }##IF~i~END
 
   print(paste0("Task COMPLETE; ", i_len, " items."))
-  flush.console()
+  utils::flush.console()
 
 }##FUNCTION~fun.ParseID~END

@@ -37,7 +37,7 @@ fun.Msg.Status <- function(fun.status, fun.item.num.current, fun.item.num.total,
 ## write log file
 # @export
 fun.write.log <- function(fun.Log,fun.Date,fun.Time) {#FUNCTION.START
-  write.table(fun.Log,file=paste("LOG.Items.",fun.Date,".",fun.Time,".tab",sep=""),sep="\t",row.names=FALSE,col.names=TRUE)
+  utils::write.table(fun.Log,file=paste("LOG.Items.",fun.Date,".",fun.Time,".tab",sep=""),sep="\t",row.names=FALSE,col.names=TRUE)
 }#FUNCTION.END
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Required field check
@@ -149,7 +149,7 @@ fun.QC.datetime <- function(fun.df){##FUNCTION.fun.QC.datetime.START
   # same for section below
   #
   # 20160322, new section, check for NA and fill if needed
-  if (length(na.omit(fun.df[,ContData.env$myName.DateTime]))==0){##IF.DateTime==NA.START
+  if (length(stats::na.omit(fun.df[,ContData.env$myName.DateTime]))==0){##IF.DateTime==NA.START
     # move 5.2.1 up here
     myField   <- ContData.env$myName.DateTime
     myFormat  <- ContData.env$myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
@@ -290,11 +290,11 @@ fun.OffsetCollectionCheck <- function(myDF, myFld.Data, myFld.DateTime=ContData.
   #if (tolower(myDataType) %in% c("air","water","gage") == FALSE) {##IF.START
     # data fields
     #myDataFields <- c("Water.BP.psi", "Water.Temp.C", "Air.BP.psi", "Water.Level.ft", "Air.Temp.C" )
-    myDF.NAomit <- as.data.frame(na.omit(myDF[,myFld.Data]))
+    myDF.NAomit <- as.data.frame(stats::na.omit(myDF[,myFld.Data]))
     if (nrow(myDF.NAomit)==0) {##IF.nrow.START
       boo.return <- 1 #TRUE, there is an issue
       #print("Offset collection times between data fields.  Need different analysis routine for this data.")
-      #flush.console()
+      #utils::flush.console()
     }##IF.nrow.END
     #
   #}##IF.END
@@ -352,7 +352,7 @@ fun.CalcQCStats <- function(fun.data.import
   boo.Offset <- fun.OffsetCollectionCheck(fun.data.import, fun.myField.Data.ALL, ContData.env$myName.DateTime)
   if(boo.Offset==TRUE) {##IF.boo.Offset.START
     # check time interval (na.omit removes all)
-    df.check <- na.omit(fun.data.import[,c(ContData.env$myName.DateTime,fun.myField.Data)])
+    df.check <- stats::na.omit(fun.data.import[,c(ContData.env$myName.DateTime,fun.myField.Data)])
     # convert from Character to time if necessary (not necessary)
     # if (is.character(df.check[,ContData.env$myName.DateTime])==TRUE){
     #   myFormat  <- ContData.env$myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
@@ -363,7 +363,7 @@ fun.CalcQCStats <- function(fun.data.import
     #x <- df.check[,ContData.env$myName.DateTime]
     myT <- strptime(df.check[,ContData.env$myName.DateTime],format=ContData.env$myFormat.DateTime)
     myTimeDiff.all <- difftime(myT[-1],myT[-length(myT)])
-    myTimeDiff <- median(as.vector(myTimeDiff.all),na.rm=TRUE)
+    myTimeDiff <- stats::median(as.vector(myTimeDiff.all),na.rm=TRUE)
     # create time series
     myTS <- seq(as.POSIXlt(min(myT),tz=ContData.env$myTZ),as.POSIXlt(max(myT),tz=ContData.env$myTZ),by="30 min") #by=paste0(myTimeDiff," min"))
     length(myTS)
@@ -376,7 +376,7 @@ fun.CalcQCStats <- function(fun.data.import
                      fun.myField.Data, paste0(ContData.env$myName.Flag,".",fun.myField.Data))
     ### Modify the DF
     # keep only the relevant data field and remove all NA (case-wise)
-    fun.data.import.mod <- na.omit(fun.data.import[,myFlds.Keep])
+    fun.data.import.mod <- stats::na.omit(fun.data.import[,myFlds.Keep])
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Check length.  If different add in extra times
     ## NA records would have been removed earlier
@@ -449,7 +449,7 @@ fun.CalcQCStats <- function(fun.data.import
   #x <- strptime(fun.data.import.mod[,ContData.env$myName.DateTime],format=ContData.env$myFormat.DateTime)
   #myT <- strptime(fun.data.import.mod[,ContData.env$myName.DateTime],format=ContData.env$myFormat.DateTime)
   myT.diff.all <- difftime(myT[-1],myT[-length(myT)], units="mins")
-  myT.diff <- median(as.vector(myT.diff.all),na.rm=TRUE)
+  myT.diff <- stats::median(as.vector(myT.diff.all),na.rm=TRUE)
   # convert DateTime to POSIX object (already done above)
   #myT <- strptime(fun.data.import.mod[,myName.DateTime],format=myFormat.DateTime)
   # A.2. Use data "as is"
@@ -479,7 +479,7 @@ fun.CalcQCStats <- function(fun.data.import
   #   # *******need to change to sapply***********
   #   for (m in 1:nrow(fun.data.import.mod)) {
   # #     print(m)
-  # #     flush.console()
+  # #     utils::flush.console()
   #     fun.data.import.mod[m,myField] <- sd(fun.data.import.mod[,fun.myField.Data][
   #         fun.data.import.mod[,myName.DateTime]<=fun.data.import.mod[m,myName.DateTime]
   #         & fun.data.import.mod[,myName.DateTime]>=fun.data.import.mod[m,myField.T1]
@@ -654,7 +654,7 @@ fun.CalcQCStats <- function(fun.data.import
   # Flag Fields (myField is current Flag.Parameter)
   FlagFields.Keep <- c(myField, paste(ContData.env$myName.Flag,ContData.env$myNames.QCTests,fun.myField.Data,sep="."))
   myFields.Drop <- match(paste(fun.myField.Data,ContData.env$myNames.QCCalcs,sep="."), names(fun.data.import.mod))
-  fun.data.import.mod <- fun.data.import.mod[,-na.omit(myFields.Drop)]
+  fun.data.import.mod <- fun.data.import.mod[,-stats::na.omit(myFields.Drop)]
   #
   # D.2. Offset Timing Fix
   ## Return a merged file if Offset is TRUE

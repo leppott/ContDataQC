@@ -104,14 +104,14 @@ fun.QC.File <- function(fun.myFile
   # files2process = list.files(path=myDir.data.import, pattern=" *.csv")
   # head(files2process)
   files2process <- fun.myFile
-  head(files2process)
+  utils::head(files2process)
   #
   # Define Counters for the Loop
   intCounter <- 0
   intCounter.Stop <- length(files2process)
   intItems.Total <- intCounter.Stop
   print(paste("Total files to process = ",intItems.Total,sep=""))
-    flush.console()
+  utils::flush.console()
   myItems.Complete  <- 0
   myItems.Skipped   <- 0
   # myFileTypeNum.Air <- 0
@@ -149,7 +149,7 @@ fun.QC.File <- function(fun.myFile
       print("ERROR; no such file exits.  Cannot QC the data.")
       print(paste("PATH = ",myDir.data.import,sep=""))
       print(paste("FILE = ",strFile,sep=""))
-      flush.console()
+      utils::flush.console()
       #
       # maybe print similar files
       #
@@ -184,7 +184,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Log[intCounter,2] <- myMsg
       fun.write.log(myItems.Log,myDate,myTime)
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-        flush.console()
+      utils::flush.console()
       # go to next Item
       next
     }
@@ -197,7 +197,7 @@ fun.QC.File <- function(fun.myFile
     #   myItems.Log[intCounter,2] <- myMsg
     #   fun.write.log(myItems.Log,myDate,myTime)
     #   fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-    #     flush.console()
+    #     utils::flush.console()
     #   # go to next Item
     #   next
     # }
@@ -210,7 +210,7 @@ fun.QC.File <- function(fun.myFile
     #   myItems.Log[intCounter,2] <- myMsg
     #   fun.write.log(myItems.Log,myDate,myTime)
     #   fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-    #     flush.console()
+    #     utils::flush.console()
     #   # go to next Item
     #   next
     # }
@@ -223,7 +223,7 @@ fun.QC.File <- function(fun.myFile
     #   myItems.Log[intCounter,2] <- myMsg
     #   fun.write.log(myItems.Log,myDate,myTime)
     #   fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-    #     flush.console()
+    #     utils::flush.console()
     #   # go to next Item
     #   next
     # }
@@ -235,7 +235,7 @@ fun.QC.File <- function(fun.myFile
     #   myItems.Log[intCounter,2] <- myMsg
     #   fun.write.log(myItems.Log,myDate,myTime)
     #   fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-    #     flush.console()
+    #     utils::flush.console()
     #   # go to next Item
     #   next
     # }
@@ -244,8 +244,8 @@ fun.QC.File <- function(fun.myFile
     #data.import=read.table(strFile,header=F,varSep)
     #varSep = "\t" (use read.delim instead of read.table)
     # as.is = T so dates come in as text rather than factor
-    #data.import <- read.delim(strFile,as.is=TRUE,na.strings=c("","NA"))
-    data.import <- read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
+    #data.import <- utils::read.delim(strFile,as.is=TRUE,na.strings=c("","NA"))
+    data.import <- utils::read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
     #
     # QC required fields: SiteID & (DateTime | (Date & Time))
     fun.QC.ReqFlds(names(data.import),file.path(myDir.data.import,strFile))
@@ -266,7 +266,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Log[intCounter,2] <- myMsg
       fun.write.log(myItems.Log,myDate,myTime)
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       # go to next Item
       next
     }
@@ -277,7 +277,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Log[intCounter,2] <- myMsg
       fun.write.log(myItems.Log,myDate,myTime)
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       # go to next Item
       next
     }
@@ -297,7 +297,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Log[intCounter,2] <- myMsg
       fun.write.log(myItems.Log,myDate,myTime)
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       # go to next Item
     }
     #
@@ -347,7 +347,7 @@ fun.QC.File <- function(fun.myFile
     # same for section below
     #
     # 20160322, new section, check for NA and fill if needed
-    if (length(na.omit(data.import[,ContData.env$myName.DateTime]))==0){##IF.DateTime==NA.START
+    if (length(stats::na.omit(data.import[,ContData.env$myName.DateTime]))==0){##IF.DateTime==NA.START
       # move 5.2.1 up here
       myField   <- ContData.env$myName.DateTime
       myFormat  <- ContData.env$myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
@@ -508,7 +508,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Complete <- myItems.Complete + 1
       myItems.Log[intCounter,2] <- myMsg
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
                                   ,myField
@@ -562,7 +562,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Complete <- myItems.Complete + 1
       myItems.Log[intCounter,2] <- myMsg
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
                                   ,myField
@@ -589,7 +589,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Complete <- myItems.Complete + 1
       myItems.Log[intCounter,2] <- myMsg
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
                                   ,myField
@@ -616,7 +616,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Complete <- myItems.Complete + 1
       myItems.Log[intCounter,2] <- myMsg
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
                                      ,myField
@@ -643,7 +643,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Complete <- myItems.Complete + 1
       myItems.Log[intCounter,2] <- myMsg
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
                                      ,myField
@@ -670,7 +670,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Complete <- myItems.Complete + 1
       myItems.Log[intCounter,2] <- myMsg
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
                                      ,myField
@@ -696,7 +696,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Complete <- myItems.Complete + 1
       myItems.Log[intCounter,2] <- myMsg
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
                                      ,myField
@@ -722,7 +722,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Complete <- myItems.Complete + 1
       myItems.Log[intCounter,2] <- myMsg
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
                                      ,myField
@@ -748,7 +748,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Complete <- myItems.Complete + 1
       myItems.Log[intCounter,2] <- myMsg
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
                                      ,myField
@@ -796,7 +796,7 @@ fun.QC.File <- function(fun.myFile
 #     strFile.Out <- paste("QCauto",strFile,sep="_")
 #     # 10.2. Save to File the data (overwrites any existing file).
 #     #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
-#     #flush.console()
+#     #utils::flush.console()
 #     write.csv(data.import,file=paste(myDir.data.export,"/",strFile.Out,sep=""),quote=FALSE,row.names=FALSE)
 #     #
 
@@ -848,9 +848,9 @@ fun.QC.File <- function(fun.myFile
     strFile.Out <- paste(paste(strFile.Out.Prefix,strFile.Base,sep=ContData.env$myDelim),"csv",sep=".")
     # 10.2. Save to File the data (overwrites any existing file).
     #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
-    #flush.console()
+    #utils::flush.console()
     #write.csv(data.import,file=paste(myDir.data.export,"/",strFile.Out,sep=""),quote=FALSE,row.names=FALSE)
-    write.csv(data.import,file=file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
+    utils::write.csv(data.import,file=file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
     #
 #     # B.11. Clean up
 #     # B.11.1. Inform user of progress and update LOG
@@ -859,7 +859,7 @@ fun.QC.File <- function(fun.myFile
 #     myItems.Log[intCounter,2] <- myMsg
 #     fun.write.log(myItems.Log,myDate,myTime)
 #     fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-#     flush.console()
+#     utils::flush.console()
 #     # B.11.2. Remove data (import)
 #     rm(data.import)
 
@@ -882,7 +882,7 @@ fun.QC.File <- function(fun.myFile
     if (booDisableReport==TRUE) {##IF.boo.DisableReport.START
       myMsg <- "The reporting feature is disabled at this time.  A future verison may re-enable it."
       cat(myMsg)
-      flush.console()
+      utils::flush.console()
     } else if (booDisableReport==FALSE) {
       if (fun.CreateReport==TRUE){##IF.CreateReport.START
         fun.Report.File(strFile
@@ -917,7 +917,7 @@ fun.QC.File <- function(fun.myFile
     myItems.Log[intCounter,2] <- myMsg
     fun.write.log(myItems.Log,myDate,myTime)
     fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-    flush.console()
+    utils::flush.console()
     # 11.2. Remove data (import)
     rm(data.import)
     #
@@ -926,7 +926,7 @@ fun.QC.File <- function(fun.myFile
   # C. Return ####
   myTime.End <- Sys.time()
   print(paste("Task COMPLETE; ",round(difftime(myTime.End,myTime.Start,units="mins"),2)," min.",sep=""))
-  flush.console()
+  utils::flush.console()
   #
   # return data table
   #return(data.import)  # don't want to return since are saving in the loop  (would only be last one anyway)
@@ -1129,7 +1129,7 @@ fun.QC.File <- function(fun.myFile
 # #   # *******need to change to sapply***********
 # #   for (m in 1:nrow(fun.data.import.mod)) {
 # # #     print(m)
-# # #     flush.console()
+# # #     utils::flush.console()
 # #     fun.data.import.mod[m,myField] <- sd(fun.data.import.mod[,fun.myField.Data][
 # #         fun.data.import.mod[,myName.DateTime]<=fun.data.import.mod[m,myName.DateTime]
 # #         & fun.data.import.mod[,myName.DateTime]>=fun.data.import.mod[m,myField.T1]

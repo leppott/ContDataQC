@@ -184,11 +184,11 @@ formatHobo <- function(fun.myFile=""
     i.len <- length(fun.myFile)
     # User feedback
     cat(paste0("Working on item (", i.num, "/", i.len, "); ", i, "\n"))
-    flush.console()
+    utils::flush.console()
 
     # 01.01. Import ####
     # import with read.delim (greater control than read.csv)
-    df_hobo <- read.delim(file.path(fun.myDir.import, i), skip=1, header=TRUE, sep=","
+    df_hobo <- utils::read.delim(file.path(fun.myDir.import, i), skip=1, header=TRUE, sep=","
                           , check.names=FALSE, stringsAsFactors = FALSE)
 
     # 01.02. Munge ####
@@ -335,7 +335,7 @@ formatHobo <- function(fun.myFile=""
     }##IF.col_SensorDepth.END
 
     # 01.05. DF Save ####
-    write.csv(df_out, file.path(fun.myDir.export, i), row.names=FALSE)
+    utils::write.csv(df_out, file.path(fun.myDir.export, i), row.names=FALSE)
 
     # 01.06. Cleanup
     rm(df_out)
@@ -344,6 +344,6 @@ formatHobo <- function(fun.myFile=""
   }##FOR.i.END
   #
   cat("Task complete.\n")
-  flush.console()
+  utils::flush.console()
 	#
 }##FUNCTION.END

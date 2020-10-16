@@ -63,7 +63,7 @@ CompSiteCDF <- function(file.input=NULL, dir.input=getwd(), dir.output=getwd(), 
   if (!is.null(df.input)) {##IF.START
     data.import <- df.input
   } else {
-    data.import <- read.csv(file.path(dir.input, myFile))
+    data.import <- utils::read.csv(file.path(dir.input, myFile))
   }##IF.END
   #
   # Site Names (Columns)
@@ -120,32 +120,32 @@ CompSiteCDF <- function(file.input=NULL, dir.input=getwd(), dir.output=getwd(), 
         # need ylim
         myYlim.max <- 0
         for (ii in 1:length(Col.Sites)) {
-          myYlim.max <- max(hist(data.plot[,Col.Sites[ii]],plot=FALSE)$density, myYlim.max)
+          myYlim.max <- max(graphics::hist(data.plot[,Col.Sites[ii]],plot=FALSE)$density, myYlim.max)
         }
         myYlim <- c(0,myYlim.max)
         #
-        hist(data.plot[,Col.Sites[i]], prob=TRUE, border="white"
+        graphics::hist(data.plot[,Col.Sites[i]], prob=TRUE, border="white"
              ,main=myMain, xlab=ParamName.xlab, ylab="Proportion = value"
              ,ylim=myYlim)
-        box()
+        graphics::box()
       }##IF.j==1.END
       # plot lines
-      lines(density(data.i, na.rm=TRUE), col=myColors[i], lwd=2)
+      graphics::lines(stats::density(data.i, na.rm=TRUE), col=myColors[i], lwd=2)
     }##FOR.j.END
-    legend("topright",Col.Sites,fill=myColors)
+    graphics::legend("topright",Col.Sites,fill=myColors)
     #
     # Plot 2
     myLWD <- 1.5
     for (j in 1:length(Col.Sites)){##FOR.i.START
       if(j==1){##IF.i==1.START
-        plot(ecdf(data.plot[,Col.Sites[j]]), col=myColors[j], verticals=TRUE, lwd=myLWD, do.p=FALSE #pch=19, cex=.75 #do.p=FALSE
+        plot(stats::ecdf(data.plot[,Col.Sites[j]]), col=myColors[j], verticals=TRUE, lwd=myLWD, do.p=FALSE #pch=19, cex=.75 #do.p=FALSE
              #, col.01line="white"
              , main=myMain, xlab=ParamName.xlab, ylab="Proportion <= value" )
       } else {
-        plot(ecdf(data.plot[,Col.Sites[j]]), col=myColors[j], verticals=TRUE, lwd=myLWD, do.p=FALSE, add=T)
+        plot(stats::ecdf(data.plot[,Col.Sites[j]]), col=myColors[j], verticals=TRUE, lwd=myLWD, do.p=FALSE, add=T)
       }##IF.i==1.END
     }##FOR.i.END
-    legend("bottomright",Col.Sites,fill=myColors)
+    graphics::legend("bottomright",Col.Sites,fill=myColors)
   }##FUNCTION.CreatePlots.END
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   #
@@ -157,9 +157,9 @@ CompSiteCDF <- function(file.input=NULL, dir.input=getwd(), dir.output=getwd(), 
   strFile.Out <- paste(paste("CompSiteCDF",myDate,myTime,sep=ContData.env$myDelim),"pdf",sep=".")
   #
   # Plot and Save to PDF
-  pdf(file=strFile.Out, width=7, height=10)##PDF.START
+  grDevices::pdf(file=strFile.Out, width=7, height=10)##PDF.START
     # 2 plots per page
-    par(mfrow=c(2,1))
+    graphics::par(mfrow=c(2,1))
     #
     # ALL
     myMain <- "All Data"
@@ -191,7 +191,7 @@ CompSiteCDF <- function(file.input=NULL, dir.input=getwd(), dir.output=getwd(), 
       CreatePlots()
     }##FOR.a.END
     #
-  dev.off() ##PDF.END
+  grDevices::dev.off() ##PDF.END
   }
   #~~~~~~~~~~~~~~~~
   # Junk Code
@@ -211,12 +211,12 @@ CompSiteCDF <- function(file.input=NULL, dir.input=getwd(), dir.output=getwd(), 
   # AA <- data.import$Browns[!is.na(data.import$Browns)]
   #
   # hist(AA, prob=TRUE)
-  # lines(density(AA), col="blue", lwd=2)
+  # lines(stats::density(AA), col="blue", lwd=2)
   # box()
   #~~~~~~~~~~~~~~~~
   #
   # Inform user that task is done
   cat(paste0("PDF created; ",strFile.Out))
-  flush.console()
+  utils::flush.console()
   #
 } #end of function; ##FUNCTION.CompSiteCDF.END

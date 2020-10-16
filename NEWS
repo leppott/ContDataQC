@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-10-07 10:21:25
+    #> Last Update: 2020-10-16 11:06:47
 
 # Planned Updates
 
@@ -37,6 +37,16 @@ NEWS-ContDataQC
 
 # Version History
 
+## v2.0.5.9031
+
+2020-10-16
+
+  - CRAN checks.
+      - Example lines longer than 100 characters.
+          - ContDataQC
+          - RBIcalc
+      - Add package names for all non base functions.
+          - 
 ## v2.0.5.9030
 
 2020-10-07
