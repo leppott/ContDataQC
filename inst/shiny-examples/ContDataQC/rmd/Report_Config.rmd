@@ -46,7 +46,7 @@ Table of most relevant thresholds in report ready format.  This is the same tabl
 kbl_caption <- "Thresholds, Quick Reference"
 txt_header <- c("Analyte", "Flag", "Gross", "Spike", "Rate of Change", "Flat Line")
 # WaterTemp
-nam_WaterTemp <- c("myLab.WaterTemp"                       #1
+nam_WaterTemp <- c("myLab.WaterTemp"                        #1
                    , "myUnits.WaterTemp"                    #2
                    , "myThresh.Gross.Fail.Hi.WaterTemp"     #3
                    , "myThresh.Gross.Fail.Lo.WaterTemp"     #4
@@ -72,7 +72,7 @@ txt_WaterTemp_F <- c(val_WaterTemp[1]
                               ," units of one another"))
 txt_WaterTemp_S <- c(val_WaterTemp[1]
                      , "Suspect"
-                     , paste0("> ",val_WaterTemp[4]," deg ",val_WaterTemp[2]
+                     , paste0("> ",val_WaterTemp[5]," deg ",val_WaterTemp[2]
                               ," or < ",val_WaterTemp[6]," deg ",val_WaterTemp[2])
                      , paste0(">= ", val_WaterTemp[8]," deg ",val_WaterTemp[2]," (+/-)")
                      , paste0(">= ",val_WaterTemp[9]," standard deviations within "
@@ -107,7 +107,7 @@ txt_AirTemp_F <- c(val_AirTemp[1]
                               ," units of one another"))
 txt_AirTemp_S <- c(val_AirTemp[1]
                      , "Suspect"
-                     , paste0("> ",val_AirTemp[4]," deg ",val_AirTemp[2]
+                     , paste0("> ",val_AirTemp[5]," deg ",val_AirTemp[2]
                               ," or < ",val_AirTemp[6]," deg ",val_AirTemp[2])
                      , paste0(">= ", val_AirTemp[8]," deg ",val_AirTemp[2]," (+/-)")
                      , paste0(">= ",val_AirTemp[9]," standard deviations within "
@@ -116,7 +116,7 @@ txt_AirTemp_S <- c(val_AirTemp[1]
                               ," consecutive measurements within ",val_AirTemp[13]
                               ," units of one another"))
 # WaterP
-nam_WaterP <- c("myLab.WaterP"                          #1
+nam_WaterP <- c("myLab.WaterP"                           #1
                    , "myUnits.WaterP"                    #2
                    , "myThresh.Gross.Fail.Hi.WaterP"     #3
                    , "myThresh.Gross.Fail.Lo.WaterP"     #4
@@ -142,7 +142,7 @@ txt_WaterP_F <- c(val_WaterP[1]
                               ," units of one another"))
 txt_WaterP_S <- c(val_WaterP[1]
                      , "Suspect"
-                     , paste0("> ",val_WaterP[4]," ",val_WaterP[2]
+                     , paste0("> ",val_WaterP[5]," ",val_WaterP[2]
                               ," or < ",val_WaterP[6]," ",val_WaterP[2])
                      , paste0(">= ", val_WaterP[8]," ",val_WaterP[2]," (+/-)")
                      , paste0(">= ",val_WaterP[9]," standard deviations within "
@@ -151,7 +151,7 @@ txt_WaterP_S <- c(val_WaterP[1]
                               ," consecutive measurements within ",val_WaterP[13]
                               ," units of one another"))
 # AirBP
-nam_AirBP <- c("myLab.AirBP"                          #1
+nam_AirBP <- c("myLab.AirBP"                            #1
                    , "myUnits.AirBP"                    #2
                    , "myThresh.Gross.Fail.Hi.AirBP"     #3
                    , "myThresh.Gross.Fail.Lo.AirBP"     #4
@@ -177,7 +177,7 @@ txt_AirBP_F <- c(val_AirBP[1]
                               ," units of one another"))
 txt_AirBP_S <- c(val_AirBP[1]
                      , "Suspect"
-                     , paste0("> ",val_AirBP[4]," ",val_AirBP[2]
+                     , paste0("> ",val_AirBP[5]," ",val_AirBP[2]
                               ," or < ",val_AirBP[6]," ",val_AirBP[2])
                      , paste0(">= ", val_AirBP[8]," ",val_AirBP[2]," (+/-)")
                      , paste0(">= ",val_AirBP[9]," standard deviations within "
@@ -186,7 +186,7 @@ txt_AirBP_S <- c(val_AirBP[1]
                               ," consecutive measurements within ",val_AirBP[13]
                               ," units of one another"))
 # SensorDepth
-nam_SensorDepth <- c("myLab.SensorDepth"                          #1
+nam_SensorDepth <- c("myLab.SensorDepth"                      #1
                    , "myUnits.SensorDepth"                    #2
                    , "myThresh.Gross.Fail.Hi.SensorDepth"     #3
                    , "myThresh.Gross.Fail.Lo.SensorDepth"     #4
@@ -212,7 +212,7 @@ txt_SensorDepth_F <- c(val_SensorDepth[1]
                               ," units of one another"))
 txt_SensorDepth_S <- c(val_SensorDepth[1]
                      , "Suspect"
-                     , paste0("> ",val_SensorDepth[4]," ",val_SensorDepth[2]
+                     , paste0("> ",val_SensorDepth[5]," ",val_SensorDepth[2]
                               ," or < ",val_SensorDepth[6]," ",val_SensorDepth[2])
                      , paste0(">= ", val_SensorDepth[8]," ",val_SensorDepth[2]," (+/-)")
                      , paste0(">= ",val_SensorDepth[9]," standard deviations within "
@@ -221,7 +221,7 @@ txt_SensorDepth_S <- c(val_SensorDepth[1]
                               ," consecutive measurements within ",val_SensorDepth[13]
                               ," units of one another"))
 # Discharge
-nam_Discharge <- c("myLab.Discharge"                          #1
+nam_Discharge <- c("myLab.Discharge"                        #1
                    , "myUnits.Discharge"                    #2
                    , "myThresh.Gross.Fail.Hi.Discharge"     #3
                    , "myThresh.Gross.Fail.Lo.Discharge"     #4
@@ -247,7 +247,7 @@ txt_Discharge_F <- c(val_Discharge[1]
                               ," units of one another"))
 txt_Discharge_S <- c(val_Discharge[1]
                      , "Suspect"
-                     , paste0("> ",val_Discharge[4]," ",val_Discharge[2]
+                     , paste0("> ",val_Discharge[5]," ",val_Discharge[2]
                               ," or < ",val_Discharge[6]," ",val_Discharge[2])
                      , paste0(">= ", val_Discharge[8]," ",val_Discharge[2]," (+/-)")
                      , paste0(">= ",val_Discharge[9]," standard deviations within "
@@ -256,7 +256,7 @@ txt_Discharge_S <- c(val_Discharge[1]
                               ," consecutive measurements within ",val_Discharge[13]
                               ," units of one another"))
 # Cond
-nam_Cond <- c("myLab.Cond"                          #1
+nam_Cond <- c("myLab.Cond"                             #1
                    , "myUnits.Cond"                    #2
                    , "myThresh.Gross.Fail.Hi.Cond"     #3
                    , "myThresh.Gross.Fail.Lo.Cond"     #4
@@ -282,7 +282,7 @@ txt_Cond_F <- c(val_Cond[1]
                               ," units of one another"))
 txt_Cond_S <- c(val_Cond[1]
                      , "Suspect"
-                     , paste0("> ",val_Cond[4]," ",val_Cond[2]
+                     , paste0("> ",val_Cond[5]," ",val_Cond[2]
                               ," or < ",val_Cond[6]," ",val_Cond[2])
                      , paste0(">= ", val_Cond[8]," ",val_Cond[2]," (+/-)")
                      , paste0(">= ",val_Cond[9]," standard deviations within "
@@ -291,20 +291,20 @@ txt_Cond_S <- c(val_Cond[1]
                               ," consecutive measurements within ",val_Cond[13]
                               ," units of one another"))
 # DO
-nam_DO <- c("myLab.DO"                          #1
-                   , "myUnits.DO"                    #2
-                   , "myThresh.Gross.Fail.Hi.DO"     #3
-                   , "myThresh.Gross.Fail.Lo.DO"     #4
-                   , "myThresh.Gross.Suspect.Hi.DO"  #5
-                   , "myThresh.Gross.Suspect.Lo.DO"  #6
-                   , "myThresh.Spike.Hi.DO"          #7
-                   , "myThresh.Spike.Lo.DO"          #8
-                   , "myThresh.RoC.SD.number.DO"     #9
-                   , "myThresh.RoC.SD.period.DO"     #10
-                   , "myThresh.Flat.Hi.DO"           #11
-                   , "myThresh.Flat.Lo.DO"           #12
-                   , "myThresh.Flat.Tolerance.DO"    #13
-                   )
+nam_DO <- c("myLab.DO"                         #1
+             , "myUnits.DO"                    #2
+             , "myThresh.Gross.Fail.Hi.DO"     #3
+             , "myThresh.Gross.Fail.Lo.DO"     #4
+             , "myThresh.Gross.Suspect.Hi.DO"  #5
+             , "myThresh.Gross.Suspect.Lo.DO"  #6
+             , "myThresh.Spike.Hi.DO"          #7
+             , "myThresh.Spike.Lo.DO"          #8
+             , "myThresh.RoC.SD.number.DO"     #9
+             , "myThresh.RoC.SD.period.DO"     #10
+             , "myThresh.Flat.Hi.DO"           #11
+             , "myThresh.Flat.Lo.DO"           #12
+             , "myThresh.Flat.Tolerance.DO"    #13
+             )
 val_DO <- mget(nam_DO, envir=ContData.env)
 txt_DO_F <- c(val_DO[1]
                      , "Fail"
@@ -317,7 +317,7 @@ txt_DO_F <- c(val_DO[1]
                               ," units of one another"))
 txt_DO_S <- c(val_DO[1]
                      , "Suspect"
-                     , paste0("> ",val_DO[4]," ",val_DO[2]
+                     , paste0("> ",val_DO[5]," ",val_DO[2]
                               ," or < ",val_DO[6]," ",val_DO[2])
                      , paste0(">= ", val_DO[8]," ",val_DO[2]," (+/-)")
                      , paste0(">= ",val_DO[9]," standard deviations within "
@@ -326,20 +326,20 @@ txt_DO_S <- c(val_DO[1]
                               ," consecutive measurements within ",val_DO[13]
                               ," units of one another"))
 # pH
-nam_pH <- c("myLab.pH"                          #1
-                   , "myUnits.pH"                    #2
-                   , "myThresh.Gross.Fail.Hi.pH"     #3
-                   , "myThresh.Gross.Fail.Lo.pH"     #4
-                   , "myThresh.Gross.Suspect.Hi.pH"  #5
-                   , "myThresh.Gross.Suspect.Lo.pH"  #6
-                   , "myThresh.Spike.Hi.pH"          #7
-                   , "myThresh.Spike.Lo.pH"          #8
-                   , "myThresh.RoC.SD.number.pH"     #9
-                   , "myThresh.RoC.SD.period.pH"     #10
-                   , "myThresh.Flat.Hi.pH"           #11
-                   , "myThresh.Flat.Lo.pH"           #12
-                   , "myThresh.Flat.Tolerance.pH"    #13
-                   )
+nam_pH <- c("myLab.pH"                       #1
+           , "myUnits.pH"                    #2
+           , "myThresh.Gross.Fail.Hi.pH"     #3
+           , "myThresh.Gross.Fail.Lo.pH"     #4
+           , "myThresh.Gross.Suspect.Hi.pH"  #5
+           , "myThresh.Gross.Suspect.Lo.pH"  #6
+           , "myThresh.Spike.Hi.pH"          #7
+           , "myThresh.Spike.Lo.pH"          #8
+           , "myThresh.RoC.SD.number.pH"     #9
+           , "myThresh.RoC.SD.period.pH"     #10
+           , "myThresh.Flat.Hi.pH"           #11
+           , "myThresh.Flat.Lo.pH"           #12
+           , "myThresh.Flat.Tolerance.pH"    #13
+           )
 val_pH <- mget(nam_pH, envir=ContData.env)
 txt_pH_F <- c(val_pH[1]
                      , "Fail"
@@ -352,7 +352,7 @@ txt_pH_F <- c(val_pH[1]
                               ," units of one another"))
 txt_pH_S <- c(val_pH[1]
                      , "Suspect"
-                     , paste0("> ",val_pH[4]," ",val_pH[2]
+                     , paste0("> ",val_pH[5]," ",val_pH[2]
                               ," or < ",val_pH[6]," ",val_pH[2])
                      , paste0(">= ", val_pH[8]," ",val_pH[2]," (+/-)")
                      , paste0(">= ",val_pH[9]," standard deviations within "
@@ -361,7 +361,7 @@ txt_pH_S <- c(val_pH[1]
                               ," consecutive measurements within ",val_pH[13]
                               ," units of one another"))
 # Turbidity
-nam_Turbidity <- c("myLab.Turbidity"                          #1
+nam_Turbidity <- c("myLab.Turbidity"                        #1
                    , "myUnits.Turbidity"                    #2
                    , "myThresh.Gross.Fail.Hi.Turbidity"     #3
                    , "myThresh.Gross.Fail.Lo.Turbidity"     #4
@@ -387,7 +387,7 @@ txt_Turbidity_F <- c(val_Turbidity[1]
                               ," units of one another"))
 txt_Turbidity_S <- c(val_Turbidity[1]
                      , "Suspect"
-                     , paste0("> ",val_Turbidity[4]," ",val_Turbidity[2]
+                     , paste0("> ",val_Turbidity[5]," ",val_Turbidity[2]
                               ," or < ",val_Turbidity[6]," ",val_Turbidity[2])
                      , paste0(">= ", val_Turbidity[8]," ",val_Turbidity[2]," (+/-)")
                      , paste0(">= ",val_Turbidity[9]," standard deviations within "
@@ -396,7 +396,7 @@ txt_Turbidity_S <- c(val_Turbidity[1]
                               ," consecutive measurements within ",val_Turbidity[13]
                               ," units of one another"))
 # Chlorophylla
-nam_Chlorophylla <- c("myLab.Chlorophylla"                          #1
+nam_Chlorophylla <- c("myLab.Chlorophylla"                     #1
                    , "myUnits.Chlorophylla"                    #2
                    , "myThresh.Gross.Fail.Hi.Chlorophylla"     #3
                    , "myThresh.Gross.Fail.Lo.Chlorophylla"     #4
@@ -422,7 +422,7 @@ txt_Chlorophylla_F <- c(val_Chlorophylla[1]
                               ," units of one another"))
 txt_Chlorophylla_S <- c(val_Chlorophylla[1]
                      , "Suspect"
-                     , paste0("> ",val_Chlorophylla[4]," ",val_Chlorophylla[2]
+                     , paste0("> ",val_Chlorophylla[5]," ",val_Chlorophylla[2]
                               ," or < ",val_Chlorophylla[6]," ",val_Chlorophylla[2])
                      , paste0(">= ", val_Chlorophylla[8]," ",val_Chlorophylla[2]," (+/-)")
                      , paste0(">= ",val_Chlorophylla[9]," standard deviations within "
@@ -457,7 +457,7 @@ txt_GageHeight_F <- c(val_GageHeight[1]
                               ," units of one another"))
 txt_GageHeight_S <- c(val_GageHeight[1]
                      , "Suspect"
-                     , paste0("> ",val_GageHeight[4]," ",val_GageHeight[2]
+                     , paste0("> ",val_GageHeight[5]," ",val_GageHeight[2]
                               ," or < ",val_GageHeight[6]," ",val_GageHeight[2])
                      , "NA"
                      , paste0(">= ",val_GageHeight[7]," standard deviations within "

@@ -72,17 +72,56 @@ for (m in fun.myParam.Name){##FOR.m.START
     df.summary.plot <- df.summary.plot.2
   }##IF.m.num.END
   #
+  
+
   for (n in 1:numPeriods){##FOR.n.START
     # subset
     df.plot <- df.summary.plot[df.summary.plot[,myDate.Name]>=as.Date(myDate.Start[n]) & df.summary.plot[,myDate.Name]<=as.Date(myDate.End), ]
-    # create file name
-    plot(df.plot[,1:2]
-         , main=paste0(fun.myDate," \n(",fun.myPeriod.N[n],fun.myPeriod.Units[n],")")
-         )
-    # Add line
-    if(!is.na(fun.myThreshold)){
-      abline(h=fun.myThreshold)
-    }
+
+    # Plot format
+    plot_format <- "base" # "base" or "ggplot"
+    #
+    if(plot_format=="base"){##IF~plot_format~START
+      # plot, base ####
+      # main
+      str_main <- paste0(fun.myDate," \n(",fun.myPeriod.N[n],fun.myPeriod.Units[n],")")
+      # plot
+      plot(df.plot[, 1:2], main=str_main, type="n")
+      # Add min/max range
+      myCol_minmax <- "light gray"
+      lines(df.plot[, c(1,5)], col=myCol_minmax) #max
+      lines(df.plot[, c(1,4)], col=myCol_minmax) #min
+      polygon(c(df.plot[, 1], rev(df.plot[, 1]))
+              , c(df.plot[, 5],rev(df.plot[, 4])), col=myCol_minmax, border=NA)
+      lines(df.plot[, 1:2], lwd=1) # mean (replot on top)
+            # Add line
+      if(!is.na(fun.myThreshold)){##IF.threshold.START
+        abline(h=fun.myThreshold, col="blue", lty="dashed")
+      }##IF.threshold.END
+      #
+    } else if(plot_format=="ggplot"){
+      # plot, ggplot ####
+      x_name <- names(df.summary.plot)[1]
+      y_name <- names(df.summary.plot)[2]
+      str_title    <- fun.myDate 
+      str_subtitle <- paste0("(", fun.myPeriod.N[n], fun.myPeriod.Units[n], ")")
+      #
+      p_ps <- ggplot2::ggplot(df.summary.plot) +
+               ggplot2::geom_point(ggplot2::aes_q(x=as.name(x_name), y=as.name(y_name))) + 
+               ggplot2::labs(title=str_title, subtitle=str_subtitle) +
+               ggplot2::theme(plot.title=ggplot2::element_text(hjust=0.5)
+                                   , plot.subtitle=ggplot2::element_text(hjust=0.5))
+      #
+      # Add line (if have data)
+      if(!is.na(fun.myThreshold)){##IF.threshold.START
+        p_ps <- p_ps + ggplot2::geom_hline(ggplot2::aes_string(yintercept=fun.myThreshold))
+      }##IF.threshold.START
+      #
+      print(p_ps)
+      #
+    }##IF~plot_format~START
+    #
+      
   }##FOR.n.END
   #
 }##FOR.m.END
@@ -111,12 +150,13 @@ if(param.len==2){##IF.len.START
   df.merge[,1] <- as.Date(df.merge[,1], format=ContData.env$myFormat.Date)
   
   # Plot parameters
-  col.Y <- "blue"
+  col.Y  <- "blue"
   col.Y2 <- "black"
-  pch.Y <- 21
+  pch.Y  <- 21
   pch.Y2 <- 22
-  lab.Y <- names(df.merge[2])
+  lab.Y  <- names(df.merge[2])
   lab.Y2 <- names(df.merge[3])
+  
   
   # Plots
   ## Loop through each period
@@ -124,6 +164,13 @@ if(param.len==2){##IF.len.START
   for (p in 1:numPeriods){##FOR.n.START
     # subset
     df.plot.multi <- df.merge[df.merge[,myDate.Name]>=as.Date(myDate.Start[p]) & df.merge[,myDate.Name]<=as.Date(myDate.End), ]
+    #
+    plot_format <- "base" # "base" or "ggplot"
+    #
+    if(plot_format=="base"){##IF~plot_format~START
+    # plot, base ####
+    
+    
     
     # Add extra space to right of plot area; change clipping to figure
     #par(mar=c(5.1, 4.1, 4.1, 8.1), xpd=TRUE)
@@ -135,7 +182,8 @@ if(param.len==2){##IF.len.START
     plot(df.plot.multi[,1:2]
          , main=paste0(fun.myDate," \n(",fun.myPeriod.N[p],fun.myPeriod.Units[p],")")
          , col=col.Y
-         , pch=pch.Y
+         #, pch=pch.Y
+         , type="l"
          )
     # Add line
     if(!is.na(fun.myThreshold)){
@@ -146,7 +194,8 @@ if(param.len==2){##IF.len.START
     par(new=TRUE)
     plot(df.plot.multi[,c(1,3)]
          , col=col.Y2
-         , pch=pch.Y2
+         #, pch=pch.Y2
+         , type="l"
          , axes=FALSE
          , ann=FALSE)
     # Y2, axis numbers
@@ -169,8 +218,15 @@ if(param.len==2){##IF.len.START
              , bty="n")
     # par (original)
     par(par.orig) # return to original par settings
+    #
+    } else if(plot_format=="ggplot"){
+      # plot, ggplot ####
+    
+    
+    
+    
+    }##IF~plot_format~START
   }##FOR.p.END
-  
   
   # par
   par(par.orig) # return to original par settings

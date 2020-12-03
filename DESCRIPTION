@@ -1,8 +1,8 @@
 Package: ContDataQC
 Title: Quality Control (QC) of Continous Monitoring Data
-Version: 2.0.5.9031
+Version: 2.0.5.9032
 Authors@R: c(
-	person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com",role=c("aut","cre")),
+	person("Erik W", "Leppo", email="Erik.Leppo@tetratech.com",role=c("aut","cre")),
 	person("Ann","Roseberry Lincoln", role="ctb"),
 	person("Jen", "Stamp", role="ctb"),
 	person("David", "Gibbs", role="ctb"))

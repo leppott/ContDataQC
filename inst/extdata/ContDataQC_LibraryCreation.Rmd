@@ -170,8 +170,6 @@ ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start
 ```
 
 
-
-
 ## Including Data
 All data should have already been created.
 
@@ -201,6 +199,7 @@ RStudio, Build - Test Package.
 # 3. Open GH Desktop commit changes then sync.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # install from GitHub (via devtools)
+myLibrary <- "ContDataQC"
 devtools::install_github(paste0("leppott/",myLibrary))
 #
 

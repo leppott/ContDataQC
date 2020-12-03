@@ -4,6 +4,7 @@
 #
 # Erik.Leppo@tetratech.com
 # 20170509
+# 20201203, devtools to usethis, resave files
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # 0. Prep####
@@ -41,9 +42,9 @@ str(df.3)
 # 2. Save as RDA for use in package####
 #
 data_raw_test2_AW_20130426_20130725 <- df.1
-devtools::use_data(data_raw_test2_AW_20130426_20130725,overwrite = TRUE)
+usethis::use_data(data_raw_test2_AW_20130426_20130725,overwrite = TRUE)
 data_raw_test2_AW_20130725_20131015 <- df.2
-devtools::use_data(data_raw_test2_AW_20130725_20131015,overwrite = TRUE)
+usethis::use_data(data_raw_test2_AW_20130725_20131015,overwrite = TRUE)
 data_raw_test2_AW_20140901_20140930 <- df.3
-devtools::use_data(data_raw_test2_AW_20140901_20140930,overwrite = TRUE)
+usethis::use_data(data_raw_test2_AW_20140901_20140930,overwrite = TRUE)
 
