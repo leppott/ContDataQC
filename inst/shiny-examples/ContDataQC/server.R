@@ -74,6 +74,7 @@ shinyServer(function(input, output, session) {
 
   })
 
+  # Tables, Import, Attributes ----
   #Creates a table with attributes of input files
   fileAttribsFull <- reactive({
 
@@ -128,7 +129,7 @@ shinyServer(function(input, output, session) {
 
   })
 
-
+  # Tables, Import, Summary ----
   ###Creates summary input tables
   #Creates a summary data.frame as a reactive object.
   #This table includes file name, station ID, start date, end date, and record count.
@@ -189,7 +190,7 @@ shinyServer(function(input, output, session) {
     table2()
   })
 
-
+  # Run Operation, button ----
   ###Runs the selected process
   #Shows the "Run operation" button after the data are uploaded
   output$ui.runProcess <- renderUI({
@@ -205,6 +206,7 @@ shinyServer(function(input, output, session) {
     actionButton("runProcess", "Run operation")
   })
 
+  # Warning, noQC, Aggregate ----
   #Shows a warning on the interface if the uploaded sites
   #have not been QCed and Aggregate has been selected
   output$aggUnQCedData <- renderText({
@@ -233,6 +235,7 @@ shinyServer(function(input, output, session) {
     }
   })
 
+  # Warning, noQC, Summarize ----
   #Shows a warning on the interface if the uploaded sites
   #have not been QCed and Summarize has been selected
   output$summUnQCedData <- renderText({
@@ -261,7 +264,7 @@ shinyServer(function(input, output, session) {
     }
     })
 
-
+  # Warning, Agg, multisite ----
   #Shows a warning on the interface if more than one site is
   #included in the spreadsheets for the Aggregate process
   output$moreThanOneSite <- renderText({
@@ -280,15 +283,17 @@ shinyServer(function(input, output, session) {
     }
   })
 
+  # Run Operation, code ----
   #Runs the selected process by calling on the QC script that Erik Leppo wrote
   observeEvent(input$runProcess, {
 
     #Deletes the input and output files to keep the server from getting clogged
-    deleteFiles(getwd(), UserFile_Name())
+    deleteFiles(file.path(".", "data"), UserFile_Name())
 
     #Moves the user-selected input files from the default upload folder to Shiny's working directory
     copy.from <- file.path(UserFile_Path())
-    copy.to <- file.path(getwd(), UserFile_Name())
+    #copy.to <- file.path(getwd(), UserFile_Name())
+    copy.to <- file.path(".", "data", UserFile_Name())
     file.copy(copy.from, copy.to)
 
     #Converts the more user-friendly input operation name to the name
@@ -299,8 +304,8 @@ shinyServer(function(input, output, session) {
     #Copies the status of the config file to this event.
     config_type <- config$x
 
-    #Temportary location for the config file
-    config <- getwd()
+    #Temporary location for the config file
+    config <- file.path(".", "data")
 
     #If a configuration file has been uploaded, the app uses it
     if (config_type == "uploaded") {
@@ -308,20 +313,25 @@ shinyServer(function(input, output, session) {
       #Copies the uploaded configuration file from where it was uploaded to into the working directory.
       #The config file must be in the working directory for this to work.
       copy.from2 <- file.path(input$configFile$datapath)
-      copy.to2 <- file.path(getwd(), input$configFile$name)
+      #copy.to2 <- file.path(getwd(), input$configFile$name)
+      copy.to2 <- file.path(".", "data", input$configFile$name)
       file.copy(copy.from2, copy.to2)
 
       #Makes the configuration object refer to the uploaded configuration file
-      config <- file.path(getwd(), input$configFile$name)
+      #config <- file.path(getwd(), input$configFile$name)
+      config <- file.path(".", "data", input$configFile$name)
 
     }
     #If no configuration file has been uploaded, the default is used
     else {
 
       #Deletes the uploaded configuration file, if there is one
-      file.remove(file.path(getwd(), input$configFile$name))
+      #file.remove(file.path(getwd(), input$configFile$name))
+      file.remove(file.path(".", "data", input$configFile$name))
 
-      config <- system.file("extdata", "Config.COLD.R", package="ContDataQC")
+     # config <- system.file("extdata", "Config.COLD.R", package="ContDataQC")
+      config <- system.file("extdata", "Config.ORIG.R", package="ContDataQC")
+
     }
 
     #Creates a data.frame for the R console output of the ContDataQC() script
@@ -349,8 +359,8 @@ shinyServer(function(input, output, session) {
 
                         #Runs aggregation part of ContDataQC() on the input files
                         ContDataQC(operation,
-                        fun.myDir.import = getwd(),
-                        fun.myDir.export = getwd(),
+                        fun.myDir.import = file.path(".", "data"),
+                        fun.myDir.export = file.path(".", "data"),
                         fun.myConfig = config,
                         fun.myFile = fileNameVector,
                         fun.myReport.format = "html",
@@ -374,7 +384,7 @@ shinyServer(function(input, output, session) {
 
         #Renames the output aggregation files so that the "append_x" is replaced
         #with the ending date
-        aggRenamed <- renameAggOutput(getwd(), fileAttribsFull())
+        aggRenamed <- renameAggOutput(file.path(".", "data"), fileAttribsFull())
 
       }
 
@@ -397,8 +407,8 @@ shinyServer(function(input, output, session) {
 
                           #Runs ContDataQC() on an individual file
                           ContDataQC(operation,
-                          fun.myDir.import = getwd(),
-                          fun.myDir.export = getwd(),
+                          fun.myDir.import = file.path(".", "data"),
+                          fun.myDir.export = file.path(".", "data"),
                           fun.myConfig = config,
                           fun.myFile = fileName,
                           fun.myReport.format = "html",
@@ -428,6 +438,7 @@ shinyServer(function(input, output, session) {
 
   })
 
+  # Download, Remove files ----
   ###Downloads the output data and deletes the created files
   #Shows the "Download" button after the selected process is run
   output$ui.downloadData <- renderUI({
@@ -435,6 +446,7 @@ shinyServer(function(input, output, session) {
     downloadButton("downloadData", "Download")
   })
 
+  ## Zip ----
   #Zips the output files and makes them accessible for downloading by the user
   observe({
 
@@ -459,10 +471,10 @@ shinyServer(function(input, output, session) {
         content <- function(fname) {
 
           #Lists only the csv and html files on the server
-          zip.csv <- dir(getwd(), full.names=FALSE, pattern="QC.*csv")
-          zip.docx <- dir(getwd(), full.names=FALSE, pattern="QC.*docx")
-          zip.html <- dir(getwd(), full.names=FALSE, pattern="QC.*html")
-          files2zip <- c(zip.csv, zip.docx, zip.html)
+          zip.csv  <- dir(file.path("data"), full.names=FALSE, pattern="QC.*csv")
+          zip.docx <- dir(file.path("data"), full.names=FALSE, pattern="QC.*docx")
+          zip.html <- dir(file.path("data"), full.names=FALSE, pattern="QC.*html")
+          files2zip <- file.path("data", c(zip.csv, zip.docx, zip.html))
 
           #Zips the files
           zip(zipfile = fname, files = files2zip)
@@ -485,10 +497,10 @@ shinyServer(function(input, output, session) {
         content <- function(fname) {
 
           #Lists only the csv and docx files on the server
-          zip.csv <- dir(getwd(), full.names=FALSE, pattern="DATA.*csv")
-          zip.docx <- dir(getwd(), full.names=FALSE, pattern=".*docx")
-          zip.html <- dir(getwd(), full.names=FALSE, pattern=".*html")
-          files2zip <- c(zip.csv, zip.docx, zip.html)
+          zip.csv  <- dir(file.path("data"), full.names=FALSE, pattern="DATA.*csv")
+          zip.docx <- dir(file.path("data"), full.names=FALSE, pattern=".*docx")
+          zip.html <- dir(file.path("data"), full.names=FALSE, pattern=".*html")
+          files2zip <- file.path("data", c(zip.csv, zip.docx, zip.html))
 
           #Zips the files
           zip(zipfile = fname, files = files2zip)
@@ -511,10 +523,10 @@ shinyServer(function(input, output, session) {
         content <- function(fname) {
 
           #Lists only the csv and docx files on the server
-          zip.csv_DV <- dir(getwd(), full.names=FALSE, pattern="DV.*csv")
-          zip.csv_STATS <- dir(getwd(), full.names=FALSE, pattern="STATS.*csv")
-          zip.pdf <- dir(getwd(), full.names=FALSE, pattern=".*pdf")
-          files2zip <- c(zip.csv_DV, zip.csv_STATS, zip.pdf)
+          zip.csv_DV    <- dir(file.path(".", "data"), full.names=FALSE, pattern="DV.*csv")
+          zip.csv_STATS <- dir(file.path(".", "data"), full.names=FALSE, pattern="STATS.*csv")
+          zip.pdf       <- dir(file.path(".", "data"), full.names=FALSE, pattern=".*pdf")
+          files2zip <- file.path(".", "data", c(zip.csv_DV, zip.csv_STATS, zip.pdf))
 
           #Zips the files
           zip(zipfile = fname, files = files2zip)
@@ -524,14 +536,14 @@ shinyServer(function(input, output, session) {
     }
   })
 
-
+  # USGS ----
   ###For getting USGS gage data
   #Runs the gage data extraction process
   observeEvent(input$getUSGSData, {
 
     #Deletes any files on server before creating new ones to prevent server
     #from getting clogged
-    deleteFiles(getwd(), UserFile_Name())
+    deleteFiles(file.path(".", "data"), UserFile_Name())
 
     #Converts the string of USGS sites into a vector of USGS sites
     USGSsiteVector <- USGSsiteParser(input$USGSsite)
@@ -560,7 +572,7 @@ shinyServer(function(input, output, session) {
                   myData.DateRange.Start  <- input$startDate,
                   myData.DateRange.End    <- input$endDate,
                   myDir.import            <- "",
-                  myDir.export            <- getwd(),
+                  myDir.export            <- file.path(".", "data"),
                   fun.myReport.Dir        <- ""
           )
 
@@ -611,7 +623,7 @@ shinyServer(function(input, output, session) {
       content <- function(fname) {
 
         #Lists only the csv and html files on the server
-        zip.csv <- dir(getwd(), full.names=FALSE, pattern=".*Gage.*csv")
+        zip.csv <- dir(file.path(".", "data"), full.names=FALSE, pattern=".*Gage.*csv")
         files2zip <- c(zip.csv)
 
         #Zips the files
@@ -622,6 +634,7 @@ shinyServer(function(input, output, session) {
   })
 
 
+  # Console Output ----
   ###Shows the R console output text
   #Creates separate reactive objects for the QC/Agg/Summ and GetGageData processes
   console <- reactiveValues()
@@ -660,7 +673,7 @@ shinyServer(function(input, output, session) {
     return(consoleUSGS$disp)
   })
 
-
+  # Config, Default ----
   ###Returns the configuration file to default status
   #Shows the "Default" button after a user-selected config file is uploaded
   output$ui.defaultConfig <- renderUI({
@@ -678,11 +691,11 @@ shinyServer(function(input, output, session) {
     config$x <- "default"
   })
 
-
+  # Debug, Show all files ----
   ###Shows all files on the server
   #For debugging only: shows the files on the server
   onServerTable <- reactive({
-    onServerTableOutput <- as.matrix(list.files(getwd(), full.names = FALSE))
+    onServerTableOutput <- as.matrix(list.files(file.path(".", "data"), full.names = FALSE))
     colnames(onServerTableOutput) <- c("Files currently on server")
     return(onServerTableOutput)
   })
@@ -691,7 +704,7 @@ shinyServer(function(input, output, session) {
     onServerTable()
   })
 
-
+  # Debug, Test Text ----
   #FOR TESTING.
   output$testText <- renderText({
 
@@ -699,7 +712,7 @@ shinyServer(function(input, output, session) {
     if (is.null(inFile))
       return(NULL)
 
-    paste("This is for testing:", getwd())
+    paste("This is for testing:", file.path(".", "data"))
   })
 
 }

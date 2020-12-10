@@ -27,7 +27,7 @@ fun.Report.File(
 \item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
 }
 \value{
-Creates a Word file in the specified directory.
+Creates a Word (or HTML) file in the specified directory.
 }
 \description{
 Subfunction for generating Word reports.  Needs to be called from ContDataQC().
@@ -37,5 +37,5 @@ Values are "QC", "DATA", or "STATS".
 The 'file' version works on a single (or vector) of files.
 }
 \examples{
-#Not intended to be accessed indepedant of function ContDataQC().
+#Not intended to be accessed independent of function ContDataQC().
 }

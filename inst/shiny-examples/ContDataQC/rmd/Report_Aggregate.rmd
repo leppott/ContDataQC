@@ -73,6 +73,11 @@ knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE)
 
 # DATA SUMMARY, OVERALL
 ```{r data_summary_overall}
+    # Added 2020-12-07, some files missing year for Shiny app.  Add if missing.
+    if(ContData.env$myName.Yr %in% names(data.import) != TRUE){
+      data.import[, ContData.env$myName.Yr] <- format(as.Date(data.import[,ContData.env$myName.Date])
+                                                      , "%Y")
+    }
     #
     cat("Number of records by year and month (with totals).")
     cat("\n")
@@ -120,7 +125,7 @@ knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE)
     
     myDateRange.Target.Missing <- myDateRange.Target[!myDateRange.Target %in% myDateRange.Data]
     cat(paste0("Below are the dates with missing data between the min (",min(myDateRange.Data)
-               ,") and max(",max(myDateRange.Data)," for the provided data. There are "
+               ,") and max(",max(myDateRange.Data),") for the provided data. There are "
                ,length(myDateRange.Target.Missing)," records."))
     cat("\n\n")
     print(ifelse(length(myDateRange.Target.Missing)==0,"",myDateRange.Target.Missing))     

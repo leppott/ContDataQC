@@ -44,10 +44,10 @@
 #' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
 #' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
 #'
-#' @return Creates a Word file in the specified directory.
+#' @return Creates a Word (or HTML) file in the specified directory.
 #'
 #' @examples
-#' #Not intended to be accessed indepedant of function ContDataQC().
+#' #Not intended to be accessed independent of function ContDataQC().
 #
 # FUNCTION
 #' @export
@@ -94,8 +94,8 @@ fun.Report.File <- function(fun.myFile
     # strFile.Base <- substr(strFile,1,nchar(strFile)-nchar(".csv"))
     # strFile.parts <- strsplit(strFile.Base, myDelim.strsplit)
 
-    strFile <- paste0(strFile.Prefix,ContData.env$myDelim,fun.myFile)
-    strFile.Base <- substr(strFile,1,nchar(strFile)-nchar(".csv"))
+    strFile <- paste0(strFile.Prefix, ContData.env$myDelim, fun.myFile)
+    strFile.Base <- substr(strFile, 1, nchar(strFile) - nchar(".csv"))
 
 
     #QC, make sure file exists
