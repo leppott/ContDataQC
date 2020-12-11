@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-11 15:04:17
+    #> Last Update: 2020-12-11 16:34:07
 
 # Planned Updates
 
@@ -36,6 +36,14 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9036
+
+2020-12-11
+
+  - global.R
+      - Change timeFormater function to show time without seperators.
+          - 20201211\_16\_32\_00 to 20201211\_163200
 
 ## v2.0.5.9035
 

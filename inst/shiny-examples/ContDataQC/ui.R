@@ -5,7 +5,7 @@
 
 shinyUI(
 
-  navbarPage("Continuous data QC, summary, and statistics - v2.0.5.9035",
+  navbarPage("Continuous data QC, summary, and statistics - v2.0.5.9036",
              theme= shinytheme("spacelab"), #also liked "cerulean" at https://rstudio.github.io/shinythemes/
 
              tabPanel("Site introduction",

@@ -318,12 +318,12 @@ shinyServer(function(input, output, session) {
       #The config file must be in the working directory for this to work.
       copy.from2 <- file.path(input$configFile$datapath)
       #copy.to2 <- file.path(getwd(), input$configFile$name)
-      copy.to2 <- file.path(".", "data", input$configFile$name)
+      copy.to2 <- file.path("data", input$configFile$name)
       file.copy(copy.from2, copy.to2)
 
       #Makes the configuration object refer to the uploaded configuration file
       #config <- file.path(getwd(), input$configFile$name)
-      config <- file.path(".", "data", input$configFile$name)
+      config <- file.path("data", input$configFile$name)
 
     }
     #If no configuration file has been uploaded, the default is used
@@ -331,7 +331,7 @@ shinyServer(function(input, output, session) {
 
       #Deletes the uploaded configuration file, if there is one
       #file.remove(file.path(getwd(), input$configFile$name))
-      file.remove(file.path(".", "data", input$configFile$name))
+      file.remove(file.path("data", input$configFile$name))
 
      # config <- system.file("extdata", "Config.COLD.R", package="ContDataQC")
       config <- system.file("extdata", "Config.ORIG.R", package="ContDataQC")
@@ -348,6 +348,7 @@ shinyServer(function(input, output, session) {
       #A short pause before the operation begins
       Sys.sleep(2)
 
+      ## _appendfiles-agg ----
       #Aggregating files requires having all the file names in a single string input for fun.myFile.
       #Thus, all files selected to be aggregated have their names put into a string.
       if (operation == "Aggregate") {
@@ -393,7 +394,7 @@ shinyServer(function(input, output, session) {
       }
 
       #The QCRaw and Summarize functions can be fed individual input files
-      #in order to have the progress bar incremement after each one is processed
+      #in order to have the progress bar increment after each one is processed
       else {
 
         #Iterates through all the selected files in the data.frame
@@ -461,7 +462,7 @@ shinyServer(function(input, output, session) {
     #Formats the download timestamp for the zip file
     operationTime <- timeFormatter(Sys.time())
 
-    ## zip-qc ----
+    ## _zip-qc ----
     #Zipping procedures for the output of the QC process
     if (operation == "QCRaw"){
 
@@ -488,7 +489,7 @@ shinyServer(function(input, output, session) {
       )
     }
 
-    ## zip-agg ----
+    ## _zip-agg ----
     #Zipping procedures for the output of the aggregation process
     if (operation == "Aggregate"){
 
@@ -515,7 +516,7 @@ shinyServer(function(input, output, session) {
       )
     }
 
-    ## zip-stats ----
+    ## _zip-stats ----
     #Zipping procedures for the output of the SummaryStats process
     if (operation == "SummaryStats"){
 

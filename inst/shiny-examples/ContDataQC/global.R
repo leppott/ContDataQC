@@ -131,7 +131,7 @@ renameOperation <- function(operation) {
 
 #Formats the date-time of the output file download
 timeFormatter <- function(time) {
-  time2 <- gsub(":", "_", time)
+  time2 <- gsub(":", "", time)
   time3 <- gsub("-", "", time2)
   time4 <- gsub(" ", "_", time3)
   return(time4)

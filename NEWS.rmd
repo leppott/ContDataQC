@@ -46,6 +46,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9036
+2020-12-11
+
+* global.R
+    + Change timeFormater function to show time without seperators.
+        - 20201211_16_32_00 to 20201211_163200
+
 ## v2.0.5.9035
 2020-12-11
 
