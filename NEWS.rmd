@@ -46,6 +46,19 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9035
+2020-12-11
+
+* zfun.ContDataQC.R
+    + Update example for file version of Aggregate.
+        - myFile "Aw" to "AW".
+    + Update exmaple for file version of SummaryStats.
+        - Add comment characters for second myFile.
+* fun.Stats.File.R
+   + Remove as.numeric() from doBy::summaryBy() statements.
+* server.R
+    + Remove "." from file path for zip for stats procedure.
+
 ## v2.0.5.9034
 2020-12-11
 

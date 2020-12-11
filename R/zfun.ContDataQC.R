@@ -209,9 +209,9 @@
 #'
 #' # Aggregate Data
 #' myData.Operation <- "Aggregate" #Selection.Operation[3]
-#' myFile <- c("QC_test2_Aw_20130426_20130725.csv"
-#'            , "QC_test2_Aw_20130725_20131015.csv"
-#'            , "QC_test2_Aw_20140901_20140930.csv")
+#' myFile <- c("QC_test2_AW_20130426_20130725.csv"
+#'            , "QC_test2_AW_20130725_20131015.csv"
+#'            , "QC_test2_AW_20140901_20140930.csv")
 #' myDir.import <- file.path(".","Data2_QC")
 #' myDir.export <- file.path(".","Data3_Aggregated")
 #' myReport.format <- "html"
@@ -223,8 +223,8 @@
 #' myData.Operation <- "SummaryStats" #Selection.Operation[4]
 #' myFile <- "QC_test2_AW_20130426_20130725.csv"
 #' #myFile <- c("QC_test2_AW_20130426_20130725.csv"
-#'             , "QC_test2_AW_20130725_20131015.csv"
-#'             , "QC_test2_AW_20140901_20140930.csv")
+#' #            , "QC_test2_AW_20130725_20131015.csv"
+#' #            , "QC_test2_AW_20140901_20140930.csv")
 #' myDir.import <- file.path(".","Data2_QC")
 #' myDir.export <- file.path(".","Data4_Stats")
 #' #Leave off myReport.format and get default (docx).
@@ -269,7 +269,7 @@
 #' # Aggregate Data
 #' myData.Operation <- "Aggregate" #Selection.Operation[3]
 #' #myFile <- c("QC_Ellis~1.0m_Water_20180524_20180918.csv"
-#'             , "QC_Ellis~3.0m_Water_20180524_20180918.csv")
+#' #            , "QC_Ellis~3.0m_Water_20180524_20180918.csv")
 #' myDir.import <- file.path(".","Data2_QC")
 #' myDir.export <- file.path(".","Data3_Aggregated")
 #' myReport.format <- "html"

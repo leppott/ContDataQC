@@ -337,9 +337,17 @@ fun.Stats.File <- function(fun.myFile
       # name to myVar then name back
       ColNum.i <- match(i,names(data.stats))
       names(data.stats)[ColNum.i] <- "myVar"
-      dv.i <- doBy::summaryBy(as.numeric(myVar)~Date, data=data.stats, FUN=c(mean), na.rm=TRUE
-                              , var.names="i",id=c(ContData.env$myName.SiteID, ContData.env$myName.Yr , ContData.env$myName.YrMo, ContData.env$myName.Mo, ContData.env$myName.MoDa
-                                                   , ContData.env$myName.JuDa, ContData.env$myName.Season, ContData.env$myName.YrSeason))
+      # Summary (could use dplyr but already using doBy package)
+      # 2020-12-11, remove "as.numeric(myVar)".  Not in the base version of the function.
+      dv.i <- doBy::summaryBy(myVar~Date
+                              , data=data.stats
+                              , FUN=c(mean)
+                              , na.rm=TRUE
+                              , var.names="i"
+                              ,id=c(ContData.env$myName.SiteID, ContData.env$myName.Yr
+                                    , ContData.env$myName.YrMo, ContData.env$myName.Mo
+                                    , ContData.env$myName.MoDa, ContData.env$myName.JuDa
+                                    , ContData.env$myName.Season, ContData.env$myName.YrSeason))
       names(data.stats)[ColNum.i] <- i
       #
       #
@@ -466,7 +474,8 @@ fun.Stats.File <- function(fun.myFile
           # 20170524, use dv.i (line 270) hack
             ColNum.i <- match(i,names(myDF))
             names(myDF)[ColNum.i] <- "myVar"
-            stats.i <- doBy::summaryBy(as.numeric(myVar)~Date, data=myDF, FUN=myFUN.sumBy, na.rm=TRUE, var.names=myTimeFrame)
+            # 2020-12-11, Remove "as.numeric(myVar)"
+            stats.i <- doBy::summaryBy(myVar~Date, data=myDF, FUN=myFUN.sumBy, na.rm=TRUE, var.names=myTimeFrame)
             names(myDF)[ColNum.i] <- i
           ##
           # Range
@@ -502,7 +511,8 @@ fun.Stats.File <- function(fun.myFile
         myDF <- dv.i
         #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
         ## ugly hack
-        stats.i <- doBy::summaryBy(as.numeric(mean)~JulianDay,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+        # 20201211, Remove as.numeric(mean)
+        stats.i <- doBy::summaryBy(mean~JulianDay,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
         ##
         #Range
         #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
@@ -537,7 +547,8 @@ fun.Stats.File <- function(fun.myFile
           myDF <- dv.i
           #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
           ## ugly hack
-            stats.i <- doBy::summaryBy(as.numeric(mean)~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+          # 20201211, Remove as.numeric(mean)
+            stats.i <- doBy::summaryBy(mean~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
           ##
           #Range
           #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
@@ -572,7 +583,8 @@ fun.Stats.File <- function(fun.myFile
           myDF <- dv.i
           #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~YearMonth,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
           ## ugly hack
-          stats.i <- doBy::summaryBy(as.numeric(mean)~Month,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+          # 20201211, remove as.numeric(mean)
+          stats.i <- doBy::summaryBy(mean~Month,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
           ##
           #Range
           #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
@@ -606,7 +618,8 @@ fun.Stats.File <- function(fun.myFile
           myDF <- dv.i
           #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~SeasonYear,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
           ## ugly hack
-          stats.i <- doBy::summaryBy(as.numeric(mean)~YearSeason,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+          # 20201211, remove as.numeic(mean)
+          stats.i <- doBy::summaryBy(mean~YearSeason,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
           ###
           # Range
           #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
@@ -641,7 +654,8 @@ fun.Stats.File <- function(fun.myFile
           myDF <- dv.i
           #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~SeasonYear,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
           ## ugly hack
-          stats.i <- doBy::summaryBy(as.numeric(mean)~Season,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+          # 20201211, remove as.numeic(mean)
+          stats.i <- doBy::summaryBy(mean~Season,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
           ##
           # Range
           #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]
@@ -675,7 +689,8 @@ fun.Stats.File <- function(fun.myFile
           myDF <- dv.i
           #stats.i <- doBy::summaryBy(as.numeric(myDF[,i])~Year,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
           ## ugly hack
-          stats.i <- doBy::summaryBy(as.numeric(mean)~Year,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
+          # 20201211, remove as.numeic(mean)
+          stats.i <- doBy::summaryBy(mean~Year,data=myDF,FUN=myFUN.sumBy,var.names=myTimeFrame)
           ##
           # Range
           #stats.i[,paste(myTimeFrame,"range",sep=".")] <- stats.i[,paste(myTimeFrame,"max",sep=".")] - stats.i[,paste(myTimeFrame,"min",sep=".")]

@@ -461,6 +461,7 @@ shinyServer(function(input, output, session) {
     #Formats the download timestamp for the zip file
     operationTime <- timeFormatter(Sys.time())
 
+    ## zip-qc ----
     #Zipping procedures for the output of the QC process
     if (operation == "QCRaw"){
 
@@ -487,6 +488,7 @@ shinyServer(function(input, output, session) {
       )
     }
 
+    ## zip-agg ----
     #Zipping procedures for the output of the aggregation process
     if (operation == "Aggregate"){
 
@@ -513,6 +515,7 @@ shinyServer(function(input, output, session) {
       )
     }
 
+    ## zip-stats ----
     #Zipping procedures for the output of the SummaryStats process
     if (operation == "SummaryStats"){
 
@@ -527,10 +530,10 @@ shinyServer(function(input, output, session) {
         content <- function(fname) {
 
           #Lists only the csv and docx files on the server
-          zip.csv_DV    <- dir(file.path(".", "data"), full.names=FALSE, pattern="DV.*csv")
-          zip.csv_STATS <- dir(file.path(".", "data"), full.names=FALSE, pattern="STATS.*csv")
-          zip.pdf       <- dir(file.path(".", "data"), full.names=FALSE, pattern=".*pdf")
-          files2zip <- file.path(".", "data", c(zip.csv_DV, zip.csv_STATS, zip.pdf))
+          zip.csv_DV    <- dir(file.path("data"), full.names=FALSE, pattern="DV.*csv")
+          zip.csv_STATS <- dir(file.path("data"), full.names=FALSE, pattern="STATS.*csv")
+          zip.pdf       <- dir(file.path("data"), full.names=FALSE, pattern=".*pdf")
+          files2zip <- file.path("data", c(zip.csv_DV, zip.csv_STATS, zip.pdf))
 
           #Zips the files
           zip(zipfile = fname, files = files2zip)

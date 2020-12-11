@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-11 11:04:51
+    #> Last Update: 2020-12-11 15:04:17
 
 # Planned Updates
 
@@ -36,6 +36,20 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9035
+
+2020-12-11
+
+  - zfun.ContDataQC.R
+      - Update example for file version of Aggregate.
+          - myFile “Aw” to “AW”.
+      - Update exmaple for file version of SummaryStats.
+          - Add comment characters for second myFile.
+  - fun.Stats.File.R
+      - Remove as.numeric() from doBy::summaryBy() statements.
+  - server.R
+      - Remove “.” from file path for zip for stats procedure.
 
 ## v2.0.5.9034
 
