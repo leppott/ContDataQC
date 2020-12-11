@@ -46,6 +46,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9034
+2020-12-11
+
+* global.R and server.R
+    + Fix Aggregate not working (file error), Issue #92
+    + Fix file delete issues, Issue #93
+
 ## v2.0.5.9033
 2020-12-10
 

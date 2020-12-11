@@ -257,7 +257,8 @@ renameAggOutput <- function(directory, fileAttribsTable) {
                                 csvOutput.data.type)
 
     #Renames the csv
-    file.rename(csvOutput, csvOutput.data.type)
+    file.rename(file.path(".", "data", csvOutput)
+                , file.path(".", "data", csvOutput.data.type))
 
 
     #Changes the data type in the output html to the correct datatype
@@ -282,7 +283,8 @@ renameAggOutput <- function(directory, fileAttribsTable) {
                                  htmlOutput.data.type)
 
     #Renames the html output
-    file.rename(htmlOutput, htmlOutput.data.type)
+    file.rename(file.path(".", "data", htmlOutput)
+                , file.path(".", "data", htmlOutput.data.type))
 
   }
 
@@ -303,6 +305,7 @@ renameAggOutput <- function(directory, fileAttribsTable) {
     #(through the (inaccurate) second date in the name, which is not the latest
     #date of measurement)
     csvCharsToRemove <- 8+1+8+1+6+1+nchar(numFiles)+4
+    # date min (8) + sep (1) + date max (8) + sep (1) + append (6) + NumFiles + .ext (4)
 
     #Removes the specified number of characters
     csvNewName <- substr(csvOutput, 0, nchar(csvOutput)-csvCharsToRemove)
@@ -311,17 +314,22 @@ renameAggOutput <- function(directory, fileAttribsTable) {
     csvNewName <- paste(csvNewName, minDate, "_", maxDate, ".csv", sep="")
 
     #Replaces the old file name with the new one
-    file.rename(csvOutput, csvNewName)
+    file.rename(file.path(".", "data", csvOutput)
+                , file.path(".", "data", csvNewName))
 
     #Same as above but for the HTML reports
     htmlCharsToRemove <- 8+1+8+1+6+1+nchar(numFiles)+1+6+1+8+6
+    # date min (8) + sep (1) + date max (8) + sep (1) + append (6) + NumFiles +
+    # sep (1) + Report (6) + sep (1) + Aggregate (8) + .ext (6?)
+
     htmlNewName <- substr(htmlOutput, 0, nchar(htmlOutput)-htmlCharsToRemove)
     htmlNewName <- paste(htmlNewName, minDate, "_", maxDate, ".html", sep="")
-    file.rename(htmlOutput, htmlNewName)
+    file.rename(file.path(".", "data", htmlOutput)
+                , file.path(".", "data", htmlNewName))
 
-  }
+  }## IF ~ END
 
-}
+}## FUNCTION ~renameAggOutput ~ END
 
 
 ######Not currently using

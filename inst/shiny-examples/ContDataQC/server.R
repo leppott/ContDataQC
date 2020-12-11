@@ -287,6 +287,10 @@ shinyServer(function(input, output, session) {
   #Runs the selected process by calling on the QC script that Erik Leppo wrote
   observeEvent(input$runProcess, {
 
+    # 2020-12-11
+    # Remove files in "data" folder
+    file.remove(normalizePath(list.files(file.path(".", "data"), full.names = TRUE)))
+
     #Deletes the input and output files to keep the server from getting clogged
     deleteFiles(file.path(".", "data"), UserFile_Name())
 
