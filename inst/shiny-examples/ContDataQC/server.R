@@ -16,14 +16,16 @@ shinyServer(function(input, output, session) {
       content <- function(file) {
         write.csv(dataTemplate, file)
       }
-    )
+    )## downloadTemplate ~ END
+
+  # File Upload, Main ----
  ###Defines objects for the whole app
   #Creates a reactive object with all the input files
   allFiles <- reactive({
     allFiles <- input$selectedFiles
     if(is.null(allFiles)) return(NULL)
     return(allFiles)
-  })
+  }) ## allFiles ~ END
 
   #Creates a reactive object with all the input files' names
   UserFile_Name <- reactive({
@@ -37,8 +39,27 @@ shinyServer(function(input, output, session) {
     return(allFiles()$datapath)
   })
 
+  # File Upload, HOBO ----
+  #Creates a reactive object with all the input files
+  allFiles_HOBO <- reactive({
+    allFiles_HOBO <- input$selectedFiles_HOBO
+    if(is.null(allFiles_HOBO)) return(NULL)
+    return(allFiles_HOBO)
+  }) ## allFiles ~ END
 
+  #Creates a reactive object with all the input files' names
+  UserFile_Name_HOBO <- reactive({
+    if(is.null(allFiles_HOBO())) return(NULL)
+    return(allFiles_HOBO()$name)
+  })
 
+  #Creates a reactive object with all the input files' directories
+  UserFile_Path_HOBO <- reactive({
+    if(is.null(allFiles_HOBO())) return(NULL)
+    return(allFiles_HOBO()$datapath)
+  })
+
+  # Reactive, Main ----
   #Creates a reactive object that stores whether a configuration file has been uploaded
   config <- reactiveValues(
     x="default"
@@ -190,6 +211,13 @@ shinyServer(function(input, output, session) {
     table2()
   })
 
+  # Run, HOBO, button ----
+  output$ui.runProcess_HOBO <- renderUI({
+    if (is.null(allFiles_HOBO())) return() # Hidden unless upload files
+    operation <- "formatHOBO"
+    actionButton("runProcess_HOBO", "Reformat HOBOware file(s)")
+  })
+
   # Run Operation, button ----
   ###Runs the selected process
   #Shows the "Run operation" button after the data are uploaded
@@ -283,6 +311,104 @@ shinyServer(function(input, output, session) {
     }
   })
 
+  # Run, HOBO, code ----
+  observeEvent(input$runProcess_HOBO, {
+
+    # Remove files in "HOBO" folder
+    file.remove(normalizePath(list.files(file.path(".", "HOBO"), full.names = TRUE)))
+
+    #Moves the user-selected input files from the default upload folder to Shiny's working directory
+    copy.from <- file.path(UserFile_Path_HOBO())
+    #copy.to <- file.path(getwd(), UserFile_Name())
+    copy.to <- file.path(".", "HOBO", UserFile_Name_HOBO())
+    file.copy(copy.from, copy.to)
+
+    #Allows users to use their own configuration/threshold files for QC.
+    #Copies the status of the config file to this event.
+    config_type <- config$x
+
+    #Temporary location for the config file
+    config <- file.path(".", "data")
+
+    #If a configuration file has been uploaded, the app uses it
+    if (config_type == "uploaded") {
+
+      #Copies the uploaded configuration file from where it was uploaded to into the working directory.
+      #The config file must be in the working directory for this to work.
+      copy.from2 <- file.path(input$configFile$datapath)
+      #copy.to2 <- file.path(getwd(), input$configFile$name)
+      copy.to2 <- file.path("data", input$configFile$name)
+      file.copy(copy.from2, copy.to2)
+
+      #Makes the configuration object refer to the uploaded configuration file
+      #config <- file.path(getwd(), input$configFile$name)
+      config <- file.path("data", input$configFile$name)
+
+    }
+    #If no configuration file has been uploaded, the default is used
+    else {
+
+      #Deletes the uploaded configuration file, if there is one
+      #file.remove(file.path(getwd(), input$configFile$name))
+      file.remove(file.path("data", input$configFile$name))
+
+      # config <- system.file("extdata", "Config.COLD.R", package="ContDataQC")
+      config <- system.file("extdata", "Config.ORIG.R", package="ContDataQC")
+
+    }## IF ~ config_type ~ END
+
+    #Creates a data.frame for the R console output of the ContDataQC() script
+    console$disp <- data.frame(consoleOutput = character())
+
+    withProgress(message = paste("Running, format Hobo"), value = 0, {
+
+      #A short pause before the operation begins
+      Sys.sleep(2)
+
+        #Creates a vector of filenames
+        fileNameVector <-  as.vector(UserFile_Name_HOBO())
+
+        #Changes the status bar to say that aggregation is occurring
+        incProgress(0, detail = paste("Format Hobo ", length(fileNameVector), " files"))
+
+        #Saves the R console output of ContDataQC()
+        consoleRow <- capture.output(
+
+          # Run function formatHobo
+          ContDataQC::formatHobo(fun.myFile = fileNameVector
+                                 , fun.myDir.import = file.path("HOBO")
+                                 , fun.myDir.export = file.path("HOBO")
+                                 , fun.HoboDateFormat = NULL
+                                 , fun.myConfig = config
+          ) # formatHOBO ~ END
+        )## consoleRow ~ END
+
+        #Appends the R console output generated from that input file to the
+        #console output data.frame
+        consoleRow <- data.frame(consoleRow)
+        console$disp <- rbind(console$disp, consoleRow)
+
+        #Fills in the progress bar once the operation is complete
+        incProgress(1, detail = paste("Finished formating HOBOware files"))
+
+        #Pauses the progress bar once it's done
+        Sys.sleep(2)
+
+        #Names the single column of the R console output data.frame
+        colnames(console$disp) <- c(paste("R console messages for format_HOBO"))
+
+        #unhide download button
+
+
+    })# with progress ~ END
+
+  # })
+
+
+
+
+  })## observerEvent ~ runProcess_HOBO ~ END
+
   # Run Operation, code ----
   #Runs the selected process by calling on the QC script that Erik Leppo wrote
   observeEvent(input$runProcess, {
@@ -336,7 +462,7 @@ shinyServer(function(input, output, session) {
      # config <- system.file("extdata", "Config.COLD.R", package="ContDataQC")
       config <- system.file("extdata", "Config.ORIG.R", package="ContDataQC")
 
-    }
+    }## IF ~ config_type ~ END
 
     #Creates a data.frame for the R console output of the ContDataQC() script
     console$disp <- data.frame(consoleOutput = character())
@@ -426,22 +552,49 @@ shinyServer(function(input, output, session) {
           consoleRow <- data.frame(consoleRow)
           console$disp <- rbind(console$disp, consoleRow)
 
+          # Zip files
+
+
+
           #Fills in the progress bar once the operation is complete
           incProgress(1/nrow(allFiles()), detail = paste("Finished", fileName))
 
           #Pauses the progress bar once it's done
           Sys.sleep(2)
 
-        }
+        }## FOR ~ i ~ END
 
         #Names the single column of the R console output data.frame
         colnames(console$disp) <- c(paste("R console messages for process '", input$Operation, "'"))
 
-      }
+      }## IF ~ operation ~ END
 
-    })
+    })## withProgress ~ END
 
-  })
+  })## observeEvent ~ input$runProcess ~ END
+
+  # Download, HOBO ----
+  output$ui.downloadData_HOBO <- renderUI({
+    if (is.null(console$disp)) return()
+    downloadButton("downloadData_HOBO", "Download")
+  })## ui.downloadData ~ END
+
+
+  output$downloadData_HOBO <- downloadHandler(
+    #Names the zip file
+    filename <- function() {
+      paste0("formatHOBO_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".zip")
+    },
+    #Zips the output files
+    content <- function(fname) {
+      #Lists only the csv and html files on the server
+      files2zip <- file.path("HOBO", list.files("HOBO"))
+      #Zips the files
+      zip(zipfile = fname, files = files2zip)
+    }# content ~ END
+    ,contentType = "application/zip"
+  )
+
 
   # Download, Remove files ----
   ###Downloads the output data and deletes the created files
@@ -449,7 +602,7 @@ shinyServer(function(input, output, session) {
   output$ui.downloadData <- renderUI({
     if (is.null(console$disp)) return()
     downloadButton("downloadData", "Download")
-  })
+  })## ui.downloadData ~ END
 
   ## Zip ----
   #Zips the output files and makes them accessible for downloading by the user

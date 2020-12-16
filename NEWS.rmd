@@ -46,6 +46,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9037
+2020-12-16
+
+* Shiny app, add ContDataQC::formatHobo(), Issue #96.
+    - ui.R
+    - server.R
+
 ## v2.0.5.9036
 2020-12-11
 

@@ -1,13 +1,14 @@
-#Developed by David Gibbs, ORISE fellow at the US EPA Office of Research & Development.
+# Developed by David Gibbs, ORISE fellow at the US EPA Office of Research & Development.
 # dagibbs22@gmail.com
 # Erik.Leppo@tetratech.com
-#Written 2017 and 2018
+# Written 2017 and 2018 (mostly David)
+# Updated 2020 (Erik)
 
 shinyUI(
-
-  navbarPage("Continuous data QC, summary, and statistics - v2.0.5.9036",
+  # VERSION ----
+  navbarPage("Continuous data QC, summary, and statistics - v2.0.5.9037",
              theme= shinytheme("spacelab"), #also liked "cerulean" at https://rstudio.github.io/shinythemes/
-
+            # tabPan, Site Intro ----
              tabPanel("Site introduction",
                       h3("Background and features", align = "center"),
                       br(),
@@ -107,9 +108,9 @@ shinyUI(
 
 
                       ),
-
+              # tabPan, Instruct ----
              tabPanel("Instructions & interface",
-
+                      # _Instruct, buttons ----
                       # Sidebar with inputs for app
                       sidebarLayout(
                         sidebarPanel(
@@ -148,7 +149,7 @@ shinyUI(
                         mainPanel(
 
                           tabsetPanel(type="tabs",
-
+                                      ## _Instruct, text ----
                                       tabPanel("Instructions",
                                                h3("Instructions", align = "center"),
                                                br(),
@@ -278,7 +279,7 @@ shinyUI(
                                                  )
                                                  )
                                                ),
-
+              # tabPan, USGS ----
              tabPanel("Download USGS data",
                       fluidRow(
                         column(5,
@@ -319,10 +320,11 @@ shinyUI(
                         )
                                )
                                ),
-
+              # tabPan, Adv Feat ----
              tabPanel("Advanced features",
-                      fluidRow(
-                        column(5,
+                     sidebarLayout(
+                       ## _Adv Feat, Console ----
+                        sidebarPanel(
                                h3("R console output", align = "Center"),
                                p("This panel shows messages output by the QC, aggregating, summarizing, and USGS data retrieval processes.
                                  If there are any errors when the tool runs, please copy
@@ -337,9 +339,12 @@ shinyUI(
                                # ,br()
                                # ,br()
                                # ,tableOutput("serverTable")
-                               ),
+                               ), ## sidebarPanel ~ END
 
-                        column(5, offset = 1,
+                        mainPanel(
+                          tabsetPanel(type="tabs",
+                                ## _Adv Feat, Config ----
+                               tabPanel("Custom QC thresholds",
                                h3("Custom QC thresholds", align = "Center"),
                                p("You can upload custom QC thresholds here.
                                  Please use",
@@ -362,10 +367,49 @@ shinyUI(
                                ,tags$div(title="Click to use default configuration data",
                                          uiOutput('ui.defaultConfig')
                                )
-                               )
-                        )
-             ),
+                               ) ## tabPanel ~ QC ~ END
+                               ## _Adv Feat, HOBO ----
+                               , tabPanel("HOBOware reformat",
+                                          h3("HOBOware reformat", align = "Center")
+                                          , tags$b("Description")
+                                          , p("Format HoboWare output for use with 'ContDataQC' package. Works on individual csv files. Imports, modifies, and saves with the same filename for download.")
+                                          , p("One file or multiple files can be uploaded for processing.")
+                                          , tags$b("Details")
+                                          , p("Imports a HoboWare output (with minimal tweaks), reformats it using defaults from the ContDataQC config file , and exports a CSV to another folder for use with ContDataQC.")
+                                          , p("HOBOware will only output ambiguous dates with 2 digits. There are two delimiters (/ and -) and three formats (MDY, DMY, and YMD) resulting in six possible formats. The default is set to NULL and will not modify the date format.")
+                                          , p("It is assumed the user has a single Date Time field rather than two fields (Date and Time).")
+                                          , p("A zip file with all CSV files ready for use with the ContDataQC QC function will be generated and can be downloaded.")
+                                          , p("'Run' and 'Download' buttons do not appear until the previous step is complete ('Upload' and 'Run', respectively).")
+                                          , hr()
+                                          , tags$div(title="Select one HOBOware csv files to upload here"
+                                                     , fileInput("selectedFiles_HOBO"
+                                                                 ,label="Choose files"
+                                                                 , multiple = TRUE
+                                                                 , accept = ".csv"
+                                                                 , width = "600px") # wider for long file names
+                                          )
 
+                                          # ,selectInput("HOBO_DateFormat",
+                                          #              label = "Choose date format from HOBOware file",
+                                          #              choices = c(NULL
+                                          #                          , "DMY"
+                                          #                          )
+                                          #              ,selected = NULL)
+                                          #Only shows the "Run operation" button after data are uploaded
+                                          ,tags$div(title="Click to run selected operation (HOBO reformat)",
+                                                    uiOutput('ui.runProcess_HOBO')
+                                          )
+                                          , br()
+                                          #Only shows the "Download" button after the process has run
+                                          ,tags$div(title="Click to download your data",
+                                                    uiOutput('ui.downloadData_HOBO')
+                                          )
+                                 )## tabPanel ~ HOBO ~ END
+                          )##tabsetPanel ~ END
+                               )## mainPanel ~ END
+                        )## sidebarLayout ~ END
+             ), ## tabPanel ~ Adv Feat ~ END
+            # tabPan, FAQ ----
              tabPanel("FAQ",
                       h3("A growing list of potentially frequently asked questions")
                       ,br()
