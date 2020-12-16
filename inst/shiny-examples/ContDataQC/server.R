@@ -320,7 +320,7 @@ shinyServer(function(input, output, session) {
     #Moves the user-selected input files from the default upload folder to Shiny's working directory
     copy.from <- file.path(UserFile_Path_HOBO())
     #copy.to <- file.path(getwd(), UserFile_Name())
-    copy.to <- file.path(".", "HOBO", UserFile_Name_HOBO())
+    copy.to <- file.path("HOBO", UserFile_Name_HOBO())
     file.copy(copy.from, copy.to)
 
     #Allows users to use their own configuration/threshold files for QC.

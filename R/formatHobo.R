@@ -43,12 +43,27 @@
 #'
 #'  * Delimiter = underscore (as specified in the config file)
 #'
-#' HOBOware will only output ambiguous dates with 2 digits.
+#' Column names are inspected with regular expressions (R not Perl) to find matches before being renamed.
+#' If column names do not match the criteria below they will not be formatted properly.
+#'
+#' * Date = "date"
+#'
+#' * Air Temperature = "air.\*temp" or "temp.\*air"
+#'
+#' * Water Temperature = "water.\*temp" or "temp.\*water"
+#'
+#' * Air Presssure = "barom.\*pres" or "pres.\*barom"
+#'
+#' * Water Pressure = "pres" (search for Air Pressure first)
+#'
+#' * Sensor Depth = "depth"
+#'
+#' HOBOware will output ambiguous dates with only 2 digits.
 #' There are two delimiters (/ and -) and three formats (MDY, DMY, and YMD) resulting in six possible formats.
 #' If the user provides input for fun.HoboDateFormat the function will modify the data to proper 4 digit years.
 #' The default of NULL will not modify the date format.
 #'
-#' Assumes the user has a single Date Time field rather than two fields (Date and Time).
+#' It is assumed the user has a single Date Time field rather than two fields (Date and Time).
 #'
 #' @examples
 #' \dontrun{

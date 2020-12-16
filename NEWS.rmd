@@ -46,6 +46,11 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9038
+2020-12-16
+
+* formatHobo, update help text, Issue #97
+
 ## v2.0.5.9037
 2020-12-16
 
