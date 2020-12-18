@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-16 15:40:24
+    #> Last Update: 2020-12-18 08:24:14
 
 # Planned Updates
 
@@ -36,6 +36,17 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9039
+
+2020-12-18
+
+  - Shiny, minor tweak.
+      - v2.0.5.9038 had an edit to server.R that broke the formatHobo
+        function when run on ShinyApps.io.
+      - Undid the edit.
+      - Added message output for the log file to track the error’s
+        location.
 
 ## v2.0.5.9038
 

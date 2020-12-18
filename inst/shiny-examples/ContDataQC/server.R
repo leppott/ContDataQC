@@ -315,12 +315,14 @@ shinyServer(function(input, output, session) {
   observeEvent(input$runProcess_HOBO, {
 
     # Remove files in "HOBO" folder
-    file.remove(normalizePath(list.files(file.path(".", "HOBO"), full.names = TRUE)))
+    message("Remove File")
+    file.remove(normalizePath(list.files(file.path("HOBO"), full.names = TRUE)))
 
     #Moves the user-selected input files from the default upload folder to Shiny's working directory
+    message("Copy")
     copy.from <- file.path(UserFile_Path_HOBO())
     #copy.to <- file.path(getwd(), UserFile_Name())
-    copy.to <- file.path("HOBO", UserFile_Name_HOBO())
+    copy.to <- file.path(".", "HOBO", UserFile_Name_HOBO())
     file.copy(copy.from, copy.to)
 
     #Allows users to use their own configuration/threshold files for QC.
@@ -367,6 +369,8 @@ shinyServer(function(input, output, session) {
 
         #Creates a vector of filenames
         fileNameVector <-  as.vector(UserFile_Name_HOBO())
+        message("File Name Vector")
+        message(fileNameVector)
 
         #Changes the status bar to say that aggregation is occurring
         incProgress(0, detail = paste("Format Hobo ", length(fileNameVector), " files"))
@@ -374,8 +378,11 @@ shinyServer(function(input, output, session) {
         #Saves the R console output of ContDataQC()
         consoleRow <- capture.output(
 
+          message("Run function")
+          ,message("dir import")
+          ,message(file.path("HOBO"))
           # Run function formatHobo
-          ContDataQC::formatHobo(fun.myFile = fileNameVector
+          ,ContDataQC::formatHobo(fun.myFile = fileNameVector
                                  , fun.myDir.import = file.path("HOBO")
                                  , fun.myDir.export = file.path("HOBO")
                                  , fun.HoboDateFormat = NULL

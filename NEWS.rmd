@@ -46,6 +46,14 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9039
+2020-12-18
+
+* Shiny, minor tweak.
+    + v2.0.5.9038 had an edit to server.R that broke the formatHobo function when run on ShinyApps.io.
+    + Undid the edit.
+    + Added message output for the log file to track the error's location.
+
 ## v2.0.5.9038
 2020-12-16
 
