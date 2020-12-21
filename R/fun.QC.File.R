@@ -464,6 +464,13 @@ fun.QC.File <- function(fun.myFile
 #     Sys.time()
 #     unclass(as.POSIXlt(Sys.time()))
 #     ?DateTimeClasses
+
+
+    # 2020-12-21, Keep only 1st entry on duplicate date.time
+    # fall for Daylight Savings Time
+    data.import <- fun.DateTime.GroupBy.First(data.import)
+
+
 #
     # B.6. QC for each Data Type present ####
     # sub routine adds QC Calcs, QC Test Flags, Assigns overall Flag, and removes QC Calc Fields
@@ -800,6 +807,10 @@ fun.QC.File <- function(fun.myFile
 #     write.csv(data.import,file=paste(myDir.data.export,"/",strFile.Out,sep=""),quote=FALSE,row.names=FALSE)
 #     #
 
+    # 2020-12-21, dup row check
+    # DST can create issues with duplicate lines
+    # if data is offset can create extra rows in above QC checks
+    data.import <- unique(data.import)
 
     #*********************
     # START QC manual stuff

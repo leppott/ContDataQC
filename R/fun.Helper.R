@@ -680,4 +680,29 @@ fun.CalcQCStats <- function(fun.data.import
 }##FUN.fun.QC.END
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# fun.DateTime.groupby.first ----
+fun.DateTime.GroupBy.First <- function(df){
+  #
+  check_rows <- nrow(df) == length(unique(df[, ContData.env$myName.DateTime]))
+  #
+  if(check_rows == FALSE){
+    # create first function
+    first <- function(x) {
+      if (length(x) == 1)
+        return(x)
+      return(x[1])
+    }## FUNCTION ~ first ~ END
+    #
+    df_mod <- aggregate(df
+                                      , by=list(df[, ContData.env$myName.DateTime])
+                                      , FUN=first)
+    # drop column 1 (added by aggregate)
+    df_mod <- df_mod[, -1]
+    return(df_mod)
+  } else {
+    return(df)
+  }## IF ~ check_rows ~ END
+  #
+}## FUN ~ fun.DateTime.GroupBy.First ~ END
+
 
