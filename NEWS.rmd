@@ -46,6 +46,14 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9041
+2020-12-22
+
+* Shiny, USGS gage data
+    + Add placeholder text for start and end dates (YYYY-MM-DD).
+    + Add console message output for QA testing.
+    + Modify zip file name for download, Issue #98
+
 ## v2.0.5.9040
 2020-12-21
 

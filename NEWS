@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-21 14:21:48
+    #> Last Update: 2020-12-22 14:08:42
 
 # Planned Updates
 
@@ -36,6 +36,15 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9041
+
+2020-12-22
+
+  - Shiny, USGS gage data
+      - Add placeholder text for start and end dates (YYYY-MM-DD).
+      - Add console message output for QA testing.
+      - Modify zip file name for download, Issue \#98
 
 ## v2.0.5.9040
 

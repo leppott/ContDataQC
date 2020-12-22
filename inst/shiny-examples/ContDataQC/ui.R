@@ -6,7 +6,7 @@
 
 shinyUI(
   # VERSION ----
-  navbarPage("Continuous data QC, summary, and statistics - v2.0.5.9040",
+  navbarPage("Continuous data QC, summary, and statistics - v2.0.5.9041",
              theme= shinytheme("spacelab"), #also liked "cerulean" at https://rstudio.github.io/shinythemes/
             # tabPan, Site Intro ----
              tabPanel("Site introduction",
@@ -306,9 +306,14 @@ shinyUI(
                         column(5, offset = 1,
                                h3("Download USGS gage data here")
                                ,br()
-                               ,textInput("USGSsite", "USGS site ID(s) (separated by commas and spaces)")
-                               ,textInput("startDate", "Starting date (YYYY-MM-DD)")
-                               ,textInput("endDate", "Ending date (YYYY-MM-DD)")
+                               ,textInput("USGSsite"
+                                          , label = "USGS site ID(s) (separated by commas and spaces)")
+                               ,textInput("startDate"
+                                          , label = "Starting date (YYYY-MM-DD)"
+                                          , placeholder = "YYYY-MM-DD")
+                               ,textInput("endDate"
+                                          , label = "Ending date (YYYY-MM-DD)"
+                                          , placeholder = "YYYY-MM-DD")
                                ,br()
                                ,actionButton("getUSGSData", "Retrieve USGS data")
                                ,br()

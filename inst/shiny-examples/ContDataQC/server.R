@@ -705,6 +705,7 @@ shinyServer(function(input, output, session) {
   })
 
   # USGS ----
+  # _input ----
   ###For getting USGS gage data
   #Runs the gage data extraction process
   observeEvent(input$getUSGSData, {
@@ -728,6 +729,8 @@ shinyServer(function(input, output, session) {
 
         #Changes the status bar to say that aggregation is occurring
         incProgress(0, detail = paste("Retrieving records for site ", USGSsiteVector[i]))
+
+        message("Get gage data, ContDataQC()")
 
         #Saves the R console output of ContDataQC()
         consoleRowUSGS <- capture.output(
@@ -762,11 +765,15 @@ shinyServer(function(input, output, session) {
     #Pauses the progress bar once it's done
     Sys.sleep(1)
 
+    #
+    message("data retrieved")
+
     #Names the single column of the R console output data.frame
     colnames(consoleUSGS$disp) <- c("R console messages for all USGS data retrieval:")
 
   })
 
+  # _download ----
   #Shows the "Download USGS gage data" button after the selected process is run
   output$ui.downloadUSGSData <- renderUI({
     if (is.null(consoleUSGS$disp)) return()
@@ -782,6 +789,7 @@ shinyServer(function(input, output, session) {
     #Function for downloading USGS data
     output$downloadUSGSData <- downloadHandler(
 
+      # __zip-usgs ----
       #Names the zip file
       filename <- function() {
         paste("USGSData",input$USGSsite, operationTime, "zip", sep=".")
@@ -791,8 +799,8 @@ shinyServer(function(input, output, session) {
       content <- function(fname) {
 
         #Lists only the csv and html files on the server
-        zip.csv <- dir(file.path(".", "data"), full.names=FALSE, pattern=".*Gage.*csv")
-        files2zip <- c(zip.csv)
+        zip.csv <- dir(file.path("data"), full.names=FALSE, pattern=".*Gage.*csv")
+        files2zip <- file.path("data", c(zip.csv))
 
         #Zips the files
         zip(zipfile = fname, files = files2zip)
