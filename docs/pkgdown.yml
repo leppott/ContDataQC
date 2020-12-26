@@ -1,8 +1,0 @@
-pandoc: 1.19.2.1
-pkgdown: 1.4.1
-pkgdown_sha: ~
-articles:
-  ContDataQC_Vignette: ContDataQC_Vignette.html
-  Vignette_Config: Vignette_Config.html
-  Vignette_Lakes: Vignette_Lakes.html
-

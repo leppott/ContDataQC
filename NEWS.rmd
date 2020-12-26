@@ -46,6 +46,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9043
+2020-12-25
+
+* docs: Add GitHub Action pkgdown (adds gh-pages branch)
+* docs: Remove docs folder for pkgdown website
+
 ## v2.0.5.9042
 2020-12-25
 

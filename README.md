@@ -3,7 +3,7 @@ README-ContDataQC
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-25 19:52:49
+    #> Last Update: 2020-12-25 19:59:34
 
 # ContDataQC
 
@@ -16,6 +16,7 @@ data logger with 30 minute intervals.
 [![](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![GitHub
 license](https://img.shields.io/github/license/leppott/ContDataQC.svg)](https://github.com/leppott/ContDataQC/blob/master/LICENSE)
+
 [![R-CMD-check](https://github.com/leppott/ContDataQC/workflows/R-CMD-check/badge.svg)](https://github.com/leppott/ContDataQC/actions)
 
 [![GitHub

@@ -25,6 +25,7 @@ Badges
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/leppott/ContDataQC/graphs/commit-activity)
 [![](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![GitHub license](https://img.shields.io/github/license/leppott/ContDataQC.svg)](https://github.com/leppott/ContDataQC/blob/master/LICENSE)
+
 [![R-CMD-check](https://github.com/leppott/ContDataQC/workflows/R-CMD-check/badge.svg)](https://github.com/leppott/ContDataQC/actions)
 
 [![GitHub issues](https://img.shields.io/github/issues/leppott/ContDataQC.svg)](https://GitHub.com/leppott/ContDataQC/issues/)

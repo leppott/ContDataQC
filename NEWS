@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-25 19:53:34
+    #> Last Update: 2020-12-25 20:00:48
 
 # Planned Updates
 
@@ -36,6 +36,13 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9043
+
+2020-12-25
+
+  - docs: Add GitHub Action pkgdown (adds gh-pages branch)
+  - docs: Remove docs folder for pkgdown website
 
 ## v2.0.5.9042
 
