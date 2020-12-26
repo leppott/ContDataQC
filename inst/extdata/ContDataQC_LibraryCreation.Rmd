@@ -219,7 +219,7 @@ Can make some badges dynamic, static ones below
 [![Github all releases](https://img.shields.io/github/downloads/leppott/MBSStools/total.svg)](https://GitHub.com/leppott/MBSStools/releases/)
         
 ```{r}
-pkg_GH <- "leppott/BioMonTools"
+pkg_GH <- "leppott/ContDataQC"
 pkg_lic <- "MIT"
 
 # GitHub Action, CI

@@ -3,7 +3,7 @@ README-ContDataQC
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-25 19:59:34
+    #> Last Update: 2020-12-25 20:07:06
 
 # ContDataQC
 
@@ -13,10 +13,12 @@ data logger with 30 minute intervals.
 ## Badges
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/leppott/ContDataQC/graphs/commit-activity)
-[![](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![GitHub
 license](https://img.shields.io/github/license/leppott/ContDataQC.svg)](https://github.com/leppott/ContDataQC/blob/master/LICENSE)
 
+[![CodeFactor](https://www.codefactor.io/repository/github/leppott/ContDataQC/badge)](https://www.codefactor.io/repository/github/leppott/ContDataQC)
+[![codecov](https://codecov.io/gh/leppott/ContDataQC/branch/master/graph/badge.svg)](https://codecov.io/gh/leppott/ContDataQC)
 [![R-CMD-check](https://github.com/leppott/ContDataQC/workflows/R-CMD-check/badge.svg)](https://github.com/leppott/ContDataQC/actions)
 
 [![GitHub

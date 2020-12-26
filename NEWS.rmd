@@ -46,6 +46,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9044
+2020-12-25
+
+* ci: Add GitHub Action test-coverage
+* docs: ReadMe, Add codecov badge
+* docs: ReadMe, Add codefactor badge
+
 ## v2.0.5.9043
 2020-12-25
 
