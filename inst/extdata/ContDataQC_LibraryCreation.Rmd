@@ -188,6 +188,68 @@ Need to use testthat but not to that stage yet.
 
 RStudio, Build - Test Package.
 
+# CI, Badges, Code Coverage, etc
+* Continuous Integration with GitHub Actions (TravisCI shut down Dec 2020)
+* Code Quality (CodeFactor)
+    + CodeFactor.io
+        - GitHub login
+* Code Coverage (testing)
+    + Codecov.io
+        - GitHub login
+        - After set up CI with GitHub Actions
+* Package website (pkgdown and GitHub Action)
+    + branch gh-pages, auto updates with each commit
+    + Update in settings the location
+* Badges; Maintained, Life Cycle, License, Issues, etc
+    + https://github.com/GuangchuangYu/badger
+        - Commands to create badges
+
+badger package creates the text for pkg readme file.
+        
+Also
+https://shields.io/        
+https://github.com/badges/shields
+Can make some badges dynamic, static ones below
+
+# issues
+[![GitHub issues](https://img.shields.io/github/issues/leppott/MBSStools.svg)](https://GitHub.com/leppott/MBSStools/issues/)
+# release
+[![GitHub release](https://img.shields.io/github/release/leppott/MBSStools.svg)](https://GitHub.com/leppott/MBSStools/releases/)
+# downloads
+[![Github all releases](https://img.shields.io/github/downloads/leppott/MBSStools/total.svg)](https://GitHub.com/leppott/MBSStools/releases/)
+        
+```{r}
+pkg_GH <- "leppott/BioMonTools"
+pkg_lic <- "MIT"
+
+# GitHub Action, CI
+usethis::use_github_actions()
+usethis::use_github_actions_badge()
+# badger::badge_github_actions(pkg_GH)
+
+# code coverage
+usethis::use_github_action("test-coverage")
+
+# GitHub Action, pkgdown
+usethis::use_github_action("pkgdown")
+
+# Badges
+# lifecycle
+badger::badge_lifecycle("stable", "green") # stable/green, maturing/dormant/blue
+# maintained
+# license
+badger::badge_license(pkg_lic)
+# code quality
+badger::badge_codefactor(pkg_GH)
+# code testing coverage
+badger::badge_codecov(pkg_GH)
+# cmd check
+badger::badge_github_actions(pkg_GH)
+
+
+```
+
+
 
 # Other Stuff
 

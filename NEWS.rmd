@@ -46,6 +46,14 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9042
+2020-12-25
+
+* ci: Add GitHub Actions CI
+* ci: Remove Travis CI yaml
+* docs: ReadMe, Add GitHub Actions CI CMD check badge
+* docs: ReadMe, Add lifecycle badge
+
 ## v2.0.5.9041
 2020-12-22
 

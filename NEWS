@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-22 14:08:42
+    #> Last Update: 2020-12-25 19:53:34
 
 # Planned Updates
 
@@ -36,6 +36,15 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9042
+
+2020-12-25
+
+  - ci: Add GitHub Actions CI
+  - ci: Remove Travis CI yaml
+  - docs: ReadMe, Add GitHub Actions CI CMD check badge
+  - docs: ReadMe, Add lifecycle badge
 
 ## v2.0.5.9041
 
