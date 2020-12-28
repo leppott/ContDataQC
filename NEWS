@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-28 12:42:32
+    #> Last Update: 2020-12-28 12:53:17
 
 # Planned Updates
 
@@ -36,6 +36,12 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9048
+
+2020-12-28
+
+  - docs: Reapply GitHub Action pkgdown.
 
 ## v2.0.5.9047
 
