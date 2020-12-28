@@ -46,6 +46,20 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9049
+2020-12-28
+
+* refactor: Add foo:: to function calls where missing
+    + fun.QC.File
+    + fun.PeriodStats
+    + fun.QC.File
+    + fun.Helper
+    + ProcessData_CompSiteCDF
+    + ProcessData_PeriodSummary
+    + ProcessData_test2
+    + ProcessData_test4
+* chore: ContDataQC example, comment out installr section.
+
 ## v2.0.5.9048
 2020-12-28
 

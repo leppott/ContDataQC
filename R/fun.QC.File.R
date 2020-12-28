@@ -490,7 +490,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Complete <- myItems.Complete + 1
       myItems.Log[intCounter,2] <- myMsg
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
                                      ,myField
@@ -544,7 +544,7 @@ fun.QC.File <- function(fun.myFile
       myItems.Complete <- myItems.Complete + 1
       myItems.Log[intCounter,2] <- myMsg
       fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
-      flush.console()
+      utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
                                   ,myField

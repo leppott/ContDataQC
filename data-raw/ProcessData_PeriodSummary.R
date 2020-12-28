@@ -11,7 +11,7 @@ wd <- getwd() # assume is package directory
 # 1. Get data and process#####
 # 1.1. Import Data
 myFile <- "DATA_test2_Aw_20130101_20141231.csv"
-data.import <- read.csv(file.path(wd,"data-raw",myFile))
+data.import <- utils::read.csv(file.path(wd,"data-raw",myFile))
 # 1.2. Process Data
 View(data.import)
 # QC check

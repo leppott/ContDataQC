@@ -228,7 +228,7 @@ PeriodStats <- function(fun.myDate
     #
   }##IF.file.END
   # 2.2. Load File
-  df.load <- read.csv(file.path(fun.myDir.import, fun.myFile),as.is=TRUE,na.strings=c("","NA"))
+  df.load <- utils::read.csv(file.path(fun.myDir.import, fun.myFile),as.is=TRUE,na.strings=c("","NA"))
   # 2.3. Error Checking, data field names
   param.len <- length(fun.myParam.Name)
   myNames2Match <- c(fun.myParam.Name, fun.myDateTime.Name)

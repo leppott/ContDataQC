@@ -693,9 +693,9 @@ fun.DateTime.GroupBy.First <- function(df){
       return(x[1])
     }## FUNCTION ~ first ~ END
     #
-    df_mod <- aggregate(df
-                                      , by=list(df[, ContData.env$myName.DateTime])
-                                      , FUN=first)
+    df_mod <- stats::aggregate(df
+                              , by=list(df[, ContData.env$myName.DateTime])
+                              , FUN=first)
     # drop column 1 (added by aggregate)
     df_mod <- df_mod[, -1]
     return(df_mod)

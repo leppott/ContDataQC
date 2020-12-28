@@ -18,11 +18,11 @@ wd <- getwd() # assume is package directory
 # 1. Get data and process#####
 # 1.1. Import Data
 myFile <- "test2_AW_20130426_20130725.csv"
-df.1 <- read.csv(file.path(wd,"data-raw",myFile))
+df.1 <- utils::read.csv(file.path(wd,"data-raw",myFile))
 myFile <- "test2_AW_20130725_20131015.csv"
-df.2 <- read.csv(file.path(wd,"data-raw",myFile))
+df.2 <- utils::read.csv(file.path(wd,"data-raw",myFile))
 myFile <- "test2_AW_20140901_20140930.csv"
-df.3 <- read.csv(file.path(wd,"data-raw",myFile))
+df.3 <- utils::read.csv(file.path(wd,"data-raw",myFile))
 
 
 # 1.2. Process Data

@@ -73,9 +73,11 @@
 #' @examples
 #' # Install Pandoc (for docx Reports)
 #' # (if using recent version of RStudio do not have to install separately)
-#' install.packages("installr") # not needed if already have this package.
-#' require(installr)
-#' install.pandoc()
+#'
+#' #install.packages("installr") # not needed if already have this package.
+#' #library(installr)
+#' #install.pandoc()
+#'
 #' # The above won't work if don't have admin rights on your computer.
 #' # Alternative = Download the file below and have your IT dept install for you.
 #' # https://github.com/jgm/pandoc/releases/download/1.16.0.2/pandoc-1.16.0.2-windows.msi
