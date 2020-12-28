@@ -46,11 +46,17 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9046
+2020-12-28
+
+* docs: Remove old pkgdown yaml from root directory.  
+    + GitHub Action for pkgdown was not building.
+
 ## v2.0.5.9045
 2020-12-28
 
 style: RBIcalc, remove trailing ;
-refactor: replace 1:foo() with seq_len(foo())   <== not done yet
+refactor: replace 1:foo() with seq_len(foo())
     + server
     + global
     + CompSiteCDF

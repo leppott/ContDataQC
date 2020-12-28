@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-28 12:25:50
+    #> Last Update: 2020-12-28 12:33:37
 
 # Planned Updates
 
@@ -37,14 +37,21 @@ NEWS-ContDataQC
 
 # Version History
 
+## v2.0.5.9046
+
+2020-12-28
+
+  - docs: Remove old pkgdown yaml from root directory.
+      - GitHub Action for pkgdown was not building.
+
 ## v2.0.5.9045
 
 2020-12-28
 
 style: RBIcalc, remove trailing ; refactor: replace 1:foo() with
-seq\_len(foo()) \<== not done yet + server + global + CompSiteCDF +
-Export.IHA + fun.DateFormat + fun.GageData + fun.Helper + fun.QC.File +
-fun.QC + fun.Stats.File + fun.Stats + zfun.AggredateData.Files +
+seq\_len(foo()) + server + global + CompSiteCDF + Export.IHA +
+fun.DateFormat + fun.GageData + fun.Helper + fun.QC.File + fun.QC +
+fun.Stats.File + fun.Stats + zfun.AggredateData.Files +
 zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 (GitHub) packages + StreamThermal + IHA
 
