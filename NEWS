@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-25 20:07:33
+    #> Last Update: 2020-12-28 12:25:50
 
 # Planned Updates
 
@@ -36,6 +36,17 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9045
+
+2020-12-28
+
+style: RBIcalc, remove trailing ; refactor: replace 1:foo() with
+seq\_len(foo()) \<== not done yet + server + global + CompSiteCDF +
+Export.IHA + fun.DateFormat + fun.GageData + fun.Helper + fun.QC.File +
+fun.QC + fun.Stats.File + fun.Stats + zfun.AggredateData.Files +
+zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
+(GitHub) packages + StreamThermal + IHA
 
 ## v2.0.5.9044
 

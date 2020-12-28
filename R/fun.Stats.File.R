@@ -125,7 +125,9 @@ fun.Stats.File <- function(fun.myFile
   myItems.ALL <- as.vector(unique(files2process))
   # create log file for processing results of items
   #myItems.Log <- data.frame(cbind(myItems.ALL,NA),stringsAsFactors=FALSE)
-  myItems.Log <- data.frame(ItemID=1:intItems.Total,Status=NA,ItemName=myItems.ALL)
+  myItems.Log <- data.frame(ItemID = seq_len(intItems.Total)
+                            ,Status = NA
+                            ,ItemName = myItems.ALL)
   #
 
   # Start Time (used to determine run time at end)
@@ -493,9 +495,12 @@ fun.Stats.File <- function(fun.myFile
                  ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
                  ,ylim=c(min(stats.i$min),max(stats.i$max)))
             myCol <- "gray"
-            graphics::lines(stats.i$max,col=myCol)
-            graphics::lines(stats.i$min,col=myCol)
-            graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+            graphics::lines(stats.i$max, col=myCol)
+            graphics::lines(stats.i$min, col=myCol)
+            graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(nrow(stats.i))))
+                              , c(stats.i$max, rev(stats.i$min))
+                              , col = myCol
+                              , border=NA)
             graphics::lines(stats.i$mean)
             # X-Axis
             n.Total <- length(factor(stats.i[,"TimeValue"]))
@@ -525,13 +530,20 @@ fun.Stats.File <- function(fun.myFile
         myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
         #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
         #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
-        plot(stats.i$mean,type=myPlot.Type
-             ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
-             ,ylim=c(min(stats.i$min),max(stats.i$max)))
+        plot(stats.i$mean
+             , type = myPlot.Type
+             , main = i
+             , ylab = "mean"
+             , xlab = myTimeFrame
+             , xaxt = "n"
+             , ylim = c(min(stats.i$min), max(stats.i$max)))
         myCol <- "gray"
-        graphics::lines(stats.i$max,col=myCol)
-        graphics::lines(stats.i$min,col=myCol)
-        graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+        graphics::lines(stats.i$max, col=myCol)
+        graphics::lines(stats.i$min, col=myCol)
+        graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(nrow(stats.i))))
+                          , c(stats.i$max, rev(stats.i$min))
+                          , col = myCol
+                          , border = NA)
         graphics::lines(stats.i$mean)
         # X-Axis
         n.Total <- length(factor(stats.i[,"TimeValue"]))
@@ -558,7 +570,7 @@ fun.Stats.File <- function(fun.myFile
           stats.i[,"TimeFrame"] <- myTimeFrame
           stats.i.ym <- stats.i
           # plot
-          myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
+          myPlot.Type <- ifelse(nrow(stats.i) == 1, "p", "l")
           #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
           #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
           plot(stats.i$mean,type=myPlot.Type
@@ -567,11 +579,14 @@ fun.Stats.File <- function(fun.myFile
           myCol <- "gray"
           graphics::lines(stats.i$max,col=myCol)
           graphics::lines(stats.i$min,col=myCol)
-          graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+          graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(row(stats.i))))
+                            , c(stats.i$max, rev(stats.i$min))
+                            , col = myCol
+                            , border = NA)
           graphics::lines(stats.i$mean)
           # X-Axis
           n.Total <- length(factor(stats.i[,"TimeValue"]))
-          myAT <- 1:n.Total
+          myAT <- seq_len(n.Total)
           myLab <- stats.i[,"TimeValue"][myAT]
           graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
           #dev.off()
@@ -594,20 +609,27 @@ fun.Stats.File <- function(fun.myFile
           stats.i[,"TimeFrame"] <- myTimeFrame
           stats.i.m <- stats.i
           # plot
-          myPlot.Type <- ifelse(nrow(stats.i)==1,"p","l")
+          myPlot.Type <- ifelse(nrow(stats.i) == 1, "p", "l")
           #strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,myTimeFrame,sep="_"),"png",sep=".")
           #png(file=paste(myDir.data.export,strFile.plot,sep="/"))
-          plot(stats.i$mean,type=myPlot.Type
-               ,main=i,ylab="mean",xlab=myTimeFrame,xaxt="n"
-               ,ylim=c(min(stats.i$min),max(stats.i$max)))
+          plot(stats.i$mean
+               , type = myPlot.Type
+               , main = i
+               , ylab = "mean"
+               , xlab = myTimeFrame
+               , xaxt = "n"
+               , ylim = c(min(stats.i$min), max(stats.i$max)))
           myCol <- "gray"
           graphics::lines(stats.i$max,col=myCol)
           graphics::lines(stats.i$min,col=myCol)
-          graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+          graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(nrow(stats.i))))
+                            , c(stats.i$max, rev(stats.i$min))
+                            , col = myCol
+                            , border = NA)
           graphics::lines(stats.i$mean)
           # X-Axis
           n.Total <- length(factor(stats.i[,"TimeValue"]))
-          myAT <- 1:n.Total
+          myAT <- seq_len(n.Total)
           myLab <- stats.i[,"TimeValue"][myAT]
           graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
           #dev.off()
@@ -638,13 +660,16 @@ fun.Stats.File <- function(fun.myFile
           myCol <- "gray"
           graphics::lines(stats.i$max,col=myCol)
           graphics::lines(stats.i$min,col=myCol)
-          graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+          graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(nrow(stats.i))))
+                            , c(stats.i$max, rev(stats.i$min))
+                            , col = myCol
+                            , border = NA)
           graphics::lines(stats.i$mean)
           # X-Axis
           n.Total <- length(factor(stats.i[,"TimeValue"]))
-          myAT <- 1:n.Total
+          myAT <- seq_len(n.Total)
           myLab <- stats.i[,"TimeValue"][myAT]
-          graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
+          graphics::axis(1, at=myAT, labels=myLab, tick=TRUE)
           #dev.off()
         #
           #
@@ -674,13 +699,16 @@ fun.Stats.File <- function(fun.myFile
           myCol <- "gray"
           graphics::lines(stats.i$max,col=myCol)
           graphics::lines(stats.i$min,col=myCol)
-          graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+          graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(nrow(stats.i))))
+                            , c(stats.i$max, rev(stats.i$min))
+                            , col = myCol
+                            , border = NA)
           graphics::lines(stats.i$mean)
           # X-Axis
           n.Total <- length(factor(stats.i[,"TimeValue"]))
-          myAT <- 1:n.Total
+          myAT <- seq_len(n.Total)
           myLab <- stats.i[,"TimeValue"][myAT]
-          graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
+          graphics::axis(1, at=myAT, labels=myLab, tick=TRUE)
           #dev.off()
           #
         ## Year
@@ -709,11 +737,14 @@ fun.Stats.File <- function(fun.myFile
           myCol <- "gray"
           graphics::lines(stats.i$max,col=myCol)
           graphics::lines(stats.i$min,col=myCol)
-          graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+          graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(nrow(stats.i))))
+                            , c(stats.i$max, rev(stats.i$min))
+                            , col = myCol
+                            , border = NA)
           graphics::lines(stats.i$mean)
           # X-Axis
           n.Total <- length(factor(stats.i[,"TimeValue"]))
-          myAT <- 1:n.Total
+          myAT <- seq_len(n.Total)
           myLab <- stats.i[,"TimeValue"][myAT]
           graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
           #dev.off()
@@ -730,7 +761,10 @@ fun.Stats.File <- function(fun.myFile
         # entire filename since don't/can't know SiteID
 
       # rearrange columns (last 2 to first 2)
-      myCol.Order <- c(ncol(stats.i.ALL),(ncol(stats.i.ALL)-2),(ncol(stats.i.ALL)-1),1:(ncol(stats.i.ALL)-3))
+      myCol.Order <- c(ncol(stats.i.ALL)
+                       , (ncol(stats.i.ALL)-2)
+                       , (ncol(stats.i.ALL)-1)
+                       , seq_len((ncol(stats.i.ALL)-3)))
       #stats.i.ALL <- stats.i.ALL[,c(myName.SiteID,(ncol(stats.i.ALL)-2):(ncol(stats.i.ALL)-1),2:ncol(stats.i.ALL)-3)]
       stats.i.ALL <- stats.i.ALL[,myCol.Order]
       # save stats

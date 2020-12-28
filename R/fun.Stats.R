@@ -464,7 +464,10 @@ fun.Stats <- function(fun.myData.SiteID
           myCol <- "gray"
           graphics::lines(stats.i$max,col=myCol)
           graphics::lines(stats.i$min,col=myCol)
-          graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+          graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(nrow(stats.i))))
+                            , c(stats.i$max, rev(stats.i$min))
+                            , col = myCol
+                            , border = NA)
           graphics::lines(stats.i$mean)
           # X-Axis
           n.Total <- length(factor(stats.i[,"TimeValue"]))
@@ -499,7 +502,10 @@ fun.Stats <- function(fun.myData.SiteID
       myCol <- "gray"
       graphics::lines(stats.i$max,col=myCol)
       graphics::lines(stats.i$min,col=myCol)
-      graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+      graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(nrow(stats.i))))
+                        , c(stats.i$max, rev(stats.i$min))
+                        , col = myCol
+                        , border = NA)
       graphics::lines(stats.i$mean)
       # X-Axis
       n.Total <- length(factor(stats.i[,"TimeValue"]))
@@ -534,11 +540,14 @@ fun.Stats <- function(fun.myData.SiteID
         myCol <- "gray"
         graphics::lines(stats.i$max,col=myCol)
         graphics::lines(stats.i$min,col=myCol)
-        graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+        graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(nrow(stats.i))))
+                          , c(stats.i$max, rev(stats.i$min))
+                          , col = myCol
+                          , border = NA)
         graphics::lines(stats.i$mean)
         # X-Axis
         n.Total <- length(factor(stats.i[,"TimeValue"]))
-        myAT <- 1:n.Total
+        myAT <- seq_len(n.Total)
         myLab <- stats.i[,"TimeValue"][myAT]
         graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
         #dev.off()
@@ -569,11 +578,14 @@ fun.Stats <- function(fun.myData.SiteID
         myCol <- "gray"
         graphics::lines(stats.i$max,col=myCol)
         graphics::lines(stats.i$min,col=myCol)
-        graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+        graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(nrow(stats.i))))
+                          , c(stats.i$max, rev(stats.i$min))
+                          , col = myCol
+                          , border = NA)
         graphics::lines(stats.i$mean)
         # X-Axis
         n.Total <- length(factor(stats.i[,"TimeValue"]))
-        myAT <- 1:n.Total
+        myAT <- seq_len(n.Total)
         myLab <- stats.i[,"TimeValue"][myAT]
         graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
         #dev.off()
@@ -603,11 +615,14 @@ fun.Stats <- function(fun.myData.SiteID
         myCol <- "gray"
         graphics::lines(stats.i$max,col=myCol)
         graphics::lines(stats.i$min,col=myCol)
-        graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+        graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(nrow(stats.i))))
+                          , c(stats.i$max, rev(stats.i$min))
+                          , col = myCol
+                          , border = NA)
         graphics::lines(stats.i$mean)
         # X-Axis
         n.Total <- length(factor(stats.i[,"TimeValue"]))
-        myAT <- 1:n.Total
+        myAT <- seq_len(n.Total)
         myLab <- stats.i[,"TimeValue"][myAT]
         graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
         #dev.off()
@@ -638,11 +653,14 @@ fun.Stats <- function(fun.myData.SiteID
         myCol <- "gray"
         graphics::lines(stats.i$max,col=myCol)
         graphics::lines(stats.i$min,col=myCol)
-        graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+        graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(nrow(stats.i))))
+                          , c(stats.i$max, rev(stats.i$min))
+                          , col = myCol
+                          , border = NA)
         graphics::lines(stats.i$mean)
         # X-Axis
         n.Total <- length(factor(stats.i[,"TimeValue"]))
-        myAT <- 1:n.Total
+        myAT <- seq_len(n.Total)
         myLab <- stats.i[,"TimeValue"][myAT]
         graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
         #dev.off()
@@ -672,11 +690,14 @@ fun.Stats <- function(fun.myData.SiteID
         myCol <- "gray"
         graphics::lines(stats.i$max,col=myCol)
         graphics::lines(stats.i$min,col=myCol)
-        graphics::polygon(c(1:nrow(stats.i),rev(1:nrow(stats.i))),c(stats.i$max,rev(stats.i$min)),col=myCol,border=NA)
+        graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(nrow(stats.i))))
+                          , c(stats.i$max, rev(stats.i$min))
+                          , col = myCol
+                          , border = NA)
         graphics::lines(stats.i$mean)
         # X-Axis
         n.Total <- length(factor(stats.i[,"TimeValue"]))
-        myAT <- 1:n.Total
+        myAT <- seq_len(n.Total)
         myLab <- stats.i[,"TimeValue"][myAT]
         graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
         #dev.off()
@@ -692,7 +713,10 @@ fun.Stats <- function(fun.myData.SiteID
     stats.i.ALL[,ContData.env$myName.SiteID] <- fun.myData.SiteID
 
     # rearrange columns (last 2 to first 2)
-    myCol.Order <- c(ncol(stats.i.ALL),(ncol(stats.i.ALL)-2),(ncol(stats.i.ALL)-1),1:(ncol(stats.i.ALL)-3))
+    myCol.Order <- c(ncol(stats.i.ALL)
+                     , (ncol(stats.i.ALL)-2)
+                     , (ncol(stats.i.ALL)-1)
+                     , seq_len((ncol(stats.i.ALL)-3)))
     #stats.i.ALL <- stats.i.ALL[,c(myName.SiteID,(ncol(stats.i.ALL)-2):(ncol(stats.i.ALL)-1),2:ncol(stats.i.ALL)-3)]
     stats.i.ALL <- stats.i.ALL[,myCol.Order]
     # save stats

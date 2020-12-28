@@ -126,7 +126,7 @@ shinyServer(function(input, output, session) {
 
     #For each input file, gets the file attributes and adds it to
     #the table
-    for (i in 1:nrow(allFiles())) {
+    for (i in seq_len(nrow(allFiles()))) {
 
       #Calls function that gets file attributes
       actualData <- read.csv(UserFile_Path()[i], header=TRUE)
@@ -168,7 +168,7 @@ shinyServer(function(input, output, session) {
 
     #Subsets the file attribute table with just
     #file name, site ID, start date, end date, and number of records
-    summaryTable1 <- fileAttribsFull()[,c(1:5)]
+    summaryTable1 <- fileAttribsFull()[, c(1:5)]
     colnames(summaryTable1) <- colnames(fileAttribsFull()[c(1:5)])
 
     return(summaryTable1)
@@ -189,7 +189,7 @@ shinyServer(function(input, output, session) {
     if (is.null(allFiles())) {
 
       #Subsets the columns of the pre-upload data for display
-      nullTable2 <- fileAttribsNull()[c(1,6:11)]
+      nullTable2 <- fileAttribsNull()[c(1, 6:11)]
 
       #Sends the empty table to be displayed
       return(nullTable2)
@@ -532,7 +532,7 @@ shinyServer(function(input, output, session) {
 
         #Iterates through all the selected files in the data.frame
         #to perform the QC script on them individually
-        for (i in 1:nrow(allFiles())) {
+        for (i in seq_len(nrow(allFiles()))) {
 
           #Extracts the name of the file from the selected input file
           fileName <- UserFile_Name()[i]
@@ -725,7 +725,7 @@ shinyServer(function(input, output, session) {
 
     withProgress(message = paste("Getting USGS data"), value = 0, {
 
-      for(i in 1:length(USGSsiteVector)) {
+      for(i in seq_len(length(USGSsiteVector))) {
 
         #Changes the status bar to say that aggregation is occurring
         incProgress(0, detail = paste("Retrieving records for site ", USGSsiteVector[i]))

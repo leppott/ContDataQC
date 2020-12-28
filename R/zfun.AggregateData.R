@@ -107,7 +107,9 @@ fun.AggregateData <- function(fun.myData.SiteID
   myItems.ALL <- as.vector(unique(files2process))
   # create log file for processing results of items
   #myItems.Log <- data.frame(cbind(myItems.ALL,NA),stringsAsFactors=FALSE)
-  myItems.Log <- data.frame(ItemID=1:intItems.Total,Status=NA,ItemName=myItems.ALL)
+  myItems.Log <- data.frame(ItemID = seq_len(intItems.Total)
+                            , Status = NA
+                            , ItemName = myItems.ALL)
   #
 
 

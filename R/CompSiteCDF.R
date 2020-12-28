@@ -112,14 +112,14 @@ CompSiteCDF <- function(file.input=NULL, dir.input=getwd(), dir.output=getwd(), 
   #~~~~~~~~PLOT CODE~~~~~~~~~~~
   CreatePlots <- function(...) {##FUNCTION.CreatePlots.START
     # PLOT 1
-    for (i in 1:length(Col.Sites)){##FOR.j.START
+    for (i in seq_len(length(Col.Sites))){##FOR.j.START
       # subset out NA
       data.i <- data.plot[,Col.Sites[i]]
       # different first iteration
       if (i==1) {##IF.j==1,START
         # need ylim
         myYlim.max <- 0
-        for (ii in 1:length(Col.Sites)) {
+        for (ii in seq_len(length(Col.Sites))) {
           myYlim.max <- max(graphics::hist(data.plot[,Col.Sites[ii]],plot=FALSE)$density, myYlim.max)
         }
         myYlim <- c(0,myYlim.max)
@@ -136,7 +136,7 @@ CompSiteCDF <- function(file.input=NULL, dir.input=getwd(), dir.output=getwd(), 
     #
     # Plot 2
     myLWD <- 1.5
-    for (j in 1:length(Col.Sites)){##FOR.i.START
+    for (j in seq_len(length(Col.Sites))){##FOR.i.START
       if(j==1){##IF.i==1.START
         plot(stats::ecdf(data.plot[,Col.Sites[j]]), col=myColors[j], verticals=TRUE, lwd=myLWD, do.p=FALSE #pch=19, cex=.75 #do.p=FALSE
              #, col.01line="white"

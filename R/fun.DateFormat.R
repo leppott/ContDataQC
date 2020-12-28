@@ -146,7 +146,7 @@ fun.dt.Type2 <- function(fun.dt, fun2.dt.Type) {##FUN.fun.dt.Type.START
     myFormats <- c(fd01,fd02,fd03,fd04,fd05,fd06)
     myPatterns <- c(pd01,pd02,pd03,pd04,pd05,pd06)
     # cycle through each pattern
-    for (i in 1:length(myFormats)){##FOR.i.Date
+    for (i in seq_len(length(myFormats))){##FOR.i.Date
       if(grepl(myPatterns[i],dt2,perl=TRUE)==TRUE){
         myFormat.Result <- myFormats[i]
         break #stop after first match
@@ -200,7 +200,7 @@ fun.dt.Type2 <- function(fun.dt, fun2.dt.Type) {##FUN.fun.dt.Type.START
     myFormats <- c(ft01,ft02,ft03,ft04)
     myPatterns <- c(pt01,pt02,pt03,pt04)
     # cycle through each pattern
-    for (i in 1:length(myFormats)){##FOR.i.Date
+    for (i in seq_len(length(myFormats))){##FOR.i.Date
       if(grepl(myPatterns[i],dt2,perl=TRUE)==TRUE){
         myFormat.Result <- myFormats[i]
         break #stop after first match

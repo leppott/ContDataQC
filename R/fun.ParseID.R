@@ -101,7 +101,7 @@ fun.ParseID <- function(fun.myFileName.In
     pat_matches <- regexpr(pat_units, df_split[, "NonSiteID"], perl=TRUE, ignore.case = TRUE)
     df_split[, "DepthUnits"]  <- regmatches(df_split[, "NonSiteID"], pat_matches)
     #
-    for(i in 1:nrow(df_split)){##FOR~i~START
+    for(i in seq_len(nrow(df_split))){##FOR~i~START
       if(identical(df_split[i, "DepthUnits"], character(0))==TRUE){##IF~identical~START
         df_split[i, "DepthNumber"] <- df_split[i, "NonSiteID"]
         df_split[i, "DepthUnits"]  <- NA

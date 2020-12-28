@@ -358,7 +358,7 @@ PeriodStats <- function(fun.myDate
     # Loop through each Period (N and Units)
     numPeriods <- length(fun.myPeriod.N)
     myDate.Start <- rep(myDate.End, numPeriods)
-    for (k in 1:numPeriods) {##FOR.k.START
+    for (k in seq_len(numPeriods)) {##FOR.k.START
       if(tolower(fun.myPeriod.Units[k])=="d" ) {##IF.format.START
         # day, $mday
         myDate.Start[k]$mday <- myDate.End$mday - (fun.myPeriod.N[k] - 1)
@@ -402,7 +402,7 @@ PeriodStats <- function(fun.myDate
     myFile.Export.base <- substr(fun.myFile,1,nchar(fun.myFile)-4)
     # Loop through sets
     # numPeriods defined above
-    for (j in 1:numPeriods){##FOR.j.START
+    for (j in seq_len(numPeriods)){##FOR.j.START
       # subset
       df.summary.subset <- df.summary[df.summary[,myDate.Name]>=as.Date(myDate.Start[j]) & df.summary[,myDate.Name]<=as.Date(myDate.End),]
       # create file name

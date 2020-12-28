@@ -208,7 +208,7 @@ renameAggOutput <- function(directory, fileAttribsTable) {
   data.type.inputs <- vector()
 
   #Extracts the data type from all input files
-  for (i in 1:length(csvInputs)){
+  for (i in seq_len(length(csvInputs))){
     csvInputs.parts <- strsplit(csvInputs[i], myDelim)
     data.type.inputs.number <- which(csvInputs.parts[[1]] == fileAttribsTable[1,2]) + 1
     data.type.inputs[i] <- csvInputs.parts[[1]][data.type.inputs.number]

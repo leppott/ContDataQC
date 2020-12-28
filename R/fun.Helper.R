@@ -494,10 +494,10 @@ fun.CalcQCStats <- function(fun.data.import
   fun.data.import.mod[,myField.2] <- fun.data.import.mod[,myField.1] * fun.myThresh.RoC.SD.number
   #
   # A.4. Calc, Diff (1:5) (5 is default but can be more)
-  for (i in 1:ContData.env$myThresh.Flat.MaxComp) {##FOR.i.START
+  for (i in seq_len(ContData.env$myThresh.Flat.MaxComp)) {##FOR.i.START
     myCalc <- paste("n",i,sep=".")
     myField <- paste(fun.myField.Data,myCalc,sep=".")
-    fun.data.import.mod[-(1:i),myField] <- diff(as.numeric(fun.data.import.mod[,fun.myField.Data]),lag=i)
+    fun.data.import.mod[-(seq_len(i)),myField] <- diff(as.numeric(fun.data.import.mod[,fun.myField.Data]),lag=i)
     #
   }##FOR.i.END
   # only works as for loop, won't work as vector
@@ -509,7 +509,7 @@ fun.CalcQCStats <- function(fun.data.import
   myField <- paste(fun.myField.Data,myCalc,sep=".")
   myThresh <- fun.myThresh.Flat.Hi
   # Fields to check
-  myFields.Match <- match(paste(fun.myField.Data,"n",1:myThresh,sep="."), names(fun.data.import.mod))
+  myFields.Match <- match(paste(fun.myField.Data, "n", seq_len(myThresh), sep="."), names(fun.data.import.mod))
   # use rowSums to count the fields
   fun.data.import.mod[,myField] <- rowSums(abs(fun.data.import.mod[,myFields.Match])<=fun.myThresh.Flat.Tolerance)
   #
@@ -518,7 +518,7 @@ fun.CalcQCStats <- function(fun.data.import
   myField <- paste(fun.myField.Data,myCalc,sep=".")
   myThresh <- fun.myThresh.Flat.Lo
   # Fields to check
-  myFields.Match <- match(paste(fun.myField.Data,"n",1:myThresh,sep="."), names(fun.data.import.mod))
+  myFields.Match <- match(paste(fun.myField.Data, "n", seq_len(myThresh), sep="."), names(fun.data.import.mod))
   # use rowSums to count the fields
   fun.data.import.mod[,myField] <- rowSums(abs(fun.data.import.mod[,myFields.Match])<=fun.myThresh.Flat.Tolerance)
   #

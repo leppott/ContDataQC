@@ -354,9 +354,9 @@ ContData.env$myThresh.RoC.SD.number.pH         <- ContData.env$myDefault.RoC.SD.
 ContData.env$myThresh.RoC.SD.period.pH         <- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.Turbidity         <- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.Turbidity         <- ContData.env$myDefault.RoC.SD.period
-ContData.env$myThresh.RoC.SD.number.Chlorophylla         <- ContData.env$myDefault.RoC.SD.number
-ContData.env$myThresh.RoC.SD.period.Chlorophylla        <- ContData.env$myDefault.RoC.SD.period
-ContData.env$myThresh.RoC.SD.number.GageHeight         <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.number.Chlorophylla      <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.Chlorophylla      <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.GageHeight        <- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.GageHeight        <- ContData.env$myDefault.RoC.SD.period
 ## No Change (flat-line)
 ### Examines consecutive values within "Tolerance" of each other
@@ -395,12 +395,12 @@ ContData.env$myThresh.Flat.Tolerance.pH         <- 0.01
 ContData.env$myThresh.Flat.Hi.Turbidity               <- ContData.env$myDefault.Flat.Hi * 2
 ContData.env$myThresh.Flat.Lo.Turbidity               <- ContData.env$myDefault.Flat.Lo * 2
 ContData.env$myThresh.Flat.Tolerance.Turbidity        <- 0.01
-ContData.env$myThresh.Flat.Hi.Chlorophylla                <- ContData.env$myDefault.Flat.Hi * 2
-ContData.env$myThresh.Flat.Lo.Chlorophylla                <- ContData.env$myDefault.Flat.Lo * 2
-ContData.env$myThresh.Flat.Tolerance.Chlorophylla         <- 0.01
-ContData.env$myThresh.Flat.Hi.GageHeight               <- ContData.env$myDefault.Flat.Hi * 2
-ContData.env$myThresh.Flat.Lo.GageHeight               <- ContData.env$myDefault.Flat.Lo * 2
-ContData.env$myThresh.Flat.Tolerance.GageHeight        <- 0.01
+ContData.env$myThresh.Flat.Hi.Chlorophylla            <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.Chlorophylla            <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.Chlorophylla     <- 0.01
+ContData.env$myThresh.Flat.Hi.GageHeight              <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.GageHeight              <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.GageHeight       <- 0.01
 #
 ContData.env$myThresh.Flat.MaxComp    <- max(ContData.env$myThresh.Flat.Hi.WaterTemp
                                              , ContData.env$myThresh.Flat.Hi.AirTemp
@@ -417,25 +417,30 @@ ContData.env$myThresh.Flat.MaxComp    <- max(ContData.env$myThresh.Flat.Hi.Water
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Data Fields with Flags ####
 ContData.env$myName.Flag        <- "Flag" # flag prefix
-ContData.env$myNames.Cols4Flags <- c(ContData.env$myName.DateTime,ContData.env$myNames.DataFields)
-ContData.env$myNames.Flags      <- paste(ContData.env$myName.Flag,ContData.env$myNames.Cols4Flags,sep=".")  # define ones using in the calling script
+ContData.env$myNames.Cols4Flags <- c(ContData.env$myName.DateTime, ContData.env$myNames.DataFields)
+ContData.env$myNames.Flags      <- paste(ContData.env$myName.Flag, ContData.env$myNames.Cols4Flags, sep=".")  # define ones using in the calling script
 ## flag labels
-ContData.env$myName.Flag.DateTime   <- paste(ContData.env$myName.Flag,ContData.env$myName.DateTime,sep=".")
-ContData.env$myName.Flag.WaterTemp  <- paste(ContData.env$myName.Flag,ContData.env$myName.WaterTemp,sep=".")
-ContData.env$myName.Flag.AirTemp    <- paste(ContData.env$myName.Flag,ContData.env$myName.AirTemp,sep=".")
-ContData.env$myName.Flag.WaterP     <- paste(ContData.env$myName.Flag,ContData.env$myName.WaterP,sep=".")
-ContData.env$myName.Flag.AirBP      <- paste(ContData.env$myName.Flag,ContData.env$myName.AirBP,sep=".")
-ContData.env$myName.Flag.SensorDepth <- paste(ContData.env$myName.Flag,ContData.env$myName.SensorDepth,sep=".")
-ContData.env$myName.Flag.Discharge  <- paste(ContData.env$myName.Flag,ContData.env$myName.Discharge,sep=".")
-ContData.env$myName.Flag.Cond       <- paste(ContData.env$myName.Flag,ContData.env$myName.Cond,sep=".")
-ContData.env$myName.Flag.DO         <- paste(ContData.env$myName.Flag,ContData.env$myName.DO,sep=".")
-ContData.env$myName.Flag.pH         <- paste(ContData.env$myName.Flag,ContData.env$myName.pH,sep=".")
-ContData.env$myName.Flag.Turbidity         <- paste(ContData.env$myName.Flag,ContData.env$myName.Turbidity,sep=".")
-ContData.env$myName.Flag.Chlorophylla        <- paste(ContData.env$myName.Flag,ContData.env$myName.Chlorophylla,sep=".")
-ContData.env$myName.Flag.GageHeight        <- paste(ContData.env$myName.Flag,ContData.env$myName.GageHeight,sep=".")
+ContData.env$myName.Flag.DateTime     <- paste(ContData.env$myName.Flag, ContData.env$myName.DateTime, sep=".")
+ContData.env$myName.Flag.WaterTemp    <- paste(ContData.env$myName.Flag, ContData.env$myName.WaterTemp, sep=".")
+ContData.env$myName.Flag.AirTemp      <- paste(ContData.env$myName.Flag, ContData.env$myName.AirTemp, sep=".")
+ContData.env$myName.Flag.WaterP       <- paste(ContData.env$myName.Flag, ContData.env$myName.WaterP, sep=".")
+ContData.env$myName.Flag.AirBP        <- paste(ContData.env$myName.Flag, ContData.env$myName.AirBP, sep=".")
+ContData.env$myName.Flag.SensorDepth  <- paste(ContData.env$myName.Flag, ContData.env$myName.SensorDepth, sep=".")
+ContData.env$myName.Flag.Discharge    <- paste(ContData.env$myName.Flag, ContData.env$myName.Discharge, sep=".")
+ContData.env$myName.Flag.Cond         <- paste(ContData.env$myName.Flag, ContData.env$myName.Cond, sep=".")
+ContData.env$myName.Flag.DO           <- paste(ContData.env$myName.Flag, ContData.env$myName.DO, sep=".")
+ContData.env$myName.Flag.pH           <- paste(ContData.env$myName.Flag, ContData.env$myName.pH, sep=".")
+ContData.env$myName.Flag.Turbidity    <- paste(ContData.env$myName.Flag, ContData.env$myName.Turbidity, sep=".")
+ContData.env$myName.Flag.Chlorophylla <- paste(ContData.env$myName.Flag, ContData.env$myName.Chlorophylla, sep=".")
+ContData.env$myName.Flag.GageHeight   <- paste(ContData.env$myName.Flag, ContData.env$myName.GageHeight, sep=".")
 # Data Quality Test Names
 ContData.env$myNames.QCTests <- c("Gross","Spike","RoC","Flat")
-ContData.env$myNames.QCCalcs <- c("SD.Time","SD","SDxN",paste("n",1:ContData.env$myThresh.Flat.MaxComp,sep="."),"flat.Lo","flat.Hi")
+ContData.env$myNames.QCCalcs <- c("SD.Time"
+                                  , "SD"
+                                  , "SDxN"
+                                  , paste("n", seq_len(ContData.env$myThresh.Flat.MaxComp), sep=".")
+                                  , "flat.Lo"
+                                  , "flat.Hi")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Exceedance values for stats (default to Gross-Suspect-Hi value) ####
 ContData.env$myExceed.WaterTemp  <- ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp
@@ -446,8 +451,8 @@ ContData.env$myExceed.SensorDepth <- ContData.env$myThresh.Gross.Suspect.Hi.Sens
 ContData.env$myFormat.Date           <- "%Y-%m-%d"
 ContData.env$myFormat.Time           <- "%H:%M:%S"
 ContData.env$myFormat.DateTime       <- "%Y-%m-%d %H:%M:%S"
-ContData.env$DateRange.Start.Default <- format(as.Date("1900-01-01"),ContData.env$myFormat.Date) #YYYY-MM-DD
-ContData.env$DateRange.End.Default   <- format(Sys.Date(),ContData.env$myFormat.Date)
+ContData.env$DateRange.Start.Default <- format(as.Date("1900-01-01"), ContData.env$myFormat.Date) #YYYY-MM-DD
+ContData.env$DateRange.End.Default   <- format(Sys.Date(), ContData.env$myFormat.Date)
 # Time Zone, used in Gage script in dataRetrieval, OlsonNames()
 ContData.env$myTZ <- Sys.timezone() #"America/New_York" (local time zone)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -475,12 +480,12 @@ ContData.env$myName.Season   <- "Season"
 ContData.env$myName.YrSeason <- "YearSeason"
 # for summary stats
 ContData.env$myNames.Fields.TimePeriods <- c(ContData.env$myName.Yr
-											,ContData.env$myName.YrMo
-											,ContData.env$myName.Mo
-											,ContData.env$myName.MoDa
-											,ContData.env$myName.JuDa
-											,ContData.env$myName.Season
-											,ContData.env$myName.YrSeason)
+                      											,ContData.env$myName.YrMo
+                      											,ContData.env$myName.Mo
+                      											,ContData.env$myName.MoDa
+                      											,ContData.env$myName.JuDa
+                      											,ContData.env$myName.Season
+                      											,ContData.env$myName.YrSeason)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Exclude Trigger ####
 # Trigger for Stats to exclude (TRUE) or include (FALSE) where flag = "fail"

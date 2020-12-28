@@ -41,7 +41,7 @@
 #' @export
 RBIcalc <- function(Q){##FUNCTION.RBIcalc.START
   #
-  time.start <- proc.time();
+  time.start <- proc.time()
   #
   # Size
   myLen <- length(Q)
