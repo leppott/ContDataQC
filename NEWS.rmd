@@ -46,6 +46,11 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9051
+2020-12-29
+
+* chore: Add docs folder for pkgdown
+
 ## v2.0.5.9050
 2020-12-29
 
