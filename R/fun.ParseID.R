@@ -11,8 +11,8 @@
 # Erik.Leppo@tetratech.com (EWL)
 # 20190225
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @param fun.FileName.In Input file name (with directory).
-#' @param fun.FileName.Out Output file name (with directory).
+#' @param fun.myFileName.In Input file name (with directory).
+#' @param fun.myFileName.Out Output file name (with directory).
 #' @param fun.ColName.ID Column name for SiteID to be parsed.
 #' @param fun.Delim ID string delimiter.  Default = "~" (Can be modified in config file; ContData.env$myDelim_LakeID)
 #'
@@ -113,7 +113,7 @@ fun.ParseID <- function(fun.myFileName.In
 
     # Add columns
     df_import[, "ID_Full"]       <- df_import[, fun.ColName.ID]
-    df_import[, "ID_Depth" ]     <- df_split[, "DepthNumber"]
+    df_import[, "ID_Depth"]     <- df_split[, "DepthNumber"]
     df_import[, "ID_DepthUnits"] <- df_split[, "DepthUnits"]
     df_import[, fun.ColName.ID]  <- df_split[, "SiteID"]
 

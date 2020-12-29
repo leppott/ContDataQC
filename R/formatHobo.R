@@ -4,9 +4,12 @@
 #' Works on single files.  Imports, modifies, and saves the new file.
 #'
 #' @param fun.myFile Single file (or vector of files) to perform functions.
-#' @param fun.myDir.import Directory for import data.  Default is current working directory.
-#' @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.HoboDateFormat Date format of Hoboware output, excluding a delimter (e.g., DMY not D/M/Y).
+#' @param fun.myDir.import Directory for import data.
+#' Default is current working directory.
+#' @param fun.myDir.export Directory for export data.
+#' Default is current working directory.
+#' @param fun.HoboDateFormat Date format of Hoboware output,
+#' excluding a delimiter (e.g., DMY not D/M/Y).
 #' Default is NULL and no transformation of the dates is performed.
 #' @param fun.myConfig Configuration file to use for this data analysis.
 #' The default is always loaded first so only "new" values need to be included.
@@ -19,19 +22,23 @@
 #' , reformats it using defaults from the ContDataQC config file
 #' , and exports a CSV to another folder for use with ContDataQC.
 #'
-#' Below are the default data directories assumed to exist in the working directory.
-#' These can be created with code in the example.  Using this function as an example,
-#' files will be imported from Data0_Original and exported to Data1_RAW.
+#' Below are the default data directories assumed to exist in the working
+#' directory.  These can be created with code in the example.  Using this
+#' function as an example, files will be imported from Data0_Original and
+#' exported to Data1_RAW.
 #'
 #' * ./Data0_Original/ = Unmodified data logger files.
 #'
-#' * ./Data1_RAW/ = Data logger files modified for use with library.  Modifications for extra rows and file and column names.
+#' * ./Data1_RAW/ = Data logger files modified for use with library.
+#' Modifications for extra rows and file and column names.
 #'
 #' * ./Data2_QC/ = Repository for library output for QCed files.
 #'
-#' * ./Data3_Aggregated/ = Repository for library output for aggregated (or split) files.
+#' * ./Data3_Aggregated/ = Repository for library output for aggregated
+#' (or split) files.
 #'
-#' * ./Data4_Stats/ = Repository for library output for statistical summary files.
+#' * ./Data4_Stats/ = Repository for library output for statistical
+#' summary files.
 #'
 #' File format should be "SiteID_SensorType_StartDate_EndData.csv".
 #'
@@ -43,8 +50,9 @@
 #'
 #'  * Delimiter = underscore (as specified in the config file)
 #'
-#' Column names are inspected with regular expressions (R not Perl) to find matches before being renamed.
-#' If column names do not match the criteria below they will not be formatted properly.
+#' Column names are inspected with regular expressions (R not Perl) to find
+#' matches before being renamed. If column names do not match the criteria below
+#' they will not be formatted properly.
 #'
 #' * Date = "date"
 #'
@@ -59,11 +67,13 @@
 #' * Sensor Depth = "depth"
 #'
 #' HOBOware will output ambiguous dates with only 2 digits.
-#' There are two delimiters (/ and -) and three formats (MDY, DMY, and YMD) resulting in six possible formats.
-#' If the user provides input for fun.HoboDateFormat the function will modify the data to proper 4 digit years.
+#' There are two delimiters (/ and -) and three formats (MDY, DMY, and YMD)
+#' resulting in six possible formats.  If the user provides input for
+#' fun.HoboDateFormat the function will modify the data to proper 4 digit years.
 #' The default of NULL will not modify the date format.
 #'
-#' It is assumed the user has a single Date Time field rather than two fields (Date and Time).
+#' It is assumed the user has a single Date Time field rather than two fields
+#' (Date and Time).
 #'
 #' @examples
 #' \dontrun{

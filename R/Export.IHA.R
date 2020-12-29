@@ -1,27 +1,44 @@
 #' Export data for IHA package
 #'
-#' Creates a date frame (and file export) from Continuous Data in the format used by the IHA package.
+#' Creates a date frame (and file export) from Continuous Data in the format
+#' used by the IHA package.
 #'
-#' The function assumes the provided data is sampled more often then daily.  The daily means are calculated internally.
+#' The function assumes the provided data is sampled more often then daily.  The
+#' daily means are calculated internally.
 #'
-#' The IHA package is not included in the ContDataQC package.  But an example is provided.
+#' The IHA package is not included in the ContDataQC package.  But an example
+#' is provided.
 #'
-#' To run the example IHA calculations you will need the IHA package (from GitHub) and for the example export the XLConnect packages
-#' Install commands in the example.
+#' To run the example IHA calculations you will need the IHA package (from
+#' GitHub) and for the example export the XLConnect packages.  Install commands
+#' are included in the example.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Erik.Leppo@tetratech.com (EWL)
 # 20170911
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @param fun.myFile Filename (no directory) of data file.  Must be CSV file.  Includes Date/Time and Discharge fields.
-#' @param fun.myDate.Format Format of benchmark date.  This should be the same format of the date in the data file.  Default is \%Y-\%m-\%d (e.g., 2017-12-31).
-#' @param fun.myDir.import Directory for import data.  Default is current working directory.
-#' @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.myDateRange.Start Start date for IHA analysis.  File will be filtered on this date.  Default is NA (no filtering).
-#' @param fun.myDateRange.End End date for IHA analysis.  File will be filtered on this date.  Default is NA (no filtering).
-#' @param fun.myCol.DateTime Column name in myFile with Date/Time.  Assumes format of \%Y-\%m-\%d \%H:\%M:\%S.  Default = "Date.Time".
-#' @param fun.myCol.Parameter Column name in myFile for measurements.  Default = "Discharge.ft3.s".
-#' @return Returns a data frame with daily mean values by date (in the specified range).  Also, a csv file is saved to the specified directory with the prefix "IHA" and the date range before the file extension.
-#' @keywords continuous data, daily mean, IHA
+#' @param fun.myFile Filename (no directory) of data file.  Must be CSV file.
+#' Includes Date/Time and Discharge fields.
+#' @param fun.myDate.Format Format of benchmark date.  This should be the same
+#' format of the date in the data file.
+#' Default is \%Y-\%m-\%d (e.g., 2017-12-31).
+#' @param fun.myDir.import Directory for import data.
+#' Default is current working directory.
+#' @param fun.myDir.export Directory for export data.
+#' Default is current working directory.
+#' @param fun.myDateRange.Start Start date for IHA analysis.  File will be
+#' filtered on this date.  Default is NA (no filtering).
+#' @param fun.myDateRange.End End date for IHA analysis.  File will be filtered
+#' on this date.  Default is NA (no filtering).
+#' @param fun.myCol.DateTime Column name in myFile with Date/Time.  Assumes
+#' format of \%Y-\%m-\%d \%H:\%M:\%S.  Default = "Date.Time".
+#' @param fun.myCol.Parameter Column name in myFile for measurements.
+#' Default = "Discharge.ft3.s".
+#' @return Returns a data frame with daily mean values by date (in the specified
+#' range).  Also, a csv file is saved to the specified directory with the prefix
+#' "IHA" and the date range before the file extension.
+#'
+# @keywords continuous data, daily mean, IHA
+#'
 #' @examples
 #' # 1.  Get Gage Data
 #' #
@@ -128,29 +145,29 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 Export.IHA <- function(fun.myFile
-                      ,fun.myDir.import=getwd()
-                      ,fun.myDir.export=getwd()
-                      ,fun.myDateRange.Start=NA
-                      ,fun.myDateRange.End=NA
-                      ,fun.myCol.DateTime="Date.Time"
-                      ,fun.myCol.Parameter="Discharge.ft3.s"
-                      )
-{##FUNCTION.Export.IHA.START
+                       , fun.myDate.Format = "%Y-%m-%d"
+                       , fun.myDir.import = getwd()
+                       , fun.myDir.export = getwd()
+                       , fun.myDateRange.Start = NA
+                       , fun.myDateRange.End = NA
+                       , fun.myCol.DateTime = "Date.Time"
+                       , fun.myCol.Parameter = "Discharge.ft3.s"
+                       ) {##FUNCTION.Export.IHA.START
   # import file
-  myDF <- utils::read.csv(myFile, stringsAsFactors = FALSE)
+  myDF <- utils::read.csv(fun.myFile, stringsAsFactors = FALSE)
   myCols <- c(fun.myCol.DateTime, fun.myCol.Parameter)
   # add date
   myDF <- myDF[,myCols]
-  myDF[,"Date"] <- as.Date(myDF[,fun.myCol.DateTime],format="%Y-%m-%d")
+  myDF[,"Date"] <- as.Date(myDF[,fun.myCol.DateTime],format=fun.myDate.Format)
   # filter for date range supplied by user (if NA, default, do nothing)
   if(!is.na(fun.myDateRange.Start)){
-    date.start <- as.Date(fun.myDateRange.Start, format="%Y-%m-%d")
+    date.start <- as.Date(fun.myDateRange.Start, format=fun.myDate.Format)
     myDF <- myDF[myDF[,"Date"]>=date.start,]
   } else {
     date.start <- "NA"
   }
   if(!is.na(fun.myDateRange.End)){
-    date.end <- as.Date(fun.myDateRange.End, format="%Y-%m-%d")
+    date.end <- as.Date(fun.myDateRange.End, format=fun.myDate.Format)
     myDF <- myDF[myDF[,"Date"]<=date.end,]
   } else {
     date.end <- "NA"

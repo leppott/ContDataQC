@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-28 14:43:01
+    #> Last Update: 2020-12-29 11:38:34
 
 # Planned Updates
 
@@ -36,6 +36,28 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9050
+
+2020-12-29
+
+  - style: Replace ‘=’ with ‘\<-’
+  - style: Avoid long code lines over 80 characters
+      - partial
+  - style: Remove trailing blank lines
+      - partial
+  - docs: DESCRIPTION, add reshape2 to Suggests
+      - Only used in Export.rLakeAnalyzer
+  - docs: Update license information
+  - chore: Export.IHA, Add missing parameter to function and update code
+  - refactor: Add foo:: to function calls where missing
+      - fun.Helper
+  - docs: CompSiteCDF, add missing argument to documentation.
+  - docs: fun.ParseID, rename arugments so function and documentation
+    match
+  - docs: data.R, Add “data\_raw\_ECO66G12\_AW\_20160128\_20160418”
+  - chore: Export.IHA, fix argument name, myFile to fun.myFile
+  - chore: CompSiteCDF, fix agument name, myFile to file.input
 
 ## v2.0.5.9049
 

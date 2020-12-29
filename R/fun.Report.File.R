@@ -193,6 +193,3 @@ fun.Report.File <- function(fun.myFile
   utils::flush.console()
   #
 }##FUN.Report.END
-
-
-

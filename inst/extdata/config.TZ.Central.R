@@ -1,7 +1,8 @@
 # User Defined Values
 #
-# User defined values for variables used across multiple functions in this library.
-# The user has the ability to modify the values for names, units, QC thresholds, etc.
+# User defined values for variables used across multiple functions
+# in this library.  The user has the ability to modify the values for names,
+# units, QC thresholds, etc.
 #
 # Saved in a separate environment.
 #
@@ -15,13 +16,15 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # User defined variable names for input data
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# It is assumed that this R script is stored in a directory with the data files as subdirectories
+# It is assumed that this R script is stored in a directory with the data files
+# as subdirectories
 # This script is intended to be "source"d from the main script.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # @keywords continuous data
 # @examples
 # #Not intended to be accessed indepedant of function ContDataQC().
-# #Data values only.  No functions.  Add to environment so only visible inside library.
+# #Data values only.  No functions.
+# Add to environment so only visible inside library.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # USER may make modifications in this section but not mandatory
 # this section could be sourced so can use between scripts

@@ -12,13 +12,13 @@ fun.ParseID(
 )
 }
 \arguments{
+\item{fun.myFileName.In}{Input file name (with directory).}
+
+\item{fun.myFileName.Out}{Output file name (with directory).}
+
 \item{fun.ColName.ID}{Column name for SiteID to be parsed.}
 
 \item{fun.Delim}{ID string delimiter.  Default = "~" (Can be modified in config file; ContData.env$myDelim_LakeID)}
-
-\item{fun.FileName.In}{Input file name (with directory).}
-
-\item{fun.FileName.Out}{Output file name (with directory).}
 }
 \value{
 Returns a csv file to specified finelname with the full site ID properly parsed into new columns.

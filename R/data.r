@@ -36,7 +36,8 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DATA_period_test2_Aw_20130101_20141231
 #'
-#' Test data for PeriodStats().  Includes air and water data at different start times.
+#' Test data for PeriodStats().  Includes air and water data at different
+#' start times.
 #'
 #' @format a data frame with 9699 observations and 72 variables:
 #'
@@ -52,4 +53,12 @@
 #'
 "data_CompSiteCDF"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+#' data_raw_ECO66G12_AW_20160128_20160418
+#'
+#' Test data for formatHobo().  Example output from HOBOware.
+#'
+#' @format a data frame with 771 observations and 1 variables:
+#'
+#'
+"data_raw_ECO66G12_AW_20160128_20160418"
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

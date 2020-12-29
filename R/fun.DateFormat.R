@@ -285,14 +285,3 @@ fun.dt.Type2 <- function(fun.dt, fun2.dt.Type) {##FUN.fun.dt.Type.START
 # #print "Date is of a format like Month-DD\n";
 # frmt5 <- "%b-%d"
 # pat5 <- "~ /^(\\w*)[\\s|-](\\d{1,2})\\s?(\\d{0,2}):?(\\d{0,2}):?(\\d{0,2})\\s?(\\w{0,2})$/"
-
-
-
-
-
-
-
-
-
-
-

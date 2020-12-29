@@ -6,6 +6,7 @@
 \usage{
 Export.IHA(
   fun.myFile,
+  fun.myDate.Format = "\%Y-\%m-\%d",
   fun.myDir.import = getwd(),
   fun.myDir.export = getwd(),
   fun.myDateRange.Start = NA,
@@ -15,35 +16,50 @@ Export.IHA(
 )
 }
 \arguments{
-\item{fun.myFile}{Filename (no directory) of data file.  Must be CSV file.  Includes Date/Time and Discharge fields.}
+\item{fun.myFile}{Filename (no directory) of data file.  Must be CSV file.
+Includes Date/Time and Discharge fields.}
 
-\item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
+\item{fun.myDate.Format}{Format of benchmark date.  This should be the same
+format of the date in the data file.
+Default is \%Y-\%m-\%d (e.g., 2017-12-31).}
 
-\item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+\item{fun.myDir.import}{Directory for import data.
+Default is current working directory.}
 
-\item{fun.myDateRange.Start}{Start date for IHA analysis.  File will be filtered on this date.  Default is NA (no filtering).}
+\item{fun.myDir.export}{Directory for export data.
+Default is current working directory.}
 
-\item{fun.myDateRange.End}{End date for IHA analysis.  File will be filtered on this date.  Default is NA (no filtering).}
+\item{fun.myDateRange.Start}{Start date for IHA analysis.  File will be
+filtered on this date.  Default is NA (no filtering).}
 
-\item{fun.myCol.DateTime}{Column name in myFile with Date/Time.  Assumes format of \%Y-\%m-\%d \%H:\%M:\%S.  Default = "Date.Time".}
+\item{fun.myDateRange.End}{End date for IHA analysis.  File will be filtered
+on this date.  Default is NA (no filtering).}
 
-\item{fun.myCol.Parameter}{Column name in myFile for measurements.  Default = "Discharge.ft3.s".}
+\item{fun.myCol.DateTime}{Column name in myFile with Date/Time.  Assumes
+format of \%Y-\%m-\%d \%H:\%M:\%S.  Default = "Date.Time".}
 
-\item{fun.myDate.Format}{Format of benchmark date.  This should be the same format of the date in the data file.  Default is \%Y-\%m-\%d (e.g., 2017-12-31).}
+\item{fun.myCol.Parameter}{Column name in myFile for measurements.
+Default = "Discharge.ft3.s".}
 }
 \value{
-Returns a data frame with daily mean values by date (in the specified range).  Also, a csv file is saved to the specified directory with the prefix "IHA" and the date range before the file extension.
+Returns a data frame with daily mean values by date (in the specified
+range).  Also, a csv file is saved to the specified directory with the prefix
+"IHA" and the date range before the file extension.
 }
 \description{
-Creates a date frame (and file export) from Continuous Data in the format used by the IHA package.
+Creates a date frame (and file export) from Continuous Data in the format
+used by the IHA package.
 }
 \details{
-The function assumes the provided data is sampled more often then daily.  The daily means are calculated internally.
+The function assumes the provided data is sampled more often then daily.  The
+daily means are calculated internally.
 
-The IHA package is not included in the ContDataQC package.  But an example is provided.
+The IHA package is not included in the ContDataQC package.  But an example
+is provided.
 
-To run the example IHA calculations you will need the IHA package (from GitHub) and for the example export the XLConnect packages
-Install commands in the example.
+To run the example IHA calculations you will need the IHA package (from
+GitHub) and for the example export the XLConnect packages.  Install commands
+are included in the example.
 }
 \examples{
 # 1.  Get Gage Data
@@ -139,8 +155,3 @@ writeWorksheet(wb, Analysis.Group.5, sheet = "Group5")
 # save workbook
 saveWorkbook(wb, myFile.XLSX)
 }
-\keyword{IHA}
-\keyword{continuous}
-\keyword{daily}
-\keyword{data,}
-\keyword{mean,}

@@ -1,27 +1,39 @@
 #' CompSiteCDF, compare CDFs of sites
 #'
-#' Takes as an input a data frame with date and up to 8 columns of parameter data.
-#' Column names are Date and SiteIDs and values are daily means for some measurement.
+#' Takes as an input a data frame with date and up to 8 columns of parameter
+#' data.  Column names are Date and SiteIDs and values are daily means for some
+#' measurement.
 #'
-#' More than 8 columns can be used but colors are recycled after 8 and the plot lines will be difficult to distinguish.
+#' More than 8 columns can be used but colors are recycled after 8 and the plot
+#' lines will be difficult to distinguish.
 #'
-#' CDFs are generate for all data, year, season, and year/season and saved to a PDF.
-#' Winter + Year is such that December is included with the following year (e.g., Dec 2013, Jan 2014, Feb 2014 are 2014Winter).
+#' CDFs are generate for all data, year, season, and year/season and saved to a
+#' PDF.  Winter + Year is such that December is included with the following year
+#' (e.g., Dec 2013, Jan 2014, Feb 2014 are 2014Winter).
 #'
-#' Two plots per page are generated.  The first plot is the proportion of values at a certain value.
-#' This plot is similar to a histogram.
-#' The second plot is a CDF of values.  The line represents the proportion of values less than or equal to parameter values on the x-axis.
+#' Two plots per page are generated.  The first plot is the proportion of values
+#' at a certain value.  This plot is similar to a histogram.  The second plot is
+#' a CDF of values.  The line represents the proportion of values less than or
+#' equal to parameter values on the x-axis.
 #'
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Erik.Leppo@tetratech.com (EWL)
 # 20170921
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @param file.input Input data as CSV.  Needs Date column and it will handle up to 5 SiteIDs (with data under each SiteID).
-#' @param dir.input Directory where data file is located.  Default is the working directory; getwd().
-#' @param dir.output Directory where PDF file is to be saved.  Default is the working directory; getwd().
+#' @param file.input Input data as CSV.  Needs Date column and it will handle up
+#' to 5 SiteIDs (with data under each SiteID).
+#' @param dir.input Directory where data file is located.
+#' Default is the working directory; getwd().
+#' @param dir.output Directory where PDF file is to be saved.
+#' Default is the working directory; getwd().
 #' @param ParamName.xlab Parameter name for x-axis on plots
+#' @param df.input Optionally use existing data frame over importing file.input.
+#' Default = NULL (import file.input).
+#'
 #' @return Returns a PDF of CDFs.
-#' @keywords continuous data, CDF, site comparison
+#'
+# @keywords continuous data, CDF, site comparison
+#'
 #' @examples
 #' # Variant 1 (with File)
 #' # Load Data
@@ -56,14 +68,18 @@
 # CompSiteCDF(ParamName.xlab = myXlab, df.input=myDF)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
-CompSiteCDF <- function(file.input=NULL, dir.input=getwd(), dir.output=getwd(), ParamName.xlab, df.input = NULL){##FUNCTION.CompSiteCDF.START
+CompSiteCDF <- function(file.input=NULL
+                        , dir.input=getwd()
+                        , dir.output=getwd()
+                        , ParamName.xlab
+                        , df.input = NULL){##FUNCTION.CompSiteCDF.START
   #
   # load data (data.frame or from CSV)
   # if no data frame then import file.
   if (!is.null(df.input)) {##IF.START
     data.import <- df.input
   } else {
-    data.import <- utils::read.csv(file.path(dir.input, myFile))
+    data.import <- utils::read.csv(file.path(dir.input, file.input))
   }##IF.END
   #
   # Site Names (Columns)
@@ -74,11 +90,16 @@ CompSiteCDF <- function(file.input=NULL, dir.input=getwd(), dir.output=getwd(), 
   # assume Date is POSIXct
   #
   # add time period fields
-  data.import[,ContData.env$myName.Yr]   <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%Y")
-  data.import[,ContData.env$myName.Mo]   <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%m")
-  data.import[,ContData.env$myName.YrMo] <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%Y%m")
-  data.import[,ContData.env$myName.MoDa] <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%m%d")
-  # data.import[,ContData.env$myName.JuDa] <- as.POSIXlt(data.import[,ContData.env$myName.Date], format=ContData.env$myFormat.Date)$yday +1
+  data.import[,ContData.env$myName.Yr]   <- format(as.Date(data.import[
+    , ContData.env$myName.Date]),format="%Y")
+  data.import[,ContData.env$myName.Mo]   <- format(as.Date(data.import[
+    , ContData.env$myName.Date]),format="%m")
+  data.import[,ContData.env$myName.YrMo] <- format(as.Date(data.import[
+    , ContData.env$myName.Date]),format="%Y%m")
+  data.import[,ContData.env$myName.MoDa] <- format(as.Date(data.import[
+    , ContData.env$myName.Date]),format="%m%d")
+  # data.import[,ContData.env$myName.JuDa] <- as.POSIXlt(data.import[
+  #,ContData.env$myName.Date], format=ContData.env$myFormat.Date)$yday +1
   # ## add Season fields
   data.import[,ContData.env$myName.Season] <- NA
   data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric("0101") & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Spring.Start)] <- "Winter"

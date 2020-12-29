@@ -463,7 +463,7 @@ fun.CalcQCStats <- function(fun.data.import
   # right align says the previous 50
   # +1 is to include the record itself
   #RollSD <- rollapply(data=zoo.merge,width=RollBy+1,FUN=sd,na.rm=TRUE,fill=NA,align="right")
-  RollSD <- zoo::rollapply(data=zoo.data,width=RollBy+1,FUN=sd,na.rm=TRUE,fill=NA,align="right")
+  RollSD <- zoo::rollapply(data=zoo.data,width=RollBy+1,FUN=stats::sd,na.rm=TRUE,fill=NA,align="right")
   # add to data frame
   fun.data.import.mod[,myField] <- RollSD
   # clean up
@@ -704,5 +704,3 @@ fun.DateTime.GroupBy.First <- function(df){
   }## IF ~ check_rows ~ END
   #
 }## FUN ~ fun.DateTime.GroupBy.First ~ END
-
-

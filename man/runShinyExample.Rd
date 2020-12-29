@@ -10,8 +10,8 @@ runShinyExample()
 Launches Shiny app.
 }
 \details{
-The Shiny app based on the R package ContDataQC is included in the R package.
-This function launches that app.
+The Shiny app based on the R package ContDataQC is included in
+the R package. This function launches that app.
 
 The Shiny app is online at:
 https://davidagibbs.shinyapps.io/rmn_continuous_data_active/

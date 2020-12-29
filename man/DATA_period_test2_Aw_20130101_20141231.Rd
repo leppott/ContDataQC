@@ -11,6 +11,7 @@ a data frame with 9699 observations and 72 variables:
 DATA_period_test2_Aw_20130101_20141231
 }
 \description{
-Test data for PeriodStats().  Includes air and water data at different start times.
+Test data for PeriodStats().  Includes air and water data at different
+start times.
 }
 \keyword{datasets}

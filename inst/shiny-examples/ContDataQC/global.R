@@ -1,4 +1,5 @@
-#Developed by David Gibbs, ORISE fellow at the US EPA Office of Research & Development. dagibbs22@gmail.com
+#Developed by David Gibbs, ORISE fellow at
+# the US EPA Office of Research & Development. dagibbs22@gmail.com
 #Written 2017 and 2018
 
 library(shiny)
@@ -23,7 +24,8 @@ library(zip)
 options(shiny.maxRequestSize=70*1024^2)
 
 #Names the data template spreadsheet
-dataTemplate <- read.csv(file="continuous_data_template_2017_11_15.csv", header=TRUE)
+dataTemplate <- read.csv(file="continuous_data_template_2017_11_15.csv"
+                         , header=TRUE)
 
 #Extracts properties of the input spreadsheets
 fileParse <- function(inputFile) {
@@ -46,7 +48,8 @@ fileParse <- function(inputFile) {
     endDate <- max(as.Date(inputFile$Date, format = "%m/%d/%Y"))
   }
 
-  #Recognizes dates if they are in a "Date Time" field as opposed to a Date.Time field
+  #Recognizes dates if they are in a "Date Time" field
+  # as opposed to a Date.Time field
   else if("Date Time" %in% colnames(inputFile)){
     startDate <-min(as.Date(inputFile$`Date Time`, format = "%m/%d/%Y"))
     endDate <- max(as.Date(inputFile$`Date Time`, format = "%m/%d/%Y"))
@@ -144,21 +147,29 @@ USGSsiteParser <- function(siteIDs) {
   return(USGSsiteVector)
 }
 
-#Deletes the input csvs and output QC csvs and Word reports from the server after each download
+#Deletes the input csvs and output QC csvs
+# and Word reports from the server after each download
 #(actually, after new data are uploaded)
 deleteFiles <- function(directory, inputFiles) {
 
   # #Lists the paths and names of the input csvs
-  csvsInputsToDelete <- substring(list.files(path = directory, pattern = "QC.*csv", full.names = FALSE), 4)
+  csvsInputsToDelete <- substring(list.files(path = directory
+                                             , pattern = "QC.*csv"
+                                             , full.names = FALSE), 4)
   #csvsInputsToDelete <- paste(directory, csvsInputsToDelete, sep="/")
   csvsInputsToDelete <- file.path(directory, csvsInputsToDelete)
 
   #Lists all the output csvs and QC Word documents on the server from QCRaw
-  csvsOutputsToDelete <- list.files(path = directory, pattern = "QC.*csv", full.names = TRUE)
-  htmlOutputsToDelete <- list.files(path = directory, pattern = ".*html", full.names = TRUE)
-  pdfOutputsToDelete <- list.files(path = directory, pattern = ".*pdf", full.names = TRUE)
-  logOutputsToDelete <- list.files(path = directory, pattern = ".*tab", full.names = TRUE)
-  gageOutputsToDelete <- list.files(path = directory, pattern = ".*Gage.*csv", full.names = TRUE)
+  csvsOutputsToDelete <- list.files(path = directory
+                                    , pattern = "QC.*csv", full.names = TRUE)
+  htmlOutputsToDelete <- list.files(path = directory
+                                    , pattern = ".*html", full.names = TRUE)
+  pdfOutputsToDelete <- list.files(path = directory
+                                   , pattern = ".*pdf", full.names = TRUE)
+  logOutputsToDelete <- list.files(path = directory
+                                   , pattern = ".*tab", full.names = TRUE)
+  gageOutputsToDelete <- list.files(path = directory
+                                    , pattern = ".*Gage.*csv", full.names = TRUE)
   #inputsToDelete <- paste(directory, inputFiles, sep="/")
   inputsToDelete <- file.path(directory, inputFiles)
 
@@ -210,7 +221,8 @@ renameAggOutput <- function(directory, fileAttribsTable) {
   #Extracts the data type from all input files
   for (i in seq_len(length(csvInputs))){
     csvInputs.parts <- strsplit(csvInputs[i], myDelim)
-    data.type.inputs.number <- which(csvInputs.parts[[1]] == fileAttribsTable[1,2]) + 1
+    data.type.inputs.number <- which(csvInputs.parts[[1]] ==
+                                       fileAttribsTable[1,2]) + 1
     data.type.inputs[i] <- csvInputs.parts[[1]][data.type.inputs.number]
   }
 
@@ -228,16 +240,21 @@ renameAggOutput <- function(directory, fileAttribsTable) {
      && minEndDate == maxEndDate){
 
     #Creates a data.frame for converting the input data types to the output data type
-    first.data.type <-      c("A",  "A",  "W",  "W",  "G",  "G",  "AW", "AW",  "AG",  "WG",  "G",   "W",   "A")
-    second.data.type <-     c("W",  "G",  "A",  "G",  "A",  "W",  "AW", "G",   "W",   "A",   "AW",  "AG",  "WG")
-    combined.data.type <-   c("AW", "AG", "AW", "WG", "AG", "WG", "AW", "AWG", "AWG", "AWG", "AWG", "AWG", "AWG")
-    data.type.conversion <- data.frame(first.data.type, second.data.type, combined.data.type)
+    first.data.type <-      c("A",  "A",  "W",  "W",  "G",  "G",  "AW", "AW"
+                              ,  "AG",  "WG",  "G",   "W",   "A")
+    second.data.type <-     c("W",  "G",  "A",  "G",  "A",  "W",  "AW", "G"
+                              ,  "W",   "A",   "AW",  "AG",  "WG")
+    combined.data.type <-   c("AW", "AG", "AW", "WG", "AG", "WG", "AW", "AWG"
+                              , "AWG", "AWG", "AWG", "AWG", "AWG")
+    data.type.conversion <- data.frame(first.data.type, second.data.type
+                                       , combined.data.type)
 
     #Finds the rows in the conversion data.frame which have that date type
     type1 <- which(data.type.conversion[,1]==data.type.inputs[1])
     type2 <- which(data.type.conversion[,2]==data.type.inputs[2])
 
-    #Finds the one row on the conversion data.frame that corresponds to those data types
+    #Finds the one row on the conversion data.frame that corresponds to
+    # those data types
     output.type <- as.character(data.type.conversion[intersect(type1, type2), 3])
 
     #Changes the data type in the output csv to the correct datatype

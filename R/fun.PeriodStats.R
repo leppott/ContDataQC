@@ -165,18 +165,18 @@ PeriodStats <- function(fun.myDate
   if(boo_DEBUG==TRUE) {##IF.boo_DEBUG.START
     fun.myDate <- "2013-09-30"
     fun.myDate.Format <- "%Y-%m-%d"
-    fun.myPeriod.N = c(30, 60, 90, 120, 1)
-    fun.myPeriod.Units = c("d", "d", "d", "d", "y")
+    fun.myPeriod.N <- c(30, 60, 90, 120, 1)
+    fun.myPeriod.Units <- c("d", "d", "d", "d", "y")
     fun.myFile <- "DATA_test2_Aw_20130101_20141231.csv"
     fun.myDir.import <- file.path(".","data-raw")
     fun.myDir.export <- getwd()
     fun.myParam.Name <- c("Water.Temp.C", "Sensor.Depth.ft")
     #fun.myParam.Name <- "Water.Temp.C"
     fun.myDateTime.Name <- "Date.Time"
-    fun.myDateTime.Format = NA
+    fun.myDateTime.Format <- NA
     fun.myThreshold <- 20
-    fun.myConfig=""
-    fun.myReport.format=""
+    fun.myConfig <- ""
+    fun.myReport.format <- ""
     fun.myReport.Dir <- ""
     # Load environment
     #ContData.env <- new.env(parent = emptyenv()) # in config.R
@@ -193,11 +193,11 @@ PeriodStats <- function(fun.myDate
   # 0b.0. Load defaults from environment
   # 0b.1. Format, Date
   if (is.na(fun.myDate.Format)) {
-    fun.myDate.Format = ContData.env$myFormat.Date
+    fun.myDate.Format <- ContData.env$myFormat.Date
   }
   # 0b.2. Format, DateTime
   if (is.na(fun.myDateTime.Format)) {##IF.fun.myConfig.START
-    fun.myDateTime.Format = ContData.env$myFormat.DateTime
+    fun.myDateTime.Format <- ContData.env$myFormat.DateTime
   }##IF.fun.myConfig.START
 
   # 0c.0. Error Checking, Period (N vs. Units)
@@ -351,7 +351,7 @@ PeriodStats <- function(fun.myDate
     #                                    #,min=min(fun.myParam.Name,na.rm=TRUE)
     #                                     ,mean=mean(!!x,na.rm=TRUE)
     #                                    # ,max=mean(fun.myParam.Name,na.rm=TRUE)
-    #                                    # ,sd=sd(fun.myParam.Name,na.rm=TRUE)
+    #                                    # ,sd=stats::sd(fun.myParam.Name,na.rm=TRUE)
     #                                    )
 
     # 5. Determine period start date####
@@ -484,4 +484,3 @@ PeriodStats <- function(fun.myDate
 
 }##FUNCTION.END
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-

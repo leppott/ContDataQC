@@ -83,7 +83,7 @@ fun.QC <- function(fun.myData.SiteID
   #
   # Read in list of files to work on, uses all files matching pattern ("\\.csv$")
   # ## if change formats will have to make modifications (pattern, import, export)
-  files2process = list.files(path=myDir.data.import, pattern=" *.csv")
+  files2process <- list.files(path=myDir.data.import, pattern=" *.csv")
   utils::head(files2process)
   #
   # Define Counters for the Loop
@@ -122,7 +122,7 @@ fun.QC <- function(fun.myData.SiteID
     intCounter <- intCounter+1
     #
     # B.1.0. File Name, Define
-    strFile = files2process[intCounter]
+    strFile <- files2process[intCounter]
     # 1.1. File Name, Parse
     # QC Check - delimiter for strsplit
     if(ContData.env$myDelim==".") {##IF.myDelim.START
