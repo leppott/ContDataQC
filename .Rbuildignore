@@ -7,7 +7,6 @@
 ^NEWS\.Rmd$
 ^_test$
 ^_pkgdown\.yml$
-^docs$
 ^pkgdown$
 ^\.github$
 ^LICENSE\.md$
