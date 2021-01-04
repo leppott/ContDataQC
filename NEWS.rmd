@@ -46,6 +46,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9055
+2021-01-04
+
+* chore: Add config_R.zip to shiny app in www folder
+* chore: server.R update fun.myReport.format to "" from "html"
+
 ## v2.0.5.9054
 2021-01-04
 

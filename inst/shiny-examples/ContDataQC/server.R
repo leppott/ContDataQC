@@ -501,7 +501,7 @@ shinyServer(function(input, output, session) {
                         fun.myDir.export = file.path(".", "data"),
                         fun.myConfig = config,
                         fun.myFile = fileNameVector,
-                        fun.myReport.format = "html",
+                        fun.myReport.format = "",
                         fun.myReport.Dir = "./rmd"
                         )
         )
@@ -549,7 +549,7 @@ shinyServer(function(input, output, session) {
                           fun.myDir.export = file.path(".", "data"),
                           fun.myConfig = config,
                           fun.myFile = fileName,
-                          fun.myReport.format = "html",
+                          fun.myReport.format = "",
                           fun.myReport.Dir = "./rmd"
                           )
           )

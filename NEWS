@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-01-04 15:25:41
+    #> Last Update: 2021-01-04 15:53:56
 
 # Planned Updates
 
@@ -36,6 +36,13 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9055
+
+2021-01-04
+
+  - chore: Add config\_R.zip to shiny app in www folder
+  - chore: server.R update fun.myReport.format to "" from “html”
 
 ## v2.0.5.9054
 

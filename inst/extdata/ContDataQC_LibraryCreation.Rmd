@@ -238,7 +238,7 @@ usethis::use_github_action("pkgdown")
 badger::badge_lifecycle("stable", "green") # stable/green, maturing/dormant/blue
 # maintained
 # license
-badger::badge_license(pkg_lic)
+badger::badge_license()
 # code quality
 badger::badge_codefactor(pkg_GH)
 # code testing coverage
