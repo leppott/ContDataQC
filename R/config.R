@@ -15,13 +15,14 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # User defined variable names for input data
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# It is assumed that this R script is stored in a directory with the data files as subdirectories
-# This script is intended to be "source"d from the main script.
+# It is assumed that this R script is stored in a directory with the data files
+# as subdirectories. This script is intended to be "source"d from the main script.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # @keywords continuous data
 # @examples
 # #Not intended to be accessed indepedant of function ContDataQC().
-# #Data values only.  No functions.  Add to environment so only visible inside library.
+# #Data values only.  No functions.  Add to environment so only visible inside
+# #library.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # USER may make modifications in this section but not mandatory
 # this section could be sourced so can use between scripts
@@ -48,7 +49,8 @@ ContData.env$myName.SiteID        <- "SiteID"
 ContData.env$myName.Date          <- "Date"
 ContData.env$myName.Time          <- "Time"
 ContData.env$myName.DateTime      <- "Date.Time"
-#(special characters (e.g., %, space, or /) are converted to "." by R, "deg" converted to "A")
+#(special characters (e.g., %, space, or /) are converted to "." by R
+# , "deg" converted to "A")
 ### IF CHANGE UNITS WILL NEED TO MODIFY THRESHOLDS ###
 ContData.env$myUnits.AirTemp    <- "C" # C or F
 ContData.env$myUnits.WaterTemp  <- ContData.env$myUnits.AirTemp
@@ -451,8 +453,10 @@ ContData.env$myExceed.SensorDepth <- ContData.env$myThresh.Gross.Suspect.Hi.Sens
 ContData.env$myFormat.Date           <- "%Y-%m-%d"
 ContData.env$myFormat.Time           <- "%H:%M:%S"
 ContData.env$myFormat.DateTime       <- "%Y-%m-%d %H:%M:%S"
-ContData.env$DateRange.Start.Default <- format(as.Date("1900-01-01"), ContData.env$myFormat.Date) #YYYY-MM-DD
-ContData.env$DateRange.End.Default   <- format(Sys.Date(), ContData.env$myFormat.Date)
+ContData.env$DateRange.Start.Default <- format(as.Date("1900-01-01")
+                                               , ContData.env$myFormat.Date) #YYYY-MM-DD
+ContData.env$DateRange.End.Default   <- format(Sys.Date()
+                                               , ContData.env$myFormat.Date)
 # Time Zone, used in Gage script in dataRetrieval, OlsonNames()
 ContData.env$myTZ <- Sys.timezone() #"America/New_York" (local time zone)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -492,5 +496,6 @@ ContData.env$myNames.Fields.TimePeriods <- c(ContData.env$myName.Yr
 ContData.env$myStats.Fails.Exclude <- TRUE  #FALSE #TRUE
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Report Format ####
-ContData.env$myReport.Format <- "html"  # "html" or "docx" # DOCX requires Pandoc.
-ContData.env$myReport.Dir    <- file.path(system.file(package="ContDataQC"), "rmd")
+ContData.env$myReport.Format <- "docx" # "html" or "docx"
+# DOCX requires Pandoc.
+ContData.env$myReport.Dir <- file.path(system.file(package="ContDataQC"), "rmd")

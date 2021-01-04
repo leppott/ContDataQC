@@ -33,7 +33,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Report Format
 # DOCX requires Pandoc.
-ContData.env$myReport.Format <- "html"  # "html" or "docx"
+ContData.env$myReport.Format <- "docx"  # "html" or "docx"
 #file.path(system.file(package="ContDataQC"), "rmd")
 # ContData.env$myReport.Dir    <- getwd()
 #file.path(system.file(package="ContDataQC"), "rmd")

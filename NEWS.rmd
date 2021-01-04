@@ -46,6 +46,27 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9052
+2021-01-04
+
+* chore: Pkgdown site
+* chore: Config change default report format from HTML to DOCX, Issue #102
+    + Update data/config.R
+    + Copy to inst/shiny-examples/ContDataQC/www
+    + Update inst/shiny-examples/ContDataQC/config.RMDdir.R
+    + Copy to inst/extdata/config.ORIG.R
+    + Update inst/extdata/config.RMDdir.R
+* chore: Add to .Rbuildignore
+    + data-raw folder
+    + shiny rsconnect
+* refactor: Add missing global variable bindings
+    + ContDataQC
+    + fun.AggregateData 
+    + fun.Report
+    + fun.Report.File
+    + fun.Stats
+* chore: README, replace failing license badge
+
 ## v2.0.5.9051
 2020-12-29
 

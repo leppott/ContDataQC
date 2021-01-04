@@ -1,7 +1,7 @@
 #' Statistical Summary
 #'
-#' Subfunction for generating statistical summaries.  Needs to be called from ContDataQC().
-#' Requires doBy() and survival() [required by doBy]
+#' Subfunction for generating statistical summaries.  Needs to be called from
+#' ContDataQC().  Requires doBy() and survival() [required by doBy]
 #' Calculates statistics on input data and saves to a new csv.
 #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -22,17 +22,30 @@
 # library(survival) # required for doBy
 # library(doBy)
 # should have been loaded by master script
+#
 #' @param fun.myData.SiteID Station/SiteID.
-#' @param fun.myData.Type data type; c("Air","Water","AW","Gage","AWG","AG","WG")
-#' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
-#' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
-#' @param fun.myDir.import Directory for import data.  Default is current working directory.
-#' @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.
-#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
-#' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
+#' @param fun.myData.Type data type; c("Air","Water","AW","Gage","AWG","AG"
+#' ,"WG")
+#' @param fun.myData.DateRange.Start Start date for requested data.
+#' Format = YYYY-MM-DD.
+#' @param fun.myData.DateRange.End End date for requested data.
+#' Format = YYYY-MM-DD.
+#' @param fun.myDir.import Directory for import data.
+#' Default is current working directory.
+#' @param fun.myDir.export Directory for export data.
+#' Default is current working directory.
+#' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This
+#' determines the RMD to use for the output.
+#' @param fun.myReport.format Report format (docx or html).  Default is
+#' specified in config.R (docx).  Can be customized in config.R;
+#' ContData.env$myReport.Format.
+#' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package
+#'  rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
+#'
 #' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
-#' @keywords internal continuous data, statistics
+#'
+#' @keywords internal #continuous data, statistics
+#'
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
 #
@@ -41,12 +54,15 @@ fun.Stats <- function(fun.myData.SiteID
                      , fun.myData.Type
                      , fun.myData.DateRange.Start
                      , fun.myData.DateRange.End
-                     , fun.myDir.import=getwd()
-                     , fun.myDir.export=getwd()
+                     , fun.myDir.import = getwd()
+                     , fun.myDir.export = getwd()
                      , fun.myProcedure.Step
                      , fun.myFile.Prefix
                      , fun.myReport.format
                      , fun.myReport.Dir) {##FUN.fun.Stats.START
+  # global variable bindings ----
+  Selection.Type <- myDir.BASE <- Selection.SUB <- NULL
+
   #
 #   ##
 #   # QC (from fun.Master.R)
@@ -65,7 +81,7 @@ fun.Stats <- function(fun.myData.SiteID
     fun.myData.Type            <- Selection.Type[3] #"AW"
     fun.myData.DateRange.Start <- "2013-01-01"
     fun.myData.DateRange.End   <- "2014-12-31"
-    fun.myDir.import           <- file.path(myDir.BASE,Selection.SUB[3]) #"Data3_Aggregated"
+    fun.myDir.import           <- file.path(myDir.BASE, Selection.SUB[3]) #"Data3_Aggregated"
     fun.myDir.export           <- myDir.export <- file.path(myDir.BASE,Selection.SUB[4]) #"Data4_Stats"
     fun.myProcedure.Step       <- "STATS"
     fun.myFile.Prefix          <- "DATA"

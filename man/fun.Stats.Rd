@@ -20,34 +20,43 @@ fun.Stats(
 \arguments{
 \item{fun.myData.SiteID}{Station/SiteID.}
 
-\item{fun.myData.Type}{data type; c("Air","Water","AW","Gage","AWG","AG","WG")}
+\item{fun.myData.Type}{data type; c("Air","Water","AW","Gage","AWG","AG"
+,"WG")}
 
-\item{fun.myData.DateRange.Start}{Start date for requested data. Format = YYYY-MM-DD.}
+\item{fun.myData.DateRange.Start}{Start date for requested data.
+Format = YYYY-MM-DD.}
 
-\item{fun.myData.DateRange.End}{End date for requested data. Format = YYYY-MM-DD.}
+\item{fun.myData.DateRange.End}{End date for requested data.
+Format = YYYY-MM-DD.}
 
-\item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
+\item{fun.myDir.import}{Directory for import data.
+Default is current working directory.}
 
-\item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+\item{fun.myDir.export}{Directory for export data.
+Default is current working directory.}
 
-\item{fun.myFile.Prefix}{Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.}
+\item{fun.myFile.Prefix}{Valid prefixes are "QC", "DATA", or "STATS".  This
+determines the RMD to use for the output.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.}
+\item{fun.myReport.format}{Report format (docx or html).  Default is
+specified in config.R (docx).  Can be customized in config.R;
+ContData.env$myReport.Format.}
 
-\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
+\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package
+rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
 }
 \value{
 Returns a csv into the specified export directory with additional columns for calculated statistics.
 }
 \description{
-Subfunction for generating statistical summaries.  Needs to be called from ContDataQC().
-Requires doBy() and survival() [required by doBy]
+Subfunction for generating statistical summaries.  Needs to be called from
+ContDataQC().  Requires doBy() and survival() [required by doBy]
 Calculates statistics on input data and saves to a new csv.
 }
 \examples{
 #Not intended to be accessed indepedant of function ContDataQC().
 }
-\keyword{continuous}
+\keyword{#continuous}
 \keyword{data,}
 \keyword{internal}
 \keyword{statistics}

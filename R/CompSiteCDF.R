@@ -83,7 +83,8 @@ CompSiteCDF <- function(file.input=NULL
   }##IF.END
   #
   # Site Names (Columns)
-  Col.Sites <- names(data.import)[!(names(data.import) %in% ContData.env$myName.Date)]
+  Col.Sites <- names(data.import)[!(names(data.import) %in%
+                                      ContData.env$myName.Date)]
   #
   # Add columns for time periods
   # add Year, Month, Season, YearSeason (names are in config.R)
@@ -102,18 +103,27 @@ CompSiteCDF <- function(file.input=NULL
   #,ContData.env$myName.Date], format=ContData.env$myFormat.Date)$yday +1
   # ## add Season fields
   data.import[,ContData.env$myName.Season] <- NA
-  data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric("0101") & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Spring.Start)] <- "Winter"
-  data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric(ContData.env$myTimeFrame.Season.Spring.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Summer.Start)] <- "Spring"
-  data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric(ContData.env$myTimeFrame.Season.Summer.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Fall.Start)] <- "Summer"
-  data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric(ContData.env$myTimeFrame.Season.Fall.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Winter.Start)] <- "Fall"
-  data.import[,ContData.env$myName.Season][as.numeric(data.import[,ContData.env$myName.MoDa])>=as.numeric(ContData.env$myTimeFrame.Season.Winter.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<=as.numeric("1231")] <- "Winter"
-  data.import[,ContData.env$myName.YrSeason] <- paste(data.import[,ContData.env$myName.Yr],data.import[,ContData.env$myName.Season],sep="")
+  data.import[,ContData.env$myName.Season][as.numeric(data.import[
+    , ContData.env$myName.MoDa]) >= as.numeric("0101") & as.numeric(data.import[
+      , ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Spring.Start)] <- "Winter"
+  data.import[,ContData.env$myName.Season][as.numeric(data.import[
+    , ContData.env$myName.MoDa]) >= as.numeric(ContData.env$myTimeFrame.Season.Spring.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Summer.Start)] <- "Spring"
+  data.import[,ContData.env$myName.Season][as.numeric(data.import[
+    , ContData.env$myName.MoDa]) >= as.numeric(ContData.env$myTimeFrame.Season.Summer.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Fall.Start)] <- "Summer"
+  data.import[,ContData.env$myName.Season][as.numeric(data.import[
+    , ContData.env$myName.MoDa]) >= as.numeric(ContData.env$myTimeFrame.Season.Fall.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Winter.Start)] <- "Fall"
+  data.import[,ContData.env$myName.Season][as.numeric(data.import[
+    , ContData.env$myName.MoDa]) >= as.numeric(ContData.env$myTimeFrame.Season.Winter.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<=as.numeric("1231")] <- "Winter"
+  data.import[,ContData.env$myName.YrSeason] <- paste(data.import[
+    , ContData.env$myName.Yr],data.import[,ContData.env$myName.Season], sep="")
   # Remove bad date records
   data.import <- data.import[!is.na(data.import[,ContData.env$myName.Yr]),]
   # rectify December as part of winter of year + 1
   mySelection <- data.import[,ContData.env$myName.Mo]=="12"
   if(sum(mySelection) != 0){##IF.sum.START
-    data.import[,ContData.env$myName.YrSeason][mySelection] <- paste(as.numeric(data.import[,ContData.env$myName.Yr])+1,data.import[,ContData.env$myName.Season],sep="")
+    data.import[, ContData.env$myName.YrSeason][mySelection] <- paste(
+      as.numeric(data.import[, ContData.env$myName.Yr]) + 1
+      , data.import[, ContData.env$myName.Season],sep="")
   }##IF.sum.END
   #
   #View(data.import)

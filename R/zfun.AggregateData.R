@@ -54,6 +54,9 @@ fun.AggregateData <- function(fun.myData.SiteID
                              , fun.myReport.Dir
                              , fun.CreateReport=TRUE) {##FUN.fun.QCauto.START
   #
+  # global variable bindings ----
+  myName.DateTime <- myFormat.Time <- myName.Date <- myDelim <- NULL
+
   # Error Checking - only 1 SiteID and 1 DataType
   if(length(fun.myData.SiteID)!=1){
     myMsg <- "Function can only handle 1 SiteID."

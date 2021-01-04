@@ -58,6 +58,9 @@ fun.Report.File <- function(fun.myFile
                             , fun.myReport.format
                             , fun.myReport.Dir) {##FUN.fun.Report.START
 
+  # global varible bindings ----
+  intCounter <- intItems.Total <- NULL
+
   # Convert Data Type to proper case
   #fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1)),tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
   # QC, ensure inputs are in the proper case

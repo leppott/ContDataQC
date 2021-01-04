@@ -308,6 +308,11 @@ ContDataQC <- function(fun.myData.Operation
                        , fun.myReport.format=""
                        , fun.myReport.Dir=""
                        , fun.CreateReport=TRUE) {##FUN.fun.Master.START
+  # global variable bindings ----
+  myData.Operation <- myData.SiteID <- myData.Type <- myData.DateRange.Start <-
+    myData.DateRange.End <- myDir.import <- myDir.export <- myFile <-
+    myReport.format <- NULL
+
   # DEBUG ####
   #browser()
   boo_DEBUG <- FALSE
