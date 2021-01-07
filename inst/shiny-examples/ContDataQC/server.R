@@ -77,17 +77,17 @@ shinyServer(function(input, output, session) {
                       "Sensor depth", "Flow")
 
     #Creates empty table columns
-    fileAttribsNull <- data.frame(filenameNull = c("Awaiting data"),
-                             stationIDNull = c("Awaiting data"),
-                             startDateNull = c("Awaiting data"),
-                             endDateNull = c("Awaiting data"),
-                             recCountNull = c("Awaiting data"),
-                             waterTempNull = c("Awaiting data"),
-                             airTempNull = c("Awaiting data"),
-                             waterPressureNull = c("Awaiting data"),
-                             airPressureNull = c("Awaiting data"),
-                             sensorDepthNull = c("Awaiting data"),
-                             flow = c("Awaiting data"))
+    fileAttribsNull <- data.frame(filenameNull = "Awaiting data",
+                             stationIDNull = "Awaiting data",
+                             startDateNull = "Awaiting data",
+                             endDateNull = "Awaiting data",
+                             recCountNull = "Awaiting data",
+                             waterTempNull = "Awaiting data",
+                             airTempNull = "Awaiting data",
+                             waterPressureNull = "Awaiting data",
+                             airPressureNull = "Awaiting data",
+                             sensorDepthNull = "Awaiting data",
+                             flow = "Awaiting data")
 
     colnames(fileAttribsNull) <- summColNames
 
@@ -769,7 +769,7 @@ shinyServer(function(input, output, session) {
     message("data retrieved")
 
     #Names the single column of the R console output data.frame
-    colnames(consoleUSGS$disp) <- c("R console messages for all USGS data retrieval:")
+    colnames(consoleUSGS$disp) <- "R console messages for all USGS data retrieval:"
 
   })
 
@@ -872,7 +872,7 @@ shinyServer(function(input, output, session) {
   #For debugging only: shows the files on the server
   onServerTable <- reactive({
     onServerTableOutput <- as.matrix(list.files(file.path(".", "data"), full.names = FALSE))
-    colnames(onServerTableOutput) <- c("Files currently on server")
+    colnames(onServerTableOutput) <- "Files currently on server"
     return(onServerTableOutput)
   })
 

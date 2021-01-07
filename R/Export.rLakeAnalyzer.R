@@ -130,7 +130,7 @@ Export.rLakeAnalyzer <- function(df_CDQC
     # long to wide for parameter i
     #df_i <- dcast(df_CDQC, col_CDQC[1] ~ col_depth, value.var=i, fun=mean)
     df_i <- reshape2::dcast(df_CDQC, df_CDQC[, col_CDQC[1]] ~ df_CDQC[, col_depth], value.var=i, fun=mean)
-    names(df_i)[1] <- c("datetime")
+    names(df_i)[1] <- "datetime"
     names(df_i)[-1] <- paste(col_rLA[i_num+1], names(df_i)[-1], sep="_")
 
     if(i_num==1){

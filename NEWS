@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-01-04 15:53:56
+    #> Last Update: 2021-01-07 09:42:29
 
 # Planned Updates
 
@@ -23,8 +23,6 @@ NEWS-ContDataQC
   - PeriodStats(), add number and/or percent of observations above given
     threshold. 20170919.
 
-  - Run devtools::check(). 20170926.
-
   - Fix mixed case issue with filenames in “file” versions of QCRaw,
     Aggregate, and Stats. 20170929.
     
@@ -36,6 +34,49 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9056
+
+2021-01-07
+
+  - chore: Add water level as a parameter for QC checks, Issue \#100
+  - chore: Remove gage height as a parameter for QC checks, Issue \#100
+  - chore: Modify USGS download to change gage height to water level,
+    Issue \#100
+      - Match HOBOware terminology (most of user base)
+  - style: Trim lines to 80 characters
+      - config.R
+      - fun.GageData.R  
+      - fun.Report.R
+      - fun.Report.File.R
+  - chore: Update copies and version of config.R with edits, Issue \#100
+      - Package
+          - data.R
+          - inst.COOL
+          - inst.ExcludeFailsFalse
+          - inst.ORIG
+          - inst.RMDdir
+          - inst.WARM
+      - Shiny
+          - www.R
+          - www.zip
+  - chore: Update rmd files from GageHeight to WaterLevel
+      - Report\_Config
+      - Report\_QC
+  - chore: Copy RMD files from package directory to shiny
+  - refactor: Remove unneeded concatenation of a constant
+      - server.R
+      - Export.rlakeAnalyzer.R
+  - chore: Change Gage Height to Water Level, fun.QC
+  - chore: Add Water Level, fun.QC.File
+  - chore: Change getwd() to tempdir(), ContDataQC example
+  - chore: Update ContDataQC example
+      - getwd() to tempdir()
+      - paste0() to file.path()
+  - chore: Fix typo in fun.Stats.File.R
+      - seq\_len(row… to seq\_len(nrow…
+  - chore: Remove use of installr package as is windows only
+      - Move example text to details of ContDataQC function
 
 ## v2.0.5.9055
 

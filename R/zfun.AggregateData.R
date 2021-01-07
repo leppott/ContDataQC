@@ -68,7 +68,10 @@ fun.AggregateData <- function(fun.myData.SiteID
   }
   #
   # Convert Data Type to proper case
-  fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1)),tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
+  fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1))
+                           ,tolower(substring(fun.myData.Type,2
+                                              ,nchar(fun.myData.Type)))
+                           ,sep="")
   #
   # data directories
   #myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="","",paste("/",fun.myDir.SUB.import,sep="")),sep="")

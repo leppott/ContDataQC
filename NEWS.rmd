@@ -33,8 +33,6 @@ cat(paste0("Last Update: ",Sys.time()))
 
 * PeriodStats(), add number and/or percent of observations above given threshold.  20170919.
 
-* Run devtools::check().  20170926.
-
 * Fix mixed case issue with filenames in "file" versions of QCRaw, Aggregate, and Stats.  20170929.
 
     + More check data stuff.
@@ -45,6 +43,47 @@ cat(paste0("Last Update: ",Sys.time()))
 * PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9056
+2021-01-07
+
+* chore: Add water level as a parameter for QC checks, Issue #100
+* chore: Remove gage height as a parameter for QC checks, Issue #100
+* chore: Modify USGS download to change gage height to water level, Issue #100
+    + Match HOBOware terminology (most of user base)
+* style: Trim lines to 80 characters
+    + config.R
+    + fun.GageData.R  
+    + fun.Report.R
+    + fun.Report.File.R
+* chore: Update copies and version of config.R with edits, Issue #100
+    + Package
+        - data\Config.R
+        - inst\extdata\config.COOL
+        - inst\extdata\config.ExcludeFailsFalse
+        - inst\extdata\config.ORIG
+        - inst\extdata\config.RMDdir
+        - inst\extdata\config.WARM
+    + Shiny
+        - www\Config.R
+        - www\Config.zip
+* chore: Update rmd files from GageHeight to WaterLevel
+    + Report_Config
+    + Report_QC
+* chore: Copy RMD files from package directory to shiny
+* refactor: Remove unneeded concatenation of a constant
+    + server.R
+    + Export.rlakeAnalyzer.R
+* chore: Change Gage Height to Water Level, fun.QC
+* chore: Add Water Level, fun.QC.File
+* chore: Change getwd() to tempdir(), ContDataQC example
+* chore: Update ContDataQC example
+    + getwd() to tempdir()
+    + paste0() to file.path()
+* chore: Fix typo in fun.Stats.File.R
+    + seq_len(row... to seq_len(nrow...
+* chore: Remove use of installr package as is windows only
+    + Move example text to details of ContDataQC function
 
 ## v2.0.5.9055
 2021-01-04

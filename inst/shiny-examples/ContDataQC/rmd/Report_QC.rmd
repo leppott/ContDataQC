@@ -595,40 +595,40 @@ txt_Chlorophylla_S <- c(val_Chlorophylla[1]
                      , paste0("> ",val_Chlorophylla[12]
                               ," consecutive measurements within ",val_Chlorophylla[13]
                               ," units of one another"))
-# GageHeight
-nam_GageHeight <- c("myLab.GageHeight"                          #1
-                   , "myUnits.GageHeight"                    #2
-                   , "myThresh.Gross.Fail.Hi.GageHeight"     #3
-                   , "myThresh.Gross.Fail.Lo.GageHeight"     #4
-                   , "myThresh.Gross.Suspect.Hi.GageHeight"  #5
-                   , "myThresh.Gross.Suspect.Lo.GageHeight"  #6
-                   #, "myThresh.Spike.Hi.GageHeight"          #7 -removed
-                   #, "myThresh.Spike.Lo.GageHeight"          #8 - removed
-                   , "myThresh.RoC.SD.number.GageHeight"     #9 - 7
-                   , "myThresh.RoC.SD.period.GageHeight"     #10 - 8
-                   , "myThresh.Flat.Hi.GageHeight"           #11 - 9
-                   , "myThresh.Flat.Lo.GageHeight"           #12 - 10
-                   , "myThresh.Flat.Tolerance.GageHeight"    #13 - 11
+# WaterLevel
+nam_WaterLevel <- c("myLab.WaterLevel"                          #1
+                   , "myUnits.WaterLevel"                    #2
+                   , "myThresh.Gross.Fail.Hi.WaterLevel"     #3
+                   , "myThresh.Gross.Fail.Lo.WaterLevel"     #4
+                   , "myThresh.Gross.Suspect.Hi.WaterLevel"  #5
+                   , "myThresh.Gross.Suspect.Lo.WaterLevel"  #6
+                   #, "myThresh.Spike.Hi.WaterLevel"          #7 -removed
+                   #, "myThresh.Spike.Lo.WaterLevel"          #8 - removed
+                   , "myThresh.RoC.SD.number.WaterLevel"     #9 - 7
+                   , "myThresh.RoC.SD.period.WaterLevel"     #10 - 8
+                   , "myThresh.Flat.Hi.WaterLevel"           #11 - 9
+                   , "myThresh.Flat.Lo.WaterLevel"           #12 - 10
+                   , "myThresh.Flat.Tolerance.WaterLevel"    #13 - 11
                    )
-val_GageHeight <- mget(nam_GageHeight, envir=ContData.env)
-txt_GageHeight_F <- c(val_GageHeight[1]
+val_WaterLevel <- mget(nam_WaterLevel, envir=ContData.env)
+txt_WaterLevel_F <- c(val_WaterLevel[1]
                      , "Fail"
-                     , paste0("> ",val_GageHeight[3]," ",val_GageHeight[2]
-                              ,"  or < ",val_GageHeight[4]," ",val_GageHeight[2])
+                     , paste0("> ",val_WaterLevel[3]," ",val_WaterLevel[2]
+                              ,"  or < ",val_WaterLevel[4]," ",val_WaterLevel[2])
                      , "NA"
                      , "NA"
-                     , paste0("> ",val_GageHeight[9]
-                              ," consecutive measurements within ",val_GageHeight[11]
+                     , paste0("> ",val_WaterLevel[9]
+                              ," consecutive measurements within ",val_WaterLevel[11]
                               ," units of one another"))
-txt_GageHeight_S <- c(val_GageHeight[1]
+txt_WaterLevel_S <- c(val_WaterLevel[1]
                      , "Suspect"
-                     , paste0("> ",val_GageHeight[5]," ",val_GageHeight[2]
-                              ," or < ",val_GageHeight[6]," ",val_GageHeight[2])
+                     , paste0("> ",val_WaterLevel[5]," ",val_WaterLevel[2]
+                              ," or < ",val_WaterLevel[6]," ",val_WaterLevel[2])
                      , "NA"
-                     , paste0(">= ",val_GageHeight[7]," standard deviations within "
-                              ,val_GageHeight[8]," hours")
-                     , paste0("> ",val_GageHeight[10]
-                              ," consecutive measurements within ",val_GageHeight[11]
+                     , paste0(">= ",val_WaterLevel[7]," standard deviations within "
+                              ,val_WaterLevel[8]," hours")
+                     , paste0("> ",val_WaterLevel[10]
+                              ," consecutive measurements within ",val_WaterLevel[11]
                               ," units of one another"))
 # Create Table
 ## Display only those parameters used in current dataset (data.import)
@@ -701,9 +701,9 @@ if(!(ContData.env$myName.Chlorophylla %in% names(data.import))){
   txt_Chlorophylla_S <- NULL
 } 
 #
-if(!(ContData.env$myName.GageHeight %in% names(data.import))){
-  txt_GageHeight_F <- NULL
-  txt_GageHeight_S <- NULL
+if(!(ContData.env$myName.WaterLevel %in% names(data.import))){
+  txt_WaterLevel_F <- NULL
+  txt_WaterLevel_S <- NULL
 } 
 # Table
 df_Env <- data.frame(rbind(txt_WaterTemp_F, txt_WaterTemp_S
@@ -717,7 +717,7 @@ df_Env <- data.frame(rbind(txt_WaterTemp_F, txt_WaterTemp_S
                            , txt_pH_F, txt_pH_S
                            , txt_Turbidity_F, txt_Turbidity_S
                            , txt_Chlorophylla_F, txt_Chlorophylla_S
-                           , txt_GageHeight_F, txt_GageHeight_S
+                           , txt_WaterLevel_F, txt_WaterLevel_S
                            )
                      , row.names = NULL)
 names(df_Env) <- txt_header

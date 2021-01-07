@@ -16,23 +16,31 @@ fun.Report.File(
 \arguments{
 \item{fun.myFile}{Single file name.}
 
-\item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
+\item{fun.myDir.import}{Directory for import data.
+Default is current working directory.}
 
-\item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+\item{fun.myDir.export}{Directory for export data.
+Default is current working directory.}
 
-\item{fun.myFile.Prefix}{Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the outpu.}
+\item{fun.myFile.Prefix}{Valid prefixes are "QC", "DATA", or "STATS".
+This determines the RMD to use for the outpu.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.}
+\item{fun.myReport.format}{Report format (docx or html).
+Default is specified in config.R (docx).  Can be customized in config.R;
+ContData.env$myReport.Format.}
 
-\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
+\item{fun.myReport.Dir}{Report (rmd) template folder.
+Default is the package rmd folder.  Can be customized in config.R;
+ContData.env$myReport.Dir.}
 }
 \value{
 Creates a Word (or HTML) file in the specified directory.
 }
 \description{
-Subfunction for generating Word reports.  Needs to be called from ContDataQC().
+Subfunction for generating reports.  Needs to be called from ContDataQC().
 Requires knitr() and pandoc.
-Different reports (in Word) are created using the RMD files in this package depending on the input fun.myFile.Prefix.
+Different reports (in Word) are created using the RMD files in this package
+depending on the input fun.myFile.Prefix.
 Values are "QC", "DATA", or "STATS".
 The 'file' version works on a single (or vector) of files.
 }

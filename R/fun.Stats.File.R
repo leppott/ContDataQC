@@ -579,7 +579,7 @@ fun.Stats.File <- function(fun.myFile
           myCol <- "gray"
           graphics::lines(stats.i$max,col=myCol)
           graphics::lines(stats.i$min,col=myCol)
-          graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(row(stats.i))))
+          graphics::polygon(c(seq_len(nrow(stats.i)), rev(seq_len(nrow(stats.i))))
                             , c(stats.i$max, rev(stats.i$min))
                             , col = myCol
                             , border = NA)

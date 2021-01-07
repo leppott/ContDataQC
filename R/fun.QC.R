@@ -51,24 +51,29 @@
 #
 #'@export
 fun.QC <- function(fun.myData.SiteID
-                   , fun.myData.Type="QC"
+                   , fun.myData.Type = "QC"
                    , fun.myData.DateRange.Start
                    , fun.myData.DateRange.End
-                   , fun.myDir.import=""
-                   , fun.myDir.export=""
+                   , fun.myDir.import = ""
+                   , fun.myDir.export = ""
                    , fun.myReport.format
                    , fun.myReport.Dir
-                   , fun.CreateReport=TRUE) {##FUN.fun.QC.START
+                   , fun.CreateReport = TRUE) {##FUN.fun.QC.START
   #
   boo_DEBUG <- "FALSE"
 
   # A. Data Prep ####
   # Convert Data Type to proper case
-  fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1)),tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
+  fun.myData.Type <- paste(toupper(substring(fun.myData.Type, 1, 1))
+                           , tolower(substring(fun.myData.Type, 2
+                                               , nchar(fun.myData.Type)))
+                           , sep = "")
   #
   # data directories
-  # myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="","",paste("/",fun.myDir.SUB.import,sep="")),sep="")
-  # myDir.data.export <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.export=="","",paste("/",fun.myDir.SUB.export,sep="")),sep="")
+  # myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import==""
+  #,"",paste("/",fun.myDir.SUB.import,sep="")),sep="")
+  # myDir.data.export <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.export==""
+  #,"",paste("/",fun.myDir.SUB.export,sep="")),sep="")
   myDir.data.import <- fun.myDir.import
   myDir.data.export <- fun.myDir.export
   #
@@ -77,9 +82,13 @@ fun.QC <- function(fun.myData.SiteID
   #
   # Verify input dates, if blank, NA, or null use all data
   # if DateRange.Start is null or "" then assign it 1900-01-01
-  if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start==""){fun.myData.DateRange.Start<-ContData.env$DateRange.Start.Default}
+  if (is.na(fun.myData.DateRange.Start)==TRUE || fun.myData.DateRange.Start=="") {
+    fun.myData.DateRange.Start <- ContData.env$DateRange.Start.Default
+    }
   # if DateRange.End is null or "" then assign it today
-  if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End==""){fun.myData.DateRange.End<-ContData.env$DateRange.End.Default}
+  if (is.na(fun.myData.DateRange.End)==TRUE || fun.myData.DateRange.End=="") {
+    fun.myData.DateRange.End <- ContData.env$DateRange.End.Default
+    }
   #
   # Read in list of files to work on, uses all files matching pattern ("\\.csv$")
   # ## if change formats will have to make modifications (pattern, import, export)
@@ -103,8 +112,8 @@ fun.QC <- function(fun.myData.SiteID
   # create log file for processing results of items
   #myItems.Log <- data.frame(cbind(myItems.ALL,NA),stringsAsFactors=FALSE)
   myItems.Log <- data.frame(ItemID = seq_len(intItems.Total)
-                            ,Status = NA
-                            ,ItemName = myItems.ALL)
+                            , Status = NA
+                            , ItemName = myItems.ALL)
   #
 
   # Error if no files to process or no files in dir
@@ -131,14 +140,17 @@ fun.QC <- function(fun.myData.SiteID
     } else {
       myDelim.strsplit <- ContData.env$myDelim
     }##IF.myDelim.END
-    strFile.Base <- substr(strFile,1,nchar(strFile)-nchar(".csv"))
+    strFile.Base <- substr(strFile, 1, nchar(strFile) - nchar(".csv"))
     strFile.parts <- strsplit(strFile.Base, myDelim.strsplit)
     strFile.SiteID     <- strFile.parts[[1]][1]
     strFile.DataType   <- strFile.parts[[1]][2]
     # Convert Data Type to proper case
-    strFile.DataType <- paste(toupper(substring(strFile.DataType,1,1)),tolower(substring(strFile.DataType,2,nchar(strFile.DataType))),sep="")
-    strFile.Date.Start <- as.Date(strFile.parts[[1]][3],"%Y%m%d")
-    strFile.Date.End   <- as.Date(strFile.parts[[1]][4],"%Y%m%d")
+    strFile.DataType <- paste(toupper(substring(strFile.DataType,1,1))
+                              ,tolower(substring(strFile.DataType, 2
+                                                 , nchar(strFile.DataType)))
+                              ,sep="")
+    strFile.Date.Start <- as.Date(strFile.parts[[1]][3], "%Y%m%d")
+    strFile.Date.End   <- as.Date(strFile.parts[[1]][4], "%Y%m%d")
     #
     # B.2. Check File and skip if doesn't match user defined parameters
     # B.2.1. Check File Size
@@ -739,11 +751,11 @@ fun.QC <- function(fun.myData.SiteID
                                      ,ContData.env$myThresh.Flat.Tolerance.Chlorophylla)
     }##IF.myField.END
     #
-    # B.6.12. Gage Height
-    myField <- ContData.env$myName.GageHeight
+    # B.6.12. Water Level
+    myField <- ContData.env$myName.WaterLevel
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
-      myMsg.data <- "GageHeight"
+      myMsg.data <- "WaterLevel"
       myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
       myItems.Complete <- myItems.Complete + 1
       myItems.Log[intCounter,2] <- myMsg
@@ -752,17 +764,17 @@ fun.QC <- function(fun.myData.SiteID
       #
       data.import <- fun.CalcQCStats(data.import
                                      ,myField
-                                     ,ContData.env$myThresh.Gross.Fail.Hi.GageHeight
-                                     ,ContData.env$myThresh.Gross.Fail.Lo.GageHeight
-                                     ,ContData.env$myThresh.Gross.Suspect.Hi.GageHeight
-                                     ,ContData.env$myThresh.Gross.Suspect.Lo.GageHeight
-                                     ,ContData.env$myThresh.Spike.Hi.GageHeight
-                                     ,ContData.env$myThresh.Spike.Lo.GageHeight
-                                     ,ContData.env$myThresh.RoC.SD.period.GageHeight
-                                     ,ContData.env$myThresh.RoC.SD.number.GageHeight
-                                     ,ContData.env$myThresh.Flat.Hi.GageHeight
-                                     ,ContData.env$myThresh.Flat.Lo.GageHeight
-                                     ,ContData.env$myThresh.Flat.Tolerance.GageHeight)
+                                     ,ContData.env$myThresh.Gross.Fail.Hi.WaterLevel
+                                     ,ContData.env$myThresh.Gross.Fail.Lo.WaterLevel
+                                     ,ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel
+                                     ,ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel
+                                     ,ContData.env$myThresh.Spike.Hi.WaterLevel
+                                     ,ContData.env$myThresh.Spike.Lo.WaterLevel
+                                     ,ContData.env$myThresh.RoC.SD.period.WaterLevel
+                                     ,ContData.env$myThresh.RoC.SD.number.WaterLevel
+                                     ,ContData.env$myThresh.Flat.Hi.WaterLevel
+                                     ,ContData.env$myThresh.Flat.Lo.WaterLevel
+                                     ,ContData.env$myThresh.Flat.Tolerance.WaterLevel)
     }##IF.myField.END
     #
     #
@@ -847,15 +859,28 @@ fun.QC <- function(fun.myData.SiteID
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # B.10.0. Output file
     # B.10.1. Set Name
-    File.Date.Start <- format(as.Date(strFile.Date.Start,ContData.env$myFormat.Date),"%Y%m%d")
-    File.Date.End   <- format(as.Date(strFile.Date.End,ContData.env$myFormat.Date),"%Y%m%d")
+    File.Date.Start <- format(as.Date(strFile.Date.Start
+                                      ,ContData.env$myFormat.Date)
+                              ,"%Y%m%d")
+    File.Date.End   <- format(as.Date(strFile.Date.End
+                                      ,ContData.env$myFormat.Date)
+                              ,"%Y%m%d")
     strFile.Out.Prefix <- "QC"
-    strFile.Out <- paste(paste(strFile.Out.Prefix,strFile.SiteID,strFile.DataType,File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
+    strFile.Out <- paste(paste(strFile.Out.Prefix
+                               ,strFile.SiteID
+                               ,strFile.DataType
+                               ,File.Date.Start
+                               ,File.Date.End
+                               ,sep=ContData.env$myDelim)
+                         ,"csv"
+                         ,sep=".")
     # 10.2. Save to File the data (overwrites any existing file).
     #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
     #utils::flush.console()
     #write.csv(data.import,file=paste(myDir.data.export,"/",strFile.Out,sep=""),quote=FALSE,row.names=FALSE)
-    utils::write.csv(data.import,file=file.path(myDir.data.export,strFile.Out),quote=FALSE,row.names=FALSE)
+    utils::write.csv(data.import,file = file.path(myDir.data.export, strFile.Out)
+                     ,quote=FALSE
+                     ,row.names=FALSE)
     #
 #     # B.11. Clean up
 #     # B.11.1. Inform user of progress and update LOG

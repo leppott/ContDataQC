@@ -18,29 +18,34 @@ fun.GageData(
 
 \item{fun.myData.Type}{data type is "Gage".}
 
-\item{fun.myData.DateRange.Start}{Start date for requested data. Format = YYYY-MM-DD.}
+\item{fun.myData.DateRange.Start}{Start date for requested data.
+Format = YYYY-MM-DD.}
 
-\item{fun.myData.DateRange.End}{End date for requested data. Format = YYYY-MM-DD.}
+\item{fun.myData.DateRange.End}{End date for requested data.
+Format = YYYY-MM-DD.}
 
-\item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+\item{fun.myDir.export}{Directory for export data.
+Default is current working directory.}
 
-\item{fun.myTZ}{Timezone for requested gage.  Default is in env.UserDefinedValues.R.  Can also be set with Sys.timezone().}
+\item{fun.myTZ}{Timezone for requested gage.
+Default is in env.UserDefinedValues.R.  Can also be set with Sys.timezone().}
 }
 \value{
-Returns a csv file to specified directory with the requested daily mean data.  During the data retrieval a summary is output to the console.
+Returns a csv file to specified directory with the requested daily
+mean data.  During the data retrieval a summary is output to the console.
 }
 \description{
-This a wrapper function for the package dataRetrieval to get USGS data.  Daily means are the default data type.
+This a wrapper function for the package dataRetrieval to get USGS data.
+Daily means are the default data type.
+}
+\details{
+Gage height is converted to water level for compatability with HOBOware
+output.
 }
 \examples{
-#Not intended to be accessed indepedant of function ContDataQC().
+#Not intended to be accessed independant of function ContDataQC().
 fun.GageData("01187300","Gage","2013-01-01","2013-12-31",getwd(),"","")
 # with optional variable left blank
 fun.GageData("01187300","Gage","2013-01-01","2013-12-31")
 }
-\keyword{USGS,}
-\keyword{continuous}
-\keyword{data,}
-\keyword{dataRetrieval}
-\keyword{gage,}
 \keyword{internal}

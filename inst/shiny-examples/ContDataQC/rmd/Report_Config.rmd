@@ -430,40 +430,40 @@ txt_Chlorophylla_S <- c(val_Chlorophylla[1]
                      , paste0("> ",val_Chlorophylla[12]
                               ," consecutive measurements within ",val_Chlorophylla[13]
                               ," units of one another"))
-# GageHeight
-nam_GageHeight <- c("myLab.GageHeight"                          #1
-                   , "myUnits.GageHeight"                    #2
-                   , "myThresh.Gross.Fail.Hi.GageHeight"     #3
-                   , "myThresh.Gross.Fail.Lo.GageHeight"     #4
-                   , "myThresh.Gross.Suspect.Hi.GageHeight"  #5
-                   , "myThresh.Gross.Suspect.Lo.GageHeight"  #6
-                   #, "myThresh.Spike.Hi.GageHeight"          #7 -removed
-                   #, "myThresh.Spike.Lo.GageHeight"          #8 - removed
-                   , "myThresh.RoC.SD.number.GageHeight"     #9 - 7
-                   , "myThresh.RoC.SD.period.GageHeight"     #10 - 8
-                   , "myThresh.Flat.Hi.GageHeight"           #11 - 9
-                   , "myThresh.Flat.Lo.GageHeight"           #12 - 10
-                   , "myThresh.Flat.Tolerance.GageHeight"    #13 - 11
+# WaterLevel
+nam_WaterLevel <- c("myLab.WaterLevel"                          #1
+                   , "myUnits.WaterLevel"                    #2
+                   , "myThresh.Gross.Fail.Hi.WaterLevel"     #3
+                   , "myThresh.Gross.Fail.Lo.WaterLevel"     #4
+                   , "myThresh.Gross.Suspect.Hi.WaterLevel"  #5
+                   , "myThresh.Gross.Suspect.Lo.WaterLevel"  #6
+                   #, "myThresh.Spike.Hi.WaterLevel"          #7 -removed
+                   #, "myThresh.Spike.Lo.WaterLevel"          #8 - removed
+                   , "myThresh.RoC.SD.number.WaterLevel"     #9 - 7
+                   , "myThresh.RoC.SD.period.WaterLevel"     #10 - 8
+                   , "myThresh.Flat.Hi.WaterLevel"           #11 - 9
+                   , "myThresh.Flat.Lo.WaterLevel"           #12 - 10
+                   , "myThresh.Flat.Tolerance.WaterLevel"    #13 - 11
                    )
-val_GageHeight <- mget(nam_GageHeight, envir=ContData.env)
-txt_GageHeight_F <- c(val_GageHeight[1]
+val_WaterLevel <- mget(nam_WaterLevel, envir=ContData.env)
+txt_WaterLevel_F <- c(val_WaterLevel[1]
                      , "Fail"
-                     , paste0("> ",val_GageHeight[3]," ",val_GageHeight[2]
-                              ,"  or < ",val_GageHeight[4]," ",val_GageHeight[2])
+                     , paste0("> ",val_WaterLevel[3]," ",val_WaterLevel[2]
+                              ,"  or < ",val_WaterLevel[4]," ",val_WaterLevel[2])
                      , "NA"
                      , "NA"
-                     , paste0("> ",val_GageHeight[9]
-                              ," consecutive measurements within ",val_GageHeight[11]
+                     , paste0("> ",val_WaterLevel[9]
+                              ," consecutive measurements within ",val_WaterLevel[11]
                               ," units of one another"))
-txt_GageHeight_S <- c(val_GageHeight[1]
+txt_WaterLevel_S <- c(val_WaterLevel[1]
                      , "Suspect"
-                     , paste0("> ",val_GageHeight[5]," ",val_GageHeight[2]
-                              ," or < ",val_GageHeight[6]," ",val_GageHeight[2])
+                     , paste0("> ",val_WaterLevel[5]," ",val_WaterLevel[2]
+                              ," or < ",val_WaterLevel[6]," ",val_WaterLevel[2])
                      , "NA"
-                     , paste0(">= ",val_GageHeight[7]," standard deviations within "
-                              ,val_GageHeight[8]," hours")
-                     , paste0("> ",val_GageHeight[10]
-                              ," consecutive measurements within ",val_GageHeight[11]
+                     , paste0(">= ",val_WaterLevel[7]," standard deviations within "
+                              ,val_WaterLevel[8]," hours")
+                     , paste0("> ",val_WaterLevel[10]
+                              ," consecutive measurements within ",val_WaterLevel[11]
                               ," units of one another"))
 # Create Table
 df_Env <- data.frame(rbind(txt_WaterTemp_F, txt_WaterTemp_S
@@ -477,7 +477,7 @@ df_Env <- data.frame(rbind(txt_WaterTemp_F, txt_WaterTemp_S
                            , txt_pH_F, txt_pH_S
                            , txt_Turbidity_F, txt_Turbidity_S
                            , txt_Chlorophylla_F, txt_Chlorophylla_S
-                           , txt_GageHeight_F, txt_GageHeight_S
+                           , txt_WaterLevel_F, txt_WaterLevel_S
                            )
                      , row.names = NULL)
 names(df_Env) <- txt_header
@@ -528,7 +528,7 @@ env_Nam <- c("myDelim"
              , "myUnits.pH"
              , "myUnits.Turbidity"
              , "myUnits.Chlorophylla"
-             , "myUnits.GageHeight"
+             , "myUnits.WaterLevel"
              , "myName.RowID.Water"
              , "myName.LoggerID.Water"
              , "myName.RowID.Air"
@@ -544,7 +544,7 @@ env_Nam <- c("myDelim"
              , "myName.pH"
              , "myName.Turbidity"
              , "myName.Chlorophylla"
-             , "myName.GageHeight"
+             , "myName.WaterLevel"
              , "myLab.WaterTemp"
              , "myLab.AirTemp"
              , "myLab.Date"
@@ -559,7 +559,7 @@ env_Nam <- c("myDelim"
              , "myLab.pH"
              , "myLab.Turbidity"
              , "myLab.Chlorophylla"
-             , "myLab.GageHeight"
+             , "myLab.WaterLevel"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -584,7 +584,7 @@ env_Nam <- c("myPrefix.Discrete"
              , "myName.Discrete.pH"
              , "myName.Discrete.Turbidity"
              , "myName.Discrete.Chlorophylla"
-             , "myName.Discrete.GageHeight"
+             , "myName.Discrete.WaterLevel"
              , "myLab.Discrete.WaterTemp"
              , "myLab.Discrete.AirTemp"
              , "myLab.Discrete.WaterP"
@@ -596,7 +596,7 @@ env_Nam <- c("myPrefix.Discrete"
              , "myLab.Discrete.pH"
              , "myLab.Discrete.Turbidity"
              , "myLab.Discrete.Chlorophylla"
-             , "myLab.Discrete.GageHeight"
+             , "myLab.Discrete.WaterLevel"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -696,8 +696,8 @@ env_Nam <- c("myThresh.Gross.Fail.Hi.WaterTemp"
              , "myThresh.Gross.Fail.Lo.Turbidity"
              , "myThresh.Gross.Fail.Hi.Chlorophylla"
              , "myThresh.Gross.Fail.Lo.Chlorophylla"
-             , "myThresh.Gross.Fail.Hi.GageHeight"
-             , "myThresh.Gross.Fail.Lo.GageHeight"
+             , "myThresh.Gross.Fail.Hi.WaterLevel"
+             , "myThresh.Gross.Fail.Lo.WaterLevel"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -733,8 +733,8 @@ env_Nam <- c("myThresh.Gross.Suspect.Hi.WaterTemp"
              , "myThresh.Gross.Suspect.Lo.Turbidity"
              , "myThresh.Gross.Suspect.Hi.Chlorophylla"
              , "myThresh.Gross.Suspect.Lo.Chlorophylla"
-             , "myThresh.Gross.Suspect.Hi.GageHeight"
-             , "myThresh.Gross.Suspect.Lo.GageHeight"
+             , "myThresh.Gross.Suspect.Hi.WaterLevel"
+             , "myThresh.Gross.Suspect.Lo.WaterLevel"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -771,8 +771,8 @@ env_Nam <- c("myThresh.Spike.Hi.WaterTemp"
              , "myThresh.Spike.Lo.Turbidity"
              , "myThresh.Spike.Hi.Chlorophylla"
              , "myThresh.Spike.Lo.Chlorophylla"
-             #, "myThresh.Spike.Hi.GageHeight"
-             #, "myThresh.Spike.Lo.GageHeight"
+             #, "myThresh.Spike.Hi.WaterLevel"
+             #, "myThresh.Spike.Lo.WaterLevel"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -810,8 +810,8 @@ env_Nam <- c("myDefault.RoC.SD.number"
              , "myThresh.RoC.SD.period.Turbidity"
              , "myThresh.RoC.SD.number.Chlorophylla"
              , "myThresh.RoC.SD.period.Chlorophylla"
-             , "myThresh.RoC.SD.number.GageHeight"
-             , "myThresh.RoC.SD.period.GageHeight"
+             , "myThresh.RoC.SD.number.WaterLevel"
+             , "myThresh.RoC.SD.period.WaterLevel"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -862,9 +862,9 @@ env_Nam <- c("myDefault.Flat.Hi"
              , "myThresh.Flat.Hi.Chlorophylla"
              , "myThresh.Flat.Lo.Chlorophylla"
              , "myThresh.Flat.Tolerance.Chlorophylla"
-             , "myThresh.Flat.Hi.GageHeight"
-             , "myThresh.Flat.Lo.GageHeight"
-             , "myThresh.Flat.Tolerance.GageHeight"
+             , "myThresh.Flat.Hi.WaterLevel"
+             , "myThresh.Flat.Lo.WaterLevel"
+             , "myThresh.Flat.Tolerance.WaterLevel"
              , "myThresh.Flat.MaxComp"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
@@ -893,7 +893,7 @@ env_Nam <- c("myName.Flag"
              , "myName.Flag.pH"
              , "myName.Flag.Turbidity"
              , "myName.Flag.Chlorophylla"
-             , "myName.Flag.GageHeight"
+             , "myName.Flag.WaterLevel"
              , "myNames.QCTests"
              , "myNames.QCCalcs"
              )

@@ -773,7 +773,32 @@ fun.QC.File <- function(fun.myFile
                                      ,ContData.env$myThresh.Flat.Lo.Chlorophylla
                                      ,ContData.env$myThresh.Flat.Tolerance.Chlorophylla)
     }##IF.myField.END
-            #
+
+    # B.6.12. Water Level
+    myField <- ContData.env$myName.WaterLevel
+    if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
+      #
+      myMsg.data <- "WaterLevel"
+      myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter,2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      data.import <- fun.CalcQCStats(data.import
+                                     ,myField
+                                     ,ContData.env$myThresh.Gross.Fail.Hi.WaterLevel
+                                     ,ContData.env$myThresh.Gross.Fail.Lo.WaterLevel
+                                     ,ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel
+                                     ,ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel
+                                     ,ContData.env$myThresh.Spike.Hi.WaterLevel
+                                     ,ContData.env$myThresh.Spike.Lo.WaterLevel
+                                     ,ContData.env$myThresh.RoC.SD.period.WaterLevel
+                                     ,ContData.env$myThresh.RoC.SD.number.WaterLevel
+                                     ,ContData.env$myThresh.Flat.Hi.WaterLevel
+                                     ,ContData.env$myThresh.Flat.Lo.WaterLevel
+                                     ,ContData.env$myThresh.Flat.Tolerance.WaterLevel)
+    }##IF.myField.END
     #
     #
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
