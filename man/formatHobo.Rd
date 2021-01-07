@@ -30,8 +30,8 @@ The default is always loaded first so only "new" values need to be included.
 This is the easiest way to control time zones.}
 }
 \value{
-No data frames are returned.  A CSV file ready for use with the ContDataQC
-QC function will be generated in the specified output directory.
+No data frames are returned.  A CSV file ready for use with the
+ContDataQC QC function will be generated in the specified output directory.
 }
 \description{
 Format HoboWare output for use with `ContDataQC` package.
@@ -86,6 +86,8 @@ they will not be formatted properly.
 
 * Sensor Depth = "depth"
 
+* Water Level = "level"
+
 HOBOware will output ambiguous dates with only 2 digits.
 There are two delimiters (/ and -) and three formats (MDY, DMY, and YMD)
 resulting in six possible formats.  If the user provides input for
@@ -99,22 +101,39 @@ It is assumed the user has a single Date Time field rather than two fields
 \dontrun{
 
 # Parameters
-Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
-Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
-Selection.SUB       <- c("Data0_Original", "Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
-myDir.BASE          <- getwd()
+Selection.Operation <- c("GetGageData"
+                         , "QCRaw"
+                         , "Aggregate"
+                         , "SummaryStats")
+Selection.Type      <- c("Air", "Water", "AW", "Gage", "AWG", "AG", "WG")
+Selection.SUB       <- c("Data0_Original"
+                         , "Data1_RAW"
+                         , "Data2_QC"
+                         , "Data3_Aggregated"
+                         , "Data4_Stats")
+myDir.BASE          <- tempdir()
 
 # Create data directories
-myDir.create <- paste0("./",Selection.SUB[1])
-  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
-myDir.create <- paste0("./",Selection.SUB[2])
-  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
-myDir.create <- paste0("./",Selection.SUB[3])
-  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
-myDir.create <- paste0("./",Selection.SUB[4])
-  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
-myDir.create <- paste0("./",Selection.SUB[5])
-  ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+myDir.create <- file.path(myDir.BASE, Selection.SUB[1])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
+myDir.create <- file.path(myDir.BASE, Selection.SUB[2])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
+myDir.create <- file.path(myDir.BASE, Selection.SUB[3])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
+myDir.create <- file.path(myDir.BASE, Selection.SUB[4])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
+myDir.create <- file.path(myDir.BASE, Selection.SUB[5])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
 
 # Save example data (assumes directory ./Data0_Original/ exists)
 fn_1 <- "Charlies_Air_20170726_20170926.csv"
@@ -129,8 +148,8 @@ lapply(c(fn_1, fn_2, fn_3, fn_4), function(x)
 myFiles <- c("Charlies_Air_20170726_20170926.csv"
              , "Charlies_AW_20170726_20170926.csv"
              , "Charlies_Water_20170726_20170926.csv")
-myDir.import <- file.path(getwd(), "Data0_Original")
-myDir.export <- file.path(getwd(), "Data1_RAW")
+myDir.import <- file.path(myDir.BASE, "Data0_Original")
+myDir.export <- file.path(myDir.BASE, "Data1_RAW")
 
 # Run Function (with default config)
 formatHobo(myFiles, myDir.import, myDir.export)
@@ -139,18 +158,20 @@ formatHobo(myFiles, myDir.import, myDir.export)
 # QC Data
 myData.Operation <- "QCRaw" #Selection.Operation[2]
 myFile <- myFiles
-myDir.import <- file.path(".","Data1_RAW")
-myDir.export <- file.path(".","Data2_QC")
+myDir.import <- file.path(myDir.BASE, "Data1_RAW")
+myDir.export <- file.path(myDir.BASE, "Data2_QC")
 myReport.format <- "html"
-ContDataQC(myData.Operation, fun.myDir.import=myDir.import
-          , fun.myDir.export=myDir.export, fun.myFile=myFile
-          , fun.myReport.format=myReport.format)
+ContDataQC(myData.Operation
+          , fun.myDir.import = myDir.import
+          , fun.myDir.export = myDir.export
+          , fun.myFile = myFile
+          , fun.myReport.format = myReport.format)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Example with unmodified dates
 myFiles <- "ECO66G12_AW_20160128_20160418.csv"
-myDir.import <- file.path(getwd(), "Data0_Original")
-myDir.export <- file.path(getwd(), "Data1_RAW")
+myDir.import <- file.path(myDir.BASE, "Data0_Original")
+myDir.export <- file.path(myDir.BASE, "Data1_RAW")
 HoboDateFormat <- "MDY"
 
 # Run Function (with default config)

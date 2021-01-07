@@ -15,8 +15,8 @@
 #' The default is always loaded first so only "new" values need to be included.
 #' This is the easiest way to control time zones.
 #'
-#' @return No data frames are returned.  A CSV file ready for use with the ContDataQC
-#' QC function will be generated in the specified output directory.
+#' @return No data frames are returned.  A CSV file ready for use with the
+#' ContDataQC QC function will be generated in the specified output directory.
 #'
 #' @details Imports a HoboWare output (with minimal tweaks) from a folder
 #' , reformats it using defaults from the ContDataQC config file
@@ -66,6 +66,8 @@
 #'
 #' * Sensor Depth = "depth"
 #'
+#' * Water Level = "level"
+#'
 #' HOBOware will output ambiguous dates with only 2 digits.
 #' There are two delimiters (/ and -) and three formats (MDY, DMY, and YMD)
 #' resulting in six possible formats.  If the user provides input for
@@ -79,22 +81,39 @@
 #' \dontrun{
 #'
 #' # Parameters
-#' Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
-#' Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
-#' Selection.SUB       <- c("Data0_Original", "Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
-#' myDir.BASE          <- getwd()
+#' Selection.Operation <- c("GetGageData"
+#'                          , "QCRaw"
+#'                          , "Aggregate"
+#'                          , "SummaryStats")
+#' Selection.Type      <- c("Air", "Water", "AW", "Gage", "AWG", "AG", "WG")
+#' Selection.SUB       <- c("Data0_Original"
+#'                          , "Data1_RAW"
+#'                          , "Data2_QC"
+#'                          , "Data3_Aggregated"
+#'                          , "Data4_Stats")
+#' myDir.BASE          <- tempdir()
 #'
 #' # Create data directories
-#' myDir.create <- paste0("./",Selection.SUB[1])
-#'   ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
-#' myDir.create <- paste0("./",Selection.SUB[2])
-#'   ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
-#' myDir.create <- paste0("./",Selection.SUB[3])
-#'   ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
-#' myDir.create <- paste0("./",Selection.SUB[4])
-#'   ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
-#' myDir.create <- paste0("./",Selection.SUB[5])
-#'   ifelse(dir.exists(myDir.create)==FALSE,dir.create(myDir.create),"Directory already exists")
+#' myDir.create <- file.path(myDir.BASE, Selection.SUB[1])
+#'   ifelse(dir.exists(myDir.create) == FALSE
+#'          , dir.create(myDir.create)
+#'          , "Directory already exists")
+#' myDir.create <- file.path(myDir.BASE, Selection.SUB[2])
+#'   ifelse(dir.exists(myDir.create) == FALSE
+#'          , dir.create(myDir.create)
+#'          , "Directory already exists")
+#' myDir.create <- file.path(myDir.BASE, Selection.SUB[3])
+#'   ifelse(dir.exists(myDir.create) == FALSE
+#'          , dir.create(myDir.create)
+#'          , "Directory already exists")
+#' myDir.create <- file.path(myDir.BASE, Selection.SUB[4])
+#'   ifelse(dir.exists(myDir.create) == FALSE
+#'          , dir.create(myDir.create)
+#'          , "Directory already exists")
+#' myDir.create <- file.path(myDir.BASE, Selection.SUB[5])
+#'   ifelse(dir.exists(myDir.create) == FALSE
+#'          , dir.create(myDir.create)
+#'          , "Directory already exists")
 #'
 #' # Save example data (assumes directory ./Data0_Original/ exists)
 #' fn_1 <- "Charlies_Air_20170726_20170926.csv"
@@ -109,8 +128,8 @@
 #' myFiles <- c("Charlies_Air_20170726_20170926.csv"
 #'              , "Charlies_AW_20170726_20170926.csv"
 #'              , "Charlies_Water_20170726_20170926.csv")
-#' myDir.import <- file.path(getwd(), "Data0_Original")
-#' myDir.export <- file.path(getwd(), "Data1_RAW")
+#' myDir.import <- file.path(myDir.BASE, "Data0_Original")
+#' myDir.export <- file.path(myDir.BASE, "Data1_RAW")
 #'
 #' # Run Function (with default config)
 #' formatHobo(myFiles, myDir.import, myDir.export)
@@ -119,18 +138,20 @@
 #' # QC Data
 #' myData.Operation <- "QCRaw" #Selection.Operation[2]
 #' myFile <- myFiles
-#' myDir.import <- file.path(".","Data1_RAW")
-#' myDir.export <- file.path(".","Data2_QC")
+#' myDir.import <- file.path(myDir.BASE, "Data1_RAW")
+#' myDir.export <- file.path(myDir.BASE, "Data2_QC")
 #' myReport.format <- "html"
-#' ContDataQC(myData.Operation, fun.myDir.import=myDir.import
-#'           , fun.myDir.export=myDir.export, fun.myFile=myFile
-#'           , fun.myReport.format=myReport.format)
+#' ContDataQC(myData.Operation
+#'           , fun.myDir.import = myDir.import
+#'           , fun.myDir.export = myDir.export
+#'           , fun.myFile = myFile
+#'           , fun.myReport.format = myReport.format)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Example with unmodified dates
 #' myFiles <- "ECO66G12_AW_20160128_20160418.csv"
-#' myDir.import <- file.path(getwd(), "Data0_Original")
-#' myDir.export <- file.path(getwd(), "Data1_RAW")
+#' myDir.import <- file.path(myDir.BASE, "Data0_Original")
+#' myDir.export <- file.path(myDir.BASE, "Data1_RAW")
 #' HoboDateFormat <- "MDY"
 #'
 #' # Run Function (with default config)
@@ -155,7 +176,7 @@ formatHobo <- function(fun.myFile=""
     # Load environment
     #ContData.env <- new.env(parent = emptyenv()) # in config.R
     dir_dev <- "C:\\Users\\Erik.Leppo\\OneDrive - Tetra Tech, Inc\\MyDocs_OneDrive\\GitHub\\ContDataQC"
-    source(file.path(dir_dev,"R","config.R"), local=TRUE)
+    source(file.path(dir_dev, "R", "config.R"), local=TRUE)
   }##IF.boo.DEBUG.END
 
 	# 00. QC ####
@@ -184,13 +205,18 @@ formatHobo <- function(fun.myFile=""
     # if(QC.SiteID.myDelim==TRUE){##IF.QC.SiteID.myDelim.START
     #   #
     #   myMsg <- paste("\n
-    #                  SiteID (",fun.myData.SiteID,") contains the same delimiter (",ContData.env$myDelim,") as in your file names.
+    #                  SiteID (",fun.myData.SiteID
+    #,") contains the same delimiter (",ContData.env$myDelim,") as in your file
+    #names.
     #                  \n
     #                  Scripts will not work properly while this is true.
     #                  \n
-    #                  Change SiteID names so they do not include the same delimiter.
+    #                  Change SiteID names so they do not include the same
+    #delimiter.
     #                  \n
-    #                  Or change file names and the variable 'myDelim' in the configuration script 'config.R' (or in the file specified by the user).",sep="")
+    #                  Or change file names and the variable 'myDelim' in the
+    #configuration script 'config.R' (or in the file specified by the user)."
+    #,sep="")
     #   stop(myMsg)
     #   #
     # }##IF.QC.SiteID.myDelim.END
@@ -213,8 +239,12 @@ formatHobo <- function(fun.myFile=""
 
     # 01.01. Import ####
     # import with read.delim (greater control than read.csv)
-    df_hobo <- utils::read.delim(file.path(fun.myDir.import, i), skip=1, header=TRUE, sep=","
-                          , check.names=FALSE, stringsAsFactors = FALSE)
+    df_hobo <- utils::read.delim(file.path(fun.myDir.import, i)
+                                 , skip=1
+                                 , header=TRUE
+                                 , sep=","
+                                 , check.names=FALSE
+                                 , stringsAsFactors = FALSE)
 
     # 01.02. Munge ####
     # parse name on "." (for extension) or "_"
@@ -238,6 +268,7 @@ formatHobo <- function(fun.myFile=""
     find_Barom <- "barom"
     find_badchar <- "Â"
     find_logger <- "LGR S/N:"
+    find_Level <- "level"
 
     # Replace bad character
     names(df_hobo) <- gsub(find_badchar, "", names(df_hobo))
@@ -246,26 +277,35 @@ formatHobo <- function(fun.myFile=""
     ## Date
     col_Date <- names(df_hobo)[grepl(find_Date, tolower(names(df_hobo)))]
     ## Air Temp
-    col_AirTemp <- names(df_hobo)[grepl(paste0(find_Air,".*",find_Temp,"|",find_Temp,".*",find_Air)
+    col_AirTemp <- names(df_hobo)[grepl(paste0(find_Air,".*",find_Temp
+                                               ,"|",find_Temp,".*",find_Air)
                                         , tolower(names(df_hobo)))]
     ## Water Temp
-    col_WaterTemp <- names(df_hobo)[grepl(paste0(find_Water,".*",find_Temp,"|",find_Temp,".*",find_Water)
+    col_WaterTemp <- names(df_hobo)[grepl(paste0(find_Water,".*",find_Temp
+                                                 ,"|",find_Temp,".*",find_Water)
                                           , tolower(names(df_hobo)))]
     ## Air Pressure
-    col_AirBP <- names(df_hobo)[grepl(paste0(find_Barom,".*",find_Pres,"|",find_Pres,".*",find_Barom)
+    col_AirBP <- names(df_hobo)[grepl(paste0(find_Barom,".*",find_Pres,"|"
+                                             ,find_Pres,".*",find_Barom)
                                       , tolower(names(df_hobo)))]
     ## Water Pressure
     # find Pres and not Barom
-    col_WaterP_find <- grepl(find_Pres, tolower(names(df_hobo))) + !grepl(find_Barom, tolower(names(df_hobo)))
+    col_WaterP_find <- grepl(find_Pres, tolower(names(df_hobo))) +
+      !grepl(find_Barom, tolower(names(df_hobo)))
     col_WaterP <- names(df_hobo)[col_WaterP_find==2]
     ## Sensor Depth
-    col_SensorDepth <- names(df_hobo)[grepl(find_Depth, tolower(names(df_hobo)))]
+    col_SensorDepth <- names(df_hobo)[grepl(find_Depth
+                                            , tolower(names(df_hobo)))]
     ## Logger (both)
     LogID_str <- "LGR S/N: "
     ## Logger, Water
     ### conditional so is below
     ## Logger, Air
     ### conditional so is below
+
+    ## Water Level
+    col_WaterLevel <- names(df_hobo)[grepl(find_Level
+                                            , tolower(names(df_hobo)))]
 
 
     # Modify Date ####
@@ -289,12 +329,14 @@ formatHobo <- function(fun.myFile=""
       } else if (toupper(fun.HoboDateFormat)=="YMD") {
         HW_format <- paste0("%y",HW_delim,"%m",HW_delim,"%d %H:%M:%S")
       } else {
-        msg <- paste0("Incorrect Hoboware format (MDY, DMY, YMD) specified, ", fun.HoboDateFormat)
+        msg <- paste0("Incorrect Hoboware format (MDY, DMY, YMD) specified, "
+                      , fun.HoboDateFormat)
         stop(msg)
       }
 
       # Modify dates
-      date_new_mod <- format(strptime(date_new, format=HW_format), ContData.env$myFormat.DateTime)
+      date_new_mod <- format(strptime(date_new, format=HW_format)
+                             , ContData.env$myFormat.DateTime)
       # modify hobo data frame to updated date format
       df_hobo[,col_Date] <- date_new_mod
     }##IF.isnull.hobodate.END
@@ -309,15 +351,16 @@ formatHobo <- function(fun.myFile=""
     col_out_AirBP         <- ContData.env$myName.AirBP # "Air.BP.psi"
     col_out_WaterP        <- ContData.env$myName.WaterP # "Water.P.psi"
     col_out_SensorDepth   <- ContData.env$myName.SensorDepth # "Sensor.Depth.ft"
-    col_out_WaterLoggerID <- ContData.env$myName.LoggerID.Water # "Water.LoggerID"
+    col_out_WaterLoggerID <- ContData.env$myName.LoggerID.Water#"Water.LoggerID"
     col_out_AirLoggerID   <- ContData.env$myName.LoggerID.Air # "Air.LoggerID"
     col_out_AirRowID      <- ContData.env$myName.RowID.Air
     col_out_WaterRowID    <- ContData.env$myName.RowID.Water
+    col_out_WaterLevel    <- ContData.env$myName.WaterLevel # "Water.Level.ft"
 
     # 01.04. DF Create ####
     # Create output
     nrow_hobo <- nrow(df_hobo)
-    df_out <- data.frame(matrix(, nrow=nrow_hobo, ncol=0)) # missing x on purpose
+    df_out <- data.frame(matrix(, nrow=nrow_hobo, ncol=0)) #missing x on purpose
     # assign SiteID
     df_out[, col_out_SiteID] <- SiteID
     # assign date time
@@ -331,10 +374,12 @@ formatHobo <- function(fun.myFile=""
       LogID_Air_pos <- gregexpr(LogID_str, col_AirTemp)
       LogID_Air_start <- LogID_Air_pos[[1]][1]+nchar(LogID_str)
       LogID_Air_end <- nchar(col_AirTemp)
-      LogID_Air <- trimws(gsub(")", "", substr(col_AirTemp, LogID_Air_start, LogID_Air_end)))
+      LogID_Air <- trimws(gsub(")", "", substr(col_AirTemp
+                                               , LogID_Air_start
+                                               , LogID_Air_end)))
       df_out[, col_out_AirLoggerID] <- LogID_Air
       df_out[, col_out_AirRowID] <- row.names(df_hobo)
-    }##IF.col_AirTemp.END
+    }##IF ~ col_AirTemp ~ END
     #
     if(length(col_WaterTemp)!=0){##IF.col_WaterTemp.START
       df_out[, col_out_WaterTemp] <- df_hobo[, col_WaterTemp]
@@ -342,22 +387,28 @@ formatHobo <- function(fun.myFile=""
       LogID_Water_pos <- gregexpr(LogID_str, col_WaterTemp)
       LogID_Water_start <- LogID_Water_pos[[1]][1]+nchar(LogID_str)
       LogID_Water_end <- nchar(col_WaterTemp)
-      LogID_Water <- trimws(gsub(")", "", substr(col_WaterTemp, LogID_Water_start, LogID_Water_end)))
+      LogID_Water <- trimws(gsub(")", "", substr(col_WaterTemp
+                                                 , LogID_Water_start
+                                                 , LogID_Water_end)))
       df_out[, col_out_WaterLoggerID] <- LogID_Water
       df_out[, col_out_WaterRowID] <- row.names(df_hobo)
-    }##IF.col_WaterTemp.END
+    }##IF ~ col_WaterTemp ~ END
     #
     if(length(col_AirBP)!=0){##IF.col_AirBP.START
       df_out[, col_out_AirBP] <- df_hobo[, col_AirBP]
-    }##IF.col_AirBP.END
+    }##IF ~ col_AirBP ~ END
     #
     if(length(col_WaterP)!=0){##IF.col_WaterP.START
       df_out[, col_out_WaterP] <- df_hobo[, col_WaterP]
-    }##IF.col_WaterP.END
+    }##IF ~ col_WaterP ~ END
     #
     if(length(col_SensorDepth)!=0){##IF.col_SensorDepth.START
       df_out[, col_out_SensorDepth] <- df_hobo[, col_SensorDepth]
-    }##IF.col_SensorDepth.END
+    }##IF ~ col_SensorDepth ~ END
+    #
+    if(length(col_WaterLevel)!=0){
+      df_out[, col_out_SensorDepth] <- df_hobo[, col_SensorDepth]
+    }##IF ~ col_WaterLevel ~ END
 
     # 01.05. DF Save ####
     utils::write.csv(df_out, file.path(fun.myDir.export, i), row.names=FALSE)
