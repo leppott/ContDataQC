@@ -44,6 +44,16 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9058
+2021-01-08
+
+* chore: Modify LakeID~Depth siteID to LakeID--Depth
+    + File names with ~ are non-portable.
+* style: Trim to 80 characters.
+    + Vignette_Lakes
+    + fun.ParseID
+* refactor: Update help text in fun.ParseID for change in Lake ID delimiter
+
 ## v2.0.5.9057
 2021-01-07
 
