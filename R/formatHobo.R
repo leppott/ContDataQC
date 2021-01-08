@@ -160,10 +160,10 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 formatHobo <- function(fun.myFile=""
-                       , fun.myDir.import=getwd()
-                       , fun.myDir.export=getwd()
-                       , fun.HoboDateFormat=NULL
-                       , fun.myConfig=""
+                       , fun.myDir.import = getwd()
+                       , fun.myDir.export = getwd()
+                       , fun.HoboDateFormat = NULL
+                       , fun.myConfig = ""
                        ){##FUNCTION.START
   # debug ####
   boo.DEBUG<- FALSE
@@ -407,7 +407,7 @@ formatHobo <- function(fun.myFile=""
     }##IF ~ col_SensorDepth ~ END
     #
     if(length(col_WaterLevel)!=0){
-      df_out[, col_out_SensorDepth] <- df_hobo[, col_SensorDepth]
+      df_out[, col_out_WaterLevel] <- df_hobo[, col_WaterLevel]
     }##IF ~ col_WaterLevel ~ END
 
     # 01.05. DF Save ####

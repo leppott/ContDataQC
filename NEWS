@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-01-08 14:15:56
+    #> Last Update: 2021-01-08 14:59:58
 
 # Planned Updates
 
@@ -34,6 +34,12 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9061
+
+2021-01-08
+
+  - chore: Update formatHobo to output water level
 
 ## v2.0.5.9060
 
