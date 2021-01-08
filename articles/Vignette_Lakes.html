@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9057</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9059</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       <h1 data-toc-skip>ContDataQC Lake ID String Vignette</h1>
                         <h4 class="author">Erik W. Leppo</h4>
             
-            <h4 class="date">2021-01-07</h4>
+            <h4 class="date">2021-01-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/leppott/ContDataQC/blob/master/vignettes/Vignette_Lakes.Rmd"><code>vignettes/Vignette_Lakes.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette_Lakes.Rmd</code></div>
@@ -104,7 +104,8 @@
 <p>It is envisioned that this library can be a living package and will add additional functions and routines in the future.</p>
 <p>Many of the examples in this vignette are included in the examples in the corresponding functions. Each function in the <code>ContDataQC</code> library includes example data.</p>
 <p>The typical user of this package is envisioned as a user of Hobo or other continuous data loggers. Measured parameters are water temperature, sensor depth, air temperature, water pressure, and air pressure. The typical user will retrieve data from their data logger using Hoboware. Once the data is extracted from the logger and save some minimal cleanup to the column heades is performed before using the ‘ContDataQC’ R library.</p>
-<p>There is a second type of user for this package and that is of the user with data loggers in lakes (or other waterbodies) with sensors at different depths. Many of the package features work equally well with these data types with a few modifications.</p>
+<p>There is a second type of user for this package and that is of the user with data loggers in lakes (or other waterbodies) with sensors at different depths.<br>
+Many of the package features work equally well with these data types with a few modifications.</p>
 </div>
 <div id="workflow" class="section level1">
 <h1 class="hasAnchor">
@@ -113,7 +114,7 @@
 <div id="site-id" class="section level2">
 <h2 class="hasAnchor">
 <a href="#site-id" class="anchor"></a>Site ID</h2>
-<p>The <code>ContDataQC</code> package is set up to handle a single “SiteID” field. This is not appropriate for measurements at different depths for a single location. To work around this the package uses a delimiter, “~”, between the SiteID and depth (units optional). For example “Ellis~1.0m” would be entered into the “SiteID” field.</p>
+<p>The <code>ContDataQC</code> package is set up to handle a single “SiteID” field. This is not appropriate for measurements at different depths for a single location. To work around this the package uses a delimiter, “–”, between the SiteID and depth (units optional). For example “Ellis–1.0m” would be entered into the “SiteID” field.</p>
 </div>
 </div>
 <div id="formathobo" class="section level1">
@@ -127,16 +128,17 @@
 <span class="co"># Parameters</span>
 <span class="co"># Selection.Operation &lt;- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")</span>
 <span class="co"># Selection.Type      &lt;- c("Air","Water","AW","Gage","AWG","AG","WG")</span>
-<span class="co"># Selection.SUB &lt;- c("Data0_Original", "Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")</span>
+<span class="co"># Selection.SUB &lt;- c("Data0_Original"</span>
+<span class="co">#                   , "Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")</span>
 <span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># Function Inputs</span>
-<span class="va">fn1</span> <span class="op">&lt;-</span> <span class="st">"Ellis~1.0m_Water_20180524_20180918.csv"</span>
-<span class="va">fn2</span> <span class="op">&lt;-</span> <span class="st">"Ellis~3.0m_Water_20180524_20180918.csv"</span>
+<span class="va">fn1</span> <span class="op">&lt;-</span> <span class="st">"Ellis--1.0m_Water_20180524_20180918.csv"</span>
+<span class="va">fn2</span> <span class="op">&lt;-</span> <span class="st">"Ellis--3.0m_Water_20180524_20180918.csv"</span>
 
 <span class="va">myFiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">fn1</span>, <span class="va">fn2</span><span class="op">)</span>
-<span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Data0_Original"</span><span class="op">)</span>
-<span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Data1_RAW"</span><span class="op">)</span>
+<span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data0_Original"</span><span class="op">)</span>
+<span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data1_RAW"</span><span class="op">)</span>
 
 <span class="va">myFormat</span> <span class="op">=</span> <span class="st">"YMD"</span>
 
@@ -151,24 +153,33 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leppott/ContDataQC">ContDataQC</a></span><span class="op">)</span>
 
 <span class="co"># Parameters</span>
-<span class="va">Selection.Operation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GetGageData"</span>,<span class="st">"QCRaw"</span>, <span class="st">"Aggregate"</span>, <span class="st">"SummaryStats"</span><span class="op">)</span>
-<span class="va">Selection.Type</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Air"</span>,<span class="st">"Water"</span>,<span class="st">"AW"</span>,<span class="st">"Gage"</span>,<span class="st">"AWG"</span>,<span class="st">"AG"</span>,<span class="st">"WG"</span><span class="op">)</span>
-<span class="va">Selection.SUB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Data0_Original"</span>, <span class="st">"Data1_RAW"</span>,<span class="st">"Data2_QC"</span>,<span class="st">"Data3_Aggregated"</span>,<span class="st">"Data4_Stats"</span><span class="op">)</span>
+<span class="va">Selection.Operation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GetGageData"</span>
+                         ,<span class="st">"QCRaw"</span>
+                         , <span class="st">"Aggregate"</span>
+                         , <span class="st">"SummaryStats"</span><span class="op">)</span>
+<span class="va">Selection.Type</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Air"</span>,<span class="st">"Water"</span>,<span class="st">"AW"</span>,<span class="st">"Gage"</span>,<span class="st">"AWG"</span>,<span class="st">"AG"</span>,<span class="st">"WG"</span><span class="op">)</span>
+<span class="va">Selection.SUB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Data0_Original"</span>
+                   , <span class="st">"Data1_RAW"</span>
+                   , <span class="st">"Data2_QC"</span>
+                   , <span class="st">"Data3_Aggregated"</span>
+                   , <span class="st">"Data4_Stats"</span><span class="op">)</span>
 <span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># Files</span>
-<span class="va">fn1</span> <span class="op">&lt;-</span> <span class="st">"Ellis~1.0m_Water_20180524_20180918.csv"</span>
-<span class="va">fn2</span> <span class="op">&lt;-</span> <span class="st">"Ellis~3.0m_Water_20180524_20180918.csv"</span>
+<span class="va">fn1</span> <span class="op">&lt;-</span> <span class="st">"Ellis--1.0m_Water_20180524_20180918.csv"</span>
+<span class="va">fn2</span> <span class="op">&lt;-</span> <span class="st">"Ellis--3.0m_Water_20180524_20180918.csv"</span>
 
 <span class="co"># QC Data</span>
 <span class="va">myData.Operation</span> <span class="op">&lt;-</span> <span class="st">"QCRaw"</span> <span class="co">#Selection.Operation[2]</span>
 <span class="va">myFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">fn1</span>, <span class="va">fn2</span><span class="op">)</span>
-<span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"."</span>,<span class="st">"Data1_RAW"</span><span class="op">)</span>
-<span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"."</span>,<span class="st">"Data2_QC"</span><span class="op">)</span>
+<span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data1_RAW"</span><span class="op">)</span>
+<span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data2_QC"</span><span class="op">)</span>
 <span class="va">myReport.format</span> <span class="op">&lt;-</span> <span class="st">"html"</span>
-<span class="fu"><a href="../reference/ContDataQC.html">ContDataQC</a></span><span class="op">(</span><span class="va">myData.Operation</span>, fun.myDir.import<span class="op">=</span><span class="va">myDir.import</span>
-          , fun.myDir.export<span class="op">=</span><span class="va">myDir.export</span>, fun.myFile<span class="op">=</span><span class="va">myFile</span>
-          , fun.myReport.format<span class="op">=</span><span class="va">myReport.format</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/ContDataQC.html">ContDataQC</a></span><span class="op">(</span><span class="va">myData.Operation</span>
+           , fun.myDir.import <span class="op">=</span> <span class="va">myDir.import</span>
+           , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span>
+           , fun.myFile <span class="op">=</span> <span class="va">myFile</span>
+           , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="aggregate" class="section level2">
 <h2 class="hasAnchor">
@@ -178,32 +189,40 @@
 <code class="sourceCode R"><span class="co"># Packages</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leppott/ContDataQC">ContDataQC</a></span><span class="op">)</span>
 
+<span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>
+
 <span class="co"># Files</span>
-<span class="va">myFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"QC_Ellis~1.0m_Water_20180524_20180918.csv"</span>, <span class="st">"QC_Ellis~3.0m_Water_20180524_20180918.csv"</span><span class="op">)</span>
+<span class="va">myFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"QC_Ellis--1.0m_Water_20180524_20180918.csv"</span>
+            , <span class="st">"QC_Ellis--3.0m_Water_20180524_20180918.csv"</span><span class="op">)</span>
 
 <span class="co"># Aggregate Data</span>
 <span class="va">myData.Operation</span> <span class="op">&lt;-</span> <span class="st">"Aggregate"</span> <span class="co">#Selection.Operation[3]</span>
-<span class="va">myFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"QC_Ellis~1.0m_Water_20180524_20180918.csv"</span>, <span class="st">"QC_Ellis~3.0m_Water_20180524_20180918.csv"</span><span class="op">)</span>
-<span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"."</span>,<span class="st">"Data2_QC"</span><span class="op">)</span>
-<span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"."</span>,<span class="st">"Data3_Aggregated"</span><span class="op">)</span>
+<span class="va">myFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"QC_Ellis--1.0m_Water_20180524_20180918.csv"</span>
+            , <span class="st">"QC_Ellis--3.0m_Water_20180524_20180918.csv"</span><span class="op">)</span>
+<span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data2_QC"</span><span class="op">)</span>
+<span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data3_Aggregated"</span><span class="op">)</span>
 <span class="va">myReport.format</span> <span class="op">&lt;-</span> <span class="st">"html"</span>
-<span class="fu"><a href="../reference/ContDataQC.html">ContDataQC</a></span><span class="op">(</span><span class="va">myData.Operation</span>, fun.myDir.import<span class="op">=</span><span class="va">myDir.import</span>
-           , fun.myDir.export<span class="op">=</span><span class="va">myDir.export</span>, fun.myFile<span class="op">=</span><span class="va">myFile</span>
-           , fun.myReport.format<span class="op">=</span><span class="va">myReport.format</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/ContDataQC.html">ContDataQC</a></span><span class="op">(</span><span class="va">myData.Operation</span>
+           , fun.myDir.import <span class="op">=</span> <span class="va">myDir.import</span>
+           , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span>
+           , fun.myFile <span class="op">=</span> <span class="va">myFile</span>
+           , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="parse-id" class="section level2">
 <h2 class="hasAnchor">
 <a href="#parse-id" class="anchor"></a>Parse ID</h2>
-<p>An additional function, “ParseID”, is provided to parse the combined ID string with SiteID, depth, and units into 3 separate fields. The original SiteID is copied to SiteID_original and then the SiteID, depth, and depth_units are then populated. The configuration file contains the desired delimiter (defaulted as “~”).</p>
+<p>An additional function, “ParseID”, is provided to parse the combined ID string with SiteID, depth, and units into 3 separate fields. The original SiteID is copied to SiteID_original and then the SiteID, depth, and depth_units are then populated. The configuration file contains the desired delimiter (defaulted as “–”).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Parse ID string and save</span>
-<span class="va">dir_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"./Data3_Aggregated"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="co"># Parse ID string and save</span>
+<span class="va">dir_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data3_Aggregated"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="va">dir_files</span><span class="op">)</span>
 
-<span class="va">fun.myFileName.In</span> <span class="op">&lt;-</span> <span class="st">"DATA_QC_Ellis~1.0m_Water_20180524_20180918_Append_2.csv"</span>
+<span class="va">fun.myFileName.In</span> <span class="op">&lt;-</span> <span class="st">"DATA_QC_Ellis--1.0m_Water_20180524_20180918_Append_2.csv"</span>
 <span class="va">fun.myFileName.Out</span> <span class="op">&lt;-</span> <span class="st">"Ellis_FixedID.csv"</span>
 <span class="va">fun.ColName.ID</span> <span class="op">&lt;-</span> <span class="st">"SiteID"</span>
-<span class="va">fun.Delim</span> <span class="op">&lt;-</span> <span class="st">"~"</span>
+<span class="va">fun.Delim</span> <span class="op">&lt;-</span> <span class="st">"--"</span>
 
 <span class="fu"><a href="../reference/fun.ParseID.html">fun.ParseID</a></span><span class="op">(</span><span class="va">fun.myFileName.In</span>
             , <span class="va">fun.myFileName.Out</span>
@@ -220,13 +239,14 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 
 <span class="co"># Read file</span>
-<span class="va">df_Ellis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"ContDataQC"</span><span class="op">)</span>, <span class="st">"Ellis.csv"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df_Ellis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"ContDataQC"</span><span class="op">)</span>
+                               , <span class="st">"Ellis.csv"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">df_Ellis</span><span class="op">[</span>, <span class="st">"Date.Time"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span><span class="op">(</span><span class="va">df_Ellis</span><span class="op">[</span>, <span class="st">"Date.Time"</span><span class="op">]</span><span class="op">)</span>
 
 <span class="co"># Plot, Create</span>
-<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df_Ellis</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Date.Time</span>, y<span class="op">=</span><span class="va">Water.Temp.C</span>, group<span class="op">=</span><span class="va">ID_Depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">ID_Depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html">scale_color_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="st">"reverse"</span><span class="op">)</span> <span class="op">+</span>
+<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df_Ellis</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Date.Time</span>, y <span class="op">=</span> <span class="va">Water.Temp.C</span>, group <span class="op">=</span> <span class="va">ID_Depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">ID_Depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html">scale_color_continuous</a></span><span class="op">(</span>trans <span class="op">=</span> <span class="st">"reverse"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html">scale_x_datetime</a></span><span class="op">(</span>date_labels <span class="op">=</span> <span class="st">"%Y-%m"</span><span class="op">)</span>
 
 <span class="co"># Plot, Show</span>
