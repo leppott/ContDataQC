@@ -72,5 +72,5 @@ myXlab <- "Temperature, Water (deg C)"
 # (output will default to working directory if not specified)
 CompSiteCDF(ParamName.xlab = myXlab
             , df.input = myDF
-            , myDir.output = tempdir())
+            , dir.output = tempdir())
 }
