@@ -54,18 +54,23 @@ equal to parameter values on the x-axis.
 myFile <- "CDF_WaterTemp_2014_MA.csv"
 # example file from ContDataQC library files
 myDir.input <- file.path(path.package("ContDataQC"),"extdata")
-myDir.output <- getwd()
+myDir.output <- tempdir()
 # X Label
 myXlab <- "Temperature, Water (deg C)"
 # Run the Function
-CompSiteCDF(file.input=myFile, dir.input=myDir.input
-           , dir.output=myDir.output, ParamName.xlab=myXlab)
+CompSiteCDF(file.input = myFile
+           , dir.input = myDir.input
+           , dir.output = myDir.output
+           , ParamName.xlab = myXlab)
 
 # Variant 2 (with Data Frame)
 # Load Data
 myDF <- data_CompSiteCDF
 # X Label
 myXlab <- "Temperature, Water (deg C)"
-# Run the Function (output will default to working directory)
-CompSiteCDF(ParamName.xlab=myXlab, df.input=myDF )
+# Run the Function
+# (output will default to working directory if not specified)
+CompSiteCDF(ParamName.xlab = myXlab
+            , df.input = myDF
+            , myDir.output = tempdir())
 }

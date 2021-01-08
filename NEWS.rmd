@@ -44,6 +44,14 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9059
+2021-01-08
+
+* chore: Update CompSite.CDF so does not save to working directory
+    + use tempdir in example and update code to use dir.output
+* style: Trim to 80 character lines
+    + fun.Helper.R
+
 ## v2.0.5.9058
 2021-01-08
 

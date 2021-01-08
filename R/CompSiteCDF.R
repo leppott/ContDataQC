@@ -40,37 +40,42 @@
 #' myFile <- "CDF_WaterTemp_2014_MA.csv"
 #' # example file from ContDataQC library files
 #' myDir.input <- file.path(path.package("ContDataQC"),"extdata")
-#' myDir.output <- getwd()
+#' myDir.output <- tempdir()
 #' # X Label
 #' myXlab <- "Temperature, Water (deg C)"
 #' # Run the Function
-#' CompSiteCDF(file.input=myFile, dir.input=myDir.input
-#'            , dir.output=myDir.output, ParamName.xlab=myXlab)
+#' CompSiteCDF(file.input = myFile
+#'            , dir.input = myDir.input
+#'            , dir.output = myDir.output
+#'            , ParamName.xlab = myXlab)
 #'
 #' # Variant 2 (with Data Frame)
 #' # Load Data
 #' myDF <- data_CompSiteCDF
 #' # X Label
 #' myXlab <- "Temperature, Water (deg C)"
-#' # Run the Function (output will default to working directory)
-#' CompSiteCDF(ParamName.xlab=myXlab, df.input=myDF )
+#' # Run the Function
+#' # (output will default to working directory if not specified)
+#' CompSiteCDF(ParamName.xlab = myXlab
+#'             , df.input = myDF
+#'             , myDir.output = tempdir())
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # # QC
 # myDF <- data_CompSiteCDF
 # myXlab <- "Temperature, Water (deg C)"
 # # file.input <- myFile
-# # dir.input <- myDir.input
+# # dir.input  <- myDir.input
 # # dir.output <- myDir.output
 # ParamName.xlab <- myXlab
 # df.input <- myDF
-# source(file.path(getwd(),"R","config.R"))
+# source(file.path(getwd(), "R", "config.R"))
 #
 # CompSiteCDF(ParamName.xlab = myXlab, df.input=myDF)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
-CompSiteCDF <- function(file.input=NULL
-                        , dir.input=getwd()
-                        , dir.output=getwd()
+CompSiteCDF <- function(file.input = NULL
+                        , dir.input = getwd()
+                        , dir.output = getwd()
                         , ParamName.xlab
                         , df.input = NULL){##FUNCTION.CompSiteCDF.START
   #
@@ -185,7 +190,13 @@ CompSiteCDF <- function(file.input=NULL
   myDate <- format(Sys.Date(),"%Y%m%d")
   myTime <- format(Sys.time(),"%H%M%S")
   strFile <- "CompSiteCDF_"
-  strFile.Out <- paste(paste("CompSiteCDF",myDate,myTime,sep=ContData.env$myDelim),"pdf",sep=".")
+  strFile.Out <- file.path(dir.output
+                           , paste(paste("CompSiteCDF"
+                                   , myDate
+                                   , myTime
+                                   , sep=ContData.env$myDelim)
+                           , "pdf"
+                           , sep="."))
   #
   # Plot and Save to PDF
   grDevices::pdf(file=strFile.Out, width=7, height=10)##PDF.START
@@ -247,7 +258,10 @@ CompSiteCDF <- function(file.input=NULL
   #~~~~~~~~~~~~~~~~
   #
   # Inform user that task is done
-  cat(paste0("PDF created; ",strFile.Out))
+  cat(paste0("PDF created:\n"
+             , dir.output
+             , "\n"
+             , basename(strFile.Out)))
   utils::flush.console()
   #
 } #end of function; ##FUNCTION.CompSiteCDF.END

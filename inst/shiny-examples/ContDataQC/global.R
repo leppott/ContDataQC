@@ -20,12 +20,12 @@ library(zip)
 # #access Window's zipping abilities
 # Sys.setenv(PATH = paste(Sys.getenv("PATH"), "C:\\Rtools\\bin", sep = ";"))
 
-#Maximum individual file size that can be uploaded is 35 MB
-options(shiny.maxRequestSize=70*1024^2)
+#Maximum individual file size that can be uploaded is 70 MB
+options(shiny.maxRequestSize = 70 * 1024^2)
 
 #Names the data template spreadsheet
-dataTemplate <- read.csv(file="continuous_data_template_2017_11_15.csv"
-                         , header=TRUE)
+dataTemplate <- read.csv(file = "continuous_data_template_2017_11_15.csv"
+                         , header = TRUE)
 
 #Extracts properties of the input spreadsheets
 fileParse <- function(inputFile) {
@@ -161,15 +161,20 @@ deleteFiles <- function(directory, inputFiles) {
 
   #Lists all the output csvs and QC Word documents on the server from QCRaw
   csvsOutputsToDelete <- list.files(path = directory
-                                    , pattern = "QC.*csv", full.names = TRUE)
+                                    , pattern = "QC.*csv"
+                                    , full.names = TRUE)
   htmlOutputsToDelete <- list.files(path = directory
-                                    , pattern = ".*html", full.names = TRUE)
+                                    , pattern = ".*html"
+                                    , full.names = TRUE)
   pdfOutputsToDelete <- list.files(path = directory
-                                   , pattern = ".*pdf", full.names = TRUE)
+                                   , pattern = ".*pdf"
+                                   , full.names = TRUE)
   logOutputsToDelete <- list.files(path = directory
-                                   , pattern = ".*tab", full.names = TRUE)
+                                   , pattern = ".*tab"
+                                   , full.names = TRUE)
   gageOutputsToDelete <- list.files(path = directory
-                                    , pattern = ".*Gage.*csv", full.names = TRUE)
+                                    , pattern = ".*Gage.*csv"
+                                    , full.names = TRUE)
   #inputsToDelete <- paste(directory, inputFiles, sep="/")
   inputsToDelete <- file.path(directory, inputFiles)
 
@@ -222,7 +227,7 @@ renameAggOutput <- function(directory, fileAttribsTable) {
   for (i in seq_len(length(csvInputs))){
     csvInputs.parts <- strsplit(csvInputs[i], myDelim)
     data.type.inputs.number <- which(csvInputs.parts[[1]] ==
-                                       fileAttribsTable[1,2]) + 1
+                                       fileAttribsTable[1, 2]) + 1
     data.type.inputs[i] <- csvInputs.parts[[1]][data.type.inputs.number]
   }
 
@@ -239,7 +244,8 @@ renameAggOutput <- function(directory, fileAttribsTable) {
      && minStartDate == maxStartDate
      && minEndDate == maxEndDate){
 
-    #Creates a data.frame for converting the input data types to the output data type
+    #Creates a data.frame for converting the input data types to the
+    #  output data type
     first.data.type <-      c("A",  "A",  "W",  "W",  "G",  "G",  "AW", "AW"
                               ,  "AG",  "WG",  "G",   "W",   "A")
     second.data.type <-     c("W",  "G",  "A",  "G",  "A",  "W",  "AW", "G"
@@ -255,14 +261,16 @@ renameAggOutput <- function(directory, fileAttribsTable) {
 
     #Finds the one row on the conversion data.frame that corresponds to
     # those data types
-    output.type <- as.character(data.type.conversion[intersect(type1, type2), 3])
+    output.type <- as.character(data.type.conversion[intersect(type1, type2)
+                                                     , 3])
 
     #Changes the data type in the output csv to the correct datatype
     csvOutput.data.type <- gsub(paste("_", data.type.inputs[1], "_", sep=""),
                                 paste("_", output.type, "_", sep=""),
                                 csvOutput)
 
-    #Sometimes the Aggregate process uses the second data type in its output name.
+    #Sometimes the Aggregate process uses the second data type in its output
+    # name.
     #This captures that eventuality.
     csvOutput.data.type <- gsub(paste("_", data.type.inputs[2], "_", sep=""),
                                 paste("_", output.type, "_", sep=""),
@@ -283,7 +291,8 @@ renameAggOutput <- function(directory, fileAttribsTable) {
                                 paste("_", output.type, "_", sep=""),
                                 htmlOutput)
 
-    #Sometimes the Aggregate process uses the second data type in its output name.
+    #Sometimes the Aggregate process uses the second data type in its output
+    # name.
     #This captures that eventuality.
     htmlOutput.data.type <- gsub(paste("_", data.type.inputs[2], "_", sep=""),
                                  paste("_", output.type, "_", sep=""),
@@ -305,7 +314,8 @@ renameAggOutput <- function(directory, fileAttribsTable) {
 
   }
 
-  #Changes the output file names if the input files are from different time periods
+  #Changes the output file names if the input files are from different time
+  # periods
   else {
 
     #Identifies the minimum and maximum dates in all input files
@@ -318,11 +328,12 @@ renameAggOutput <- function(directory, fileAttribsTable) {
     #The number of csv files input to the Aggregate step
     numFiles <- length(csvInputs)
 
-    #Determines how many characters should be removed from end of csv output name
-    #(through the (inaccurate) second date in the name, which is not the latest
-    #date of measurement)
+    #Determines how many characters should be removed from end of csv output
+    # name (through the (inaccurate) second date in the name, which is not the
+    # latest date of measurement)
     csvCharsToRemove <- 8+1+8+1+6+1+nchar(numFiles)+4
-    # date min (8) + sep (1) + date max (8) + sep (1) + append (6) + NumFiles + .ext (4)
+    # date min (8) + sep (1) + date max (8) + sep (1) + append (6) +
+    # NumFiles + .ext (4)
 
     #Removes the specified number of characters
     csvNewName <- substr(csvOutput, 0, nchar(csvOutput)-csvCharsToRemove)
@@ -359,25 +370,35 @@ nameParse <- function(strFile, process) {
 
   #Sets up the parsing
   myDelim <- "_"
-  strFile.Base <- substr(strFile,1,nchar(strFile)-nchar(".csv"))
+  strFile.Base <- substr(strFile, 1, nchar(strFile) - nchar(".csv"))
   strFile.parts <- strsplit(strFile.Base, myDelim)
 
-  #Parsing for the Aggregate step. Files being aggregated have "QC_" prepended.
+  #Parsing for the Aggregate step.
+  # Files being aggregated have "QC_" prepended.
   if (process == "Aggregate") {
     strFile.SiteID     <- strFile.parts[[1]][2]
     strFile.DataType   <- strFile.parts[[1]][3]
     # Convert Data Type to proper case
-    strFile.DataType <- paste(toupper(substring(strFile.DataType,1,1)),tolower(substring(strFile.DataType,2,nchar(strFile.DataType))),sep="")
+    strFile.DataType <- paste(toupper(substring(strFile.DataType,1,1))
+                              ,tolower(substring(strFile.DataType
+                                                 ,2
+                                                 ,nchar(strFile.DataType)))
+                              ,sep="")
     strFile.Date.Start <- as.Date(strFile.parts[[1]][4],"%Y%m%d")
     strFile.Date.End   <- as.Date(strFile.parts[[1]][5],"%Y%m%d")
   }
 
-  #Parsing for the SummaryStats step. Files being aggregated have "DATA_" prepended.
+  #Parsing for the SummaryStats step.
+  # Files being aggregated have "DATA_" prepended.
   else if (process == "SummaryStats") {
     strFile.SiteID     <- strFile.parts[[1]][3]
     strFile.DataType   <- strFile.parts[[1]][4]
     # Convert Data Type to proper case
-    strFile.DataType <- paste(toupper(substring(strFile.DataType,1,1)),tolower(substring(strFile.DataType,2,nchar(strFile.DataType))),sep="")
+    strFile.DataType <- paste(toupper(substring(strFile.DataType,1,1))
+                              ,tolower(substring(strFile.DataType
+                                                 ,2
+                                                 ,nchar(strFile.DataType)))
+                              ,sep="")
     strFile.Date.Start <- as.Date(strFile.parts[[1]][5],"%Y%m%d")
     strFile.Date.End   <- as.Date(strFile.parts[[1]][6],"%Y%m%d")
   }
@@ -387,12 +408,19 @@ nameParse <- function(strFile, process) {
     strFile.SiteID     <- strFile.parts[[1]][1]
     strFile.DataType   <- strFile.parts[[1]][2]
     # Convert Data Type to proper case
-    strFile.DataType <- paste(toupper(substring(strFile.DataType,1,1)),tolower(substring(strFile.DataType,2,nchar(strFile.DataType))),sep="")
+    strFile.DataType <- paste(toupper(substring(strFile.DataType,1,1))
+                              ,tolower(substring(strFile.DataType
+                                                 ,2
+                                                 ,nchar(strFile.DataType)))
+                              ,sep="")
     strFile.Date.Start <- as.Date(strFile.parts[[1]][3],"%Y%m%d")
     strFile.Date.End   <- as.Date(strFile.parts[[1]][4],"%Y%m%d")
   }
 
-  siteDF <- data.frame(strFile.SiteID, strFile.DataType, strFile.Date.Start, strFile.Date.End)
+  siteDF <- data.frame(strFile.SiteID
+                       , strFile.DataType
+                       , strFile.Date.Start
+                       , strFile.Date.End)
 
   return(siteDF)
 }
