@@ -6,7 +6,7 @@
 
 shinyUI(
   # VERSION ----
-  navbarPage("Continuous data QC, summary, and statistics - v2.0.5.9058",
+  navbarPage("Continuous data QC, summary, and statistics - v2.0.5.9061",
              theme= shinytheme("spacelab"), #also liked "cerulean" at https://rstudio.github.io/shinythemes/
             # tabPan, Site Intro ----
              tabPanel("Site introduction",
@@ -353,7 +353,7 @@ shinyUI(
                                h3("Custom QC thresholds", align = "Center"),
                                p("You can upload custom QC thresholds here.
                                  Please use",
-                                 a("this ", target="_blank", href="Config_R.zip"),
+                                 a("this ", target="_blank", href="Config.zip"),
                                  "configuration document as a template."),
                                p("Once you have made your changes to the configuration file, upload them below.
                                  You will have the option to return to the default configuration after you upload your custom file."),

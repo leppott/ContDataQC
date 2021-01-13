@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-01-08 14:59:58
+    #> Last Update: 2021-01-13 08:55:49
 
 # Planned Updates
 
@@ -35,23 +35,41 @@ NEWS-ContDataQC
 
 # Version History
 
+## v2.0.5.9063
+
+2021-01-13
+
+  - fix: Correct download of www/Config.zip
+  - fix: Replace uneeded concatenation without arguments
+      - Aquarius\_Data\_Acquisition\_PADEP
+  - style: Trim lines to 80 characters
+      - fun.Config.Out
+  - fix: Example output to tempdir() rather than getwd()
+      - fun.Config.Out
+
+## v2.0.5.9062
+
+2021-01-08
+
+  - refactor: Update version number display in Shiny app.
+
 ## v2.0.5.9061
 
 2021-01-08
 
-  - chore: Update formatHobo to output water level
+  - feature: Update formatHobo to output water level, Issue \#100
 
 ## v2.0.5.9060
 
 2021-01-08
 
-  - chore: Update CompSite.CDF 2nd example
+  - refactor: Update CompSite.CDF 2nd example
 
 ## v2.0.5.9059
 
 2021-01-08
 
-  - chore: Update CompSite.CDF so does not save to working directory
+  - fix: Update CompSite.CDF so does not save to working directory
       - use tempdir in example and update code to use dir.output
   - style: Trim to 80 character lines
       - fun.Helper.R
@@ -60,7 +78,7 @@ NEWS-ContDataQC
 
 2021-01-08
 
-  - chore: Modify LakeID\~Depth siteID to LakeID–Depth
+  - refactor: Modify LakeID\~Depth siteID to LakeID–Depth
       - File names with \~ are non-portable.
   - style: Trim to 80 characters.
       - Vignette\_Lakes
@@ -72,15 +90,16 @@ NEWS-ContDataQC
 
 2021-01-07
 
-  - chore: Modify formatHobo to use water level, issue \#100
+  - feature: Modify formatHobo to use water level, issue \#100
 
 ## v2.0.5.9056
 
 2021-01-07
 
-  - chore: Add water level as a parameter for QC checks, Issue \#100
-  - chore: Remove gage height as a parameter for QC checks, Issue \#100
-  - chore: Modify USGS download to change gage height to water level,
+  - feature: Add water level as a parameter for QC checks, Issue \#100
+  - refactor: Remove gage height as a parameter for QC checks, Issue
+    \#100
+  - feature: Modify USGS download to change gage height to water level,
     Issue \#100
       - Match HOBOware terminology (most of user base)
   - style: Trim lines to 80 characters
@@ -88,7 +107,7 @@ NEWS-ContDataQC
       - fun.GageData.R  
       - fun.Report.R
       - fun.Report.File.R
-  - chore: Update copies and version of config.R with edits, Issue \#100
+  - fix: Update copies and version of config.R with edits, Issue \#100
       - Package
           - data.R
           - inst.COOL
@@ -99,30 +118,30 @@ NEWS-ContDataQC
       - Shiny
           - www.R
           - www.zip
-  - chore: Update rmd files from GageHeight to WaterLevel
+  - feature: Update rmd files from GageHeight to WaterLevel
       - Report\_Config
       - Report\_QC
-  - chore: Copy RMD files from package directory to shiny
+  - refactor: Copy RMD files from package directory to shiny
   - refactor: Remove unneeded concatenation of a constant
       - server.R
       - Export.rlakeAnalyzer.R
-  - chore: Change Gage Height to Water Level, fun.QC
-  - chore: Add Water Level, fun.QC.File
-  - chore: Change getwd() to tempdir(), ContDataQC example
-  - chore: Update ContDataQC example
+  - feature: Change Gage Height to Water Level, fun.QC
+  - feature: Add Water Level, fun.QC.File
+  - refactor: Change getwd() to tempdir(), ContDataQC example
+  - refactor: Update ContDataQC example
       - getwd() to tempdir()
       - paste0() to file.path()
-  - chore: Fix typo in fun.Stats.File.R
+  - fix: Fix typo in fun.Stats.File.R
       - seq\_len(row… to seq\_len(nrow…
-  - chore: Remove use of installr package as is windows only
+  - refactor: Remove use of installr package as is windows only
       - Move example text to details of ContDataQC function
 
 ## v2.0.5.9055
 
 2021-01-04
 
-  - chore: Add config\_R.zip to shiny app in www folder
-  - chore: server.R update fun.myReport.format to "" from “html”
+  - refactor: Add config\_R.zip to shiny app in www folder
+  - refactor: server.R update fun.myReport.format to "" from “html”
 
 ## v2.0.5.9054
 
@@ -151,13 +170,13 @@ NEWS-ContDataQC
   - chore: Add to .Rbuildignore
       - data-raw folder
       - shiny rsconnect
-  - refactor: Add missing global variable bindings
+  - fix: Add missing global variable bindings
       - ContDataQC
       - fun.AggregateData
       - fun.Report
       - fun.Report.File
       - fun.Stats
-  - chore: README, replace failing license badge
+  - fix: README, replace failing license badge
 
 ## v2.0.5.9051
 
@@ -177,21 +196,21 @@ NEWS-ContDataQC
   - docs: DESCRIPTION, add reshape2 to Suggests
       - Only used in Export.rLakeAnalyzer
   - docs: Update license information
-  - chore: Export.IHA, Add missing parameter to function and update code
-  - refactor: Add foo:: to function calls where missing
+  - fix: Export.IHA, Add missing parameter to function and update code
+  - fix: Add foo:: to function calls where missing
       - fun.Helper
   - docs: CompSiteCDF, add missing argument to documentation.
   - docs: fun.ParseID, rename arugments so function and documentation
     match
   - docs: data.R, Add “data\_raw\_ECO66G12\_AW\_20160128\_20160418”
-  - chore: Export.IHA, fix argument name, myFile to fun.myFile
+  - fix: Export.IHA, fix argument name, myFile to fun.myFile
   - chore: CompSiteCDF, fix agument name, myFile to file.input
 
 ## v2.0.5.9049
 
 2020-12-28
 
-  - refactor: Add foo:: to function calls where missing
+  - fix: Add foo:: to function calls where missing
       - fun.QC.File
       - fun.PeriodStats
       - fun.QC.File
@@ -200,7 +219,7 @@ NEWS-ContDataQC
       - ProcessData\_PeriodSummary
       - ProcessData\_test2
       - ProcessData\_test4
-  - chore: ContDataQC example, comment out installr section.
+  - fix: ContDataQC example, comment out installr section.
 
 ## v2.0.5.9048
 

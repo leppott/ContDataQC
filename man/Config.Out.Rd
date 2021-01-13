@@ -12,22 +12,27 @@ Config.Out(
 )
 }
 \arguments{
-\item{fun.myConfig}{Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.}
+\item{fun.myConfig}{Configuration file to use for this data analysis.  The
+default is always loaded first so only "new" values need to be included.
+This is the easiest way to control time zones.}
 
-\item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+\item{fun.myDir.export}{Directory for export data.
+Default is current working directory.}
 
 \item{fun.myReport.format}{Report format (docx or html).  Default = html.}
 
-\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
+\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package
+rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
 }
 \value{
 Creates a report of the user provided configuration file.
-A copy of the configuration file is also generated with "Config_Out", date, and time as a prefix to the provided configuration file.
+A copy of the configuration file is also generated with "Config_Out", date,
+and time as a prefix to the provided configuration file.
 }
 \description{
 Function to output configuration settings to report.
 }
 \examples{
-# default outputs to working directory
-Config.Out()
+# default outputs to temp directory
+Config.Out(fun.myDir.export = tempdir())
 }

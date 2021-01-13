@@ -335,7 +335,8 @@ shinyServer(function(input, output, session) {
     #If a configuration file has been uploaded, the app uses it
     if (config_type == "uploaded") {
 
-      #Copies the uploaded configuration file from where it was uploaded to into the working directory.
+      #Copies the uploaded configuration file from where it was uploaded to
+      #                 into the working directory.
       #The config file must be in the working directory for this to work.
       copy.from2 <- file.path(input$configFile$datapath)
       #copy.to2 <- file.path(getwd(), input$configFile$name)

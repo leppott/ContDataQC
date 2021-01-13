@@ -24,7 +24,7 @@
 #
 library(RCurl)
 
-co<-c()
+co<-NULL # c()
 # Enter server and AQUARIUS username and password between the ''
 server<-''
 username<-''
