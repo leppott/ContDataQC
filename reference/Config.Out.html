@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9061</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9063</span>
       </span>
     </div>
 
@@ -147,11 +147,14 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>fun.myConfig</th>
-      <td><p>Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.</p></td>
+      <td><p>Configuration file to use for this data analysis.  The
+default is always loaded first so only "new" values need to be included.
+This is the easiest way to control time zones.</p></td>
     </tr>
     <tr>
       <th>fun.myDir.export</th>
-      <td><p>Directory for export data.  Default is current working directory.</p></td>
+      <td><p>Directory for export data.
+Default is current working directory.</p></td>
     </tr>
     <tr>
       <th>fun.myReport.format</th>
@@ -159,18 +162,20 @@
     </tr>
     <tr>
       <th>fun.myReport.Dir</th>
-      <td><p>Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.</p></td>
+      <td><p>Report (rmd) template folder.  Default is the package
+rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Creates a report of the user provided configuration file.
-A copy of the configuration file is also generated with "Config_Out", date, and time as a prefix to the provided configuration file.</p>
+A copy of the configuration file is also generated with "Config_Out", date,
+and time as a prefix to the provided configuration file.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># default outputs to working directory</span>
-<span class='fu'>Config.Out</span><span class='op'>(</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'># default outputs to temp directory</span>
+<span class='fu'>Config.Out</span><span class='op'>(</span>fun.myDir.export <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
