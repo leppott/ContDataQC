@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9063</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9064</span>
       </span>
     </div>
 
@@ -172,6 +172,11 @@ rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.</p></td>
     <p>Creates a report of the user provided configuration file.
 A copy of the configuration file is also generated with "Config_Out", date,
 and time as a prefix to the provided configuration file.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>When creating a custom config file the newenv() line must be commented out.
+Otherwise a second environment is created and will not be used during the
+operation of the functions in this package.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># default outputs to temp directory</span>
