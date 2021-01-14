@@ -47,6 +47,11 @@ cat(paste0("Last Update: ",Sys.time()))
 ## v2.0.5.9064
 2021-01-14
 
+* refactor: Update name of Config.zip to Config_Template.zip in shiny ui.R
+
+## v2.0.5.9064
+2021-01-14
+
 * refactor: Rename custom config and add instructions, Issue #104
     + Won't work if use newenv() within custom file
 * docs: Update text in config.out function about newenv()
