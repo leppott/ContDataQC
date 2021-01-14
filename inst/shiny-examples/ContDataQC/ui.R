@@ -6,7 +6,7 @@
 
 shinyUI(
   # VERSION ----
-  navbarPage("Continuous data QC, summary, and statistics - v2.0.5.9061",
+  navbarPage("Continuous data QC, summary, and statistics - v2.0.5.9063",
              theme= shinytheme("spacelab"), #also liked "cerulean" at https://rstudio.github.io/shinythemes/
             # tabPan, Site Intro ----
              tabPanel("Site introduction",
@@ -29,7 +29,7 @@ shinyUI(
                       br(),
                       p("NOTE: This website is under development. New versions will be released periodically.
                         E-mail the contacts at the bottom of this page for project updates.
-                        This website was last updated on 4/27/18."),
+                        This website was last updated on 2021-01-13."),
                       br(),
                       h4("Features of this website"),
                       p("Each feature below is described in more detail in the presentation found on the 'Instructions & interface' tab."),
@@ -102,7 +102,7 @@ shinyUI(
                         tags$a(href="https://github.com/dagibbs22/RShiny_RMN_QC_scripts/issues", "GitHub page.", target="_blank"),
                         "The R code underlying the data processing (package ContDataQC) was written by Erik Leppo at Tetra Tech, Inc.
                         The package is available for download from GitHub for running on your computer within R from ",
-                        tags$a(href="https://github.com/leppott/ContDataQC", "this GitHub page.", target="_blank"),
+                        tags$a(href="https://leppott.github.io/ContDataQC/", "this GitHub page.", target="_blank"),
                         "David Gibbs (ORISE fellow at the U.S. EPA) developed this website."),
                       br()
 
@@ -347,29 +347,33 @@ shinyUI(
                                ), ## sidebarPanel ~ END
 
                         mainPanel(
-                          tabsetPanel(type="tabs",
+                          tabsetPanel(type="tabs"
                                 ## _Adv Feat, Config ----
-                               tabPanel("Custom QC thresholds",
-                               h3("Custom QC thresholds", align = "Center"),
-                               p("You can upload custom QC thresholds here.
+                               , tabPanel("Custom QC thresholds"
+                               , h3("Custom QC thresholds", align = "Center")
+                               , p("You can upload custom QC thresholds here.
                                  Please use",
                                  a("this ", target="_blank", href="Config.zip"),
-                                 "configuration document as a template."),
-                               p("Once you have made your changes to the configuration file, upload them below.
-                                 You will have the option to return to the default configuration after you upload your custom file."),
-                               br(),
+                                 "configuration document as a template.")
+                               , p("Once you have made your changes to the configuration file, upload them below.
+                                 You will have the option to return to the default configuration after you upload your custom file.
+                                 Note that if the newenv() line (33) does not stay commented out it will not work.")
+                               , br()
                                #Tool tip code from https://stackoverflow.com/questions/16449252/tooltip-on-shiny-r
-                               tags$div(title="Select R configuration file to upload here",
+                               , tags$div(title="Select R configuration file to upload here",
 
                                         #Only allows R files to be imported
-                                        fileInput("configFile",label="Choose configuration file", multiple = FALSE, accept = ".R")
+                                        fileInput("configFile"
+                                                  , label = "Choose configuration file"
+                                                  , multiple = FALSE
+                                                  , accept = ".R")
                                )
 
-                               ,br()
-                               ,br()
+                               , br()
+                               , br()
 
                                #Only shows the "Default configuration" button after a user-selected file has been used
-                               ,tags$div(title="Click to use default configuration data",
+                               ,tags$div(title = "Click to use default configuration data",
                                          uiOutput('ui.defaultConfig')
                                )
                                ) ## tabPanel ~ QC ~ END

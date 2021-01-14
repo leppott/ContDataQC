@@ -334,7 +334,6 @@ shinyServer(function(input, output, session) {
 
     #If a configuration file has been uploaded, the app uses it
     if (config_type == "uploaded") {
-
       #Copies the uploaded configuration file from where it was uploaded to
       #                 into the working directory.
       #The config file must be in the working directory for this to work.
@@ -347,16 +346,17 @@ shinyServer(function(input, output, session) {
       #config <- file.path(getwd(), input$configFile$name)
       config <- file.path("data", input$configFile$name)
 
-    }
+    } else {
     #If no configuration file has been uploaded, the default is used
-    else {
+
 
       #Deletes the uploaded configuration file, if there is one
       #file.remove(file.path(getwd(), input$configFile$name))
       file.remove(file.path("data", input$configFile$name))
 
       # config <- system.file("extdata", "Config.COLD.R", package="ContDataQC")
-      config <- system.file("extdata", "Config.ORIG.R", package="ContDataQC")
+      #config <- system.file("extdata", "Config.ORIG.R", package="ContDataQC")
+      config <- file.path(".", "www", "Config.R")
 
     }## IF ~ config_type ~ END
 

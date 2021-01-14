@@ -32,6 +32,11 @@ and time as a prefix to the provided configuration file.
 \description{
 Function to output configuration settings to report.
 }
+\details{
+When creating a custom config file the newenv() line must be commented out.
+Otherwise a second environment is created and will not be used during the
+operation of the functions in this package.
+}
 \examples{
 # default outputs to temp directory
 Config.Out(fun.myDir.export = tempdir())

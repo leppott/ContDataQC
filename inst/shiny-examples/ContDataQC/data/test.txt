@@ -1,1 +1,1 @@
-x
+File is here to avoid an empty directory.

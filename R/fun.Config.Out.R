@@ -2,6 +2,10 @@
 #'
 #' Function to output configuration settings to report.
 #'
+#' When creating a custom config file the newenv() line must be commented out.
+#' Otherwise a second environment is created and will not be used during the
+#' operation of the functions in this package.
+#'
 #' @param fun.myConfig Configuration file to use for this data analysis.  The
 #' default is always loaded first so only "new" values need to be included.
 #' This is the easiest way to control time zones.

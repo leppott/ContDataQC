@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-01-13 08:55:49
+    #> Last Update: 2021-01-14 11:05:10
 
 # Planned Updates
 
@@ -29,11 +29,25 @@ NEWS-ContDataQC
       - More check data stuff.
       - Update vignette
       - Threshold number or pct on plot
-      - Excel file update (see 9/28 email)
+      - Excel file update (see 9/28/2017 email)
 
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9064
+
+2021-01-14
+
+  - refactor: Rename custom config and add instructions, Issue \#104
+      - Won’t work if use newenv() within custom file
+  - docs: Update text in config.out function about newenv()
+
+## v2.0.5.9063
+
+2021-01-13
+
+  - fix: Shiny app custom config not loading
 
 ## v2.0.5.9063
 
