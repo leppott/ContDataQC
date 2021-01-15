@@ -40,8 +40,9 @@
 
 
 <meta property="og:title" content="Aggregate Data Files — fun.AggregateData" />
-<meta property="og:description" content="Subfunction for aggregating or splitting data files.  Needs to be called from ContDataQC().
-Combines or splits files based on given data range.  Saves a new CSV in the export directory." />
+<meta property="og:description" content="Subfunction for aggregating or splitting data files.  Needs to be called from
+ContDataQC().  Combines or splits files based on given data range.  Saves a
+new CSV in the export directory." />
 
 
 
@@ -73,7 +74,7 @@ Combines or splits files based on given data range.  Saves a new CSV in the expo
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9065</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9066</span>
       </span>
     </div>
 
@@ -133,8 +134,9 @@ Combines or splits files based on given data range.  Saves a new CSV in the expo
     </div>
 
     <div class="ref-description">
-    <p>Subfunction for aggregating or splitting data files.  Needs to be called from ContDataQC().
-Combines or splits files based on given data range.  Saves a new CSV in the export directory.</p>
+    <p>Subfunction for aggregating or splitting data files.  Needs to be called from
+ContDataQC().  Combines or splits files based on given data range.  Saves a
+new CSV in the export directory.</p>
     </div>
 
     <pre class="usage"><span class='fu'>fun.AggregateData</span><span class='op'>(</span>
@@ -158,41 +160,52 @@ Combines or splits files based on given data range.  Saves a new CSV in the expo
     </tr>
     <tr>
       <th>fun.myData.Type</th>
-      <td><p>data type; c("Air","Water","AW","Gage","AWG","AG","WG")</p></td>
+      <td><p>data type;
+c("Air","Water","AW","Gage","AWG","AG","WG")</p></td>
     </tr>
     <tr>
       <th>fun.myData.DateRange.Start</th>
-      <td><p>Start date for requested data. Format = YYYY-MM-DD.</p></td>
+      <td><p>Start date for requested data.
+Format = YYYY-MM-DD.</p></td>
     </tr>
     <tr>
       <th>fun.myData.DateRange.End</th>
-      <td><p>End date for requested data. Format = YYYY-MM-DD.</p></td>
+      <td><p>End date for requested data.
+Format = YYYY-MM-DD.</p></td>
     </tr>
     <tr>
       <th>fun.myDir.import</th>
-      <td><p>Directory for import data.  Default is current working directory.</p></td>
+      <td><p>Directory for import data.
+Default is current working directory.</p></td>
     </tr>
     <tr>
       <th>fun.myDir.export</th>
-      <td><p>Directory for export data.  Default is current working directory.</p></td>
+      <td><p>Directory for export data.
+Default is current working directory.</p></td>
     </tr>
     <tr>
       <th>fun.myReport.format</th>
-      <td><p>Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.</p></td>
+      <td><p>Report format (docx or html).
+Default is specified in config.R (docx).  Can be customized in config.R;
+ContData.env$myReport.Format.</p></td>
     </tr>
     <tr>
       <th>fun.myReport.Dir</th>
-      <td><p>Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.</p></td>
+      <td><p>Report (rmd) template folder.
+Default is the package rmd folder.  Can be customized in config.R;
+ContData.env$myReport.Dir.</p></td>
     </tr>
     <tr>
       <th>fun.CreateReport</th>
-      <td><p>Boolean parameter to create reports or not.  Default = TRUE.</p></td>
+      <td><p>Boolean parameter to create reports or not.
+Default = TRUE.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a csv into the specified export directory with additional columns for calculated statistics.</p>
+    <p>Returns a csv into the specified export directory with additional
+columns for calculated statistics.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#Not intended to be accessed indepedant of function ContDataQC().</span>
