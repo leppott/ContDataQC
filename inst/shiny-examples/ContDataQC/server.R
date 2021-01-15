@@ -306,8 +306,9 @@ shinyServer(function(input, output, session) {
 
     #Shows the warning if there is more than one site input to Aggregate
     if(operation == "Aggregate" && siteNum != 1){
-      return(paste("WARNING: The spreadsheets you have selected for the aggregate process include more than one site.
-                   Please make sure all input spreadsheets are from the same site."))
+      return(paste("WARNING: The spreadsheets you have selected for the
+                   aggregate process include more than one site.  Please make
+                   sure all input spreadsheets are from the same site."))
     }
   })
 
@@ -483,20 +484,22 @@ shinyServer(function(input, output, session) {
       Sys.sleep(2)
 
       ## _appendfiles-agg ----
-      #Aggregating files requires having all the file names in a single string input for fun.myFile.
-      #Thus, all files selected to be aggregated have their names put into a string.
+      #Aggregating files requires having all the file names in a single string
+      # input for fun.myFile. Thus, all files selected to be aggregated have
+      # their names put into a string.
       if (operation == "Aggregate") {
 
         #Creates a vector of filenames
         fileNameVector <-  as.vector(UserFile_Name())
 
         #Changes the status bar to say that aggregation is occurring
-        incProgress(0, detail = paste("Aggregating ", length(fileNameVector), " files"))
+        incProgress(0, detail = paste("Aggregating "
+                                      , length(fileNameVector)
+                                      , " files"))
 
         #Saves the R console output of ContDataQC()
         consoleRow <- capture.output(
-
-                        #Runs aggregation part of ContDataQC() on the input files
+                        #Run aggregation part of ContDataQC() on the input files
                         ContDataQC(operation,
                         fun.myDir.import = file.path(".", "data"),
                         fun.myDir.export = file.path(".", "data"),

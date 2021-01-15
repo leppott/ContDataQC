@@ -1,7 +1,8 @@
 #' Aggregate Data Files
 #'
-#' Subfunction for aggregating or splitting data files.  Needs to be called from ContDataQC().
-#' Combines or splits files based on given data range.  Saves a new CSV in the export directory.
+#' Subfunction for aggregating or splitting data files.  Needs to be called from
+#' ContDataQC().  Combines or splits files based on given data range.  Saves a
+#' new CSV in the export directory.
 #
 # Sourced Routine
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -19,7 +20,8 @@
 # 20170116, EWL
 # added date & time QC
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# assumes use of CSV.  If using TXT have to modify list.files(pattern), read.csv(), and write.csv()
+# assumes use of CSV.  If using TXT have to modify list.files(pattern)
+#    , read.csv(), and write.csv()
 #
 # Basic Operations:
 # load all files in data directory
@@ -29,16 +31,27 @@
 # save
 # (repeats much of fun.QCauto)
 #' @param fun.myData.SiteID Station/SiteID.
-#' @param fun.myData.Type data type; c("Air","Water","AW","Gage","AWG","AG","WG")
-#' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
-#' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
-#' @param fun.myDir.import Directory for import data.  Default is current working directory.
-#' @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
-#' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
-#' @param fun.CreateReport Boolean parameter to create reports or not.  Default = TRUE.
+#' @param fun.myData.Type data type;
+#' c("Air","Water","AW","Gage","AWG","AG","WG")
+#' @param fun.myData.DateRange.Start Start date for requested data.
+#' Format = YYYY-MM-DD.
+#' @param fun.myData.DateRange.End End date for requested data.
+#' Format = YYYY-MM-DD.
+#' @param fun.myDir.import Directory for import data.
+#' Default is current working directory.
+#' @param fun.myDir.export Directory for export data.
+#' Default is current working directory.
+#' @param fun.myReport.format Report format (docx or html).
+#' Default is specified in config.R (docx).  Can be customized in config.R;
+#' ContData.env$myReport.Format.
+#' @param fun.myReport.Dir Report (rmd) template folder.
+#' Default is the package rmd folder.  Can be customized in config.R;
+#' ContData.env$myReport.Dir.
+#' @param fun.CreateReport Boolean parameter to create reports or not.
+#' Default = TRUE.
 #'
-#' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
+#' @return Returns a csv into the specified export directory with additional
+#' columns for calculated statistics.
 #'
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
@@ -48,11 +61,11 @@ fun.AggregateData <- function(fun.myData.SiteID
                              , fun.myData.Type
                              , fun.myData.DateRange.Start
                              , fun.myData.DateRange.End
-                             , fun.myDir.import=getwd()
-                             , fun.myDir.export=getwd()
+                             , fun.myDir.import = getwd()
+                             , fun.myDir.export = getwd()
                              , fun.myReport.format
                              , fun.myReport.Dir
-                             , fun.CreateReport=TRUE) {##FUN.fun.QCauto.START
+                             , fun.CreateReport = TRUE) {##FUN.fun.QCauto.START
   #
   # global variable bindings ----
   myName.DateTime <- myFormat.Time <- myName.Date <- myDelim <- NULL
@@ -74,8 +87,10 @@ fun.AggregateData <- function(fun.myData.SiteID
                            ,sep="")
   #
   # data directories
-  #myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="","",paste("/",fun.myDir.SUB.import,sep="")),sep="")
-  #myDir.data.export <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.export=="","",paste("/",fun.myDir.SUB.export,sep="")),sep="")
+  #myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="",""
+  #  ,paste("/",fun.myDir.SUB.import,sep="")),sep="")
+  #myDir.data.export <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.export=="",""
+  #   ,paste("/",fun.myDir.SUB.export,sep="")),sep="")
   myDir.data.import <- fun.myDir.import
   myDir.data.export <- fun.myDir.export
   #
@@ -84,12 +99,18 @@ fun.AggregateData <- function(fun.myData.SiteID
   #
   # Verify input dates, if blank, NA, or null use all data
   # if DateRange.Start is null or "" then assign it 1900-01-01
-  if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start==""){fun.myData.DateRange.Start<-ContData.env$DateRange.Start.Default}
+  if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start=="") {
+    fun.myData.DateRange.Start<-ContData.env$DateRange.Start.Default
+    }
   # if DateRange.End is null or "" then assign it today
-  if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End==""){fun.myData.DateRange.End<-ContData.env$DateRange.End.Default}
+  if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End=="") {
+    fun.myData.DateRange.End<-ContData.env$DateRange.End.Default
+    }
   #
-  # Read in list of files to work on, uses all files matching pattern ("\\.csv$")
-  # ## if change formats will have to make modifications (pattern, import, export)
+  # Read in list of files to work on, uses all files matching pattern
+  # ("\\.csv$")
+  # ## if change formats will have to make modifications
+  #  (pattern, import, export)
   files2process <- list.files(path=myDir.data.import, pattern=" *.csv")
   utils::head(files2process)
   #
@@ -148,14 +169,19 @@ fun.AggregateData <- function(fun.myData.SiteID
     strFile.SiteID     <- strFile.parts[[1]][2]
     strFile.DataType   <- strFile.parts[[1]][3]
     # Convert Data Type to proper case
-    strFile.DataType <- paste(toupper(substring(strFile.DataType,1,1)),tolower(substring(strFile.DataType,2,nchar(strFile.DataType))),sep="")
+    strFile.DataType <- paste(toupper(substring(strFile.DataType,1,1))
+                              ,tolower(substring(strFile.DataType
+                                                 ,2
+                                                 ,nchar(strFile.DataType)))
+                              ,sep="")
     strFile.Date.Start <- as.Date(strFile.parts[[1]][4],"%Y%m%d")
     strFile.Date.End   <- as.Date(strFile.parts[[1]][5],"%Y%m%d")
     #
     # 2. Check File and skip if doesn't match user defined parameters
     #
     # check vs. previous SiteID
-    # if not the same (i.e., False) then reset the FileTypeNum Counters, will create new blank data.append
+    # if not the same (i.e., False) then reset the FileTypeNum Counters,
+    #    will create new blank data.append
     if((strFile.SiteID==strFile.SiteID.Previous)!=TRUE){##IF.SiteID.START
       myFileTypeNum.Air <- 0
       myFileTypeNum.Water <- 0
@@ -237,8 +263,11 @@ fun.AggregateData <- function(fun.myData.SiteID
     #varSep = "\t" (use read.delim instead of read.table)
     # as.is = T so dates come in as text rather than factor
     #data.import <- utils::read.delim(strFile,as.is=TRUE,na.strings=c("","NA"))
-    #data.import <- utils::read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings=c("","NA"))
-    data.import <- utils::read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
+    #data.import <- utils::read.csv(paste(myDir.data.import,strFile,sep="/")
+    # ,as.is=TRUE,na.strings=c("","NA"))
+    data.import <- utils::read.csv(file.path(myDir.data.import,strFile)
+                                   ,as.is=TRUE
+                                   ,na.strings=c("","NA"))
     #
     # QC required fields: SiteID & (DateTime | (Date & Time))
     #fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
@@ -262,8 +291,10 @@ fun.AggregateData <- function(fun.myData.SiteID
 
     # 6.0. Filter data based on Date Range
     ## "subset" can have issues.  "with" doesn't seem work using variables for colnames.
-    data.subset <- data.import[data.import[,ContData.env$myName.Date]>=fun.myData.DateRange.Start
-                               & data.import[,ContData.env$myName.Date]<=fun.myData.DateRange.End,]
+    data.subset <- data.import[data.import[,ContData.env$myName.Date]>=
+                                 fun.myData.DateRange.Start
+                               & data.import[,ContData.env$myName.Date]<=
+                                 fun.myData.DateRange.End,]
     #
     # 7.0. Append Data
     # Append different based on the DataType
@@ -274,13 +305,27 @@ fun.AggregateData <- function(fun.myData.SiteID
     #
     # 7.1. Record number of Air or Water files have worked on
     # (set as zero before loop)
-    if(strFile.DataType=="Air"){myFileTypeNum.Air <- myFileTypeNum.Air + 1}
-    if(strFile.DataType=="Water"){myFileTypeNum.Water <- myFileTypeNum.Water + 1}
-    if(strFile.DataType=="Aw"){myFileTypeNum.AW <- myFileTypeNum.AW + 1}
-    if(strFile.DataType=="Gage"){myFileTypeNum.Gage <- myFileTypeNum.Gage +1}
-    if(strFile.DataType=="AwG"){myFileTypeNum.AW <- myFileTypeNum.AW + 1}
-    if(strFile.DataType=="AG"){myFileTypeNum.AW <- myFileTypeNum.AW + 1}
-    if(strFile.DataType=="WG"){myFileTypeNum.AW <- myFileTypeNum.AW + 1}
+    if(strFile.DataType=="Air") {
+      myFileTypeNum.Air <- myFileTypeNum.Air + 1
+      }
+    if(strFile.DataType=="Water"){
+      myFileTypeNum.Water <-myFileTypeNum.Water + 1
+      }
+    if(strFile.DataType=="Aw") {
+      myFileTypeNum.AW <- myFileTypeNum.AW + 1
+      }
+    if(strFile.DataType=="Gage") {
+      myFileTypeNum.Gage <- myFileTypeNum.Gage + 1
+      }
+    if(strFile.DataType=="AwG") {
+      myFileTypeNum.AW <- myFileTypeNum.AW + 1
+      }
+    if(strFile.DataType=="AG") {
+      myFileTypeNum.AW <- myFileTypeNum.AW + 1
+      }
+    if(strFile.DataType=="WG") {
+      myFileTypeNum.AW <- myFileTypeNum.AW + 1
+      }
     #
     # 7.2. If 1st file of either type then create empty data.Append
     if(strFile.DataType=="Air" & myFileTypeNum.Air==1) {
@@ -303,17 +348,17 @@ fun.AggregateData <- function(fun.myData.SiteID
       data.append <- data.frame(matrix(nrow=0,ncol=ncol(data.subset)))
       names(data.append) <- names(data.subset)
     }
-    if(strFile.DataType=="AWG" & myFileTypeNum.AWG==1) {
+    if(strFile.DataType=="Awg" & myFileTypeNum.AWG==1) {
       # Create empty data frame for Append file
       data.append <- data.frame(matrix(nrow=0,ncol=ncol(data.subset)))
       names(data.append) <- names(data.subset)
     }
-    if(strFile.DataType=="AG" & myFileTypeNum.AG==1) {
+    if(strFile.DataType=="Ag" & myFileTypeNum.AG==1) {
       # Create empty data frame for Append file
       data.append <- data.frame(matrix(nrow=0,ncol=ncol(data.subset)))
       names(data.append) <- names(data.subset)
     }
-    if(strFile.DataType=="WG" & myFileTypeNum.WG==1) {
+    if(strFile.DataType=="Wg" & myFileTypeNum.WG==1) {
       # Create empty data frame for Append file
       data.append <- data.frame(matrix(nrow=0,ncol=ncol(data.subset)))
       names(data.append) <- names(data.subset)
@@ -322,23 +367,41 @@ fun.AggregateData <- function(fun.myData.SiteID
     # 7.3. Append Subset to Append
     #data.append <- rbind(data.append,data.subset)
     # change to merge
-    data.append <- merge(data.append,data.subset,all=TRUE,sort=FALSE)
+    data.append <- merge(data.append, data.subset, all=TRUE, sort=FALSE)
     #
     # 8.0. Output file (only works if DataType is Air OR Water not both)
     # 8.1. Set Name
-    File.Date.Start <- format(as.Date(fun.myData.DateRange.Start,ContData.env$myFormat.Date),"%Y%m%d")
-    File.Date.End   <- format(as.Date(fun.myData.DateRange.End,ContData.env$myFormat.Date),"%Y%m%d")
+    File.Date.Start <- format(as.Date(fun.myData.DateRange.Start
+                                      ,ContData.env$myFormat.Date)
+                              ,"%Y%m%d")
+    File.Date.End   <- format(as.Date(fun.myData.DateRange.End
+                                      ,ContData.env$myFormat.Date)
+                              ,"%Y%m%d")
     strFile.Out.Prefix <- "DATA"
-    strFile.Out <- paste(paste(strFile.Out.Prefix, strFile.SiteID, strFile.DataType, File.Date.Start, File.Date.End, sep=ContData.env$myDelim),"csv",sep=".")
+    strFile.Out <- paste(paste(strFile.Out.Prefix
+                               , strFile.SiteID
+                               , strFile.DataType
+                               , File.Date.Start
+                               , File.Date.End
+                               , sep=ContData.env$myDelim)
+                         ,"csv"
+                         ,sep=".")
     # 8.2. Save to File the Append data (overwrites any existing file).
     #strFile.Out
     #   varSep <- "\t" #tab-delimited
-    #   write.table(data.append,file=strFile.Out,sep=varSep,quote=FALSE,row.names=FALSE,col.names=TRUE)
-    #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
+    #   write.table(data.append,file=strFile.Out,sep=varSep,quote=FALSE
+    # ,row.names=FALSE,col.names=TRUE)
+    #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop
+    # ," files complete.",sep=""))
     #flush.console()
-    #write.csv(data.append, file=paste(myDir.data.export,"/",strFile.Out,sep=""), quote=FALSE, row.names=FALSE)
-    utils::write.csv(data.append, file=file.path(myDir.data.export,strFile.Out), quote=FALSE, row.names=FALSE)
-    # saves but if gets another one in the time range it will append as append is recycled between loop iterations
+    #write.csv(data.append, file=paste(myDir.data.export,"/",strFile.Out,sep="")
+    # , quote=FALSE, row.names=FALSE)
+    utils::write.csv(data.append
+                     , file=file.path(myDir.data.export,strFile.Out)
+                     , quote=FALSE
+                     , row.names=FALSE)
+    # saves but if gets another one in the time range it will append as append
+    # is recycled between loop iterations
     # when gets a new data type it gets a new data.append
     # need trigger for different SiteID (won't combine across sites)
 
@@ -399,7 +462,9 @@ fun.AggregateData <- function(fun.myData.SiteID
 
   # Report2 ####
   # Run report on Aggregated file (20170607)
-  strFile.Out.NoPrefix <- substr(strFile.Out,nchar(strFile.Out.Prefix)+2,nchar(strFile.Out))
+  strFile.Out.NoPrefix <- substr(strFile.Out
+                                 ,nchar(strFile.Out.Prefix)+2
+                                 ,nchar(strFile.Out))
   if (fun.CreateReport==TRUE){##IF.CreateReport.START
     fun.Report.File(strFile.Out.NoPrefix
                     , fun.myDir.export
@@ -410,15 +475,40 @@ fun.AggregateData <- function(fun.myData.SiteID
   }##IF.CreateReport.START
 
   #
-  print(paste("Processing of ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
+  print(paste("Processing of "
+              ,intCounter
+              ," of "
+              ,intCounter.Stop
+              ," files complete."
+              ,sep=""))
   files2process[intCounter] #use for troubleshooting if get error
   # inform user task complete with status
   myTime.End <- Sys.time()
-  print(paste("Processing of items (n=",intItems.Total,") finished.  Total time = ",format(difftime(myTime.End,myTime.Start)),".",sep=""))
-  print(paste("Items COMPLETE = ",myItems.Complete,".",sep=""))
-  print(paste("Items SKIPPPED = ",myItems.Skipped,".",sep=""))
+  print(paste("Processing of items (n="
+              ,intItems.Total
+              ,") finished.  Total time = "
+              ,format(difftime(myTime.End,myTime.Start))
+              ,"."
+              ,sep=""))
+  print(paste("Items COMPLETE = "
+              ,myItems.Complete
+              ,"."
+              ,sep=""))
+  print(paste("Items SKIPPPED = "
+              ,myItems.Skipped
+              ,"."
+              ,sep=""))
   # User defined parameters
-  print(paste("User defined parameters: SiteID (",fun.myData.SiteID,"), Data Type (",fun.myData.Type,"), Date Range (",fun.myData.DateRange.Start," to ",fun.myData.DateRange.End,").",sep=""))
+  print(paste("User defined parameters: SiteID ("
+              ,fun.myData.SiteID
+              ,"), Data Type ("
+              ,fun.myData.Type
+              ,"), Date Range ("
+              ,fun.myData.DateRange.Start
+              ," to "
+              ,fun.myData.DateRange.End
+              ,")."
+              ,sep=""))
   utils::flush.console()
 
 
@@ -438,7 +528,8 @@ fun.AggregateData <- function(fun.myData.SiteID
 
 
   # Need to deal with overlapping data fields (gage and others) (merge only)
-  fun.merge <- function(fun.myPrefix.merge, fun.Name.myDF.1, fun.Name.myDF.2){##FUNCTION.fun.merge.START
+  fun.merge <- function(fun.myPrefix.merge, fun.Name.myDF.1, fun.Name.myDF.2) {
+    ##FUNCTION.fun.merge.START
     #
     #     # QC
     #     fun.myPrefix.merge <- myPrefix.merge
@@ -446,55 +537,93 @@ fun.AggregateData <- function(fun.myData.SiteID
     #     fun.Name.myDF.2    <- myDF.Name.2
     #
     # Load Files
-    #data.DF.1 <- utils::read.csv(paste(myDir.data.export,fun.Name.myDF.1,sep="/"),as.is=TRUE,na.strings=c("","NA"))
-    #data.DF.2 <- utils::read.csv(paste(myDir.data.export,fun.Name.myDF.2,sep="/"),as.is=TRUE,na.strings=c("","NA"))
-    data.DF.1 <- utils::read.csv(file.path(myDir.data.export,fun.Name.myDF.1),as.is=TRUE,na.strings=c("","NA"))
-    data.DF.2 <- utils::read.csv(file.path(myDir.data.export,fun.Name.myDF.2),as.is=TRUE,na.strings=c("","NA"))
+    #data.DF.1 <- utils::read.csv(paste(myDir.data.export,fun.Name.myDF.1
+    # ,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+    #data.DF.2 <- utils::read.csv(paste(myDir.data.export,fun.Name.myDF.2
+    # ,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+    data.DF.1 <- utils::read.csv(file.path(myDir.data.export,fun.Name.myDF.1)
+                                 ,as.is=TRUE
+                                 ,na.strings=c("","NA"))
+    data.DF.2 <- utils::read.csv(file.path(myDir.data.export,fun.Name.myDF.2)
+                                 ,as.is=TRUE
+                                 ,na.strings=c("","NA"))
     #
     # strip non file specific columns ????
-    # drop overlapping field names in data.DF.2 (typically the gage file) but keep DateTime
+    # drop overlapping field names in data.DF.2 (typically the gage file)
+    #  but keep DateTime
     names.match <- names(data.DF.2) %in% names(data.DF.1)
-    data.DF.2.mod <- data.DF.2[,c(myName.DateTime,names(data.DF.2)[names.match==FALSE])]
+    data.DF.2.mod <- data.DF.2[,c(myName.DateTime
+                                  ,names(data.DF.2)[names.match==FALSE])]
     # merge 1 and 2.mod
-    data.merge <- merge(data.DF.1,data.DF.2.mod,by=myName.DateTime,all=TRUE,sort=FALSE,suffixes="")
+    data.merge <- merge(data.DF.1,data.DF.2.mod,by=myName.DateTime
+                        ,all=TRUE
+                        ,sort=FALSE
+                        ,suffixes="")
     #
-    # reapply some fields since the merge as some files have differen number of rows and purged duplicate fields
-    # Date, Time, month, day (bring from fun.QC.R, change data.import to data.merge)
+    # reapply some fields since the merge as some files have different number of
+    # rows and purged duplicate fields
+    # Date, Time, month, day (bring from fun.QC.R, change data.import to
+    # data.merge)
     # 5.2.2. Update Date if NA (use Date_Time)
     myField   <- ContData.env$myName.Date
     myFormat  <- ContData.env$myFormat.Date #"%Y-%m-%d"
-    #   data.import[,myField][data.import[,myField]==""] <- strftime(data.import[,myName.DateTime][data.import[,myName.Date]==""]
-    #                                                               ,format=myFormat,usetz=FALSE)
-    data.merge[,myField][is.na(data.merge[,myField])] <- strftime(data.merge[,ContData.env$myName.DateTime][is.na(data.merge[,myField])]
-                                                                  ,format=myFormat,usetz=FALSE)
+    #   data.import[,myField][data.import[,myField]==""] <- strftime(data.import
+    # [,myName.DateTime][data.import[,myName.Date]==""]
+    #             ,format=myFormat,usetz=FALSE)
+    data.merge[,myField][is.na(data.merge[,myField])] <- strftime(data.merge[
+      ,ContData.env$myName.DateTime][is.na(data.merge[,myField])]
+      ,format=myFormat,usetz=FALSE)
     # 5.2.3. Update Time if NA (use Date_Time)
     myField   <- ContData.env$myName.Time
     myFormat  <- ContData.env$myFormat.Time #"%H:%M:%S"
-    #   data.import[,myField][data.import[,myField]==""] <- strftime(data.import[,myName.DateTime][data.import[,myName.Time]==""]
-    #                                                               ,format=myFormat,usetz=FALSE)
-    #     data.merge[,myField][is.na(data.merge[,myField])] <- as.POSIXct(data.merge[,myName.DateTime][is.na(data.merge[,myField])]
-    #                                                                      ,format=myFormat,usetz=FALSE)
+    #   data.import[,myField][data.import[,myField]==""] <- strftime(data.import
+    # [,myName.DateTime][data.import[,myName.Time]==""]
+    #                                       ,format=myFormat,usetz=FALSE)
+    #     data.merge[,myField][is.na(data.merge[,myField])] <- as.POSIXct(
+    # data.merge[,myName.DateTime][is.na(data.merge[,myField])]
+    #                     ,format=myFormat,usetz=FALSE)
     # update all time fields
-    data.merge[,myField] <- strftime(as.POSIXct(data.merge[,ContData.env$myName.DateTime],format=ContData.env$myFormat.DateTime,usetz=FALSE)
+    data.merge[,myField] <- strftime(as.POSIXct(data.merge[
+      ,ContData.env$myName.DateTime],format=ContData.env$myFormat.DateTime
+      ,usetz=FALSE)
                                      ,format=myFormat.Time,usetz=FALSE)
     #
     #
-    data.merge[,ContData.env$myName.Mo] <- as.POSIXlt(data.merge[,myName.Date])$mon+1
-    data.merge[,ContData.env$myName.Day] <- as.POSIXlt(data.merge[,myName.Date])$mday
+    data.merge[,ContData.env$myName.Mo] <- as.POSIXlt(data.merge[
+      ,myName.Date])$mon+1
+    data.merge[,ContData.env$myName.Day] <- as.POSIXlt(data.merge[
+      ,myName.Date])$mday
     # update SiteID
-    data.merge[,ContData.env$myName.SiteID][is.na(data.merge[,ContData.env$myName.SiteID])] <- fun.myData.SiteID
+    data.merge[,ContData.env$myName.SiteID][is.na(data.merge[
+      ,ContData.env$myName.SiteID])] <- fun.myData.SiteID
 
     # sort
     # not working in merge command
-    data.merge <- data.merge[order(data.merge[,ContData.env$myName.DateTime]),,drop=FALSE]
+    data.merge <- data.merge[order(data.merge[,ContData.env$myName.DateTime])
+                             ,,drop=FALSE]
 
 
     # save file
-    #File.Date.Start <- format(as.Date(fun.myData.DateRange.Start,myFormat.Date),"%Y%m%d")
-    #File.Date.End   <- format(as.Date(fun.myData.DateRange.End,myFormat.Date),"%Y%m%d")
-    #strFile.Out <- paste(myDir.data.export,paste(paste("DATA",fun.myData.SiteID,fun.myPrefix.merge,File.Date.Start,File.Date.End,sep=myDelim),"csv",sep="."),sep="/")
-    strFile.Out <- file.path(myDir.data.export,paste(paste("DATA",fun.myData.SiteID,fun.myPrefix.merge,File.Date.Start,File.Date.End,sep=myDelim),"csv",sep="."))
-    utils::write.csv(data.merge,file=strFile.Out,quote=FALSE,row.names=FALSE)
+    #File.Date.Start <- format(as.Date(fun.myData.DateRange.Start,myFormat.Date)
+    # ,"%Y%m%d")
+    #File.Date.End   <- format(as.Date(fun.myData.DateRange.End,myFormat.Date)
+    # ,"%Y%m%d")
+    #strFile.Out <- paste(myDir.data.export,paste(paste("DATA",fun.myData.SiteID
+    # ,fun.myPrefix.merge,File.Date.Start,File.Date.End,sep=myDelim),"csv"
+    # ,sep="."),sep="/")
+    strFile.Out <- file.path(myDir.data.export
+                             ,paste(paste("DATA"
+                                          ,fun.myData.SiteID
+                                          ,fun.myPrefix.merge
+                                          ,File.Date.Start
+                                          ,File.Date.End
+                                          ,sep=myDelim)
+                                    ,"csv"
+                                    ,sep="."))
+    utils::write.csv(data.merge
+                     ,file=strFile.Out
+                     ,quote=FALSE
+                     ,row.names=FALSE)
     # QC report (fails on render - lines 41-83 in rmd)
     #
 
@@ -503,8 +632,10 @@ fun.AggregateData <- function(fun.myData.SiteID
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #           fun.myData.SiteID           <- fun.myData.SiteID
 #           fun.myData.Type             <- fun.myPrefix.merge
-#           fun.myData.DateRange.Start  <- fun.myData.DateRange.Start #format(as.Date(File.Date.Start,"%Y%m%d"),"%Y-%m-%d")
-#           fun.myData.DateRange.End    <- fun.myData.DateRange.End #format(as.Date(File.Date.End,"%Y%m%d"),"%Y-%m-%d")
+#           fun.myData.DateRange.Start  <- fun.myData.DateRange.Start
+    # #format(as.Date(File.Date.Start,"%Y%m%d"),"%Y-%m-%d")
+#           fun.myData.DateRange.End    <- fun.myData.DateRange.End
+    # #format(as.Date(File.Date.End,"%Y%m%d"),"%Y-%m-%d")
 #           fun.myDir.BASE              <- fun.myDir.BASE
 #           fun.myDir.SUB.import        <- fun.myDir.SUB.export
 #           fun.myDir.SUB.export        <- fun.myDir.SUB.export
@@ -521,7 +652,11 @@ fun.AggregateData <- function(fun.myData.SiteID
                  ,"DATA")
     }##IF.CreateReport.START
     # inform user
-    print(paste("Done merging ",fun.myPrefix.merge," files; ",strFile.Out,sep=""))
+    print(paste("Done merging "
+                ,fun.myPrefix.merge
+                ," files; "
+                ,strFile.Out
+                ,sep=""))
     utils::flush.console()
     # remove files
     rm(data.DF.1)
@@ -546,8 +681,10 @@ fun.AggregateData <- function(fun.myData.SiteID
 
 
 
-  File.Date.Start <- strftime(as.Date(fun.myData.DateRange.Start,"%Y-%m-%d"),"%Y%m%d")
-  File.Date.End   <- strftime(as.Date(fun.myData.DateRange.End,"%Y-%m-%d"),"%Y%m%d")
+  File.Date.Start <- strftime(as.Date(fun.myData.DateRange.Start,"%Y-%m-%d")
+                              ,"%Y%m%d")
+  File.Date.End   <- strftime(as.Date(fun.myData.DateRange.End,"%Y-%m-%d")
+                              ,"%Y%m%d")
 
 
 
@@ -566,30 +703,88 @@ fun.AggregateData <- function(fun.myData.SiteID
   #
   # merge and save as BOTH (AW)
   #
-  # paste(paste("DATA",strFile.DataType,myData.SiteID,File.Date.Start,File.Date.End,sep="_"),"csv",sep=".")
+  # paste(paste("DATA",strFile.DataType,myData.SiteID,File.Date.Start
+  # ,File.Date.End,sep="_"),"csv",sep=".")
 
 
   # Check for all Data Type  files (Air, Water, AW, Gage, AWG, AG, WG)
   # had been using "proper" to get "Air" and "Water".  So AWG=Awg, AW=Aw, AG=Ag, and WG=Wg
   # 1
-  Name.File.Air <- paste(paste("DATA",fun.myData.SiteID,"Air",File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
+  Name.File.Air <- paste(paste("DATA"
+                               ,fun.myData.SiteID
+                               ,"Air"
+                               ,File.Date.Start
+                               ,File.Date.End
+                               ,sep=ContData.env$myDelim)
+                         ,"csv"
+                         ,sep=".")
   # 2
-  Name.File.Water <- paste(paste("DATA",fun.myData.SiteID,"Water",File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
+  Name.File.Water <- paste(paste("DATA"
+                                 ,fun.myData.SiteID
+                                 ,"Water"
+                                 ,File.Date.Start
+                                 ,File.Date.End
+                                 ,sep=ContData.env$myDelim)
+                           ,"csv"
+                           ,sep=".")
   # 3
-  Name.File.AW <- paste(paste("DATA",fun.myData.SiteID,"Aw",File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
+  Name.File.AW <- paste(paste("DATA"
+                              ,fun.myData.SiteID
+                              ,"Aw"
+                              ,File.Date.Start
+                              ,File.Date.End
+                              ,sep=ContData.env$myDelim)
+                        ,"csv"
+                        ,sep=".")
   # 4
-  Name.File.Gage <- paste(paste("DATA",fun.myData.SiteID,"Gage",File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
+  Name.File.Gage <- paste(paste("DATA"
+                                ,fun.myData.SiteID
+                                ,"Gage"
+                                ,File.Date.Start
+                                ,File.Date.End
+                                ,sep=ContData.env$myDelim)
+                          ,"csv"
+                          ,sep=".")
   # 5
-  Name.File.AWG <- paste(paste("DATA",fun.myData.SiteID,"Awg",File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
+  Name.File.AWG <- paste(paste("DATA"
+                               ,fun.myData.SiteID
+                               ,"Awg"
+                               ,File.Date.Start
+                               ,File.Date.End
+                               ,sep=ContData.env$myDelim)
+                         ,"csv"
+                         ,sep=".")
   # 6
-  Name.File.AG <- paste(paste("DATA",fun.myData.SiteID,"Ag",File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
+  Name.File.AG <- paste(paste("DATA"
+                              ,fun.myData.SiteID
+                              ,"Ag"
+                              ,File.Date.Start
+                              ,File.Date.End
+                              ,sep=ContData.env$myDelim)
+                        ,"csv"
+                        ,sep=".")
   # 7
-  Name.File.WG <- paste(paste("DATA",fun.myData.SiteID,"Wg",File.Date.Start,File.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
+  Name.File.WG <- paste(paste("DATA"
+                              ,fun.myData.SiteID
+                              ,"Wg"
+                              ,File.Date.Start
+                              ,File.Date.End
+                              ,sep=ContData.env$myDelim)
+                        ,"csv"
+                        ,sep=".")
   #
   #
-  files.ALL <- list.files(path=myDir.data.export, pattern=" *.csv")
-  files.mine <- c(Name.File.Air,Name.File.Water,Name.File.AW,Name.File.Gage,Name.File.AWG,Name.File.AG,Name.File.WG)
-  files.match <- files.mine %in% files.ALL # will be length 7 (length of files.mine)
+  files.ALL <- list.files(path=myDir.data.export
+                          , pattern=" *.csv")
+  files.mine <- c(Name.File.Air
+                  ,Name.File.Water
+                  ,Name.File.AW
+                  ,Name.File.Gage
+                  ,Name.File.AWG
+                  ,Name.File.AG
+                  ,Name.File.WG)
+  files.match <- files.mine %in% files.ALL # will be length 7
+  # (length of files.mine)
   files.match.num <- sum(files.match==TRUE)
   #
   # only continue if have more than one.
@@ -597,12 +792,14 @@ fun.AggregateData <- function(fun.myData.SiteID
 
 
   ###### 20160418
-  # manual combination of A/W/G (auto not working properly depending on sequence)
+  # manual combination of A/W/G (auto not working properly depending on
+  # sequence)
   #  fun.myData.Type
 
   if(fun.myData.Type=="Aw"){
     # Files = 1Air & 2Water = 3AW
-    if(files.match[1]==TRUE & files.match[2]==TRUE & files.match[3]==FALSE){##IF.files.AW.START
+    if(files.match[1]==TRUE & files.match[2]==TRUE & files.match[3]==FALSE) {
+      ##IF.files.AW.START
       #
       myPrefix.merge <- "Aw"
       myDF.Name.1 <- Name.File.Air
@@ -617,7 +814,8 @@ fun.AggregateData <- function(fun.myData.SiteID
   #
   if (fun.myData.Type=="Ag"){
     # Files = 1Air & 4Gage = 6AG
-    if(files.match[1]==TRUE & files.match[4]==TRUE & files.match[6]==FALSE){##IF.files.AG.START
+    if(files.match[1]==TRUE & files.match[4]==TRUE & files.match[6]==FALSE) {
+      ##IF.files.AG.START
       #
       myPrefix.merge <- "Ag"
       myDF.Name.1 <- Name.File.Air
@@ -632,7 +830,8 @@ fun.AggregateData <- function(fun.myData.SiteID
   #
   if (fun.myData.Type=="Awg"){
     # Files = 3AW & 4Gage = 5AWG
-    if(files.match[3]==TRUE & files.match[4]==TRUE & files.match[5]==FALSE){##IF.files.AWG.START
+    if(files.match[3]==TRUE & files.match[4]==TRUE & files.match[5]==FALSE) {
+      ##IF.files.AWG.START
       # Run Merge Twice (but AW already took care of 1st merge)
       # Merge 2
       myPrefix.merge <- "Awg"
@@ -648,7 +847,8 @@ fun.AggregateData <- function(fun.myData.SiteID
   #
   if(fun.myData.Type=="Wg"){
     # Files = 2Water & 4Gage = 7WG
-    if(files.match[2]==TRUE & files.match[4]==TRUE & files.match[7]==FALSE){##IF.files.WG.START
+    if(files.match[2]==TRUE & files.match[4]==TRUE & files.match[7]==FALSE) {
+      ##IF.files.WG.START
       #
       myPrefix.merge <- "Wg"
       myDF.Name.1 <- Name.File.Water
@@ -667,18 +867,23 @@ fun.AggregateData <- function(fun.myData.SiteID
   # 20151202
   # Quit if skipped = total
   if(myItems.Complete==0){##IF.items.START
-    myMsg <- "No files with the selected attributes available to perform selected procedure.  Check to make sure there are files that match your inputs (SiteID, DataType, and Date Range).  [This is a specific error message not an R error message]."
+    myMsg <- "No files with the selected attributes available to perform
+     selected procedure.  Check to make sure there are files that match your
+     inputs (SiteID, DataType, and Date Range).  [This is a specific error
+     message not an R error message]."
     stop(myMsg)
   }##IF.items.END
 
 
   # trigger above should have caught if zero files and ended there
   if (files.match.num==1){##IF.files.match.num.START
-    myMsg <- "No other data type files exist for this SiteID and Date Range.  No combining across data types is possible."
+    myMsg <- "No other data type files exist for this SiteID and Date Range.
+    No combining across data types is possible."
     # may want to continue so don't end
     print(myMsg) #stop(myMsg)
   } else { #should be if >1
-    myMsg <- "Files for multiple data types exist for this SiteID and Date Range.  These will be be combined:"
+    myMsg <- "Files for multiple data types exist for this SiteID and
+    Date Range.  These will be be combined:"
     # list out below
     print(myMsg)
     print(files.mine[files.match==TRUE])

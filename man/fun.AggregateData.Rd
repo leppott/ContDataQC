@@ -19,28 +19,40 @@ fun.AggregateData(
 \arguments{
 \item{fun.myData.SiteID}{Station/SiteID.}
 
-\item{fun.myData.Type}{data type; c("Air","Water","AW","Gage","AWG","AG","WG")}
+\item{fun.myData.Type}{data type;
+c("Air","Water","AW","Gage","AWG","AG","WG")}
 
-\item{fun.myData.DateRange.Start}{Start date for requested data. Format = YYYY-MM-DD.}
+\item{fun.myData.DateRange.Start}{Start date for requested data.
+Format = YYYY-MM-DD.}
 
-\item{fun.myData.DateRange.End}{End date for requested data. Format = YYYY-MM-DD.}
+\item{fun.myData.DateRange.End}{End date for requested data.
+Format = YYYY-MM-DD.}
 
-\item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
+\item{fun.myDir.import}{Directory for import data.
+Default is current working directory.}
 
-\item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+\item{fun.myDir.export}{Directory for export data.
+Default is current working directory.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.}
+\item{fun.myReport.format}{Report format (docx or html).
+Default is specified in config.R (docx).  Can be customized in config.R;
+ContData.env$myReport.Format.}
 
-\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
+\item{fun.myReport.Dir}{Report (rmd) template folder.
+Default is the package rmd folder.  Can be customized in config.R;
+ContData.env$myReport.Dir.}
 
-\item{fun.CreateReport}{Boolean parameter to create reports or not.  Default = TRUE.}
+\item{fun.CreateReport}{Boolean parameter to create reports or not.
+Default = TRUE.}
 }
 \value{
-Returns a csv into the specified export directory with additional columns for calculated statistics.
+Returns a csv into the specified export directory with additional
+columns for calculated statistics.
 }
 \description{
-Subfunction for aggregating or splitting data files.  Needs to be called from ContDataQC().
-Combines or splits files based on given data range.  Saves a new CSV in the export directory.
+Subfunction for aggregating or splitting data files.  Needs to be called from
+ContDataQC().  Combines or splits files based on given data range.  Saves a
+new CSV in the export directory.
 }
 \examples{
 #Not intended to be accessed indepedant of function ContDataQC().

@@ -273,9 +273,9 @@
 #'
 #' # 03.Alt. Aggregate Data
 #' myData.Operation <- "Aggregate" #Selection.Operation[3]
-#' myFile <- c("QC_test2_AW_20130426_20130725.csv"
-#'            , "QC_test2_AW_20130725_20131015.csv"
-#'            , "QC_test2_AW_20140901_20140930.csv")
+#' myFile <- c("QC_test2_Aw_20130426_20130725.csv"
+#'            , "QC_test2_Aw_20130725_20131015.csv"
+#'            , "QC_test2_Aw_20140901_20140930.csv")
 #' myDir.import <- file.path(myDir.BASE, "Data2_QC")
 #' myDir.export <- file.path(myDir.BASE, "Data3_Aggregated")
 #' myReport.format <- "html"

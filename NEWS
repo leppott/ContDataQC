@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-01-14 11:34:38
+    #> Last Update: 2021-01-15 15:59:45
 
 # Planned Updates
 
@@ -35,7 +35,19 @@ NEWS-ContDataQC
 
 # Version History
 
-## v2.0.5.9064
+## v2.0.5.9066
+
+2021-01-15
+
+  - refactor: Add ability to Shiny to handle DOCX files to
+    renameAggOutput in global.R
+  - docs: Remove docs folder for pkgdown site
+      - Using GitHub Actions to build pkgdown in a different branch
+  - style: Trim to 80 character lines
+      - zfun.AggregateData
+      - zfun.AggregateData.File
+
+## v2.0.5.9065
 
 2021-01-14
 

@@ -16,28 +16,37 @@ fun.AggregateData.File(
 \arguments{
 \item{fun.myFile}{Vector of file names.}
 
-\item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
+\item{fun.myDir.import}{Directory for import data.
+Default is current working directory.}
 
-\item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+\item{fun.myDir.export}{Directory for export data.
+Default is current working directory.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.}
+\item{fun.myReport.format}{Report format (docx or html).
+Default is specified in config.R (docx).  Can be customized in config.R;
+ContData.env$myReport.Format.}
 
-\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
+\item{fun.myReport.Dir}{Report (rmd) template folder.
+Default is the package rmd folder.  Can be customized in config.R;
+ContData.env$myReport.Dir.}
 
-\item{fun.CreateReport}{Boolean parameter to create reports or not.  Default = TRUE.}
+\item{fun.CreateReport}{Boolean parameter to create reports or not.
+Default = TRUE.}
 }
 \value{
-Returns a csv into the specified export directory of each file appended into a single file.
+Returns a csv into the specified export directory of each file
+appended into a single file.
 }
 \description{
-Subfunction for aggregating or splitting data files.  Needs to be called from ContDataQC().
-Combines (appends) all provided filesp.  Saves a new CSV in the export directory.
-The 'file' version works on a vector of files.
+Subfunction for aggregating or splitting data files.  Needs to be called from
+ContDataQC(). Combines (appends) all provided filesp.  Saves a new CSV in the
+export directory. The 'file' version works on a vector of files.
 }
 \examples{
 #Not intended to be accessed indepedant of function ContDataQC().
 myFile <- c("QC_test2_Aw_20130426_20130725.csv"
-            , "QC_test2_Aw_20130725_20131015.csv", "QC_test2_Aw_20140901_20140930.csv")
+            , "QC_test2_Aw_20130725_20131015.csv"
+            , "QC_test2_Aw_20140901_20140930.csv")
 myDir.import <- file.path(getwd(),"Data2_QC")
 myDir.export <- file.path(getwd(),"Data3_Aggregated")
 fun.AggregateData.File(myFile, myDir.import, myDir.export)

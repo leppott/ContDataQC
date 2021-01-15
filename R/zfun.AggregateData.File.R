@@ -1,8 +1,8 @@
 #' Aggregate Data Files, File
 #'
-#' Subfunction for aggregating or splitting data files.  Needs to be called from ContDataQC().
-#' Combines (appends) all provided filesp.  Saves a new CSV in the export directory.
-#' The 'file' version works on a vector of files.
+#' Subfunction for aggregating or splitting data files.  Needs to be called from
+#' ContDataQC(). Combines (appends) all provided filesp.  Saves a new CSV in the
+#' export directory. The 'file' version works on a vector of files.
 #
 # Sourced Routine
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -20,7 +20,8 @@
 # 20170116, EWL
 # added date & time QC
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# assumes use of CSV.  If using TXT have to modify list.files(pattern), read.csv(), and write.csv()
+# assumes use of CSV.  If using TXT have to modify list.files(pattern)
+# , read.csv(), and write.csv()
 #
 # Basic Operations:
 # load all files in data directory
@@ -30,18 +31,27 @@
 # save
 # (repeats much of fun.QCauto)
 #' @param fun.myFile Vector of file names.
-#' @param fun.myDir.import Directory for import data.  Default is current working directory.
-#' @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
-#' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
-#' @param fun.CreateReport Boolean parameter to create reports or not.  Default = TRUE.
+#' @param fun.myDir.import Directory for import data.
+#' Default is current working directory.
+#' @param fun.myDir.export Directory for export data.
+#' Default is current working directory.
+#' @param fun.myReport.format Report format (docx or html).
+#' Default is specified in config.R (docx).  Can be customized in config.R;
+#' ContData.env$myReport.Format.
+#' @param fun.myReport.Dir Report (rmd) template folder.
+#' Default is the package rmd folder.  Can be customized in config.R;
+#' ContData.env$myReport.Dir.
+#' @param fun.CreateReport Boolean parameter to create reports or not.
+#' Default = TRUE.
 #'
-#' @return Returns a csv into the specified export directory of each file appended into a single file.
+#' @return Returns a csv into the specified export directory of each file
+#' appended into a single file.
 #'
 #' @examples
 #' #Not intended to be accessed indepedant of function ContDataQC().
 #' myFile <- c("QC_test2_Aw_20130426_20130725.csv"
-#'             , "QC_test2_Aw_20130725_20131015.csv", "QC_test2_Aw_20140901_20140930.csv")
+#'             , "QC_test2_Aw_20130725_20131015.csv"
+#'             , "QC_test2_Aw_20140901_20140930.csv")
 #' myDir.import <- file.path(getwd(),"Data2_QC")
 #' myDir.export <- file.path(getwd(),"Data3_Aggregated")
 #' fun.AggregateData.File(myFile, myDir.import, myDir.export)
@@ -52,7 +62,8 @@
 # source(file.path(getwd(),"R","fun.Helper.R"))
 # #
 # myFile <- c("QC_test2_Aw_20130426_20130725.csv"
-#              , "QC_test2_Aw_20130725_20131015.csv", "QC_test2_Aw_20140901_20140930.csv")
+#              , "QC_test2_Aw_20130725_20131015.csv"
+#              , "QC_test2_Aw_20140901_20140930.csv")
 # myDir.import <- file.path(getwd(),"Data2_QC")
 # myDir.export <- file.path(getwd(),"Data3_Aggregated")
 # #
@@ -65,11 +76,12 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 fun.AggregateData.File <- function(fun.myFile
-                                  , fun.myDir.import=getwd()
-                                  , fun.myDir.export=getwd()
+                                  , fun.myDir.import = getwd()
+                                  , fun.myDir.export = getwd()
                                   , fun.myReport.format
                                   , fun.myReport.Dir
-                                  , fun.CreateReport=TRUE) {##FUN.fun.QCauto.START
+                                  , fun.CreateReport = TRUE) {
+  ##FUN.fun.QCauto.START
   #
   # Error Checking - only 1 SiteID and 1 DataType
   if(length(fun.myFile)==1){
@@ -82,11 +94,14 @@ fun.AggregateData.File <- function(fun.myFile
   # }
   #
   # Convert Data Type to proper case
-  # fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1)),tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
+  # fun.myData.Type <- paste(toupper(substring(fun.myData.Type,1,1))
+  # ,tolower(substring(fun.myData.Type,2,nchar(fun.myData.Type))),sep="")
   #
   # data directories
-  #myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="","",paste("/",fun.myDir.SUB.import,sep="")),sep="")
-  #myDir.data.export <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.export=="","",paste("/",fun.myDir.SUB.export,sep="")),sep="")
+  #myDir.data.import <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.import=="",""
+  # ,paste("/",fun.myDir.SUB.import,sep="")),sep="")
+  #myDir.data.export <- paste(fun.myDir.BASE,ifelse(fun.myDir.SUB.export=="",""
+  # ,paste("/",fun.myDir.SUB.export,sep="")),sep="")
   myDir.data.import <- fun.myDir.import
   myDir.data.export <- fun.myDir.export
   #
@@ -95,12 +110,16 @@ fun.AggregateData.File <- function(fun.myFile
   #
   # # Verify input dates, if blank, NA, or null use all data
   # # if DateRange.Start is null or "" then assign it 1900-01-01
-  # if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start==""){fun.myData.DateRange.Start<-ContData.env$DateRange.Start.Default}
+  # if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start=="")
+  # {fun.myData.DateRange.Start<-ContData.env$DateRange.Start.Default}
   # # if DateRange.End is null or "" then assign it today
-  # if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End==""){fun.myData.DateRange.End<-ContData.env$DateRange.End.Default}
+  # if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End=="")
+  # {fun.myData.DateRange.End<-ContData.env$DateRange.End.Default}
   # #
-  # Read in list of files to work on, uses all files matching pattern ("\\.csv$")
-  # ## if change formats will have to make modifications (pattern, import, export)
+  # Read in list of files to work on, uses all files matching pattern
+  #  ("\\.csv$")
+  # ## if change formats will have to make modifications
+  # (pattern, import, export)
   #files2process = list.files(path=myDir.data.import, pattern=" *.csv")
   files2process <- fun.myFile
   utils::head(files2process)
@@ -135,9 +154,44 @@ fun.AggregateData.File <- function(fun.myFile
 
   # File - file out (name after first file) 20170607
   strFile.Out.Prefix <- "DATA"
-  strFile.Out.Base <- substr(fun.myFile[1],1,nchar(fun.myFile[1])-nchar(".csv"))
-  strFile.Out <- paste(paste(strFile.Out.Prefix,strFile.Out.Base, "Append",intItems.Total, sep=ContData.env$myDelim),"csv",sep=".")
-  strFile.Out.NoPrefix <- paste(paste(strFile.Out.Base, "Append",intItems.Total, sep=ContData.env$myDelim),"csv",sep=".")
+  # FileName_New -----
+  # name with dates for min and max (2021-01-15)
+  #
+  # strFile.Out.Base <- substr(fun.myFile[1]
+  #                            ,1
+  #                            ,nchar(fun.myFile[1])-nchar(".csv"))
+  # strFile.Out <- paste(paste(strFile.Out.Prefix
+  #                            ,strFile.Out.Base
+  #                            , "Append"
+  #                            , intItems.Total
+  #                            , sep=ContData.env$myDelim)
+  #                      ,"csv"
+  #                      ,sep=".")
+  #
+  #
+  strFile_noext <- tools::file_path_sans_ext(files2process)
+  pat_dates <- "[0-9]{8}_[0-9]{8}"  # length = 17
+  pat_length <- 17
+  strFile_re_dates <- gregexpr(pat_dates, strFile_noext, perl = TRUE)
+  nchar_pat_start <- strFile_re_dates[[1]][1]
+  strFile_dates <- substr(strFile_noext
+                          , nchar_pat_start
+                          , nchar_pat_start + pat_length - 1)
+  vec_dates <- sort(unlist(strsplit(strFile_dates, "_")))
+  filedate_min <- vec_dates[1]
+  filedate_max <- vec_dates[length(vec_dates)]
+  filedate_replace <- paste0(filedate_min, "_", filedate_max)
+  strFile_NewBase <- sub(pat_dates, filedate_replace, strFile_noext[1])
+  strFile.Out <- paste(paste(strFile.Out.Prefix
+                             ,strFile_NewBase
+                             , sep=ContData.env$myDelim)
+                       ,"csv"
+                       ,sep=".")
+  strFile.Out.NoPrefix <- paste(paste(strFile_NewBase
+                                      , sep=ContData.env$myDelim)
+                                ,"csv"
+                                ,sep=".")
+  ## FileName_New ~ END
 
   # Start Time (used to determine run time at end)
   myTime.Start <- Sys.time()
@@ -181,14 +235,16 @@ fun.AggregateData.File <- function(fun.myFile
     # strFile.SiteID     <- strFile.parts[[1]][2]
     # strFile.DataType   <- strFile.parts[[1]][3]
     # # Convert Data Type to proper case
-    # strFile.DataType <- paste(toupper(substring(strFile.DataType,1,1)),tolower(substring(strFile.DataType,2,nchar(strFile.DataType))),sep="")
+    # strFile.DataType <- paste(toupper(substring(strFile.DataType,1,1))
+    # ,tolower(substring(strFile.DataType,2,nchar(strFile.DataType))),sep="")
     # strFile.Date.Start <- as.Date(strFile.parts[[1]][4],"%Y%m%d")
     # strFile.Date.End   <- as.Date(strFile.parts[[1]][5],"%Y%m%d")
     #
     # 2. Check File and skip if doesn't match user defined parameters
     #
     # check vs. previous SiteID
-    # if not the same (i.e., False) then reset the FileTypeNum Counters, will create new blank data.append
+    # if not the same (i.e., False) then reset the FileTypeNum Counters
+    # , will create new blank data.append
     # if((strFile.SiteID==strFile.SiteID.Previous)!=TRUE){##IF.SiteID.START
     #   myFileTypeNum.Air <- 0
     #   myFileTypeNum.Water <- 0
@@ -270,7 +326,9 @@ fun.AggregateData.File <- function(fun.myFile
     #varSep = "\t" (use read.delim instead of read.table)
     # as.is = T so dates come in as text rather than factor
     #data.import <- utils::read.delim(strFile,as.is=TRUE,na.strings=c("","NA"))
-    data.import <- utils::read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
+    data.import <- utils::read.csv(file.path(myDir.data.import,strFile)
+                                   ,as.is=TRUE
+                                   ,na.strings=c("","NA"))
     #
     # QC required fields: SiteID & (DateTime | (Date & Time))
     fun.QC.ReqFlds(names(data.import),file.path(myDir.data.import,strFile))
@@ -292,9 +350,12 @@ fun.AggregateData.File <- function(fun.myFile
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     # # 6.0. Filter data based on Date Range
-    # ## "subset" can have issues.  "with" doesn't seem work using variables for colnames.
-    # data.subset <- data.import[data.import[,ContData.env$myName.Date]>=fun.myData.DateRange.Start
-    #                            & data.import[,ContData.env$myName.Date]<=fun.myData.DateRange.End,]
+    # ## "subset" can have issues.  "with" doesn't seem work using variables for
+    # colnames.
+    # data.subset <- data.import[data.import[,ContData.env$myName.Date]>=
+    # fun.myData.DateRange.Start
+    #                            & data.import[,ContData.env$myName.Date]<=
+    # fun.myData.DateRange.End,]
     # #
     # 7.0. Append Data
     # Append different based on the DataType
@@ -306,7 +367,8 @@ fun.AggregateData.File <- function(fun.myFile
     # # 7.1. Record number of Air or Water files have worked on
     # # (set as zero before loop)
     # if(strFile.DataType=="Air"){myFileTypeNum.Air <- myFileTypeNum.Air + 1}
-    # if(strFile.DataType=="Water"){myFileTypeNum.Water <- myFileTypeNum.Water + 1}
+    # if(strFile.DataType=="Water"){myFileTypeNum.Water <- myFileTypeNum.Water +
+    # 1}
     # if(strFile.DataType=="Aw"){myFileTypeNum.AW <- myFileTypeNum.AW + 1}
     # if(strFile.DataType=="Gage"){myFileTypeNum.Gage <- myFileTypeNum.Gage +1}
     # if(strFile.DataType=="AwG"){myFileTypeNum.AW <- myFileTypeNum.AW + 1}
@@ -364,19 +426,28 @@ fun.AggregateData.File <- function(fun.myFile
     #
     # 8.0. Output file (only works if DataType is Air OR Water not both)
     # 8.1. Set Name
-    # File.Date.Start <- format(as.Date(fun.myData.DateRange.Start,ContData.env$myFormat.Date),"%Y%m%d")
-    # File.Date.End   <- format(as.Date(fun.myData.DateRange.End,ContData.env$myFormat.Date),"%Y%m%d")
+    # File.Date.Start <- format(as.Date(fun.myData.DateRange.Start
+    # ,ContData.env$myFormat.Date),"%Y%m%d")
+    # File.Date.End   <- format(as.Date(fun.myData.DateRange.End
+    # ,ContData.env$myFormat.Date),"%Y%m%d")
     # strFile.Out.Prefix <- "DATA"
-    # strFile.Out <- paste(paste(strFile.Out.Prefix, strFile.Base, "Aggregated", sep=ContData.env$myDelim),"csv",sep=".")
+    # strFile.Out <- paste(paste(strFile.Out.Prefix, strFile.Base, "Aggregated"
+    # , sep=ContData.env$myDelim),"csv",sep=".")
     # 8.2. Save to File the Append data (overwrites any existing file).
     #strFile.Out
     #   varSep <- "\t" #tab-delimited
-    #   write.table(data.append,file=strFile.Out,sep=varSep,quote=FALSE,row.names=FALSE,col.names=TRUE)
-    #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
+    #   write.table(data.append,file=strFile.Out,sep=varSep,quote=FALSE
+    # ,row.names=FALSE,col.names=TRUE)
+    #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop
+    # ," files complete.",sep=""))
     #flush.console()
-    #write.csv(data.append, file=paste(myDir.data.export,"/",strFile.Out,sep=""), quote=FALSE, row.names=FALSE)
-    utils::write.csv(data.append, file=file.path(myDir.data.export,strFile.Out), quote=FALSE, row.names=FALSE)
-    # saves but if gets another one in the time range it will append as append is recycled between loop iterations
+    #write.csv(data.append, file=paste(myDir.data.export,"/",strFile.Out,sep="")
+    # , quote=FALSE, row.names=FALSE)
+    utils::write.csv(data.append, file=file.path(myDir.data.export,strFile.Out)
+                     , quote=FALSE
+                     , row.names=FALSE)
+    # saves but if gets another one in the time range it will append as append
+    # is recycled between loop iterations
     # when gets a new data type it gets a new data.append
     # need trigger for different SiteID (won't combine across sites)
 
@@ -436,7 +507,8 @@ fun.AggregateData.File <- function(fun.myFile
 
   booDisableReport <- FALSE
   if (booDisableReport==TRUE) {##IF.boo.DisableReport.START
-    myMsg <- "The reporting feature is disabled at this time.  A future verison may re-enable it."
+    myMsg <- "The reporting feature is disabled at this time.
+    A future verison may re-enable it."
     cat(myMsg)
     utils::flush.console()
   } else if (booDisableReport==FALSE) {
@@ -452,15 +524,28 @@ fun.AggregateData.File <- function(fun.myFile
 
 
   #
-  print(paste("Processing of ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
+  print(paste("Processing of "
+              ,intCounter
+              ," of "
+              ,intCounter.Stop
+              ," files complete."
+              ,sep=""))
   files2process[intCounter] #use for troubleshooting if get error
   # inform user task complete with status
   myTime.End <- Sys.time()
-  print(paste("Processing of items (n=",intItems.Total,") finished.  Total time = ",format(difftime(myTime.End,myTime.Start)),".",sep=""))
+  print(paste("Processing of items (n="
+              ,intItems.Total
+              ,") finished.  Total time = "
+              ,format(difftime(myTime.End,myTime.Start))
+              ,"."
+              ,sep=""))
   print(paste("Items COMPLETE = ",myItems.Complete,".",sep=""))
   print(paste("Items SKIPPPED = ",myItems.Skipped,".",sep=""))
   # User defined parameters
-  print(paste("User defined parameters: File Output(",strFile.Out,").",sep=""))
+  print(paste("User defined parameters: File Output("
+              ,strFile.Out
+              ,")."
+              ,sep=""))
   utils::flush.console()
 
 

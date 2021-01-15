@@ -196,9 +196,10 @@ renameAggOutput <- function(directory, fileAttribsTable) {
   allFiles <- list.files(directory)
 
   #Creates vectors for the input and output files
-  csvInputs <- vector()
-  csvOutput <- vector()
+  csvInputs  <- vector()
+  csvOutput  <- vector()
   htmlOutput <- vector()
+  docxOutput <- vector()
 
   #Populates vectors for the input and output files if the input files are
   #output from the Aggregate process
@@ -206,6 +207,7 @@ renameAggOutput <- function(directory, fileAttribsTable) {
     csvInputs <- list.files(directory, pattern = "^DATA_QC.*csv")
     csvOutput <- list.files(directory, pattern = "DATA_DATA_QC.*csv")
     htmlOutput <- list.files(directory, pattern = "DATA_DATA_QC.*html")
+    docxOutput <- list.files(directory, pattern = "DATA_DATA_QC.*docx")
   }
 
   #Populates vectors for the input and output files if the input files are
@@ -215,10 +217,11 @@ renameAggOutput <- function(directory, fileAttribsTable) {
     csvInputs <- list.files(directory, pattern = "^QC.*csv")
     csvOutput <- list.files(directory, pattern = "DATA_QC.*csv")
     htmlOutput <- list.files(directory, pattern = "DATA_QC.*html")
-  }
+    docxOutput <- list.files(directory, pattern = "DATA_QC.*docx")
+  } ## IF ~ DATA_DATA ~ END
 
   #For parsing the file names
-  myDelim <- "_"
+  myDelim <- ContData.env$myDelim #"_"
 
   #Creates vector for storing the data types for the input files
   data.type.inputs <- vector()

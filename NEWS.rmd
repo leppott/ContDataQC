@@ -44,7 +44,20 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
-## v2.0.5.9064
+## v2.0.5.9066
+2021-01-15
+
+* refactor: Add ability to Shiny to handle DOCX files to renameAggOutput in 
+global.R
+* refactor: Redefine file name output for AggregateData.File
+    + Use input file names to get date range
+* docs: Remove docs folder for pkgdown site
+    + Using GitHub Actions to build pkgdown in a different branch
+* style: Trim to 80 character lines
+    + zfun.AggregateData
+    + zfun.AggregateData.File
+
+## v2.0.5.9065
 2021-01-14
 
 * refactor: Update name of Config.zip to Config_Template.zip in shiny ui.R
