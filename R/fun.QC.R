@@ -827,11 +827,19 @@ fun.QC <- function(fun.myData.SiteID
     #
     # B.4.0. Columns
     # B.4.1. Check for DataFields  (may have already been done)
-    myNames.DataFields.Present <- ContData.env$myNames.DataFields[ContData.env$myNames.DataFields %in% colnames(data.import)==TRUE]
+    colsDataFields_NoDiscrete <- ContData.env$myNames.DataFields[!grepl(
+      paste0("^", ContData.env$myPrefix.Discrete)
+      , ContData.env$myNames.DataFields
+      , perl = TRUE)]
+    cols2check <- c(colsDataFields_NoDiscrete
+                    , ContData.env$myNames.Flags)
+    myNames.DataFields.Present <- cols2check[cols2check %in%
+                                               colnames(data.import) == TRUE]
     # add Date.Time to names for modification
-    myNames.DataFields2Mod <- c(ContData.env$myName.DateTime, myNames.DataFields.Present)
+    myNames.DataFields2Mod <- c(ContData.env$myName.DateTime
+                                , myNames.DataFields.Present)
     #
-    # B.5.0. Add "RAW" and "Comment.MOD" fields
+    # B.5.0. Add "RAW" and "Comment.MOD" fields ----
     # default values
     myName.Raw <- "RAW"
     myName.Comment.Mod <- "Comment.MOD"

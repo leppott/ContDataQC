@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-01-18 08:16:01
+    #> Last Update: 2021-01-18 11:13:30
 
 # Planned Updates
 
@@ -34,6 +34,12 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9068
+
+2021-01-18
+
+  - refactor: Add “RAW” columns for flags in QC step Issue \#106
 
 ## v2.0.5.9067
 

@@ -496,8 +496,13 @@ ContData.env$myThresh.Flat.MaxComp    <- max(ContData.env$myThresh.Flat.Hi.Water
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Data Fields with Flags ####
 ContData.env$myName.Flag        <- "Flag" # flag prefix
-ContData.env$myNames.Cols4Flags <- c(ContData.env$myName.DateTime, ContData.env$myNames.DataFields)
-ContData.env$myNames.Flags      <- paste(ContData.env$myName.Flag, ContData.env$myNames.Cols4Flags, sep=".")  # define ones using in the calling script
+ContData.env$myNames.Cols4Flags <- c(ContData.env$myName.DateTime
+                                     , ContData.env$myNames.DataFields)
+ContData.env$myNames.Flags      <- paste(ContData.env$myName.Flag
+                                         , ContData.env$myNames.Cols4Flags
+                                         , sep=".")
+# define ones using in the calling script
+
 ## flag labels
 ContData.env$myName.Flag.DateTime     <- paste(ContData.env$myName.Flag
                                                , ContData.env$myName.DateTime
