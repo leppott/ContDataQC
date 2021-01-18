@@ -522,11 +522,13 @@ shinyServer(function(input, output, session) {
         Sys.sleep(2)
 
         #Names the single column of the R console output data.frame
-        colnames(console$disp) <- c(paste("R console messages for ", input$Operation))
+        colnames(console$disp) <- c(paste("R console messages for "
+                                          , input$Operation))
 
         #Renames the output aggregation files so that the "append_x" is replaced
         #with the ending date
-        aggRenamed <- renameAggOutput(file.path(".", "data"), fileAttribsFull())
+        #aggRenamed <- renameAggOutput(file.path(".", "data")
+        #                               , fileAttribsFull())
 
       }
 

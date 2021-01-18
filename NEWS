@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-01-15 15:59:45
+    #> Last Update: 2021-01-18 08:16:01
 
 # Planned Updates
 
@@ -35,12 +35,20 @@ NEWS-ContDataQC
 
 # Version History
 
+## v2.0.5.9067
+
+2021-01-18
+
+  - refactor: Shiny server, turn off renameAggOutput, Issue \#104
+
 ## v2.0.5.9066
 
 2021-01-15
 
   - refactor: Add ability to Shiny to handle DOCX files to
     renameAggOutput in global.R
+  - refactor: Redefine file name output for AggregateData.File
+      - Use input file names to get date range
   - docs: Remove docs folder for pkgdown site
       - Using GitHub Actions to build pkgdown in a different branch
   - style: Trim to 80 character lines
