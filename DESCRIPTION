@@ -1,6 +1,6 @@
 Package: ContDataQC
 Title: Quality Control (QC) of Continous Monitoring Data
-Version: 2.0.5.9068
+Version: 2.0.5.9069
 Authors@R: c(
 	person("Erik W", "Leppo", email="Erik.Leppo@tetratech.com",role=c("aut","cre")),
 	person("Ann","Roseberry Lincoln", role="ctb"),
@@ -25,17 +25,19 @@ Imports:
     zoo
 Suggests:
     IHA,
-    reshape2, 
+    reshape2,
     rLakeAnalyzer,
     rsconnect,
     shinyFiles,
     shinythemes,
     StreamThermal,
     XLConnect,
-    zip
+    zip,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Remotes: 
     tsangyp/StreamThermal,
     jasonelaw/iha
 StagedInstall: no
 RoxygenNote: 7.1.1
+Config/testthat/edition: 3

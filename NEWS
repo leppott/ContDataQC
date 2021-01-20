@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-01-18 11:13:30
+    #> Last Update: 2021-01-20 08:45:10
 
 # Planned Updates
 
@@ -34,6 +34,12 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9069
+
+2021-01-20
+
+  - tests: Add test for export\_rLakeAnalyzer
 
 ## v2.0.5.9068
 
