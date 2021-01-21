@@ -1,0 +1,1571 @@
+---
+title: "ContDataQC Vignette"
+author: "Erik W. Leppo"
+date: "`r Sys.Date()`"
+output: 
+rmarkdown::html_vignette:
+vignette: >
+  %\VignetteIndexEntry{ContDataQC_Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+`ContDataQC` was created by Tetra Tech, Inc. for USEPA in 2017 to meet the needs
+of the Regional Monitoring Networks to apply a minimum level of quality control 
+to the continuous monitoring data they were collecting.
+
+It is envisioned that this library can be a living package and will add 
+additional functions and routines in the future.
+
+Many of the examples in this vignette are included in the examples in the 
+corresponding functions.  Each function in the `ContDataQC` library includes 
+example data.
+
+The typical user of this package is envisioned as a user of Hobo or other 
+continuous data loggers.  Measured parameters are water temperature, sensor 
+depth, air temperature, water pressure, and air pressure.  The typical user will
+retrieve data from their data logger using Hoboware.  Once the data is extracted
+from the logger and save some minimal cleanup to the column heades is performed 
+before using the 'ContDataQC' R library.
+
+There is a configuration file (config.R) that allows for customization.
+
+# Installation
+The R library is saved on GitHub for ease of updating and distribution.  Issues 
+can be tracked, fixed, and code made available for download.  Current users can 
+update the library using the same code used to install the library (see below). 
+Devtools is required for the installation.
+
+```{r LoadPkg, eval=FALSE}
+install.packages("devtools")
+library(devtools)
+install_github("leppott/ContDataQC")
+```
+
+To contact the authors directly email 
+Erik.Leppo@tetratech.com or Jen.Stamp@tetratech.com.
+
+Occassionaly R does not import all of the necessary dependant libraries.  Below 
+is code to install all of the necessary libraries for using the ContDataQC 
+library.
+
+```{r LoadDependancies, eval=FALSE}
+# install all dependant libraries manually
+# libraries to be installed
+data.packages = c(
+                  "dataRetrieval"   # loads USGS data into R
+                  "zoo",
+                  "knitr",
+                  "survival",
+                  "doBy",
+                  "rmarkdown"
+                  )
+
+# install packages via a 'for' loop
+for (i in 1:length(data.packages)) {
+  #install.packages("doBy",dependencies=TRUE)
+  install.packages(data.packages[i])
+} # end loop
+
+print("Task complete.  Check statements above for errors.")
+
+```
+
+An additional dependancy that needs to be installed separately is Pandoc.  This 
+package is used to create the Reports.  See R code below to install Pandoc.  The 
+package 'installr' allows for installation in a single step.  If this doesn't 
+work you may need help from your IT department using the web links listed below. 
+For users of RStudio Pandoc installs with RStudio so no extra install is needed.
+
+In version 2.0.1.9048 (2017-11-16) of the `ContDataQC` package report format was 
+added as a variable.  The default is "html".  This can be changed in config.R. 
+If you do not have Pandoc installed the package will still work but the reports 
+in docx format will not be created (will show an error) unless you change the 
+format to "html".
+
+```{r LoadPandoc, eval=FALSE}
+# Install Pandoc (for docx Reports)
+# (if using recent version of RStudio do not have to install separately)
+install.packages("installr") # not needed if already have this package.
+require(installr)
+install.pandoc()
+# The above won't work if don't have admin rights on your computer.
+# Alternative = Download the file below and have your IT dept install for you.
+# https://github.com/jgm/pandoc/releases/download/1.16.0.2/pandoc-1.16.0.2-windows.msi
+# For help for installing via command window:
+# http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-prompt-in-windows/
+```
+
+During the summer of 2017 USGS changed their webservices from http to https.  
+This necessitated a change in the R library `dataRetrieval`.  As of the date of 
+this Vignette the 2.7.2 version of `dataRetrieval` on CRAN is not the most 
+current and fails when retrieving data inside of `ContDataQC`.  The error 
+statement is "Error in x[[1]] : subscript out of bounds".  If using the 
+GetGageData operation in the ContDataQC() function it is necessary to get the 
+most current version (>=2.7.3) of `dataRetrieval` (see code below).  The 
+`ContDataQC` library was tweaked on 11 September 2017 (version v2.0.1.9035) to 
+work with the revised version of `dataRetrieval` (v2.7.3).
+
+```{r LoadPkg_USGS, eval=FALSE}
+# inter-CRAN release hosted on USGS website
+install.packages("dataRetrieval", repos="https://owi.usgs.gov/R")
+# from GitHub
+# install.packages("devtools")
+# library(devtools)
+# install_github("USGS-R/dataRetrieval")
+```
+
+# Contents
+1. Preparing Raw Data
+
+2. ContDataQC Operations
+
+3. Other Features
+
+# Preparing Raw Data
+The `ContDataQC` library makes some assumptions on file names and structure.
+
+## File Names
+Should be of the format StationID_DataType_StartDate_EndDate.csv.  The delimiter
+between sections of the filename can be changed in config.R but not the order or
+the file type (csv).  Date formats in the files can be set with config.R but the
+date format in the filename must be in the format YYYYMMDD (no separators).
+
+Data types are Air, Water, Gage, and single letter combinations 
+(i.e., AW, AG, and WG).
+
+## File Structure
+The first line are the field (column) headers.  These can be set in config.R.
+
+# The ContDataQC Function
+The ContDataQC() function is the main focus of this library.  It is intended to 
+allow the user to perform multiple functions from a single command with different inputs.
+
+## Operations
+The operations of the ContDataQC() function are listed below but will be 
+explained in more detail in their own section.
+*GetGageData
+*QCRaw
+*Aggregate
+*SummaryStats
+
+The library assumes that there are the following folders in the 
+working directory:
+*Data0_Original
+*Data1_RAW
+*Data2_QC
+*Data3_Aggregated
+*Data4_Stats
+
+The folder "Data0_Original" is for the files exported from Hoboware (or other 
+data logger software).  These are the unedited files.
+
+The folder "Data1_RAW" is for the files exported from Hoboware (or other data 
+logger software).  This folder contains the files as input for the QC portion of
+the library.  These files may have been modified manually or with the formatHobo
+function.
+
+The folder "Data2_QC" is for the output of the QCRaw operation of the library 
+and the input for the Aggregate operation.
+
+The folder "Data3_Aggregated" is the output of the Aggregate operation and the 
+input for the Stats operation.
+
+The folder "Data4_Stats" is the output of the SummaryStats operation.
+
+For each operation associated with the ContDataQC() function a report is 
+generated as an MS Word DOCX file.
+
+The code below should be run before using the examples of each operation.  The 
+code below sets up the directories and some parameters for use in the later 
+code.
+
+```{r PkgVariables, eval=FALSE}
+# Parameters
+Selection.Operation <- c("GetGageData"
+                         , "QCRaw"
+                         , "Aggregate"
+                         , "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data0_Original"
+                   , "Data1_RAW"
+                   , "Data2_QC"
+                   , "Data3_Aggregated"
+                   , "Data4_Stats")
+(myDir.BASE <- tempdir()) # create and print temp directory for example data
+
+# Create data directories
+myDir.create <- file.path(myDir.BASE, Selection.SUB[1])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
+myDir.create <- file.path(myDir.BASE, Selection.SUB[2])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
+myDir.create <- file.path(myDir.BASE, Selection.SUB[3])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
+myDir.create <- file.path(myDir.BASE, Selection.SUB[4])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
+myDir.create <- file.path(myDir.BASE, Selection.SUB[5])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
+
+# Save example data (assumes myDir.BASE directory exists)
+myData <- data_raw_test2_AW_20130426_20130725
+  write.csv(myData, file.path(myDir.BASE
+                              , Selection.SUB[2]
+                              , "test2_AW_20130426_20130725.csv"))
+myData <- data_raw_test2_AW_20130725_20131015
+  write.csv(myData, file.path(myDir.BASE
+                              , Selection.SUB[2]
+                              , "test2_AW_20130725_20131015.csv"))
+myData <- data_raw_test2_AW_20140901_20140930
+  write.csv(myData, file.path(myDir.BASE
+                              , Selection.SUB[2]
+                              , "test2_AW_20140901_20140930.csv"))
+myData <- data_raw_test4_AW_20160418_20160726
+  write.csv(myData, file.path(myDir.BASE
+                              , Selection.SUB[2]
+                              , "test4_AW_20160418_20160726.csv"))
+myFile <- "config.TZ.Central.R"
+  file.copy(file.path(path.package("ContDataQC"), "extdata", myFile)
+            , file.path(myDir.BASE, Selection.SUB[2], myFile))
+```
+
+### GetGageData
+The GetGageData operation of the ContDataQC() function retrieves USGS gage data 
+based on user input.  Example code and console output is below.
+
+```{r GetGageData_base, echo=TRUE}
+library(ContDataQC)
+# Parameters
+Selection.Operation <- c("GetGageData"
+                         , "QCRaw"
+                         , "Aggregate"
+                         , "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data0_Original"
+                   , "Data1_RAW"
+                   , "Data2_QC"
+                   , "Data3_Aggregated"
+                   , "Data4_Stats")
+(myDir.BASE <- tempdir()) # create and print temp directory for example data
+# Get Gage Data
+myData.Operation       <- "GetGageData" #Selection.Operation[1]
+myData.SiteID          <- "01187300" # Hubbard River near West Hartland, CT
+myData.Type            <- Selection.Type[4] #"Gage"
+myData.DateRange.Start <- "2013-01-01"
+myData.DateRange.End   <- "2014-12-31"
+myDir.import           <- ""
+myDir.export           <- file.path(myDir.BASE, Selection.SUB[2])
+ContDataQC(myData.Operation
+           , myData.SiteID
+           , myData.Type
+           , myData.DateRange.Start
+           , myData.DateRange.End
+           , myDir.import
+           , myDir.export)
+```
+
+Example of getting gage data in a different time zone specified in user modified
+configuration file.
+
+```{r GetGageData_TZ, eval=FALSE}
+# Parameters
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data0_Original","Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.BASE <- getwd()
+# Get Gage Data (central time zone)
+myData.Operation       <- "GetGageData" #Selection.Operation[1]
+myData.SiteID          <- "07032000" # Mississippi River at Memphis, TN
+myData.Type            <- Selection.Type[4] #"Gage"
+myData.DateRange.Start <- "2013-01-01"
+myData.DateRange.End   <- "2014-12-31"
+myDir.import           <- ""
+myDir.export           <- file.path(myDir.BASE, Selection.SUB[2])
+# include path if not in working directory
+myConfig               <- file.path(myDir.BASE, Selection.SUB[2]
+                                    , "config.TZ.central.R")
+ContDataQC(myData.Operation
+           , myData.SiteID
+           , myData.Type
+           , myData.DateRange.Start
+           , myData.DateRange.End
+           , myDir.import
+           , myDir.export
+           , myConfig)
+```
+
+### QCRaw
+This is operation is the main focus of the `ContDataQC` library.  The raw 
+continuous data files are examined for multiple QC tests and the results saved 
+in a new data file (CSV) and a summary report (DOCX file) are generated.
+
+```{r QCRaw_base, eval=FALSE}
+# Parameters
+Selection.Operation <- c("GetGageData"
+                         , "QCRaw"
+                         , "Aggregate"
+                         , "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data0_Original"
+                   , "Data1_RAW"
+                   , "Data2_QC"
+                   , "Data3_Aggregated"
+                   , "Data4_Stats")
+(myDir.BASE <- tempdir()) # create and print temp directory for example data
+# QC Raw Data
+myData.Operation       <- "QCRaw" #Selection.Operation[2]
+myData.SiteID          <- "test2"
+myData.Type            <- Selection.Type[3] #"AW"
+myData.DateRange.Start <- "2013-01-01"
+myData.DateRange.End   <- "2014-12-31"
+myDir.import           <- file.path(myDir.BASE, Selection.SUB[2]) #"Data1_RAW"
+myDir.export           <- file.path(myDir.BASE, Selection.SUB[3]) #"Data2_QC"
+myReport.format        <- "docx"
+ContDataQC(myData.Operation
+           , myData.SiteID
+           , myData.Type
+           , myData.DateRange.Start
+           , myData.DateRange.End
+           , myDir.import
+           , myDir.export
+           , fun.myReport.format = myReport.format)
+```
+
+In some cases two sensors are used (one for air and one for water) and the 
+timing of the sampling is off between the two.  The library handles this fine.  
+Example data below.  For this example the report output was changed to "html".
+
+```{r QCRaw_timeoffset, eval=FALSE}
+# Parameters
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data0_Original","Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.BASE <- getwd()
+# QC Raw Data (offset collection times for air and water sensors)
+myData.Operation       <- "QCRaw" #Selection.Operation[2]
+myData.SiteID          <- "test4"
+myData.Type            <- Selection.Type[3] #"AW"
+myData.DateRange.Start <- "2016-04-28"
+myData.DateRange.End   <- "2016-07-26"
+myDir.import           <- file.path(myDir.BASE, Selection.SUB[2]) #"Data1_RAW"
+myDir.export           <- file.path(myDir.BASE, Selection.SUB[3]) #"Data2_QC"
+myReport.format        <- "html"
+ContDataQC(myData.Operation
+           , myData.SiteID
+           , myData.Type
+           , myData.DateRange.Start
+           , myData.DateRange.End
+           , myDir.import
+           , myDir.export
+           , fun.myReport.format = myReport.format)
+```
+
+### Aggregate
+After QC the files are ready for analysis.  The Aggregate operation allows the 
+user to combine (or split) files across time periods.  No report format was 
+specified so the default "docx" format will be generated.
+
+```{r Aggregate, eval=FALSE} 
+# Parameters
+Selection.Operation <- c("GetGageData"
+                         , "QCRaw"
+                         , "Aggregate"
+                         , "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data0_Original"
+                   , "Data1_RAW"
+                   , "Data2_QC"
+                   , "Data3_Aggregated"
+                   , "Data4_Stats")
+(myDir.BASE <- tempdir()) # create and print temp directory for example data
+# Aggregate Data
+myData.Operation       <- "Aggregate" #Selection.Operation[3]
+myData.SiteID          <- "test2"
+myData.Type            <- Selection.Type[3] #"AW"
+myData.DateRange.Start <- "2013-01-01"
+myData.DateRange.End   <- "2014-12-31"
+myDir.import           <- file.path(myDir.BASE, Selection.SUB[3]) #"Data2_QC"
+myDir.export           <- file.path(myDir.BASE, Selection.SUB[4]) #"Data3_Aggregated"
+#Leave off myReport.format and get default (docx).
+ContDataQC(myData.Operation
+           , myData.SiteID
+           , myData.Type
+           , myData.DateRange.Start
+           , myData.DateRange.End
+           , myDir.import
+           , myDir.export)
+```
+
+### SummaryStats
+The SummaryStats operation calculates a number of statistics on the data for 
+each sampling day.  No report format was specified so the default "docx" format 
+will be generated.
+
+```{r SummaryStats, eval=FALSE}
+# Parameters
+Selection.Operation <- c("GetGageData"
+                         , "QCRaw"
+                         , "Aggregate"
+                         , "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data0_Original"
+                   , "Data1_RAW"
+                   , "Data2_QC"
+                   , "Data3_Aggregated"
+                   , "Data4_Stats")
+(myDir.BASE <- tempdir()) # create and print temp directory for example data
+# Summary Stats
+myData.Operation       <- "SummaryStats" #Selection.Operation[4]
+myData.SiteID          <- "test2"
+myData.Type            <- Selection.Type[3] #"AW"
+myData.DateRange.Start <- "2013-01-01"
+myData.DateRange.End   <- "2014-12-31"
+myDir.import           <- file.path(myDir.BASE, Selection.SUB[4]) #"Data3_Aggregated"
+myDir.export           <- file.path(myDir.BASE, Selection.SUB[5]) #"Data4_Stats"
+#Leave off myReport.format and get default (docx).
+ContDataQC(myData.Operation
+           , myData.SiteID
+           , myData.Type
+           , myData.DateRange.Start
+           , myData.DateRange.End
+           , myDir.import
+           , myDir.export)
+```
+
+## Single File Versions of ContDataQC Operatations
+The base version of the ContDataQC() function searches the specified directories
+for files that match the data type and date range.  This set up does not work 
+for everyone.  Included in the `ContDataQC` package are "file" versions of the 
+same QCRaw, Aggregate, and SummaryStat functions.  These work on a vector of 
+file names (so multiple files can be processed this way).Different report 
+options are used in each example in the code below.
+
+```{r ContDataQC_FileVersions, eval=FALSE}
+#~~~~~~~~~~~~~~
+# File Versions
+#~~~~~~~~~~~~~~
+
+# QC Data
+myData.Operation <- "QCRaw" #Selection.Operation[2]
+#myFile <- "test2_AW_20130426_20130725.csv"
+myFile <- c("test2_AW_20130426_20130725.csv"
+           , "test2_AW_20130725_20131015.csv"
+           , "test2_AW_20140901_20140930.csv")
+myDir.import <- file.path(myDir.BASE, "Data1_RAW")
+myDir.export <- file.path(myDir.BASE, "Data2_QC")
+myReport.format <- "docx"
+ContDataQC(myData.Operation
+           , fun.myDir.import = myDir.import
+           , fun.myDir.export = myDir.export
+           , fun.myFile = myFile
+           , fun.myReport.format = myReport.format)
+
+# Aggregate Data
+myData.Operation <- "Aggregate" #Selection.Operation[3]
+myFile <- c("QC_test2_Aw_20130426_20130725.csv"
+           , "QC_test2_Aw_20130725_20131015.csv"
+           , "QC_test2_Aw_20140901_20140930.csv")
+myDir.import <- file.path(myDir.BASE, "Data2_QC")
+myDir.export <- file.path(myDir.BASE, "Data3_Aggregated")
+myReport.format <- "html"
+ContDataQC(myData.Operation
+           , fun.myDir.import = myDir.import
+           , fun.myDir.export = myDir.export
+           , fun.myFile = myFile
+           , fun.myReport.format = myReport.format)
+
+# Summary Stats
+myData.Operation <- "SummaryStats" #Selection.Operation[4]
+myFile <- "QC_test2_AW_20130426_20130725.csv"
+#myFile <- c("QC_test2_AW_20130426_20130725.csv"
+#            , "QC_test2_AW_20130725_20131015.csv"
+#            , "QC_test2_AW_20140901_20140930.csv")
+myDir.import <- file.path(myDir.BASE, "Data2_QC")
+myDir.export <- file.path(myDir.BASE, "Data4_Stats")
+#Leave off myReport.format and get default (docx).
+ContDataQC(myData.Operation
+           , fun.myDir.import = myDir.import
+           , fun.myDir.export = myDir.export
+           , fun.myFile = myFile)
+```
+
+## Other Features
+There are other features built into the `ContDataQC` library.  These are 
+outlined below.
+
+## Configuration File
+Through the use of a configuration file the user can change many of the 
+variables in the library (e.g., the names of fields, thresholds, and date 
+formats).
+
+The ContDataQC() function allows the user to input their own configuration file.
+Only variables that are different from the default need to be added.  That is, 
+the default configuration is loaded in the library and then the user supplied 
+configuration.  This allows the user configuration to overwrite the defaults for
+that session.
+
+The Config.out will output the contents of the configuration file as used by the 
+package and stored in the environment ContData.env.
+
+The contents of the configuration file (extdata/config.ORIG.R) are listed below.
+
+```{r Config, comment="", eval=TRUE, echo=FALSE}
+fn <- file.path(system.file("extdata", "config.ORIG.R", package="ContDataQC"))
+cat(readLines(fn), sep="\n")
+```
+
+## Period Stats
+The function PeriodStats() generates daily stats (N, mean, min, max, range, std 
+deviation) for the specified time period before a given date. Output is a 
+multiple column CSV (Date and Parameter Name by statistic) and a report (HTML or
+DOCX) with plots.
+
+The input is output of the QC function in ContDataQC. That is, a file with 
+SiteID, Date, Time, Date.Time, and parameters.
+
+To get different periods (30, 60, or 90 days) change function input 
+"fun.myPeriod.N". It is possible to provide a vector for Period.N and 
+Period.Units.
+
+The function returns a csv with daily means and a PDF summary with plots into 
+the specified export directory for the specified time period before the given 
+date.
+
+```{r PeriodStats, eval=FALSE}
+# Save example file
+df.x <- DATA_period_test2_Aw_20130101_20141231
+write.csv(df.x
+          , file.path(tempdir(), "DATA_period_test2_Aw_20130101_20141231.csv"))
+
+# function inputs
+myDate <- "2013-09-30"
+myDate.Format <- "%Y-%m-%d"
+myPeriod.N <- c(30, 60, 90, 120, 1)
+myPeriod.Units <- c("d", "d", "d", "d", "y")
+myFile <- "DATA_period_test2_Aw_20130101_20141231.csv"
+myDir.import <- tempdir()
+myDir.export <- tempdir()
+myParam.Name <- "Water.Temp.C"
+myDateTime.Name <- "Date.Time"
+myDateTime.Format <- "%Y-%m-%d %H:%M:%S"
+myThreshold <- 20
+myConfig <- ""
+myReport.format <- "docx"
+
+# Run Function
+## default report format (html)
+PeriodStats(myDate
+          , myDate.Format
+          , myPeriod.N
+          , myPeriod.Units
+          , myFile
+          , myDir.import
+          , myDir.export
+          , myParam.Name
+          , myDateTime.Name
+          , myDateTime.Format
+          , myThreshold
+          , myConfig)
+```
+
+## Export for IHA
+The function Export.IHA() allows for the formatting of data for use with the 
+Nature Conservancy's IHA program as converted to R.
+
+https://www.conservationgateway.org/ConservationPractices/Freshwater/EnvironmentalFlows/MethodsandTools/IndicatorsofHydrologicAlteration/Pages/indicators-hydrologic-alt.aspx
+
+https://github.com/jasonelaw/iha
+
+```{r IHA_dataprep, eval=FALSE}
+# 1.  Get Gage Data
+#
+# 1.A. Use ContDataQC and Save (~1min for download)
+myData.Operation    <- "GetGageData" #Selection.Operation[1]
+myData.SiteID       <- "01187300" # Hubbard River near West Hartland, CT
+myData.Type         <- "Gage"
+myData.DateRange.Start  <- "2015-01-01"
+myData.DateRange.End    <- "2016-12-31"
+myDir.import <- tempdir()
+myDir.export <- tempdir()
+ContDataQC(myData.Operation
+           , myData.SiteID
+           , myData.Type
+           , myData.DateRange.Start
+           , myData.DateRange.End
+           , myDir.import
+           , myDir.export)
+#
+# 1.B. Use saved data
+#myData.SiteID   <- "01187300"
+myFile <- "01187300_Gage_20150101_20161231.csv"
+myCol.DateTime <- "Date.Time"
+myCol.Discharge <- "Discharge.ft3.s"
+#
+# 2. Prep Data
+myData.IHA <- Export.IHA(fun.myFile = myFile
+                         , fun.myDir.import = tempdir()
+                         , fun.myDir.export = tempdir()
+                         , fun.myCol.DateTime = myCol.DateTime
+                         , fun.myCol.Parameter = myCol.Discharge
+                         )
+```
+
+The example code below runs the data (generated above) through IHA package.  
+This example makes use of the `XLConnect` R library to save the IHA output into 
+a single Excel file.  Before running the IHA code the `IHA` and `XLConnect` 
+packages need to be installed.  The `devtools` package allows for easy 
+installation from GitHub (where the IHA package resides).
+
+```{r IHA_getPkg, eval=FALSE}
+# Install Libraries (if needed)
+install.packages("devtools")
+library(devtools)
+install_github("jasonelaw/IHA")
+install.packages("XLConnect")
+```
+
+IHA example code below that uses the IHA.Export file and produces an Excel file 
+of the IHA output.
+
+```{r IHA_run_ExcelSave, eval=FALSE}
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 3. Run IHA
+# Example using returned DF with IHA
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# User info
+SiteID <- myData.SiteID
+Notes.User <- Sys.getenv("USERNAME")
+#~~~~~
+# Library (load)
+require(IHA)
+require(XLConnect)
+#~~~~~
+# IHA
+myYr <- "calendar" # "water" or "calendar"
+# IHA Metrics
+## IHA parameters group 1; Magnitude of monthly water conditions
+Analysis.Group.1 <- group1(myData.IHA, year=myYr)
+## IHA parameters group 2: Magnitude of monthly water condition and include 12 parameters
+Analysis.Group.2 <- group2(myData.IHA, year=myYr)
+Analysis.Group.3 <- group3(myData.IHA, year=myYr)
+## IHA parameters group 4; Frequency and duration of high and low pulses
+# defaults to 25th and 75th percentiles
+Analysis.Group.4 <- group4(myData.IHA, year=myYr)
+## IHA parameters group 5; Rate and frequency of water condition changes
+Analysis.Group.5 <- group5(myData.IHA, year=myYr)
+#~~~~~
+# Save Results to Excel (each group on its own worksheet)
+Group.Desc <- c("Magnitude of monthly water conditions"
+                ,"Magnitude of monthly water condition and include 12 parameters"
+                ,"Timing of annual extreme water conditions"
+                ,"Frequency and duration of high and low pulses"
+                ,"Rate and frequency of water condition changes")
+df.Groups <- as.data.frame(cbind(paste0("Group",1:5),Group.Desc))
+#
+myDate <- format(Sys.Date(),"%Y%m%d")
+myTime <- format(Sys.time(),"%H%M%S")
+# Notes section (add min/max dates)
+Notes.Names <- c("Dataset (SiteID)","IHA.Year","Analysis.Date (YYYYMMDD)","Analysis.Time (HHMMSS)","Analysis.User")
+Notes.Data <- c(SiteID, myYr, myDate, myTime, Notes.User)
+df.Notes <- as.data.frame(cbind(Notes.Names,Notes.Data))
+Notes.Summary <- summary(myData.IHA)
+# Open/Create file
+myFile.XLSX <- paste("IHA", SiteID, myYr, myDate, myTime, "xlsx", sep=".")
+wb <- loadWorkbook(myFile.XLSX, create = TRUE) # load workbook, create if not existing
+# create sheets
+createSheet(wb, name = "NOTES")
+createSheet(wb, name = "Group1")
+createSheet(wb, name = "Group2")
+createSheet(wb, name = "Group3")
+createSheet(wb, name = "Group4")
+createSheet(wb, name = "Group5")
+# write to worksheet
+writeWorksheet(wb, df.Notes, sheet = "NOTES", startRow=1)
+writeWorksheet(wb, Notes.Summary, sheet = "NOTES", startRow=10)
+writeWorksheet(wb, df.Groups, sheet="NOTES", startRow=25)
+writeWorksheet(wb, Analysis.Group.1, sheet = "Group1")
+writeWorksheet(wb, Analysis.Group.2, sheet = "Group2")
+writeWorksheet(wb, Analysis.Group.3, sheet = "Group3")
+writeWorksheet(wb, Analysis.Group.4, sheet = "Group4")
+writeWorksheet(wb, Analysis.Group.5, sheet = "Group5")
+# save workbook
+saveWorkbook(wb, myFile.XLSX)
+```
+
+## Rarify Taxa Data
+At times benthic samples include more individuals than the target number or when
+combining data from multiple programs it is necessary to subsample all samples 
+down to a common number.  The rarify funtion is part of the RIVPACS set of R 
+scripts written by USEPA Corvallis.  The rarify function is in the package 
+BioMonTools.  The example below is from the help file from that package.  The 
+BioMonTools package should install with the ContDataQC package. 
+
+https://github.com/leppott/BioMonTools
+
+The function takes a three column data frame (SampleID, TaxonID, Count) and 
+returns a similar dataframe with revised Counts.
+
+```{r RarifyTaxa, eval=FALSE}
+# library(BioMonTools)
+
+# Subsample to 500 organisms (from over 500 organisms) for 12 samples.
+
+# load bio data
+df_biodata <- data_bio2rarify
+dim(df_biodata)
+View(df_biodata)
+
+# subsample
+mySize <- 500
+Seed_OR <- 18590214
+Seed_WA <- 18891111
+Seed_US <- 17760704
+bugs_mysize <- BioMonTools::rarify(inbug=df_biodata, sample.ID="SampleID"
+                     ,abund="N_Taxa",subsiz=mySize, mySeed=Seed_US)
+
+# view results
+dim(bugs_mysize)
+View(bugs_mysize)
+
+# Compare pre- and post- subsample counts
+df_compare <- merge(df_biodata, bugs_mysize, by=c("SampleID", "TaxaID")
+                    , suffixes = c("_Orig","_500"))
+df_compare <- df_compare[,c("SampleID", "TaxaID", "N_Taxa_Orig", "N_Taxa_500")]
+View(df_compare)
+
+# compare totals
+tbl_totals <- aggregate(cbind(N_Taxa_Orig, N_Taxa_500) ~ SampleID, df_compare, sum)
+View(tbl_totals)
+
+## Not run: 
+# save the data
+write.table(bugs_mysize, paste("bugs",mySize,"txt",sep="."),sep="\t")
+## End(Not run)
+```
+
+## Visualization of Daily Means
+An Excel file is included in the \extdata folder of the library that allows for 
+the plotting of up to five years of data for water temperature, sensor depth, 
+and air temperature.
+
+The daily values from the SummaryStats operation of the ContDataQC() function 
+can be copied into the Excel file and the plots are auto-updated.
+
+These plots could be created in R but the Excel file was included to make the 
+plots available to a wider audience.
+
+```{r PlotDailyMeans, eval=FALSE}
+# Parameters
+Selection.Operation <- c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data0_Original","Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
+myDir.BASE <- getwd()
+# Summary Stats
+myData.Operation <- "SummaryStats" #Selection.Operation[4]
+myData.SiteID    <- "test2"
+myData.Type      <- Selection.Type[3] #"AW"
+myData.DateRange.Start  <- "2013-01-01"
+myData.DateRange.End    <- "2014-12-31"
+myDir.import <- file.path(myDir.BASE,Selection.SUB[4]) #"Data3_Aggregated"
+myDir.export <- file.path(myDir.BASE,Selection.SUB[5]) #"Data4_Stats"
+ContDataQC(myData.Operation, myData.SiteID, myData.Type, myData.DateRange.Start, myData.DateRange.End, myDir.import, myDir.export)
+```
+
+## Output for StreamThermal
+The Export.StreamThermal() function exports data for use with the the 
+`StreamThermal` library.  
+The data input for StreamThermal is a data frame with five columns (SiteID, 
+Date, TMax, TMin, and TMean).
+
+The `StreamThermal` library is only available on GitHub.
+
+https://github.com/tsangyp/StreamThermal
+
+Install instructions for the `StreamThermal` library are below.
+
+```{r StreamThermal_dataprep, eval=FALSE}
+# Install Libraries (if needed)
+install.packages("devtools")
+library(devtools)
+install_github("tsangyp/StreamThermal")
+```
+
+
+The `StreamThermal` package is set up to work with USGS gage data and this can 
+be downloaded via the `dataRetrieval` library (as shown in the examples in the 
+`StreamThermal` library).
+
+```{r StreamThermal_run, echo=TRUE}
+# 1.1. Get USGS data
+# code from StreamThermal T_frequency example
+ExUSGSStreamTemp < -dataRetrieval::readNWISdv("01382310"
+                                              ,"00010"
+                                              ,"2011-01-01"
+                                              ,"2011-12-31"
+                                              ,c("00001","00002","00003"))
+sitedata <- subset(ExUSGSStreamTemp
+ , select = c("site_no","Date","X_00010_00001","X_00010_00002","X_00010_00003"))
+names(sitedata) <- c("siteID","Date","MaxT","MinT","MeanT")
+knitr::kable(head(sitedata))
+```
+
+It is possible to use data that has been summarized with SummaryStats.
+
+```{r StreamThermal_SummaryStats_Data, echo=TRUE}
+# 1.2. Use Unsummarrized data
+myFile <- "DATA_test2_Aw_20130101_20141231.csv"
+myData <- read.csv(file.path(path.package("ContDataQC")
+                             ,"extdata"
+                             ,myFile)
+                   , stringsAsFactors=FALSE)
+# Subset
+Col.Keep <- c("SiteID", "Date", "Water.Temp.C")
+sitedata <- myData[,Col.Keep]
+sitedata <- Export.StreamThermal(myData)
+# Show data table
+knitr::kable(head(sitedata))
+```
+
+It is also possible to use data that has been calculated by Period Stats.
+
+```{r StreamThermal_PeriodStats_Data, echo=TRUE}
+# 1.3. Use user data that has been QCed
+myData   <- DATA_period_test2_Aw_20130101_20141231
+sitedata <- Export.StreamThermal(myData)
+knitr::kable(head(sitedata))
+```
+
+Run StreamThermal functions with 'sitedata'.  The example below saves the output
+to a variable.
+
+```{r StreamThermal_sitedata, eval=FALSE}
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 3. Run StreamThermal
+# Example using returned DF with StreamThermal
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Library (load)
+require(StreamThermal)
+#~~~~~
+# StreamThermal
+ST.freq <- T_frequency(sitedata)
+ST.mag  <- T_magnitude(sitedata)
+ST.roc  <- T_rateofchange(sitedata)
+ST.tim  <- T_timing(sitedata)
+ST.var  <- T_variability(sitedata)
+```
+
+The output of StreamThermal is 5 separate objects.  It may be convenient to 
+export that data to Excel with each object on a separate tab.  Example code is 
+below using the `XLConnect` library.  This code is similar that provided in the 
+Export.IHA example.
+```{r StreamThermal_Excel, eval=FALSE}
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Save Results to Excel (each group on its own worksheet)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+library(XLConnect)
+# Descriptions
+#
+Desc.freq <- "Frequency metrics indicate numbers of days in months or seasons
+that key events exceed user-defined temperatures. "
+#
+Desc.mag <- "Magnitude metrics characterize monthly and seasonal averages and
+the maximum and minimum from daily temperatures as well as 3-, 7-, 14-, 21-,
+and 30-day moving averages for mean and maximum daily temperatures."
+#
+Desc.roc <- "Rate of change metrics include monthly and seasonal rate of
+change, which indicates the difference in magnitude of maximum and minimum
+temperatures divided by number of days between these events."
+#
+Desc.tim <- "Timing metrics indicate Julian days of key events including
+mean, maximum, and minimum temperatures; they also indicate Julian days of
+mean, maximum, and minimum values over moving windows of specified size."
+#
+Desc.var <- "Variability metrics summarize monthly and seasonal range in
+daily mean temperatures as well as monthly coefficient of variation of daily
+mean, maximum, and minimum temperatures. Variability metrics also include
+moving averages for daily ranges and moving variability in extreme
+temperatures, calculated from differences in average high and low
+temperatures over various time periods"
+#
+Group.Desc <- c(Desc.freq, Desc.mag, Desc.roc, Desc.tim, Desc.var)
+df.Groups <- as.data.frame(cbind(c("freq","mag","roc","tim","var"),Group.Desc))
+#
+SiteID <- sitedata[1,1]
+myDate <- format(Sys.Date(),"%Y%m%d")
+myTime <- format(Sys.time(),"%H%M%S")
+Notes.User <- Sys.getenv("USERNAME")
+# Notes section (add min/max dates)
+Notes.Names <- c("Dataset (SiteID)", "Analysis.Date (YYYYMMDD)"
+                 , "Analysis.Time (HHMMSS)", "Analysis.User")
+Notes.Data <- c(SiteID, myDate, myTime, Notes.User)
+df.Notes <- as.data.frame(cbind(Notes.Names, Notes.Data))
+Notes.Summary <- summary(sitedata)
+# Open/Create file
+## New File Name
+myFile.XLSX <- paste("StreamThermal", SiteID, myDate, myTime, "xlsx", sep=".")
+## Copy over template with Metric Definitions
+file.copy(file.path(path.package("ContDataQC")
+                    ,"extdata"
+                    ,"StreamThermal_MetricList.xlsx")
+          , myFile.XLSX)
+## load workbook, create if not existing
+wb <- loadWorkbook(myFile.XLSX, create = TRUE)
+# create sheets
+createSheet(wb, name = "NOTES")
+createSheet(wb, name = "freq")
+createSheet(wb, name = "mag")
+createSheet(wb, name = "roc")
+createSheet(wb, name = "tim")
+createSheet(wb, name = "var")
+# write to worksheet
+writeWorksheet(wb, df.Notes, sheet = "NOTES", startRow=1)
+writeWorksheet(wb, df.Groups, sheet="NOTES", startRow=10)
+writeWorksheet(wb, Notes.Summary, sheet = "NOTES", startRow=20)
+writeWorksheet(wb, ST.freq, sheet = "freq")
+writeWorksheet(wb, ST.mag, sheet = "mag")
+writeWorksheet(wb, ST.roc, sheet = "roc")
+writeWorksheet(wb, ST.tim, sheet = "tim")
+writeWorksheet(wb, ST.var, sheet = "var")
+# save workbook
+saveWorkbook(wb, myFile.XLSX)
+```
+
+## Comparison CDFs
+The function CompSite() allows the user to plot data from multiple sites on a 
+single CDF.
+
+The function takes as  input a data frame with date and up to 8 columns of 
+parameter data.  Column names are Date and SiteIDs and values are daily means for some measurement.
+
+More than 8 columns can be used but colors are recycled after 8 and the plot 
+lines will be difficult to distinguish.
+
+CDFs are generate for all data, year, season, and year/season and saved to a 
+PDF.  Winter + Year is such that December is included with the following year 
+(e.g., Dec 2013, Jan 2014, Feb 2014 are 2014Winter).
+
+Two plots per page are generated.  The first plot is the proportion of values at
+a certain value.  
+This plot is similar to a histogram.  
+The second plot is a CDF of values.  The line represents the proportion of 
+values less than or equal to parameter values on the x-axis.
+
+An example table to be used as input for the function is shown below.  This 
+table has data for five sites.  
+```{r CompSiteCDF_table, echo=FALSE}
+library(ContDataQC)
+knitr::kable(head(data_CompSiteCDF))
+```
+
+An example plot is shown below.  The column names from the input table will 
+appear in the legend of the plot.
+```{r CompSiteCDF_plot, echo=FALSE,fig.width=7, fig.height=7}
+# fig size in inches
+
+# Load Data
+myDF <- data_CompSiteCDF
+# X Label
+myXlab <- "Temperature, Water (deg C)"
+ParamName.xlab <- myXlab
+# get code from function
+data.import <- myDF
+# Site Names (Columns)
+  Col.Sites <- names(data.import)[!(names(data.import) %in% "Date")]
+  #
+  # Add columns for time periods
+  # add Year, Month, Season, YearSeason (names are in config.R)
+  # assume Date is POSIXct
+  #
+  # add time period fields
+  data.import[,"Year"]   <- format(as.Date(data.import[,"Date"])
+                                   ,format="%Y")
+  data.import[,"Month"]   <- format(as.Date(data.import[,"Date"])
+                                    ,format="%m")
+  data.import[,"YearMonth"] <- format(as.Date(data.import[,"Date"])
+                                      ,format="%Y%m")
+  data.import[,"MonthDay"] <- format(as.Date(data.import[,"Date"])
+                                     ,format="%m%d")
+  
+    # Remove bad date records
+  data.import <- data.import[!is.na(data.import[,"Year"]),]
+  
+  
+  # ## add Season fields
+  data.import[,"Season"] <- NA
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("0101") & as.numeric(data.import[,"MonthDay"])<as.numeric("0301")] <- "Winter"
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("0301") & as.numeric(data.import[,"MonthDay"])<as.numeric("0601")] <- "Spring"
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("0601") & as.numeric(data.import[,"MonthDay"])<as.numeric("0901")] <- "Summer"
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("0901") & as.numeric(data.import[,"MonthDay"])<as.numeric("1201")] <- "Fall"
+  data.import[,"Season"][as.numeric(data.import[,"MonthDay"])>=as.numeric("1201") & as.numeric(data.import[,"MonthDay"])<=as.numeric("1231")] <- "Winter"
+  data.import[,"YearSeason"] <- paste(data.import[,"Year"],data.import[,"Season"],sep="")
+
+  # rectify December as part of winter of year + 1
+  mySelection <- data.import[,"Month"]=="12"
+  if(sum(mySelection) != 0){##IF.sum.START
+    data.import[,"YearSeason"][mySelection] <- paste(as.numeric(data.import[,"Year"])+1,data.import[,"Season"],sep="")
+  }##IF.sum.END
+  #
+  #View(data.import)
+  #
+  # Color Blind Palatte
+  # http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/
+  # The palette with grey:
+  cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442"
+                 , "#0072B2", "#D55E00", "#CC79A7")
+  # The palette with black:
+  #cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  #
+  myColors <- cbPalette #rainbow(length(Col.Sites))
+  #
+  # Season Names
+  SeasonNames <- c("Fall", "Winter", "Spring","Summer")
+  #
+  #~~~~~~~~PLOT CODE~~~~~~~~~~~
+  CreatePlots <- function(...) {##FUNCTION.CreatePlots.START
+    # PLOT 1
+    for (i in 1:length(Col.Sites)){##FOR.j.START
+      # subset out NA
+      data.i <- data.plot[,Col.Sites[i]]
+      # different first iteration
+      if (i==1) {##IF.j==1,START
+        # need ylim
+        myYlim.max <- 0
+        for (ii in 1:length(Col.Sites)) {
+          myYlim.max <- max(hist(data.plot[,Col.Sites[ii]],plot=FALSE)$density, myYlim.max)
+        }
+        myYlim <- c(0,myYlim.max)
+        #
+        hist(data.plot[,Col.Sites[i]], prob=TRUE, border="white"
+             ,main=myMain, xlab=ParamName.xlab, ylab="Proportion = value"
+             ,ylim=myYlim)
+        box()
+      }##IF.j==1.END
+      # plot lines
+      lines(density(data.i, na.rm=TRUE), col=myColors[i], lwd=2)
+    }##FOR.j.END
+    legend("topright",Col.Sites,fill=myColors)
+    #
+    # Plot 2
+    myLWD <- 1.5
+    for (j in 1:length(Col.Sites)){##FOR.i.START
+      if(j==1){##IF.i==1.START
+        plot(ecdf(data.plot[,Col.Sites[j]]), col=myColors[j], verticals=TRUE, lwd=myLWD, do.p=FALSE #pch=19, cex=.75 #do.p=FALSE
+             #, col.01line="white"
+             , main=myMain, xlab=ParamName.xlab, ylab="Proportion <= value" )
+      } else {
+        plot(ecdf(data.plot[,Col.Sites[j]])
+             , col=myColors[j]
+             , verticals=TRUE
+             , lwd=myLWD
+             , do.p=FALSE
+             , add=T)
+      }##IF.i==1.END
+    }##FOR.i.END
+    legend("bottomright",Col.Sites,fill=myColors)
+  }##FUNCTION.CreatePlots.END
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  #
+  # 2 plots per page
+    #par(mfrow=c(1,2))
+    #
+    # ALL
+    myMain <- "All Data"
+    data.plot <- data.import
+    CreatePlots()
+```
+
+## Richards-Baker (Flashiness) Index
+Calculates the RBI from a vector of flow measurements.  Inputs are are vector of
+flow measurements over some time period (e.g., water year).  Output is a single 
+value that represents the RBI.
+
+The RBI is the sum of absolute differences between days divided by the total 
+flow for the given time period.
+
+Baker, D.B., R.P. Richards, T.T. Loftus, and J.W. Kramer.  2004.  A New 
+Flashiness Index:
+Characteristics and Applications to Midwestern Rivers and Streams.  April 2004.
+Journal of the American Water Resources Association (JAWRA).  Pages 503:522.
+
+```{r RBI}
+# Get Gage Data via the dataRetrieval package from USGS 01187300 2013
+data.gage <- dataRetrieval::readNWISdv("03238500"
+                                       , "00060"
+                                       , "1974-10-01"
+                                       , "1975-09-30")
+head(data.gage)
+# flow data
+data.Q <- data.gage[,4]
+# remove zeros
+data.Q[data.Q==0] <- NA
+RBIcalc(data.Q)
+```
+
+The calculated value from this function was QCed against data in the journal 
+article.
+
+Whiteoak Creek near Georgetown, Ohio (03238500) for the water year 1975 was 
+download via the `dataRetrieval` package and used to generate the RBI.  The 
+value calculated by RBIcalc() matches the value in Figure 8 in the journal 
+(0.98).  The value was also verified using Excel.
+
+## Summary Stats Only
+The user sometimes will have data that is already QCed or that just needs 
+summary stats.  It is possible to run just the summary stats from `ContDataQC` 
+but need to require certain fields.
+
+* SiteID
+* Date
+* Time
+* Date.Time
+* Parameter names in ContDataQC format (config.R).  Examples below:
+    + Water.Temp.C
+    + Discharge.ft3.s
+* QC Flag fields for each parameter in the data ("Flag." + Parameter Name).  
+Examples below:
+    + Flag.Water.Temp.C
+    + Flag.Discharge.ft3.s
+    
+The example code below will download 2 years of discharge data from a USGS 
+gage 0118730, add the necessary fields, save the file, and run SummaryStats.
+    
+```{r SummarStats_NonContDataQC_Data, eval=FALSE}
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Summary Stats from Other Data
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Get Data, e.g., USGS gage data
+# Get Gage Data via the dataRetrieval package from USGS 01187300 2013 
+#    (~4 seconds)
+data.gage <- dataRetrieval::readNWISuv("01187300"
+                                       , "00060"
+                                       , "2013-01-01"
+                                       , "2014-12-31")
+head(data.gage)
+# Rename fields
+myNames <- c("Agency", "SiteID", "Date.Time", "Discharge.ft3.s", "Code", "TZ")
+names(data.gage) <- myNames
+# Add Date and Time
+data.gage[,"Date"] <- as.Date(data.gage[,"Date.Time"])
+data.gage[,"Time"] <-  strftime(data.gage[,"Date.Time"], format="%H:%M:%S")
+# Add "flag" fields that are added by QC function.
+Names.Flags <- paste0("Flag.",c("Date.Time", "Discharge.ft3.s"))
+data.gage[,Names.Flags] <- "P"
+# Save File
+myFile <- "01187300_Gage_20130101_20141231.csv"
+write.csv(data.gage, myFile, row.names=FALSE)
+# Run Stats (File)
+myData.Operation <- "SummaryStats"
+myDir.import <- tempdir()
+myDir.export <- tempdir()
+ContDataQC(myData.Operation
+           , fun.myDir.import=myDir.import
+           , fun.myDir.export=myDir.export
+           , fun.myFile=myFile)
+```
+
+## Format of HOBOware Output
+Following the suggested RMN guidelines for creating HOBOware (PDF files included
+in help section of the package) will produce files with a known structure.  
+HOBOware will not create files for use with R.  The function formatHobo was 
+created to bridge this gap.
+
+Imports a HoboWare output (with minimal tweaks) from a folder, reformats it 
+using defaults from the ContDataQC config file, and exports a CSV to another 
+folder for use with ContDataQC.
+
+Below are the default data directories assumed to exist in the working 
+directory. These can be created with code as in the example. Using this function
+as an example, files will be imported from Data0_Original and exported to 
+Data1_RAW.
+
+* ./Data0_Original/ = Unmodified data logger files.
+
+* ./Data1_RAW/ = Data logger files modified for use with library. Modifications 
+for extra rows and file and column names.
+
+* ./Data2_QC/ = Repository for library output for QCed files.
+
+* ./Data3_Aggregated/ = Repository for library output for aggregated (or split) 
+files.
+
+* ./Data4_Stats/ = Repository for library output for statistical summary files.
+
+File format should be "SiteID_SensorType_StartDate_EndData.csv".
+
+* SiteID = no spaces or underscores
+
+* SensorType = Air, Water, or AW (Air + Water in the same file)
+
+* Dates = YYYYMMDD (no delimiter)
+
+* Delimiter = underscore (as specified in the config file)
+
+No data frames are returned. A CSV file ready for use with the ContDataQC QC 
+function will be generated in the specified output directory.
+
+```{r formatHobo, eval=FALSE}
+# Parameters
+Selection.Operation <- c("GetGageData"
+                         , "QCRaw"
+                         , "Aggregate"
+                         , "SummaryStats")
+Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
+Selection.SUB <- c("Data0_Original"
+                   , "Data1_RAW"
+                   , "Data2_QC"
+                   , "Data3_Aggregated"
+                   , "Data4_Stats")
+(myDir.BASE <- tempdir()) # create and print temp directory for example data
+
+# Create data directories
+myDir.create <- file.path(myDir.BASE, Selection.SUB[1])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
+myDir.create <- file.path(myDir.BASE, Selection.SUB[2])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
+myDir.create <- file.path(myDir.BASE, Selection.SUB[3])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
+myDir.create <- file.path(myDir.BASE, Selection.SUB[4])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
+myDir.create <- file.path(myDir.BASE, Selection.SUB[5])
+  ifelse(dir.exists(myDir.create) == FALSE
+         , dir.create(myDir.create)
+         , "Directory already exists")
+
+# Save example data (assumes directory ./Data0_Original/ exists)
+fn_1 <- "Charlies_Air_20170726_20170926.csv"
+fn_2 <- "Charlies_AW_20170726_20170926.csv"
+fn_3 <- "Charlies_Water_20170726_20170926.csv"
+fn_4 <- "ECO66G12_AW_20160128_20160418.csv"
+lapply(c(fn_1, fn_2, fn_3, fn_4), function(x)
+       file.copy(system.file("extdata", x, package="ContDataQC")
+       , file.path(myDir.BASE, Selection.SUB[1], x)))
+
+# Function Inputs
+myFiles <- c("Charlies_Air_20170726_20170926.csv"
+             , "Charlies_AW_20170726_20170926.csv"
+             , "Charlies_Water_20170726_20170926.csv")
+myDir.import <- file.path(getwd(), "Data0_Original")
+myDir.export <- file.path(getwd(), "Data1_RAW")
+
+# Run Function (with default config)
+formatHobo(myFiles, myDir.import, myDir.export)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# QC the generated file with ContDataQC
+myData.Operation <- "QCRaw" #Selection.Operation[2]
+myFile <- myFiles
+myDir.import <- file.path(".","Data1_RAW")
+myDir.export <- file.path(".","Data2_QC")
+myReport.format <- "html"
+ContDataQC(myData.Operation, fun.myDir.import=myDir.import
+          , fun.myDir.export=myDir.export, fun.myFile=myFile
+          , fun.myReport.format=myReport.format)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Example with unmodified dates
+myFiles <- "ECO66G12_AW_20160128_20160418.csv"
+myDir.import <- file.path(getwd(), "Data0_Original")
+myDir.export <- file.path(getwd(), "Data1_RAW")
+HoboDateFormat <- "MDY"
+
+# Run Function (with default config)
+formatHobo(myFiles, myDir.import, myDir.export, HoboDateFormat)
+```
+
+## Export for rLakeAnalyzer
+Continuous data from Lakes is similar to that used in streams.  
+The only difference is the addition of depth to the data.  
+There are R packages designed for the analysis of lake monitoring data.
+One such example is `rLakeAnalyzer`.
+
+To aid users in QCing their continuous lake data an export function to 
+`rLakeAnalyzer` was created in the `ContDataQC` package.
+
+```{r rLA_Example}
+
+# Convert Data for use with rLakeAnalyzer
+
+# Data
+fn_CDQC <- "TestLake_Water_20180702_20181012.csv"
+df_CDQC <- read.csv(file.path(system.file(package = "ContDataQC")
+                              , "extdata"
+                              , fn_CDQC))
+
+# Convert Date.Time from factor to POSIXct (make it a date and time field in R)
+df_CDQC[, "Date.Time"] <- as.POSIXct(df_CDQC[, "Date.Time"])
+
+# Columns, date listed first
+col_depth <- "Depth"
+col_CDQC <- c("Date.Time", "temp_F", "DO_conc")
+col_rLA  <- c("datetime", "wtr", "doobs")
+
+# Output Options
+dir_export <- getwd()
+fn_export <- paste0("rLA_", fn_CDQC)
+
+# Run function
+df_rLA <- Export.rLakeAnalyzer(df_CDQC, col_depth, col_CDQC, col_rLA
+                               , dir_export, fn_export)
+
+# Visualize Input and Output
+knitr::kable(head(df_CDQC), caption = "Example ContDataQC to rLakeAnalyze format function input.")
+knitr::kable(head(df_rLA), caption = "Example ContDataQC to rLakeAnalyze format function output.")
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Plot original data in ggplot
+library(ggplot2)
+
+# Plot, Create
+p <- ggplot(df_CDQC, aes(x=Date.Time, y=temp_F)) +
+       geom_point(aes(color=Depth)) +
+       scale_color_continuous(trans="reverse") +
+       scale_x_datetime(date_labels = "%Y-%m")
+
+# Plot, Show
+print(p)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# use rLakeAnalyzer
+library(rLakeAnalyzer)
+#library(knitr)
+
+# Filter Data for only temperature
+col_wtr <- colnames(df_rLA)[grepl("wtr_", colnames(df_rLA))]
+df_rLA_wtr <- df_rLA[, c("datetime", col_wtr)]
+
+# Create bathymetry data frame
+df_rLA_bth <- data.frame(depths=c(3,6,9), areas=c(300,200,100))
+
+# Visualize Input Data
+knitr::kable(head(df_rLA_wtr), caption = "rLakeAnalyzer; Example water temperature data")
+knitr::kable(head(df_rLA_bth), caption = "rLakeAnalyzer; Example depth and area data")
+
+# Generate Heat Map
+wtr.heat.map(df_rLA_wtr)
+
+# Generate Schmidt Plot
+schmidt.plot(df_rLA_wtr, df_rLA_bth)
+
+# Generate Schmidt Stability Values
+df_rLA_Schmidt <- ts.schmidt.stability(df_rLA_wtr, df_rLA_bth)
+
+# Visualize Output Data
+knitr::kable(head(df_rLA_Schmidt), caption = "rLakeAnalyzer; Example Schmidt Stability output.")
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Plot original data in ggplot
+library(ggplot2)
+
+# Plot, Create
+p <- ggplot(df_CDQC, aes(x=Date.Time, y=temp_F)) +
+       geom_point(aes(color=Depth)) +
+       scale_color_continuous(trans="reverse") +
+       scale_x_datetime(date_labels = "%Y-%m")
+
+# Plot, Show
+p
+```
+
+# Data from Other Sources
+It is possible to use data from other sources.  The focus of the package has 
+been user's with no data system.  Some users already have a system such as 
+Aquarius.  Below is an example script for obtaining data from such a system.  
+The script was contributed by Mark Hoger of PA DEP.  This script is saved in the
+extdata folder as Aquarius_Data_Aquisition_PADEP.r.
+
+```{r getData_Aquarius, eval=FALSE}
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# This script accesses data using AQUARIUS Time-Series 3.x's Publish API.
+# 
+# 
+# It depends on the RCurl library; to download and install
+# RCurl into your R environment, use this command:
+#
+#      install.packages('RCurl')
+#
+#
+# Initial command examples were provided by Aquatic Informatics 
+# technical staff. These examples were then adapted by Mark Hoger at 
+# Pennsylvania Department of Environmental Protection.
+#
+# Mark Hoger 
+# mhoger@pa.gov
+#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# Initialize Connection to Database
+#
+library(RCurl)
+
+co<-c()
+# Enter server and AQUARIUS username and password between the ''
+server<-''
+username<-''
+pw<-''
+service<-paste('http://', server, '/aquarius/Publish/AquariusPublishRestService.svc', sep='')
+getauthtoken<-paste(service, '/GetAuthToken?user=', username, '&encPwd=', pw, sep='')
+token<-getURL(.opts=co,getauthtoken)
+co<-curlOptions(.opts=co,httpheader=c(AQAuthToken=token))
+#
+# The above commands should result in a token that will be used to access
+# data stored in the database.
+#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# Data Acquisition
+#
+# Locations and datasets are selected prior to extracting data. This
+# approach reduces the time required to extract data since often only a 
+# subset of the data is needed. 
+#
+# Steps
+# 1. Get a list of locations from database.
+# 2. Choose locations.
+# 3. Get a list of datasets at the chosen locations.
+# 4. Choose datasets (e.g. pH and DO datasets).
+# 5. Extract data from datasets chosen. Can limit extraction by date/time
+#    during this process.
+#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Step 1. Get a list of locations. ####
+#
+getlocations<-paste(service, '/GetLocations',sep='')
+locs.all=read.csv(textConnection(getURL(.opts=co, getlocations)))
+#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Step 2. Choose locations. ####
+#
+# These steps will depend on the structure of how locations are stored in
+# the database you are pulling from. In PADEP's setup, the folders are
+# structured by Internal/External data, basin, HUC, then stream name. This
+# folder structure is contained in the LOCATIONPATH field and serves as an
+# excellent way of grabbing sites from within a watershed. 
+#
+# All subsetting from the original list of locations, locs.all, is stored 
+# in a dataframe called locs.subset. This dataframe name is used in the 
+# following steps so it is recommended that you rewrite over, locs. subset
+# if multiple steps are done instead of renaming each subset. 
+# 
+# Example subsetting of locations. grepl looks for character strings.
+#
+# To grab all internal data we can use LOCATIONPATH
+locs.subset<-locs.all[grepl('Internal Data',locs.all$LOCATIONPATH),]
+#
+# To search multiple key strings use | as the "or" function: 
+# 'Swatara|Goose' will return locations with either 'Swatara' or 'Goose' 
+# in LOCATIONNAME
+locs.subset<-locs.subset[grepl('Swatara|Goose',locs.subset$LOCATIONNAME),]
+#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Step 3. Get a list of datasets. ####
+#
+# A loop function is used to pull a list of all datasets at each location
+# in locs.subset.
+n.sites<-length(locs.subset$IDENTIFIER) # Count locations for the loop
+datalist = list() # Create temporary holder of data
+for (i in 1:n.sites){
+  getdatasets<-paste(service,'/GetDataSetsList?locId=',locs.subset$IDENTIFIER[i],sep='')
+  datalist[[i]]=read.csv(textConnection(getURL(.opts=co,getdatasets)))
+}
+datasets = do.call(rbind, datalist) # Combine data gathered in loop into 
+#                                     a dataframe
+#
+# Make sure no errors were thrown during the loop. If a problem occurred
+# it could be with the naming or formatting in AQUARIUS. For example, the
+# parameter name (Label field of a dataset in Location Manager) cannot 
+# include any spaces. Also, time series that have been created but do not
+# contain any data will cause problems. A good way to find the issue is
+# to see how many elements were created in the loop.
+#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Step 4. Choose datasets. ####
+#
+# Like with the locations, you now need to select only that datasets you
+# want. Again, it is recommended to maintain the dataframe name 'datasets'
+# to avoid the need to adjust code in future steps.
+#
+# To remove Field Visit series from the list of datasets use !grepl to 
+# select all datasets except those with the given character string. 
+datasets <- datasets[!grepl("Field Visits", datasets$DataId),]
+#
+# To select datasets based on parameter type, use parameter identifiers.
+# The most common identifiers used by PADEP are below. Parameter  
+# identifiers can be found in AQUARIUS manager under the parameter tab, 
+# Parameter ID column.
+#       TW = Water temperature
+#       SpCond = Specific Conductance
+#       PH = pH
+#       WO = Dissolved oxygen - concentration
+#       WX = Dissolved oxygen - % sat
+#       WT = Turbidity
+#       HG = Stage
+#       QR = Discharge
+#       PA = Atmospheric pressure
+#       44500 = Calculated-derived series
+#
+# I typically don't use grepl to subset parameters just in case we ever  
+# have parameters that contain the same character strings. Instead use 
+# the following subsetting command.
+#
+# To grab only water temperature datasets.
+datasets <- datasets[datasets$Parameter=='TW',]
+# To grab multiple parameter types, use | as the "or" function. For both 
+# pH and DO concentration datasets: 
+datasets <- datasets[datasets$Parameter=='PH' | datasets$Parameter=='WO',]
+#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Step 5. Extract data. ####
+#
+# The datasets dataframe does not contain much location information. To 
+# better tie location data to the data about to be extracted, I use merge 
+# to add fields from locs.subset to the datasets dataframe.
+datasets<-merge(datasets,locs.subset,all=FALSE,by.x='LocationId',by.y='IDENTIFIER')
+#
+# Now we finally grab the actual data from the list of datasets in the 
+# dataframe 'datasets'. Again, a loop function is used.
+n.datasets <- length(datasets$DataId) # Count datasets for the loop
+datalist2 = list() # Create temporary holder of data
+for (i in 1:n.datasets){
+         # Date range can be selected here. Blank will return all data
+         # from the datasets. Format is '2016-10-17T00:00:00.000-05:00'
+  start_dt=''
+  end_dt=''
+  gettimeseriesdata<-paste(service, '/GetTimeSeriesData', '?dataId=', datasets$DataId[i], '&queryFrom=', start_dt, '&queryTo=', end_dt, sep='')
+  datalist2[[i]]=read.csv(textConnection(getURL(.opts=co, gettimeseriesdata)), skip=4)
+  datalist2[[i]]$Time=strptime(substr(datalist2[[i]]$Time,0,19),"%FT%T")        
+         # Add some additional identifying columns. Merge with locs.subset
+         # must have been done.
+  datalist2[[i]]$SiteID<-rep(datasets$LocationId[i],dim(datalist2[[i]])[1])
+  datalist2[[i]]$Site<-rep(datasets$LOCATIONNAME[i],dim(datalist2[[i]])[1])
+  datalist2[[i]]$Parameter<-rep(datasets$Parameter[i],dim(datalist2[[i]])[1])
+  datalist2[[i]]$Units<-rep(datasets$Unit[i],dim(datalist2[[i]])[1])
+  datalist2[[i]]$ParameterName<-rep(datasets$DataId[i],dim(datalist2[[i]])[1])
+}
+dat = do.call(rbind, datalist2) # Combine data gathered in loop into 
+#                                 a dataframe
+#
+# See comments at end of Step 3 if you are getting errors during loop.
+#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```

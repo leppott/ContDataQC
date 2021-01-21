@@ -102,7 +102,7 @@ library(devtools)
 devtools::document()
 ## Install New Package (locally)
 setwd("..") # return to root directory first
-devtools::install(myLibrary, build_vignettes = TRUE, quick = FALSE, reload = TRUE)
+devtools::install(myLibrary, build_vignettes = FALSE, quick = FALSE, reload = TRUE)
 
 ## Reload library
 library(myLibrary,character.only = TRUE)

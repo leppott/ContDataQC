@@ -18,30 +18,39 @@ Export.rLakeAnalyzer(
 
 \item{col_depth}{Column name for "depth" in df_CDQC.  Default = "Depth"}
 
-\item{col_CDQC}{Column names in df_CDQC to transform for use with rLakeAnalyzer.  Date time must be the first entry.}
+\item{col_CDQC}{Column names in df_CDQC to transform for use with
+rLakeAnalyzer.  Date time must be the first entry.}
 
-\item{col_rLA}{Column names to use with rLakeAnalyzer.  See details for accepted entries.  datetime must be the first entry.}
+\item{col_rLA}{Column names to use with rLakeAnalyzer.  See details for
+accepted entries.  datetime must be the first entry.}
 
-\item{dir_export}{Directory for export data.  Default = current working directory.}
+\item{dir_export}{Directory for export data.
+Default = current working directory.}
 
-\item{fn_export}{File name of result to be exported.  If no name provided the data frame will not be exported.  Default = NULL.}
+\item{fn_export}{File name of result to be exported.  If no name provided the
+data frame will not be exported.  Default = NULL.}
 }
 \value{
-Returns a data frame with daily mean values by date (in the specified range).  Also, a csv file is saved to the specified directory with the prefix "IHA" and the date range before the file extension.
+Returns a data frame with daily mean values by date (in the specified
+ range).  Also, a csv file is saved to the specified directory with the
+ prefix "IHA" and the date range before the file extension.
 }
 \description{
 Creates a date frame (and file export) from Continuous Data in
 the format used by the rLakeAnalyzer package.
 }
 \details{
-The rLakeAnalyzer package is not included in the ContDataQC package.  But an example is provided.
+The rLakeAnalyzer package is not included in the ContDataQC package.
+An example is provided.
 
-To run the example rLakeAnalyzer calculations you will need the rLakeAnalyzer package (from CRAN).
+To run the example rLakeAnalyzer calculations you will need the rLakeAnalyzer
+package (from CRAN).
 
 Install commands in the example.
 
-The rLakeAnalyzer format is "datetime" in the format of "yyyy-mm-dd HH:MM:SS" followed by columns of data.
-The header of these data columns is "Param_Depth"; e.g., wtr_0.5 is water temperature (deg C) at 0.5 meters.
+The rLakeAnalyzer format is "datetime" in the format of "yyyy-mm-dd HH:MM:SS"
+ followed by columns of data. The header of these data columns is
+ "Param_Depth"; e.g., wtr_0.5 is water temperature (deg C) at 0.5 meters.
 
 * doobs = Dissolved Oxygen Concentration (mg/L)
 
@@ -60,9 +69,11 @@ Files will be saved, if desired, as csv.
 
 # Data
 fn_CDQC <- "TestLake_Water_20180702_20181012.csv"
-df_CDQC <- read.csv(file.path(system.file(package = "ContDataQC"), "extdata", fn_CDQC))
+df_CDQC <- read.csv(file.path(system.file(package = "ContDataQC")
+                                                      , "extdata", fn_CDQC))
 
-# Convert Date.Time from factor to POSIXct (make it a date and time field in R)
+# Convert Date.Time from factor to POSIXct
+#  (make it a date and time field in R)
 df_CDQC[, "Date.Time"] <- as.POSIXct(df_CDQC[, "Date.Time"])
 
 # Columns, date listed first
@@ -71,7 +82,7 @@ col_CDQC <- c("Date.Time", "temp_F", "DO_conc")
 col_rLA  <- c("datetime", "wtr", "doobs")
 
 # Output Options
-dir_export <- getwd()
+dir_export <- tempdir()
 fn_export <- paste0("rLA_", fn_CDQC)
 
 # Run function

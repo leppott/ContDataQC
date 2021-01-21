@@ -2,23 +2,27 @@
 #'
 #' @description  Calls all other functions for the ContDataQC library.
 #'
-#' @details Below are the default data directories assumed to exist in the working directory.  These can be created with code in the example.
+#' @details Below are the default data directories assumed to exist in the
+#' working directory.  These can be created with code in the example.
 #'
 #' ./Data0_Original/ = Unmodified data logger files.
 #'
-#' ./Data1_RAW/ = Data logger files modified for use with library.  Modifications for extra rows and file and column names.
+#' ./Data1_RAW/ = Data logger files modified for use with library.
+#' Modifications for extra rows and file and column names.
 #'
 #' ./Data2_QC/ = Repository for library output for QCed files.
 #'
-#' ./Data3_Aggregated/ = Repository for library output for aggregated (or split) files.
+#' ./Data3_Aggregated/ = Repository for library output for aggregated (or split)
+#'  files.
 #'
 #' ./Data4_Stats/ = Repository for library output for statistical summary files.
 #'
-#' It is possible to call the Aggregate file portion of the script to meld together files
-#' from multiple sites (e.g., all sites in a watershed or from different depths on a lake).
-#' The file will be named by the first file named with "Append_x" where "x" is the
-#' number of files that were aggregated.  The purpose is to allow users to analyze the
-#' data in these files from a single file.
+#' It is possible to call the Aggregate file portion of the script to meld
+#' together files from multiple sites (e.g., all sites in a watershed or from
+#' different depths on a lake).  The file will be named by the first file named
+#' with "Append_x" where "x" is the number of files that were aggregated.  The
+#' purpose is to allow users to analyze the data in these files from a single
+#' file.
 #'
 #' Pandoc is needed for docx reports (default).  Pandoc comes packaged with
 #' RStudio.  To install Pandoc on Windows use the `installr` package.
@@ -67,24 +71,44 @@
 # source(paste(myDir.BASE,myDir.Scripts,"fun.AggregateData.R",sep="/"))
 # source(paste(myDir.BASE,myDir.Scripts,"fun.GageData.R",sep="/"))
 # source(paste(myDir.BASE,myDir.Scripts,"fun.Stats.R",sep="/"))
-#' @param fun.myData.Operation Operation to be performed; c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
+#' @param fun.myData.Operation Operation to be performed;
+#' c("GetGageData","QCRaw", "Aggregate", "SummaryStats")
 #' @param fun.myData.SiteID Station/SiteID.
-#' @param fun.myData.Type data type; c("Air","Water","AW","Gage","AWG","AG","WG")
-#' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
-#' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
-# @param fun.myDir.BASE Root directory for data.  If blank will use current working directory.
-# @param fun.myDir.SUB.import Subdirectory for import data.  If blank will use root directory.
-# @param fun.myDir.SUB.export Subdirectory for export data.  If blank will use root directory.
-#' @param fun.myDir.import Directory for import data.  Default is current working directory.
-#' @param fun.myDir.export Directory for export data.  Default is current working directory.
-# @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".  This determines the RMD to use for the output.
-#' @param fun.myConfig Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.
-#' @param fun.myFile Single file (or vector of files) to perform functions.  SiteID, Type, and Date Range not used when file name(s) provided.
-#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
-#' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
-#' @param fun.CreateReport Boolean parameter to create reports or not.  Default = TRUE.
+#' @param fun.myData.Type data type;
+#' c("Air","Water","AW","Gage","AWG","AG","WG")
+#' @param fun.myData.DateRange.Start Start date for requested data.
+#' Format = YYYY-MM-DD.
+#' @param fun.myData.DateRange.End End date for requested data.
+#' Format = YYYY-MM-DD.
+# @param fun.myDir.BASE Root directory for data.
+# If blank will use current working directory.
+# @param fun.myDir.SUB.import Subdirectory for import data.
+#If blank will use root directory.
+# @param fun.myDir.SUB.export Subdirectory for export data.
+#If blank will use root directory.
+#' @param fun.myDir.import Directory for import data.
+#' Default is current working directory.
+#' @param fun.myDir.export Directory for export data.
+#' Default is current working directory.
+# @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".
+# This determines the RMD to use for the output.
+#' @param fun.myConfig Configuration file to use for this data analysis.
+#' The default is always loaded first so only "new" values need to be included.
+#' This is the easiest way to control time zones.
+#' @param fun.myFile Single file (or vector of files) to perform functions.
+#' SiteID, Type, and Date Range not used when file name(s) provided.
+#' @param fun.myReport.format Report format (docx or html).
+#' Default is specified in config.R (docx).  Can be customized in config.R;
+#' ContData.env$myReport.Format.
+#' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package
+#'  rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
+#' @param fun.CreateReport Boolean parameter to create reports or not.
+#' Default = TRUE.
+#' @param fun.AddDeployCol Boolean for adding column name.  Default = FALSE.
+#' Can be customized in config.R; ContData.env$myName.LoggerDeployment.
 #'
-#' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
+#' @return Returns a csv into the specified export directory with additional
+#' columns for calculated statistics.
 #'
 #' @examples
 #' # Examples of each operation
@@ -303,11 +327,20 @@
 #' # Summary Stats from Other Data
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # 05. Gage Data
-#' # Get Gage Data via the dataRetrieval package from USGS 01187300 2013 (~4 seconds)
-#' data.gage <- dataRetrieval::readNWISuv("01187300", "00060", "2013-01-01", "2014-12-31")
+#' # Get Gage Data via the dataRetrieval package from USGS 01187300 2013
+#' #  (~4 seconds)
+#' data.gage <- dataRetrieval::readNWISuv("01187300"
+#'                                        , "00060"
+#'                                        , "2013-01-01"
+#'                                        , "2014-12-31")
 #' head(data.gage)
 #' # Rename fields
-#' myNames <- c("Agency", "SiteID", "Date.Time", "Discharge.ft3.s", "Code", "TZ")
+#' myNames <- c("Agency"
+#'              , "SiteID"
+#'              , "Date.Time"
+#'              , "Discharge.ft3.s"
+#'              , "Code"
+#'              , "TZ")
 #' names(data.gage) <- myNames
 #' # Add Date and Time
 #' data.gage[,"Date"] <- as.Date(data.gage[,"Date.Time"])
@@ -371,13 +404,14 @@ ContDataQC <- function(fun.myData.Operation
                        , fun.myData.Type
                        , fun.myData.DateRange.Start
                        , fun.myData.DateRange.End
-                       , fun.myDir.import=getwd()
-                       , fun.myDir.export=getwd()
-                       , fun.myConfig=""
-                       , fun.myFile=""
-                       , fun.myReport.format=""
-                       , fun.myReport.Dir=""
-                       , fun.CreateReport=TRUE) {##FUN.fun.Master.START
+                       , fun.myDir.import = getwd()
+                       , fun.myDir.export = getwd()
+                       , fun.myConfig = ""
+                       , fun.myFile = ""
+                       , fun.myReport.format = ""
+                       , fun.myReport.Dir = ""
+                       , fun.CreateReport = TRUE
+                       , fun.AddDeployCol = FALSE) {##FUN.fun.Master.START
   # global variable bindings ----
   myData.Operation <- myData.SiteID <- myData.Type <- myData.DateRange.Start <-
     myData.DateRange.End <- myDir.import <- myDir.export <- myFile <-
@@ -488,7 +522,8 @@ ContDataQC <- function(fun.myData.Operation
              , fun.myDir.export
              , fun.myReport.format
              , fun.myReport.Dir
-             , fun.CreateReport)
+             , fun.CreateReport
+             , fun.AddDeployCol)
     }  else {
       #file version
       fun.QC.File(fun.myFile
@@ -496,7 +531,8 @@ ContDataQC <- function(fun.myData.Operation
                   , fun.myDir.export
                   , fun.myReport.format
                   , fun.myReport.Dir
-                  , fun.CreateReport)
+                  , fun.CreateReport
+                  , fun.AddDeployCol)
     }##IF.fun.myFile.END
     # runs the QC Report as part of sourced function but can run independantly below
   } else if (fun.myData.Operation=="ReportQC") {

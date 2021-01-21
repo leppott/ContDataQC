@@ -1,25 +1,30 @@
 #' @title Daily stats for a given time period
 #'
-#' @description Generates daily stats (N, mean, min, max, range, std deviation) for the
-#' specified time period before a given date. Output is a multiple column CSV
-#' (Date and Parameter Name by statistic) and a report (HTML or DOCX) with plots.
-#' Input is the ouput file of the QC operation of ContDataQC().
+#' @description Generates daily stats (N, mean, min, max, range, std deviation)
+#' for the specified time period before a given date. Output is a multiple
+#' column CSV (Date and Parameter Name by statistic) and a report (HTML or DOCX)
+#' with plots. Input is the ouput file of the QC operation of ContDataQC().
 #'
-#' @details The input is output file of the QC operation in ContDataQC().  That is, a file with
-#' Date.Time, and parameters (matching formats in config.R).
+#' @details The input is output file of the QC operation in ContDataQC().  That
+#' is, a file with Date.Time, and parameters (matching formats in config.R).
 #'
-#' To get different periods (30, 60, or 90 days) change function input "fun.myPeriod.N".
+#' To get different periods (30, 60, or 90 days) change function input
+#' "fun.myPeriod.N".
 #' It is possible to provide a vector for Period.N and Period.Units.
-#' If the date range is longer than that in the data provided the stats will not calculate properly.
+#' If the date range is longer than that in the data provided the stats will not
+#' calculate properly.
 #'
-#' The dates must be in the standard format (Y-m-d) or the function may not work as intended.
-#' For example, the date is used in the file name and dates with "/" will result in an invalid file name.
+#' The dates must be in the standard format (Y-m-d) or the function may not work
+#' as intended.  For example, the date is used in the file name and dates with
+#' "/" will result in an invalid file name.
 #'
 #' One or two parameters can be analyzed at a time.
 #' If provide 2 parameters both will produce period statistic summaries.
-#' And the plots will have both parameters.  The 2nd parameter will be on the 2nd (right) y-axis.
+#' And the plots will have both parameters.  The 2nd parameter will be on the
+#' 2nd (right) y-axis.
 #'
-#' Requires doBy library for the period statistics summary and rmarkdown for the report.
+#' Requires doBy library for the period statistics summary and rmarkdown for the
+#' report.
 #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Erik.Leppo@tetratech.com (EWL)
@@ -27,26 +32,36 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @param fun.myDate Benchmark date.
 #' @param fun.myDate.Format Format of benchmark date.  This should be the same
-#' format of the date in the data file.  Default is \%Y-\%m-\%d (e.g., 2017-12-31).
+#' format of the date in the data file.
+#' Default is \%Y-\%m-\%d (e.g., 2017-12-31).
 #' @param fun.myPeriod.N Period length.  Default = 30.
-#' @param fun.myPeriod.Units Period units (days or years written as d or y).  Default is d.
+#' @param fun.myPeriod.Units Period units (days or years written as d or y).
+#' Default is d.
 #' @param fun.myFile Filename (no directory) of data file.  Must be CSV file.
-#' @param fun.myDir.import Directory for import data.  Default is current working directory.
-#' @param fun.myDir.export Directory for export data.  Default is current working directory.
+#' @param fun.myDir.import Directory for import data.
+#' Default is current working directory.
+#' @param fun.myDir.export Directory for export data.
+#' Default is current working directory.
 #' @param fun.myParam.Name Column name in myFile to perform summary statistics.
 #'  One or two parameters can be specified.
-#' @param fun.myDateTime.Name Column name in myFile for date time.  Default = "Date.Time".
-#' @param fun.myDateTime.Format Format of DateTime field.  Default = \%Y-\%m-\%d \%H:\%M:\%S.
-#' @param fun.myThreshold Value to draw line on plot.  For example, a regulatory limit.
-#' Default = NA
+#' @param fun.myDateTime.Name Column name in myFile for date time.
+#' Default = "Date.Time".
+#' @param fun.myDateTime.Format Format of DateTime field.
+#' Default = \%Y-\%m-\%d \%H:\%M:\%S.
+#' @param fun.myThreshold Value to draw line on plot.  For example, a regulatory
+#'  limit.  Default = NA
 #' @param fun.myConfig Configuration file to use for this data analysis.
-#' The default is always loaded first so only "new" values need to be included.  This is the easiest way to control date and time formats.
+#' The default is always loaded first so only "new" values need to be included.
+#' This is the easiest way to control date and time formats.
 #' @param fun.myReport.format Report format (docx or html).
-#' Default is specified in config.R (docx).Can be customized in config.R; ContData.env$myReport.Format.
+#' Default is specified in config.R (docx).Can be customized in config.R;
+#' ContData.env$myReport.Format.
 #' @param fun.myReport.Dir Report (rmd) template folder.
-#' Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
+#' Default is the package rmd folder.  Can be customized in config.R;
+#' ContData.env$myReport.Dir.
 #' @return Returns a csv with daily means and a PDF summary with plots into the
-#' specified export directory for the specified time period before the given date.
+#' specified export directory for the specified time period before the given
+#' date.
 #'
 #' @examples
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -60,7 +75,7 @@
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
 #' # Load File to use for PeriodStats
-#' myDir <- getwd()
+#' myDir <- tempdir()
 #' myFile <- "DATA_period_test2_Aw_20130101_20141231.csv"
 #' df.x <- read.csv(file.path(myDir, myFile))
 #'
@@ -70,8 +85,8 @@
 #' myPeriod.N <- c(30, 60, 90, 120, 1)
 #' myPeriod.Units <- c("d", "d", "d", "d", "y")
 #' myFile <- "DATA_period_test2_Aw_20130101_20141231.csv"
-#' myDir.import <- getwd()
-#' myDir.export <- getwd()
+#' myDir.import <- tempdir()
+#' myDir.export <- tempdir()
 #' myParam.Name <- "Water.Temp.C"
 #' myDateTime.Name <- "Date.Time"
 #' myDateTime.Format <- "%Y-%m-%d %H:%M:%S"
@@ -149,15 +164,15 @@ PeriodStats <- function(fun.myDate
                        , fun.myPeriod.N = 30
                        , fun.myPeriod.Units = "d"
                        , fun.myFile
-                       , fun.myDir.import=getwd()
-                       , fun.myDir.export=getwd()
+                       , fun.myDir.import = getwd()
+                       , fun.myDir.export = getwd()
                        , fun.myParam.Name
                        , fun.myDateTime.Name = "Date.Time"
                        , fun.myDateTime.Format = NA
                        , fun.myThreshold = NA
                        , fun.myConfig = ""
-                       , fun.myReport.format=""
-                       , fun.myReport.Dir=""
+                       , fun.myReport.format = ""
+                       , fun.myReport.Dir = ""
                        )
 {##FUN.fun.Stats.START
   # 00. Debugging Variables####

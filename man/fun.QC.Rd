@@ -13,7 +13,8 @@ fun.QC(
   fun.myDir.export = "",
   fun.myReport.format,
   fun.myReport.Dir,
-  fun.CreateReport = TRUE
+  fun.CreateReport = TRUE,
+  fun.AddDeployCol = FALSE
 )
 }
 \arguments{
@@ -21,19 +22,31 @@ fun.QC(
 
 \item{fun.myData.Type}{data type is "QC".}
 
-\item{fun.myData.DateRange.Start}{Start date for requested data. Format = YYYY-MM-DD.}
+\item{fun.myData.DateRange.Start}{Start date for requested data.
+Format = YYYY-MM-DD.}
 
-\item{fun.myData.DateRange.End}{End date for requested data. Format = YYYY-MM-DD.}
+\item{fun.myData.DateRange.End}{End date for requested data.
+Format = YYYY-MM-DD.}
 
-\item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
+\item{fun.myDir.import}{Directory for import data.
+Default is current working directory.}
 
-\item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+\item{fun.myDir.export}{Directory for export data.
+Default is current working directory.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.}
+\item{fun.myReport.format}{Report format (docx or html).
+Default is specified in config.R (docx).  Can be customized in config.R;
+ContData.env$myReport.Format.}
 
-\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
+\item{fun.myReport.Dir}{Report (rmd) template folder.
+Default is the package rmd folder.  Can be customized in config.R;
+ContData.env$myReport.Dir.}
 
-\item{fun.CreateReport}{Boolean parameter to create reports or not.  Default = TRUE.}
+\item{fun.CreateReport}{Boolean parameter to create reports or not.
+Default = TRUE.}
+
+\item{fun.AddDeployCol}{Boolean for adding column name.  Default = FALSE.
+Can be customized in config.R; ContData.env$myName.LoggerDeployment.}
 }
 \value{
 Returns a csv file to specified directory with QC flags.

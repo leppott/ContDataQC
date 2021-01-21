@@ -17,7 +17,8 @@
 # 20170323, added 3 parameters (Cond, DO, and pH)
 # 20170324, added 2 more parameters (Turbidity and Chlrophylla)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# assumes use of CSV.  If using TXT have to modify list.files(pattern), read.csv(), and write.csv()
+# assumes use of CSV.  If using TXT have to modify list.files(pattern)
+# , read.csv(), and write.csv()
 #
 # Basic Operations:
 # load all files in data directory
@@ -28,7 +29,7 @@
 # 20160208
 # SensorDepth - Gross is only negative, Flat = remove
 # 20160303
-# Rolling SD.  Use "zoo" and rollapply.  Loop too slow for large/dense data sets.
+# Rolling SD.  Use "zoo" and rollapply.  Loop too slow for large/dense data sets
 # (will crash if less than 5 records so added "stop")
 #
 # library (load any required helper functions)
@@ -36,13 +37,24 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @param fun.myData.SiteID Station/SiteID.
 #' @param fun.myData.Type data type is "QC".
-#' @param fun.myData.DateRange.Start Start date for requested data. Format = YYYY-MM-DD.
-#' @param fun.myData.DateRange.End End date for requested data. Format = YYYY-MM-DD.
-#' @param fun.myDir.import Directory for import data.  Default is current working directory.
-#' @param fun.myDir.export Directory for export data.  Default is current working directory.
-#' @param fun.myReport.format Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.
-#' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
-#' @param fun.CreateReport Boolean parameter to create reports or not.  Default = TRUE.
+#' @param fun.myData.DateRange.Start Start date for requested data.
+#' Format = YYYY-MM-DD.
+#' @param fun.myData.DateRange.End End date for requested data.
+#' Format = YYYY-MM-DD.
+#' @param fun.myDir.import Directory for import data.
+#' Default is current working directory.
+#' @param fun.myDir.export Directory for export data.
+#' Default is current working directory.
+#' @param fun.myReport.format Report format (docx or html).
+#' Default is specified in config.R (docx).  Can be customized in config.R;
+#' ContData.env$myReport.Format.
+#' @param fun.myReport.Dir Report (rmd) template folder.
+#' Default is the package rmd folder.  Can be customized in config.R;
+#' ContData.env$myReport.Dir.
+#' @param fun.CreateReport Boolean parameter to create reports or not.
+#' Default = TRUE.
+#' @param fun.AddDeployCol Boolean for adding column name.  Default = FALSE.
+#' Can be customized in config.R; ContData.env$myName.LoggerDeployment.
 #'
 #' @return Returns a csv file to specified directory with QC flags.
 #'
@@ -58,7 +70,8 @@ fun.QC <- function(fun.myData.SiteID
                    , fun.myDir.export = ""
                    , fun.myReport.format
                    , fun.myReport.Dir
-                   , fun.CreateReport = TRUE) {##FUN.fun.QC.START
+                   , fun.CreateReport = TRUE
+                   , fun.AddDeployCol = FALSE) {##FUN.fun.QC.START
   #
   boo_DEBUG <- "FALSE"
 
@@ -82,16 +95,18 @@ fun.QC <- function(fun.myData.SiteID
   #
   # Verify input dates, if blank, NA, or null use all data
   # if DateRange.Start is null or "" then assign it 1900-01-01
-  if (is.na(fun.myData.DateRange.Start)==TRUE || fun.myData.DateRange.Start=="") {
+  if (is.na(fun.myData.DateRange.Start)==TRUE ||
+      fun.myData.DateRange.Start=="") {
     fun.myData.DateRange.Start <- ContData.env$DateRange.Start.Default
-    }
-  # if DateRange.End is null or "" then assign it today
+  }
+    # if DateRange.End is null or "" then assign it today
   if (is.na(fun.myData.DateRange.End)==TRUE || fun.myData.DateRange.End=="") {
     fun.myData.DateRange.End <- ContData.env$DateRange.End.Default
-    }
-  #
-  # Read in list of files to work on, uses all files matching pattern ("\\.csv$")
-  # ## if change formats will have to make modifications (pattern, import, export)
+  }
+  # Read in list of files to work on, uses all files matching pattern
+  #  ("\\.csv$")
+  # ## if change formats will have to make modifications
+  #  (pattern, import, export)
   files2process <- list.files(path=myDir.data.import, pattern=" *.csv")
   utils::head(files2process)
   #
@@ -223,8 +238,11 @@ fun.QC <- function(fun.myData.SiteID
     #varSep = "\t" (use read.delim instead of read.table)
     # as.is = T so dates come in as text rather than factor
     #data.import <- utils::read.delim(strFile,as.is=TRUE,na.strings="")
-   # data.import <- utils::read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings=c("","NA"))
-    data.import <- utils::read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
+   # data.import <- utils::read.csv(paste(myDir.data.import,strFile,sep="/")
+    # ,as.is=TRUE,na.strings=c("","NA"))
+    data.import <- utils::read.csv(file.path(myDir.data.import,strFile)
+                                   ,as.is=TRUE
+                                   ,na.strings=c("","NA"))
     #
     # QC required fields: SiteID & (DateTime | (Date & Time))
     fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
@@ -235,7 +253,9 @@ fun.QC <- function(fun.myData.SiteID
     # Check for and add any missing columns (but not for missing data fields)
     # B.4.1. Date, Time, DateTime
     # list
-    strCol.DT <- c(ContData.env$myName.Date,ContData.env$myName.Time,ContData.env$myName.DateTime)
+    strCol.DT <- c(ContData.env$myName.Date
+                   ,ContData.env$myName.Time
+                   ,ContData.env$myName.DateTime)
     # check for missing
     strCol.DT.Missing <- strCol.DT[strCol.DT %in% colnames(data.import)==FALSE]
     # go to next item if no date, time, or date/time field
@@ -249,9 +269,12 @@ fun.QC <- function(fun.myData.SiteID
       # go to next Item
       next
     }
-    # go to next item if no (date or time) AND no date/time field  (i.e., only 1 of date or time)
-    if(length(strCol.DT.Missing)==2 & ContData.env$myName.DateTime%in%strCol.DT.Missing==TRUE) {
-      myMsg <- "SKIPPED (Missing Fields, 'Date.Time' and one of 'Date' or 'Time')"
+    # go to next item if no (date or time) AND no date/time field
+    #  (i.e., only 1 of date or time)
+    if(length(strCol.DT.Missing)==2 & ContData.env$myName.DateTime %in%
+       strCol.DT.Missing==TRUE) {
+      myMsg <- "SKIPPED (Missing Fields, 'Date.Time' and one of 'Date' or
+      'Time')"
       myItems.Skipped <- myItems.Skipped + 1
       myItems.Log[intCounter,2] <- myMsg
       fun.write.log(myItems.Log,myDate,myTime)
@@ -266,9 +289,11 @@ fun.QC <- function(fun.myData.SiteID
     #
     # B.4.2.  Check for columns present and reorder columns
     # check for columns present
-    strCol.Present <- ContData.env$myNames.Order[ContData.env$myNames.Order %in% colnames(data.import)==TRUE]
+    strCol.Present <- ContData.env$myNames.Order[ContData.env$myNames.Order %in%
+                                                   colnames(data.import)==TRUE]
     #
-    myNames.DataFields.Present <- ContData.env$myNames.DataFields[ContData.env$myNames.DataFields %in% colnames(data.import)==TRUE]
+    myNames.DataFields.Present <- ContData.env$myNames.DataFields[
+      ContData.env$myNames.DataFields %in% colnames(data.import)==TRUE]
     # kick out if no data fields
     if(length(myNames.DataFields.Present)==0){
       myMsg <- "SKIPPED (Missing Fields, DATA)"
@@ -280,15 +305,32 @@ fun.QC <- function(fun.myData.SiteID
       # go to next Item
     }
     #
+
+    # QC, LoggerDeploy, Add Column ----
+    # if TRUE add default
+    # if FALSE do nothing
+    # for TRUE and character add the name to strCol.Present
+    if (fun.AddDeployCol == TRUE) {
+      data.import[, ContData.env$myName.LoggerDeployment] <- NA
+      strCol.Present <- c(strCol.Present, ContData.env$myName.LoggerDeployment)
+      # populate first and last row with start and end
+      data.import[1, ContData.env$myName.LoggerDeployment] <-
+        ContData.env$myName.LoggerDeployment.start
+      data.import[nrow(data.import), ContData.env$myName.LoggerDeployment] <-
+        ContData.env$myName.LoggerDeployment.end
+    } ## IF ~ fun.AddDeployCol ~ END
+
     # reorder Columns (and drop extra columns)
     data.import <- data.import[,strCol.Present]
     # B.4.3. Add FLAGS
-    strCol.Flags <- ContData.env$myNames.Flags[ContData.env$myNames.Cols4Flags %in% colnames(data.import)==TRUE]
+    strCol.Flags <- ContData.env$myNames.Flags[ContData.env$myNames.Cols4Flags
+                                               %in% colnames(data.import)==TRUE]
     data.import[,strCol.Flags] <- ""
     #
     #
     # data columns for flags that are present (need for later)
-    #myNames.Cols4Flags.Present <- myNames.Cols4Flags[myNames.Cols4Flags %in% colnames(data.import)==TRUE]
+    #myNames.Cols4Flags.Present <- myNames.Cols4Flags[myNames.Cols4Flags %in%
+    # colnames(data.import)==TRUE]
     #
     #
     #
@@ -307,10 +349,12 @@ fun.QC <- function(fun.myData.SiteID
     # if entire field is NA then fill from other fields
     # Date
     myField   <- ContData.env$myName.Date
-    data.import[,myField][all(is.na(data.import[,myField]))] <- data.import[,ContData.env$myName.DateTime]
+    data.import[,myField][all(is.na(data.import[,myField]))] <- data.import[
+                                                  ,ContData.env$myName.DateTime]
     # Time
     myField   <- ContData.env$myName.Time
-    data.import[,myField][all(is.na(data.import[,myField]))] <- data.import[,ContData.env$myName.DateTime]
+    data.import[,myField][all(is.na(data.import[,myField]))] <- data.import[
+                                                  ,ContData.env$myName.DateTime]
     # DateTime
     #myField   <- myName.DateTime
     # can't fill fill from others without knowing the format
@@ -319,14 +363,17 @@ fun.QC <- function(fun.myData.SiteID
     # Function below gets date or time format and returns R format
     # date_time is split and then pasted together.
     # if no AM/PM then 24hr time is assumed
-    format.Date     <- fun.DateTimeFormat(data.import[,ContData.env$myName.Date],"Date")
-    format.Time     <- fun.DateTimeFormat(data.import[,ContData.env$myName.Time],"Time")
-    #format.DateTime <- fun.DateTimeFormat(data.import[,ContData.env$myName.DateTime],"DateTime")
+    format.Date     <- fun.DateTimeFormat(data.import[
+                                              ,ContData.env$myName.Date],"Date")
+    format.Time     <- fun.DateTimeFormat(data.import[
+                                              ,ContData.env$myName.Time],"Time")
+    #format.DateTime <- fun.DateTimeFormat(data.import[
+    #  ,ContData.env$myName.DateTime],"DateTime")
     # get error if field is NA, need to fix
     # same for section below
     #
     # 20160322, new section, check for NA and fill if needed
-    if (length(stats::na.omit(data.import[,ContData.env$myName.DateTime]))==0){##IF.DateTime==NA.START
+    if (length(stats::na.omit(data.import[,ContData.env$myName.DateTime]))==0) {
       # move 5.2.1 up here
       myField   <- ContData.env$myName.DateTime
       myFormat  <- ContData.env$myFormat.DateTime #"%Y-%m-%d %H:%M:%S"
@@ -444,13 +491,18 @@ fun.QC <- function(fun.myData.SiteID
 #     unclass(as.POSIXlt(Sys.time()))
 #     ?DateTimeClasses
 
-
     # 2020-12-21, Keep only 1st entry on duplicate date.time
     # fall for Daylight Savings Time
     data.import <- fun.DateTime.GroupBy.First(data.import)
 
+    # QC, LoggerDeploy, Recheck last row ----
+    # DST fix above can remove it
+    # 2021-01-21
+    if (fun.AddDeployCol == TRUE) {
+      data.import[nrow(data.import), ContData.env$myName.LoggerDeployment] <-
+        ContData.env$myName.LoggerDeployment.end
+    } ## IF ~ fun.AddDeployCol ~ END
 
-#
     # B.6. QC for each Data Type present ####
     # sub routine adds QC Calcs, QC Test Flags, Assigns overall Flag, and removes QC Calc Fields
     # cycle each data type (manually code)
@@ -470,18 +522,18 @@ fun.QC <- function(fun.myData.SiteID
       utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
-                                     ,myField
-                                     ,ContData.env$myThresh.Gross.Fail.Hi.WaterTemp
-                                     ,ContData.env$myThresh.Gross.Fail.Lo.WaterTemp
-                                     ,ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp
-                                     ,ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp
-                                     ,ContData.env$myThresh.Spike.Hi.WaterTemp
-                                     ,ContData.env$myThresh.Spike.Lo.WaterTemp
-                                     ,ContData.env$myThresh.RoC.SD.period.WaterTemp
-                                     ,ContData.env$myThresh.RoC.SD.number.WaterTemp
-                                     ,ContData.env$myThresh.Flat.Hi.WaterTemp
-                                     ,ContData.env$myThresh.Flat.Lo.WaterTemp
-                                     ,ContData.env$myThresh.Flat.Tolerance.WaterTemp)
+                               ,myField
+                               ,ContData.env$myThresh.Gross.Fail.Hi.WaterTemp
+                               ,ContData.env$myThresh.Gross.Fail.Lo.WaterTemp
+                               ,ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp
+                               ,ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp
+                               ,ContData.env$myThresh.Spike.Hi.WaterTemp
+                               ,ContData.env$myThresh.Spike.Lo.WaterTemp
+                               ,ContData.env$myThresh.RoC.SD.period.WaterTemp
+                               ,ContData.env$myThresh.RoC.SD.number.WaterTemp
+                               ,ContData.env$myThresh.Flat.Hi.WaterTemp
+                               ,ContData.env$myThresh.Flat.Lo.WaterTemp
+                               ,ContData.env$myThresh.Flat.Tolerance.WaterTemp)
       #
     }##IF.myField.END
     #
@@ -497,18 +549,18 @@ fun.QC <- function(fun.myData.SiteID
       utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
-                                  ,myField
-                                  ,ContData.env$myThresh.Gross.Fail.Hi.AirTemp
-                                  ,ContData.env$myThresh.Gross.Fail.Lo.AirTemp
-                                  ,ContData.env$myThresh.Gross.Suspect.Hi.AirTemp
-                                  ,ContData.env$myThresh.Gross.Suspect.Lo.AirTemp
-                                  ,ContData.env$myThresh.Spike.Hi.AirTemp
-                                  ,ContData.env$myThresh.Spike.Lo.AirTemp
-                                  ,ContData.env$myThresh.RoC.SD.period.AirTemp
-                                  ,ContData.env$myThresh.RoC.SD.number.AirTemp
-                                  ,ContData.env$myThresh.Flat.Hi.AirTemp
-                                  ,ContData.env$myThresh.Flat.Lo.AirTemp
-                                  ,ContData.env$myThresh.Flat.Tolerance.AirTemp)
+                                ,myField
+                                ,ContData.env$myThresh.Gross.Fail.Hi.AirTemp
+                                ,ContData.env$myThresh.Gross.Fail.Lo.AirTemp
+                                ,ContData.env$myThresh.Gross.Suspect.Hi.AirTemp
+                                ,ContData.env$myThresh.Gross.Suspect.Lo.AirTemp
+                                ,ContData.env$myThresh.Spike.Hi.AirTemp
+                                ,ContData.env$myThresh.Spike.Lo.AirTemp
+                                ,ContData.env$myThresh.RoC.SD.period.AirTemp
+                                ,ContData.env$myThresh.RoC.SD.number.AirTemp
+                                ,ContData.env$myThresh.Flat.Hi.AirTemp
+                                ,ContData.env$myThresh.Flat.Lo.AirTemp
+                                ,ContData.env$myThresh.Flat.Tolerance.AirTemp)
       #
     }##IF.myField.END
     #
@@ -578,18 +630,18 @@ fun.QC <- function(fun.myData.SiteID
       utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
-                                  ,myField
-                                  ,ContData.env$myThresh.Gross.Fail.Hi.SensorDepth
-                                  ,ContData.env$myThresh.Gross.Fail.Lo.SensorDepth
-                                  ,ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth
-                                  ,ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth
-                                  ,ContData.env$myThresh.Spike.Hi.SensorDepth
-                                  ,ContData.env$myThresh.Spike.Lo.SensorDepth
-                                  ,ContData.env$myThresh.RoC.SD.period.SensorDepth
-                                  ,ContData.env$myThresh.RoC.SD.number.SensorDepth
-                                  ,ContData.env$myThresh.Flat.Hi.SensorDepth
-                                  ,ContData.env$myThresh.Flat.Lo.SensorDepth
-                                  ,ContData.env$myThresh.Flat.Tolerance.SensorDepth)
+                            ,myField
+                            ,ContData.env$myThresh.Gross.Fail.Hi.SensorDepth
+                            ,ContData.env$myThresh.Gross.Fail.Lo.SensorDepth
+                            ,ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth
+                            ,ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth
+                            ,ContData.env$myThresh.Spike.Hi.SensorDepth
+                            ,ContData.env$myThresh.Spike.Lo.SensorDepth
+                            ,ContData.env$myThresh.RoC.SD.period.SensorDepth
+                            ,ContData.env$myThresh.RoC.SD.number.SensorDepth
+                            ,ContData.env$myThresh.Flat.Hi.SensorDepth
+                            ,ContData.env$myThresh.Flat.Lo.SensorDepth
+                            ,ContData.env$myThresh.Flat.Tolerance.SensorDepth)
       #
     }##IF.myField.END
     #
@@ -605,18 +657,18 @@ fun.QC <- function(fun.myData.SiteID
       utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
-                                     ,myField
-                                     ,ContData.env$myThresh.Gross.Fail.Hi.Discharge
-                                     ,ContData.env$myThresh.Gross.Fail.Lo.Discharge
-                                     ,ContData.env$myThresh.Gross.Suspect.Hi.Discharge
-                                     ,ContData.env$myThresh.Gross.Suspect.Lo.Discharge
-                                     ,ContData.env$myThresh.Spike.Hi.Discharge
-                                     ,ContData.env$myThresh.Spike.Lo.Discharge
-                                     ,ContData.env$myThresh.RoC.SD.period.Discharge
-                                     ,ContData.env$myThresh.RoC.SD.number.Discharge
-                                     ,ContData.env$myThresh.Flat.Hi.Discharge
-                                     ,ContData.env$myThresh.Flat.Lo.Discharge
-                                     ,ContData.env$myThresh.Flat.Tolerance.Discharge)
+                               ,myField
+                               ,ContData.env$myThresh.Gross.Fail.Hi.Discharge
+                               ,ContData.env$myThresh.Gross.Fail.Lo.Discharge
+                               ,ContData.env$myThresh.Gross.Suspect.Hi.Discharge
+                               ,ContData.env$myThresh.Gross.Suspect.Lo.Discharge
+                               ,ContData.env$myThresh.Spike.Hi.Discharge
+                               ,ContData.env$myThresh.Spike.Lo.Discharge
+                               ,ContData.env$myThresh.RoC.SD.period.Discharge
+                               ,ContData.env$myThresh.RoC.SD.number.Discharge
+                               ,ContData.env$myThresh.Flat.Hi.Discharge
+                               ,ContData.env$myThresh.Flat.Lo.Discharge
+                               ,ContData.env$myThresh.Flat.Tolerance.Discharge)
 
     }##IF.myField.END
       #
@@ -632,18 +684,18 @@ fun.QC <- function(fun.myData.SiteID
       utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
-                                     ,myField
-                                     ,ContData.env$myThresh.Gross.Fail.Hi.Cond
-                                     ,ContData.env$myThresh.Gross.Fail.Lo.Cond
-                                     ,ContData.env$myThresh.Gross.Suspect.Hi.Cond
-                                     ,ContData.env$myThresh.Gross.Suspect.Lo.Cond
-                                     ,ContData.env$myThresh.Spike.Hi.Cond
-                                     ,ContData.env$myThresh.Spike.Lo.Cond
-                                     ,ContData.env$myThresh.RoC.SD.period.Cond
-                                     ,ContData.env$myThresh.RoC.SD.number.Cond
-                                     ,ContData.env$myThresh.Flat.Hi.Cond
-                                     ,ContData.env$myThresh.Flat.Lo.Cond
-                                     ,ContData.env$myThresh.Flat.Tolerance.Cond)
+                                   ,myField
+                                   ,ContData.env$myThresh.Gross.Fail.Hi.Cond
+                                   ,ContData.env$myThresh.Gross.Fail.Lo.Cond
+                                   ,ContData.env$myThresh.Gross.Suspect.Hi.Cond
+                                   ,ContData.env$myThresh.Gross.Suspect.Lo.Cond
+                                   ,ContData.env$myThresh.Spike.Hi.Cond
+                                   ,ContData.env$myThresh.Spike.Lo.Cond
+                                   ,ContData.env$myThresh.RoC.SD.period.Cond
+                                   ,ContData.env$myThresh.RoC.SD.number.Cond
+                                   ,ContData.env$myThresh.Flat.Hi.Cond
+                                   ,ContData.env$myThresh.Flat.Lo.Cond
+                                   ,ContData.env$myThresh.Flat.Tolerance.Cond)
 
     }##IF.myField.END
     #
@@ -711,18 +763,18 @@ fun.QC <- function(fun.myData.SiteID
       utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
-                                     ,myField
-                                     ,ContData.env$myThresh.Gross.Fail.Hi.Turbidity
-                                     ,ContData.env$myThresh.Gross.Fail.Lo.Turbidity
-                                     ,ContData.env$myThresh.Gross.Suspect.Hi.Turbidity
-                                     ,ContData.env$myThresh.Gross.Suspect.Lo.Turbidity
-                                     ,ContData.env$myThresh.Spike.Hi.Turbidity
-                                     ,ContData.env$myThresh.Spike.Lo.Turbidity
-                                     ,ContData.env$myThresh.RoC.SD.period.Turbidity
-                                     ,ContData.env$myThresh.RoC.SD.number.Turbidity
-                                     ,ContData.env$myThresh.Flat.Hi.Turbidity
-                                     ,ContData.env$myThresh.Flat.Lo.Turbidity
-                                     ,ContData.env$myThresh.Flat.Tolerance.Turbidity)
+                               ,myField
+                               ,ContData.env$myThresh.Gross.Fail.Hi.Turbidity
+                               ,ContData.env$myThresh.Gross.Fail.Lo.Turbidity
+                               ,ContData.env$myThresh.Gross.Suspect.Hi.Turbidity
+                               ,ContData.env$myThresh.Gross.Suspect.Lo.Turbidity
+                               ,ContData.env$myThresh.Spike.Hi.Turbidity
+                               ,ContData.env$myThresh.Spike.Lo.Turbidity
+                               ,ContData.env$myThresh.RoC.SD.period.Turbidity
+                               ,ContData.env$myThresh.RoC.SD.number.Turbidity
+                               ,ContData.env$myThresh.Flat.Hi.Turbidity
+                               ,ContData.env$myThresh.Flat.Lo.Turbidity
+                               ,ContData.env$myThresh.Flat.Tolerance.Turbidity)
     }##IF.myField.END
     #
     # B.6.11. Chlorophyll a
@@ -737,18 +789,18 @@ fun.QC <- function(fun.myData.SiteID
       utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
-                                     ,myField
-                                     ,ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla
-                                     ,ContData.env$myThresh.Gross.Fail.Lo.Chlorophylla
-                                     ,ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla
-                                     ,ContData.env$myThresh.Gross.Suspect.Lo.Chlorophylla
-                                     ,ContData.env$myThresh.Spike.Hi.Chlorophylla
-                                     ,ContData.env$myThresh.Spike.Lo.Chlorophylla
-                                     ,ContData.env$myThresh.RoC.SD.period.Chlorophylla
-                                     ,ContData.env$myThresh.RoC.SD.number.Chlorophylla
-                                     ,ContData.env$myThresh.Flat.Hi.Chlorophylla
-                                     ,ContData.env$myThresh.Flat.Lo.Chlorophylla
-                                     ,ContData.env$myThresh.Flat.Tolerance.Chlorophylla)
+                           ,myField
+                           ,ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla
+                           ,ContData.env$myThresh.Gross.Fail.Lo.Chlorophylla
+                           ,ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla
+                           ,ContData.env$myThresh.Gross.Suspect.Lo.Chlorophylla
+                           ,ContData.env$myThresh.Spike.Hi.Chlorophylla
+                           ,ContData.env$myThresh.Spike.Lo.Chlorophylla
+                           ,ContData.env$myThresh.RoC.SD.period.Chlorophylla
+                           ,ContData.env$myThresh.RoC.SD.number.Chlorophylla
+                           ,ContData.env$myThresh.Flat.Hi.Chlorophylla
+                           ,ContData.env$myThresh.Flat.Lo.Chlorophylla
+                           ,ContData.env$myThresh.Flat.Tolerance.Chlorophylla)
     }##IF.myField.END
     #
     # B.6.12. Water Level
@@ -763,18 +815,18 @@ fun.QC <- function(fun.myData.SiteID
       utils::flush.console()
       #
       data.import <- fun.CalcQCStats(data.import
-                                     ,myField
-                                     ,ContData.env$myThresh.Gross.Fail.Hi.WaterLevel
-                                     ,ContData.env$myThresh.Gross.Fail.Lo.WaterLevel
-                                     ,ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel
-                                     ,ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel
-                                     ,ContData.env$myThresh.Spike.Hi.WaterLevel
-                                     ,ContData.env$myThresh.Spike.Lo.WaterLevel
-                                     ,ContData.env$myThresh.RoC.SD.period.WaterLevel
-                                     ,ContData.env$myThresh.RoC.SD.number.WaterLevel
-                                     ,ContData.env$myThresh.Flat.Hi.WaterLevel
-                                     ,ContData.env$myThresh.Flat.Lo.WaterLevel
-                                     ,ContData.env$myThresh.Flat.Tolerance.WaterLevel)
+                             ,myField
+                             ,ContData.env$myThresh.Gross.Fail.Hi.WaterLevel
+                             ,ContData.env$myThresh.Gross.Fail.Lo.WaterLevel
+                             ,ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel
+                             ,ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel
+                             ,ContData.env$myThresh.Spike.Hi.WaterLevel
+                             ,ContData.env$myThresh.Spike.Lo.WaterLevel
+                             ,ContData.env$myThresh.RoC.SD.period.WaterLevel
+                             ,ContData.env$myThresh.RoC.SD.number.WaterLevel
+                             ,ContData.env$myThresh.Flat.Hi.WaterLevel
+                             ,ContData.env$myThresh.Flat.Lo.WaterLevel
+                             ,ContData.env$myThresh.Flat.Tolerance.WaterLevel)
     }##IF.myField.END
     #
     #
@@ -823,7 +875,8 @@ fun.QC <- function(fun.myData.SiteID
     #************************
 
 
-    #data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings=c("","NA"))
+    #data.import <- read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE
+    # ,na.strings=c("","NA"))
     #
     # B.4.0. Columns
     # B.4.1. Check for DataFields  (may have already been done)

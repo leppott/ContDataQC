@@ -44,6 +44,42 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9070
+2021-01-21
+
+* refactor: Replace getwd() with tempdir() in examples
+    + export_rLakeAnalyzer
+    + PeriodStats
+    + Export.IHA
+of getwd() to save file
+* feature: Create logger deployment column during QC routine, Issue #107
+    + ContDataQC
+    + fun.QC
+    + fun.QC.File
+* feature: Add logger deployment to config.R, Issue #107
+    + myName.LoggerDeployment
+    + myName.LoggerDeployment.start
+    + myName.LoggerDeployment.end
+    + Added to myNames.Order (add after DateTime)
+* style: Trim lines to 80 characters
+    + Export.rLakeAnalyzer
+    + Vignette_Config
+    + ContDataQC_Vignette
+* refactor: Rename ContDataQC_Vignette to Vignette_ContDataQC
+* refactor: Update config.R
+* style: Updates to config.R, make order of Air and Water Pressure consistent
+* refactor: Create data-raw file to propogate changes in config.R to shiny
+* refactor: Update Vignette_Config with changes to config.R
+* refactor: Update Config.R and its dependant versions
+    + inst\extdata\config.ORIG.R
+    + inst\shiny-examples\ContDataQC\www\Config_Template.R
+    + inst\shiny-examples\ContDataQC\www\Config_Template.zip
+* refactor: Replace getwd() with tempdir()
+    + Vignette_Lakes
+    + Vignette_ContDataQC
+* docs: Update examples in Vignette_ContDataQC
+* docs: Update example in Export.IHA with text from ContDataQC
+
 ## v2.0.5.9069
 2021-01-20
 

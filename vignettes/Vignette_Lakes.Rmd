@@ -59,7 +59,7 @@ library(ContDataQC)
 # Selection.Type      <- c("Air","Water","AW","Gage","AWG","AG","WG")
 # Selection.SUB <- c("Data0_Original"
 #                   , "Data1_RAW","Data2_QC","Data3_Aggregated","Data4_Stats")
-myDir.BASE <- getwd()
+myDir.BASE <- tempdir()
 
 # Function Inputs
 fn1 <- "Ellis--1.0m_Water_20180524_20180918.csv"
@@ -93,7 +93,7 @@ Selection.SUB <- c("Data0_Original"
                    , "Data2_QC"
                    , "Data3_Aggregated"
                    , "Data4_Stats")
-myDir.BASE <- getwd()
+myDir.BASE <- 
 
 # Files
 fn1 <- "Ellis--1.0m_Water_20180524_20180918.csv"
@@ -122,7 +122,7 @@ that were aggregated.
 # Packages
 library(ContDataQC)
 
-myDir.BASE <- getwd()
+myDir.BASE <- tempdir()
 
 # Files
 myFile <- c("QC_Ellis--1.0m_Water_20180524_20180918.csv"
@@ -150,7 +150,7 @@ populated.  The configuration file contains the desired delimiter (defaulted as
 "--").
 
 ```{r ParseID, eval=FALSE}
-myDir.BASE <- getwd()
+myDir.BASE <- tempdir()
 
 # Parse ID string and save
 dir_files <- file.path(myDir.BASE, "Data3_Aggregated")

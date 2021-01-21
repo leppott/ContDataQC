@@ -16,58 +16,80 @@ ContDataQC(
   fun.myFile = "",
   fun.myReport.format = "",
   fun.myReport.Dir = "",
-  fun.CreateReport = TRUE
+  fun.CreateReport = TRUE,
+  fun.AddDeployCol = FALSE
 )
 }
 \arguments{
-\item{fun.myData.Operation}{Operation to be performed; c("GetGageData","QCRaw", "Aggregate", "SummaryStats")}
+\item{fun.myData.Operation}{Operation to be performed;
+c("GetGageData","QCRaw", "Aggregate", "SummaryStats")}
 
 \item{fun.myData.SiteID}{Station/SiteID.}
 
-\item{fun.myData.Type}{data type; c("Air","Water","AW","Gage","AWG","AG","WG")}
+\item{fun.myData.Type}{data type;
+c("Air","Water","AW","Gage","AWG","AG","WG")}
 
-\item{fun.myData.DateRange.Start}{Start date for requested data. Format = YYYY-MM-DD.}
+\item{fun.myData.DateRange.Start}{Start date for requested data.
+Format = YYYY-MM-DD.}
 
-\item{fun.myData.DateRange.End}{End date for requested data. Format = YYYY-MM-DD.}
+\item{fun.myData.DateRange.End}{End date for requested data.
+Format = YYYY-MM-DD.}
 
-\item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
+\item{fun.myDir.import}{Directory for import data.
+Default is current working directory.}
 
-\item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+\item{fun.myDir.export}{Directory for export data.
+Default is current working directory.}
 
-\item{fun.myConfig}{Configuration file to use for this data analysis.  The default is always loaded first so only "new" values need to be included.  This is the easiest way to control time zones.}
+\item{fun.myConfig}{Configuration file to use for this data analysis.
+The default is always loaded first so only "new" values need to be included.
+This is the easiest way to control time zones.}
 
-\item{fun.myFile}{Single file (or vector of files) to perform functions.  SiteID, Type, and Date Range not used when file name(s) provided.}
+\item{fun.myFile}{Single file (or vector of files) to perform functions.
+SiteID, Type, and Date Range not used when file name(s) provided.}
 
-\item{fun.myReport.format}{Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.}
+\item{fun.myReport.format}{Report format (docx or html).
+Default is specified in config.R (docx).  Can be customized in config.R;
+ContData.env$myReport.Format.}
 
-\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
+\item{fun.myReport.Dir}{Report (rmd) template folder.  Default is the package
+rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
 
-\item{fun.CreateReport}{Boolean parameter to create reports or not.  Default = TRUE.}
+\item{fun.CreateReport}{Boolean parameter to create reports or not.
+Default = TRUE.}
+
+\item{fun.AddDeployCol}{Boolean for adding column name.  Default = FALSE.
+Can be customized in config.R; ContData.env$myName.LoggerDeployment.}
 }
 \value{
-Returns a csv into the specified export directory with additional columns for calculated statistics.
+Returns a csv into the specified export directory with additional
+columns for calculated statistics.
 }
 \description{
 Calls all other functions for the ContDataQC library.
 }
 \details{
-Below are the default data directories assumed to exist in the working directory.  These can be created with code in the example.
+Below are the default data directories assumed to exist in the
+working directory.  These can be created with code in the example.
 
 ./Data0_Original/ = Unmodified data logger files.
 
-./Data1_RAW/ = Data logger files modified for use with library.  Modifications for extra rows and file and column names.
+./Data1_RAW/ = Data logger files modified for use with library.
+Modifications for extra rows and file and column names.
 
 ./Data2_QC/ = Repository for library output for QCed files.
 
-./Data3_Aggregated/ = Repository for library output for aggregated (or split) files.
+./Data3_Aggregated/ = Repository for library output for aggregated (or split)
+ files.
 
 ./Data4_Stats/ = Repository for library output for statistical summary files.
 
-It is possible to call the Aggregate file portion of the script to meld together files
-from multiple sites (e.g., all sites in a watershed or from different depths on a lake).
-The file will be named by the first file named with "Append_x" where "x" is the
-number of files that were aggregated.  The purpose is to allow users to analyze the
-data in these files from a single file.
+It is possible to call the Aggregate file portion of the script to meld
+together files from multiple sites (e.g., all sites in a watershed or from
+different depths on a lake).  The file will be named by the first file named
+with "Append_x" where "x" is the number of files that were aggregated.  The
+purpose is to allow users to analyze the data in these files from a single
+file.
 
 Pandoc is needed for docx reports (default).  Pandoc comes packaged with
 RStudio.  To install Pandoc on Windows use the `installr` package.
@@ -301,11 +323,20 @@ ContDataQC(myData.Operation
 # Summary Stats from Other Data
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # 05. Gage Data
-# Get Gage Data via the dataRetrieval package from USGS 01187300 2013 (~4 seconds)
-data.gage <- dataRetrieval::readNWISuv("01187300", "00060", "2013-01-01", "2014-12-31")
+# Get Gage Data via the dataRetrieval package from USGS 01187300 2013
+#  (~4 seconds)
+data.gage <- dataRetrieval::readNWISuv("01187300"
+                                       , "00060"
+                                       , "2013-01-01"
+                                       , "2014-12-31")
 head(data.gage)
 # Rename fields
-myNames <- c("Agency", "SiteID", "Date.Time", "Discharge.ft3.s", "Code", "TZ")
+myNames <- c("Agency"
+             , "SiteID"
+             , "Date.Time"
+             , "Discharge.ft3.s"
+             , "Code"
+             , "TZ")
 names(data.gage) <- myNames
 # Add Date and Time
 data.gage[,"Date"] <- as.Date(data.gage[,"Date.Time"])

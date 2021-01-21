@@ -40,19 +40,25 @@
 # @keywords continuous data, daily mean, IHA
 #'
 #' @examples
+#' myDir.BASE <- tempdir()
+#'
 #' # 1.  Get Gage Data
 #' #
 #' # 1.A. Use ContDataQC and Save (~1min for download)
-#' myData.Operation    <- "GetGageData" #Selection.Operation[1]
-#' myData.SiteID       <- "01187300" # Hubbard River near West Hartland, CT
-#' myData.Type         <- "Gage"
-#' myData.DateRange.Start  <- "2015-01-01"
-#' myData.DateRange.End    <- "2016-12-31"
-#' myDir.import <- getwd()
-#' myDir.export <- getwd()
-#' ContDataQC(myData.Operation, myData.SiteID, myData.Type
-#'            , myData.DateRange.Start, myData.DateRange.End
-#'            , myDir.import, myDir.export)
+#' myData.Operation       <- "GetGageData" #Selection.Operation[1]
+#' myData.SiteID          <- "01187300" # Hubbard River near West Hartland, CT
+#' myData.Type            <-  "Gage" #Selection.Type[4]
+#' myData.DateRange.Start <- "2013-01-01"
+#' myData.DateRange.End   <- "2014-12-31"
+#' myDir.import           <- ""
+#' myDir.export           <- file.path(myDir.BASE, Selection.SUB[2])
+#' ContDataQC(myData.Operation
+#'            , myData.SiteID
+#'            , myData.Type
+#'            , myData.DateRange.Start
+#'            , myData.DateRange.End
+#'            , myDir.import
+#'            , myDir.export)
 #' #
 #' # 1.B. Use saved data
 #' myData.SiteID   <- "01187300"
@@ -62,6 +68,8 @@
 #' #
 #' # 2. Prep Data
 #' myData.IHA <- Export.IHA(myFile
+#'                          , fun.myDir.import = tempdir()
+#'                          , fun.myDir.export = tempdir()
 #'                          , fun.myCol.DateTime = myCol.DateTime
 #'                          , fun.myCol.Parameter = myCol.Discharge
 #'                          )
@@ -136,8 +144,8 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # # QC Function
 # fun.myFile <- myFile
-# fun.myDir.import=getwd()
-# fun.myDir.export=getwd()
+# fun.myDir.import <- tempdir()
+# fun.myDir.export <- tempdir()
 # fun.myDateRange.Start <- NA
 # fun.myDateRange.End <- NA
 # fun.myCol.DateTime <- myCol.DateTime
@@ -152,7 +160,7 @@ Export.IHA <- function(fun.myFile
                        , fun.myDateRange.End = NA
                        , fun.myCol.DateTime = "Date.Time"
                        , fun.myCol.Parameter = "Discharge.ft3.s"
-                       ) {##FUNCTION.Export.IHA.START
+                       ) {
   # import file
   myDF <- utils::read.csv(fun.myFile, stringsAsFactors = FALSE)
   myCols <- c(fun.myCol.DateTime, fun.myCol.Parameter)

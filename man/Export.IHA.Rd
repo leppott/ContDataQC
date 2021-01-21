@@ -62,19 +62,25 @@ GitHub) and for the example export the XLConnect packages.  Install commands
 are included in the example.
 }
 \examples{
+myDir.BASE <- tempdir()
+
 # 1.  Get Gage Data
 #
 # 1.A. Use ContDataQC and Save (~1min for download)
-myData.Operation    <- "GetGageData" #Selection.Operation[1]
-myData.SiteID       <- "01187300" # Hubbard River near West Hartland, CT
-myData.Type         <- "Gage"
-myData.DateRange.Start  <- "2015-01-01"
-myData.DateRange.End    <- "2016-12-31"
-myDir.import <- getwd()
-myDir.export <- getwd()
-ContDataQC(myData.Operation, myData.SiteID, myData.Type
-           , myData.DateRange.Start, myData.DateRange.End
-           , myDir.import, myDir.export)
+myData.Operation       <- "GetGageData" #Selection.Operation[1]
+myData.SiteID          <- "01187300" # Hubbard River near West Hartland, CT
+myData.Type            <-  "Gage" #Selection.Type[4]
+myData.DateRange.Start <- "2013-01-01"
+myData.DateRange.End   <- "2014-12-31"
+myDir.import           <- ""
+myDir.export           <- file.path(myDir.BASE, Selection.SUB[2])
+ContDataQC(myData.Operation
+           , myData.SiteID
+           , myData.Type
+           , myData.DateRange.Start
+           , myData.DateRange.End
+           , myDir.import
+           , myDir.export)
 #
 # 1.B. Use saved data
 myData.SiteID   <- "01187300"
@@ -84,6 +90,8 @@ myCol.Discharge <- "Discharge.ft3.s"
 #
 # 2. Prep Data
 myData.IHA <- Export.IHA(myFile
+                         , fun.myDir.import = tempdir()
+                         , fun.myDir.export = tempdir()
                          , fun.myCol.DateTime = myCol.DateTime
                          , fun.myCol.Parameter = myCol.Discharge
                          )

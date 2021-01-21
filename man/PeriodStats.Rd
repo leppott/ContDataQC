@@ -25,63 +25,78 @@ PeriodStats(
 \item{fun.myDate}{Benchmark date.}
 
 \item{fun.myDate.Format}{Format of benchmark date.  This should be the same
-format of the date in the data file.  Default is \%Y-\%m-\%d (e.g., 2017-12-31).}
+format of the date in the data file.
+Default is \%Y-\%m-\%d (e.g., 2017-12-31).}
 
 \item{fun.myPeriod.N}{Period length.  Default = 30.}
 
-\item{fun.myPeriod.Units}{Period units (days or years written as d or y).  Default is d.}
+\item{fun.myPeriod.Units}{Period units (days or years written as d or y).
+Default is d.}
 
 \item{fun.myFile}{Filename (no directory) of data file.  Must be CSV file.}
 
-\item{fun.myDir.import}{Directory for import data.  Default is current working directory.}
+\item{fun.myDir.import}{Directory for import data.
+Default is current working directory.}
 
-\item{fun.myDir.export}{Directory for export data.  Default is current working directory.}
+\item{fun.myDir.export}{Directory for export data.
+Default is current working directory.}
 
 \item{fun.myParam.Name}{Column name in myFile to perform summary statistics.
 One or two parameters can be specified.}
 
-\item{fun.myDateTime.Name}{Column name in myFile for date time.  Default = "Date.Time".}
+\item{fun.myDateTime.Name}{Column name in myFile for date time.
+Default = "Date.Time".}
 
-\item{fun.myDateTime.Format}{Format of DateTime field.  Default = \%Y-\%m-\%d \%H:\%M:\%S.}
+\item{fun.myDateTime.Format}{Format of DateTime field.
+Default = \%Y-\%m-\%d \%H:\%M:\%S.}
 
-\item{fun.myThreshold}{Value to draw line on plot.  For example, a regulatory limit.
-Default = NA}
+\item{fun.myThreshold}{Value to draw line on plot.  For example, a regulatory
+limit.  Default = NA}
 
 \item{fun.myConfig}{Configuration file to use for this data analysis.
-The default is always loaded first so only "new" values need to be included.  This is the easiest way to control date and time formats.}
+The default is always loaded first so only "new" values need to be included.
+This is the easiest way to control date and time formats.}
 
 \item{fun.myReport.format}{Report format (docx or html).
-Default is specified in config.R (docx).Can be customized in config.R; ContData.env$myReport.Format.}
+Default is specified in config.R (docx).Can be customized in config.R;
+ContData.env$myReport.Format.}
 
 \item{fun.myReport.Dir}{Report (rmd) template folder.
-Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
+Default is the package rmd folder.  Can be customized in config.R;
+ContData.env$myReport.Dir.}
 }
 \value{
 Returns a csv with daily means and a PDF summary with plots into the
-specified export directory for the specified time period before the given date.
+specified export directory for the specified time period before the given
+date.
 }
 \description{
-Generates daily stats (N, mean, min, max, range, std deviation) for the
-specified time period before a given date. Output is a multiple column CSV
-(Date and Parameter Name by statistic) and a report (HTML or DOCX) with plots.
-Input is the ouput file of the QC operation of ContDataQC().
+Generates daily stats (N, mean, min, max, range, std deviation)
+for the specified time period before a given date. Output is a multiple
+column CSV (Date and Parameter Name by statistic) and a report (HTML or DOCX)
+with plots. Input is the ouput file of the QC operation of ContDataQC().
 }
 \details{
-The input is output file of the QC operation in ContDataQC().  That is, a file with
-Date.Time, and parameters (matching formats in config.R).
+The input is output file of the QC operation in ContDataQC().  That
+is, a file with Date.Time, and parameters (matching formats in config.R).
 
-To get different periods (30, 60, or 90 days) change function input "fun.myPeriod.N".
+To get different periods (30, 60, or 90 days) change function input
+"fun.myPeriod.N".
 It is possible to provide a vector for Period.N and Period.Units.
-If the date range is longer than that in the data provided the stats will not calculate properly.
+If the date range is longer than that in the data provided the stats will not
+calculate properly.
 
-The dates must be in the standard format (Y-m-d) or the function may not work as intended.
-For example, the date is used in the file name and dates with "/" will result in an invalid file name.
+The dates must be in the standard format (Y-m-d) or the function may not work
+as intended.  For example, the date is used in the file name and dates with
+"/" will result in an invalid file name.
 
 One or two parameters can be analyzed at a time.
 If provide 2 parameters both will produce period statistic summaries.
-And the plots will have both parameters.  The 2nd parameter will be on the 2nd (right) y-axis.
+And the plots will have both parameters.  The 2nd parameter will be on the
+2nd (right) y-axis.
 
-Requires doBy library for the period statistics summary and rmarkdown for the report.
+Requires doBy library for the period statistics summary and rmarkdown for the
+report.
 }
 \examples{
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -95,7 +110,7 @@ file.copy(file.path(path.package("ContDataQC"), "extdata", myFile)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Load File to use for PeriodStats
-myDir <- getwd()
+myDir <- tempdir()
 myFile <- "DATA_period_test2_Aw_20130101_20141231.csv"
 df.x <- read.csv(file.path(myDir, myFile))
 
@@ -105,8 +120,8 @@ myDate.Format <- "\%Y-\%m-\%d"
 myPeriod.N <- c(30, 60, 90, 120, 1)
 myPeriod.Units <- c("d", "d", "d", "d", "y")
 myFile <- "DATA_period_test2_Aw_20130101_20141231.csv"
-myDir.import <- getwd()
-myDir.export <- getwd()
+myDir.import <- tempdir()
+myDir.export <- tempdir()
 myParam.Name <- "Water.Temp.C"
 myDateTime.Name <- "Date.Time"
 myDateTime.Format <- "\%Y-\%m-\%d \%H:\%M:\%S"
