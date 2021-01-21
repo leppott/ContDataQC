@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-01-21 10:46:22
+    #> Last Update: 2021-01-21 15:12:44
 
 # Planned Updates
 
@@ -34,6 +34,21 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9072
+
+2021-01-21
+
+  - refactor: Report\_QC.rmd, add Water Level vs. Water Temp plots,
+    Issue \#110
+  - style: Report\_QC.rmd, trim lines to 80 characters
+  - refactor: Copy Report\_QC.rmd to shiny
+
+## v2.0.5.9071
+
+2021-01-21
+
+  - refactor: Revise Vignette\_Config so it doesn’t fail.
 
 ## v2.0.5.9070
 

@@ -16,7 +16,8 @@ knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE)
 # needed for trouble shooting
 boo_DEBUG <- FALSE
 if(boo_DEBUG==TRUE){
-  myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  myConfig <- file.path(system.file(package="ContDataQC"), "extdata"
+                        , "config.ORIG.R")
   source(myConfig)
 }
 ```
@@ -37,21 +38,34 @@ if(boo_DEBUG==TRUE){
   cat(paste("**SiteID:** ",mySiteID,"\n\n",sep=""))
   
   if(exists("fun.myData.DateRange.Start")==TRUE){
-    POR.Requested <- paste(fun.myData.DateRange.Start," to ",fun.myData.DateRange.End, sep="")
+    POR.Requested <- paste(fun.myData.DateRange.Start
+                           ," to "
+                           ,fun.myData.DateRange.End
+                           , sep="")
   } else {
     POR.Requested <- "NA"
   }
-  cat(paste("**Period of Record, Requested:** ",POR.Requested,sep="",collapse="\n\n"))
+  cat(paste("**Period of Record, Requested:** "
+            ,POR.Requested,sep=""
+            ,collapse="\n\n"))
   
-  myNumRecords <- nrow(data.import) # 20170228, mod from records 10 and 11 to half way point
+  myNumRecords <- nrow(data.import) 
+  # 20170228, mod from records 10 and 11 to half way point
   
-  # myTimeDiff <- difftime(data.import[10,ContData.env$myName.DateTime],data.import[11,ContData.env$myName.DateTime],units="mins")
+  # myTimeDiff <- difftime(data.import[10,ContData.env$myName.DateTime]
+  #,data.import[11,ContData.env$myName.DateTime],units="mins")
   #x <- data.import[,ContData.env$myName.DateTime]
-  myT <- strptime(data.import[,ContData.env$myName.DateTime],format=ContData.env$myFormat.DateTime)
+  myT <- strptime(data.import[,ContData.env$myName.DateTime]
+                  ,format=ContData.env$myFormat.DateTime)
   myTimeDiff.all <- difftime(myT[-1],myT[-length(myT)],units="mins")
   myTimeDiff <- median(as.vector(myTimeDiff.all),na.rm=TRUE)
 
-  cat(paste("\n\n**Period of Record, Actual:** ",min(data.import[,ContData.env$myName.Date])," to ",max(data.import[,ContData.env$myName.Date]),"\n\n",sep=""))
+  cat(paste("\n\n**Period of Record, Actual:**"
+            ,min(data.import[,ContData.env$myName.Date])
+            ," to "
+            ,max(data.import[,ContData.env$myName.Date])
+            ,"\n\n"
+            ,sep=""))
        
   cat(paste("**Recording Interval:** ",myTimeDiff[1]," minutes\n\n",sep=""))
   
@@ -68,14 +82,19 @@ if(boo_DEBUG==TRUE){
                                                                %in% names(data.import)==TRUE]
    # Filter out Discrete
    myParameters     <- myParameters.ALL[!grepl(ContData.env$myPrefix.Discrete,myParameters.ALL)]
-   myParameters.Lab <- myParameters.Lab.ALL[!grepl(ContData.env$myPrefix.Discrete,myParameters.Lab.ALL)]
+   myParameters.Lab <- myParameters.Lab.ALL[
+                                           !grepl(ContData.env$myPrefix.Discrete
+                                                   ,myParameters.Lab.ALL)]
    
    
  #cat("**Parameters:** ",paste(myParameters.Lab,", ",sep=""),"\n\n",sep="")
   # above line not working, preventing pandoc conversion to WORD
   #cat("**Included Parameters:** \n\n")
-  cat("**Parameters Included:** ",paste(myParameters.ALL,", ",sep=""),"\n\n",sep="")
-
+  cat("**Parameters Included:** ",paste(myParameters.ALL
+                                        ,", "
+                                        ,sep="")
+      ,"\n\n"
+      ,sep="")
 ```
 
 # DATA SUMMARY, OVERALL
@@ -935,7 +954,7 @@ Multiparameter plots if exist in the data.
     plot_format <- "ggplot" # "base" or "ggplot"
 
     # Plot
-    if(plot_format=="base"){##IF~plot_format~START
+    if(plot_format=="base") {##IF~plot_format~START
       # plot, base ####
       # cheat on Date/Time axis
       n.Total <- length(data.plot[,ContData.env$myName.Date])
@@ -947,38 +966,58 @@ Multiparameter plots if exist in the data.
       #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
       
       # Temp, Air vs. Water
-      if (ContData.env$myName.AirTemp %in% myParameters & ContData.env$myName.WaterTemp 
-          %in% myParameters == TRUE){##IF.Temp.START
+      if (ContData.env$myName.AirTemp %in% myParameters &
+          ContData.env$myName.WaterTemp %in% myParameters == TRUE) {
         cat("## PLOT, Temperature (Air vs. Water) \n\n" )
         #
         par.orig <- par(no.readonly=TRUE) # save original par settings
         layout(rbind(1,2),heights=c(7,1))
         #
-        myPlot.Y <- na.omit(as.numeric(data.plot[,ContData.env$myName.AirTemp])) # 20170518, v2.0.1.9008
-        myPlot.Y2 <- na.omit(as.numeric(data.plot[,ContData.env$myName.WaterTemp])) # 20170518, v2.0.1.9008
+        myPlot.Y <- na.omit(as.numeric(data.plot[,ContData.env$myName.AirTemp]))
+        # 20170518, v2.0.1.9008
+        myPlot.Y2 <- na.omit(as.numeric(data.plot[
+                                               ,ContData.env$myName.WaterTemp]))
+        # 20170518, v2.0.1.9008
         myPlot.Ylab <- ContData.env$myLab.Temp.BOTH
-        plot(myPlot.Y,type="l",main=mySiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="green", xaxt="n")
+        plot(myPlot.Y
+             ,type="l"
+             ,main=mySiteID
+             ,xlab=ContData.env$myLab.Date
+             ,ylab=myPlot.Ylab
+             ,col="green"
+             , xaxt="n")
         # Revised myAT for lots of NA (20170518)
         data.length <- length(myPlot.Y)
         myAT <- c(1,round(data.length * pct,0))
         #
         axis(1,at=myAT,labels=myLab,tick=TRUE)
         lines(myPlot.Y2,type="l",col="blue")
-        #legend(x="bottomright",lty=1,col=c("green","blue"),legend=c("air","water"))
+        #legend(x="bottomright",lty=1,col=c("green","blue")
+        # ,legend=c("air","water"))
         # Add discrete, AirTemp (only if present)
-        myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.AirTemp,sep=".")
+        myDiscrete <- paste(ContData.env$myPrefix.Discrete
+                            ,ContData.env$myName.AirTemp
+                            ,sep=".")
         if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
-          data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
-          data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
+          data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) 
+          # coerce "NA" to NA
+          data.plot.points <-
+            na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) 
+          # remove NA
           myPoints.X <- as.numeric(rownames(data.plot.points))
           myPoints.Y <- data.plot.points[,myDiscrete]
           points(myPoints.Y~myPoints.X,col="green",pch=19) 
         }##IF.Discrete.END
         # Add discrete, Water.Temp (only if present)
-        myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterTemp,sep=".")
-        if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
-          data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
-          data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
+        myDiscrete <- paste(ContData.env$myPrefix.Discrete
+                            ,ContData.env$myName.WaterTemp
+                            ,sep=".")
+        if (myDiscrete %in% myParameters.ALL == TRUE){
+          data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) 
+          # coerce "NA" to NA
+          data.plot.points <-
+            na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) 
+          # remove NA
           myPoints.X <- as.numeric(rownames(data.plot.points))
           myPoints.Y <- data.plot.points[,myDiscrete]
           points(myPoints.Y~myPoints.X,col="blue",pch=19) 
@@ -987,7 +1026,11 @@ Multiparameter plots if exist in the data.
         # LEGEND
         par(mar=c(0,0,0,0))
         plot.new()
-        legend(x="center",lty=1,col=c("green","blue"),legend=c("air","water"),bty="n")
+        legend(x="center"
+               ,lty=1
+               ,col=c("green","blue")
+               ,legend=c("air","water")
+               ,bty="n")
         #
         par(par.orig) # return to original par settings
         #
@@ -999,31 +1042,45 @@ Multiparameter plots if exist in the data.
         #
       }##IF.Temp.END
       #
-      # Water, Temp vs Level
-      if (ContData.env$myName.WaterTemp %in% myParameters & ContData.env$myName.SensorDepth 
-          %in% myParameters == TRUE){##IF.Temp_Level.START
+      # Water, Temp vs Sensor Depth
+      if (ContData.env$myName.WaterTemp %in% myParameters 
+          & ContData.env$myName.SensorDepth %in% myParameters == TRUE) {
         cat("## PLOT, Sensor Depth vs. Water Temperature \n\n")
         #
         par.orig <- par(no.readonly=TRUE) # save original par settings
         layout(rbind(1,2),heights=c(7,1))
         par(oma=c(0,0,0,2))
         #
-        myPlot.Y <- na.omit(as.numeric(data.plot[,ContData.env$myName.WaterTemp])) # 20170518, v2.0.1.9008
+        myPlot.Y <- na.omit(as.numeric(data.plot[
+          ,ContData.env$myName.WaterTemp])) 
+        # 20170518, v2.0.1.9008
         myPlot.Ylab <- ContData.env$myLab.WaterTemp
-        myPlot.Y2 <- na.omit(as.numeric(data.plot[,ContData.env$myName.SensorDepth])) # 20170518, v2.0.1.9008
+        myPlot.Y2 <- na.omit(as.numeric(data.plot[
+          ,ContData.env$myName.SensorDepth]))
+        # 20170518, v2.0.1.9008
         myPlot.Y2lab <- ContData.env$myLab.SensorDepth
         #
-        plot(myPlot.Y,type="l",main=mySiteID,xlab=ContData.env$myLab.Date,ylab=myPlot.Ylab,col="blue", xaxt="n")
+        plot(myPlot.Y
+             ,type="l"
+             ,main=mySiteID
+             ,xlab=ContData.env$myLab.Date
+             ,ylab=myPlot.Ylab
+             ,col="blue"
+             , xaxt="n")
         # Revised myAT for lots of NA (20170518)
         data.length <- length(myPlot.Y)
         myAT <- c(1,round(data.length * pct,0))
         #
         axis(1,at=myAT,labels=myLab,tick=TRUE)
         # Add discrete, Water.Temp (only if present)
-        myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.WaterTemp,sep=".")
-        if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
-          data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
-          data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
+        myDiscrete <- paste(ContData.env$myPrefix.Discrete
+                            ,ContData.env$myName.WaterTemp
+                            ,sep=".")
+        if (myDiscrete %in% myParameters.ALL == TRUE){
+          data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) 
+          # coerce "NA" to NA
+          data.plot.points <- na.omit(data.plot[
+            ,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
           myPoints.X <- as.numeric(rownames(data.plot.points))
           myPoints.Y <- data.plot.points[,myDiscrete]
           points(myPoints.Y~myPoints.X,col="blue",pch=19) 
@@ -1035,10 +1092,13 @@ Multiparameter plots if exist in the data.
         axis(4)
         mtext(myPlot.Y2lab,side=4,line=2.5)
         # Add discrete, SensorDepth (only if present)
-        myDiscrete <- paste(ContData.env$myPrefix.Discrete,ContData.env$myName.SensorDepth,sep=".")
-        if (myDiscrete %in% myParameters.ALL == TRUE){##IF.Discrete.START
-          data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) # coerce "NA" to NA
-          data.plot.points <- na.omit(data.plot[,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
+        myDiscrete <- paste(ContData.env$myPrefix.Discrete
+                            ,ContData.env$myName.SensorDepth,sep=".")
+        if (myDiscrete %in% myParameters.ALL == TRUE){
+          data.plot[,myDiscrete] <- as.numeric(data.plot[,myDiscrete]) 
+          # coerce "NA" to NA
+          data.plot.points <- na.omit(data.plot[
+            ,c(ContData.env$myName.DateTime,myDiscrete)]) # remove NA
           myPoints.X <- as.numeric(rownames(data.plot.points))
           myPoints.Y <- data.plot.points[,myDiscrete]
           points(myPoints.Y~myPoints.X,col="black",pch=19) 
@@ -1047,7 +1107,12 @@ Multiparameter plots if exist in the data.
         # LEGEND
         par(mar=c(0,0,0,0))
         plot.new()
-        legend(x="center",lty=1,col=c("blue","black"),legend=c("temperature","sensor depth"),bty="n")
+        legend(x="center"
+               ,lty=1
+               ,col=c("blue","black")
+               ,legend=c("temperature"
+                         ,"sensor depth")
+               ,bty="n")
       #
         # Future mod, add points to legend
         #
@@ -1059,9 +1124,12 @@ Multiparameter plots if exist in the data.
     } else if(plot_format=="ggplot"){
       # plot, ggplot ####
       # date to POSIX
-      data.plot[, ContData.env$myName.DateTime] <- as.POSIXct(data.plot[, ContData.env$myName.DateTime])
+      data.plot[, ContData.env$myName.DateTime] <- 
+        as.POSIXct(data.plot[, ContData.env$myName.DateTime])
       #
-      if (ContData.env$myName.AirTemp %in% myParameters & ContData.env$myName.WaterTemp %in% myParameters ){##IF.Temp.START
+      # Temp, Air vs. Water
+      if (ContData.env$myName.AirTemp %in% myParameters & 
+          ContData.env$myName.WaterTemp %in% myParameters ) {
         cat("## PLOT, Temperature (Air vs. Water) \n\n" )
         #
         # ggplot, main
@@ -1073,24 +1141,28 @@ Multiparameter plots if exist in the data.
         p2_t_aw <- ggplot2::ggplot(data=data.plot, ggplot2::aes(color="a"
                                                                 , fill="b"
                                                                 , shape="c")) +
-                    ggplot2::geom_path(ggplot2::aes_q(x=as.name(ContData.env$myName.DateTime)
-                                                    , y=as.name(ContData.env$myName.AirTemp)
-                                                    , color="air"), na.rm=TRUE) + 
-                    ggplot2::geom_path(ggplot2::aes_q(x=as.name(ContData.env$myName.DateTime)
-                                                    ,y=as.name(ContData.env$myName.WaterTemp)
-                                                    , color="water"), na.rm=TRUE) + 
-                    ggplot2::scale_x_datetime(date_labels = "%Y-%m-%d") + 
-                    ggplot2::labs(title=mySiteID
-                                  , x=ContData.env$myLab.Date
-                                  , y=ContData.env$myLab.Temp.BOTH) +
-                    ggplot2::theme(plot.title=ggplot2::element_text(hjust=0.5)
-                                   , plot.subtitle=ggplot2::element_text(hjust=0.5))
+          ggplot2::geom_path(ggplot2::aes_q(x=as.name(ContData.env$myName.DateTime)
+                                            ,y=as.name(ContData.env$myName.AirTemp)
+                                            , color="air")
+                             , na.rm=TRUE) + 
+          ggplot2::geom_path(ggplot2::aes_q(x=as.name(ContData.env$myName.DateTime)
+                                            ,y=as.name(ContData.env$myName.WaterTemp)
+                                             , color="water")
+                             , na.rm=TRUE) + 
+          ggplot2::scale_x_datetime(date_labels = "%Y-%m-%d") + 
+          ggplot2::labs(title=mySiteID
+                        , x=ContData.env$myLab.Date
+                        , y=ContData.env$myLab.Temp.BOTH) +
+          ggplot2::theme(plot.title=ggplot2::element_text(hjust=0.5)
+                         , plot.subtitle=ggplot2::element_text(hjust=0.5))
         # ggplot, discrete points
         ## skip
         
         # ggplot, Legend
         p2_t_aw <- p2_t_aw + 
-                ggplot2::scale_color_manual(name="Data Type", labels=scale_lab, values=scale_col) 
+                ggplot2::scale_color_manual(name="Data Type"
+                                            , labels=scale_lab
+                                            , values=scale_col) 
                 
         # ggplot, show 
         print(p2_t_aw)
@@ -1098,8 +1170,9 @@ Multiparameter plots if exist in the data.
         #
       }##IF.Temp.END
       #
-      # Water, Temp vs Level
-      if (ContData.env$myName.WaterTemp %in% myParameters & ContData.env$myName.SensorDepth %in% myParameters){##IF.Temp_Level.START
+      # Water, Temp vs Sensor Depth
+      if (ContData.env$myName.WaterTemp %in% myParameters &
+          ContData.env$myName.SensorDepth %in% myParameters) {
         cat("## PLOT, Sensor Depth vs. Water Temperature \n\n")
         #
         # ggplot, main
@@ -1109,27 +1182,34 @@ Multiparameter plots if exist in the data.
         scale_shape <- c(21, 21)
         
         # ggplot intentionaly not designed for dual y plotting
-        min_diff <- min(data.plot[, ContData.env$myName.WaterTemp], na.rm=TRUE) - min(data.plot[, ContData.env$myName.SensorDepth], na.rm=TRUE)
-        rd_y1 <- diff(range(data.plot[, ContData.env$myName.WaterTemp], na.rm = TRUE))
-        rd_y2 <- diff(range(data.plot[, ContData.env$myName.SensorDepth], na.rm = TRUE))
+        min_diff <- 
+          min(data.plot[, ContData.env$myName.WaterTemp], na.rm=TRUE) -
+          min(data.plot[, ContData.env$myName.SensorDepth], na.rm=TRUE)
+        rd_y1 <- diff(range(data.plot[, ContData.env$myName.WaterTemp]
+                            , na.rm = TRUE))
+        rd_y2 <- diff(range(data.plot[, ContData.env$myName.SensorDepth]
+                            , na.rm = TRUE))
         min_y1 <- min(data.plot[, ContData.env$myName.WaterTemp]) 
         max_y1 <- max(data.plot[, ContData.env$myName.WaterTemp])
         avg_y1 <- mean(data.plot[, ContData.env$myName.WaterTemp])
-        data.plot[, "depth4plot"] <- (data.plot[, ContData.env$myName.SensorDepth] * rd_y1/rd_y2) + min_diff
+        data.plot[, "depth4plot"] <- 
+          (data.plot[, ContData.env$myName.SensorDepth] * rd_y1/rd_y2) + 
+             min_diff
     
         p3_td <- ggplot2::ggplot(data=data.plot) +
-                    ggplot2::geom_path(ggplot2::aes_q(x=as.name(ContData.env$myName.DateTime)
-                                                    , y=as.name(ContData.env$myName.WaterTemp)
-                                                    , color="water"), na.rm=TRUE) + 
-                    ggplot2::geom_path(ggplot2::aes_q(x=as.name(ContData.env$myName.DateTime)
-                                                      ,y=as.name("depth4plot")
-                                                      , color="depth"), na.rm = TRUE) + 
-                    ggplot2::scale_x_datetime(date_labels = "%Y-%m-%d") + 
-                    ggplot2::labs(title=mySiteID
-                                  , x=ContData.env$myLab.Date
-                                  , y=ContData.env$myLab.WaterTemp) +
-                    ggplot2::theme(plot.title=ggplot2::element_text(hjust=0.5)
-                                   , plot.subtitle=ggplot2::element_text(hjust=0.5))
+          ggplot2::geom_path(ggplot2::aes_q(x=as.name(ContData.env$myName.DateTime)
+                                            ,y=as.name(ContData.env$myName.WaterTemp)
+                                            , color="water")
+                             , na.rm=TRUE) + 
+          ggplot2::geom_path(ggplot2::aes_q(x=as.name(ContData.env$myName.DateTime)
+                                            ,y=as.name("depth4plot")
+                                            , color="depth"), na.rm = TRUE) + 
+          ggplot2::scale_x_datetime(date_labels = "%Y-%m-%d") + 
+          ggplot2::labs(title=mySiteID
+                        , x=ContData.env$myLab.Date
+                        , y=ContData.env$myLab.WaterTemp) +
+          ggplot2::theme(plot.title=ggplot2::element_text(hjust=0.5)
+                         , plot.subtitle=ggplot2::element_text(hjust=0.5))
         # ggplot, add 2nd Y
         p3_td <- p3_td +  ggplot2::scale_y_continuous(sec.axis = ggplot2::sec_axis(
                   trans=~./(rd_y1/rd_y2)-(min_diff/(rd_y1/rd_y2))
@@ -1141,13 +1221,77 @@ Multiparameter plots if exist in the data.
         # ggplot, Legend
         ## need to reverse legend items to be correct.
         p3_td <- p3_td + 
-                ggplot2::scale_color_manual(name="Data Type", labels=rev(scale_lab), values=rev(scale_col))
+          ggplot2::scale_color_manual(name="Data Type"
+                                      , labels=rev(scale_lab)
+                                      , values=rev(scale_col))
                 
         # ggplot, show 
         print(p3_td)
         cat("\n\n")
         #
-      }##IF.Temp_Level.END  
+      }##IF.Temp_SensorDepth.END 
+      
+       # Water, Temp vs Sensor Depth
+      if (ContData.env$myName.WaterTemp %in% myParameters &
+          ContData.env$myName.WaterLevel %in% myParameters) {
+        cat("## PLOT, Water Level vs. Water Temperature \n\n")
+        #
+        # ggplot, main
+        scale_lab   <- c("Water Temp", "Water Level")
+        scale_col   <- c("blue", "black")
+        scale_fill  <- scale_col   
+        scale_shape <- c(21, 21)
+        
+        # ggplot intentionaly not designed for dual y plotting
+        min_diff <- 
+          min(data.plot[, ContData.env$myName.WaterTemp], na.rm=TRUE) -
+          min(data.plot[, ContData.env$myName.WaterLevel], na.rm=TRUE)
+        rd_y1 <- diff(range(data.plot[, ContData.env$myName.WaterTemp]
+                            , na.rm = TRUE))
+        rd_y2 <- diff(range(data.plot[, ContData.env$myName.WaterLevel]
+                            , na.rm = TRUE))
+        min_y1 <- min(data.plot[, ContData.env$myName.WaterTemp]) 
+        max_y1 <- max(data.plot[, ContData.env$myName.WaterTemp])
+        avg_y1 <- mean(data.plot[, ContData.env$myName.WaterTemp])
+        data.plot[, "depth4plot"] <- 
+          (data.plot[, ContData.env$myName.WaterLevel] * rd_y1/rd_y2) + 
+             min_diff
+    
+        p4_td <- ggplot2::ggplot(data=data.plot) +
+          ggplot2::geom_path(ggplot2::aes_q(x=as.name(ContData.env$myName.DateTime)
+                                            ,y=as.name(ContData.env$myName.WaterTemp)
+                                            , color="water")
+                             , na.rm=TRUE) + 
+          ggplot2::geom_path(ggplot2::aes_q(x=as.name(ContData.env$myName.DateTime)
+                                            ,y=as.name("depth4plot")
+                                            , color="depth"), na.rm = TRUE) + 
+          ggplot2::scale_x_datetime(date_labels = "%Y-%m-%d") + 
+          ggplot2::labs(title=mySiteID
+                        , x=ContData.env$myLab.Date
+                        , y=ContData.env$myLab.WaterTemp) +
+          ggplot2::theme(plot.title=ggplot2::element_text(hjust=0.5)
+                         , plot.subtitle=ggplot2::element_text(hjust=0.5))
+        # ggplot, add 2nd Y
+        p4_td <- p4_td +  ggplot2::scale_y_continuous(sec.axis = ggplot2::sec_axis(
+                  trans=~./(rd_y1/rd_y2)-(min_diff/(rd_y1/rd_y2))
+                  , name=ContData.env$myLab.WaterLevel))
+        
+        # ggplot, discrete points
+        ## skip
+        
+        # ggplot, Legend
+        ## need to reverse legend items to be correct.
+        p4_td <- p4_td + 
+          ggplot2::scale_color_manual(name="Data Type"
+                                      , labels=rev(scale_lab)
+                                      , values=rev(scale_col))
+                
+        # ggplot, show 
+        print(p4_td)
+        cat("\n\n")
+        #
+      }##IF.Temp_Level.END 
+      
     }##IF~plot_format~START
     
     

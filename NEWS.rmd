@@ -44,6 +44,18 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9072
+2021-01-21
+
+* refactor: Report_QC.rmd, add Water Level vs. Water Temp plots, Issue #110
+* style: Report_QC.rmd, trim lines to 80 characters
+* refactor: Copy Report_QC.rmd to shiny
+
+## v2.0.5.9071
+2021-01-21
+
+* refactor: Revise Vignette_Config so it doesn't fail.
+
 ## v2.0.5.9070
 2021-01-21
 
