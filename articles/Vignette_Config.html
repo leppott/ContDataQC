@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9069</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9072</span>
       </span>
     </div>
 
@@ -54,10 +54,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/ContDataQC_Vignette.html">ContDataQC Vignette</a>
+      <a href="../articles/Vignette_Config.html">ContDataQC, Custom Config Files</a>
     </li>
     <li>
-      <a href="../articles/Vignette_Config.html">ContDataQC, Custom Config Files</a>
+      <a href="../articles/Vignette_ContDataQC.html">ContDataQC Vignette</a>
     </li>
     <li>
       <a href="../articles/Vignette_Lakes.html">ContDataQC Lake ID String Vignette</a>
@@ -88,7 +88,7 @@
       <h1 data-toc-skip>ContDataQC, Custom Config Files</h1>
                         <h4 class="author">Erik W. Leppo</h4>
             
-            <h4 class="date">2021-01-20</h4>
+            <h4 class="date">2021-01-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/leppott/ContDataQC/blob/master/vignettes/Vignette_Config.Rmd"><code>vignettes/Vignette_Config.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette_Config.Rmd</code></div>
@@ -100,7 +100,8 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p><code>ContDataQC</code> uses a configuration file (config.R) that allows for customization. Through the use of a configuration file the user can change many of the variables in the library used in the processing of data (e.g., the names of fields, thresholds, and date formats).</p>
+<p><code>ContDataQC</code> uses a configuration file (config.R) that allows for customization.<br>
+Through the use of a configuration file the user can change many of the variables in the library used in the processing of data (e.g., the names of fields, thresholds, and date formats).</p>
 <p>The ContDataQC() function allows the user to input their own configuration file. Only variables that are different from the default need to be added. That is, the default configuration is loaded in the library and then the user supplied configuration. This allows the user configuration to overwrite the defaults for that session.</p>
 <p>The Config.out will output the contents of the configuration file as used by the package and stored in the environment ContData.env.</p>
 </div>
@@ -110,7 +111,8 @@
 <p>The contents of the default configuration file (extdata/config.ORIG.R) can be output with the <code>Config.Out</code> function. An HTML (default) or DOCX report is generated along with a text file (.r) of the configuration file.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leppott/ContDataQC">ContDataQC</a></span><span class="op">)</span>
-<span class="fu"><a href="../reference/Config.Out.html">Config.Out</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<span class="va">dn_export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="../reference/Config.Out.html">Config.Out</a></span><span class="op">(</span>fun.myDir.export <span class="op">=</span> <span class="va">dn_export</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="editing-parameters" class="section level1">
 <h1 class="hasAnchor">
@@ -139,37 +141,37 @@
 <tbody>
 <tr class="odd">
 <td>Units</td>
-<td align="center">55</td>
-<td align="center">56</td>
-<td align="center">57</td>
+<td align="center">61</td>
+<td align="center">62</td>
+<td align="center">63</td>
 <td align="center"></td>
 </tr>
 <tr class="even">
 <td>Column Name</td>
-<td align="center">74</td>
-<td align="center">73</td>
-<td align="center">75</td>
+<td align="center">84</td>
+<td align="center">86</td>
+<td align="center">88</td>
 <td align="center"></td>
 </tr>
 <tr class="odd">
 <td>Labels</td>
-<td align="center">88</td>
-<td align="center">89</td>
-<td align="center">90</td>
+<td align="center">113</td>
+<td align="center">116</td>
+<td align="center">119</td>
 <td align="center"></td>
 </tr>
 <tr class="even">
 <td>Discrete Name</td>
-<td align="center">105</td>
-<td align="center">106</td>
-<td align="center">107</td>
+<td align="center">161</td>
+<td align="center">164</td>
+<td align="center">167</td>
 <td align="center"></td>
 </tr>
 <tr class="odd">
-<td>Discrete Name</td>
-<td align="center">118</td>
-<td align="center">119</td>
-<td align="center">120</td>
+<td>Discrete Label</td>
+<td align="center">198</td>
+<td align="center">201</td>
+<td align="center">204</td>
 <td align="center"></td>
 </tr>
 <tr class="even">
@@ -177,91 +179,84 @@
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="center">145:169</td>
+<td align="center">244:249</td>
 </tr>
 <tr class="odd">
 <td>Data Field, Labels</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="center">170:192</td>
+<td align="center">271:274</td>
 </tr>
 <tr class="even">
 <td>Output Name Order</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="center">199:231</td>
+<td align="center">307:310</td>
 </tr>
 <tr class="odd">
 <td>Flags</td>
+<td align="center">538</td>
+<td align="center">541</td>
+<td align="center">544</td>
 <td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">426:428</td>
 </tr>
 <tr class="even">
 <td>Thresholds, Gross, Fail</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="center">253:262</td>
+<td align="center">358:363</td>
 </tr>
 <tr class="odd">
 <td>Thresholds, Gross, Suspect</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="center">280:289</td>
+<td align="center">385:390</td>
 </tr>
 <tr class="even">
-<td>Threholds, Spike</td>
+<td>Thresholds, Spike</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="center">308:317</td>
+<td align="center">413:418</td>
 </tr>
 <tr class="odd">
-<td>Threholds, Rate of Change</td>
+<td>Thresholds, Rate of Change</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="center">335:346</td>
+<td align="center">442:447</td>
 </tr>
 <tr class="even">
 <td>Thresholds, Flat</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="center">367:379</td>
+<td align="center">475:482</td>
 </tr>
 <tr class="odd">
-<td>Threholds, Flat, combo</td>
+<td>Thresholds, Flat, combo</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="center">405:416</td>
+<td align="center">508:417</td>
 </tr>
 <tr class="even">
 <td>Flag Labels</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="center">425:428</td>
+<td align="center">539:545</td>
 </tr>
 <tr class="odd">
 <td>Test Names</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="center">438</td>
-</tr>
-<tr class="even">
-<td>Exccedance Values</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">441:443</td>
+<td align="center">575</td>
 </tr>
 </tbody>
 </table>
@@ -328,6 +323,7 @@
 # Environment Name ####
 # Environment for use only by ContDataQC library
 ContData.env &lt;- new.env(parent = emptyenv())
+# The above line is not used in custom configurations.
 # assign variables to new environment requires editing of all lines.
 # For example, myDelim &lt;- "_" BECOMES ContData.env$myDelim, "_"
 ###
@@ -360,11 +356,14 @@ ContData.env$myUnits.pH         &lt;- "SU"
 ContData.env$myUnits.Turbidity  &lt;- "NTU"
 ContData.env$myUnits.Chlorophylla &lt;- "g.cm3"
 ContData.env$myUnits.WaterLevel &lt;- "ft"
-## Logger Fields
+## Logger Fields ----
 ContData.env$myName.RowID.Water   &lt;- "Water.RowID"
 ContData.env$myName.LoggerID.Water&lt;- "Water.LoggerID"
 ContData.env$myName.RowID.Air     &lt;- "Air.RowID"
 ContData.env$myName.LoggerID.Air  &lt;- "Air.LoggerID"
+ContData.env$myName.LoggerDeployment  &lt;- "Logger.Deployment"
+ContData.env$myName.LoggerDeployment.start &lt;- "start"
+ContData.env$myName.LoggerDeployment.end   &lt;- "end"
 ## Parameters as appear in logger files
 ContData.env$myName.WaterTemp     &lt;- paste0("Water.Temp."
                                             ,ContData.env$myUnits.WaterTemp)
@@ -372,9 +371,9 @@ ContData.env$myName.WaterTemp     &lt;- paste0("Water.Temp."
 ContData.env$myName.AirTemp       &lt;- paste0("Air.Temp."
                                             ,ContData.env$myUnits.AirTemp)
 # "deg" from HoboWare files sometimes adds "A " in front.  Replace with "." in R
-ContData.env$myName.WaterP        &lt;- paste0("Water.P."
-                                            , ContData.env$myUnits.WaterP)
 ContData.env$myName.AirBP         &lt;- paste0("Air.BP."
+                                            , ContData.env$myUnits.AirBP)
+ContData.env$myName.WaterP        &lt;- paste0("Water.P."
                                             , ContData.env$myUnits.WaterP)
 ContData.env$myName.SensorDepth   &lt;- paste0("Sensor.Depth."
                                             , ContData.env$myUnits.SensorDepth)
@@ -393,22 +392,27 @@ ContData.env$myName.Chlorophylla   &lt;- paste0("Chlorophylla."
 ContData.env$myName.WaterLevel    &lt;- paste0("Water.Level."
                                             , ContData.env$myUnits.WaterLevel)
 ## Plot Labels
-ContData.env$myLab.WaterTemp      &lt;- paste0("Temperature, Water (deg "
-                                            ,ContData.env$myUnits.WaterTemp,")")
-ContData.env$myLab.AirTemp        &lt;- paste0("Temperature, Air (deg "
-                                            ,ContData.env$myUnits.AirTemp,")")
 ContData.env$myLab.Date           &lt;- "Date"
 ContData.env$myLab.DateTime       &lt;- "Date"
-ContData.env$myLab.WaterP         &lt;- paste0("Pressure, Water ("
-                                            ,ContData.env$myUnits.AirBP,")")
+ContData.env$myLab.WaterTemp      &lt;- paste0("Temperature, Water (deg "
+                                            ,ContData.env$myUnits.WaterTemp
+                                            ,")")
+ContData.env$myLab.AirTemp        &lt;- paste0("Temperature, Air (deg "
+                                            ,ContData.env$myUnits.AirTemp
+                                            ,")")
 ContData.env$myLab.AirBP          &lt;- paste0("Barometric Pressure, Air ("
-                                            ,ContData.env$myUnits.WaterP,")")
+                                            ,ContData.env$myUnits.WaterP
+                                            ,")")
+ContData.env$myLab.WaterP         &lt;- paste0("Pressure, Water ("
+                                            ,ContData.env$myUnits.AirBP
+                                            ,")")
 ContData.env$myLab.SensorDepth    &lt;- paste0("Sensor Depth ("
                                             ,ContData.env$myUnits.SensorDepth
                                             ,")"
                                             ,sep="")
 ContData.env$myLab.Temp.BOTH      &lt;- paste0("Temperature (deg "
-                                            ,ContData.env$myUnits.WaterTemp,")")
+                                            ,ContData.env$myUnits.WaterTemp
+                                            ,")")
 ContData.env$myLab.Discharge      &lt;- paste0("Discharge ("
                                             ,sub("\\.","/"
                                                 ,ContData.env$myUnits.Discharge)
@@ -421,9 +425,12 @@ ContData.env$myLab.DO             &lt;- paste0("Dissolved Oxygen ("
                                             ,sub("\\.","/"
                                                  ,ContData.env$myUnits.DO)
                                             ,")")  #replace "." with "/"
-ContData.env$myLab.pH             &lt;- paste0("pH (",ContData.env$myUnits.pH,")")
+ContData.env$myLab.pH             &lt;- paste0("pH ("
+                                            ,ContData.env$myUnits.pH
+                                            ,")")
 ContData.env$myLab.Turbidity      &lt;- paste0("Turbidity ("
-                                            ,ContData.env$myUnits.Turbidity,")")
+                                            ,ContData.env$myUnits.Turbidity
+                                            ,")")
 ContData.env$myLab.Chlorophylla   &lt;- paste0("Chlorophyll a ("
                                             ,sub("\\.","/"
                                              ,ContData.env$myUnits.Chlorophylla)
@@ -441,11 +448,11 @@ ContData.env$myName.Discrete.WaterTemp  &lt;- paste(ContData.env$myPrefix.Discre
 ContData.env$myName.Discrete.AirTemp    &lt;- paste(ContData.env$myPrefix.Discrete
                                                  ,ContData.env$myName.AirTemp
                                                  ,sep=".")
-ContData.env$myName.Discrete.WaterP     &lt;- paste(ContData.env$myPrefix.Discrete
-                                                 ,ContData.env$myName.WaterP
-                                                 ,sep=".")
 ContData.env$myName.Discrete.AirBP      &lt;- paste(ContData.env$myPrefix.Discrete
                                                  ,ContData.env$myName.AirBP
+                                                 ,sep=".")
+ContData.env$myName.Discrete.WaterP     &lt;- paste(ContData.env$myPrefix.Discrete
+                                                 ,ContData.env$myName.WaterP
                                                  ,sep=".")
 ContData.env$myName.Discrete.SensorDepth &lt;- paste(ContData.env$myPrefix.Discrete
                                                 ,ContData.env$myName.SensorDepth
@@ -466,36 +473,48 @@ ContData.env$myName.Discrete.Turbidity  &lt;- paste(ContData.env$myPrefix.Discre
                                                  ,ContData.env$myName.Turbidity
                                                  ,sep=".")
 ContData.env$myName.Discrete.Chlorophylla &lt;-paste(ContData.env$myPrefix.Discrete
-                                               ,ContData.env$myName.Chlorophylla
-                                                   ,sep=".")
+                                                 ,ContData.env$myName.Chlorophylla
+                                                 ,sep=".")
 ContData.env$myName.Discrete.WaterLevel &lt;- paste(ContData.env$myPrefix.Discrete
                                                  ,ContData.env$myName.WaterLevel
                                                  ,sep=".")
 # Discrete, Labels
 ContData.env$myLab.Discrete.WaterTemp   &lt;- paste(ContData.env$myLab.WaterTemp
-                                                 ,"(Discrete)",sep=" ")
+                                                 ,"(Discrete)"
+                                                                         ,sep=" ")
 ContData.env$myLab.Discrete.AirTemp     &lt;- paste(ContData.env$myLab.AirTemp
-                                                 ,"(Discrete)",sep=" ")
-ContData.env$myLab.Discrete.WaterP      &lt;- paste(ContData.env$myLab.WaterP
-                                                 ,"(Discrete)",sep=" ")
+                                                 ,"(Discrete)"
+                                                                         ,sep=" ")
 ContData.env$myLab.Discrete.AirBP       &lt;- paste(ContData.env$myLab.AirBP
-                                                 ,"(Discrete)",sep=" ")
+                                                 ,"(Discrete)"
+                                                                         ,sep=" ")
+ContData.env$myLab.Discrete.WaterP      &lt;- paste(ContData.env$myLab.WaterP
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
 ContData.env$myLab.Discrete.SensorDepth &lt;- paste(ContData.env$myLab.SensorDepth
-                                                 ,"(Discrete)",sep=" ")
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
 ContData.env$myLab.Discrete.Discharge   &lt;- paste(ContData.env$myLab.Discharge
-                                                 ,"(Discrete)",sep=" ")
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
 ContData.env$myLab.Discrete.Cond        &lt;- paste(ContData.env$myLab.Cond
-                                                 ,"(Discrete)",sep=" ")
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
 ContData.env$myLab.Discrete.DO          &lt;- paste(ContData.env$myLab.DO
-                                                 ,"(Discrete)",sep=" ")
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
 ContData.env$myLab.Discrete.pH          &lt;- paste(ContData.env$myLab.pH
-                                                 ,"(Discrete)",sep=" ")
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
 ContData.env$myLab.Discrete.Turbidity   &lt;- paste(ContData.env$myLab.Turbidity
-                                                 ,"(Discrete)",sep=" ")
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
 ContData.env$myLab.Discrete.Chlorophylla&lt;- paste(ContData.env$myLab.Chlorophylla
-                                                 ,"(Discrete)",sep=" ")
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
 ContData.env$myLab.Discrete.WaterLevel  &lt;- paste(ContData.env$myLab.WaterLevel
-                                                 ,"(Discrete)",sep=" ")
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Automated QC stuff ####
 ## data type/stages
@@ -515,8 +534,8 @@ ContData.env$myName.Dir.4Stats     &lt;- "Data4_Stats"
 # Data Fields ####
 ContData.env$myNames.DataFields &lt;- c(ContData.env$myName.WaterTemp
                                      , ContData.env$myName.AirTemp
+                                                       , ContData.env$myName.AirBP
                                      , ContData.env$myName.WaterP
-                                     , ContData.env$myName.AirBP
                                      , ContData.env$myName.SensorDepth
                                      , ContData.env$myName.Discharge
                                      , ContData.env$myName.Cond
@@ -540,8 +559,8 @@ ContData.env$myNames.DataFields &lt;- c(ContData.env$myName.WaterTemp
                                      )
 ContData.env$myNames.DataFields.Lab &lt;- c(ContData.env$myLab.WaterTemp
                                          , ContData.env$myLab.AirTemp
-                                         , ContData.env$myLab.WaterP
                                          , ContData.env$myLab.AirBP
+                                         , ContData.env$myLab.WaterP
                                          , ContData.env$myLab.SensorDepth
                                          , ContData.env$myLab.Discharge
                                          , ContData.env$myLab.Cond
@@ -572,6 +591,7 @@ ContData.env$myNames.Order &lt;- c(ContData.env$myName.SiteID
                                 , ContData.env$myName.Date
                                 , ContData.env$myName.Time
                                 , ContData.env$myName.DateTime
+                                , ContData.env$myName.LoggerDeployment
                                 , ContData.env$myName.WaterTemp
                                 , ContData.env$myName.LoggerID.Air
                                 , ContData.env$myName.RowID.Air
@@ -626,10 +646,10 @@ ContData.env$myThresh.Gross.Fail.Hi.WaterTemp  &lt;- 30
 ContData.env$myThresh.Gross.Fail.Lo.WaterTemp  &lt;- -2
 ContData.env$myThresh.Gross.Fail.Hi.AirTemp    &lt;- 38
 ContData.env$myThresh.Gross.Fail.Lo.AirTemp    &lt;- -25
-ContData.env$myThresh.Gross.Fail.Hi.WaterP     &lt;- 17
-ContData.env$myThresh.Gross.Fail.Lo.WaterP     &lt;- 13
 ContData.env$myThresh.Gross.Fail.Hi.AirBP      &lt;- 15
 ContData.env$myThresh.Gross.Fail.Lo.AirBP      &lt;- 13
+ContData.env$myThresh.Gross.Fail.Hi.WaterP     &lt;- 17
+ContData.env$myThresh.Gross.Fail.Lo.WaterP     &lt;- 13
 ContData.env$myThresh.Gross.Fail.Hi.SensorDepth &lt;- 6   # no longer used (only check for negative values for SensorDepth)
 ContData.env$myThresh.Gross.Fail.Lo.SensorDepth &lt;- -1  # no longer used (only check for negative values for SensorDepth)
 ContData.env$myThresh.Gross.Fail.Hi.Discharge  &lt;-  10^5 #dependant upon stream size (only checkf or negative values)
@@ -653,10 +673,10 @@ ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp  &lt;- 25
 ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp  &lt;- -0.1
 ContData.env$myThresh.Gross.Suspect.Hi.AirTemp    &lt;- 35
 ContData.env$myThresh.Gross.Suspect.Lo.AirTemp    &lt;- -23
-ContData.env$myThresh.Gross.Suspect.Hi.WaterP     &lt;- 16.8
-ContData.env$myThresh.Gross.Suspect.Lo.WaterP     &lt;- 13.5
 ContData.env$myThresh.Gross.Suspect.Hi.AirBP      &lt;- 14.8
 ContData.env$myThresh.Gross.Suspect.Lo.AirBP      &lt;- 13.0
+ContData.env$myThresh.Gross.Suspect.Hi.WaterP     &lt;- 16.8
+ContData.env$myThresh.Gross.Suspect.Lo.WaterP     &lt;- 13.5
 ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth &lt;- 5    # no longer used (only check for negative values for SensorDepth)
 ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth &lt;- 0    # no longer used (only check for negative values for SensorDepth)
 ContData.env$myThresh.Gross.Suspect.Hi.Discharge  &lt;-  10^3 #dependant upon stream size (only checkf or negative values
@@ -681,10 +701,10 @@ ContData.env$myThresh.Spike.Hi.WaterTemp  &lt;- 1.5
 ContData.env$myThresh.Spike.Lo.WaterTemp  &lt;- 1
 ContData.env$myThresh.Spike.Hi.AirTemp    &lt;- 10
 ContData.env$myThresh.Spike.Lo.AirTemp    &lt;- 8
-ContData.env$myThresh.Spike.Hi.WaterP     &lt;- 0.7
-ContData.env$myThresh.Spike.Lo.WaterP     &lt;- 0.5
 ContData.env$myThresh.Spike.Hi.AirBP      &lt;- 0.25
 ContData.env$myThresh.Spike.Lo.AirBP      &lt;- 0.15
+ContData.env$myThresh.Spike.Hi.WaterP     &lt;- 0.7
+ContData.env$myThresh.Spike.Lo.WaterP     &lt;- 0.5
 ContData.env$myThresh.Spike.Hi.SensorDepth &lt;- 5
 ContData.env$myThresh.Spike.Lo.SensorDepth &lt;- 3
 ContData.env$myThresh.Spike.Hi.Discharge  &lt;- 10^4 # dependant upon stream size
@@ -710,10 +730,10 @@ ContData.env$myThresh.RoC.SD.number.WaterTemp  &lt;- ContData.env$myDefault.RoC.
 ContData.env$myThresh.RoC.SD.period.WaterTemp  &lt;- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.AirTemp    &lt;- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.AirTemp    &lt;- ContData.env$myDefault.RoC.SD.period
-ContData.env$myThresh.RoC.SD.number.WaterP     &lt;- ContData.env$myDefault.RoC.SD.number
-ContData.env$myThresh.RoC.SD.period.WaterP     &lt;- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.AirBP      &lt;- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.AirBP      &lt;- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.WaterP     &lt;- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.WaterP     &lt;- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.SensorDepth &lt;- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.SensorDepth &lt;- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.Discharge  &lt;- ContData.env$myDefault.RoC.SD.number
@@ -743,12 +763,12 @@ ContData.env$myThresh.Flat.Tolerance.WaterTemp  &lt;- 0.01
 ContData.env$myThresh.Flat.Hi.AirTemp           &lt;- 20
 ContData.env$myThresh.Flat.Lo.AirTemp           &lt;- 15
 ContData.env$myThresh.Flat.Tolerance.AirTemp    &lt;- 0.01
-ContData.env$myThresh.Flat.Hi.WaterP            &lt;- 15
-ContData.env$myThresh.Flat.Lo.WaterP            &lt;- 10
-ContData.env$myThresh.Flat.Tolerance.WaterP     &lt;- 0.001
 ContData.env$myThresh.Flat.Hi.AirBP             &lt;- 15
 ContData.env$myThresh.Flat.Lo.AirBP             &lt;- 10
 ContData.env$myThresh.Flat.Tolerance.AirBP      &lt;- 0.001
+ContData.env$myThresh.Flat.Hi.WaterP            &lt;- 15
+ContData.env$myThresh.Flat.Lo.WaterP            &lt;- 10
+ContData.env$myThresh.Flat.Tolerance.WaterP     &lt;- 0.001
 ContData.env$myThresh.Flat.Hi.SensorDepth        &lt;- 60
 ContData.env$myThresh.Flat.Lo.SensorDepth        &lt;- 20
 ContData.env$myThresh.Flat.Tolerance.SensorDepth &lt;- 0.0
@@ -776,8 +796,9 @@ ContData.env$myThresh.Flat.Tolerance.WaterLevel   &lt;- 0.01
 #
 ContData.env$myThresh.Flat.MaxComp    &lt;- max(ContData.env$myThresh.Flat.Hi.WaterTemp
                                              , ContData.env$myThresh.Flat.Hi.AirTemp
-                                             , ContData.env$myThresh.Flat.Hi.WaterP
                                              , ContData.env$myThresh.Flat.Hi.AirBP
+                                             , ContData.env$myThresh.Flat.Hi.WaterP
+                                             , ContData.env$myThresh.Flat.Hi.SensorDepth
                                              , ContData.env$myThresh.Flat.Hi.Discharge
                                              , ContData.env$myThresh.Flat.Hi.Cond
                                              , ContData.env$myThresh.Flat.Hi.DO
@@ -789,8 +810,13 @@ ContData.env$myThresh.Flat.MaxComp    &lt;- max(ContData.env$myThresh.Flat.Hi.Wa
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Data Fields with Flags ####
 ContData.env$myName.Flag        &lt;- "Flag" # flag prefix
-ContData.env$myNames.Cols4Flags &lt;- c(ContData.env$myName.DateTime, ContData.env$myNames.DataFields)
-ContData.env$myNames.Flags      &lt;- paste(ContData.env$myName.Flag, ContData.env$myNames.Cols4Flags, sep=".")  # define ones using in the calling script
+ContData.env$myNames.Cols4Flags &lt;- c(ContData.env$myName.DateTime
+                                     , ContData.env$myNames.DataFields)
+ContData.env$myNames.Flags      &lt;- paste(ContData.env$myName.Flag
+                                         , ContData.env$myNames.Cols4Flags
+                                         , sep=".")
+# define ones using in the calling script
+
 ## flag labels
 ContData.env$myName.Flag.DateTime     &lt;- paste(ContData.env$myName.Flag
                                                , ContData.env$myName.DateTime
@@ -801,11 +827,11 @@ ContData.env$myName.Flag.WaterTemp    &lt;- paste(ContData.env$myName.Flag
 ContData.env$myName.Flag.AirTemp      &lt;- paste(ContData.env$myName.Flag
                                                , ContData.env$myName.AirTemp
                                                , sep=".")
-ContData.env$myName.Flag.WaterP       &lt;- paste(ContData.env$myName.Flag
-                                               , ContData.env$myName.WaterP
-                                               , sep=".")
 ContData.env$myName.Flag.AirBP        &lt;- paste(ContData.env$myName.Flag
                                                , ContData.env$myName.AirBP
+                                               , sep=".")
+ContData.env$myName.Flag.WaterP       &lt;- paste(ContData.env$myName.Flag
+                                               , ContData.env$myName.WaterP
                                                , sep=".")
 ContData.env$myName.Flag.SensorDepth  &lt;- paste(ContData.env$myName.Flag
                                                , ContData.env$myName.SensorDepth
@@ -837,22 +863,27 @@ ContData.env$myNames.QCCalcs &lt;- c("SD.Time"
                                   , "SD"
                                   , "SDxN"
                                   , paste("n"
-                                          , seq_len(ContData.env$myThresh.Flat.MaxComp)
+                                          , seq_len(
+                                            ContData.env$myThresh.Flat.MaxComp)
                                           , sep=".")
                                   , "flat.Lo"
                                   , "flat.Hi")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Exceedance values for stats (default to Gross-Suspect-Hi value) ####
-ContData.env$myExceed.WaterTemp   &lt;- ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp
-ContData.env$myExceed.AirTemp     &lt;- ContData.env$myThresh.Gross.Suspect.Hi.AirTemp
-ContData.env$myExceed.SensorDepth &lt;- ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth
+ContData.env$myExceed.WaterTemp   &lt;-
+  ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp
+ContData.env$myExceed.AirTemp     &lt;-
+  ContData.env$myThresh.Gross.Suspect.Hi.AirTemp
+ContData.env$myExceed.SensorDepth &lt;-
+  ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Date and Time Formats ####
 ContData.env$myFormat.Date           &lt;- "%Y-%m-%d"
 ContData.env$myFormat.Time           &lt;- "%H:%M:%S"
 ContData.env$myFormat.DateTime       &lt;- "%Y-%m-%d %H:%M:%S"
 ContData.env$DateRange.Start.Default &lt;- format(as.Date("1900-01-01")
-                                               , ContData.env$myFormat.Date) #YYYY-MM-DD
+                                               , ContData.env$myFormat.Date)
+                                               #YYYY-MM-DD
 ContData.env$DateRange.End.Default   &lt;- format(Sys.Date()
                                                , ContData.env$myFormat.Date)
 # Time Zone, used in Gage script in dataRetrieval, OlsonNames()

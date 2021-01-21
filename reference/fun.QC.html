@@ -73,7 +73,7 @@ Requires zoo()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9069</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9072</span>
       </span>
     </div>
 
@@ -96,10 +96,10 @@ Requires zoo()." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/ContDataQC_Vignette.html">ContDataQC Vignette</a>
+      <a href="../articles/Vignette_Config.html">ContDataQC, Custom Config Files</a>
     </li>
     <li>
-      <a href="../articles/Vignette_Config.html">ContDataQC, Custom Config Files</a>
+      <a href="../articles/Vignette_ContDataQC.html">ContDataQC Vignette</a>
     </li>
     <li>
       <a href="../articles/Vignette_Lakes.html">ContDataQC Lake ID String Vignette</a>
@@ -146,7 +146,8 @@ Requires zoo().</p>
   fun.myDir.export <span class='op'>=</span> <span class='st'>""</span>,
   <span class='va'>fun.myReport.format</span>,
   <span class='va'>fun.myReport.Dir</span>,
-  fun.CreateReport <span class='op'>=</span> <span class='cn'>TRUE</span>
+  fun.CreateReport <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  fun.AddDeployCol <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -162,31 +163,45 @@ Requires zoo().</p>
     </tr>
     <tr>
       <th>fun.myData.DateRange.Start</th>
-      <td><p>Start date for requested data. Format = YYYY-MM-DD.</p></td>
+      <td><p>Start date for requested data.
+Format = YYYY-MM-DD.</p></td>
     </tr>
     <tr>
       <th>fun.myData.DateRange.End</th>
-      <td><p>End date for requested data. Format = YYYY-MM-DD.</p></td>
+      <td><p>End date for requested data.
+Format = YYYY-MM-DD.</p></td>
     </tr>
     <tr>
       <th>fun.myDir.import</th>
-      <td><p>Directory for import data.  Default is current working directory.</p></td>
+      <td><p>Directory for import data.
+Default is current working directory.</p></td>
     </tr>
     <tr>
       <th>fun.myDir.export</th>
-      <td><p>Directory for export data.  Default is current working directory.</p></td>
+      <td><p>Directory for export data.
+Default is current working directory.</p></td>
     </tr>
     <tr>
       <th>fun.myReport.format</th>
-      <td><p>Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.</p></td>
+      <td><p>Report format (docx or html).
+Default is specified in config.R (docx).  Can be customized in config.R;
+ContData.env$myReport.Format.</p></td>
     </tr>
     <tr>
       <th>fun.myReport.Dir</th>
-      <td><p>Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.</p></td>
+      <td><p>Report (rmd) template folder.
+Default is the package rmd folder.  Can be customized in config.R;
+ContData.env$myReport.Dir.</p></td>
     </tr>
     <tr>
       <th>fun.CreateReport</th>
-      <td><p>Boolean parameter to create reports or not.  Default = TRUE.</p></td>
+      <td><p>Boolean parameter to create reports or not.
+Default = TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>fun.AddDeployCol</th>
+      <td><p>Boolean for adding column name.  Default = FALSE.
+Can be customized in config.R; ContData.env$myName.LoggerDeployment.</p></td>
     </tr>
     </table>
 

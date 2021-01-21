@@ -73,7 +73,7 @@ used by the IHA package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9069</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9072</span>
       </span>
     </div>
 
@@ -96,10 +96,10 @@ used by the IHA package." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/ContDataQC_Vignette.html">ContDataQC Vignette</a>
+      <a href="../articles/Vignette_Config.html">ContDataQC, Custom Config Files</a>
     </li>
     <li>
-      <a href="../articles/Vignette_Config.html">ContDataQC, Custom Config Files</a>
+      <a href="../articles/Vignette_ContDataQC.html">ContDataQC Vignette</a>
     </li>
     <li>
       <a href="../articles/Vignette_Lakes.html">ContDataQC Lake ID String Vignette</a>
@@ -210,44 +210,26 @@ GitHub) and for the example export the XLConnect packages.  Install commands
 are included in the example.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># 1.  Get Gage Data</span>
+    <pre class="examples"><div class='input'><span class='va'>myDir.BASE</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='co'># 1.  Get Gage Data</span>
 <span class='co'>#</span>
 <span class='co'># 1.A. Use ContDataQC and Save (~1min for download)</span>
-<span class='va'>myData.Operation</span>    <span class='op'>&lt;-</span> <span class='st'>"GetGageData"</span> <span class='co'>#Selection.Operation[1]</span>
-<span class='va'>myData.SiteID</span>       <span class='op'>&lt;-</span> <span class='st'>"01187300"</span> <span class='co'># Hubbard River near West Hartland, CT</span>
-<span class='va'>myData.Type</span>         <span class='op'>&lt;-</span> <span class='st'>"Gage"</span>
-<span class='va'>myData.DateRange.Start</span>  <span class='op'>&lt;-</span> <span class='st'>"2015-01-01"</span>
-<span class='va'>myData.DateRange.End</span>    <span class='op'>&lt;-</span> <span class='st'>"2016-12-31"</span>
-<span class='va'>myDir.import</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>myDir.export</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'><a href='ContDataQC.html'>ContDataQC</a></span><span class='op'>(</span><span class='va'>myData.Operation</span>, <span class='va'>myData.SiteID</span>, <span class='va'>myData.Type</span>
-           , <span class='va'>myData.DateRange.Start</span>, <span class='va'>myData.DateRange.End</span>
-           , <span class='va'>myDir.import</span>, <span class='va'>myDir.export</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Total items to process = 1"
-#&gt; 
-#&gt; [1] "Getting available data; 01187300."
-#&gt; 
-#&gt;     agency_cd  site_no                           station_nm site_tp_cd
-#&gt; 530      USGS 01187300 HUBBARD RIVER NEAR WEST HARTLAND, CT         ST
-#&gt; 531      USGS 01187300 HUBBARD RIVER NEAR WEST HARTLAND, CT         ST
-#&gt; 532      USGS 01187300 HUBBARD RIVER NEAR WEST HARTLAND, CT         ST
-#&gt;     dec_lat_va dec_long_va coord_acy_cd dec_coord_datum_cd  alt_va alt_acy_va
-#&gt; 530    42.0375   -72.93933            H              NAD83  594.57       0.01
-#&gt; 531    42.0375   -72.93933            H              NAD83  594.57       0.01
-#&gt; 532    42.0375   -72.93933            H              NAD83  594.57       0.01
-#&gt;     alt_datum_cd   huc_cd data_type_cd parm_cd stat_cd ts_id loc_web_ds
-#&gt; 530       NGVD29 01080207           uv   00010    &lt;NA&gt; 66869         NA
-#&gt; 531       NGVD29 01080207           uv   00060    &lt;NA&gt; 66866         NA
-#&gt; 532       NGVD29 01080207           uv   00065    &lt;NA&gt; 66867         NA
-#&gt;     medium_grp_cd parm_grp_cd   srs_id access_cd begin_date   end_date count_nu
-#&gt; 530           wat        &lt;NA&gt;  1645597         0 2015-11-04 2021-01-20     1904
-#&gt; 531           wat        &lt;NA&gt;  1645423         0 1990-10-01 2021-01-20    11069
-#&gt; 532           wat        &lt;NA&gt; 17164583         0 2007-10-01 2021-01-20     4860
-#&gt; 
-#&gt; 
-#&gt; [1] "Processing item 1 of 1, COMPLETE, 01187300."
-#&gt; 
-#&gt; [1] "Task COMPLETE; 0.25 min."</div><div class='input'><span class='co'>#</span>
+<span class='va'>myData.Operation</span>       <span class='op'>&lt;-</span> <span class='st'>"GetGageData"</span> <span class='co'>#Selection.Operation[1]</span>
+<span class='va'>myData.SiteID</span>          <span class='op'>&lt;-</span> <span class='st'>"01187300"</span> <span class='co'># Hubbard River near West Hartland, CT</span>
+<span class='va'>myData.Type</span>            <span class='op'>&lt;-</span>  <span class='st'>"Gage"</span> <span class='co'>#Selection.Type[4]</span>
+<span class='va'>myData.DateRange.Start</span> <span class='op'>&lt;-</span> <span class='st'>"2013-01-01"</span>
+<span class='va'>myData.DateRange.End</span>   <span class='op'>&lt;-</span> <span class='st'>"2014-12-31"</span>
+<span class='va'>myDir.import</span>           <span class='op'>&lt;-</span> <span class='st'>""</span>
+<span class='va'>myDir.export</span>           <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>myDir.BASE</span>, <span class='va'>Selection.SUB</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in file.path(myDir.BASE, Selection.SUB[2]): object 'Selection.SUB' not found</span></div><div class='input'><span class='fu'><a href='ContDataQC.html'>ContDataQC</a></span><span class='op'>(</span><span class='va'>myData.Operation</span>
+           , <span class='va'>myData.SiteID</span>
+           , <span class='va'>myData.Type</span>
+           , <span class='va'>myData.DateRange.Start</span>
+           , <span class='va'>myData.DateRange.End</span>
+           , <span class='va'>myDir.import</span>
+           , <span class='va'>myDir.export</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in fun.GageData(fun.myData.SiteID, fun.myData.Type, fun.myData.DateRange.Start,     fun.myData.DateRange.End, fun.myDir.export): object 'myDir.export' not found</span></div><div class='input'><span class='co'>#</span>
 <span class='co'># 1.B. Use saved data</span>
 <span class='va'>myData.SiteID</span>   <span class='op'>&lt;-</span> <span class='st'>"01187300"</span>
 <span class='va'>myFile</span>          <span class='op'>&lt;-</span> <span class='st'>"01187300_Gage_20150101_20161231.csv"</span>
@@ -256,6 +238,8 @@ are included in the example.</p>
 <span class='co'>#</span>
 <span class='co'># 2. Prep Data</span>
 <span class='va'>myData.IHA</span> <span class='op'>&lt;-</span> <span class='fu'>Export.IHA</span><span class='op'>(</span><span class='va'>myFile</span>
+                         , fun.myDir.import <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
+                         , fun.myDir.export <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
                          , fun.myCol.DateTime <span class='op'>=</span> <span class='va'>myCol.DateTime</span>
                          , fun.myCol.Parameter <span class='op'>=</span> <span class='va'>myCol.Discharge</span>
                          <span class='op'>)</span>

@@ -40,10 +40,10 @@
 
 
 <meta property="og:title" content="Daily stats for a given time period — PeriodStats" />
-<meta property="og:description" content="Generates daily stats (N, mean, min, max, range, std deviation) for the
-specified time period before a given date. Output is a multiple column CSV
-(Date and Parameter Name by statistic) and a report (HTML or DOCX) with plots.
-Input is the ouput file of the QC operation of ContDataQC()." />
+<meta property="og:description" content="Generates daily stats (N, mean, min, max, range, std deviation)
+for the specified time period before a given date. Output is a multiple
+column CSV (Date and Parameter Name by statistic) and a report (HTML or DOCX)
+with plots. Input is the ouput file of the QC operation of ContDataQC()." />
 
 
 
@@ -75,7 +75,7 @@ Input is the ouput file of the QC operation of ContDataQC()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9069</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9072</span>
       </span>
     </div>
 
@@ -98,10 +98,10 @@ Input is the ouput file of the QC operation of ContDataQC()." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/ContDataQC_Vignette.html">ContDataQC Vignette</a>
+      <a href="../articles/Vignette_Config.html">ContDataQC, Custom Config Files</a>
     </li>
     <li>
-      <a href="../articles/Vignette_Config.html">ContDataQC, Custom Config Files</a>
+      <a href="../articles/Vignette_ContDataQC.html">ContDataQC Vignette</a>
     </li>
     <li>
       <a href="../articles/Vignette_Lakes.html">ContDataQC Lake ID String Vignette</a>
@@ -135,10 +135,10 @@ Input is the ouput file of the QC operation of ContDataQC()." />
     </div>
 
     <div class="ref-description">
-    <p>Generates daily stats (N, mean, min, max, range, std deviation) for the
-specified time period before a given date. Output is a multiple column CSV
-(Date and Parameter Name by statistic) and a report (HTML or DOCX) with plots.
-Input is the ouput file of the QC operation of ContDataQC().</p>
+    <p>Generates daily stats (N, mean, min, max, range, std deviation)
+for the specified time period before a given date. Output is a multiple
+column CSV (Date and Parameter Name by statistic) and a report (HTML or DOCX)
+with plots. Input is the ouput file of the QC operation of ContDataQC().</p>
     </div>
 
     <pre class="usage"><span class='fu'>PeriodStats</span><span class='op'>(</span>
@@ -168,7 +168,8 @@ Input is the ouput file of the QC operation of ContDataQC().</p>
     <tr>
       <th>fun.myDate.Format</th>
       <td><p>Format of benchmark date.  This should be the same
-format of the date in the data file.  Default is %Y-%m-%d (e.g., 2017-12-31).</p></td>
+format of the date in the data file.
+Default is %Y-%m-%d (e.g., 2017-12-31).</p></td>
     </tr>
     <tr>
       <th>fun.myPeriod.N</th>
@@ -176,7 +177,8 @@ format of the date in the data file.  Default is %Y-%m-%d (e.g., 2017-12-31).</p
     </tr>
     <tr>
       <th>fun.myPeriod.Units</th>
-      <td><p>Period units (days or years written as d or y).  Default is d.</p></td>
+      <td><p>Period units (days or years written as d or y).
+Default is d.</p></td>
     </tr>
     <tr>
       <th>fun.myFile</th>
@@ -184,11 +186,13 @@ format of the date in the data file.  Default is %Y-%m-%d (e.g., 2017-12-31).</p
     </tr>
     <tr>
       <th>fun.myDir.import</th>
-      <td><p>Directory for import data.  Default is current working directory.</p></td>
+      <td><p>Directory for import data.
+Default is current working directory.</p></td>
     </tr>
     <tr>
       <th>fun.myDir.export</th>
-      <td><p>Directory for export data.  Default is current working directory.</p></td>
+      <td><p>Directory for export data.
+Default is current working directory.</p></td>
     </tr>
     <tr>
       <th>fun.myParam.Name</th>
@@ -197,51 +201,62 @@ One or two parameters can be specified.</p></td>
     </tr>
     <tr>
       <th>fun.myDateTime.Name</th>
-      <td><p>Column name in myFile for date time.  Default = "Date.Time".</p></td>
+      <td><p>Column name in myFile for date time.
+Default = "Date.Time".</p></td>
     </tr>
     <tr>
       <th>fun.myDateTime.Format</th>
-      <td><p>Format of DateTime field.  Default = %Y-%m-%d %H:%M:%S.</p></td>
+      <td><p>Format of DateTime field.
+Default = %Y-%m-%d %H:%M:%S.</p></td>
     </tr>
     <tr>
       <th>fun.myThreshold</th>
-      <td><p>Value to draw line on plot.  For example, a regulatory limit.
-Default = NA</p></td>
+      <td><p>Value to draw line on plot.  For example, a regulatory
+limit.  Default = NA</p></td>
     </tr>
     <tr>
       <th>fun.myConfig</th>
       <td><p>Configuration file to use for this data analysis.
-The default is always loaded first so only "new" values need to be included.  This is the easiest way to control date and time formats.</p></td>
+The default is always loaded first so only "new" values need to be included.
+This is the easiest way to control date and time formats.</p></td>
     </tr>
     <tr>
       <th>fun.myReport.format</th>
       <td><p>Report format (docx or html).
-Default is specified in config.R (docx).Can be customized in config.R; ContData.env$myReport.Format.</p></td>
+Default is specified in config.R (docx).Can be customized in config.R;
+ContData.env$myReport.Format.</p></td>
     </tr>
     <tr>
       <th>fun.myReport.Dir</th>
       <td><p>Report (rmd) template folder.
-Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.</p></td>
+Default is the package rmd folder.  Can be customized in config.R;
+ContData.env$myReport.Dir.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a csv with daily means and a PDF summary with plots into the
-specified export directory for the specified time period before the given date.</p>
+specified export directory for the specified time period before the given
+date.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The input is output file of the QC operation in ContDataQC().  That is, a file with
-Date.Time, and parameters (matching formats in config.R).</p>
-<p>To get different periods (30, 60, or 90 days) change function input "fun.myPeriod.N".
+    <p>The input is output file of the QC operation in ContDataQC().  That
+is, a file with Date.Time, and parameters (matching formats in config.R).</p>
+<p>To get different periods (30, 60, or 90 days) change function input
+"fun.myPeriod.N".
 It is possible to provide a vector for Period.N and Period.Units.
-If the date range is longer than that in the data provided the stats will not calculate properly.</p>
-<p>The dates must be in the standard format (Y-m-d) or the function may not work as intended.
-For example, the date is used in the file name and dates with "/" will result in an invalid file name.</p>
+If the date range is longer than that in the data provided the stats will not
+calculate properly.</p>
+<p>The dates must be in the standard format (Y-m-d) or the function may not work
+as intended.  For example, the date is used in the file name and dates with
+"/" will result in an invalid file name.</p>
 <p>One or two parameters can be analyzed at a time.
 If provide 2 parameters both will produce period statistic summaries.
-And the plots will have both parameters.  The 2nd parameter will be on the 2nd (right) y-axis.</p>
-<p>Requires doBy library for the period statistics summary and rmarkdown for the report.</p>
+And the plots will have both parameters.  The 2nd parameter will be on the
+2nd (right) y-axis.</p>
+<p>Requires doBy library for the period statistics summary and rmarkdown for the
+report.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
@@ -255,18 +270,18 @@ And the plots will have both parameters.  The 2nd parameter will be on the 2nd (
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='co'>#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 
 <span class='co'># Load File to use for PeriodStats</span>
-<span class='va'>myDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>myDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>myFile</span> <span class='op'>&lt;-</span> <span class='st'>"DATA_period_test2_Aw_20130101_20141231.csv"</span>
 <span class='va'>df.x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>myDir</span>, <span class='va'>myFile</span><span class='op'>)</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; <span class='warning'>Warning: cannot open file '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpYBEGk5/DATA_period_test2_Aw_20130101_20141231.csv': No such file or directory</span></div><div class='output co'>#&gt; <span class='error'>Error in file(file, "rt"): cannot open the connection</span></div><div class='input'>
 <span class='co'># function inputs</span>
 <span class='va'>myDate</span> <span class='op'>&lt;-</span> <span class='st'>"2013-09-30"</span>
 <span class='va'>myDate.Format</span> <span class='op'>&lt;-</span> <span class='st'>"%Y-%m-%d"</span>
 <span class='va'>myPeriod.N</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>60</span>, <span class='fl'>90</span>, <span class='fl'>120</span>, <span class='fl'>1</span><span class='op'>)</span>
 <span class='va'>myPeriod.Units</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"d"</span>, <span class='st'>"d"</span>, <span class='st'>"d"</span>, <span class='st'>"d"</span>, <span class='st'>"y"</span><span class='op'>)</span>
 <span class='va'>myFile</span> <span class='op'>&lt;-</span> <span class='st'>"DATA_period_test2_Aw_20130101_20141231.csv"</span>
-<span class='va'>myDir.import</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>myDir.export</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>myDir.import</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>myDir.export</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>myParam.Name</span> <span class='op'>&lt;-</span> <span class='st'>"Water.Temp.C"</span>
 <span class='va'>myDateTime.Name</span> <span class='op'>&lt;-</span> <span class='st'>"Date.Time"</span>
 <span class='va'>myDateTime.Format</span> <span class='op'>&lt;-</span> <span class='st'>"%Y-%m-%d %H:%M:%S"</span>
@@ -290,9 +305,7 @@ And the plots will have both parameters.  The 2nd parameter will be on the 2nd (
           , <span class='va'>myDateTime.Format</span>
           , <span class='va'>myThreshold</span>
           , <span class='va'>myConfig</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "WORKING on parameter (1/1); Water.Temp.C"
-#&gt; QC Flag field was found and 79 fails were excluded based on user's config file.</div><div class='output co'>#&gt; Task complete.  Data (CSV) and report ( DOCX ) files saved to directory:
-#&gt; /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp95vHKB/file8d449c56c5/reference</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig): Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpYBEGk5).</span></div><div class='input'>
 <span class='co'>## Example 2. DOCX report format</span>
 <span class='fu'>PeriodStats</span><span class='op'>(</span><span class='va'>myDate</span>
           , <span class='va'>myDate.Format</span>
@@ -307,9 +320,7 @@ And the plots will have both parameters.  The 2nd parameter will be on the 2nd (
           , <span class='va'>myThreshold</span>
           , <span class='va'>myConfig</span>
           , <span class='va'>myReport.format</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "WORKING on parameter (1/1); Water.Temp.C"
-#&gt; QC Flag field was found and 79 fails were excluded based on user's config file.</div><div class='output co'>#&gt; Task complete.  Data (CSV) and report ( DOCX ) files saved to directory:
-#&gt; /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp95vHKB/file8d449c56c5/reference</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig, myReport.format): Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpYBEGk5).</span></div><div class='input'>
 <span class='co'>## Example 3. DOCX report format and Include Flag Failures</span>
 <span class='fu'>PeriodStats</span><span class='op'>(</span><span class='va'>myDate</span>
           , <span class='va'>myDate.Format</span>
@@ -324,9 +335,7 @@ And the plots will have both parameters.  The 2nd parameter will be on the 2nd (
           , <span class='va'>myThreshold</span>
           , <span class='va'>myConfig.Fail.Include</span>
           , <span class='va'>myReport.format</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "WORKING on parameter (1/1); Water.Temp.C"
-#&gt; QC Flag field was found and fails were all included based on user's config file.</div><div class='output co'>#&gt; Task complete.  Data (CSV) and report ( DOCX ) files saved to directory:
-#&gt; /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp95vHKB/file8d449c56c5/reference</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig.Fail.Include, myReport.format): Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpYBEGk5).</span></div><div class='input'>
 <span class='co'>## Example 4. DOCX report format with two parameters</span>
 <span class='va'>myParam.Name</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Water.Temp.C"</span>, <span class='st'>"Sensor.Depth.ft"</span><span class='op'>)</span>
 <span class='fu'>PeriodStats</span><span class='op'>(</span><span class='va'>myDate</span>
@@ -342,11 +351,7 @@ And the plots will have both parameters.  The 2nd parameter will be on the 2nd (
           , <span class='va'>myThreshold</span>
           , <span class='va'>myConfig</span>
           , <span class='va'>myReport.format</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "WORKING on parameter (1/2); Water.Temp.C"
-#&gt; QC Flag field was found and fails were all included based on user's config file.
-#&gt; [1] "WORKING on parameter (2/2); Sensor.Depth.ft"
-#&gt; QC Flag field was found and fails were all included based on user's config file.</div><div class='output co'>#&gt; Task complete.  Data (CSV) and report ( DOCX ) files saved to directory:
-#&gt; /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp95vHKB/file8d449c56c5/reference</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig, myReport.format): Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpYBEGk5).</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
