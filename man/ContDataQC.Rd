@@ -17,7 +17,7 @@ ContDataQC(
   fun.myReport.format = "",
   fun.myReport.Dir = "",
   fun.CreateReport = TRUE,
-  fun.AddDeployCol = FALSE
+  fun.AddDeployCol = TRUE
 )
 }
 \arguments{
@@ -58,7 +58,7 @@ rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
 \item{fun.CreateReport}{Boolean parameter to create reports or not.
 Default = TRUE.}
 
-\item{fun.AddDeployCol}{Boolean for adding column name.  Default = FALSE.
+\item{fun.AddDeployCol}{Boolean for adding column name.  Default = TRUE
 Can be customized in config.R; ContData.env$myName.LoggerDeployment.}
 }
 \value{

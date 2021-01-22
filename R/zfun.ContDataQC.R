@@ -104,7 +104,7 @@
 #'  rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
 #' @param fun.CreateReport Boolean parameter to create reports or not.
 #' Default = TRUE.
-#' @param fun.AddDeployCol Boolean for adding column name.  Default = FALSE.
+#' @param fun.AddDeployCol Boolean for adding column name.  Default = TRUE
 #' Can be customized in config.R; ContData.env$myName.LoggerDeployment.
 #'
 #' @return Returns a csv into the specified export directory with additional
@@ -411,7 +411,7 @@ ContDataQC <- function(fun.myData.Operation
                        , fun.myReport.format = ""
                        , fun.myReport.Dir = ""
                        , fun.CreateReport = TRUE
-                       , fun.AddDeployCol = FALSE) {##FUN.fun.Master.START
+                       , fun.AddDeployCol = TRUE) {
   # global variable bindings ----
   myData.Operation <- myData.SiteID <- myData.Type <- myData.DateRange.Start <-
     myData.DateRange.End <- myDir.import <- myDir.export <- myFile <-

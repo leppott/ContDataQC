@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-01-21 15:12:44
+    #> Last Update: 2021-01-22 16:08:37
 
 # Planned Updates
 
@@ -34,6 +34,14 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9073
+
+2021-01-22
+
+  - refactor: Change ContDataQC() parameter fun.AddDeployCol from
+    default FALSE to TRUE
+      - Shiny app will now auto add the deployment field
 
 ## v2.0.5.9072
 

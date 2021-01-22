@@ -44,6 +44,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9073
+2021-01-22
+
+* refactor: Change ContDataQC() parameter fun.AddDeployCol from default FALSE to
+TRUE
+    + Shiny app will now auto add the deployment field
+
 ## v2.0.5.9072
 2021-01-21
 
