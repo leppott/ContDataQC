@@ -363,12 +363,13 @@
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Lake Data, Aggregate
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' (myDir.BASE <- tempdir()) # create and print temp directory for example data
 #' # 06. Lake Data
 #' # Save example data (assumes directory exists)
-#' myFile <- c("QC_Ellis~1.0m_Water_20180524_20180918.csv"
-#'            , "QC_Ellis~3.0m_Water_20180524_20180918.csv")
+#' myFile <- c("QC_Ellis--1.0m_Water_20180524_20180918.csv"
+#'            , "QC_Ellis--3.0m_Water_20180524_20180918.csv")
 #' file.copy(file.path(system.file("extdata", package="ContDataQC"), myFile)
-#'           , file.path(myDir.BASE, Selection.SUB[3], myFile))
+#'           , file.path(myDir.BASE, "Data2_QC", myFile))
 #'
 #' # Aggregate Data
 #' myData.Operation <- "Aggregate" #Selection.Operation[3]
