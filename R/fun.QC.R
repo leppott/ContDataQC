@@ -485,6 +485,11 @@ fun.QC <- function(fun.myData.SiteID
     # year
     data.import[,ContData.env$myName.Yr] <- as.POSIXlt(data.import[,ContData.env$myName.Date])$year+1900
 
+    # MonthDay (2021-01-27)
+    data.import[,ContData.env$myName.MoDa] <- paste0(
+      sprintf("%02d", data.import[,ContData.env$myName.Mo])
+      , sprintf("%02d", data.import[,ContData.env$myName.Day]))
+
     #
 #     # example of classes for POSIXlt
 #     Sys.time()

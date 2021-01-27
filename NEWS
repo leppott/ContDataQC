@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-01-25 08:17:59
+    #> Last Update: 2021-01-27 08:33:42
 
 # Planned Updates
 
@@ -35,11 +35,23 @@ NEWS-ContDataQC
 
 # Version History
 
+## v2.0.5.9075
+
+2021-01-27
+
+  - feature: Begin updates to add comparison of deployment periods,
+    Issue \#108
+      - Add helper functions for rquery.t.test()
+  - feature: Add MonthDay to data during QC operation, Issue \#111
+  - style: Trim some lines to 80 characters
+      - fun.Stats.R
+
 ## v2.0.5.9074
 
 2021-01-25
 
-  - docs: Update example in ContDataQC for aggregating lake/depth files
+  - docs: Update example in ContDataQC for aggregating lake/depth files,
+    Issue \#85
 
 ## v2.0.5.9073
 

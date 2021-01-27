@@ -46,7 +46,8 @@ ContData.env$myReport.Format.}
 rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.}
 }
 \value{
-Returns a csv into the specified export directory with additional columns for calculated statistics.
+Returns a csv into the specified export directory with additional
+columns for calculated statistics.
 }
 \description{
 Subfunction for generating statistical summaries.  Needs to be called from

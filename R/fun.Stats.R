@@ -42,7 +42,8 @@
 #' @param fun.myReport.Dir Report (rmd) template folder.  Default is the package
 #'  rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.
 #'
-#' @return Returns a csv into the specified export directory with additional columns for calculated statistics.
+#' @return Returns a csv into the specified export directory with additional
+#' columns for calculated statistics.
 #'
 #' @keywords internal #continuous data, statistics
 #'
@@ -176,8 +177,13 @@ fun.Stats <- function(fun.myData.SiteID
 
   # Define time period fields
 
-  myNames.Fields.TimePeriods <- c(ContData.env$myName.Yr, ContData.env$myName.YrMo, ContData.env$myName.MoDa, ContData.env$myName.Mo
-                                  , ContData.env$myName.JuDa, ContData.env$myName.Season, ContData.env$myName.YrSeason)
+  myNames.Fields.TimePeriods <- c(ContData.env$myName.Yr
+                                  , ContData.env$myName.YrMo
+                                  , ContData.env$myName.MoDa
+                                  , ContData.env$myName.Mo
+                                  , ContData.env$myName.JuDa
+                                  , ContData.env$myName.Season
+                                  , ContData.env$myName.YrSeason)
   # add time period fields
   data.import[,ContData.env$myName.Yr]   <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%Y")
   data.import[,ContData.env$myName.Mo]   <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%m")
@@ -331,10 +337,14 @@ fun.Stats <- function(fun.myData.SiteID
     # Summary (could use dplyr but already using doBy package)
     dv.i <- doBy::summaryBy(myVar ~ Date, data=data.stats, FUN=c(mean), na.rm=TRUE
                             , var.names="i"
-                            ,id=c(ContData.env$myName.SiteID, ContData.env$myName.Yr
-                                  , ContData.env$myName.YrMo, ContData.env$myName.Mo
-                                  , ContData.env$myName.MoDa, ContData.env$myName.JuDa
-                                  , ContData.env$myName.Season, ContData.env$myName.YrSeason))
+                            ,id=c(ContData.env$myName.SiteID
+                                  , ContData.env$myName.Yr
+                                  , ContData.env$myName.YrMo
+                                  , ContData.env$myName.Mo
+                                  , ContData.env$myName.MoDa
+                                  , ContData.env$myName.JuDa
+                                  , ContData.env$myName.Season
+                                  , ContData.env$myName.YrSeason))
     names(data.stats)[ColNum.i] <- i
     #
     #
