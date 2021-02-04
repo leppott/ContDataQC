@@ -89,7 +89,7 @@ setwd(file.path(dir_base, myLibrary))
 rmarkdown::render("NEWS.rmd", "all")
 file.copy("NEWS.md", "NEWS", overwrite = TRUE)
 file.remove("NEWS.html")
-file.remove("NEWS.md")
+#file.remove("NEWS.md")
 #
 # Load Library
 library(devtools)

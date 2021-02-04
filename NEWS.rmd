@@ -44,6 +44,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9078
+2021-02-04
+
+* refactor: Update Config_Template.zip in Shiny, Issue #116
+* docs: Retain NEWS.md for pkgdown to build changelog
+
 ## v2.0.5.9077
 2021-02-04
 
