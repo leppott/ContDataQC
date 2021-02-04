@@ -44,6 +44,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9079
+2021-02-04
+
+* refactor: Update config spike flags for water level, Issue #116
+    + Update other versions of config
+
 ## v2.0.5.9078
 2021-02-04
 

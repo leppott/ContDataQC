@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-02-04 14:40:29
+    #> Last Update: 2021-02-04 14:51:45
 
 # Planned Updates
 
@@ -34,6 +34,13 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9079
+
+2021-02-04
+
+  - refactor: Update config spike flags for water level, Issue \#116
+      - Update other versions of config
 
 ## v2.0.5.9078
 
