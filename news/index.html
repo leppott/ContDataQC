@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Aggregate Data Files — fun.AggregateData • ContDataQC</title>
+<title>Changelog • ContDataQC</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,7 @@
 
 
 
-<meta property="og:title" content="Aggregate Data Files — fun.AggregateData" />
-<meta property="og:description" content="Subfunction for aggregating or splitting data files.  Needs to be called from
-ContDataQC().  Combines or splits files based on given data range.  Saves a
-new CSV in the export directory." />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -61,7 +58,7 @@ new CSV in the export directory." />
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -131,94 +128,18 @@ new CSV in the export directory." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Aggregate Data Files</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leppott/ContDataQC/blob/master/R/zfun.AggregateData.R'><code>R/zfun.AggregateData.R</code></a></small>
-    <div class="hidden name"><code>fun.AggregateData.Rd</code></div>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/leppott/ContDataQC/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    <p>Subfunction for aggregating or splitting data files.  Needs to be called from
-ContDataQC().  Combines or splits files based on given data range.  Saves a
-new CSV in the export directory.</p>
-    </div>
-
-    <pre class="usage"><span class='fu'>fun.AggregateData</span><span class='op'>(</span>
-  <span class='va'>fun.myData.SiteID</span>,
-  <span class='va'>fun.myData.Type</span>,
-  <span class='va'>fun.myData.DateRange.Start</span>,
-  <span class='va'>fun.myData.DateRange.End</span>,
-  fun.myDir.import <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>,
-  fun.myDir.export <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>,
-  <span class='va'>fun.myReport.format</span>,
-  <span class='va'>fun.myReport.Dir</span>,
-  fun.CreateReport <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>fun.myData.SiteID</th>
-      <td><p>Station/SiteID.</p></td>
-    </tr>
-    <tr>
-      <th>fun.myData.Type</th>
-      <td><p>data type;
-c("Air","Water","AW","Gage","AWG","AG","WG")</p></td>
-    </tr>
-    <tr>
-      <th>fun.myData.DateRange.Start</th>
-      <td><p>Start date for requested data.
-Format = YYYY-MM-DD.</p></td>
-    </tr>
-    <tr>
-      <th>fun.myData.DateRange.End</th>
-      <td><p>End date for requested data.
-Format = YYYY-MM-DD.</p></td>
-    </tr>
-    <tr>
-      <th>fun.myDir.import</th>
-      <td><p>Directory for import data.
-Default is current working directory.</p></td>
-    </tr>
-    <tr>
-      <th>fun.myDir.export</th>
-      <td><p>Directory for export data.
-Default is current working directory.</p></td>
-    </tr>
-    <tr>
-      <th>fun.myReport.format</th>
-      <td><p>Report format (docx or html).
-Default is specified in config.R (docx).  Can be customized in config.R;
-ContData.env$myReport.Format.</p></td>
-    </tr>
-    <tr>
-      <th>fun.myReport.Dir</th>
-      <td><p>Report (rmd) template folder.
-Default is the package rmd folder.  Can be customized in config.R;
-ContData.env$myReport.Dir.</p></td>
-    </tr>
-    <tr>
-      <th>fun.CreateReport</th>
-      <td><p>Boolean parameter to create reports or not.
-Default = TRUE.</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Returns a csv into the specified export directory with additional
-columns for calculated statistics.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>#Not intended to be accessed indepedant of function ContDataQC().</span>
-</div></pre>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
 
 

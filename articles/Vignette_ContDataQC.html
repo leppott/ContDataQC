@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9077</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9078</span>
       </span>
     </div>
 
@@ -63,6 +63,9 @@
       <a href="../articles/Vignette_Lakes.html">ContDataQC Lake ID String Vignette</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -272,7 +275,7 @@ This necessitated a change in the R library <code>dataRetrieval</code>. As of th
                    , <span class="st">"Data3_Aggregated"</span>
                    , <span class="st">"Data4_Stats"</span><span class="op">)</span>
 <span class="op">(</span><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># create and print temp directory for example data</span></code></pre></div>
-<pre><code>## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpWH4o4F"</code></pre>
+<pre><code>## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpA9l8ue"</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create data directories</span>
 <span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
@@ -2027,7 +2030,7 @@ There are R packages designed for the analysis of lake monitoring data. One such
 <p>To aid users in QCing their continuous lake data an export function to <code>rLakeAnalyzer</code> was created in the <code>ContDataQC</code> package.</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># create and print temp directory for example data</span></code></pre></div>
-<pre><code>## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpWH4o4F"</code></pre>
+<pre><code>## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpA9l8ue"</code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Convert Data for use with rLakeAnalyzer</span>
 
