@@ -363,8 +363,8 @@ ContData.env$myThresh.Gross.Fail.Hi.AirBP        <- 15
 ContData.env$myThresh.Gross.Fail.Lo.AirBP        <- 13
 ContData.env$myThresh.Gross.Fail.Hi.WaterP       <- 17
 ContData.env$myThresh.Gross.Fail.Lo.WaterP       <- 13
-ContData.env$myThresh.Gross.Fail.Hi.SensorDepth  <- 6
-ContData.env$myThresh.Gross.Fail.Lo.SensorDepth  <- -1
+ContData.env$myThresh.Gross.Fail.Hi.SensorDepth  <- 10^5 # dependent upon stream size
+ContData.env$myThresh.Gross.Fail.Lo.SensorDepth  <- -1   # dependent upon stream size
 ContData.env$myThresh.Gross.Fail.Hi.Discharge    <- 10^5 # dependent upon stream size
 ContData.env$myThresh.Gross.Fail.Lo.Discharge    <- -1   # dependent upon stream size
 ContData.env$myThresh.Gross.Fail.Hi.Cond         <- 1500 # this threshold has not been closely evaluated
@@ -390,8 +390,8 @@ ContData.env$myThresh.Gross.Suspect.Hi.AirBP        <- 14.8
 ContData.env$myThresh.Gross.Suspect.Lo.AirBP        <- 13.0
 ContData.env$myThresh.Gross.Suspect.Hi.WaterP       <- 16.8
 ContData.env$myThresh.Gross.Suspect.Lo.WaterP       <- 13.5
-ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth  <- 5
-ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth  <- 0
+ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth  <- 10^3 # dependent upon stream size
+ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth  <- 0    # dependent upon stream size
 ContData.env$myThresh.Gross.Suspect.Hi.Discharge    <- 10^3 # dependent upon stream size
 ContData.env$myThresh.Gross.Suspect.Lo.Discharge    <- -1   # dependent upon stream size
 ContData.env$myThresh.Gross.Suspect.Hi.Cond         <- 1200 # this threshold has not been closely evaluated
@@ -419,8 +419,8 @@ ContData.env$myThresh.Spike.Hi.AirBP        <- 0.25
 ContData.env$myThresh.Spike.Lo.AirBP        <- 0.15
 ContData.env$myThresh.Spike.Hi.WaterP       <- 0.7
 ContData.env$myThresh.Spike.Lo.WaterP       <- 0.5
-ContData.env$myThresh.Spike.Hi.SensorDepth  <- 5
-ContData.env$myThresh.Spike.Lo.SensorDepth  <- 3
+ContData.env$myThresh.Spike.Hi.SensorDepth  <- 10^4 # dependent upon stream size
+ContData.env$myThresh.Spike.Lo.SensorDepth  <- 10^3 # dependent upon stream size
 ContData.env$myThresh.Spike.Hi.Discharge    <- 10^4 # dependent upon stream size
 ContData.env$myThresh.Spike.Lo.Discharge    <- 10^3 # dependent upon stream size
 ContData.env$myThresh.Spike.Hi.Cond         <- 10   # this threshold has not been closely evaluated

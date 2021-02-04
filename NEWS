@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-02-04 10:59:24
+    #> Last Update: 2021-02-04 14:23:32
 
 # Planned Updates
 
@@ -34,6 +34,13 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9077
+
+2021-02-04
+
+  - refactor: Update thresholds in config.R for sensor depth, Issue
+    \#116
 
 ## v2.0.5.9076
 
