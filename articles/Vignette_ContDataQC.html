@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9076</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9077</span>
       </span>
     </div>
 
@@ -272,7 +272,7 @@ This necessitated a change in the R library <code>dataRetrieval</code>. As of th
                    , <span class="st">"Data3_Aggregated"</span>
                    , <span class="st">"Data4_Stats"</span><span class="op">)</span>
 <span class="op">(</span><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># create and print temp directory for example data</span></code></pre></div>
-<pre><code>## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpGuJdnU"</code></pre>
+<pre><code>## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpWH4o4F"</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create data directories</span>
 <span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
@@ -344,7 +344,7 @@ This necessitated a change in the R library <code>dataRetrieval</code>. As of th
 ## 
 ## [1] "Processing item 1 of 1, COMPLETE, 01187300."
 ## 
-## [1] "Task COMPLETE; 0.23 min."</code></pre>
+## [1] "Task COMPLETE; 0.21 min."</code></pre>
 <p>Example of getting gage data in a different time zone specified in user modified configuration file.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leppott/ContDataQC">ContDataQC</a></span><span class="op">)</span>
@@ -947,8 +947,8 @@ ContData.env$myThresh.Gross.Fail.Hi.AirBP        &lt;- 15
 ContData.env$myThresh.Gross.Fail.Lo.AirBP        &lt;- 13
 ContData.env$myThresh.Gross.Fail.Hi.WaterP       &lt;- 17
 ContData.env$myThresh.Gross.Fail.Lo.WaterP       &lt;- 13
-ContData.env$myThresh.Gross.Fail.Hi.SensorDepth  &lt;- 6
-ContData.env$myThresh.Gross.Fail.Lo.SensorDepth  &lt;- -1
+ContData.env$myThresh.Gross.Fail.Hi.SensorDepth  &lt;- 10^5 # dependent upon stream size
+ContData.env$myThresh.Gross.Fail.Lo.SensorDepth  &lt;- -1   # dependent upon stream size
 ContData.env$myThresh.Gross.Fail.Hi.Discharge    &lt;- 10^5 # dependent upon stream size
 ContData.env$myThresh.Gross.Fail.Lo.Discharge    &lt;- -1   # dependent upon stream size
 ContData.env$myThresh.Gross.Fail.Hi.Cond         &lt;- 1500 # this threshold has not been closely evaluated
@@ -974,8 +974,8 @@ ContData.env$myThresh.Gross.Suspect.Hi.AirBP        &lt;- 14.8
 ContData.env$myThresh.Gross.Suspect.Lo.AirBP        &lt;- 13.0
 ContData.env$myThresh.Gross.Suspect.Hi.WaterP       &lt;- 16.8
 ContData.env$myThresh.Gross.Suspect.Lo.WaterP       &lt;- 13.5
-ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth  &lt;- 5
-ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth  &lt;- 0
+ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth  &lt;- 10^3 # dependent upon stream size
+ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth  &lt;- 0    # dependent upon stream size
 ContData.env$myThresh.Gross.Suspect.Hi.Discharge    &lt;- 10^3 # dependent upon stream size
 ContData.env$myThresh.Gross.Suspect.Lo.Discharge    &lt;- -1   # dependent upon stream size
 ContData.env$myThresh.Gross.Suspect.Hi.Cond         &lt;- 1200 # this threshold has not been closely evaluated
@@ -1003,8 +1003,8 @@ ContData.env$myThresh.Spike.Hi.AirBP        &lt;- 0.25
 ContData.env$myThresh.Spike.Lo.AirBP        &lt;- 0.15
 ContData.env$myThresh.Spike.Hi.WaterP       &lt;- 0.7
 ContData.env$myThresh.Spike.Lo.WaterP       &lt;- 0.5
-ContData.env$myThresh.Spike.Hi.SensorDepth  &lt;- 5
-ContData.env$myThresh.Spike.Lo.SensorDepth  &lt;- 3
+ContData.env$myThresh.Spike.Hi.SensorDepth  &lt;- 10^4 # dependent upon stream size
+ContData.env$myThresh.Spike.Lo.SensorDepth  &lt;- 10^3 # dependent upon stream size
 ContData.env$myThresh.Spike.Hi.Discharge    &lt;- 10^4 # dependent upon stream size
 ContData.env$myThresh.Spike.Lo.Discharge    &lt;- 10^3 # dependent upon stream size
 ContData.env$myThresh.Spike.Hi.Cond         &lt;- 10   # this threshold has not been closely evaluated
@@ -2027,7 +2027,7 @@ There are R packages designed for the analysis of lake monitoring data. One such
 <p>To aid users in QCing their continuous lake data an export function to <code>rLakeAnalyzer</code> was created in the <code>ContDataQC</code> package.</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># create and print temp directory for example data</span></code></pre></div>
-<pre><code>## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpGuJdnU"</code></pre>
+<pre><code>## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpWH4o4F"</code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Convert Data for use with rLakeAnalyzer</span>
 

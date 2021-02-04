@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9076</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9077</span>
       </span>
     </div>
 
@@ -651,8 +651,8 @@ ContData.env$myThresh.Gross.Fail.Hi.AirBP        &lt;- 15
 ContData.env$myThresh.Gross.Fail.Lo.AirBP        &lt;- 13
 ContData.env$myThresh.Gross.Fail.Hi.WaterP       &lt;- 17
 ContData.env$myThresh.Gross.Fail.Lo.WaterP       &lt;- 13
-ContData.env$myThresh.Gross.Fail.Hi.SensorDepth  &lt;- 6
-ContData.env$myThresh.Gross.Fail.Lo.SensorDepth  &lt;- -1
+ContData.env$myThresh.Gross.Fail.Hi.SensorDepth  &lt;- 10^5 # dependent upon stream size
+ContData.env$myThresh.Gross.Fail.Lo.SensorDepth  &lt;- -1   # dependent upon stream size
 ContData.env$myThresh.Gross.Fail.Hi.Discharge    &lt;- 10^5 # dependent upon stream size
 ContData.env$myThresh.Gross.Fail.Lo.Discharge    &lt;- -1   # dependent upon stream size
 ContData.env$myThresh.Gross.Fail.Hi.Cond         &lt;- 1500 # this threshold has not been closely evaluated
@@ -678,8 +678,8 @@ ContData.env$myThresh.Gross.Suspect.Hi.AirBP        &lt;- 14.8
 ContData.env$myThresh.Gross.Suspect.Lo.AirBP        &lt;- 13.0
 ContData.env$myThresh.Gross.Suspect.Hi.WaterP       &lt;- 16.8
 ContData.env$myThresh.Gross.Suspect.Lo.WaterP       &lt;- 13.5
-ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth  &lt;- 5
-ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth  &lt;- 0
+ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth  &lt;- 10^3 # dependent upon stream size
+ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth  &lt;- 0    # dependent upon stream size
 ContData.env$myThresh.Gross.Suspect.Hi.Discharge    &lt;- 10^3 # dependent upon stream size
 ContData.env$myThresh.Gross.Suspect.Lo.Discharge    &lt;- -1   # dependent upon stream size
 ContData.env$myThresh.Gross.Suspect.Hi.Cond         &lt;- 1200 # this threshold has not been closely evaluated
@@ -707,8 +707,8 @@ ContData.env$myThresh.Spike.Hi.AirBP        &lt;- 0.25
 ContData.env$myThresh.Spike.Lo.AirBP        &lt;- 0.15
 ContData.env$myThresh.Spike.Hi.WaterP       &lt;- 0.7
 ContData.env$myThresh.Spike.Lo.WaterP       &lt;- 0.5
-ContData.env$myThresh.Spike.Hi.SensorDepth  &lt;- 5
-ContData.env$myThresh.Spike.Lo.SensorDepth  &lt;- 3
+ContData.env$myThresh.Spike.Hi.SensorDepth  &lt;- 10^4 # dependent upon stream size
+ContData.env$myThresh.Spike.Lo.SensorDepth  &lt;- 10^3 # dependent upon stream size
 ContData.env$myThresh.Spike.Hi.Discharge    &lt;- 10^4 # dependent upon stream size
 ContData.env$myThresh.Spike.Lo.Discharge    &lt;- 10^3 # dependent upon stream size
 ContData.env$myThresh.Spike.Hi.Cond         &lt;- 10   # this threshold has not been closely evaluated
