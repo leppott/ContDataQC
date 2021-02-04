@@ -669,26 +669,27 @@ fun.CalcQCStats <- function(fun.data.import
   # data is NA then flag = 9 (missing data)
   fun.data.import.mod[,myField][is.na(fun.data.import.mod[,fun.myField.Data]) ==
                                   TRUE] <- ContData.env$myFlagVal.NoData
-  # different test for water level, only if negative
-  if(fun.myField.Data==ContData.env$myName.SensorDepth) {
-    ##IF.Gross.SensorDepth.START
-    # data < 0 (i.e., negative) = 4 (fail)
-    fun.data.import.mod[,myField][fun.data.import.mod[,fun.myField.Data] < 0] <-
-      ContData.env$myFlagVal.Fail
-    # otherwise flag = 1 (pass)
-    fun.data.import.mod[,myField][fun.data.import.mod[, myField] ==
-                                    ContData.env$myFlagVal.NotEval] <-
-      ContData.env$myFlagVal.Pass
-    # different test for discharge
-  } else if(fun.myField.Data==ContData.env$myName.Discharge) {
-    # data < 0 (i.e., negative) = 4 (fail)
-    fun.data.import.mod[,myField][fun.data.import.mod[,fun.myField.Data] < 0] <-
-      ContData.env$myFlagVal.Fail
-    # otherwise flag = 1 (pass)
-    fun.data.import.mod[,myField][fun.data.import.mod[,myField]==
-                                    ContData.env$myFlagVal.NotEval] <-
-      ContData.env$myFlagVal.Pass
-  } else {
+  # REMOVE different test, 2021-02-04
+  # # different test for water level, only if negative
+  # if(fun.myField.Data==ContData.env$myName.SensorDepth) {
+  #   ##IF.Gross.SensorDepth.START
+  #   # data < 0 (i.e., negative) = 4 (fail)
+  #   fun.data.import.mod[,myField][fun.data.import.mod[,fun.myField.Data] < 0] <-
+  #     ContData.env$myFlagVal.Fail
+  #   # otherwise flag = 1 (pass)
+  #   fun.data.import.mod[,myField][fun.data.import.mod[, myField] ==
+  #                                   ContData.env$myFlagVal.NotEval] <-
+  #     ContData.env$myFlagVal.Pass
+  #   # different test for discharge
+  # } else if(fun.myField.Data==ContData.env$myName.Discharge) {
+  #   # data < 0 (i.e., negative) = 4 (fail)
+  #   fun.data.import.mod[,myField][fun.data.import.mod[,fun.myField.Data] < 0] <-
+  #     ContData.env$myFlagVal.Fail
+  #   # otherwise flag = 1 (pass)
+  #   fun.data.import.mod[,myField][fun.data.import.mod[,myField]==
+  #                                   ContData.env$myFlagVal.NotEval] <-
+  #     ContData.env$myFlagVal.Pass
+  # } else {
     # data >= Suspect.Hi then flag = 3 (suspect)
     fun.data.import.mod[,myField][fun.data.import.mod[,fun.myField.Data] >=
                                     fun.myThresh.Gross.Suspect.Hi] <-
@@ -709,7 +710,7 @@ fun.CalcQCStats <- function(fun.data.import
     fun.data.import.mod[,myField][fun.data.import.mod[,myField]==
                                     ContData.env$myFlagVal.NotEval] <-
       ContData.env$myFlagVal.Pass
-  }##IF.Gross.SensorDepth.END
+  #}##IF.Gross.SensorDepth.END
   # QC
   #table(fun.data.import.mod[,myField])
   #

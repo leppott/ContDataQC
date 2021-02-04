@@ -76,7 +76,7 @@
 #'
 #' # Load File to use for PeriodStats
 #' myDir <- tempdir()
-#' myFile <- "DATA_period_test2_Aw_20130101_20141231.csv"
+#' myFile <- "DATA_period_test2_AW_20130101_20141231.csv"
 #' df.x <- read.csv(file.path(myDir, myFile))
 #'
 #' # function inputs
@@ -126,7 +126,7 @@
 #'           , myConfig
 #'           , myReport.format)
 #'
-#'## Example 3. DOCX report format and Include Flag Failures
+#' ## Example 3. DOCX report format and Include Flag Failures
 #' PeriodStats(myDate
 #'           , myDate.Format
 #'           , myPeriod.N
@@ -141,7 +141,7 @@
 #'           , myConfig.Fail.Include
 #'           , myReport.format)
 #'
-#'## Example 4. DOCX report format with two parameters
+#' ## Example 4. DOCX report format with two parameters
 #' myParam.Name <- c("Water.Temp.C", "Sensor.Depth.ft")
 #' PeriodStats(myDate
 #'           , myDate.Format
@@ -156,8 +156,7 @@
 #'           , myThreshold
 #'           , myConfig
 #'           , myReport.format)
-#'
-#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 PeriodStats <- function(fun.myDate
                        , fun.myDate.Format = NA

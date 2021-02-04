@@ -541,7 +541,7 @@ fun.QC.File <- function(fun.myFile
     # skip if not present
     # 20170512, move message inside of IF so user doesn't see it.
     #
-    # 6.01. WaterTemp
+    # _B.6.01. WaterTemp----
     myField <- ContData.env$myName.WaterTemp
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -568,7 +568,7 @@ fun.QC.File <- function(fun.myFile
       #
     }##IF.myField.END
     #
-    # B.6.02. AirTemp
+    # _B.6.02. AirTemp----
     myField <- ContData.env$myName.AirTemp
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -595,7 +595,7 @@ fun.QC.File <- function(fun.myFile
       #
     }##IF.myField.END
     #
-    # B.6.03. WaterP
+    # _B.6.03. WaterP----
     myField <- ContData.env$myName.WaterP
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -622,7 +622,7 @@ fun.QC.File <- function(fun.myFile
       #
     }##IF.myField.END
     #
-    # B.6.04. AirP
+    # _B.6.04. AirP----
     myField <- ContData.env$myName.AirBP
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -649,7 +649,7 @@ fun.QC.File <- function(fun.myFile
       #
     }##IF.myField.END
     #
-    # B.6.05. SensorDepth
+    # _B.6.05. SensorDepth----
     myField <- ContData.env$myName.SensorDepth
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -676,7 +676,7 @@ fun.QC.File <- function(fun.myFile
       #
     }##IF.myField.END
     #
-    # B.6.06. Discharge
+    # _B.6.06. Discharge----
     myField <- ContData.env$myName.Discharge
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -703,7 +703,7 @@ fun.QC.File <- function(fun.myFile
 
     }##IF.myField.END
       #
-    # B.6.07. Conductivity
+    # _B.6.07. Conductivity----
     myField <- ContData.env$myName.Cond
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -730,7 +730,7 @@ fun.QC.File <- function(fun.myFile
 
     }##IF.myField.END
     #
-    # B.6.08. Dissolved Oxygen
+    # _B.6.08. Dissolved Oxygen----
     myField <- ContData.env$myName.DO
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -756,7 +756,7 @@ fun.QC.File <- function(fun.myFile
                                      ,ContData.env$myThresh.Flat.Tolerance.DO)
     }##IF.myField.END
     #
-    # B.6.09. pH
+    # _B.6.09. pH----
     myField <- ContData.env$myName.pH
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -782,7 +782,7 @@ fun.QC.File <- function(fun.myFile
                                      ,ContData.env$myThresh.Flat.Tolerance.pH)
     }##IF.myField.END
     #
-    # B.6.10. Turbidity
+    # _B.6.10. Turbidity----
     myField <- ContData.env$myName.Turbidity
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -808,7 +808,7 @@ fun.QC.File <- function(fun.myFile
                                ,ContData.env$myThresh.Flat.Tolerance.Turbidity)
     }##IF.myField.END
     #
-    # B.6.11. Chlorophyll a
+    # _B.6.11. Chlorophyll a----
     myField <- ContData.env$myName.Chlorophylla
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -834,7 +834,7 @@ fun.QC.File <- function(fun.myFile
                            ,ContData.env$myThresh.Flat.Tolerance.Chlorophylla)
     }##IF.myField.END
 
-    # B.6.12. Water Level
+    # _B.6.12. Water Level----
     myField <- ContData.env$myName.WaterLevel
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #

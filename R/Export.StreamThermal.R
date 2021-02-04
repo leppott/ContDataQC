@@ -58,7 +58,7 @@
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' sitedata <- Export.StreamThermal(myData)
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' #' # 2.2. Run StreamThermal
+#' # 2.2. Run StreamThermal
 #' require(StreamThermal)
 #' #~~~~~
 #' # StreamThermal

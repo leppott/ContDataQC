@@ -44,6 +44,19 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9076
+2021-02-04
+
+* refactor: Modify "gross" check for water level, sensor depth, and discharge
+, Issue #113
+    + Was only checking for negative values
+    + Set to evaluate like all other measured values
+    + fun.Helper.R, fun.CalcQCStats()
+* refactor: Update config.R comments for gross check as above, Issue #113
+    + Update other copies of config
+* refactor: Add missing spike thresholds for water level, config.R
+* refactor: Set water level tests to values for sensor depth
+
 ## v2.0.5.9075
 2021-01-27
 
@@ -1176,12 +1189,12 @@ docs: DESCRIPTION, Add Remotes for non-CRAN (GitHub) packages
 
 * Time interval.  Fixed calculation of time interval.  Certain date time formats would stop processing or be reported as zero.  fun.QC.R, Report_Aggregate.rmd, Report_QC.rmd, and Report_Stats.rmd.  20170526.
 
-## v2.0..1.9013
+## v2.0.1.9013
 2017-05-24
 
 * fun.Stats.R. Had previously commented out stats and plots due to errors.  Single typo fixed in year season stats and reworked daily summaryBy stats section.  20170524.
 
-## v2.0..1.9012
+## v2.0.1.9012
 2017-05-24
 
 * fun.Gage.R.  Changed variable "myTZ" to "fun.myTZ" for consistency.  20170524.

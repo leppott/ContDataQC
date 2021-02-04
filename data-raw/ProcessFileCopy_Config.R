@@ -11,19 +11,19 @@ wd <- getwd() # assume is package directory
 
 # 1. Copy file with new name
 config.from <- file.path(".", "R", "config.R")
-config.to <- file.path(".", "inst", "shiny-examples", "ContDataQC"
-                       , "www", "Config.R")
+config.to  <- file.path(".", "inst", "shiny-examples", "ContDataQC"
+                        , "www", "Config.R")
 file.copy(config.from, config.to, overwrite = TRUE)
 
 # 2. Copy and save as "TEMPLATE"
 config.from <- file.path(".", "R", "config.R")
 config.to.template <- file.path(".", "inst", "shiny-examples", "ContDataQC"
-                       , "www", "Config_Template.R")
+                               , "www", "Config_Template.R")
 file.copy(config.from, config.to.template, overwrite = TRUE)
 
 # 3. Copy to extdata
 config.from <- file.path(".", "R", "config.R")
-config.to <- file.path(".", "inst", "extdata", "Config.ORIG.R")
+config.to   <- file.path(".", "inst", "extdata", "Config.ORIG.R")
 file.copy(config.from, config.to, overwrite = TRUE)
 
 

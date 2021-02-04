@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-01-27 08:33:42
+    #> Last Update: 2021-02-04 10:59:24
 
 # Planned Updates
 
@@ -34,6 +34,21 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9076
+
+2021-02-04
+
+  - refactor: Modify “gross” check for water level, sensor depth, and
+    discharge , Issue \#113
+      - Was only checking for negative values
+      - Set to evaluate like all other measured values
+      - fun.Helper.R, fun.CalcQCStats()
+  - refactor: Update config.R comments for gross check as above, Issue
+    \#113
+      - Update other copies of config
+  - refactor: Add missing spike thresholds for water level, config.R
+  - refactor: Set water level tests to values for sensor depth
 
 ## v2.0.5.9075
 
@@ -1396,7 +1411,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
     Report\_Aggregate.rmd, Report\_QC.rmd, and Report\_Stats.rmd.
     20170526.
 
-## v2.0..1.9013
+## v2.0.1.9013
 
 2017-05-24
 
@@ -1404,7 +1419,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
     errors. Single typo fixed in year season stats and reworked daily
     summaryBy stats section. 20170524.
 
-## v2.0..1.9012
+## v2.0.1.9012
 
 2017-05-24
 

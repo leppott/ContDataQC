@@ -111,7 +111,7 @@ file.copy(file.path(path.package("ContDataQC"), "extdata", myFile)
 
 # Load File to use for PeriodStats
 myDir <- tempdir()
-myFile <- "DATA_period_test2_Aw_20130101_20141231.csv"
+myFile <- "DATA_period_test2_AW_20130101_20141231.csv"
 df.x <- read.csv(file.path(myDir, myFile))
 
 # function inputs
@@ -191,5 +191,4 @@ PeriodStats(myDate
           , myThreshold
           , myConfig
           , myReport.format)
-
 }
