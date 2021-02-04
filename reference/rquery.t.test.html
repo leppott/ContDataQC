@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>data_raw_test4_AW_20160418_20160726 — data_raw_test4_AW_20160418_20160726 • ContDataQC</title>
+<title>Rquery T-Test — rquery.t.test • ContDataQC</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="data_raw_test4_AW_20160418_20160726 — data_raw_test4_AW_20160418_20160726" />
-<meta property="og:description" content="Test data.  Includes air and water data at different start times." />
+<meta property="og:title" content="Rquery T-Test — rquery.t.test" />
+<meta property="og:description" content="Performs one or two samples t-test" />
 
 
 
@@ -126,21 +126,54 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>data_raw_test4_AW_20160418_20160726</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leppott/ContDataQC/blob/master/R/data.r'><code>R/data.r</code></a></small>
-    <div class="hidden name"><code>data_raw_test4_AW_20160418_20160726.Rd</code></div>
+    <h1>Rquery T-Test</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leppott/ContDataQC/blob/master/R/fun.Helper.R'><code>R/fun.Helper.R</code></a></small>
+    <div class="hidden name"><code>rquery.t.test.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Test data.  Includes air and water data at different start times.</p>
+    <p>Performs one or two samples t-test</p>
     </div>
 
-    <pre class="usage"><span class='va'>data_raw_test4_AW_20160418_20160726</span></pre>
+    <pre class="usage"><span class='fu'>rquery.t.test</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, paired <span class='op'>=</span> <span class='cn'>FALSE</span>, graph <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>a (non-empty) numeric vector of data values.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>an optional (non-empty) numeric vector of data values</p></td>
+    </tr>
+    <tr>
+      <th>paired</th>
+      <td><p>: if TRUE, paired t-test is performed</p></td>
+    </tr>
+    <tr>
+      <th>graph</th>
+      <td><p>: if TRUE, the distribution of the data is shown for the
+inspection of normality</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>: further arguments to be passed to the built-in t.test()
+R function</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    
 
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>a data frame with 9508 observations and 8 variables:</p>
+    <p>1. shapiro.test is used to check normality
+2. F-test is performed to check equality of variances
+ If the variances are different, then Welch t-test is used</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
