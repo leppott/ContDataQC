@@ -12,16 +12,17 @@ fun.dt.Type2(fun.dt, fun2.dt.Type)
 \item{fun.dt2.Type}{type of input; date, time, or date}
 }
 \value{
-Returns a text string representing the date/time format of the input fun.dt.  Wrapped in function fun.DateTimeFormat().
+Returns a text string representing the date/time format of the input
+fun.dt.  Wrapped in function fun.DateTimeFormat().
 }
 \description{
 Date Format (function)
 }
 \examples{
-#Not intended to be accessed indepedant of function "fun.DateTimeFormat()".
+#Not intended to be accessed indepedent of function "fun.DateTimeFormat()".
 fun.dt.Type2(Sys.Date(),"date")
 }
-\keyword{date,}
+\keyword{#date,}
 \keyword{datetime,}
 \keyword{format}
 \keyword{internal}

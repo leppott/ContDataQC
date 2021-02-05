@@ -105,24 +105,29 @@ shinyServer(function(input, output, session) {
 
     #Initializes the empty columns for the table
     fileAttribsFull <- data.frame(filename = character(),
-                      stationID = character(),
-                      startDate = as.Date(character()),
-                      endDate = as.Date(character()),
-                      recordCount = as.integer(),
-                      waterTempNull = character(),
-                      airTempNull = character(),
-                      waterPressureNull = character(),
-                      airPressureNull = character(),
-                      sensorDepthNull = character(),
-                      flow = character())
+                                  stationID = character(),
+                                  startDate = as.Date(character()),
+                                  endDate = as.Date(character()),
+                                  recordCount = as.integer(),
+                                  waterTempNull = character(),
+                                  airTempNull = character(),
+                                  waterPressureNull = character(),
+                                  airPressureNull = character(),
+                                  sensorDepthNull = character(),
+                                  flow = character())
 
     #Column names for the table
-    summColNames <- c("File name", "Station ID",
-                                   "Starting date", "Ending date",
-                                   "Record count",
-                                   "Water temperature", "Air temperature",
-                                   "Water pressure", "Air pressure",
-                                   "Sensor depth", "Flow")
+    summColNames <- c("File name",
+                      "Station ID",
+                       "Starting date",
+                       "Ending date",
+                       "Record count",
+                       "Water temperature",
+                       "Air temperature",
+                       "Water pressure",
+                       "Air pressure",
+                       "Sensor depth",
+                       "Flow")
 
     #For each input file, gets the file attributes and adds it to
     #the table
@@ -532,6 +537,7 @@ shinyServer(function(input, output, session) {
 
       }
 
+      # _QCRaw ----
       #The QCRaw and Summarize functions can be fed individual input files
       #in order to have the progress bar increment after each one is processed
       else {

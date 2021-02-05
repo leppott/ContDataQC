@@ -1,7 +1,8 @@
 #' Date Format (wrapper)
 #'
-#' Input a date/time string and output R date/time *format*. The format can then be used to convert to a different format.
-#' Determine Date and Time *format* from input (single record) using Perl regular expressions.
+#' Input a date/time string and output R date/time *format*. The format can then
+#' be used to convert to a different format.  Determine Date and Time *format*
+#' from input (single record) using Perl regular expressions.
 #' Perl Code prepared by Ann Roseberry Lincoln
 #' Not all possible formats recognized but the most common are accepted.
 #' If AM/PM is left off them assume 24 hr time.
@@ -14,10 +15,14 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @param fun.DateTime Date, Time, or DateTime data
 #' @param fun.dt.Type type of input; date, time, or date
-#' @return Returns a text string representing the date/time format of the input fun.DateTime.  Wrapper function for fun.dt.Type2().
-#' @keywords internal date, time, datetime, format
+#'
+#' @return Returns a text string representing the date/time format of the input
+#' fun.DateTime.  Wrapper function for fun.dt.Type2().
+#'
+#' @keywords internal #date, time, datetime, format
+#'
 #' @examples
-#' #Not intended to be accessed indepedantly.
+#' #Not intended to be accessed indepedently.
 #' #format of current date
 #' fun.DateTimeFormat(Sys.Date(),"date")
 #' fun.DateTimeFormat(Sys.time(),"datetime")
@@ -26,7 +31,7 @@
 #  fun.DateTime <- data.import[,myName.Time]
 #  fun.dt.Type <- "time"
 #' @export
-fun.DateTimeFormat <- function(fun.DateTime,fun.dt.Type) { ##FUN.START
+fun.DateTimeFormat <- function(fun.DateTime, fun.dt.Type) { ##FUN.START
   # convert datetime type to lower case and stop function if not supplied
   fun.dt.Type <- tolower(fun.dt.Type)
   if(fun.dt.Type!="date" & fun.dt.Type!="time" & fun.dt.Type!="datetime") {
@@ -66,11 +71,15 @@ fun.DateTimeFormat <- function(fun.DateTime,fun.dt.Type) { ##FUN.START
 #     dt.split.time <- unlist(lapply(dt.split, `[[`,2)) #time, all 2nd element, and change to vector (unlist)
 #     dt.split.datetime <- cbind(dt.split.date,dt.split.time)
     pattern.delim.white <- "\\s+" #will split out AM/PM if present as catches every white space
-    dt.split.datetime <- as.data.frame(do.call(rbind,strsplit(dt,pattern.delim.white,perl=TRUE))) #create data frame from split
+    dt.split.datetime <- as.data.frame(do.call(rbind,strsplit(dt
+                                    ,pattern.delim.white
+                                    ,perl=TRUE))) #create data frame from split
     # if AM/PM will have 3 columns so make col names appropriate
     if(ncol(dt.split.datetime)==3) {##IF.ncol.START
       # make new field
-      dt.split.datetime[,4] <- paste(dt.split.datetime[,2],dt.split.datetime[,3],sep=" ")
+      dt.split.datetime[,4] <- paste(dt.split.datetime[,2]
+                                     , dt.split.datetime[,3]
+                                     , sep=" ")
       # rename
       names(dt.split.datetime) <- c("date","time1","time2","time")
     } else {
@@ -101,10 +110,14 @@ fun.DateTimeFormat <- function(fun.DateTime,fun.dt.Type) { ##FUN.START
 #' Date Format (function)
 #' @param fun.dt Date, Time, or DateTime data
 #' @param fun.dt2.Type type of input; date, time, or date
-#' @return Returns a text string representing the date/time format of the input fun.dt.  Wrapped in function fun.DateTimeFormat().
-#' @keywords internal date, time, datetime, format
+#'
+#' @return Returns a text string representing the date/time format of the input
+#' fun.dt.  Wrapped in function fun.DateTimeFormat().
+#'
+#' @keywords internal #date, time, datetime, format
+#'
 #' @examples
-#' #Not intended to be accessed indepedant of function "fun.DateTimeFormat()".
+#' #Not intended to be accessed indepedent of function "fun.DateTimeFormat()".
 #' fun.dt.Type2(Sys.Date(),"date")
 #
 # # QC
@@ -124,22 +137,30 @@ fun.dt.Type2 <- function(fun.dt, fun2.dt.Type) {##FUN.fun.dt.Type.START
     dt2 <- fun.dt[1] # get first value
     # Declare formats and patterns
     #
-    fd01 <- "%Y-%m-%d" # YYYY-MM-DD, 2015-08-05
+    # YYYY-MM-DD, 2015-08-05
+    fd01 <- "%Y-%m-%d"
     pd01 <- "^(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d)"
     #
-    fd02 <- "%Y/%m/%d" # YYYY/MM/DD, 2015/08/05 (2 digit M and D)
+    # YYYY/MM/DD, 2015/08/05 (2 digit M and D)
+    fd02 <- "%Y/%m/%d"
     pd02 <- "^(\\d\\d\\d\\d)/(\\d\\d)/(\\d\\d)"
     #
-    fd03 <- "%d-%b-%y" # DD-MMM-YY, 05-AUG-15 (upper or lower case) (1 or 2 digit D and 2 digit year)
+    # DD-MMM-YY, 05-AUG-15 (upper or lower case)
+    #  (1 or 2 digit D and 2 digit year)
+    fd03 <- "%d-%b-%y"
     pd03 <- "^(\\d{1,2})-(\\w\\w\\w)-(\\d{2,4})"
     #
-    fd04 <- "%d-%b-%Y" # DD-MMM-YYYY, 05-AUG-2015 (upper or lower case) (1 or 2 digit D and 4 digit year)
+    # DD-MMM-YYYY, 05-AUG-2015 (upper or lower case)
+    #  (1 or 2 digit D and 4 digit year)
+    fd04 <- "%d-%b-%Y"
     pd04 <- "^(\\d{1,2})-(\\w\\w\\w)-(\\d\\d\\d\\d)"
     #
-    fd05 <- "%m-%d-%Y" # MM-DD-YYYY, 08-05-2015 (1 or 2 digit M and D)
+    # MM-DD-YYYY, 08-05-2015 (1 or 2 digit M and D)
+    fd05 <- "%m-%d-%Y"
     pd05 <- "^(\\d{1,2})-(\\d{1,2})-(\\d\\d\\d\\d)"
     #
-    fd06 <- "%m/%d/%Y" # MM/DD/YYYY, 08-05-2015 (1 or 2 digit M and D)
+    # MM/DD/YYYY, 08-05-2015 (1 or 2 digit M and D)
+    fd06 <- "%m/%d/%Y"
     pd06 <- "^(\\d{1,2})/(\\d{1,2})/(\\d\\d\\d\\d)"
     #
     # check each pattern
@@ -173,8 +194,10 @@ fun.dt.Type2 <- function(fun.dt, fun2.dt.Type) {##FUN.fun.dt.Type.START
     # 20170115, replace "NA" with NA
     fun.dt[fun.dt=="NA"] <- NA
     #
-    dt2 <- toupper(sort(fun.dt,decreasing=TRUE,na.last=NA))[1]  #get the highest value (so can see if use 24hr time) (make upper case)
-    # 20170116, default is to remove NA.  Added step at beginning to replace "NA" with NA
+    dt2 <- toupper(sort(fun.dt,decreasing=TRUE,na.last=NA))[1]
+    #get the highest value (so can see if use 24hr time) (make upper case)
+    # 20170116, default is to remove NA.
+    # Added step at beginning to replace "NA" with NA
     #
     # Declare formats and patterns
     #
