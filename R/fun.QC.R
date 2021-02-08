@@ -314,9 +314,15 @@ fun.QC <- function(fun.myData.SiteID
       data.import[, ContData.env$myName.LoggerDeployment] <- NA
       strCol.Present <- c(strCol.Present, ContData.env$myName.LoggerDeployment)
       # populate first and last row with start and end
-      data.import[1, ContData.env$myName.LoggerDeployment] <-
+      ## first and last non-NA value
+      ### was "1" and nrow(data.import)
+      DT_nonNA <- which(!is.na(data.import[, ContData.env$myName.DateTime]))
+      DT_nonNA_first_rowid <- DT_nonNA[1]
+      DT_nonNA_last_rowid  <- DT_nonNA[length(DT_nonNA)]
+      ## Add
+      data.import[DT_nonNA_first_rowid, ContData.env$myName.LoggerDeployment] <-
         ContData.env$myName.LoggerDeployment.start
-      data.import[nrow(data.import), ContData.env$myName.LoggerDeployment] <-
+      data.import[DT_nonNA_last_rowid, ContData.env$myName.LoggerDeployment] <-
         ContData.env$myName.LoggerDeployment.end
     } ## IF ~ fun.AddDeployCol ~ END
 
@@ -504,7 +510,13 @@ fun.QC <- function(fun.myData.SiteID
     # DST fix above can remove it
     # 2021-01-21
     if (fun.AddDeployCol == TRUE) {
-      data.import[nrow(data.import), ContData.env$myName.LoggerDeployment] <-
+      ## first and last non-NA value
+      ### was "1" and nrow(data.import)
+      DT_nonNA <- which(!is.na(data.import[, ContData.env$myName.DateTime]))
+      DT_nonNA_first_rowid <- DT_nonNA[1]
+      DT_nonNA_last_rowid  <- DT_nonNA[length(DT_nonNA)]
+      # Add
+      data.import[DT_nonNA_last_rowid, ContData.env$myName.LoggerDeployment] <-
         ContData.env$myName.LoggerDeployment.end
     } ## IF ~ fun.AddDeployCol ~ END
 

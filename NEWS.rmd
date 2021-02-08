@@ -47,6 +47,14 @@ cat(paste0("Last Update: ",Sys.time()))
 ## v2.0.5.9080
 2021-02-05
 
+* refactor: Rework logger deployment start/end to use first non-NA date time 
+instead of first and last row; Issue #116
+    + fun.QC.R
+    + fun.QC.File.R
+
+## v2.0.5.9080
+2021-02-05
+
 * style: Trim lines and fix spelling, fun.DateTimeFormat
 
 ## v2.0.5.9079

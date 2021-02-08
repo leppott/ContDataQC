@@ -3,7 +3,7 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-02-05 15:47:13
+    #> Last Update: 2021-02-08 11:40:37
 
 # Planned Updates
 
@@ -34,6 +34,15 @@ NEWS-ContDataQC
   - PeriodStats, standardize range of y-axis for each time period.
 
 # Version History
+
+## v2.0.5.9080
+
+2021-02-05
+
+  - refactor: Rework logger deployment start/end to use first non-NA
+    date time instead of first and last row; Issue \#116
+      - fun.QC.R
+      - fun.QC.File.R
 
 ## v2.0.5.9080
 
