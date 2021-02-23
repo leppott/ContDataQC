@@ -73,7 +73,7 @@ Works on single files.  Imports, modifies, and saves the new file." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9082</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9083</span>
       </span>
     </div>
 
@@ -312,9 +312,10 @@ The default of NULL will not modify the date format.</p>
 <span class='va'>myFiles</span> <span class='op'>&lt;-</span> <span class='st'>"EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"</span>
 <span class='va'>myDir.import</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>myDir.BASE</span>, <span class='st'>"Data0_Original"</span><span class='op'>)</span>
 <span class='va'>myDir.export</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>myDir.BASE</span>, <span class='st'>"Data1_RAW"</span><span class='op'>)</span>
+<span class='va'>HoboDateFormat</span> <span class='op'>&lt;-</span> <span class='st'>"MDY"</span>
 
 <span class='co'># Run Function (with default config)</span>
-<span class='fu'>formatHobo</span><span class='op'>(</span><span class='va'>myFiles</span>, <span class='va'>myDir.import</span>, <span class='va'>myDir.export</span><span class='op'>)</span>
+<span class='fu'>formatHobo</span><span class='op'>(</span><span class='va'>myFiles</span>, <span class='va'>myDir.import</span>, <span class='va'>myDir.export</span>, <span class='va'>HoboDateFormat</span><span class='op'>)</span>
 
 <span class='op'>}</span>
 </div></pre>
