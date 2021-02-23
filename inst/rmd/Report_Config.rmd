@@ -255,6 +255,42 @@ txt_Discharge_S <- c(val_Discharge[1]
                      , paste0("> ",val_Discharge[12]
                               ," consecutive measurements within ",val_Discharge[13]
                               ," units of one another"))
+# WaterLevel
+nam_WaterLevel <- c("myLab.WaterLevel"                          #1
+                   , "myUnits.WaterLevel"                    #2
+                   , "myThresh.Gross.Fail.Hi.WaterLevel"     #3
+                   , "myThresh.Gross.Fail.Lo.WaterLevel"     #4
+                   , "myThresh.Gross.Suspect.Hi.WaterLevel"  #5
+                   , "myThresh.Gross.Suspect.Lo.WaterLevel"  #6
+                   , "myThresh.Spike.Hi.WaterLevel"          #7 -removed
+                   , "myThresh.Spike.Lo.WaterLevel"          #8 - removed
+                   , "myThresh.RoC.SD.number.WaterLevel"     #9 - 7
+                   , "myThresh.RoC.SD.period.WaterLevel"     #10 - 8
+                   , "myThresh.Flat.Hi.WaterLevel"           #11 - 9
+                   , "myThresh.Flat.Lo.WaterLevel"           #12 - 10
+                   , "myThresh.Flat.Tolerance.WaterLevel"    #13 - 11
+                   )
+val_WaterLevel <- mget(nam_WaterLevel, envir=ContData.env)
+txt_WaterLevel_F <- c(val_WaterLevel[1]
+                     , "Fail"
+                     , paste0("> ",val_WaterLevel[3]," ",val_WaterLevel[2]
+                              ,"  or < ",val_WaterLevel[4]," ",val_WaterLevel[2])
+                     , "NA"
+                     , "NA"
+                     , paste0("> ",val_WaterLevel[9]
+                              ," consecutive measurements within ",val_WaterLevel[11]
+                              ," units of one another"))
+txt_WaterLevel_S <- c(val_WaterLevel[1]
+                     , "Suspect"
+                     , paste0("> ",val_WaterLevel[5]," ",val_WaterLevel[2]
+                              ," or < ",val_WaterLevel[6]," ",val_WaterLevel[2])
+                     , "NA"
+                     , paste0(">= ",val_WaterLevel[7]," standard deviations within "
+                              ,val_WaterLevel[8]," hours")
+                     , paste0("> ",val_WaterLevel[10]
+                              ," consecutive measurements within ",val_WaterLevel[11]
+                              ," units of one another"))
+
 # Cond
 nam_Cond <- c("myLab.Cond"                             #1
                    , "myUnits.Cond"                    #2
@@ -325,6 +361,79 @@ txt_DO_S <- c(val_DO[1]
                      , paste0("> ",val_DO[12]
                               ," consecutive measurements within ",val_DO[13]
                               ," units of one another"))
+
+# DO.adj
+nam_DO.adj <- c("myLab.DO.adj"                         #1
+             , "myUnits.DO.adj"                    #2
+             , "myThresh.Gross.Fail.Hi.DO.adj"     #3
+             , "myThresh.Gross.Fail.Lo.DO.adj"     #4
+             , "myThresh.Gross.Suspect.Hi.DO.adj"  #5
+             , "myThresh.Gross.Suspect.Lo.DO.adj"  #6
+             , "myThresh.Spike.Hi.DO.adj"          #7
+             , "myThresh.Spike.Lo.DO.adj"          #8
+             , "myThresh.RoC.SD.number.DO.adj"     #9
+             , "myThresh.RoC.SD.period.DO.adj"     #10
+             , "myThresh.Flat.Hi.DO.adj"           #11
+             , "myThresh.Flat.Lo.DO.adj"           #12
+             , "myThresh.Flat.Tolerance.DO.adj"    #13
+             )
+val_DO.adj <- mget(nam_DO.adj, envir=ContData.env)
+txt_DO.adj_F <- c(val_DO.adj[1]
+                     , "Fail"
+                     , paste0("> ",val_DO.adj[3]," ",val_DO.adj[2]
+                              ,"  or < ",val_DO.adj[4]," ",val_DO.adj[2])
+                     , paste0(">= ", val_DO.adj[7]," ",val_DO.adj[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_DO.adj[11]
+                              ," consecutive measurements within ",val_DO.adj[13]
+                              ," units of one another"))
+txt_DO.adj_S <- c(val_DO.adj[1]
+                     , "Suspect"
+                     , paste0("> ",val_DO.adj[5]," ",val_DO.adj[2]
+                              ," or < ",val_DO.adj[6]," ",val_DO.adj[2])
+                     , paste0(">= ", val_DO.adj[8]," ",val_DO.adj[2]," (+/-)")
+                     , paste0(">= ",val_DO[9]," standard deviations within "
+                              ,val_DO[10]," hours")
+                     , paste0("> ",val_DO[12]
+                              ," consecutive measurements within ",val_DO.adj[13]
+                              ," units of one another"))
+
+# DO.pctsat
+nam_DO.pctsat <- c("myLab.DO.pctsat"                         #1
+             , "myUnits.DO.pctsat"                    #2
+             , "myThresh.Gross.Fail.Hi.DO.pctsat"     #3
+             , "myThresh.Gross.Fail.Lo.DO.pctsat"     #4
+             , "myThresh.Gross.Suspect.Hi.DO.pctsat"  #5
+             , "myThresh.Gross.Suspect.Lo.DO.pctsat"  #6
+             , "myThresh.Spike.Hi.DO.pctsat"          #7
+             , "myThresh.Spike.Lo.DO.pctsat"          #8
+             , "myThresh.RoC.SD.number.DO.pctsat"     #9
+             , "myThresh.RoC.SD.period.DO.pctsat"     #10
+             , "myThresh.Flat.Hi.DO.pctsat"           #11
+             , "myThresh.Flat.Lo.DO.pctsat"           #12
+             , "myThresh.Flat.Tolerance.DO.pctsat"    #13
+             )
+val_DO.pctsat <- mget(nam_DO.pctsat, envir=ContData.env)
+txt_DO.pctsat_F <- c(val_DO.pctsat[1]
+                     , "Fail"
+                     , paste0("> ",val_DO.pctsat[3]," ",val_DO.pctsat[2]
+                              ,"  or < ",val_DO.pctsat[4]," ",val_DO.pctsat[2])
+                     , paste0(">= ", val_DO.pctsat[7]," ",val_DO.pctsat[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_DO.pctsat[11]
+                              ," consecutive measurements within ",val_DO.pctsat[13]
+                              ," units of one another"))
+txt_DO.pctsat_S <- c(val_DO.pctsat[1]
+                     , "Suspect"
+                     , paste0("> ",val_DO.pctsat[5]," ",val_DO.pctsat[2]
+                              ," or < ",val_DO.pctsat[6]," ",val_DO.pctsat[2])
+                     , paste0(">= ", val_DO.pctsat[8]," ",val_DO.pctsat[2]," (+/-)")
+                     , paste0(">= ",val_DO.pctsat[9]," standard deviations within "
+                              ,val_DO.pctsat[10]," hours")
+                     , paste0("> ",val_DO.pctsat[12]
+                              ," consecutive measurements within ",val_DO.pctsat[13]
+                              ," units of one another"))
+
 # pH
 nam_pH <- c("myLab.pH"                       #1
            , "myUnits.pH"                    #2
@@ -430,54 +539,22 @@ txt_Chlorophylla_S <- c(val_Chlorophylla[1]
                      , paste0("> ",val_Chlorophylla[12]
                               ," consecutive measurements within ",val_Chlorophylla[13]
                               ," units of one another"))
-# WaterLevel
-nam_WaterLevel <- c("myLab.WaterLevel"                          #1
-                   , "myUnits.WaterLevel"                    #2
-                   , "myThresh.Gross.Fail.Hi.WaterLevel"     #3
-                   , "myThresh.Gross.Fail.Lo.WaterLevel"     #4
-                   , "myThresh.Gross.Suspect.Hi.WaterLevel"  #5
-                   , "myThresh.Gross.Suspect.Lo.WaterLevel"  #6
-                   #, "myThresh.Spike.Hi.WaterLevel"          #7 -removed
-                   #, "myThresh.Spike.Lo.WaterLevel"          #8 - removed
-                   , "myThresh.RoC.SD.number.WaterLevel"     #9 - 7
-                   , "myThresh.RoC.SD.period.WaterLevel"     #10 - 8
-                   , "myThresh.Flat.Hi.WaterLevel"           #11 - 9
-                   , "myThresh.Flat.Lo.WaterLevel"           #12 - 10
-                   , "myThresh.Flat.Tolerance.WaterLevel"    #13 - 11
-                   )
-val_WaterLevel <- mget(nam_WaterLevel, envir=ContData.env)
-txt_WaterLevel_F <- c(val_WaterLevel[1]
-                     , "Fail"
-                     , paste0("> ",val_WaterLevel[3]," ",val_WaterLevel[2]
-                              ,"  or < ",val_WaterLevel[4]," ",val_WaterLevel[2])
-                     , "NA"
-                     , "NA"
-                     , paste0("> ",val_WaterLevel[9]
-                              ," consecutive measurements within ",val_WaterLevel[11]
-                              ," units of one another"))
-txt_WaterLevel_S <- c(val_WaterLevel[1]
-                     , "Suspect"
-                     , paste0("> ",val_WaterLevel[5]," ",val_WaterLevel[2]
-                              ," or < ",val_WaterLevel[6]," ",val_WaterLevel[2])
-                     , "NA"
-                     , paste0(">= ",val_WaterLevel[7]," standard deviations within "
-                              ,val_WaterLevel[8]," hours")
-                     , paste0("> ",val_WaterLevel[10]
-                              ," consecutive measurements within ",val_WaterLevel[11]
-                              ," units of one another"))
+
 # Create Table
 df_Env <- data.frame(rbind(txt_WaterTemp_F, txt_WaterTemp_S
                            , txt_AirTemp_F, txt_AirTemp_S
                            , txt_WaterP_F, txt_WaterP_S
                            , txt_AirBP_F, txt_AirBP_S
                            , txt_SensorDepth_F, txt_SensorDepth_S
+                           , txt_WaterLevel_F, txt_WaterLevel_S
                            , txt_Discharge_F, txt_Discharge_S
                            , txt_Cond_F, txt_Cond_S
                            , txt_DO_F, txt_DO_S
+                           , txt_DO.adj_F, txt_DO.adj_S
+                           , txt_DO.pctsat_F, txt_DO.pctsat_S
                            , txt_pH_F, txt_pH_S
                            , txt_Turbidity_F, txt_Turbidity_S
                            , txt_Chlorophylla_F, txt_Chlorophylla_S
-                           , txt_WaterLevel_F, txt_WaterLevel_S
                            )
                      , row.names = NULL)
 names(df_Env) <- txt_header
@@ -522,13 +599,15 @@ env_Nam <- c("myDelim"
              , "myUnits.AirBP"
              , "myUnits.WaterP"
              , "myUnits.SensorDepth"
+             , "myUnits.WaterLevel"
              , "myUnits.Discharge"
              , "myUnits.Cond"
              , "myUnits.DO"
+             , "myUnits.DO.adj"
+             , "myUnits.DO.pctsat"
              , "myUnits.pH"
              , "myUnits.Turbidity"
              , "myUnits.Chlorophylla"
-             , "myUnits.WaterLevel"
              , "myName.RowID.Water"
              , "myName.LoggerID.Water"
              , "myName.RowID.Air"
@@ -538,13 +617,15 @@ env_Nam <- c("myDelim"
              , "myName.WaterP"
              , "myName.AirBP"
              , "myName.SensorDepth"
+             , "myName.WaterLevel"
              , "myName.Discharge"
              , "myName.Cond"
              , "myName.DO"
+             , "myName.DO.adj"
+             , "myName.DO.pctsat"
              , "myName.pH"
              , "myName.Turbidity"
              , "myName.Chlorophylla"
-             , "myName.WaterLevel"
              , "myLab.WaterTemp"
              , "myLab.AirTemp"
              , "myLab.Date"
@@ -552,14 +633,16 @@ env_Nam <- c("myDelim"
              , "myLab.WaterP"
              , "myLab.AirBP"
              , "myLab.SensorDepth"
+             , "myLab.WaterLevel"
              , "myLab.Temp.BOTH"
              , "myLab.Discharge"
              , "myLab.Cond"
              , "myLab.DO"
+             , "myLab.DO.adj"
+             , "myLab.DO.pctsat"
              , "myLab.pH"
              , "myLab.Turbidity"
              , "myLab.Chlorophylla"
-             , "myLab.WaterLevel"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -578,25 +661,29 @@ env_Nam <- c("myPrefix.Discrete"
              , "myName.Discrete.WaterP"
              , "myName.Discrete.AirBP"
              , "myName.Discrete.SensorDepth"
+             , "myName.Discrete.WaterLevel"
              , "myName.Discrete.Discharge"
              , "myName.Discrete.Cond"
              , "myName.Discrete.DO"
+             , "myName.Discrete.DO.adj"
+             , "myName.Discrete.DO.pctsat"
              , "myName.Discrete.pH"
              , "myName.Discrete.Turbidity"
              , "myName.Discrete.Chlorophylla"
-             , "myName.Discrete.WaterLevel"
              , "myLab.Discrete.WaterTemp"
              , "myLab.Discrete.AirTemp"
              , "myLab.Discrete.WaterP"
              , "myLab.Discrete.AirBP"
              , "myLab.Discrete.SensorDepth"
              , "myLab.Discrete.Discharge"
+             , "myLab.Discrete.WaterLevel"
              , "myLab.Discrete.Cond"
              , "myLab.Discrete.DO"
+             , "myLab.Discrete.DO.adj"
+             , "myLab.Discrete.DO.pctsat"
              , "myLab.Discrete.pH"
              , "myLab.Discrete.Turbidity"
              , "myLab.Discrete.Chlorophylla"
-             , "myLab.Discrete.WaterLevel"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -684,20 +771,24 @@ env_Nam <- c("myThresh.Gross.Fail.Hi.WaterTemp"
              , "myThresh.Gross.Fail.Lo.AirBP"
              , "myThresh.Gross.Fail.Hi.SensorDepth"
              , "myThresh.Gross.Fail.Lo.SensorDepth"
+             , "myThresh.Gross.Fail.Hi.WaterLevel"
+             , "myThresh.Gross.Fail.Lo.WaterLevel"
              , "myThresh.Gross.Fail.Hi.Discharge"
              , "myThresh.Gross.Fail.Lo.Discharge"
              , "myThresh.Gross.Fail.Hi.Cond"
              , "myThresh.Gross.Fail.Lo.Cond"
              , "myThresh.Gross.Fail.Hi.DO"
              , "myThresh.Gross.Fail.Lo.DO"
+             , "myThresh.Gross.Fail.Hi.DO.adj"
+             , "myThresh.Gross.Fail.Lo.DO.adj"
+             , "myThresh.Gross.Fail.Hi.DO.pctsat"
+             , "myThresh.Gross.Fail.Lo.DO.pctsat"
              , "myThresh.Gross.Fail.Hi.pH"
              , "myThresh.Gross.Fail.Lo.pH"
              , "myThresh.Gross.Fail.Hi.Turbidity"
              , "myThresh.Gross.Fail.Lo.Turbidity"
              , "myThresh.Gross.Fail.Hi.Chlorophylla"
              , "myThresh.Gross.Fail.Lo.Chlorophylla"
-             , "myThresh.Gross.Fail.Hi.WaterLevel"
-             , "myThresh.Gross.Fail.Lo.WaterLevel"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -721,20 +812,24 @@ env_Nam <- c("myThresh.Gross.Suspect.Hi.WaterTemp"
              , "myThresh.Gross.Suspect.Lo.AirBP"
              , "myThresh.Gross.Suspect.Hi.SensorDepth"
              , "myThresh.Gross.Suspect.Lo.SensorDepth"
+             , "myThresh.Gross.Suspect.Hi.WaterLevel"
+             , "myThresh.Gross.Suspect.Lo.WaterLevel"
              , "myThresh.Gross.Suspect.Hi.Discharge"
              , "myThresh.Gross.Suspect.Lo.Discharge"
              , "myThresh.Gross.Suspect.Hi.Cond"
              , "myThresh.Gross.Suspect.Lo.Cond"
              , "myThresh.Gross.Suspect.Hi.DO"
              , "myThresh.Gross.Suspect.Lo.DO"
+             , "myThresh.Gross.Suspect.Hi.DO.adj"
+             , "myThresh.Gross.Suspect.Lo.DO.adj"
+             , "myThresh.Gross.Suspect.Hi.DO.pctsat"
+             , "myThresh.Gross.Suspect.Lo.DO.pctsat"
              , "myThresh.Gross.Suspect.Hi.pH"
              , "myThresh.Gross.Suspect.Lo.pH"
              , "myThresh.Gross.Suspect.Hi.Turbidity"
              , "myThresh.Gross.Suspect.Lo.Turbidity"
              , "myThresh.Gross.Suspect.Hi.Chlorophylla"
              , "myThresh.Gross.Suspect.Lo.Chlorophylla"
-             , "myThresh.Gross.Suspect.Hi.WaterLevel"
-             , "myThresh.Gross.Suspect.Lo.WaterLevel"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -759,20 +854,24 @@ env_Nam <- c("myThresh.Spike.Hi.WaterTemp"
              , "myThresh.Spike.Lo.AirBP"
              , "myThresh.Spike.Hi.SensorDepth"
              , "myThresh.Spike.Lo.SensorDepth"
+             , "myThresh.Spike.Hi.WaterLevel"
+             , "myThresh.Spike.Lo.WaterLevel"
              , "myThresh.Spike.Hi.Discharge"
              , "myThresh.Spike.Lo.Discharge"
              , "myThresh.Spike.Hi.Cond"
              , "myThresh.Spike.Lo.Cond"
              , "myThresh.Spike.Hi.DO"
              , "myThresh.Spike.Lo.DO"
+             , "myThresh.Spike.Hi.DO.adj"
+             , "myThresh.Spike.Lo.DO.adj"
+             , "myThresh.Spike.Hi.DO.pctsat"
+             , "myThresh.Spike.Lo.DO.pctsat"
              , "myThresh.Spike.Hi.pH"
              , "myThresh.Spike.Lo.pH"
              , "myThresh.Spike.Hi.Turbidity"
              , "myThresh.Spike.Lo.Turbidity"
              , "myThresh.Spike.Hi.Chlorophylla"
              , "myThresh.Spike.Lo.Chlorophylla"
-             #, "myThresh.Spike.Hi.WaterLevel"
-             #, "myThresh.Spike.Lo.WaterLevel"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -798,20 +897,24 @@ env_Nam <- c("myDefault.RoC.SD.number"
              , "myThresh.RoC.SD.period.AirBP"
              , "myThresh.RoC.SD.number.SensorDepth"
              , "myThresh.RoC.SD.period.SensorDepth"
+             , "myThresh.RoC.SD.number.WaterLevel"
+             , "myThresh.RoC.SD.period.WaterLevel"
              , "myThresh.RoC.SD.number.Discharge"
              , "myThresh.RoC.SD.period.Discharge"
              , "myThresh.RoC.SD.number.Cond"
              , "myThresh.RoC.SD.period.Cond"
              , "myThresh.RoC.SD.number.DO"
              , "myThresh.RoC.SD.period.DO"
+             , "myThresh.RoC.SD.number.DO.adj"
+             , "myThresh.RoC.SD.period.DO.adj"
+             , "myThresh.RoC.SD.number.DO.pctsat"
+             , "myThresh.RoC.SD.period.DO.pctsat"
              , "myThresh.RoC.SD.number.pH"
              , "myThresh.RoC.SD.period.pH"
              , "myThresh.RoC.SD.number.Turbidity"
              , "myThresh.RoC.SD.period.Turbidity"
              , "myThresh.RoC.SD.number.Chlorophylla"
              , "myThresh.RoC.SD.period.Chlorophylla"
-             , "myThresh.RoC.SD.number.WaterLevel"
-             , "myThresh.RoC.SD.period.WaterLevel"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -844,6 +947,9 @@ env_Nam <- c("myDefault.Flat.Hi"
              , "myThresh.Flat.Hi.SensorDepth"
              , "myThresh.Flat.Lo.SensorDepth"
              , "myThresh.Flat.Tolerance.SensorDepth"
+             , "myThresh.Flat.Hi.WaterLevel"
+             , "myThresh.Flat.Lo.WaterLevel"
+             , "myThresh.Flat.Tolerance.WaterLevel"
              , "myThresh.Flat.Hi.Discharge"
              , "myThresh.Flat.Lo.Discharge"
              , "myThresh.Flat.Tolerance.Discharge"
@@ -853,6 +959,12 @@ env_Nam <- c("myDefault.Flat.Hi"
              , "myThresh.Flat.Hi.DO"
              , "myThresh.Flat.Lo.DO"
              , "myThresh.Flat.Tolerance.DO"
+             , "myThresh.Flat.Hi.DO.adj"
+             , "myThresh.Flat.Lo.DO.adj"
+             , "myThresh.Flat.Tolerance.DO.adj"
+             , "myThresh.Flat.Hi.DO.pctsat"
+             , "myThresh.Flat.Lo.DO.pctsat"
+             , "myThresh.Flat.Tolerance.DO.pctsat"
              , "myThresh.Flat.Hi.pH"
              , "myThresh.Flat.Lo.pH"
              , "myThresh.Flat.Tolerance.pH"
@@ -862,9 +974,6 @@ env_Nam <- c("myDefault.Flat.Hi"
              , "myThresh.Flat.Hi.Chlorophylla"
              , "myThresh.Flat.Lo.Chlorophylla"
              , "myThresh.Flat.Tolerance.Chlorophylla"
-             , "myThresh.Flat.Hi.WaterLevel"
-             , "myThresh.Flat.Lo.WaterLevel"
-             , "myThresh.Flat.Tolerance.WaterLevel"
              , "myThresh.Flat.MaxComp"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
@@ -887,13 +996,15 @@ env_Nam <- c("myName.Flag"
              , "myName.Flag.WaterP"
              , "myName.Flag.AirBP"
              , "myName.Flag.SensorDepth"
+             , "myName.Flag.WaterLevel"
              , "myName.Flag.Discharge"
              , "myName.Flag.Cond"
              , "myName.Flag.DO"
+             , "myName.Flag.DO.adj"
+             , "myName.Flag.DO.pctsat"
              , "myName.Flag.pH"
              , "myName.Flag.Turbidity"
              , "myName.Flag.Chlorophylla"
-             , "myName.Flag.WaterLevel"
              , "myNames.QCTests"
              , "myNames.QCCalcs"
              )

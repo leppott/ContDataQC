@@ -3,24 +3,12 @@
 #' @description  Format HoboWare output for use with `ContDataQC` package.
 #' Works on single files.  Imports, modifies, and saves the new file.
 #'
-#' @param fun.myFile Single file (or vector of files) to perform functions.
-#' @param fun.myDir.import Directory for import data.
-#' Default is current working directory.
-#' @param fun.myDir.export Directory for export data.
-#' Default is current working directory.
-#' @param fun.HoboDateFormat Date format of Hoboware output,
-#' excluding a delimiter (e.g., DMY not D/M/Y).
-#' Default is NULL and no transformation of the dates is performed.
-#' @param fun.myConfig Configuration file to use for this data analysis.
-#' The default is always loaded first so only "new" values need to be included.
-#' This is the easiest way to control time zones.
+#' @details
+#' 1. Imports a HoboWare output (with minimal tweaks) from a folder
 #'
-#' @return No data frames are returned.  A CSV file ready for use with the
-#' ContDataQC QC function will be generated in the specified output directory.
+#' 2. Reformats it using defaults from the ContDataQC config file
 #'
-#' @details Imports a HoboWare output (with minimal tweaks) from a folder
-#' , reformats it using defaults from the ContDataQC config file
-#' , and exports a CSV to another folder for use with ContDataQC.
+#' 3. Exports a CSV to the provided folder for use with ContDataQC
 #'
 #' Below are the default data directories assumed to exist in the working
 #' directory.  These can be created with code in the example.  Using this
@@ -68,6 +56,12 @@
 #'
 #' * Water Level = "level"
 #'
+#' * Dissolved Oxygen (conc) = "do conc"
+#'
+#' * Dissolved Oxygen (adj conc) = "do" & "adj" (searches for both)
+#'
+#' * Dissolved Oxygen (% saturation) = "do per"
+#'
 #' HOBOware will output ambiguous dates with only 2 digits.
 #' There are two delimiters (/ and -) and three formats (MDY, DMY, and YMD)
 #' resulting in six possible formats.  If the user provides input for
@@ -76,6 +70,21 @@
 #'
 #' It is assumed the user has a single Date Time field rather than two fields
 #' (Date and Time).
+#'
+#' @param fun.myFile Single file (or vector of files) to perform functions.
+#' @param fun.myDir.import Directory for import data.
+#' Default is current working directory.
+#' @param fun.myDir.export Directory for export data.
+#' Default is current working directory.
+#' @param fun.HoboDateFormat Date format of Hoboware output,
+#' excluding a delimiter (e.g., DMY not D/M/Y).
+#' Default is NULL and no transformation of the dates is performed.
+#' @param fun.myConfig Configuration file to use for this data analysis.
+#' The default is always loaded first so only "new" values need to be included.
+#' This is the easiest way to control time zones.
+#'
+#' @return No data frames are returned.  A CSV file ready for use with the
+#' ContDataQC QC function will be generated in the specified output directory.
 #'
 #' @examples
 #' \dontrun{
@@ -120,7 +129,8 @@
 #' fn_2 <- "Charlies_AW_20170726_20170926.csv"
 #' fn_3 <- "Charlies_Water_20170726_20170926.csv"
 #' fn_4 <- "ECO66G12_AW_20160128_20160418.csv"
-#' lapply(c(fn_1, fn_2, fn_3, fn_4), function(x)
+#' fn_5 <- "EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"
+#' lapply(c(fn_1, fn_2, fn_3, fn_4, fn_5), function(x)
 #'        file.copy(system.file("extdata", x, package="ContDataQC")
 #'        , file.path(myDir.BASE, Selection.SUB[1], x)))
 #'
@@ -156,19 +166,31 @@
 #'
 #' # Run Function (with default config)
 #' formatHobo(myFiles, myDir.import, myDir.export, HoboDateFormat)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Example with multiple DO fields
+#' myFiles <- "EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"
+#' myDir.import <- file.path(myDir.BASE, "Data0_Original")
+#' myDir.export <- file.path(myDir.BASE, "Data1_RAW")
+#'
+#' # Run Function (with default config)
+#' formatHobo(myFiles, myDir.import, myDir.export)
+#'
 #' }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
-formatHobo <- function(fun.myFile=""
+formatHobo <- function(fun.myFile = ""
                        , fun.myDir.import = getwd()
                        , fun.myDir.export = getwd()
                        , fun.HoboDateFormat = NULL
                        , fun.myConfig = ""
                        ){##FUNCTION.START
   # debug ####
-  boo.DEBUG<- FALSE
-  if(boo.DEBUG==TRUE){##IF.boo.DEBUG.START
-    fun.myFile <- "Ellis1.0m_Water_20180524_20180918.csv"
+  boo.DEBUG <- FALSE
+  if(boo.DEBUG == TRUE){##IF.boo.DEBUG.START
+    setwd(tempdir())
+    #fun.myFile <- "Ellis--1.0m_Water_20180524_20180918.csv"
+    fun.myFile <- "EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"
     fun.myDir.import <- file.path(getwd(), "Data0_Original")
     fun.myDir.export <- file.path(getwd(), "Data1_RAW")
     fun.HoboDateFormat <- "YMD"
@@ -181,13 +203,13 @@ formatHobo <- function(fun.myFile=""
 
 	# 00. QC ####
   ## config file load, 20170517
-  if (fun.myConfig!="") {##IF.fun.myConfig.START
+  if (fun.myConfig != "") {##IF.fun.myConfig.START
     config.load(fun.myConfig)
   }##IF.fun.myConfig.START
   #
 
   ## dont need check if using "files" version
-  if(fun.myFile[1]==""){##IF.fun.myFile.START
+  if(fun.myFile[1] == ""){##IF.fun.myFile.START
     # Error checking.  If any null then kick back
     ## (add later)
     # 20160204, Check for required fields
@@ -225,7 +247,7 @@ formatHobo <- function(fun.myFile=""
   # 01. Loop Files ####
   for (i in fun.myFile){##FOR.i.START
     #
-    if (boo.DEBUG==TRUE){##IF.boo.DEBUG.START
+    if (boo.DEBUG == TRUE){##IF.boo.DEBUG.START
       i <- fun.myFile[1]
     }##IF.boo.DEBUG.END
 
@@ -269,6 +291,9 @@ formatHobo <- function(fun.myFile=""
     find_badchar <- "Â"
     find_logger <- "LGR S/N:"
     find_Level <- "level"
+    find_DO        <- "do conc"
+    find_DO.adj    <- "adj"
+    find_DO.pctsat <- "do per"
 
     # Replace bad character
     names(df_hobo) <- gsub(find_badchar, "", names(df_hobo))
@@ -292,7 +317,7 @@ formatHobo <- function(fun.myFile=""
     # find Pres and not Barom
     col_WaterP_find <- grepl(find_Pres, tolower(names(df_hobo))) +
       !grepl(find_Barom, tolower(names(df_hobo)))
-    col_WaterP <- names(df_hobo)[col_WaterP_find==2]
+    col_WaterP <- names(df_hobo)[col_WaterP_find == 2]
     ## Sensor Depth
     col_SensorDepth <- names(df_hobo)[grepl(find_Depth
                                             , tolower(names(df_hobo)))]
@@ -306,6 +331,12 @@ formatHobo <- function(fun.myFile=""
     ## Water Level
     col_WaterLevel <- names(df_hobo)[grepl(find_Level
                                             , tolower(names(df_hobo)))]
+
+    col_DO_ALL <- names(df_hobo)[grepl("do", tolower(names(df_hobo)))]
+    col_DO <- names(df_hobo)[grepl(find_DO, tolower(names(df_hobo)))]
+    col_DO.adj <- col_DO_ALL[grepl(find_DO.adj, tolower(col_DO_ALL))]
+    col_DO.pctsat <- names(df_hobo)[grepl(find_DO.pctsat
+                                          , tolower(names(df_hobo)))]
 
 
     # Modify Date ####
@@ -351,24 +382,27 @@ formatHobo <- function(fun.myFile=""
     col_out_AirBP         <- ContData.env$myName.AirBP # "Air.BP.psi"
     col_out_WaterP        <- ContData.env$myName.WaterP # "Water.P.psi"
     col_out_SensorDepth   <- ContData.env$myName.SensorDepth # "Sensor.Depth.ft"
+    col_out_WaterLevel    <- ContData.env$myName.WaterLevel # "Water.Level.ft"
     col_out_WaterLoggerID <- ContData.env$myName.LoggerID.Water#"Water.LoggerID"
     col_out_AirLoggerID   <- ContData.env$myName.LoggerID.Air # "Air.LoggerID"
     col_out_AirRowID      <- ContData.env$myName.RowID.Air
     col_out_WaterRowID    <- ContData.env$myName.RowID.Water
-    col_out_WaterLevel    <- ContData.env$myName.WaterLevel # "Water.Level.ft"
+    col_out_DO            <- ContData.env$myName.DO
+    col_out_DO.adj        <- ContData.env$myName.DO.adj
+    col_out_DO.pctsat     <- ContData.env$myName.DO.pctsat
 
     # 01.04. DF Create ####
     # Create output
     nrow_hobo <- nrow(df_hobo)
-    df_out <- data.frame(matrix(, nrow=nrow_hobo, ncol=0)) #missing x on purpose
+    df_out <- data.frame(matrix(, nrow = nrow_hobo, ncol = 0)) #missing x on purpose
     # assign SiteID
     df_out[, col_out_SiteID] <- SiteID
     # assign date time
-    df_out[, col_out_DateTime] <- df_hobo[,col_Date]
+    df_out[, col_out_DateTime] <- df_hobo[, col_Date]
 
     # all the rest are optional (unknown if included)
     #
-    if(length(col_AirTemp)!=0){##IF.col_AirTemp.START
+    if(length(col_AirTemp) != 0){##IF.col_AirTemp.START
       df_out[, col_out_AirTemp] <- df_hobo[, col_AirTemp]
       # Logger, Air
       LogID_Air_pos <- gregexpr(LogID_str, col_AirTemp)
@@ -381,7 +415,7 @@ formatHobo <- function(fun.myFile=""
       df_out[, col_out_AirRowID] <- row.names(df_hobo)
     }##IF ~ col_AirTemp ~ END
     #
-    if(length(col_WaterTemp)!=0){##IF.col_WaterTemp.START
+    if(length(col_WaterTemp) != 0){##IF.col_WaterTemp.START
       df_out[, col_out_WaterTemp] <- df_hobo[, col_WaterTemp]
       # Logger, Water
       LogID_Water_pos <- gregexpr(LogID_str, col_WaterTemp)
@@ -394,21 +428,33 @@ formatHobo <- function(fun.myFile=""
       df_out[, col_out_WaterRowID] <- row.names(df_hobo)
     }##IF ~ col_WaterTemp ~ END
     #
-    if(length(col_AirBP)!=0){##IF.col_AirBP.START
+    if(length(col_AirBP) != 0){##IF.col_AirBP.START
       df_out[, col_out_AirBP] <- df_hobo[, col_AirBP]
     }##IF ~ col_AirBP ~ END
     #
-    if(length(col_WaterP)!=0){##IF.col_WaterP.START
+    if(length(col_WaterP) != 0){##IF.col_WaterP.START
       df_out[, col_out_WaterP] <- df_hobo[, col_WaterP]
     }##IF ~ col_WaterP ~ END
     #
-    if(length(col_SensorDepth)!=0){##IF.col_SensorDepth.START
+    if(length(col_SensorDepth) != 0){##IF.col_SensorDepth.START
       df_out[, col_out_SensorDepth] <- df_hobo[, col_SensorDepth]
     }##IF ~ col_SensorDepth ~ END
     #
-    if(length(col_WaterLevel)!=0){
+    if(length(col_WaterLevel) != 0){
       df_out[, col_out_WaterLevel] <- df_hobo[, col_WaterLevel]
     }##IF ~ col_WaterLevel ~ END
+    #
+    if(length(col_DO) != 0){
+      df_out[, col_out_DO] <- df_hobo[, col_DO]
+    }##IF ~ col_DO ~ END
+    #
+    if(length(col_DO.adj) != 0){
+      df_out[, col_out_DO.adj] <- df_hobo[, col_DO.adj]
+    }##IF ~ col_DO.adj ~ END
+    #
+    if(length(col_DO.pctsat) != 0){
+      df_out[, col_out_DO.pctsat] <- df_hobo[, col_DO.pctsat]
+    }##IF ~ col_DO ~ END
 
     # 01.05. DF Save ####
     utils::write.csv(df_out, file.path(fun.myDir.export, i), row.names=FALSE)

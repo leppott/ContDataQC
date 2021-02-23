@@ -76,7 +76,8 @@ devtools::build_vignettes()
 devtools::build() more useful and build_vignettes()
 
 ## Create Package
-Use the code below to create the package.  Assumes you are in the development package directory
+Use the code below to create the package.  Assumes you are in the development 
+package directory
 
 ```{r, eval=FALSE}
 # Set working directory
@@ -114,7 +115,8 @@ setwd(file.path(dir_base, myLibrary))
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
-After creating the package reload it after restarting R within RStudio (Ctrl + Shift + F10).
+After creating the package reload it after restarting R within RStudio 
+(Ctrl + Shift + F10).
 
 ```{r, eval=FALSE}
 # Restart R within RStudio:  Ctrl + Shift + F10

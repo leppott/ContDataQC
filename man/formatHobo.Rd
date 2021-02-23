@@ -38,9 +38,11 @@ Format HoboWare output for use with `ContDataQC` package.
 Works on single files.  Imports, modifies, and saves the new file.
 }
 \details{
-Imports a HoboWare output (with minimal tweaks) from a folder
-, reformats it using defaults from the ContDataQC config file
-, and exports a CSV to another folder for use with ContDataQC.
+1. Imports a HoboWare output (with minimal tweaks) from a folder
+
+2. Reformats it using defaults from the ContDataQC config file
+
+3. Exports a CSV to the provided folder for use with ContDataQC
 
 Below are the default data directories assumed to exist in the working
 directory.  These can be created with code in the example.  Using this
@@ -87,6 +89,12 @@ they will not be formatted properly.
 * Sensor Depth = "depth"
 
 * Water Level = "level"
+
+* Dissolved Oxygen (conc) = "do conc"
+
+* Dissolved Oxygen (adj conc) = "do" & "adj" (searches for both)
+
+* Dissolved Oxygen (% saturation) = "do per"
 
 HOBOware will output ambiguous dates with only 2 digits.
 There are two delimiters (/ and -) and three formats (MDY, DMY, and YMD)
@@ -140,7 +148,8 @@ fn_1 <- "Charlies_Air_20170726_20170926.csv"
 fn_2 <- "Charlies_AW_20170726_20170926.csv"
 fn_3 <- "Charlies_Water_20170726_20170926.csv"
 fn_4 <- "ECO66G12_AW_20160128_20160418.csv"
-lapply(c(fn_1, fn_2, fn_3, fn_4), function(x)
+fn_5 <- "EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"
+lapply(c(fn_1, fn_2, fn_3, fn_4, fn_5), function(x)
        file.copy(system.file("extdata", x, package="ContDataQC")
        , file.path(myDir.BASE, Selection.SUB[1], x)))
 
@@ -176,5 +185,15 @@ HoboDateFormat <- "MDY"
 
 # Run Function (with default config)
 formatHobo(myFiles, myDir.import, myDir.export, HoboDateFormat)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Example with multiple DO fields
+myFiles <- "EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"
+myDir.import <- file.path(myDir.BASE, "Data0_Original")
+myDir.export <- file.path(myDir.BASE, "Data1_RAW")
+
+# Run Function (with default config)
+formatHobo(myFiles, myDir.import, myDir.export)
+
 }
 }

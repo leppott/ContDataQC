@@ -607,7 +607,8 @@ shinyServer(function(input, output, session) {
     #Zips the output files
     content <- function(fname) {
       #Lists only the csv and html files on the server
-      files2zip <- file.path("HOBO", list.files("HOBO"))
+      files2zip <- file.path("HOBO"
+                             , list.files("HOBO"))
       #Zips the files
       zip(zipfile = fname, files = files2zip)
     }# content ~ END
@@ -649,10 +650,18 @@ shinyServer(function(input, output, session) {
         content <- function(fname) {
 
           #Lists only the csv and html files on the server
-          zip.csv  <- dir(file.path("data"), full.names=FALSE, pattern="QC.*csv")
-          zip.docx <- dir(file.path("data"), full.names=FALSE, pattern="QC.*docx")
-          zip.html <- dir(file.path("data"), full.names=FALSE, pattern="QC.*html")
-          files2zip <- file.path("data", c(zip.csv, zip.docx, zip.html))
+          zip.csv  <- dir(file.path("data")
+                          , full.names = FALSE
+                          , pattern = "QC.*csv")
+          zip.docx <- dir(file.path("data")
+                          , full.names = FALSE
+                          , pattern = "QC.*docx")
+          zip.html <- dir(file.path("data")
+                          , full.names = FALSE
+                          , pattern = "QC.*html")
+          files2zip <- file.path("data"
+                                 , c(zip.csv, zip.docx, zip.html)
+                                 , full.names = FALSE)
 
           #Zips the files
           zip(zipfile = fname, files = files2zip)
@@ -676,9 +685,15 @@ shinyServer(function(input, output, session) {
         content <- function(fname) {
 
           #Lists only the csv and docx files on the server
-          zip.csv  <- dir(file.path("data"), full.names=FALSE, pattern="DATA.*csv")
-          zip.docx <- dir(file.path("data"), full.names=FALSE, pattern=".*docx")
-          zip.html <- dir(file.path("data"), full.names=FALSE, pattern=".*html")
+          zip.csv  <- dir(file.path("data")
+                          , full.names = FALSE
+                          , pattern = "DATA.*csv")
+          zip.docx <- dir(file.path("data")
+                          , full.names = FALSE
+                          , pattern = ".*docx")
+          zip.html <- dir(file.path("data")
+                          , full.names = FALSE
+                          , pattern = ".*html")
           files2zip <- file.path("data", c(zip.csv, zip.docx, zip.html))
 
           #Zips the files
@@ -703,10 +718,17 @@ shinyServer(function(input, output, session) {
         content <- function(fname) {
 
           #Lists only the csv and docx files on the server
-          zip.csv_DV    <- dir(file.path("data"), full.names=FALSE, pattern="DV.*csv")
-          zip.csv_STATS <- dir(file.path("data"), full.names=FALSE, pattern="STATS.*csv")
-          zip.pdf       <- dir(file.path("data"), full.names=FALSE, pattern=".*pdf")
-          files2zip <- file.path("data", c(zip.csv_DV, zip.csv_STATS, zip.pdf))
+          zip.csv_DV    <- dir(file.path("data")
+                               , full.names = FALSE
+                               , pattern = "DV.*csv")
+          zip.csv_STATS <- dir(file.path("data")
+                               , full.names = FALSE
+                               , pattern = "STATS.*csv")
+          zip.pdf       <- dir(file.path("data")
+                               , full.names = FALSE
+                               , pattern = ".*pdf")
+          files2zip <- file.path("data"
+                                 , c(zip.csv_DV, zip.csv_STATS, zip.pdf))
 
           #Zips the files
           zip(zipfile = fname, files = files2zip)
@@ -811,7 +833,9 @@ shinyServer(function(input, output, session) {
       content <- function(fname) {
 
         #Lists only the csv and html files on the server
-        zip.csv <- dir(file.path("data"), full.names=FALSE, pattern=".*Gage.*csv")
+        zip.csv <- dir(file.path("data")
+                       , full.names = TRUE
+                       , pattern = ".*Gage.*csv")
         files2zip <- file.path("data", c(zip.csv))
 
         #Zips the files

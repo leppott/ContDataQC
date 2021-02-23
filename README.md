@@ -3,14 +3,14 @@ README-ContDataQC
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-01-04 15:10:36
+    #> Last Update: 2021-02-23 09:22:39
 
 # ContDataQC
 
 Quality control checks on continuous data. Example data is from a HOBO
 data logger with 30 minute intervals.
 
-## Badges
+# Badges
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/leppott/ContDataQC/graphs/commit-activity)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
@@ -29,31 +29,32 @@ release](https://img.shields.io/github/release/leppott/ContDataQC.svg)](https://
 [![Github all
 releases](https://img.shields.io/github/downloads/leppott/ContDataQC/total.svg)](https://GitHub.com/leppott/ContDataQC/releases/)
 
-## Installation
+# Installation
+
+To install the current version of the code from GitHub use the example
+below.
 
 ``` r
-# Installing just this library (should get all dependancies)
-library(devtools) 
-Sys.setenv("TAR" = "internal") # needed if using R v3.6.0 or later
-install_github("leppott/ContDataQC")
+if(!require(devtools)){install.packages("devtools")}  #install if needed
+devtools::install_github("leppott/ContDataQC")
 ```
 
 The vignette (big help file) isn’t created when installing from GitHub
 with the above command. If you want the vignette download the compressed
 file from GitHub and install from that file or install with the command
-below.
+below. The “force = TRUE” command is used to ensure the package will
+install over and existing install of the same version (e.g., the same
+version without the vignettes).
 
 ``` r
-# Installing just this library (should get all dependancies)
-library(devtools) 
-Sys.setenv("TAR" = "internal")
-install_github("leppott/ContDataQC", force=TRUE, build_vignettes=TRUE)
+if(!require(devtools)){install.packages("devtools")}  #install if needed
+devtools::install_github("leppott/ContDataQC", force = TRUE, build_vignettes = TRUE)
 ```
 
-If dependant libraries do not install you can install them separately.
-This happens occassionally. And without all of the packages the main
-package and/or the vignettes will not install properly. Install the
-separate packages below and then retry installing ContDataQC.
+If dependent libraries do not install you can install them separately.
+This happens occassionally. Without all of the packages the main package
+and/or the vignettes will not install properly. Install the separate
+packages below and then retry installing ContDataQC.
 
 ``` r
 # libraries to be installed
@@ -89,10 +90,10 @@ Non-CRAN packages have to be installed separately from GitHub using
 devtools.
 
 ``` r
+if(!require(devtools)){install.packages("devtools")}  #install if needed
 # non-CRAN packages
-#
-devtools::install_github("jasonelaw/iha", force=TRUE, build_vignettes=TRUE)
-devtools::install_github("tsangyp/StreamThermal", force=TRUE, build_vignettes=TRUE)
+devtools::install_github("jasonelaw/iha", force = TRUE, build_vignettes = TRUE)
+devtools::install_github("tsangyp/StreamThermal", force = TRUE, build_vignettes = TRUE)
 ```
 
 Additionally Pandoc is required for creating the reports and needs to be
@@ -101,11 +102,11 @@ and you don’t need to install Pandoc separately.
 
 ``` r
 ## pandoc
-require(installr)
-install.pandoc()
+if(!require(installr)){install.packages("installr")}  #install if needed
+installr::install.pandoc()
 ```
 
-## Purpose
+# Purpose
 
 Built for a project for USEPA for Regional Monitoring Networks (RMN).
 
@@ -118,12 +119,12 @@ summary stats.
 The code was presented at the following workshops. And further developed
 under contract to USEPA.
 
-  - Oct 2015, SWPBPA (Region 4 regional biologist meeting, Myrtle Beach,
+-   Oct 2015, SWPBPA (Region 4 regional biologist meeting, Myrtle Beach,
     SC).
 
-  - Mar 2016, AMAAB (Region 3 regional biologist meeting, Cacapon, WV).
+-   Mar 2016, AMAAB (Region 3 regional biologist meeting, Cacapon, WV).
 
-  - Apr 2016, NWQMC (National Water Monitoring Council Conference,
+-   Apr 2016, NWQMC (National Water Monitoring Council Conference,
     Tampa, FL).
 
 Functions were developed to help data generators handle data from
@@ -134,7 +135,7 @@ summary stats on data. `ContDataQC` Uses the USGS `dataRetrieval`
 library to get USGS gage data. Reports are generated in Word (through
 the use of knitr and Pandoc).
 
-## Usage
+# Usage
 
 Everytime R is launched the `ContDataQC` package needs to be loaded.
 
@@ -155,7 +156,35 @@ myDir.BASE <- getwd()
 setwd(myDir.BASE)
 ```
 
-## Help
+# Planned Updates
+
+-   ~~Spell out “AW”" and other abbreviations (e.g.,
+    AirWater). 20170308. On hold.~~
+
+-   ~~Gaps in data not always evident in the plots. 20170308.~~
+
+-   ~~Use futile.logger to better log output for user. Issue
+    \#29. 20170606.~~
+
+-   Debug Aggregate operation. 20170919.
+
+-   Create CDFs. Similar to code already used in previous analyses by
+    Lei. 20170919.
+
+-   PeriodStats(), add number and/or percent of observations above given
+    threshold. 20170919.
+
+-   Fix mixed case issue with filenames in “file” versions of QCRaw,
+    Aggregate, and Stats. 20170929.
+
+    -   More check data stuff.
+    -   Update vignette
+    -   Threshold number or pct on plot
+    -   Excel file update (see 9/28/2017 email)
+
+-   PeriodStats, standardize range of y-axis for each time period.
+
+# Help
 
 Every function has a help file with a working example. There is also a
 vignette with descriptions and examples of all functions in the
@@ -197,23 +226,24 @@ library(devtools)
 install_github("leppott/ContDataQC", force=TRUE, build_vignettes=TRUE)
 ```
 
-## Guides
+## Guide Videos
 
 Guide videos were created for the ContDataQC package and posted on
-YouTube. The Powerpoint slides (pptx), R code notebooks (html), and
-videos are hosted on a companion GitHub site.
+YouTube.  
+The Powerpoint slides (pptx), R code notebooks (html), and videos are
+hosted on a companion GitHub site.
 
 <https://github.com/leppott/ContDataQC_Guide>
 
 YouTube video links below.
 
-  - Introduction
-      - <https://youtu.be/FJAv7g9GPHI>
-  - Config
-      - <https://youtu.be/qbUgPczdfdo>
-  - Basic Functions
-      - <https://youtu.be/zlq1YDPTBsw>
-  - Gage Data
-      - <https://youtu.be/vXyvp9r2tv4>
-  - Config File Modifications
-      - <https://youtu.be/LCHnFs-AdXc>
+-   Introduction
+    -   <https://youtu.be/FJAv7g9GPHI>
+-   Config
+    -   <https://youtu.be/qbUgPczdfdo>
+-   Basic Functions
+    -   <https://youtu.be/zlq1YDPTBsw>
+-   Gage Data
+    -   <https://youtu.be/vXyvp9r2tv4>
+-   Config File Modifications
+    -   <https://youtu.be/LCHnFs-AdXc>

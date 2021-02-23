@@ -64,6 +64,8 @@ ContData.env$myUnits.SensorDepth <- "ft"
 ContData.env$myUnits.Discharge  <- "ft3.s"
 ContData.env$myUnits.Cond       <- "uS.cm"
 ContData.env$myUnits.DO         <- "mg.L"
+ContData.env$myUnits.DO.adj     <- "mg.L"
+ContData.env$myUnits.DO.pctsat  <- "%"
 ContData.env$myUnits.pH         <- "SU"
 ContData.env$myUnits.Turbidity  <- "NTU"
 ContData.env$myUnits.Chlorophylla <- "g.cm3"
@@ -94,6 +96,10 @@ ContData.env$myName.Discharge     <- paste0("Discharge."
 ContData.env$myName.Cond          <- paste0("Conductivity."
                                             , ContData.env$myUnits.Cond)
 ContData.env$myName.DO            <- paste0("DO."
+                                            , ContData.env$myUnits.DO)
+ContData.env$myName.DO.adj        <- paste0("DO.adj."
+                                            , ContData.env$myUnits.DO)
+ContData.env$myName.DO.pctsat     <- paste0("DO.pctsat."
                                             , ContData.env$myUnits.DO)
 ContData.env$myName.pH            <- paste0("pH."
                                             , ContData.env$myUnits.pH)
@@ -137,6 +143,15 @@ ContData.env$myLab.DO             <- paste0("Dissolved Oxygen ("
                                             ,sub("\\.","/"
                                                  ,ContData.env$myUnits.DO)
                                             ,")")  #replace "." with "/"
+ContData.env$myLab.DO.adj         <- paste0("Dissolved Oxygen, adjusted ("
+                                            ,sub("\\.","/"
+                                                 ,ContData.env$myUnits.DO.adj)
+                                            ,")")  #replace "." with "/"
+ContData.env$myLab.DO.pctsat     <- paste0("Dissolved Oxygen
+                                           , percent saturation ("
+                                            ,sub("\\.","/"
+                                                ,ContData.env$myUnits.DO.pctsat)
+                                            ,")")  #replace "." with "/"
 ContData.env$myLab.pH             <- paste0("pH ("
                                             ,ContData.env$myUnits.pH
                                             ,")")
@@ -178,6 +193,12 @@ ContData.env$myName.Discrete.Cond       <- paste(ContData.env$myPrefix.Discrete
 ContData.env$myName.Discrete.DO         <- paste(ContData.env$myPrefix.Discrete
                                                  ,ContData.env$myName.DO
                                                  ,sep=".")
+ContData.env$myName.Discrete.DO.adj     <- paste(ContData.env$myPrefix.Discrete
+                                                 ,ContData.env$myName.DO.adj
+                                                 ,sep=".")
+ContData.env$myName.Discrete.DO.pctsat  <- paste(ContData.env$myPrefix.Discrete
+                                                 ,ContData.env$myName.DO.pctsat
+                                                 ,sep=".")
 ContData.env$myName.Discrete.pH         <- paste(ContData.env$myPrefix.Discrete
                                                  ,ContData.env$myName.pH
                                                  ,sep=".")
@@ -213,6 +234,12 @@ ContData.env$myLab.Discrete.Cond        <- paste(ContData.env$myLab.Cond
                                                  ,"(Discrete)"
                                                  ,sep=" ")
 ContData.env$myLab.Discrete.DO          <- paste(ContData.env$myLab.DO
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
+ContData.env$myLab.Discrete.DO.adj      <- paste(ContData.env$myLab.DO
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
+ContData.env$myLab.Discrete.DO.pctsat   <- paste(ContData.env$myLab.DO
                                                  ,"(Discrete)"
                                                  ,sep=" ")
 ContData.env$myLab.Discrete.pH          <- paste(ContData.env$myLab.pH
@@ -252,6 +279,8 @@ ContData.env$myNames.DataFields <- c(ContData.env$myName.WaterTemp
                                      , ContData.env$myName.Discharge
                                      , ContData.env$myName.Cond
                                      , ContData.env$myName.DO
+									                   , ContData.env$myName.DO.adj
+									                   , ContData.env$myName.DO.pctsat
                                      , ContData.env$myName.pH
                                      , ContData.env$myName.Turbidity
                                      , ContData.env$myName.Chlorophylla
@@ -264,6 +293,8 @@ ContData.env$myNames.DataFields <- c(ContData.env$myName.WaterTemp
                                      , ContData.env$myName.Discrete.Discharge
                                      , ContData.env$myName.Discrete.Cond
                                      , ContData.env$myName.Discrete.DO
+									                   , ContData.env$myName.Discrete.DO.adj
+									                   , ContData.env$myName.Discrete.DO.pctsat
                                      , ContData.env$myName.Discrete.pH
                                      , ContData.env$myName.Discrete.Turbidity
                                      , ContData.env$myName.Discrete.Chlorophylla
@@ -277,6 +308,8 @@ ContData.env$myNames.DataFields.Lab <- c(ContData.env$myLab.WaterTemp
                                          , ContData.env$myLab.Discharge
                                          , ContData.env$myLab.Cond
                                          , ContData.env$myLab.DO
+                                         , ContData.env$myLab.DO.adj
+                                         , ContData.env$myLab.DO.pctsat
                                          , ContData.env$myLab.pH
                                          , ContData.env$myLab.Turbidity
                                          , ContData.env$myLab.Chlorophylla
@@ -289,6 +322,8 @@ ContData.env$myNames.DataFields.Lab <- c(ContData.env$myLab.WaterTemp
                                          , ContData.env$myLab.Discrete.Discharge
                                          , ContData.env$myLab.Discrete.Cond
                                          , ContData.env$myLab.Discrete.DO
+                                      , ContData.env$myLab.Discrete.DO.adj
+                                      , ContData.env$myLab.Discrete.DO.pctsat
                                          , ContData.env$myLab.Discrete.pH
                                          , ContData.env$myLab.Discrete.Turbidity
                                       , ContData.env$myLab.Discrete.Chlorophylla
@@ -314,6 +349,8 @@ ContData.env$myNames.Order <- c(ContData.env$myName.SiteID
                                 , ContData.env$myName.Discharge
                                 , ContData.env$myName.Cond
                                 , ContData.env$myName.DO
+                                , ContData.env$myName.DO.adj
+                                , ContData.env$myName.DO.pctsat
                                 , ContData.env$myName.pH
                                 , ContData.env$myName.Turbidity
                                 , ContData.env$myName.Chlorophylla
@@ -328,6 +365,8 @@ ContData.env$myNames.Order <- c(ContData.env$myName.SiteID
                                 , ContData.env$myName.Discrete.Discharge
                                 , ContData.env$myName.Discrete.Cond
                                 , ContData.env$myName.Discrete.DO
+                                , ContData.env$myName.Discrete.DO.adj
+                                , ContData.env$myName.Discrete.DO.pctsat
                                 , ContData.env$myName.Discrete.pH
                                 , ContData.env$myName.Discrete.Turbidity
                                 , ContData.env$myName.Discrete.Chlorophylla
@@ -371,6 +410,10 @@ ContData.env$myThresh.Gross.Fail.Hi.Cond         <- 1500 # this threshold has no
 ContData.env$myThresh.Gross.Fail.Lo.Cond         <- 10   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Hi.DO           <- 20   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Lo.DO           <- 1    # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Fail.Hi.DO.adj       <- 20   # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Fail.Lo.DO.adj       <- 1    # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Fail.Hi.DO.pctsat    <- 120   # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Fail.Lo.DO.pctsat    <- -1    # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Hi.pH           <- 12   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Lo.pH           <- 3    # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Hi.Turbidity    <- 10^5 # this threshold has not been closely evaluated
@@ -398,6 +441,10 @@ ContData.env$myThresh.Gross.Suspect.Hi.Cond         <- 1200 # this threshold has
 ContData.env$myThresh.Gross.Suspect.Lo.Cond         <- 20   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Hi.DO           <- 18   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Lo.DO           <- 2    # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Suspect.Hi.DO.adj       <- 18   # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Suspect.Lo.DO.adj       <- 2    # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Suspect.Hi.DO.pctsat    <- 100   # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Suspect.Lo.DO.pctsat    <- 0    # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Hi.pH           <- 11   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Lo.pH           <- 4    # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Hi.Turbidity    <- 10^3 # this threshold has not been closely evaluated
@@ -427,6 +474,10 @@ ContData.env$myThresh.Spike.Hi.Cond         <- 10   # this threshold has not bee
 ContData.env$myThresh.Spike.Lo.Cond         <- 5    # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Hi.DO           <- 10   # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Lo.DO           <- 5    # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Hi.DO.adj       <- 10   # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Lo.DO.adj       <- 5    # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Hi.DO.pctsat    <- 25   # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Lo.DO.pctsat    <- 10    # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Hi.pH           <- 10   # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Lo.pH           <- 5    # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Hi.Turbidity    <- 10^4 # this threshold has not been closely evaluated
@@ -459,6 +510,10 @@ ContData.env$myThresh.RoC.SD.number.Cond         <- ContData.env$myDefault.RoC.S
 ContData.env$myThresh.RoC.SD.period.Cond         <- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.DO           <- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.DO           <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.DO.adj       <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.DO.adj       <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.DO.pctsat    <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.DO.pctsat    <- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.pH           <- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.pH           <- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.Turbidity    <- ContData.env$myDefault.RoC.SD.number
@@ -499,6 +554,12 @@ ContData.env$myThresh.Flat.Tolerance.Cond         <- 0.01
 ContData.env$myThresh.Flat.Hi.DO                  <- ContData.env$myDefault.Flat.Hi * 2
 ContData.env$myThresh.Flat.Lo.DO                  <- ContData.env$myDefault.Flat.Lo * 2
 ContData.env$myThresh.Flat.Tolerance.DO           <- 0.01
+ContData.env$myThresh.Flat.Hi.DO.adj              <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.DO.adj              <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.DO.adj       <- 0.01
+ContData.env$myThresh.Flat.Hi.DO.pctsat           <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.DO.pctsat           <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.DO.pctsat    <- 0.01
 ContData.env$myThresh.Flat.Hi.pH                  <- ContData.env$myDefault.Flat.Hi * 2
 ContData.env$myThresh.Flat.Lo.pH                  <- ContData.env$myDefault.Flat.Lo * 2
 ContData.env$myThresh.Flat.Tolerance.pH           <- 0.01
@@ -520,6 +581,8 @@ ContData.env$myThresh.Flat.MaxComp    <- max(ContData.env$myThresh.Flat.Hi.Water
                                              , ContData.env$myThresh.Flat.Hi.Discharge
                                              , ContData.env$myThresh.Flat.Hi.Cond
                                              , ContData.env$myThresh.Flat.Hi.DO
+                                             , ContData.env$myThresh.Flat.Hi.DO.adj
+                                             , ContData.env$myThresh.Flat.Hi.DO.pctsat
                                              , ContData.env$myThresh.Flat.Hi.pH
                                              , ContData.env$myThresh.Flat.Hi.Turbidity
                                              , ContData.env$myThresh.Flat.Hi.Chlorophylla
@@ -562,6 +625,12 @@ ContData.env$myName.Flag.Cond         <- paste(ContData.env$myName.Flag
                                                , sep=".")
 ContData.env$myName.Flag.DO           <- paste(ContData.env$myName.Flag
                                                , ContData.env$myName.DO
+                                               , sep=".")
+ContData.env$myName.Flag.DO.adj       <- paste(ContData.env$myName.Flag
+                                               , ContData.env$myName.DO.adj
+                                               , sep=".")
+ContData.env$myName.Flag.DO.pctsat    <- paste(ContData.env$myName.Flag
+                                               , ContData.env$myName.DO.pctsat
                                                , sep=".")
 ContData.env$myName.Flag.pH           <- paste(ContData.env$myName.Flag
                                                , ContData.env$myName.pH

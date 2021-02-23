@@ -19,36 +19,29 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
-# Planned Updates
-  
-* ~~Spell out "AW"" and other abbreviations (e.g., AirWater).  20170308.  On hold.~~
-
-* ~~Gaps in data not always evident in the plots.  20170308.~~
-
-* ~~Use futile.logger to better log output for user.  Issue #29. 20170606.~~
-
-* Debug Aggregate operation.  20170919.
-
-* Create CDFs.  Similar to code already used in previous analyses by Lei.  20170919.
-
-* PeriodStats(), add number and/or percent of observations above given threshold.  20170919.
-
-* Fix mixed case issue with filenames in "file" versions of QCRaw, Aggregate, and Stats.  20170929.
-
-    + More check data stuff.
-    + Update vignette
-    + Threshold number or pct on plot
-    + Excel file update (see 9/28/2017 email)
-    
-* PeriodStats, standardize range of y-axis for each time period.
-
 # Version History
 
-## v2.0.5.9080
-2021-02-05
+## v2.0.5.9082
+2021-02-23
+
+* refactor: Shiny server, zip files add -j to strip folder names, Issue #109
+* refactor: Add additional DO parameters to config, Issue #117
+* refactor: Update other versions of config, Issue #117
+* docs: Update README install directions
+* docs: README, trim lines to 80 characters
+* docs: Move planned updates from NEWS to README
+* refactor: Update Report_Config.rmd for new DO parameters, Issue #117
+* refactor: Update Report_Config.rmd so sensor depth and water level are next 
+to each other
+* refactor: Copy updated Report_Config.rmd to Shiny app, Issue #117
+* refactor: Add additional DO parameters (n=3) to reformatHobo function
+, Issue #117
+
+## v2.0.5.9081
+2021-02-08
 
 * refactor: Rework logger deployment start/end to use first non-NA date time 
-instead of first and last row; Issue #116
+instead of first and last row; Issue #107
     + fun.QC.R
     + fun.QC.File.R
 
