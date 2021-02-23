@@ -73,7 +73,7 @@ Works on single files.  Imports, modifies, and saves the new file." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9081</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9082</span>
       </span>
     </div>
 
@@ -185,9 +185,9 @@ This is the easiest way to control time zones.</p></td>
 ContDataQC QC function will be generated in the specified output directory.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Imports a HoboWare output (with minimal tweaks) from a folder
-, reformats it using defaults from the ContDataQC config file
-, and exports a CSV to another folder for use with ContDataQC.</p>
+    <p>1. Imports a HoboWare output (with minimal tweaks) from a folder</p>
+<p>2. Reformats it using defaults from the ContDataQC config file</p>
+<p>3. Exports a CSV to the provided folder for use with ContDataQC</p>
 <p>Below are the default data directories assumed to exist in the working
 directory.  These can be created with code in the example.  Using this
 function as an example, files will be imported from Data0_Original and
@@ -215,6 +215,9 @@ they will not be formatted properly.</p>
 <p>* Water Pressure = "pres" (search for Air Pressure first)</p>
 <p>* Sensor Depth = "depth"</p>
 <p>* Water Level = "level"</p>
+<p>* Dissolved Oxygen (conc) = "do conc"</p>
+<p>* Dissolved Oxygen (adj conc) = "do" &amp; "adj" (searches for both)</p>
+<p>* Dissolved Oxygen (<!-- % saturation) = "do per" --></p>
 <p>HOBOware will output ambiguous dates with only 2 digits.
 There are two delimiters (/ and -) and three formats (MDY, DMY, and YMD)
 resulting in six possible formats.  If the user provides input for
@@ -266,7 +269,8 @@ The default of NULL will not modify the date format.</p>
 <span class='va'>fn_2</span> <span class='op'>&lt;-</span> <span class='st'>"Charlies_AW_20170726_20170926.csv"</span>
 <span class='va'>fn_3</span> <span class='op'>&lt;-</span> <span class='st'>"Charlies_Water_20170726_20170926.csv"</span>
 <span class='va'>fn_4</span> <span class='op'>&lt;-</span> <span class='st'>"ECO66G12_AW_20160128_20160418.csv"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>fn_1</span>, <span class='va'>fn_2</span>, <span class='va'>fn_3</span>, <span class='va'>fn_4</span><span class='op'>)</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='va'>fn_5</span> <span class='op'>&lt;-</span> <span class='st'>"EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"</span>
+<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>fn_1</span>, <span class='va'>fn_2</span>, <span class='va'>fn_3</span>, <span class='va'>fn_4</span>, <span class='va'>fn_5</span><span class='op'>)</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
        <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='va'>x</span>, package<span class='op'>=</span><span class='st'>"ContDataQC"</span><span class='op'>)</span>
        , <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>myDir.BASE</span>, <span class='va'>Selection.SUB</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
@@ -302,6 +306,16 @@ The default of NULL will not modify the date format.</p>
 
 <span class='co'># Run Function (with default config)</span>
 <span class='fu'>formatHobo</span><span class='op'>(</span><span class='va'>myFiles</span>, <span class='va'>myDir.import</span>, <span class='va'>myDir.export</span>, <span class='va'>HoboDateFormat</span><span class='op'>)</span>
+
+<span class='co'>#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+<span class='co'># Example with multiple DO fields</span>
+<span class='va'>myFiles</span> <span class='op'>&lt;-</span> <span class='st'>"EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"</span>
+<span class='va'>myDir.import</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>myDir.BASE</span>, <span class='st'>"Data0_Original"</span><span class='op'>)</span>
+<span class='va'>myDir.export</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>myDir.BASE</span>, <span class='st'>"Data1_RAW"</span><span class='op'>)</span>
+
+<span class='co'># Run Function (with default config)</span>
+<span class='fu'>formatHobo</span><span class='op'>(</span><span class='va'>myFiles</span>, <span class='va'>myDir.import</span>, <span class='va'>myDir.export</span><span class='op'>)</span>
+
 <span class='op'>}</span>
 </div></pre>
   </div>

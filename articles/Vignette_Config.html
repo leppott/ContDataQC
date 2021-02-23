@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9081</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9082</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
       <h1 data-toc-skip>ContDataQC, Custom Config Files</h1>
                         <h4 class="author">Erik W. Leppo</h4>
             
-            <h4 class="date">2021-02-08</h4>
+            <h4 class="date">2021-02-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/leppott/ContDataQC/blob/master/vignettes/Vignette_Config.Rmd"><code>vignettes/Vignette_Config.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette_Config.Rmd</code></div>
@@ -355,6 +355,8 @@ ContData.env$myUnits.SensorDepth &lt;- "ft"
 ContData.env$myUnits.Discharge  &lt;- "ft3.s"
 ContData.env$myUnits.Cond       &lt;- "uS.cm"
 ContData.env$myUnits.DO         &lt;- "mg.L"
+ContData.env$myUnits.DO.adj     &lt;- "mg.L"
+ContData.env$myUnits.DO.pctsat  &lt;- "%"
 ContData.env$myUnits.pH         &lt;- "SU"
 ContData.env$myUnits.Turbidity  &lt;- "NTU"
 ContData.env$myUnits.Chlorophylla &lt;- "g.cm3"
@@ -385,6 +387,10 @@ ContData.env$myName.Discharge     &lt;- paste0("Discharge."
 ContData.env$myName.Cond          &lt;- paste0("Conductivity."
                                             , ContData.env$myUnits.Cond)
 ContData.env$myName.DO            &lt;- paste0("DO."
+                                            , ContData.env$myUnits.DO)
+ContData.env$myName.DO.adj        &lt;- paste0("DO.adj."
+                                            , ContData.env$myUnits.DO)
+ContData.env$myName.DO.pctsat     &lt;- paste0("DO.pctsat."
                                             , ContData.env$myUnits.DO)
 ContData.env$myName.pH            &lt;- paste0("pH."
                                             , ContData.env$myUnits.pH)
@@ -428,6 +434,15 @@ ContData.env$myLab.DO             &lt;- paste0("Dissolved Oxygen ("
                                             ,sub("\\.","/"
                                                  ,ContData.env$myUnits.DO)
                                             ,")")  #replace "." with "/"
+ContData.env$myLab.DO.adj         &lt;- paste0("Dissolved Oxygen, adjusted ("
+                                            ,sub("\\.","/"
+                                                 ,ContData.env$myUnits.DO.adj)
+                                            ,")")  #replace "." with "/"
+ContData.env$myLab.DO.pctsat     &lt;- paste0("Dissolved Oxygen
+                                           , percent saturation ("
+                                            ,sub("\\.","/"
+                                                ,ContData.env$myUnits.DO.pctsat)
+                                            ,")")  #replace "." with "/"
 ContData.env$myLab.pH             &lt;- paste0("pH ("
                                             ,ContData.env$myUnits.pH
                                             ,")")
@@ -469,6 +484,12 @@ ContData.env$myName.Discrete.Cond       &lt;- paste(ContData.env$myPrefix.Discre
 ContData.env$myName.Discrete.DO         &lt;- paste(ContData.env$myPrefix.Discrete
                                                  ,ContData.env$myName.DO
                                                  ,sep=".")
+ContData.env$myName.Discrete.DO.adj     &lt;- paste(ContData.env$myPrefix.Discrete
+                                                 ,ContData.env$myName.DO.adj
+                                                 ,sep=".")
+ContData.env$myName.Discrete.DO.pctsat  &lt;- paste(ContData.env$myPrefix.Discrete
+                                                 ,ContData.env$myName.DO.pctsat
+                                                 ,sep=".")
 ContData.env$myName.Discrete.pH         &lt;- paste(ContData.env$myPrefix.Discrete
                                                  ,ContData.env$myName.pH
                                                  ,sep=".")
@@ -504,6 +525,12 @@ ContData.env$myLab.Discrete.Cond        &lt;- paste(ContData.env$myLab.Cond
                                                  ,"(Discrete)"
                                                  ,sep=" ")
 ContData.env$myLab.Discrete.DO          &lt;- paste(ContData.env$myLab.DO
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
+ContData.env$myLab.Discrete.DO.adj      &lt;- paste(ContData.env$myLab.DO
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
+ContData.env$myLab.Discrete.DO.pctsat   &lt;- paste(ContData.env$myLab.DO
                                                  ,"(Discrete)"
                                                  ,sep=" ")
 ContData.env$myLab.Discrete.pH          &lt;- paste(ContData.env$myLab.pH
@@ -543,6 +570,8 @@ ContData.env$myNames.DataFields &lt;- c(ContData.env$myName.WaterTemp
                                      , ContData.env$myName.Discharge
                                      , ContData.env$myName.Cond
                                      , ContData.env$myName.DO
+                                                       , ContData.env$myName.DO.adj
+                                                       , ContData.env$myName.DO.pctsat
                                      , ContData.env$myName.pH
                                      , ContData.env$myName.Turbidity
                                      , ContData.env$myName.Chlorophylla
@@ -555,6 +584,8 @@ ContData.env$myNames.DataFields &lt;- c(ContData.env$myName.WaterTemp
                                      , ContData.env$myName.Discrete.Discharge
                                      , ContData.env$myName.Discrete.Cond
                                      , ContData.env$myName.Discrete.DO
+                                                       , ContData.env$myName.Discrete.DO.adj
+                                                       , ContData.env$myName.Discrete.DO.pctsat
                                      , ContData.env$myName.Discrete.pH
                                      , ContData.env$myName.Discrete.Turbidity
                                      , ContData.env$myName.Discrete.Chlorophylla
@@ -568,6 +599,8 @@ ContData.env$myNames.DataFields.Lab &lt;- c(ContData.env$myLab.WaterTemp
                                          , ContData.env$myLab.Discharge
                                          , ContData.env$myLab.Cond
                                          , ContData.env$myLab.DO
+                                         , ContData.env$myLab.DO.adj
+                                         , ContData.env$myLab.DO.pctsat
                                          , ContData.env$myLab.pH
                                          , ContData.env$myLab.Turbidity
                                          , ContData.env$myLab.Chlorophylla
@@ -580,6 +613,8 @@ ContData.env$myNames.DataFields.Lab &lt;- c(ContData.env$myLab.WaterTemp
                                          , ContData.env$myLab.Discrete.Discharge
                                          , ContData.env$myLab.Discrete.Cond
                                          , ContData.env$myLab.Discrete.DO
+                                      , ContData.env$myLab.Discrete.DO.adj
+                                      , ContData.env$myLab.Discrete.DO.pctsat
                                          , ContData.env$myLab.Discrete.pH
                                          , ContData.env$myLab.Discrete.Turbidity
                                       , ContData.env$myLab.Discrete.Chlorophylla
@@ -605,6 +640,8 @@ ContData.env$myNames.Order &lt;- c(ContData.env$myName.SiteID
                                 , ContData.env$myName.Discharge
                                 , ContData.env$myName.Cond
                                 , ContData.env$myName.DO
+                                , ContData.env$myName.DO.adj
+                                , ContData.env$myName.DO.pctsat
                                 , ContData.env$myName.pH
                                 , ContData.env$myName.Turbidity
                                 , ContData.env$myName.Chlorophylla
@@ -619,6 +656,8 @@ ContData.env$myNames.Order &lt;- c(ContData.env$myName.SiteID
                                 , ContData.env$myName.Discrete.Discharge
                                 , ContData.env$myName.Discrete.Cond
                                 , ContData.env$myName.Discrete.DO
+                                , ContData.env$myName.Discrete.DO.adj
+                                , ContData.env$myName.Discrete.DO.pctsat
                                 , ContData.env$myName.Discrete.pH
                                 , ContData.env$myName.Discrete.Turbidity
                                 , ContData.env$myName.Discrete.Chlorophylla
@@ -662,6 +701,10 @@ ContData.env$myThresh.Gross.Fail.Hi.Cond         &lt;- 1500 # this threshold has
 ContData.env$myThresh.Gross.Fail.Lo.Cond         &lt;- 10   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Hi.DO           &lt;- 20   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Lo.DO           &lt;- 1    # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Fail.Hi.DO.adj       &lt;- 20   # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Fail.Lo.DO.adj       &lt;- 1    # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Fail.Hi.DO.pctsat    &lt;- 120   # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Fail.Lo.DO.pctsat    &lt;- -1    # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Hi.pH           &lt;- 12   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Lo.pH           &lt;- 3    # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Hi.Turbidity    &lt;- 10^5 # this threshold has not been closely evaluated
@@ -689,6 +732,10 @@ ContData.env$myThresh.Gross.Suspect.Hi.Cond         &lt;- 1200 # this threshold 
 ContData.env$myThresh.Gross.Suspect.Lo.Cond         &lt;- 20   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Hi.DO           &lt;- 18   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Lo.DO           &lt;- 2    # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Suspect.Hi.DO.adj       &lt;- 18   # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Suspect.Lo.DO.adj       &lt;- 2    # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Suspect.Hi.DO.pctsat    &lt;- 100   # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Suspect.Lo.DO.pctsat    &lt;- 0    # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Hi.pH           &lt;- 11   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Lo.pH           &lt;- 4    # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Hi.Turbidity    &lt;- 10^3 # this threshold has not been closely evaluated
@@ -718,6 +765,10 @@ ContData.env$myThresh.Spike.Hi.Cond         &lt;- 10   # this threshold has not 
 ContData.env$myThresh.Spike.Lo.Cond         &lt;- 5    # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Hi.DO           &lt;- 10   # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Lo.DO           &lt;- 5    # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Hi.DO.adj       &lt;- 10   # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Lo.DO.adj       &lt;- 5    # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Hi.DO.pctsat    &lt;- 25   # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Lo.DO.pctsat    &lt;- 10    # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Hi.pH           &lt;- 10   # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Lo.pH           &lt;- 5    # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Hi.Turbidity    &lt;- 10^4 # this threshold has not been closely evaluated
@@ -750,6 +801,10 @@ ContData.env$myThresh.RoC.SD.number.Cond         &lt;- ContData.env$myDefault.Ro
 ContData.env$myThresh.RoC.SD.period.Cond         &lt;- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.DO           &lt;- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.DO           &lt;- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.DO.adj       &lt;- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.DO.adj       &lt;- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.DO.pctsat    &lt;- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.DO.pctsat    &lt;- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.pH           &lt;- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.pH           &lt;- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.Turbidity    &lt;- ContData.env$myDefault.RoC.SD.number
@@ -790,6 +845,12 @@ ContData.env$myThresh.Flat.Tolerance.Cond         &lt;- 0.01
 ContData.env$myThresh.Flat.Hi.DO                  &lt;- ContData.env$myDefault.Flat.Hi * 2
 ContData.env$myThresh.Flat.Lo.DO                  &lt;- ContData.env$myDefault.Flat.Lo * 2
 ContData.env$myThresh.Flat.Tolerance.DO           &lt;- 0.01
+ContData.env$myThresh.Flat.Hi.DO.adj              &lt;- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.DO.adj              &lt;- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.DO.adj       &lt;- 0.01
+ContData.env$myThresh.Flat.Hi.DO.pctsat           &lt;- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.DO.pctsat           &lt;- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.DO.pctsat    &lt;- 0.01
 ContData.env$myThresh.Flat.Hi.pH                  &lt;- ContData.env$myDefault.Flat.Hi * 2
 ContData.env$myThresh.Flat.Lo.pH                  &lt;- ContData.env$myDefault.Flat.Lo * 2
 ContData.env$myThresh.Flat.Tolerance.pH           &lt;- 0.01
@@ -811,6 +872,8 @@ ContData.env$myThresh.Flat.MaxComp    &lt;- max(ContData.env$myThresh.Flat.Hi.Wa
                                              , ContData.env$myThresh.Flat.Hi.Discharge
                                              , ContData.env$myThresh.Flat.Hi.Cond
                                              , ContData.env$myThresh.Flat.Hi.DO
+                                             , ContData.env$myThresh.Flat.Hi.DO.adj
+                                             , ContData.env$myThresh.Flat.Hi.DO.pctsat
                                              , ContData.env$myThresh.Flat.Hi.pH
                                              , ContData.env$myThresh.Flat.Hi.Turbidity
                                              , ContData.env$myThresh.Flat.Hi.Chlorophylla
@@ -853,6 +916,12 @@ ContData.env$myName.Flag.Cond         &lt;- paste(ContData.env$myName.Flag
                                                , sep=".")
 ContData.env$myName.Flag.DO           &lt;- paste(ContData.env$myName.Flag
                                                , ContData.env$myName.DO
+                                               , sep=".")
+ContData.env$myName.Flag.DO.adj       &lt;- paste(ContData.env$myName.Flag
+                                               , ContData.env$myName.DO.adj
+                                               , sep=".")
+ContData.env$myName.Flag.DO.pctsat    &lt;- paste(ContData.env$myName.Flag
+                                               , ContData.env$myName.DO.pctsat
                                                , sep=".")
 ContData.env$myName.Flag.pH           &lt;- paste(ContData.env$myName.Flag
                                                , ContData.env$myName.pH
