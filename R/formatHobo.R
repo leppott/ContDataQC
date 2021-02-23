@@ -172,9 +172,10 @@
 #' myFiles <- "EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"
 #' myDir.import <- file.path(myDir.BASE, "Data0_Original")
 #' myDir.export <- file.path(myDir.BASE, "Data1_RAW")
+#' HoboDateFormat <- "MDY"
 #'
 #' # Run Function (with default config)
-#' formatHobo(myFiles, myDir.import, myDir.export)
+#' formatHobo(myFiles, myDir.import, myDir.export, HoboDateFormat)
 #'
 #' }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -193,7 +194,7 @@ formatHobo <- function(fun.myFile = ""
     fun.myFile <- "EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"
     fun.myDir.import <- file.path(getwd(), "Data0_Original")
     fun.myDir.export <- file.path(getwd(), "Data1_RAW")
-    fun.HoboDateFormat <- "YMD"
+    fun.HoboDateFormat <- "MDY"
     fun.myConfig <- ""
     # Load environment
     #ContData.env <- new.env(parent = emptyenv()) # in config.R
@@ -339,38 +340,60 @@ formatHobo <- function(fun.myFile = ""
                                           , tolower(names(df_hobo)))]
 
 
-    # Modify Date ####
-    if(is.null(fun.HoboDateFormat)==FALSE){##IF.isnull.hobodate.START
-      # new date
-      date_new <- df_hobo[,col_Date]
-      # Determine delimiter
-      if(grepl("-", date_new[1])==TRUE){
-        HW_delim <- "-"
-      } else if (grepl("/", date_new[1])==TRUE){
-        HW_delim <- "/"
-      } else {
-        msg <- "Data format not discernable."
-        stop(msg)
-      }
-      # Determine format
-      if(toupper(fun.HoboDateFormat)=="MDY"){
-        HW_format <- paste0("%m",HW_delim,"%d",HW_delim,"%y %H:%M:%S")
-      } else if (toupper(fun.HoboDateFormat)=="DMY") {
-        HW_format <- paste0("%d",HW_delim,"%m",HW_delim,"%y %H:%M:%S")
-      } else if (toupper(fun.HoboDateFormat)=="YMD") {
-        HW_format <- paste0("%y",HW_delim,"%m",HW_delim,"%d %H:%M:%S")
-      } else {
-        msg <- paste0("Incorrect Hoboware format (MDY, DMY, YMD) specified, "
-                      , fun.HoboDateFormat)
-        stop(msg)
-      }
+    # Modify Date ----
 
-      # Modify dates
-      date_new_mod <- format(strptime(date_new, format=HW_format)
-                             , ContData.env$myFormat.DateTime)
-      # modify hobo data frame to updated date format
-      df_hobo[,col_Date] <- date_new_mod
+    if(is.null(fun.HoboDateFormat) == TRUE){
+      msg <- "No Hoboware date format (MDY, DMY, YMD) specified."
+      stop(msg)
     }##IF.isnull.hobodate.END
+
+    # new date
+    date_new <- df_hobo[, col_Date]
+
+    # Determine delimiter
+    if(grepl("-", date_new[1]) == TRUE){
+      HW_delim <- "-"
+    } else if (grepl("/", date_new[1]) == TRUE){
+      HW_delim <- "/"
+    } else {
+      msg <- "Data format not discernable."
+      stop(msg)
+    }## grepl("-", date_new[1]) ~ END
+
+    # Determine format, time
+    n_colon <- nchar(date_new[1]) - nchar(gsub(":", "", date_new[1]))
+    if(n_colon == 2) {
+      time_fmt <- " %H:%M:%S"
+    } else if(n_colon == 1) {
+      time_fmt <- " %H:%M"
+    } else {
+      time_fmt <- ""
+    }## if(n_colon) ~ END
+
+    # Determine format, year
+    dateonly <- strsplit(date_new, " ")[[1]][1]
+    dateonly_split <- unlist(strsplit(dateonly, HW_delim)[[1]])
+    year_fmt <- ifelse(max(nchar(dateonly_split)) == 4
+                       , "%Y", "%y")
+
+    # Determine format, date
+    if(toupper(fun.HoboDateFormat) == "MDY"){
+      HW_format <- paste0("%m", HW_delim, "%d", HW_delim, year_fmt, time_fmt)
+    } else if (toupper(fun.HoboDateFormat) == "DMY") {
+      HW_format <- paste0("%d", HW_delim, "%m", HW_delim, year_fmt, time_fmt)
+    } else if (toupper(fun.HoboDateFormat) == "YMD") {
+      HW_format <- paste0(year_fmt, HW_delim, "%m", HW_delim, "%d", time_fmt)
+    } else {
+      msg <- paste0("Incorrect Hoboware date format (MDY, DMY, YMD) specified, "
+                    , fun.HoboDateFormat)
+      stop(msg)
+    }## if(toupper(fun.HoboDateFormat) ~ END
+
+    # Modify dates
+    date_new_mod <- format(strptime(date_new, format = HW_format)
+                           , ContData.env$myFormat.DateTime)
+    # modify hobo data frame to updated date format
+    df_hobo[,col_Date] <- date_new_mod
 
 
     # Columns, Output

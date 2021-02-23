@@ -3,9 +3,17 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-02-23 11:14:21
+    #> Last Update: 2021-02-23 15:39:16
 
 # Version History
+
+## v2.0.5.9083
+
+2021-02-23
+
+-   refactor: Fix date in example reformatHobo for DO file, Issue \#117
+-   refactor: Update reformatHobo date time conversion to account for no
+    seconds and 2 vs 4 digit years, Issue \#117
 
 ## v2.0.5.9082
 
@@ -13,7 +21,7 @@ NEWS-ContDataQC
 
 -   refactor: Shiny server, zip files add -j to strip folder names,
     Issue \#109
--   refactor: Add additional DO parameters to config, Issue \#117
+-   feature: Add additional DO parameters to config, Issue \#117
 -   refactor: Update other versions of config, Issue \#117
 -   docs: Update README install directions
 -   docs: README, trim lines to 80 characters
@@ -23,8 +31,8 @@ NEWS-ContDataQC
 -   refactor: Update Report\_Config.rmd so sensor depth and water level
     are next to each other
 -   refactor: Copy updated Report\_Config.rmd to Shiny app, Issue \#117
--   refactor: Add additional DO parameters (n=3) to reformatHobo
-    function , Issue \#117
+-   feature: Add additional DO parameters (n=3) to reformatHobo function
+    , Issue \#117
 
 ## v2.0.5.9081
 

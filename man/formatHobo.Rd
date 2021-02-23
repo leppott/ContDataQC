@@ -191,9 +191,10 @@ formatHobo(myFiles, myDir.import, myDir.export, HoboDateFormat)
 myFiles <- "EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"
 myDir.import <- file.path(myDir.BASE, "Data0_Original")
 myDir.export <- file.path(myDir.BASE, "Data1_RAW")
+HoboDateFormat <- "MDY"
 
 # Run Function (with default config)
-formatHobo(myFiles, myDir.import, myDir.export)
+formatHobo(myFiles, myDir.import, myDir.export, HoboDateFormat)
 
 }
 }

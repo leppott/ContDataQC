@@ -21,11 +21,18 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9083
+2021-02-23
+
+* refactor: Fix date in example reformatHobo for DO file, Issue #117
+* refactor: Update reformatHobo date time conversion to account for no seconds 
+and 2 vs 4 digit years, Issue #117
+
 ## v2.0.5.9082
 2021-02-23
 
 * refactor: Shiny server, zip files add -j to strip folder names, Issue #109
-* refactor: Add additional DO parameters to config, Issue #117
+* feature: Add additional DO parameters to config, Issue #117
 * refactor: Update other versions of config, Issue #117
 * docs: Update README install directions
 * docs: README, trim lines to 80 characters
@@ -34,7 +41,7 @@ cat(paste0("Last Update: ",Sys.time()))
 * refactor: Update Report_Config.rmd so sensor depth and water level are next 
 to each other
 * refactor: Copy updated Report_Config.rmd to Shiny app, Issue #117
-* refactor: Add additional DO parameters (n=3) to reformatHobo function
+* feature: Add additional DO parameters (n=3) to reformatHobo function
 , Issue #117
 
 ## v2.0.5.9081
