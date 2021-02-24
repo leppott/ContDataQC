@@ -3,9 +3,18 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-02-23 15:39:16
+    #> Last Update: 2021-02-24 12:58:37
 
 # Version History
+
+## v2.0.5.9084
+
+2021-02-24
+
+-   feature: Shiny formatHobo add inputselect for date format, Issue
+    \#117
+-   refactor: Shiny server.R remove full.names from zip routine
+    preventing proper construction of download zip file, Issue \#109
 
 ## v2.0.5.9083
 

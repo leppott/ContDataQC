@@ -21,6 +21,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.5.9084
+2021-02-24
+
+* feature: Shiny formatHobo add inputselect for date format, Issue #117
+* refactor: Shiny server.R remove full.names from zip routine preventing
+proper construction of download zip file, Issue #109
+
 ## v2.0.5.9083
 2021-02-23
 

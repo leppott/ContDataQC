@@ -369,6 +369,8 @@ shinyServer(function(input, output, session) {
     #Creates a data.frame for the R console output of the ContDataQC() script
     console$disp <- data.frame(consoleOutput = character())
 
+    HOBO_DateFormat_User <- input$HOBO_DateFormat
+
     withProgress(message = paste("Running, format Hobo"), value = 0, {
 
       #A short pause before the operation begins
@@ -392,7 +394,7 @@ shinyServer(function(input, output, session) {
           ,ContDataQC::formatHobo(fun.myFile = fileNameVector
                                  , fun.myDir.import = file.path("HOBO")
                                  , fun.myDir.export = file.path("HOBO")
-                                 , fun.HoboDateFormat = NULL
+                                 , fun.HoboDateFormat = HOBO_DateFormat_User
                                  , fun.myConfig = config
           ) # formatHOBO ~ END
         )## consoleRow ~ END
@@ -600,6 +602,7 @@ shinyServer(function(input, output, session) {
 
 
   output$downloadData_HOBO <- downloadHandler(
+    # _zip-HOBO ----
     #Names the zip file
     filename <- function() {
       paste0("formatHOBO_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".zip")
@@ -651,17 +654,18 @@ shinyServer(function(input, output, session) {
 
           #Lists only the csv and html files on the server
           zip.csv  <- dir(file.path("data")
-                          , full.names = FALSE
+                          #, full.names = FALSE
                           , pattern = "QC.*csv")
           zip.docx <- dir(file.path("data")
-                          , full.names = FALSE
+                          #, full.names = FALSE
                           , pattern = "QC.*docx")
           zip.html <- dir(file.path("data")
-                          , full.names = FALSE
+                          #, full.names = FALSE
                           , pattern = "QC.*html")
           files2zip <- file.path("data"
                                  , c(zip.csv, zip.docx, zip.html)
-                                 , full.names = FALSE)
+                                 #, full.names = FALSE
+                                 )
 
           #Zips the files
           zip(zipfile = fname, files = files2zip)
@@ -686,13 +690,13 @@ shinyServer(function(input, output, session) {
 
           #Lists only the csv and docx files on the server
           zip.csv  <- dir(file.path("data")
-                          , full.names = FALSE
+                          #, full.names = FALSE
                           , pattern = "DATA.*csv")
           zip.docx <- dir(file.path("data")
-                          , full.names = FALSE
+                          #, full.names = FALSE
                           , pattern = ".*docx")
           zip.html <- dir(file.path("data")
-                          , full.names = FALSE
+                          #, full.names = FALSE
                           , pattern = ".*html")
           files2zip <- file.path("data", c(zip.csv, zip.docx, zip.html))
 
@@ -834,7 +838,7 @@ shinyServer(function(input, output, session) {
 
         #Lists only the csv and html files on the server
         zip.csv <- dir(file.path("data")
-                       , full.names = TRUE
+                       #, full.names = TRUE
                        , pattern = ".*Gage.*csv")
         files2zip <- file.path("data", c(zip.csv))
 

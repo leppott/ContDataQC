@@ -38,7 +38,8 @@ Format HoboWare output for use with `ContDataQC` package.
 Works on single files.  Imports, modifies, and saves the new file.
 }
 \details{
-1. Imports a HoboWare output (with minimal tweaks) from a folder
+1. Imports a HoboWare output from a folder.
+Minimal tweaks from within HOBOware.
 
 2. Reformats it using defaults from the ContDataQC config file
 
