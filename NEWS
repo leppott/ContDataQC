@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-02-24 12:58:37
+    #> Last Update: 2021-03-31 09:32:23
 
 # Version History
+
+## v2.0.5.9085
+
+2021-03-31
+
+-   feature: Add custom config with metric units for Lakes, Issue \#119
+    -   extdata.Lakes.metric.R
 
 ## v2.0.5.9084
 
