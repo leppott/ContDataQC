@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9085</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9086</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#readme-contdataqc" class="anchor"></a>README-ContDataQC</h1></div>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&gt; Last Update: 2021-02-23 09:22:39</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&gt; Last Update: 2021-04-02 21:13:00</span></span></code></pre></div>
 </div>
 <div id="contdataqc" class="section level1">
 <h1 class="hasAnchor">
@@ -111,7 +111,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va">devtools</span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span><span class="op">}</span>  <span class="co">#install if needed</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"leppott/ContDataQC"</span>, force <span class="op">=</span> <span class="cn">TRUE</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p>If dependent libraries do not install you can install them separately. This happens occassionally. Without all of the packages the main package and/or the vignettes will not install properly. Install the separate packages below and then retry installing ContDataQC.</p>
+<p>If dependent libraries do not install you can install them separately. This happens occasionally. Without all of the packages the main package and/or the vignettes will not install properly. Install the separate packages below and then retry installing ContDataQC.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># libraries to be installed</span>
 <span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"devtools"</span>        <span class="co"># install helper for non CRAN libraries</span>
@@ -159,7 +159,7 @@
 <p>Takes as input continuous data from data loggers and QCs it by checking for gross differences, spikes, rate of change differences, flat line (consecutive same values), and data gaps. The <code>ContDataQC</code> package provides a organized workflow to QC, aggregate, partition, and generate summary stats.</p>
 <p>The code was presented at the following workshops. And further developed under contract to USEPA.</p>
 <ul>
-<li><p>Oct 2015, SWPBPA (Region 4 regional biologist meeting, Myrtle Beach, SC).</p></li>
+<li><p>Oct 2015, SWPBA (Region 4 regional biologist meeting, Myrtle Beach, SC).</p></li>
 <li><p>Mar 2016, AMAAB (Region 3 regional biologist meeting, Cacapon, WV).</p></li>
 <li><p>Apr 2016, NWQMC (National Water Monitoring Council Conference, Tampa, FL).</p></li>
 </ul>
@@ -169,7 +169,7 @@
 <div id="usage" class="section level1">
 <h1 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h1>
-<p>Everytime R is launched the <code>ContDataQC</code> package needs to be loaded.</p>
+<p>Every time R is launched the <code>ContDataQC</code> package needs to be loaded.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># load library and dependant libraries</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/leppott/ContDataQC">"ContDataQC"</a></span><span class="op">)</span></code></pre></div>

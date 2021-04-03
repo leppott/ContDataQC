@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Export data for StreamThermal package — Export.StreamThermal" />
-<meta property="og:description" content="Creates a date frame (and file export) from Continuous Data in the format used by the StreamThermal package." />
+<meta property="og:description" content="Creates a date frame (and file export) from Continuous Data in the format
+used by the StreamThermal package." />
 
 
 
@@ -72,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9085</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9086</span>
       </span>
     </div>
 
@@ -135,7 +136,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Creates a date frame (and file export) from Continuous Data in the format used by the StreamThermal package.</p>
+    <p>Creates a date frame (and file export) from Continuous Data in the format
+used by the StreamThermal package.</p>
     </div>
 
     <pre class="usage"><span class='fu'>Export.StreamThermal</span><span class='op'>(</span>
@@ -150,30 +152,37 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>fun.myDF</th>
-      <td><p>User data that has been through the QC process of ContDataQC.  Required fields are SiteID, Date, Water.Temp.C (or as defined in config.R).</p></td>
+      <td><p>User data that has been through the QC process of ContDataQC.
+Required fields are SiteID, Date, Water.Temp.C (or as defined in config.R).</p></td>
     </tr>
     <tr>
       <th>fun.col.SiteID</th>
-      <td><p>Column name for SiteID.  Default = SiteID (as defined in config.R)</p></td>
+      <td><p>Column name for SiteID.
+Default = SiteID (as defined in config.R)</p></td>
     </tr>
     <tr>
       <th>fun.col.Date</th>
-      <td><p>Column name for SiteID.  Default = Date (as defined in config.R)</p></td>
+      <td><p>Column name for SiteID.
+Default = Date (as defined in config.R)</p></td>
     </tr>
     <tr>
       <th>fun.col.Temp</th>
-      <td><p>Column name for SiteID.  Default = Water.Temp.C (as defined in config.R)</p></td>
+      <td><p>Column name for SiteID.
+Default = Water.Temp.C (as defined in config.R)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a data frame formatted for use with the R library StreamThermal (SiteID, Date, MaxT, MinT, MeanT).  Statistics are calculated in the function.</p>
+    <p>Returns a data frame formatted for use with the R library
+StreamThermal (SiteID, Date, MaxT, MinT, MeanT).  Statistics are calculated
+in the function.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Required fields are StationID, Date, dailyMax, dailyMin, and dailyMean
 The fields are named "siteID", "Date", "MaxT", "MinT", and "MeanT".</p>
-<p>The StreamThermal package is available on GitHub.  It can be installed withe the devtools package:</p>
+<p>The StreamThermal package is available on GitHub.  It can be installed with
+the devtools package:</p>
 <p>library(devtools)</p>
 <p>install_github("tsangyp/StreamThermal")</p>
 
@@ -285,7 +294,8 @@ The fields are named "siteID", "Date", "MaxT", "MinT", and "MeanT".</p>
 <span class='co'>#~~~~~~~~~~~~~~~~~~~~~~</span>
 <span class='co'># 2.1. Load ContDataQC file that has been processed with SummaryStats</span>
 <span class='va'>myFile</span> <span class='op'>&lt;-</span> <span class='st'>"DATA_test2_Aw_20130101_20141231.csv"</span>
-<span class='va'>myData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>path.package</a></span><span class='op'>(</span><span class='st'>"ContDataQC"</span><span class='op'>)</span>,<span class='st'>"extdata"</span>,<span class='va'>myFile</span><span class='op'>)</span>, stringsAsFactors<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>myData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>path.package</a></span><span class='op'>(</span><span class='st'>"ContDataQC"</span><span class='op'>)</span>,<span class='st'>"extdata"</span>,<span class='va'>myFile</span><span class='op'>)</span>
+                   , stringsAsFactors<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># Subset</span>
 <span class='va'>Col.Keep</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"SiteID"</span>, <span class='st'>"Date"</span>, <span class='st'>"Water.Temp.C"</span><span class='op'>)</span>
 <span class='va'>sitedata</span> <span class='op'>&lt;-</span> <span class='va'>myData</span><span class='op'>[</span>,<span class='va'>Col.Keep</span><span class='op'>]</span>
@@ -407,7 +417,8 @@ temperatures, calculated from differences in average high and low
 temperatures over various time periods"</span>
 <span class='co'>#</span>
 <span class='va'>Group.Desc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>Desc.freq</span>, <span class='va'>Desc.mag</span>, <span class='va'>Desc.roc</span>, <span class='va'>Desc.tim</span>, <span class='va'>Desc.var</span><span class='op'>)</span>
-<span class='va'>df.Groups</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"freq"</span>,<span class='st'>"mag"</span>,<span class='st'>"roc"</span>,<span class='st'>"tim"</span>,<span class='st'>"var"</span><span class='op'>)</span>,<span class='va'>Group.Desc</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>df.Groups</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"freq"</span>,<span class='st'>"mag"</span>,<span class='st'>"roc"</span>,<span class='st'>"tim"</span>,<span class='st'>"var"</span><span class='op'>)</span>
+                           ,<span class='va'>Group.Desc</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'>#</span>
 <span class='va'>SiteID</span> <span class='op'>&lt;-</span> <span class='va'>sitedata</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>]</span>
 <span class='va'>myDate</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span>,<span class='st'>"%Y%m%d"</span><span class='op'>)</span>
@@ -421,9 +432,16 @@ temperatures over various time periods"</span>
 <span class='va'>Notes.Summary</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/XLConnect/man/summary-methods.html'>summary</a></span><span class='op'>(</span><span class='va'>sitedata</span><span class='op'>)</span>
 <span class='co'># Open/Create file</span>
 <span class='co'>## New File Name</span>
-<span class='va'>myFile.XLSX</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"StreamThermal"</span>, <span class='va'>SiteID</span>, <span class='va'>myDate</span>, <span class='va'>myTime</span>, <span class='st'>"xlsx"</span>, sep<span class='op'>=</span><span class='st'>"."</span><span class='op'>)</span>
+<span class='va'>myFile.XLSX</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"StreamThermal"</span>
+                     , <span class='va'>SiteID</span>
+                     , <span class='va'>myDate</span>
+                     , <span class='va'>myTime</span>
+                     , <span class='st'>"xlsx"</span>
+                     , sep<span class='op'>=</span><span class='st'>"."</span><span class='op'>)</span>
 <span class='co'>## Copy over template with Metric Definitions</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>path.package</a></span><span class='op'>(</span><span class='st'>"ContDataQC"</span><span class='op'>)</span>,<span class='st'>"extdata"</span>,<span class='st'>"StreamThermal_MetricList.xlsx"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>path.package</a></span><span class='op'>(</span><span class='st'>"ContDataQC"</span><span class='op'>)</span>
+                                 ,<span class='st'>"extdata"</span>
+                                 ,<span class='st'>"StreamThermal_MetricList.xlsx"</span><span class='op'>)</span>
           , <span class='va'>myFile.XLSX</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='co'>## load workbook, create if not existing</span>
 <span class='va'>wb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/XLConnect/man/loadWorkbook.html'>loadWorkbook</a></span><span class='op'>(</span><span class='va'>myFile.XLSX</span>, create <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>

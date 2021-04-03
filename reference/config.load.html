@@ -40,8 +40,9 @@
 
 
 <meta property="og:title" content="Custom Configuration — config.load" />
-<meta property="og:description" content="Function to load custom configuration of user defined values.  Only need to include elements that need to be changed.
-Adds to the existing environment.  User should load a new configuration prior to master script." />
+<meta property="og:description" content="Function to load custom configuration of user defined values.
+Adds to the existing environment.
+User should load a new configuration prior to master script." />
 
 
 
@@ -73,7 +74,7 @@ Adds to the existing environment.  User should load a new configuration prior to
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9085</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9086</span>
       </span>
     </div>
 
@@ -136,8 +137,9 @@ Adds to the existing environment.  User should load a new configuration prior to
     </div>
 
     <div class="ref-description">
-    <p>Function to load custom configuration of user defined values.  Only need to include elements that need to be changed.
-Adds to the existing environment.  User should load a new configuration prior to master script.</p>
+    <p>Function to load custom configuration of user defined values.
+Adds to the existing environment.
+User should load a new configuration prior to master script.</p>
     </div>
 
     <pre class="usage"><span class='fu'>config.load</span><span class='op'>(</span><span class='va'>myFile</span>, myExt <span class='op'>=</span> <span class='st'>"R"</span><span class='op'>)</span></pre>
@@ -160,8 +162,10 @@ Adds to the existing environment.  User should load a new configuration prior to
     <p>NA, values in file added to environment "ContData.env".</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Custom config files must **not** include `ContData.env &lt;- new.env(parent = emptyenv())`.
-This will create a 2nd environment that will not be accessed by the functions in the package.</p>
+    <p>Custom config files must **not** include
+`ContData.env &lt;- new.env(parent = emptyenv())`.
+This will create a 2nd environment that will not be accessed by the functions
+in the package.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
