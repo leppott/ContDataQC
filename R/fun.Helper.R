@@ -941,7 +941,7 @@ rquery.t.test<-function(x, y = NULL, paired = FALSE, graph = TRUE, ...)
 {
   # I. Preliminary test : normality and variance tests
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  var.equal = FALSE # by default
+  var.equal <- FALSE # by default
 
   # I.1 One sample t test
   if(is.null(y)){
@@ -975,13 +975,14 @@ rquery.t.test<-function(x, y = NULL, paired = FALSE, graph = TRUE, ...)
                 ".\n Use a non parametric test like Wilcoxon test.")
       }
       # Check for equality of variances
-      if(var.test(x,y)$p.value >= 0.05) var.equal=TRUE
+      if(var.test(x,y)$p.value >= 0.05)
+        var.equal <- TRUE
     }
 
     # I.2.b Paired t-test
     else {
-      if(graph) par(mfrow=c(1,2))
-      d = x-y
+      if(graph) par(mfrow = c(1,2))
+      d <- x-y
       shapiro.pd<-normaTest(d, graph,
                             hist.title="D - Histogram",
                             qq.title="D - Normal Q-Q Plot")

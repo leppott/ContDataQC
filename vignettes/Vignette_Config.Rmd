@@ -102,7 +102,7 @@ parameter.
 
 ## Saving Modified File
 A custom configuration file should follow the format of the default 
-configuaration file.  And should be saved as a ".r" file (or ".R").
+configuration file.  And should be saved as a ".r" file (or ".R").
 
 # Config Contents
 The contents of the default configuration file (extdata/config.ORIG.R) are 

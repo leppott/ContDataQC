@@ -124,9 +124,13 @@ fun.Stats <- function(fun.myData.SiteID
   #
   # Verify input dates, if blank, NA, or null use all data
   # if DateRange.Start is null or "" then assign it 1900-01-01
-  if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start==""){fun.myData.DateRange.Start<-ContData.env$DateRange.Start.Default}
+  if (is.na(fun.myData.DateRange.Start)==TRUE||fun.myData.DateRange.Start=="") {
+    fun.myData.DateRange.Start<-ContData.env$DateRange.Start.Default
+    }
   # if DateRange.End is null or "" then assign it today
-  if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End==""){fun.myData.DateRange.End<-ContData.env$DateRange.End.Default}
+  if (is.na(fun.myData.DateRange.End)==TRUE||fun.myData.DateRange.End=="") {
+    fun.myData.DateRange.End<-ContData.env$DateRange.End.Default
+    }
   #
   # 0. Load Single file
   # QC Check - delimiter for strsplit
@@ -136,13 +140,23 @@ fun.Stats <- function(fun.myData.SiteID
   } else {
     myDelim.strsplit <- ContData.env$myDelim
   }##IF.myDelim.END
-  strFile.Prefix     <- toupper(fun.myFile.Prefix)     # DATA = Aggregate, QC = QC
+  strFile.Prefix     <- toupper(fun.myFile.Prefix)  # DATA = Aggregate, QC = QC
   strFile.SiteID     <- fun.myData.SiteID
   strFile.DataType   <- fun.myData.Type
-  strFile.Date.Start <- format(as.Date(fun.myData.DateRange.Start,"%Y-%m-%d"),"%Y%m%d")
-  strFile.Date.End   <- format(as.Date(fun.myData.DateRange.End,"%Y-%m-%d"),"%Y%m%d")
-  strFile <- paste(paste(strFile.Prefix,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,sep=ContData.env$myDelim),"csv",sep=".")
+  strFile.Date.Start <- format(as.Date(fun.myData.DateRange.Start,"%Y-%m-%d")
+                               ,"%Y%m%d")
+  strFile.Date.End   <- format(as.Date(fun.myData.DateRange.End,"%Y-%m-%d")
+                               ,"%Y%m%d")
+  strFile <- paste(paste(strFile.Prefix
+                         ,strFile.SiteID
+                         ,fun.myData.Type
+                         ,strFile.Date.Start
+                         ,strFile.Date.End
+                         ,sep=ContData.env$myDelim)
+                   ,"csv"
+                   ,sep=".")
   strFile.Base <- substr(strFile,1,nchar(strFile)-nchar(".csv"))
+
   strFile.parts <- strsplit(strFile.Base, myDelim.strsplit)
   #
   #QC, make sure file exists
@@ -160,8 +174,10 @@ fun.Stats <- function(fun.myData.SiteID
   }##IF.file.END
 
   #import the file
-  #data.import <- utils::read.csv(paste(myDir.data.import,strFile,sep="/"),as.is=TRUE,na.strings=c("","NA"))
-  data.import <- utils::read.csv(file.path(myDir.data.import,strFile),as.is=TRUE,na.strings=c("","NA"))
+  #data.import <- utils::read.csv(paste(myDir.data.import,strFile,sep="/")
+  # ,as.is=TRUE,na.strings=c("","NA"))
+  data.import <- utils::read.csv(file.path(myDir.data.import,strFile)
+                                 ,as.is=TRUE,na.strings=c("","NA"))
   #
   # QC required fields: SiteID & (DateTime | (Date & Time))
   #fun.QC.ReqFlds(names(data.import),paste(myDir.data.import,strFile,sep="/"))
@@ -185,11 +201,16 @@ fun.Stats <- function(fun.myData.SiteID
                                   , ContData.env$myName.Season
                                   , ContData.env$myName.YrSeason)
   # add time period fields
-  data.import[,ContData.env$myName.Yr]   <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%Y")
-  data.import[,ContData.env$myName.Mo]   <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%m")
-  data.import[,ContData.env$myName.YrMo] <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%Y%m")
-  data.import[,ContData.env$myName.MoDa] <- format(as.Date(data.import[,ContData.env$myName.Date]),format="%m%d")
-  data.import[,ContData.env$myName.JuDa] <- as.POSIXlt(data.import[,ContData.env$myName.Date], format=ContData.env$myFormat.Date)$yday +1
+  data.import[,ContData.env$myName.Yr]   <- format(as.Date(data.import[
+    ,ContData.env$myName.Date]),format="%Y")
+  data.import[,ContData.env$myName.Mo]   <- format(as.Date(data.import[
+    ,ContData.env$myName.Date]),format="%m")
+  data.import[,ContData.env$myName.YrMo] <- format(as.Date(data.import[
+    ,ContData.env$myName.Date]),format="%Y%m")
+  data.import[,ContData.env$myName.MoDa] <- format(as.Date(data.import[
+    ,ContData.env$myName.Date]),format="%m%d")
+  data.import[,ContData.env$myName.JuDa] <- as.POSIXlt(data.import[
+    ,ContData.env$myName.Date], format=ContData.env$myFormat.Date)$yday +1
   ## add Season fields
 #   md <- data.import[,myName.MoDa]
 #   data.import[,myName.Season] <- NA
@@ -213,13 +234,27 @@ fun.Stats <- function(fun.myData.SiteID
   ## Flow (SensorDepth and Discharge)
   ## Nothing on Pressure (used to calculate SensorDepth)
   # future add pH, Cond, etc from USGS gages
-  myFields.Data       <- c(ContData.env$myName.WaterTemp, ContData.env$myName.AirTemp, ContData.env$myName.SensorDepth
-                           ,ContData.env$myName.Discharge, ContData.env$myName.Cond, ContData.env$myName.DO, ContData.env$myName.pH
-                           ,ContData.env$myName.Turbidity, ContData.env$myName.Chlorophylla, ContData.env$myName.GageHeight)
+  myFields.Data       <- c(ContData.env$myName.WaterTemp
+                           , ContData.env$myName.AirTemp
+                           , ContData.env$myName.SensorDepth
+                           , ContData.env$myName.Discharge
+                           , ContData.env$myName.Cond
+                           , ContData.env$myName.DO
+                           , ContData.env$myName.pH
+                           , ContData.env$myName.Turbidity
+                           , ContData.env$myName.Chlorophylla
+                           , ContData.env$myName.GageHeight)
   myFields.Data.Flags <- paste0(ContData.env$myName.Flag,".",myFields.Data)
-  myFields.Type       <- c("Thermal", "Thermal", "Hydrologic"
-                           ,"Hydrologic", "WaterChemistry", "WaterChemistry", "WaterChemistry"
-                           , "WaterChemistry", "WaterChemistry", "Hydrologic")
+  myFields.Type       <- c("Thermal"
+                           , "Thermal"
+                           , "Hydrologic"
+                           , "Hydrologic"
+                           , "WaterChemistry"
+                           , "WaterChemistry"
+                           , "WaterChemistry"
+                           , "WaterChemistry"
+                           , "WaterChemistry"
+                           , "Hydrologic")
   myFields.Keep <- c(ContData.env$myName.SiteID
                      , ContData.env$myName.Date
                      , ContData.env$myName.Time
@@ -241,7 +276,7 @@ fun.Stats <- function(fun.myData.SiteID
   ############## QC
   i <- data2process[1] #QC
   # ok to leave in since gets remapped in FOR loop.
-  ####################### change from myFields.Data to data2process (need to fix)
+  ###################### change from myFields.Data to data2process (need to fix)
 
   # Loop ####
   for (i in data2process) {##FOR.i.START
@@ -252,16 +287,19 @@ fun.Stats <- function(fun.myData.SiteID
     # change fails to NA (so can na.rm=T when run stats)
       # flag field
       myFlag <- myFields.Data.Flags[i.num]
-    #data.stats.nofail <- data.stats[data.stats[,myFields.Data.Flags[i.num]]!=myFlagVal.Fail,]
+    #data.stats.nofail <- data.stats[data.stats[,myFields.Data.Flags[i.num]]!=
+      # myFlagVal.Fail,]
 
     # 20170519, feedback to user
     print(paste0("Processing item ",i.num," of ",length(data2process),"; ",i))
     utils::flush.console()
     #data.stats.nofail <- data.stats
-    #data.stats.nofail[data.stats.nofail[,data.stats[,myFields.Data.Flags[i.num]]=myFlagVal.Fail]] <- na
+    #data.stats.nofail[data.stats.nofail[,data.stats[
+    #,myFields.Data.Flags[i.num]]=myFlagVal.Fail]] <- na
 
     # change fail to NA for i (only if user define value == FALSE)
-    if(ContData.env$myStats.Fails.Exclude==TRUE) {##IF.myStats.Fails.Include.START
+    if(ContData.env$myStats.Fails.Exclude==TRUE) {
+      ##IF.myStats.Fails.Include.START
       #
       data.stats[,i][data.stats[,myFlag]==ContData.env$myFlagVal.Fail] <- NA
       #
@@ -286,7 +324,8 @@ fun.Stats <- function(fun.myData.SiteID
     # print(dim(data.stats))
     # flush.console()
 
-    # summaryBy not working with "i" as variable.  Have to do an ugly hack to get it working
+    # summaryBy not working with "i" as variable.
+    # Have to do an ugly hack to get it working
 
 #     # QC
 #     print("test2")

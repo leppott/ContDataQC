@@ -15,10 +15,13 @@ config.load(myFile, myExt = "R")
 NA, values in file added to environment "ContData.env".
 }
 \description{
-Function to load custom configuration of user defined values.  Only need to include elements that need to be changed.
-Adds to the existing environment.  User should load a new configuration prior to master script.
+Function to load custom configuration of user defined values.
+Adds to the existing environment.
+User should load a new configuration prior to master script.
 }
 \details{
-Custom config files must **not** include `ContData.env <- new.env(parent = emptyenv())`.
-This will create a 2nd environment that will not be accessed by the functions in the package.
+Custom config files must **not** include
+`ContData.env <- new.env(parent = emptyenv())`.
+This will create a 2nd environment that will not be accessed by the functions
+in the package.
 }

@@ -5,9 +5,12 @@ test_that("Export.rLakeAnalyzer", {
 
   # Data
   fn_CDQC <- "TestLake_Water_20180702_20181012.csv"
-  df_CDQC <- read.csv(file.path(system.file(package = "ContDataQC"), "extdata", fn_CDQC))
+  df_CDQC <- read.csv(file.path(system.file(package = "ContDataQC")
+                                , "extdata"
+                                , fn_CDQC))
 
-  # Convert Date.Time from factor to POSIXct (make it a date and time field in R)
+  # Convert Date.Time from factor to POSIXct
+  #   (make it a date and time field in R)
   df_CDQC[, "Date.Time"] <- as.POSIXct(df_CDQC[, "Date.Time"])
 
   # Columns, date listed first

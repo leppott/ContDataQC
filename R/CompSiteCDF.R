@@ -110,15 +110,28 @@ CompSiteCDF <- function(file.input = NULL
   data.import[,ContData.env$myName.Season] <- NA
   data.import[,ContData.env$myName.Season][as.numeric(data.import[
     , ContData.env$myName.MoDa]) >= as.numeric("0101") & as.numeric(data.import[
-      , ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Spring.Start)] <- "Winter"
+      , ContData.env$myName.MoDa])<
+      as.numeric(ContData.env$myTimeFrame.Season.Spring.Start)] <- "Winter"
   data.import[,ContData.env$myName.Season][as.numeric(data.import[
-    , ContData.env$myName.MoDa]) >= as.numeric(ContData.env$myTimeFrame.Season.Spring.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Summer.Start)] <- "Spring"
+    , ContData.env$myName.MoDa]) >=
+      as.numeric(ContData.env$myTimeFrame.Season.Spring.Start) &
+      as.numeric(data.import[,ContData.env$myName.MoDa])<
+      as.numeric(ContData.env$myTimeFrame.Season.Summer.Start)] <- "Spring"
   data.import[,ContData.env$myName.Season][as.numeric(data.import[
-    , ContData.env$myName.MoDa]) >= as.numeric(ContData.env$myTimeFrame.Season.Summer.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Fall.Start)] <- "Summer"
+    , ContData.env$myName.MoDa]) >=
+      as.numeric(ContData.env$myTimeFrame.Season.Summer.Start) &
+      as.numeric(data.import[,ContData.env$myName.MoDa])<
+      as.numeric(ContData.env$myTimeFrame.Season.Fall.Start)] <- "Summer"
   data.import[,ContData.env$myName.Season][as.numeric(data.import[
-    , ContData.env$myName.MoDa]) >= as.numeric(ContData.env$myTimeFrame.Season.Fall.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<as.numeric(ContData.env$myTimeFrame.Season.Winter.Start)] <- "Fall"
+    , ContData.env$myName.MoDa]) >=
+      as.numeric(ContData.env$myTimeFrame.Season.Fall.Start) &
+      as.numeric(data.import[,ContData.env$myName.MoDa])<
+      as.numeric(ContData.env$myTimeFrame.Season.Winter.Start)] <- "Fall"
   data.import[,ContData.env$myName.Season][as.numeric(data.import[
-    , ContData.env$myName.MoDa]) >= as.numeric(ContData.env$myTimeFrame.Season.Winter.Start) & as.numeric(data.import[,ContData.env$myName.MoDa])<=as.numeric("1231")] <- "Winter"
+    , ContData.env$myName.MoDa]) >=
+      as.numeric(ContData.env$myTimeFrame.Season.Winter.Start) &
+      as.numeric(data.import[,ContData.env$myName.MoDa])<=
+      as.numeric("1231")] <- "Winter"
   data.import[,ContData.env$myName.YrSeason] <- paste(data.import[
     , ContData.env$myName.Yr],data.import[,ContData.env$myName.Season], sep="")
   # Remove bad date records
@@ -136,9 +149,11 @@ CompSiteCDF <- function(file.input = NULL
   # Color Blind Palatte
   # http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/
   # The palette with grey:
-  cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442"
+                 , "#0072B2", "#D55E00", "#CC79A7")
   # The palette with black:
-  #cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  #cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442"
+  # , "#0072B2", "#D55E00", "#CC79A7")
   #
   myColors <- cbPalette #rainbow(length(Col.Sites))
   #
@@ -156,7 +171,8 @@ CompSiteCDF <- function(file.input = NULL
         # need ylim
         myYlim.max <- 0
         for (ii in seq_len(length(Col.Sites))) {
-          myYlim.max <- max(graphics::hist(data.plot[,Col.Sites[ii]],plot=FALSE)$density, myYlim.max)
+          myYlim.max <- max(graphics::hist(data.plot[,Col.Sites[ii]]
+                                           ,plot=FALSE)$density, myYlim.max)
         }
         myYlim <- c(0,myYlim.max)
         #
@@ -166,7 +182,9 @@ CompSiteCDF <- function(file.input = NULL
         graphics::box()
       }##IF.j==1.END
       # plot lines
-      graphics::lines(stats::density(data.i, na.rm=TRUE), col=myColors[i], lwd=2)
+      graphics::lines(stats::density(data.i, na.rm=TRUE)
+                      , col=myColors[i]
+                      , lwd=2)
     }##FOR.j.END
     graphics::legend("topright",Col.Sites,fill=myColors)
     #
@@ -174,11 +192,22 @@ CompSiteCDF <- function(file.input = NULL
     myLWD <- 1.5
     for (j in seq_len(length(Col.Sites))){##FOR.i.START
       if(j==1){##IF.i==1.START
-        plot(stats::ecdf(data.plot[,Col.Sites[j]]), col=myColors[j], verticals=TRUE, lwd=myLWD, do.p=FALSE #pch=19, cex=.75 #do.p=FALSE
+        plot(stats::ecdf(data.plot[,Col.Sites[j]])
+             , col=myColors[j]
+             , verticals=TRUE
+             , lwd=myLWD
+             , do.p=FALSE #pch=19, cex=.75 #do.p=FALSE
              #, col.01line="white"
-             , main=myMain, xlab=ParamName.xlab, ylab="Proportion <= value" )
+             , main=myMain
+             , xlab=ParamName.xlab
+             , ylab="Proportion <= value" )
       } else {
-        plot(stats::ecdf(data.plot[,Col.Sites[j]]), col=myColors[j], verticals=TRUE, lwd=myLWD, do.p=FALSE, add=T)
+        plot(stats::ecdf(data.plot[,Col.Sites[j]])
+             , col=myColors[j]
+             , verticals=TRUE
+             , lwd=myLWD
+             , do.p=FALSE
+             , add=TRUE)
       }##IF.i==1.END
     }##FOR.i.END
     graphics::legend("bottomright",Col.Sites,fill=myColors)
@@ -217,7 +246,8 @@ CompSiteCDF <- function(file.input = NULL
     }##FOR.a.END
     #
     # Subset by Season
-    mySeasons <- SeasonNames[SeasonNames %in% unique(data.import[,ContData.env$myName.Season])]
+    mySeasons <- SeasonNames[SeasonNames %in% unique(data.import[
+      ,ContData.env$myName.Season])]
     for (b in mySeasons){##FOR.a.START}
       myMain <- paste0("Season, ",b)
       data.plot <- data.import[data.import[,ContData.env$myName.Season]==b,]
@@ -226,7 +256,8 @@ CompSiteCDF <- function(file.input = NULL
     #
     # Subset by SeasonYear
     YearSeasonsAll <- paste0(myYears, mySeasons)
-    myYearSeasons <- YearSeasonsAll[YearSeasonsAll %in% unique(data.import[,ContData.env$myName.YrSeason])]
+    myYearSeasons <- YearSeasonsAll[YearSeasonsAll %in% unique(data.import[
+      ,ContData.env$myName.YrSeason])]
     for (c in myYearSeasons){##FOR.a.START}
       myMain <- paste0("Year Season, ",c)
       data.plot <- data.import[data.import[,ContData.env$myName.YrSeason]==c,]

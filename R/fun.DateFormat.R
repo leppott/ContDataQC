@@ -49,28 +49,36 @@ fun.DateTimeFormat <- function(fun.DateTime, fun.dt.Type) { ##FUN.START
   dt <- trimws(fun.DateTime,"both")
   #
   #
-  # check for white space in date time then split into date and time else is date or time
+  # check for white space in date time then split into date and time else is
+  # date or time
   # runs a subroutine for date or time to get format.
   if(grepl("\\s+",dt[1],perl=TRUE)==TRUE){##IF.grepl.ws.START
     #
     # delimit date_time into Date and Time based on white space
     ## some internet searches for ideas
-    ###  http://stackoverflow.com/questions/19959697/split-string-by-final-space-in-r
-    ### http://stackoverflow.com/questions/8299978/splitting-a-string-on-the-first-space
+    ###  http://stackoverflow.com/questions/19959697/
+    # split-string-by-final-space-in-r
+    ### http://stackoverflow.com/questions/8299978/
+    # splitting-a-string-on-the-first-space
 #     #
-#     dt.split.datetime <- do.call(rbind,strsplit(dt,pattern.delim.white,perl=TRUE))
+#     dt.split.datetime <- do.call(rbind,strsplit(dt,pattern.delim.white
+    #,perl=TRUE))
 #     head(dt.split.datetime)
 #     #
-#     # http://stackoverflow.com/questions/8299978/splitting-a-string-on-the-first-space
+#     # http://stackoverflow.com/questions/8299978/
+    # splitting-a-string-on-the-first-space
 #     pattern.delim.white <- "^(\\.+)\\s?(.*)$"
 #     dt.split.date <- as.vector(sub(pattern.delim.white,"\\1",dt,perl=TRUE))
 #     dt.split.time <- as.vector(sub(pattern.delim.white,"\\2",dt,perl=TRUE))
 
 #     dt.split <- strsplit(dt,pattern.delim.white,perl=TRUE)
-#     dt.split.date <- unlist(lapply(dt.split, `[[`,1)) #date, all 1st element, and change to vector (unlist)
-#     dt.split.time <- unlist(lapply(dt.split, `[[`,2)) #time, all 2nd element, and change to vector (unlist)
+#     dt.split.date <- unlist(lapply(dt.split, `[[`,1)) #date, all 1st element
+    #, and change to vector (unlist)
+#     dt.split.time <- unlist(lapply(dt.split, `[[`,2)) #time, all 2nd element
+    #, and change to vector (unlist)
 #     dt.split.datetime <- cbind(dt.split.date,dt.split.time)
-    pattern.delim.white <- "\\s+" #will split out AM/PM if present as catches every white space
+    #will split out AM/PM if present as catches every white space
+    pattern.delim.white <- "\\s+"
     dt.split.datetime <- as.data.frame(do.call(rbind,strsplit(dt
                                     ,pattern.delim.white
                                     ,perl=TRUE))) #create data frame from split

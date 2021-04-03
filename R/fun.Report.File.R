@@ -44,7 +44,7 @@
 #' @param fun.myDir.export Directory for export data.
 #' Default is current working directory.
 #' @param fun.myFile.Prefix Valid prefixes are "QC", "DATA", or "STATS".
-#' This determines the RMD to use for the outpu.
+#' This determines the RMD to use for the output.
 #' @param fun.myReport.format Report format (docx or html).
 #' Default is specified in config.R (docx).  Can be customized in config.R;
 #' ContData.env$myReport.Format.

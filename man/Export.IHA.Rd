@@ -116,7 +116,8 @@ myYr <- "calendar" # "water" or "calendar"
 # IHA Metrics
 ## IHA parameters group 1; Magnitude of monthly water conditions
 Analysis.Group.1 <- group1(myData.IHA, year=myYr)
-## IHA parameters group 2: Magnitude of monthly water condition and include 12 parameters
+## IHA parameters group 2: Magnitude of monthly water condition and include
+# 12 parameters
 Analysis.Group.2 <- group2(myData.IHA, year=myYr)
 Analysis.Group.3 <- group3(myData.IHA, year=myYr)
 ## IHA parameters group 4; Frequency and duration of high and low pulses
@@ -127,7 +128,7 @@ Analysis.Group.5 <- group5(myData.IHA, year=myYr)
 #~~~~~
 # Save Results to Excel (each group on its own worksheet)
 Group.Desc <- c("Magnitude of monthly water conditions"
-                ,"Magnitude of monthly water condition and include 12 parameters"
+           ,"Magnitude of monthly water condition and include 12 parameters"
                 ,"Timing of annual extreme water conditions"
                 ,"Frequency and duration of high and low pulses"
                 ,"Rate and frequency of water condition changes")
@@ -143,7 +144,8 @@ df.Notes <- as.data.frame(cbind(Notes.Names,Notes.Data))
 Notes.Summary <- summary(myData.IHA)
 # Open/Create file
 myFile.XLSX <- paste("IHA", SiteID, myYr, myDate, myTime, "xlsx", sep=".")
-wb <- loadWorkbook(myFile.XLSX, create = TRUE) # load workbook, create if not existing
+# load workbook, create if not existing
+wb <- loadWorkbook(myFile.XLSX, create = TRUE)
 # create sheets
 createSheet(wb, name = "NOTES")
 createSheet(wb, name = "Group1")

@@ -386,7 +386,7 @@ formatHobo <- function(fun.myFile = ""
       } else if (toupper(fun.HoboDateFormat) == "YMD") {
         HW_format <- paste0(year_fmt, HW_delim, "%m", HW_delim, "%d", time_fmt)
       } else {
-        msg <- paste0("Incorrect Hoboware date format (MDY, DMY, YMD) specified, "
+      msg <- paste0("Incorrect Hoboware date format (MDY, DMY, YMD) specified, "
                       , fun.HoboDateFormat)
         stop(msg)
       }## if(toupper(fun.HoboDateFormat) ~ END
@@ -423,7 +423,8 @@ formatHobo <- function(fun.myFile = ""
     # 01.04. DF Create ####
     # Create output
     nrow_hobo <- nrow(df_hobo)
-    df_out <- data.frame(matrix(, nrow = nrow_hobo, ncol = 0)) #missing x on purpose
+    #missing x on purpose
+    df_out <- data.frame(matrix(, nrow = nrow_hobo, ncol = 0))
     # assign SiteID
     df_out[, col_out_SiteID] <- SiteID
     # assign date time

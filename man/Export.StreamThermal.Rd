@@ -12,25 +12,33 @@ Export.StreamThermal(
 )
 }
 \arguments{
-\item{fun.myDF}{User data that has been through the QC process of ContDataQC.  Required fields are SiteID, Date, Water.Temp.C (or as defined in config.R).}
+\item{fun.myDF}{User data that has been through the QC process of ContDataQC.
+Required fields are SiteID, Date, Water.Temp.C (or as defined in config.R).}
 
-\item{fun.col.SiteID}{Column name for SiteID.  Default = SiteID (as defined in config.R)}
+\item{fun.col.SiteID}{Column name for SiteID.
+Default = SiteID (as defined in config.R)}
 
-\item{fun.col.Date}{Column name for SiteID.  Default = Date (as defined in config.R)}
+\item{fun.col.Date}{Column name for SiteID.
+Default = Date (as defined in config.R)}
 
-\item{fun.col.Temp}{Column name for SiteID.  Default = Water.Temp.C (as defined in config.R)}
+\item{fun.col.Temp}{Column name for SiteID.
+Default = Water.Temp.C (as defined in config.R)}
 }
 \value{
-Returns a data frame formatted for use with the R library StreamThermal (SiteID, Date, MaxT, MinT, MeanT).  Statistics are calculated in the function.
+Returns a data frame formatted for use with the R library
+StreamThermal (SiteID, Date, MaxT, MinT, MeanT).  Statistics are calculated
+in the function.
 }
 \description{
-Creates a date frame (and file export) from Continuous Data in the format used by the StreamThermal package.
+Creates a date frame (and file export) from Continuous Data in the format
+used by the StreamThermal package.
 }
 \details{
 Required fields are StationID, Date, dailyMax, dailyMin, and dailyMean
 The fields are named "siteID", "Date", "MaxT", "MinT", and "MeanT".
 
-The StreamThermal package is available on GitHub.  It can be installed withe the devtools package:
+The StreamThermal package is available on GitHub.  It can be installed with
+the devtools package:
 
 library(devtools)
 
@@ -67,7 +75,8 @@ require(StreamThermal)
 #~~~~~~~~~~~~~~~~~~~~~~
 # 2.1. Load ContDataQC file that has been processed with SummaryStats
 myFile <- "DATA_test2_Aw_20130101_20141231.csv"
-myData <- read.csv(file.path(path.package("ContDataQC"),"extdata",myFile), stringsAsFactors=FALSE)
+myData <- read.csv(file.path(path.package("ContDataQC"),"extdata",myFile)
+                   , stringsAsFactors=FALSE)
 # Subset
 Col.Keep <- c("SiteID", "Date", "Water.Temp.C")
 sitedata <- myData[,Col.Keep]
@@ -114,7 +123,8 @@ temperatures, calculated from differences in average high and low
 temperatures over various time periods"
 #
 Group.Desc <- c(Desc.freq, Desc.mag, Desc.roc, Desc.tim, Desc.var)
-df.Groups <- as.data.frame(cbind(c("freq","mag","roc","tim","var"),Group.Desc))
+df.Groups <- as.data.frame(cbind(c("freq","mag","roc","tim","var")
+                           ,Group.Desc))
 #
 SiteID <- sitedata[1,1]
 myDate <- format(Sys.Date(),"\%Y\%m\%d")
@@ -128,9 +138,16 @@ df.Notes <- as.data.frame(cbind(Notes.Names, Notes.Data))
 Notes.Summary <- summary(sitedata)
 # Open/Create file
 ## New File Name
-myFile.XLSX <- paste("StreamThermal", SiteID, myDate, myTime, "xlsx", sep=".")
+myFile.XLSX <- paste("StreamThermal"
+                     , SiteID
+                     , myDate
+                     , myTime
+                     , "xlsx"
+                     , sep=".")
 ## Copy over template with Metric Definitions
-file.copy(file.path(path.package("ContDataQC"),"extdata","StreamThermal_MetricList.xlsx")
+file.copy(file.path(path.package("ContDataQC")
+                                 ,"extdata"
+                                 ,"StreamThermal_MetricList.xlsx")
           , myFile.XLSX)
 ## load workbook, create if not existing
 wb <- loadWorkbook(myFile.XLSX, create = TRUE)

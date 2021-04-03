@@ -3,9 +3,43 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-03-31 09:32:23
+    #> Last Update: 2021-04-02 22:05:12
 
 # Version History
+
+## v2.0.5.9086
+
+2021-04-02
+
+-   style: Fix spelling, devtools::spell\_check()
+    -   README
+    -   NEWS
+    -   fun.parseID.R
+    -   fun.Report.File.R
+    -   Vignette\_ContDataQC.Rmd
+    -   Vignette\_Config.RMD
+    -   fun.GageData.R
+    -   Vignette\_Lakes.Rmd
+-   refactor: Reknit files
+    -   README
+    -   Vignettes
+-   style: Fix items from goodpractice::gp()
+    -   Trim lines to 80 characters
+        -   CompSiteCDF.R
+        -   test\_export\_rLakeAnalyzer.R
+        -   RBIcalc.R
+        -   format.Hobo.R
+        -   fun.Helper.R
+        -   Export.IHA.R
+        -   Export.StreamThermal.R
+        -   fun.CustomConfig.R
+        -   fun.PeriodStats.R
+        -   fun.Stats.R (partial)
+        -   fun.DateFormat.R (partial)
+    -   Replace ‘=’ with ‘&lt;-’
+        -   fun.Helper.R
+    -   Change T or F to TRUE or FALSE
+        -   CompSiteCDF.R
 
 ## v2.0.5.9085
 
@@ -168,10 +202,10 @@ NEWS-ContDataQC
 -   refactor: Update config.R
 -   style: Updates to config.R, make order of Air and Water Pressure
     consistent
--   refactor: Create data-raw file to propogate changes in config.R to
+-   refactor: Create data-raw file to propagate changes in config.R to
     shiny
 -   refactor: Update Vignette\_Config with changes to config.R
--   refactor: Update Config.R and its dependant versions
+-   refactor: Update Config.R and its dependent versions
     -   inst.ORIG.R
     -   inst-examples\_Template.R
     -   inst-examples\_Template.zip
@@ -239,7 +273,7 @@ NEWS-ContDataQC
 2021-01-13
 
 -   fix: Correct download of www/Config.zip
--   fix: Replace uneeded concatenation without arguments
+-   fix: Replace unneeded concatenation without arguments
     -   Aquarius\_Data\_Acquisition\_PADEP
 -   style: Trim lines to 80 characters
     -   fun.Config.Out
@@ -399,7 +433,7 @@ NEWS-ContDataQC
 -   fix: Add foo:: to function calls where missing
     -   fun.Helper
 -   docs: CompSiteCDF, add missing argument to documentation.
--   docs: fun.ParseID, rename arugments so function and documentation
+-   docs: fun.ParseID, rename arguments so function and documentation
     match
 -   docs: data.R, Add “data\_raw\_ECO66G12\_AW\_20160128\_20160418”
 -   fix: Export.IHA, fix argument name, myFile to fun.myFile
@@ -446,7 +480,7 @@ NEWS-ContDataQC
 style: RBIcalc, remove trailing ; refactor: replace 1:foo() with
 seq\_len(foo()) + server + global + CompSiteCDF + Export.IHA +
 fun.DateFormat + fun.GageData + fun.Helper + fun.QC.File + fun.QC +
-fun.Stats.File + fun.Stats + zfun.AggredateData.Files +
+fun.Stats.File + fun.Stats + zfun.AggregateData.Files +
 zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 (GitHub) packages + StreamThermal + IHA
 
@@ -532,7 +566,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 -   zfun.ContDataQC.R
     -   Update example for file version of Aggregate.
         -   myFile “Aw” to “AW”.
-    -   Update exmaple for file version of SummaryStats.
+    -   Update example for file version of SummaryStats.
         -   Add comment characters for second myFile.
 -   fun.Stats.File.R
     -   Remove as.numeric() from doBy::summaryBy() statements.
@@ -1376,7 +1410,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 -   Thresholds. Updated config.R with more informed thresholds after
     working with more data. Issue \#36. 20170728.
 
--   DESCRIPTION. Added Jen Stamp as contributer and added my middle
+-   DESCRIPTION. Added Jen Stamp as contributor and added my middle
     initial. 20170728.
 
 ## v2.0.1.9023
@@ -1397,7 +1431,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2017-06-21
 
--   Dec 31 not being assigned a season in summar stats. Fixed. Issue
+-   Dec 31 not being assigned a season in summary stats. Fixed. Issue
     \#33. 20170621.
 
 ## v2.0.1.9020
@@ -1482,7 +1516,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2017-05-23
 
--   Remove unused arguement “fun.myFile.Prefix” from help file for
+-   Remove unused argument “fun.myFile.Prefix” from help file for
     ContDataQC(). 20170523.
 
 ## v2.0.1.9010
@@ -1520,7 +1554,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 -   Fix plots (legend) in Report\_QC.R (remove box as it is only
     partially displaying). 20170518.
 
--   Config file. Upate Sensor Depth and Water Pressure display
+-   Config file. Update Sensor Depth and Water Pressure display
     names. 20170518.
 
 -   Label code chunks in RMD files. 20170518.
@@ -1556,10 +1590,10 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 -   fun.QC.R. Line 1034 bad reference for difftime; renamed
     myTimeDiff.all to myT.diff.all.
 
--   Comnfirmed that knitr is silent so the user does not get code
+-   Confirmed that knitr is silent so the user does not get code
     scrolling across screen. 20170517.
 
--   Confirmed that steps/tasks in the process are independant of each
+-   Confirmed that steps/tasks in the process are independent of each
     other. That is, someone can use some or all routines as each is a
     separate function. 20170517.
 
@@ -1648,7 +1682,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
     fun.Stats.R (line 131) by adding “+1”. 20170320.
 
 -   Added 5 parameters (Conductivity, Dissolved Oxygen, pH, Turbidity,
-    and Chrlorphyl a) to those that can be evaluated. Changes made to
+    and Chlorophyl a) to those that can be evaluated. Changes made to
     env.UserDefinedValues.R and fun.QC.R. 20170323.
 
 -   Renamed env.UserDefinedValues.R to config.R. 20170421.

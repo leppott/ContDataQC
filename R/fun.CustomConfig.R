@@ -1,10 +1,13 @@
 #' Custom Configuration
 #'
-#' Function to load custom configuration of user defined values.  Only need to include elements that need to be changed.
-#' Adds to the existing environment.  User should load a new configuration prior to master script.
+#' Function to load custom configuration of user defined values.
+#' Adds to the existing environment.
+#' User should load a new configuration prior to master script.
 #'
-#' Custom config files must **not** include `ContData.env <- new.env(parent = emptyenv())`.
-#' This will create a 2nd environment that will not be accessed by the functions in the package.
+#' Custom config files must **not** include
+#' `ContData.env <- new.env(parent = emptyenv())`.
+#' This will create a 2nd environment that will not be accessed by the functions
+#' in the package.
 #'
 #' @param myFile Configuration file (including path if not in working directory)
 #' @param myExt "R" or "RDS"
@@ -17,7 +20,8 @@
 # # value that will change
 # ContData.env$myDefault.Flat.Hi # 30
 # # load configuration from R file
-# config.load(file.path(.libPaths(),"ContDataQC","inst","extdata","config.COOL.R"),myExt="R")
+# config.load(file.path(.libPaths()
+                 #,"ContDataQC","inst","extdata","config.COOL.R"),myExt="R")
 # ContData.env$myDefault.Flat.Hi # 22
 # # save configuration as RDS file
 # config.export("config.COOL")
@@ -48,7 +52,8 @@ config.load <- function(myFile, myExt="R"){##FUNCTION.config.load.START
   #
 }##FUNCTION.thresh.load.END
 #
-# @param myFile Filename for RDS file to store configuration from ContData.env.  RDS will be appeneded to the give file name.
+# @param myFile Filename for RDS file to store configuration from ContData.env.
+# RDS will be appeneded to the give file name.
 # @return NA.  An RDS file is created.
 # @example
 # # ContData environment (list)

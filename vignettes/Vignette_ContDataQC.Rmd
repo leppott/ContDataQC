@@ -46,11 +46,11 @@ install_github("leppott/ContDataQC")
 To contact the authors directly email 
 Erik.Leppo@tetratech.com or Jen.Stamp@tetratech.com.
 
-Occassionaly R does not import all of the necessary dependant libraries.  Below 
+Occasionaly R does not import all of the necessary dependent libraries.  Below 
 is code to install all of the necessary libraries for using the ContDataQC 
 library.
 
-```{r LoadDependancies, eval=FALSE}
+```{r LoadDependencies, eval=FALSE}
 # install all dependant libraries manually
 # libraries to be installed
 data.packages = c(
@@ -72,7 +72,7 @@ print("Task complete.  Check statements above for errors.")
 
 ```
 
-An additional dependancy that needs to be installed separately is Pandoc.  This 
+An additional dependency that needs to be installed separately is Pandoc.  This 
 package is used to create the Reports.  See R code below to install Pandoc.  The 
 package 'installr' allows for installation in a single step.  If this doesn't 
 work you may need help from your IT department using the web links listed below. 

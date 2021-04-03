@@ -3,7 +3,7 @@
 #' This a wrapper function for the package dataRetrieval to get USGS data.
 #' Daily means are the default data type.
 #'
-#' Gage height is converted to water level for compatability with HOBOware
+#' Gage height is converted to water level for compatibility with HOBOware
 #' output.
 #'
 # Erik.Leppo@tetratech.com (EWL)

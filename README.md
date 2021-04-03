@@ -3,7 +3,7 @@ README-ContDataQC
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-02-23 09:22:39
+    #> Last Update: 2021-04-02 21:13:00
 
 # ContDataQC
 
@@ -52,7 +52,7 @@ devtools::install_github("leppott/ContDataQC", force = TRUE, build_vignettes = T
 ```
 
 If dependent libraries do not install you can install them separately.
-This happens occassionally. Without all of the packages the main package
+This happens occasionally. Without all of the packages the main package
 and/or the vignettes will not install properly. Install the separate
 packages below and then retry installing ContDataQC.
 
@@ -119,7 +119,7 @@ summary stats.
 The code was presented at the following workshops. And further developed
 under contract to USEPA.
 
--   Oct 2015, SWPBPA (Region 4 regional biologist meeting, Myrtle Beach,
+-   Oct 2015, SWPBA (Region 4 regional biologist meeting, Myrtle Beach,
     SC).
 
 -   Mar 2016, AMAAB (Region 3 regional biologist meeting, Cacapon, WV).
@@ -137,7 +137,7 @@ the use of knitr and Pandoc).
 
 # Usage
 
-Everytime R is launched the `ContDataQC` package needs to be loaded.
+Every time R is launched the `ContDataQC` package needs to be loaded.
 
 ``` r
 # load library and dependant libraries

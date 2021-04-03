@@ -37,7 +37,7 @@ modifications.
 # Workflow
 It is envisioned that a user of data at different depths at the same location 
 can use the QC function by working with each depth file separately.  The 
-"formatHobo" and "QC" steps will accomodate the lake profile data (assuming the 
+"formatHobo" and "QC" steps will accommodate the lake profile data (assuming the 
 SiteID is specified as below in the next section).
 
 ## Site ID

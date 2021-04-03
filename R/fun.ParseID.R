@@ -8,7 +8,7 @@
 #'
 #' Based on the default delimiter specified in the config file
 #' (ContData.env$myDelim_LakeID) the given ID is separated into 3 parts.
-#' The original SIteID is retained as ID_Full
+#' The original SiteID is retained as ID_Full
 #'
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Erik.Leppo@tetratech.com (EWL)

@@ -35,7 +35,7 @@ Designed for use with depth profile data where the depth and
 
 Based on the default delimiter specified in the config file
 (ContData.env$myDelim_LakeID) the given ID is separated into 3 parts.
-The original SIteID is retained as ID_Full
+The original SiteID is retained as ID_Full
 }
 \examples{
 \dontrun{
