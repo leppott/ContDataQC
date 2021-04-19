@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9088</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5.9089</span>
       </span>
     </div>
 
@@ -274,7 +274,7 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
                    , <span class='st'>"Data3_Aggregated"</span>
                    , <span class='st'>"Data4_Stats"</span><span class='op'>)</span>
 <span class='op'>(</span><span class='va'>myDir.BASE</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># create and print temp directory for example data</span>
-</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp0OvLw1"</div><div class='input'>
+</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpjxCOKG"</div><div class='input'>
 <span class='co'># Create data directories</span>
 <span class='va'>myDir.create</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>myDir.BASE</span>, <span class='va'>Selection.SUB</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
   <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.exists</a></span><span class='op'>(</span><span class='va'>myDir.create</span><span class='op'>)</span> <span class='op'>==</span> <span class='cn'>FALSE</span>
@@ -357,7 +357,7 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 #&gt; 
 #&gt; [1] "Processing item 1 of 1, COMPLETE, 01187300."
 #&gt; 
-#&gt; [1] "Task COMPLETE; 0.23 min."</div><div class='input'>
+#&gt; [1] "Task COMPLETE; 0.29 min."</div><div class='input'>
 <span class='co'># 01.B. Get Gage Data (central time zone)</span>
 <span class='va'>myData.Operation</span>       <span class='op'>&lt;-</span> <span class='st'>"GetGageData"</span> <span class='co'>#Selection.Operation[1]</span>
 <span class='va'>myData.SiteID</span>          <span class='op'>&lt;-</span> <span class='st'>"07032000"</span> <span class='co'># Mississippi River at Memphis, TN</span>
@@ -397,7 +397,7 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 #&gt; 
 #&gt; [1] "Processing item 1 of 1, COMPLETE, 07032000."
 #&gt; 
-#&gt; [1] "Task COMPLETE; 0.02 min."</div><div class='input'>
+#&gt; [1] "Task COMPLETE; 0.08 min."</div><div class='input'>
 <span class='co'># 02.A. QC Raw Data</span>
 <span class='va'>myData.Operation</span>       <span class='op'>&lt;-</span> <span class='st'>"QCRaw"</span> <span class='co'>#Selection.Operation[2]</span>
 <span class='va'>myData.SiteID</span>          <span class='op'>&lt;-</span> <span class='st'>"test2"</span>
@@ -422,25 +422,25 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 #&gt; [1] "Processing item 3 of 6, WORKING (QC Tests and Flags - AirTemp), test2_AW_20130426_20130725.csv."
 #&gt; [1] "Processing item 3 of 6, WORKING (QC Tests and Flags - WaterP), test2_AW_20130426_20130725.csv."
 #&gt; [1] "Processing item 3 of 6, WORKING (QC Tests and Flags - AirP), test2_AW_20130426_20130725.csv."
-#&gt; [1] "Processing item 3 of 6, WORKING (QC Tests and Flags - SensorDepth), test2_AW_20130426_20130725.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 8.185393 secs."
+#&gt; [1] "Processing item 3 of 6, WORKING (QC Tests and Flags - SensorDepth), test2_AW_20130426_20130725.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 12.89044 secs."
 #&gt; [1] "User defined parameters: SiteID (test2), Data Type (Aw), Date Range (2013-04-26 to 2013-07-25)."
 #&gt; [1] "Processing item 3 of 6, COMPLETE, test2_AW_20130426_20130725.csv."
 #&gt; [1] "Processing item 4 of 6, WORKING (QC Tests and Flags - WaterTemp), test2_AW_20130725_20131015.csv."
 #&gt; [1] "Processing item 4 of 6, WORKING (QC Tests and Flags - AirTemp), test2_AW_20130725_20131015.csv."
 #&gt; [1] "Processing item 4 of 6, WORKING (QC Tests and Flags - WaterP), test2_AW_20130725_20131015.csv."
 #&gt; [1] "Processing item 4 of 6, WORKING (QC Tests and Flags - AirP), test2_AW_20130725_20131015.csv."
-#&gt; [1] "Processing item 4 of 6, WORKING (QC Tests and Flags - SensorDepth), test2_AW_20130725_20131015.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 6.227421 secs."
+#&gt; [1] "Processing item 4 of 6, WORKING (QC Tests and Flags - SensorDepth), test2_AW_20130725_20131015.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 5.268718 secs."
 #&gt; [1] "User defined parameters: SiteID (test2), Data Type (Aw), Date Range (2013-07-25 to 2013-10-15)."
 #&gt; [1] "Processing item 4 of 6, COMPLETE, test2_AW_20130725_20131015.csv."
 #&gt; [1] "Processing item 5 of 6, WORKING (QC Tests and Flags - WaterTemp), test2_AW_20140901_20140930.csv."
 #&gt; [1] "Processing item 5 of 6, WORKING (QC Tests and Flags - AirTemp), test2_AW_20140901_20140930.csv."
 #&gt; [1] "Processing item 5 of 6, WORKING (QC Tests and Flags - WaterP), test2_AW_20140901_20140930.csv."
 #&gt; [1] "Processing item 5 of 6, WORKING (QC Tests and Flags - AirP), test2_AW_20140901_20140930.csv."
-#&gt; [1] "Processing item 5 of 6, WORKING (QC Tests and Flags - SensorDepth), test2_AW_20140901_20140930.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 4.961773 secs."
+#&gt; [1] "Processing item 5 of 6, WORKING (QC Tests and Flags - SensorDepth), test2_AW_20140901_20140930.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 4.949755 secs."
 #&gt; [1] "User defined parameters: SiteID (test2), Data Type (Aw), Date Range (2014-09-01 to 2014-09-30)."
 #&gt; [1] "Processing item 5 of 6, COMPLETE, test2_AW_20140901_20140930.csv."
 #&gt; [1] "Processing item 6 of 6, SKIPPED (Non-Match, SiteID), test4_AW_20160418_20160726.csv."
-#&gt; [1] "Task COMPLETE; 0.41 min."</div><div class='input'>
+#&gt; [1] "Task COMPLETE; 0.45 min."</div><div class='input'>
 <span class='co'># 02.B. QC Raw Data (offset collection times for air and water sensors)</span>
 <span class='va'>myData.Operation</span>       <span class='op'>&lt;-</span> <span class='st'>"QCRaw"</span> <span class='co'>#Selection.Operation[2]</span>
 <span class='va'>myData.SiteID</span>          <span class='op'>&lt;-</span> <span class='st'>"test4"</span>
@@ -468,10 +468,10 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 #&gt; [1] "Processing item 6 of 6, WORKING (QC Tests and Flags - AirTemp), test4_AW_20160418_20160726.csv."
 #&gt; [1] "Processing item 6 of 6, WORKING (QC Tests and Flags - WaterP), test4_AW_20160418_20160726.csv."
 #&gt; [1] "Processing item 6 of 6, WORKING (QC Tests and Flags - AirP), test4_AW_20160418_20160726.csv."
-#&gt; [1] "Processing item 6 of 6, WORKING (QC Tests and Flags - SensorDepth), test4_AW_20160418_20160726.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 9.559486 secs."
+#&gt; [1] "Processing item 6 of 6, WORKING (QC Tests and Flags - SensorDepth), test4_AW_20160418_20160726.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 8.079159 secs."
 #&gt; [1] "User defined parameters: SiteID (test4), Data Type (Aw), Date Range (2016-04-18 to 2016-07-26)."
 #&gt; [1] "Processing item 6 of 6, COMPLETE, test4_AW_20160418_20160726.csv."
-#&gt; [1] "Task COMPLETE; 0.2 min."</div><div class='input'>
+#&gt; [1] "Task COMPLETE; 0.18 min."</div><div class='input'>
 <span class='co'># 03. Aggregate Data</span>
 <span class='va'>myData.Operation</span>       <span class='op'>&lt;-</span> <span class='st'>"Aggregate"</span> <span class='co'>#Selection.Operation[3]</span>
 <span class='va'>myData.SiteID</span>          <span class='op'>&lt;-</span> <span class='st'>"test2"</span>
@@ -488,17 +488,17 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
            , <span class='va'>myData.DateRange.End</span>
            , <span class='va'>myDir.import</span>
            , <span class='va'>myDir.export</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Total files to process = 4"</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 5.742098 secs."
+</div><div class='output co'>#&gt; [1] "Total files to process = 4"</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 4.864281 secs."
 #&gt; [1] "User defined parameters: SiteID (test2), Data Type (Aw), Date Range (2013-01-01 to 2014-12-31)."
-#&gt; [1] "Processing item 1 of 4, COMPLETE, QC_test2_Aw_20130426_20130725.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 8.000427 secs."
+#&gt; [1] "Processing item 1 of 4, COMPLETE, QC_test2_Aw_20130426_20130725.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 6.742314 secs."
 #&gt; [1] "User defined parameters: SiteID (test2), Data Type (Aw), Date Range (2013-01-01 to 2014-12-31)."
-#&gt; [1] "Processing item 2 of 4, COMPLETE, QC_test2_Aw_20130725_20131015.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 8.501768 secs."
+#&gt; [1] "Processing item 2 of 4, COMPLETE, QC_test2_Aw_20130725_20131015.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 7.209257 secs."
 #&gt; [1] "User defined parameters: SiteID (test2), Data Type (Aw), Date Range (2013-01-01 to 2014-12-31)."
 #&gt; [1] "Processing item 3 of 4, COMPLETE, QC_test2_Aw_20140901_20140930.csv."
-#&gt; [1] "Processing item 4 of 4, SKIPPED (Non-Match, SiteID), QC_test4_Aw_20160418_20160726.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 7.799156 secs."
+#&gt; [1] "Processing item 4 of 4, SKIPPED (Non-Match, SiteID), QC_test4_Aw_20160418_20160726.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 7.334947 secs."
 #&gt; [1] "User defined parameters: File Name (test2_Aw_20130101_20141231.csv)."
 #&gt; [1] "Processing of 4 of 4 files complete."
-#&gt; [1] "Processing of items (n=4) finished.  Total time = 31.88732 secs."
+#&gt; [1] "Processing of items (n=4) finished.  Total time = 28.28677 secs."
 #&gt; [1] "Items COMPLETE = 3."
 #&gt; [1] "Items SKIPPPED = 1."
 #&gt; [1] "User defined parameters: SiteID (test2), Data Type (Aw), Date Range (2013-01-01 to 2014-12-31)."
@@ -547,7 +547,7 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 #&gt; [1] "Processing item 1 of 3, WORKING (QC Tests and Flags - AirP), test2_AW_20130426_20130725.csv."
 #&gt; [1] "Processing item 1 of 3, WORKING (QC Tests and Flags - SensorDepth), test2_AW_20130426_20130725.csv."
 #&gt; [1] "ERROR; no such file exists.  Cannot create QC Report."
-#&gt; [1] "PATH = /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp0OvLw1/Data2_QC"
+#&gt; [1] "PATH = /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpjxCOKG/Data2_QC"
 #&gt; [1] "FILE = QC_test2_AW_20130426_20130725.csv"</div><div class='output co'>#&gt; <span class='error'>Error in fun.Report.File(strFile, fun.myDir.export, fun.myDir.export,     strFile.Out.Prefix, fun.myReport.format, fun.myReport.Dir): Bad file.</span></div><div class='input'>
 <span class='co'># 03.Alt. Aggregate Data</span>
 <span class='va'>myData.Operation</span> <span class='op'>&lt;-</span> <span class='st'>"Aggregate"</span> <span class='co'>#Selection.Operation[3]</span>
@@ -565,10 +565,10 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 </div><div class='output co'>#&gt; [1] "Total files to process = 3"
 #&gt; [1] "Processing item 1 of 3, COMPLETE, QC_test2_Aw_20130426_20130725.csv."
 #&gt; [1] "Processing item 2 of 3, COMPLETE, QC_test2_Aw_20130725_20131015.csv."
-#&gt; [1] "Processing item 3 of 3, COMPLETE, QC_test2_Aw_20140901_20140930.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 11.51448 secs."
+#&gt; [1] "Processing item 3 of 3, COMPLETE, QC_test2_Aw_20140901_20140930.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 9.345571 secs."
 #&gt; [1] "User defined parameters: File Name (QC_test2_Aw_20130426_20140930.csv)."
 #&gt; [1] "Processing of 3 of 3 files complete."
-#&gt; [1] "Processing of items (n=3) finished.  Total time = 13.43718 secs."
+#&gt; [1] "Processing of items (n=3) finished.  Total time = 11.34793 secs."
 #&gt; [1] "Items COMPLETE = 3."
 #&gt; [1] "Items SKIPPPED = 0."
 #&gt; [1] "User defined parameters: File Output(DATA_QC_test2_Aw_20130426_20140930.csv)."</div><div class='input'>
@@ -587,7 +587,7 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
            , fun.myFile <span class='op'>=</span> <span class='va'>myFile</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "Total files to process = 1"
 #&gt; [1] "ERROR; no such file exits.  Cannot generate summary statistics."
-#&gt; [1] "PATH = /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp0OvLw1/Data2_QC"
+#&gt; [1] "PATH = /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpjxCOKG/Data2_QC"
 #&gt; [1] "FILE = QC_test2_AW_20130426_20130725.csv"</div><div class='output co'>#&gt; <span class='error'>Error in fun.Stats.File(fun.myFile, fun.myDir.import, fun.myDir.export,     fun.myReport.format, fun.myReport.Dir): Bad file.</span></div><div class='input'>
 <span class='co'>#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 <span class='co'># Summary Stats from Other Data</span>
@@ -639,7 +639,7 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 <span class='co'># Lake Data, Aggregate</span>
 <span class='co'>#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 <span class='op'>(</span><span class='va'>myDir.BASE</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># create and print temp directory for example data</span>
-</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp0OvLw1"</div><div class='input'><span class='co'># 06. Lake Data</span>
+</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpjxCOKG"</div><div class='input'><span class='co'># 06. Lake Data</span>
 <span class='co'># Save example data (assumes directory exists)</span>
 <span class='va'>myFile</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"QC_Ellis--1.0m_Water_20180524_20180918.csv"</span>
            , <span class='st'>"QC_Ellis--3.0m_Water_20180524_20180918.csv"</span><span class='op'>)</span>
@@ -659,10 +659,10 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
            , fun.myReport.format <span class='op'>=</span> <span class='va'>myReport.format</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "Total files to process = 2"
 #&gt; [1] "Processing item 1 of 2, COMPLETE, QC_Ellis--1.0m_Water_20180524_20180918.csv."
-#&gt; [1] "Processing item 2 of 2, COMPLETE, QC_Ellis--3.0m_Water_20180524_20180918.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 2.202754 secs."
+#&gt; [1] "Processing item 2 of 2, COMPLETE, QC_Ellis--3.0m_Water_20180524_20180918.csv."</div><div class='output co'>#&gt; [1] "Task COMPLETE. QC Report.  Total time = 1.651336 secs."
 #&gt; [1] "User defined parameters: File Name (QC_Ellis--1.0m_Water_20180524_20180918.csv)."
 #&gt; [1] "Processing of 2 of 2 files complete."
-#&gt; [1] "Processing of items (n=2) finished.  Total time = 2.646281 secs."
+#&gt; [1] "Processing of items (n=2) finished.  Total time = 2.032908 secs."
 #&gt; [1] "Items COMPLETE = 2."
 #&gt; [1] "Items SKIPPPED = 0."
 #&gt; [1] "User defined parameters: File Output(DATA_QC_Ellis--1.0m_Water_20180524_20180918.csv)."</div><div class='input'>
