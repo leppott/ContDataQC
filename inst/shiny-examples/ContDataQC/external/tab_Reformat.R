@@ -2,7 +2,7 @@
 
 function() {
 
-  tabPanel("HOBOware reformat",
+  tabPanel("Reformat Input",
            h3("HOBOware reformat", align = "Center")
            , tags$b("Description")
            , p("Format HoboWare output for use with 'ContDataQC' package. Works on individual csv files. Imports, modifies, and saves with the same filename for download.")

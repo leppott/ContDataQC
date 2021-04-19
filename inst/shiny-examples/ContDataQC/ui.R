@@ -11,7 +11,7 @@ tab_Intro    <- source("external/tab_Intro.R", local = TRUE)$value
 tab_Calc     <- source("external/tab_Calc.R", local = TRUE)$value
 tab_USGSgage <- source("external/tab_USGSgage.R", local = TRUE)$value
 tab_FAQ      <- source("external/tab_FAQ.R", local = TRUE)$value
-tab_HOBO     <- source("external/tab_HOBO.R", local = TRUE)$value
+tab_Reformat <- source("external/tab_Reformat.R", local = TRUE)$value
 tab_Config   <- source("external/tab_Config.R", local = TRUE)$value
 tab_Console  <- source("external/tab_Console.R", local = TRUE)$value
 
@@ -27,7 +27,7 @@ shinyUI(
              # tabPan, Adv Feat ----
              tab_Console(),
              tab_Config(),
-             tab_HOBO(),
+             tab_Reformat(),
              # tabPan, USGS ----
              tab_USGSgage() ,
              # tabPan, FAQ ----
