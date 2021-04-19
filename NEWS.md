@@ -3,9 +3,17 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-04-02 22:05:12
+    #> Last Update: 2021-04-19 11:12:32
 
 # Version History
+
+## v2.0.5.9087
+
+2021-04-19
+
+-   refactor: Shiny
+    -   Rearrange tabs
+    -   Split out Advanced tab into Console, Config, and Hobo
 
 ## v2.0.5.9086
 
