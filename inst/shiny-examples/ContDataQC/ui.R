@@ -17,7 +17,7 @@ tab_Console  <- source("external/tab_Console.R", local = TRUE)$value
 
 shinyUI(
   # VERSION ----
-  navbarPage("Continuous data QC, summary, and statistics - v2.0.5.9087",
+  navbarPage("Continuous data QC, summary, and statistics - v2.0.5.9088",
              theme= shinytheme("spacelab"),
              #also liked "cerulean" at https://rstudio.github.io/shinythemes/
              # tabPan, Site Intro ----

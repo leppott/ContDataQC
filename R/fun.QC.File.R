@@ -946,6 +946,12 @@ fun.QC.File <- function(fun.myFile
           #
         }##FOR.j.END
         #
+
+    # Remove "Comment.MOD.Flag.*" columns (2021-04-19), Issue #123
+    ## easier to remove than to mod code to not add
+    data.import <- data.import[, !grepl("^Comment\\.MOD\\.Flag\\."
+                                        , names(data.import))]
+
 #     # leave as a loop so get RAW and Comment together
 #     j <- myNames.DataFields2Mod
 #     # A. Add comment field and leave blank

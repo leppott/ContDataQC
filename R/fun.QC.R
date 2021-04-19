@@ -917,12 +917,17 @@ fun.QC <- function(fun.myData.SiteID
         for (j in myNames.DataFields2Mod) {##FOR.j.START
           #
           # A. Add comment field and leave blank
-          data.import[,paste(myName.Comment.Mod,j,sep=".")] <- ""
+          data.import[, paste(myName.Comment.Mod, j, sep=".")] <- ""
           # B. Add data.RAW and populate with original data
-          data.import[,paste(myName.Raw,j,sep=".")] <- data.import[,j]
+          data.import[, paste(myName.Raw, j, sep=".")] <- data.import[, j]
           #
         }##FOR.j.END
         #
+    # Remove "Comment.MOD.Flag.*" columns (2021-04-19), Issue #123
+    ## easier to remove than to mod code to not add
+    data.import <- data.import[, !grepl("^Comment\\.MOD\\.Flag\\."
+                                        , names(data.import))]
+
 #     # leave as a loop so get RAW and Comment together
 #     j <- myNames.DataFields2Mod
 #     # A. Add comment field and leave blank

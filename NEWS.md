@@ -3,9 +3,17 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-04-19 13:40:53
+    #> Last Update: 2021-04-19 16:11:06
 
 # Version History
+
+## v2.0.5.9089
+
+2021-04-19
+
+-   refactor: Remove extra columns from QC routine, Issue \#123
+    -   fun.QC.R
+    -   fun.QC.File.R
 
 ## v2.0.5.9088
 
