@@ -1,0 +1,60 @@
+---
+title: "Overview"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if(boo_DEBUG==TRUE){
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+# Instructions
+
+TEMPLATE 
+[here](PUT HYPERLINK HERE).
+
+## Subheading
+
+Bullets:
+
+* Bullet 1
+* Bullet 2
+
+### Table 1. Table Name.
+```{r table_1}
+library(readxl)
+library(knitr)
+library(kableExtra)
+# state directories
+table.dir <- "tables"
+table.file <- "Instruction_Tables.xlsx"
+tab1.dir <- "Instr_table2"
+
+table1 <- read_excel(file.path(table.dir, table.file), sheet = tab1.dir
+                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
+                     , col_names = TRUE)  
+
+# kable(table1)
+table1 %>% 
+  kbl() %>% 
+  kable_styling(full_width = F, position = "left")
+```
+
+
+
+1. Numbers
+    + Point 1
+    + Point 2 
+
+2. Numbers
+
+3. Numbers

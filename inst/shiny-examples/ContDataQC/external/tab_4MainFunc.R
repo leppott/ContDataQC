@@ -4,7 +4,7 @@
 
 function(){
 
-  tabPanel("Instructions & interface",
+  tabPanel("Instructions & interface", # Main functions
            # _Instruct, buttons ----
            # Sidebar with inputs for app
            sidebarLayout(
