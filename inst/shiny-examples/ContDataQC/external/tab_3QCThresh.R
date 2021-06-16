@@ -1,4 +1,4 @@
-# Panel, Config
+# Panel, QC Thresholds
 
 function() {
 
@@ -21,7 +21,7 @@ function() {
                                   , label = "Choose configuration file"
                                   , multiple = FALSE
                                   , accept = ".R")
-             )
+             ) # tag$div ~ END
 
              , br()
              , br()
@@ -35,18 +35,13 @@ function() {
         , mainPanel(
           tabsetPanel(type = "tabs"
 
-            , tabPanel("Current"
-              , h4("QC Thresholds, CURRENT", align = "Center")
+            , tabPanel("Default"
+              , h4("Default - fill info", align = "Center")
             )## tabPanel ~ CURRENT ~ END
 
-            , tabPanel("Default, Streams"
-                       , h4("QC Thresholds, DEFAULT, STREAMS", align = "Center")
+            , tabPanel("Customize"
+                       , h4("Customize - fill info", align = "Center")
             )## tabPanel ~ Streams ~ END
-
-            , tabPanel("Default, Lakes"
-                       , h4("QC Thresholds, DEFAULT, LAKES", align = "Center")
-            )## tabPanel ~ Lakes ~ END
-
 
           )## tabsetPanel ~ END
 

@@ -112,6 +112,6 @@ function() {
                          Please let us know how it goes.
                          Just remember that internet access is required.")
            ,br()
-  )
+  ) #tabPanel ~ END
 
 }## FUNCTION ~ END

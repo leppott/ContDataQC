@@ -23,9 +23,9 @@ function(){
                                  will appear. Click the button to download a zip file of all station records.
                                  Where the files will download on your computer depends on the configuration
                                  of your internet browser.")
-             ),
+             )# column ~ END
 
-             column(5, offset = 1,
+             ,column(5, offset = 1,
                     h3("Download USGS gage data here")
                     ,br()
                     ,textInput("USGSsite"
@@ -44,8 +44,8 @@ function(){
                     #Only shows the "Download" button after the process has run
                     ,tags$div(title="Click to download your USGS gage data",
                               uiOutput('ui.downloadUSGSData'))
-             )
-           )
+             )# column ~ END
+           )# fluidRow ~ END
   )## tabPanel ~ END
 
 }## FUNCTION ~ END
