@@ -2,7 +2,7 @@
 
 function() {
 
-  tabPanel("FAQ",
+  tabPanel("8. FAQ",
            h3("A growing list of potentially frequently asked questions")
            ,br()
            ,p("Question: Why does the website header say 'preliminary'?")

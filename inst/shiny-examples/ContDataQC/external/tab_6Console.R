@@ -2,7 +2,7 @@
 
 function() {
 
-  tabPanel("Console",
+  tabPanel("6. Console",
              ## _Adv Feat, Console ----
 
                h3("R console output", align = "Center"),

@@ -2,7 +2,7 @@
 
 function() {
 
-  tabPanel("QC Thresholds"
+  tabPanel("3. QC Thresholds"
            , sidebarPanel(
              h3("QC thresholds", align = "Center")
              , p("You can upload custom QC thresholds here.

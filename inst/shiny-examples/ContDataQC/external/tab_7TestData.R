@@ -2,7 +2,7 @@
 
 function() {
 
-  tabPanel("Test Data"
+  tabPanel("7. Test Data"
            , sidebarPanel(
              h3("Here is a side bar panel - fill info?", align = "Center")
 

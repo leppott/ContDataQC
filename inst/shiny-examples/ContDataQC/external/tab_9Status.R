@@ -2,7 +2,7 @@
 
 function() {
 
-  tabPanel("Status",
+  tabPanel("9. Status",
            h3("Here is your status")
 
   )# tabPanel ~ END

@@ -2,7 +2,7 @@
 
 function(){
 
-  tabPanel("Download USGS data",
+  tabPanel("5. Download USGS data",
            fluidRow(
              column(5,
                     h3("Instructions", align = "Center"),
