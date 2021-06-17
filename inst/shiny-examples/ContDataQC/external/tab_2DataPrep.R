@@ -3,16 +3,14 @@
 function() {
 
   tabPanel("2. Data Preparation"
-           , sidebarPanel(
-             h3("Here is a side bar panel - fill info?", align = "Center")
-
-
-           )## sidebarPanel ~ END
            , mainPanel(
              tabsetPanel(type = "tabs"
 
                          , tabPanel("Organizing files"
-                                    , h4("Organizing files - fill info", align = "Center")
+                                    , includeHTML("App_2aDataPrep.html")
+                                    , img(src = "Fig_Organizing_v1_20210616.png"
+                                          , height = 600, width = 1000)
+
                          )## tabPanel ~ CURRENT ~ END
 
                          , tabPanel("Naming files"
@@ -58,7 +56,6 @@ function() {
                                     )# tags$div ~ END
 
                          )## tabPanel ~ Lakes ~ END
-
 
              )## tabsetPanel ~ END
 
