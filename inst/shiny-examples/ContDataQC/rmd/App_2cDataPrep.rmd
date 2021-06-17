@@ -17,44 +17,42 @@ if(boo_DEBUG==TRUE){
 }## IF ~ boo_DEBUG ~ END
 ```
 
-# Instructions
+# Formatting Files
 
-TEMPLATE 
-[here](PUT HYPERLINK HERE).
+Input files need to be formatted a specific way in order for the Shiny app and R package to work.
 
-## Subheading
+Guidelines -
 
-Bullets:
+* Input files must be comma-delimited (CSV) (not a CSV UTF-8).
+* The columns do not have to be in any specific order
+* There are two required fields: SiteID; and Date and Time
+* Acceptable entries for Date and Time are “Date Time” (one field) OR “Date” AND “Time” (in 2 separate fields) OR all 3 (in 3 fields)
+* If you're using the default configuration file, column names must match the capitalization, spelling and symbology shown in the table below (for example, R will not recognize ‘sensor depth ft’; it needs to be ‘Sensor Depth ft’)
+* You can have either periods or spaces in the column headings. For example, in the table below, air temperature is shown as ‘‘Air Temp C’ but it can also be entered as ‘Air.Temp.C’. 
+* In the table below, there are slashes in some of the units (like mg/L); instead of slashes, you can also use spaces or periods (e.g., DO.mg.L or DO mg L). Do NOT use parentheses.
+* Additional variables (beyond the ones show in the table below) can be added by modifying the [configuration file](https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Formatting_Files); this requires more advanced R skills.
+* Optional fields include rowID, logger ID (serial number) and discrete measurements. Discrete (in situ) measurements can be entered for any parameter (just add ‘Discrete’ to the beginning of the column heading; for example, ‘Discrete Air Temp C’). The discrete data point will be included in the time series plots that are generated when the user runs the QC function.
 
-* Bullet 1
-* Bullet 2
+If you are using Onset HOBO sensors, you can save time by using the automated reformat function (**see HOBO Reformat section**)
 
-### Table 1. Table Name.
+### Data formatting information
 ```{r table_1}
 library(readxl)
 library(knitr)
 library(kableExtra)
 # state directories
 table.dir <- "tables"
-table.file <- "Instruction_Tables.xlsx"
-tab1.dir <- "Instr_table2"
+table.file <- "App_Information_Tables.xlsx"
+tab2c.dir <- "DataPrep_Table2c"
 
-table1 <- read_excel(file.path(table.dir, table.file), sheet = tab1.dir
+table2c <- read_excel(file.path(table.dir, table.file), sheet = tab2c.dir
                      , na = c("NA", ""), trim_ws = TRUE, skip = 0
                      , col_names = TRUE)  
 
+options(knitr.kable.NA = '')
 # kable(table1)
-table1 %>% 
+table2c %>% 
   kbl() %>% 
   kable_styling(full_width = F, position = "left")
 ```
 
-
-
-1. Numbers
-    + Point 1
-    + Point 2 
-
-2. Numbers
-
-3. Numbers

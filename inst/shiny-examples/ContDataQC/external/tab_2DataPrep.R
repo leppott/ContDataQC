@@ -14,11 +14,16 @@ function() {
                          )## tabPanel ~ CURRENT ~ END
 
                          , tabPanel("Naming files"
-                                    , h4("Naming files - fill info", align = "Center")
+                                    , includeHTML("App_2bDataPrep.html")
+                                    , img(src = "Fig_NamingFiles_v1_20210617.png"
+                                          , height = 600, width = 1000)
                          )## tabPanel ~ Streams ~ END
 
                          , tabPanel("Formatting files"
-                                    , h4("HOBOware reformat", align = "Center")
+                                    , includeHTML("App_2cDataPrep.html")
+                         )## tabPanel ~ Streams ~ END
+
+                         , tabPanel("HOBOware Reformat"
                                     , tags$b("Description")
                                     , p("Format HoboWare output for use with 'ContDataQC' package. Works on individual csv files. Imports, modifies, and saves with the same filename for download.")
                                     , p("One file or multiple files can be uploaded for processing.")

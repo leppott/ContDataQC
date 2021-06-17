@@ -1,0 +1,261 @@
+
+
+
+<div id="formatting-files" class="section level1">
+<h1>Formatting Files</h1>
+<p>Input files need to be formatted a specific way in order for the Shiny app and R package to work.</p>
+<p>Guidelines -</p>
+<ul>
+<li>Input files must be comma-delimited (CSV) (not a CSV UTF-8).</li>
+<li>The columns do not have to be in any specific order</li>
+<li>There are two required fields: SiteID; and Date and Time</li>
+<li>Acceptable entries for Date and Time are “Date Time” (one field) OR “Date” AND “Time” (in 2 separate fields) OR all 3 (in 3 fields)</li>
+<li>If you’re using the default configuration file, column names must match the capitalization, spelling and symbology shown in the table below (for example, R will not recognize ‘sensor depth ft’; it needs to be ‘Sensor Depth ft’)</li>
+<li>You can have either periods or spaces in the column headings. For example, in the table below, air temperature is shown as ‘‘Air Temp C’ but it can also be entered as ‘Air.Temp.C’.</li>
+<li>In the table below, there are slashes in some of the units (like mg/L); instead of slashes, you can also use spaces or periods (e.g., DO.mg.L or DO mg L). Do NOT use parentheses.</li>
+<li>Additional variables (beyond the ones show in the table below) can be added by modifying the configuration file; this requires more advanced R skills.</li>
+<li>Optional fields include rowID, logger ID (serial number) and discrete measurements. Discrete (in situ) measurements can be entered for any parameter (just add ‘Discrete’ to the beginning of the column heading; for example, ‘Discrete Air Temp C’). The discrete data point will be included in the time series plots that are generated when the user runs the QC function.</li>
+</ul>
+<p>If you are using Onset HOBO sensors, you can save time by using the automated reformat function (<strong>see HOBO Reformat section</strong>)</p>
+<div id="data-formatting-information" class="section level3">
+<h3>Data formatting information</h3>
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+Status
+</th>
+<th style="text-align:left;">
+Column headings
+</th>
+<th style="text-align:left;">
+Notes
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Required
+</td>
+<td style="text-align:left;">
+SiteID
+</td>
+<td style="text-align:left;">
+character (numeric or text)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Date Time
+</td>
+<td style="text-align:left;">
+“Date Time” (one field) OR “Date” AND “Time” (in 2 separate fields) OR all 3 (in 3 fields); prefer 24H time (military); YYYY-MM-DD is recommended but not required
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+As available
+</td>
+<td style="text-align:left;">
+Air Temp C
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Water Temp C
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Air BP psi
+</td>
+<td style="text-align:left;">
+barometric pressure (BP)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Water P psi
+</td>
+<td style="text-align:left;">
+water pressure (P)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Sensor Depth ft
+</td>
+<td style="text-align:left;">
+differs from Water Level in that it is not generated with a reference water level measurement
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Water Level ft
+</td>
+<td style="text-align:left;">
+generated with a reference water level (which relates water level to a fixed point)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Discharge ft3/s
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Conductivity uS/cm
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+DO mg/L
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+DO adj mg/L
+</td>
+<td style="text-align:left;">
+DO adjusted for salinity (HOBOware)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+DO pctsat %
+</td>
+<td style="text-align:left;">
+% saturation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+pH SU
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Turbidity NTU
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Chlorophylla g/cm3
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Optional
+</td>
+<td style="text-align:left;">
+Air LoggerID
+</td>
+<td style="text-align:left;">
+unique identifier (e.g., serial number)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Water LoggerID
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Water RowID
+</td>
+<td style="text-align:left;">
+sequential number (1=first measurement; largest number = last measurement)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Air RowID
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Discrete Water Temp C
+</td>
+<td style="text-align:left;">
+Discrete (in situ) measurements can be entered into the row of the CSV file where the date/time of the sensor measurement most closely matches with the date/time of the field measurement; the data point(s) will be overlaid onto the time series plot in the QC report so that the user can visually check the correspondence between the two. Discrete entries can be made for any of the parameters listed above (not just temperature and water level)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Discrete Air Temp C
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Discrete Water Level ft
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
