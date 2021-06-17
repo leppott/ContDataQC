@@ -17,44 +17,6 @@ if(boo_DEBUG==TRUE){
 }## IF ~ boo_DEBUG ~ END
 ```
 
-# Instructions
+# R console output
 
-TEMPLATE 
-[here](PUT HYPERLINK HERE).
-
-## Subheading
-
-Bullets:
-
-* Bullet 1
-* Bullet 2
-
-### Table 1. Table Name.
-```{r table_1}
-library(readxl)
-library(knitr)
-library(kableExtra)
-# state directories
-table.dir <- "tables"
-table.file <- "Instruction_Tables.xlsx"
-tab1.dir <- "Instr_table2"
-
-table1 <- read_excel(file.path(table.dir, table.file), sheet = tab1.dir
-                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
-                     , col_names = TRUE)  
-
-# kable(table1)
-table1 %>% 
-  kbl() %>% 
-  kable_styling(full_width = F, position = "left")
-```
-
-
-
-1. Numbers
-    + Point 1
-    + Point 2 
-
-2. Numbers
-
-3. Numbers
+This panel shows messages output by the QC, aggregating, summarizing, and USGS data retrieval processes. If there are any errors when the tool runs, please copy the messages and send them and your input files to Erik Leppo (Erik.Leppo@tetratech.com).
