@@ -13,7 +13,7 @@
 <li>If you’re using the default configuration file, column names must match the capitalization, spelling and symbology shown in the table below (for example, R will not recognize ‘sensor depth ft’; it needs to be ‘Sensor Depth ft’)</li>
 <li>You can have either periods or spaces in the column headings. For example, in the table below, air temperature is shown as ‘‘Air Temp C’ but it can also be entered as ‘Air.Temp.C’.</li>
 <li>In the table below, there are slashes in some of the units (like mg/L); instead of slashes, you can also use spaces or periods (e.g., DO.mg.L or DO mg L). Do NOT use parentheses.</li>
-<li>Additional variables (beyond the ones show in the table below) can be added by modifying the configuration file; this requires more advanced R skills.</li>
+<li>Additional variables (beyond the ones show in the table below) can be added by modifying the <a href="https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Formatting_Files">configuration file</a>; this requires more advanced R skills.</li>
 <li>Optional fields include rowID, logger ID (serial number) and discrete measurements. Discrete (in situ) measurements can be entered for any parameter (just add ‘Discrete’ to the beginning of the column heading; for example, ‘Discrete Air Temp C’). The discrete data point will be included in the time series plots that are generated when the user runs the QC function.</li>
 </ul>
 <p>If you are using Onset HOBO sensors, you can save time by using the automated reformat function (<strong>see HOBO Reformat section</strong>)</p>
