@@ -19,27 +19,27 @@
 tab_1Overview   <- source("external/tab_1Overview.R", local = TRUE)$value
 tab_2DataPrep   <- source("external/tab_2DataPrep.R", local = TRUE)$value
 tab_3QCThresh   <- source("external/tab_3QCThresh.R", local = TRUE)$value
-tab_4MainFunc     <- source("external/tab_4MainFunc.R", local = TRUE)$value
-tab_5USGSgage <- source("external/tab_5USGSgage.R", local = TRUE)$value
-tab_6Console  <- source("external/tab_6Console.R", local = TRUE)$value
-tab_7TestData  <- source("external/tab_7TestData.R", local = TRUE)$value
-tab_8FAQ      <- source("external/tab_8FAQ.R", local = TRUE)$value
-tab_9Status    <- source("external/tab_9Status.R", local = TRUE)$value
+tab_4MainFunc   <- source("external/tab_4MainFunc.R", local = TRUE)$value
+tab_5USGSgage   <- source("external/tab_5USGSgage.R", local = TRUE)$value
+tab_6Console    <- source("external/tab_6Console.R", local = TRUE)$value
+tab_7TestData   <- source("external/tab_7TestData.R", local = TRUE)$value
+tab_8FAQ        <- source("external/tab_8FAQ.R", local = TRUE)$value
+tab_9Status     <- source("external/tab_9Status.R", local = TRUE)$value
 
 
 shinyUI(
   # VERSION ----
   navbarPage("Continuous data QC, summary, and statistics - v2.0.5.9091",
-             theme= shinytheme("spacelab"),
-             tab_1Overview(),
-             tab_2DataPrep(),
-             tab_3QCThresh(),
-             tab_4MainFunc(),
-             tab_5USGSgage(),
-             tab_6Console(),
-             tab_7TestData(),
-             tab_8FAQ(),
-             tab_9Status()
+             theme= shinytheme("spacelab")
+             ,tab_1Overview()
+             ,tab_2DataPrep()
+             ,tab_3QCThresh()
+             ,tab_4MainFunc()
+             ,tab_5USGSgage()
+             ,tab_6Console()
+             ,tab_7TestData()
+             ,tab_8FAQ()
+             ,tab_9Status()
 
   )## navbarPage ~ END
 )## shinyUI ~ END

@@ -46,15 +46,6 @@ function(){
                tabsetPanel(type="tabs",
                            ## _Instruct, text ----
                            tabPanel("Run functions",
-
-                           ) # tabPanel ~END
-
-                           , tabPanel("Check input file",
-
-                           ) # tabPanel ~END
-
-                           , tabPanel("Outputs",
-
                                     h3("Summary tables of input files", align = "center"),
                                     br(),
 
@@ -84,7 +75,11 @@ function(){
                                     #for the Aggregate process
                                     h4(textOutput("moreThanOneSite"))
 
-                           )# tabPanel ~END
+                           ) # tabPanel ~END
+
+                           , tabPanel("Check input file",
+
+                           ) # tabPanel ~END
                ) # tabsetPanel ~ END
              ) # mainPanel ~ END
            ) # sidebarLayout ~ END

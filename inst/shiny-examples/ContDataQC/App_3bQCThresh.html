@@ -1,0 +1,33 @@
+
+
+
+<div id="customizing-qc-flag-test-thresholds" class="section level1">
+<h1>Customizing QC flag test thresholds</h1>
+<p>We strongly encourage people with one or more years of continuous data to evaluate the performance of the QC test thresholds for each parameter at each site and customize the configuration file as needed.</p>
+<p>You should also consider what units you’d like to use. If you are working with lakes and prefer to use meters over feet, click <a href="https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Custom_QC_Files">here</a> to download a default configuration file that has been converted to meters.</p>
+<div id="evaluating-threshold-performance" class="section level3">
+<h3>Evaluating threshold performance</h3>
+<p>How does one evaluate the performance of the QC tests? This video shows the approach we’ve been using most recently - <strong>will send link later</strong></p>
+<p>One of our lake RMN collaborators, Tim Martin from Minnesota DNR, has also developed a R script to help with threshold evaluation. Click <a href="https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Custom_QC_Files">here</a> to download his R script.</p>
+</div>
+<div id="customizing-and-uploading-the-customized-configuration-file" class="section level3">
+<h3>Customizing and uploading the customized configuration file</h3>
+<p>Instructions</p>
+<ol style="list-style-type: decimal">
+<li>Click <a href="https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Custom_QC_Files">here</a> to download the default configuration file (hydrologic units = feet)</li>
+<li>Open the file in R or Notepad (R is easier but both programs should work)</li>
+<li>Navigate to the ‘QC tests and calculations’ section of the code
+<ul>
+<li>Tip: you can quickly do this by clicking on the QC test section of the document outline – this is demonstrated in the video below)</li>
+</ul></li>
+<li>Change the thresholds in the appropriate places</li>
+<li>Save the file in the R_ConfigurationFiles folder for the appropriate site. Include the SiteID in the file name along with other relevant information (for example, if you customized the file for a particular season (winter vs summer), include the season in the file name; and/or if it is intended to be used for a particular depth or layer in a lake (top, middle or bottom), it is helpful to include that information in the file name as well).</li>
+<li>Click the ‘Browse’ button (in this tab, to the left) and select the appropriate customized configuration file from the R_ConfigurationFiles folder. The status bar will tell you when the file has been uploaded. A new button will appear that gives you the option of returning to the default configuration file. Do not click this unless you change your mind and no longer want to use the customized file.</li>
+<li>Go to the ‘Main Functions’ tab; select the desired input file(s); run them through the QC function.</li>
+<li>Save the output to the desired location. Open the Word or html QC report and scroll to the ‘Thresholds, Quick Reference’ table (in the middle section of the report). Verify that the correct thresholds were used.</li>
+</ol>
+<p>Be aware that each time you close and reopen the Shiny app, it will automatically revert back to the default configuration file. Also – remember the sequencing! If you forget to upload the customized configuration file prior to running the QC function, it will use the default thresholds.</p>
+<p>This video demonstrates the steps described above – <strong>will send link later</strong></p>
+<p>If you have questions and/or need assistance with the file customization, contact Jen Stamp (<a href="mailto:Jen.Stamp@tetratech.com" class="email">Jen.Stamp@tetratech.com</a>).</p>
+</div>
+</div>

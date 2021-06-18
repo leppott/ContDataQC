@@ -11,14 +11,7 @@ function() {
             )## tabPanel ~ CURRENT ~ END
 
             , tabPanel("Custom"
-                       , h4("Custom", align = "Center")
-                       , p("You can upload custom QC thresholds here.
-                                 Please use",
-                           a("this ", target="_blank", href="Config_Template.zip"),
-                           "configuration document as a template.")
-                       , p("Once you have made your changes to the configuration file, upload them below.
-                                 You will have the option to return to the default configuration after you upload your custom file.
-                                 Note that if the newenv() line (33) does not stay commented out it will not work.")
+                       , includeHTML("App_3bQCThresh.html")
                        , br()
                        #Tool tip code from https://stackoverflow.com/questions/16449252/tooltip-on-shiny-r
                        , tags$div(title="Select R configuration file to upload here",
