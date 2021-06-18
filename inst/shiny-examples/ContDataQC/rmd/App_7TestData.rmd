@@ -19,14 +19,9 @@ if(boo_DEBUG==TRUE){
 
 # Test Data
 
-Click here to access a folder with test data. The table below lists data that are currently available.
+Click [here](https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/TestData_Files) to access a folder with test data. The table below lists data that are currently available.
 
-TEMPLATE 
-[here](PUT HYPERLINK HERE).
-
-
-
-### Test Data
+### Test data and descriptions
 ```{r table_1}
 library(readxl)
 library(knitr)
@@ -47,14 +42,14 @@ table7 %>%
   kable_styling(full_width = F, position = "left")
 ```
 
-You’ll see two sets of folders: 
+**You’ll see two sets of folders:** 
 
-* TestData 
+* **TestData** 
   + These files are ready for you to run through the Shiny app or R package. Start with the CSV files in the Data0_Original folder.
   + If you want to try using HOBOware, you can find HOBOware data files in the ‘HOBOware files’ folder. If you don’t have access to HOBOware and are working with temperature data alone, you can try downloading the free version of HOBOware and it might work (https://www.onsetcomp.com/hoboware-free-download/). Otherwise you’ll need to purchase HOBOware Pro. 
-* CompletedRuns
+* **CompletedRuns**
   + This folder has the complete set of outputs for each of the Test datasets. Outputs are in the Data1_RAW through Data4_SumStats folders. We included these outputs for people who want to see examples of the QC reports and other outputs without having to run the data through the tool themselves. If you try using the R tool with the test data, you might want to reference these files to verify that the outputs you generated during your test run(s) were complete.
 
 We’ll post more test files as they become available. So far our focus has been on the temperature and hydrologic data being collected at Regional Monitoring Networks (RMNs) sites, along with the dissolved oxygen data being collected in lakes. You may also notice that a lot of our test data are from Onset HOBO sensors. This is not an endorsement of HOBO sensors. Rather it’s a reflection of the fact that many of our partners are using HOBO sensors. We’re happy to add test data for other parameters (like conductivity and pH) and other sensor types to the test data folder. Please send your files to Jen Stamp (Jen.Stamp@tetratech.com).
 
-This video provides an overview of the workflow you’ll follow when you do the test runs: will send link later
+This video provides an overview of the workflow you’ll follow when you do the test runs: **will send link later**

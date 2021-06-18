@@ -1,0 +1,115 @@
+
+
+
+<div id="test-data" class="section level1">
+<h1>Test Data</h1>
+<p>Click <a href="https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/TestData_Files">here</a> to access a folder with test data. The table below lists data that are currently available.</p>
+<div id="test-data-and-descriptions" class="section level3">
+<h3>Test data and descriptions</h3>
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+File name
+</th>
+<th style="text-align:left;">
+Waterbody type
+</th>
+<th style="text-align:left;">
+Parameter(s)
+</th>
+<th style="text-align:left;">
+Sensor type
+</th>
+<th style="text-align:left;">
+Data description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Hunting_AWTemp
+</td>
+<td style="text-align:left;">
+Stream
+</td>
+<td style="text-align:left;">
+Water and air temperature
+</td>
+<td style="text-align:left;">
+Onset HOBO U22 (Pro v2)
+</td>
+<td style="text-align:left;">
+Air and water temperature were collected with separate sensors but brought together into one file in HOBOware
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+QB283_AWTempWaterLevel
+</td>
+<td style="text-align:left;">
+Stream
+</td>
+<td style="text-align:left;">
+Water and air temperature, water and air pressure, water level
+</td>
+<td style="text-align:left;">
+Onset HOBO U20
+</td>
+<td style="text-align:left;">
+Data from two non vented pressure transducers (one on land, one in the water) were brought together in HOBOware Pro to generate water level
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RUSS_WTempMultiDepth
+</td>
+<td style="text-align:left;">
+Lake
+</td>
+<td style="text-align:left;">
+Water temperature
+</td>
+<td style="text-align:left;">
+Onset HOBO U22 (Pro v2)
+</td>
+<td style="text-align:left;">
+Temperature sensors were deployed throughout the water column (at 1-m intervals). This dataset include temperature data for multiple depths
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RUSS_DO
+</td>
+<td style="text-align:left;">
+Lake
+</td>
+<td style="text-align:left;">
+Dissolved oxygen
+</td>
+<td style="text-align:left;">
+Onset HOBO U26
+</td>
+<td style="text-align:left;">
+DO sensor data for a single depth
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>You’ll see two sets of folders:</strong></p>
+<ul>
+<li><strong>TestData</strong>
+<ul>
+<li>These files are ready for you to run through the Shiny app or R package. Start with the CSV files in the Data0_Original folder.</li>
+<li>If you want to try using HOBOware, you can find HOBOware data files in the ‘HOBOware files’ folder. If you don’t have access to HOBOware and are working with temperature data alone, you can try downloading the free version of HOBOware and it might work (<a href="https://www.onsetcomp.com/hoboware-free-download/" class="uri">https://www.onsetcomp.com/hoboware-free-download/</a>). Otherwise you’ll need to purchase HOBOware Pro.</li>
+</ul></li>
+<li><strong>CompletedRuns</strong>
+<ul>
+<li>This folder has the complete set of outputs for each of the Test datasets. Outputs are in the Data1_RAW through Data4_SumStats folders. We included these outputs for people who want to see examples of the QC reports and other outputs without having to run the data through the tool themselves. If you try using the R tool with the test data, you might want to reference these files to verify that the outputs you generated during your test run(s) were complete.</li>
+</ul></li>
+</ul>
+<p>We’ll post more test files as they become available. So far our focus has been on the temperature and hydrologic data being collected at Regional Monitoring Networks (RMNs) sites, along with the dissolved oxygen data being collected in lakes. You may also notice that a lot of our test data are from Onset HOBO sensors. This is not an endorsement of HOBO sensors. Rather it’s a reflection of the fact that many of our partners are using HOBO sensors. We’re happy to add test data for other parameters (like conductivity and pH) and other sensor types to the test data folder. Please send your files to Jen Stamp (<a href="mailto:Jen.Stamp@tetratech.com" class="email">Jen.Stamp@tetratech.com</a>).</p>
+<p>This video provides an overview of the workflow you’ll follow when you do the test runs: <strong>will send link later</strong></p>
+</div>
+</div>
