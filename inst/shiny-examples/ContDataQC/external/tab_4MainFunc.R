@@ -45,39 +45,33 @@ function(){
 
                tabsetPanel(type="tabs",
                            ## _Instruct, text ----
-                           tabPanel("Run functions",
-                                    h3("Summary tables of input files", align = "center"),
-                                    br(),
-
-                                    p("After uploading data, confirm that the table below is showing
-                                                 the expected values"),
-
-                                    # #FOR TESTING ONLY. Outputs testing text
-                                    # textOutput(paste("testText")),
-
-                                    #Shows an empty table until files are input
-                                    tableOutput("nullTable1"),
-                                    tableOutput("nullTable2"),
-
-                                    #Outputs the table with properties of the input spreadsheets,
-                                    #and a testing table of the beginning of the spreadsheets
-                                    tableOutput("summaryTable1"),
-                                    tableOutput("summaryTable2"),
-
-                                    br(),
-
-                                    #Shows a note if the user uploads non-QCed data and selects
-                                    #the Aggregate or Summarize processes
-                                    h4(textOutput("aggUnQCedData")),
-                                    h4(textOutput("summUnQCedData")),
-
-                                    #Shows a note if spreadsheets with multiple sites are selected
-                                    #for the Aggregate process
-                                    h4(textOutput("moreThanOneSite"))
-
+                           tabPanel("Run functions"
+                                    , includeHTML("App_4aMainFunc.html")
+                                    , img(src = "Fig_Rpackage_v1_20210617.png"
+                                          , height = 500, width = 800)
                            ) # tabPanel ~END
 
-                           , tabPanel("Check input file",
+                           , tabPanel("Check input file"
+                                      , includeHTML("App_4bMainFunc.html"),
+                                      #Shows an empty table until files are input
+                                      tableOutput("nullTable1"),
+                                      tableOutput("nullTable2"),
+
+                                      #Outputs the table with properties of the input spreadsheets,
+                                      #and a testing table of the beginning of the spreadsheets
+                                      tableOutput("summaryTable1"),
+                                      tableOutput("summaryTable2"),
+
+                                      br(),
+
+                                      #Shows a note if the user uploads non-QCed data and selects
+                                      #the Aggregate or Summarize processes
+                                      h4(textOutput("aggUnQCedData")),
+                                      h4(textOutput("summUnQCedData")),
+
+                                      #Shows a note if spreadsheets with multiple sites are selected
+                                      #for the Aggregate process
+                                      h4(textOutput("moreThanOneSite"))
 
                            ) # tabPanel ~END
                ) # tabsetPanel ~ END

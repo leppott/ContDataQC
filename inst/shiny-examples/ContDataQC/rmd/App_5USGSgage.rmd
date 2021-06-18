@@ -18,43 +18,10 @@ if(boo_DEBUG==TRUE){
 ```
 
 # Instructions
+You can download data from USGS gages on this tab.
 
-TEMPLATE 
-[here](PUT HYPERLINK HERE).
+1. Enter as many USGS station IDs as you like separated by commas and spaces (e.g., 01187300, 01493000, 01639500).
+2. Enter a starting and ending date for which data will be retrieved for each station; the same date range will be used for every station.
+3. Click the 'Retrieve USGS data' button. A progress bar will appear in the bottom-right of the tab. It will advance as each file is completed. Thus, if you select three stations, it will wait at 0%, jump to 33%, jump to 66%, and then jump to 100%.
+4. After data retrieval completes, a download button will appear. Click the button to download a zip file of all station records. Where the files will download on your computer depends on the configuration of your internet browser.
 
-## Subheading
-
-Bullets:
-
-* Bullet 1
-* Bullet 2
-
-### Table 1. Table Name.
-```{r table_1}
-library(readxl)
-library(knitr)
-library(kableExtra)
-# state directories
-table.dir <- "tables"
-table.file <- "Instruction_Tables.xlsx"
-tab1.dir <- "Instr_table2"
-
-table1 <- read_excel(file.path(table.dir, table.file), sheet = tab1.dir
-                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
-                     , col_names = TRUE)  
-
-# kable(table1)
-table1 %>% 
-  kbl() %>% 
-  kable_styling(full_width = F, position = "left")
-```
-
-
-
-1. Numbers
-    + Point 1
-    + Point 2 
-
-2. Numbers
-
-3. Numbers

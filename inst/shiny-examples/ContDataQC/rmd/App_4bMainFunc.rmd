@@ -1,0 +1,25 @@
+---
+title: "Main Functions 4b"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if(boo_DEBUG==TRUE){
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+# Check input file before running the QC function
+
+After uploading the input file(s), check the summary table to see what parameters are in the uploaded files. Ensure that all the desired parameters are present before running the QC function.
+
+Note: sometimes people have a mix of correct and incorrect column headings in the input file. When this happens, R does not give you an error message. It only carries forward the parameters that have the correct column headings and leaves the others blank. That is why checking this summary table is important.
+
