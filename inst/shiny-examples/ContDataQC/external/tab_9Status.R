@@ -6,5 +6,4 @@ function() {
            , includeHTML("App_9Status.html")
 
   )# tabPanel ~ END
-
 }## FUNCTION ~ END

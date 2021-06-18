@@ -9,5 +9,4 @@ function() {
            ,tags$b(textOutput("logTextMessage"))
 
   ) ## tabPanel ~ Adv Feat ~ END
-
 }## FUNCTION ~ END
