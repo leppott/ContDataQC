@@ -23,7 +23,7 @@ if(boo_DEBUG==TRUE){
 
 A: No, only internet access is required.
 
-**Q: I have slow internet speed. Is there a way to run the Shiny app off my local computer to speed things up?** 
+**Q: I have slow internet speed. Is there a way to run the Shiny app off my local computer to speed things up?**
 
 A: Yes, if you have R software installed on your computer, you can run ContDataQC as a Shiny app on your local computer and it will likely be faster.
 
@@ -37,31 +37,23 @@ A: Your input file may not be formatted correctly. Start by checking that. If yo
 
 **Q: Is there a size limit on how big a file (or files) I can upload?**
 
-A: Not that we’re aware of  but we’re still in a learning phase and will rely on testers like yourself to let us know if files above a certain size won’t work.
+A: The limit is currently set to 70 MB but we can increase that if needed (just email Erik Leppo (Erik.Leppo@tetratech.com) with your request). 
 
 **Q: What's the limit on the number of spreadsheets I can upload?**
 
-A: No limit is known at this point . If you encounter a limit, please let us know.
-
-**Q: How long does it take for the website to process uploaded files?**
-
-A: Of the QC, aggregate, and summarize processes, QCing takes the longest and it should not take more than a minute or two per 5000 records being processed.  
-
-**Q: Why does the progress bar stay still for awhile then jump ahead to completion?**
-
-A: It's a result of how the website processes uploaded files. The progress bar does not move until after each file is completed. Thus, if only one file is uploaded, the progress bar goes from 0% to 100% in one jump. If three files are uploaded, the bar jumps from 0% to 33% to 66% to 100% as each file is completed. Think of the progress bar as showing which file the website is currently processing, not as the actual progress towards processing each file. 
+A: There is no limit but the more files you run at once, the longer the processing time. We find it’s often faster and easier to run smaller batches (for example, 4 smaller batches of 1 to 5 files versus 20 files all at once) but it’s up to the user.
 
 **Q: Can other people download my files from the website?**
 
-A: No, that shouldn’t be possible. As soon as you upload a new set of data or close the tab in which you are viewing the website, all of your files (inputs, outputs, USGS data) should be deleted. If you do somehow get someone else's data (instead of or in addition to your own), please contact Erik Leppo (Erik.Leppo@tetratech.com).
+A:  No, each time the application is run it is independent from all other versions.  That is, each user has their own copy of the app.  Once the browser is closed that version is removed from the server along with all of the uploaded data.
 
 **Q: Can multiple people use this website simultaneously?**
 
-A: Yes, now that it is on a Shiny server, multiple people should be able to use it at the same time .
+A: Yes, now that it is on a Shiny server, multiple people can use it at the same time.
 
 **Q: Can I use this website on my phone?**
 
-A: Mobile use of this app is untested. Please let us know how it goes. Just remember that internet access is required.
+A: Mobile use of this app is possible.  A tablet should be fine but the screen size of a phone may make it impractical. Please let us know how it goes. Just remember that internet access is required.
 
 **Q: What if I run the aggregate function on input files with overlapping date ranges? Are all records (even duplicates) included in the output?**
 
@@ -87,10 +79,11 @@ A: Not at this time. Currently, all USGS gages you enter will have data download
 
 A: For lakes, we’re working on the LakeMonitoR R package and Shiny app (funded by EPA ORD and Shane Bowe from Red Lake via a BIA grant).
 
-R package - https://github.com/leppott/LakeMonitoR
+R package - https://leppott.github.io/LakeMonitoR/
 
 Shiny app - https://tetratech-wtr-wne.shinyapps.io/LakeMonitoR/
 
-**We don’t have anything available for streams yet but hope to by sometime in 2022 (if resources permit).**
+**We don’t have anything available for streams yet but hope to by sometime in 2022.**
+
 
 

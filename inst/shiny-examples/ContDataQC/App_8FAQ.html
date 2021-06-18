@@ -12,19 +12,15 @@
 <p><strong>Q: Why isn’t my spreadsheet processing? The screen grays out and says ‘disconnected from the server’.</strong></p>
 <p>A: Your input file may not be formatted correctly. Start by checking that. If you don’t find anything, send your input file(s) and a copy of your error message to Erik Leppo (<a href="mailto:Erik.Leppo@tetratech.com" class="email">Erik.Leppo@tetratech.com</a>) and we’ll do our best to help you troubleshoot. It could also be the Shiny app. Sometimes after we fix or update one thing, something else stops working, or R software makes an update which throws something in our code off.</p>
 <p><strong>Q: Is there a size limit on how big a file (or files) I can upload?</strong></p>
-<p>A: Not that we’re aware of but we’re still in a learning phase and will rely on testers like yourself to let us know if files above a certain size won’t work.</p>
+<p>A: The limit is currently set to 70 MB but we can increase that if needed (just email Erik Leppo (<a href="mailto:Erik.Leppo@tetratech.com" class="email">Erik.Leppo@tetratech.com</a>) with your request).</p>
 <p><strong>Q: What’s the limit on the number of spreadsheets I can upload?</strong></p>
-<p>A: No limit is known at this point . If you encounter a limit, please let us know.</p>
-<p><strong>Q: How long does it take for the website to process uploaded files?</strong></p>
-<p>A: Of the QC, aggregate, and summarize processes, QCing takes the longest and it should not take more than a minute or two per 5000 records being processed.</p>
-<p><strong>Q: Why does the progress bar stay still for awhile then jump ahead to completion?</strong></p>
-<p>A: It’s a result of how the website processes uploaded files. The progress bar does not move until after each file is completed. Thus, if only one file is uploaded, the progress bar goes from 0% to 100% in one jump. If three files are uploaded, the bar jumps from 0% to 33% to 66% to 100% as each file is completed. Think of the progress bar as showing which file the website is currently processing, not as the actual progress towards processing each file.</p>
+<p>A: There is no limit but the more files you run at once, the longer the processing time. We find it’s often faster and easier to run smaller batches (for example, 4 smaller batches of 1 to 5 files versus 20 files all at once) but it’s up to the user.</p>
 <p><strong>Q: Can other people download my files from the website?</strong></p>
-<p>A: No, that shouldn’t be possible. As soon as you upload a new set of data or close the tab in which you are viewing the website, all of your files (inputs, outputs, USGS data) should be deleted. If you do somehow get someone else’s data (instead of or in addition to your own), please contact Erik Leppo (<a href="mailto:Erik.Leppo@tetratech.com" class="email">Erik.Leppo@tetratech.com</a>).</p>
+<p>A: No, each time the application is run it is independent from all other versions. That is, each user has their own copy of the app. Once the browser is closed that version is removed from the server along with all of the uploaded data.</p>
 <p><strong>Q: Can multiple people use this website simultaneously?</strong></p>
-<p>A: Yes, now that it is on a Shiny server, multiple people should be able to use it at the same time .</p>
+<p>A: Yes, now that it is on a Shiny server, multiple people can use it at the same time.</p>
 <p><strong>Q: Can I use this website on my phone?</strong></p>
-<p>A: Mobile use of this app is untested. Please let us know how it goes. Just remember that internet access is required.</p>
+<p>A: Mobile use of this app is possible. A tablet should be fine but the screen size of a phone may make it impractical. Please let us know how it goes. Just remember that internet access is required.</p>
 <p><strong>Q: What if I run the aggregate function on input files with overlapping date ranges? Are all records (even duplicates) included in the output?</strong></p>
 <p>A: Yes, the Shiny app will include all records, even the duplicates. It is up to the user to identify when these situations are occurring and remove the duplicate rows before running the files through the various functions.</p>
 <p><strong>Q: What if there are discrepancies between the SiteID and date ranges in the file name versus what’s in the actual file?</strong></p>
@@ -37,7 +33,7 @@
 <p>A: Not at this time. Currently, all USGS gages you enter will have data downloaded over the same time period.</p>
 <p><strong>Q: Are you working on a Shiny app that offers more options for data summary and visualization?</strong></p>
 <p>A: For lakes, we’re working on the LakeMonitoR R package and Shiny app (funded by EPA ORD and Shane Bowe from Red Lake via a BIA grant).</p>
-<p>R package - <a href="https://github.com/leppott/LakeMonitoR" class="uri">https://github.com/leppott/LakeMonitoR</a></p>
+<p>R package - <a href="https://leppott.github.io/LakeMonitoR/" class="uri">https://leppott.github.io/LakeMonitoR/</a></p>
 <p>Shiny app - <a href="https://tetratech-wtr-wne.shinyapps.io/LakeMonitoR/" class="uri">https://tetratech-wtr-wne.shinyapps.io/LakeMonitoR/</a></p>
-<p><strong>We don’t have anything available for streams yet but hope to by sometime in 2022 (if resources permit).</strong></p>
+<p><strong>We don’t have anything available for streams yet but hope to by sometime in 2022.</strong></p>
 </div>
