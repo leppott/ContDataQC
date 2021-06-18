@@ -7,10 +7,10 @@ function() {
           tabsetPanel(type = "tabs"
 
             , tabPanel("Default"
-              , h4("Default", align = "Center")
+                       , includeHTML("App_3aQCThresh.html")
             )## tabPanel ~ CURRENT ~ END
 
-            , tabPanel("Customize"
+            , tabPanel("Custom"
                        , h4("Custom", align = "Center")
                        , p("You can upload custom QC thresholds here.
                                  Please use",
