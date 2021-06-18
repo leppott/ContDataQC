@@ -2,8 +2,8 @@
 
 function() {
 
-  tabPanel("9. Status",
-           h3("Here is your status")
+  tabPanel("9. Status"
+           , includeHTML("App_9Status.html")
 
   )# tabPanel ~ END
 
