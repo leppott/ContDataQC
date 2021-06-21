@@ -22,7 +22,7 @@ function() {
                                   , multiple = TRUE
                                   , accept = ".csv"
                                   , width = "600px") # wider for long file names
-           )
+           )# tags$div ~ END
            ,selectInput("HOBO_DateFormat",
                         label = "Choose date format from HOBOware file",
                         choices = c("MDY"
@@ -33,12 +33,12 @@ function() {
            #Only shows the "Run operation" button after data are uploaded
            ,tags$div(title="Click to run selected operation (HOBO reformat)",
                      uiOutput('ui.runProcess_HOBO')
-           )
+           )# tags$div ~ END
            , br()
            #Only shows the "Download" button after the process has run
            ,tags$div(title="Click to download your data",
                      uiOutput('ui.downloadData_HOBO')
-           )
+           )# tags$div ~ END
   )## tabPanel ~ HOBO ~ END
 
 }## FUNCTION ~ END

@@ -1,0 +1,24 @@
+
+
+
+<div id="naming-files" class="section level1">
+<h1>Naming Files</h1>
+<p>It is important to follow the recommended naming scheme because the ContDataQC R code reads file names when processing data. For example, when using the HOBO reformat function, the R code pulls the SiteID from the first part of the file name, creates a SiteID column and populates that column with the part of the file name that precedes the first underscore.</p>
+<p>When using the Shiny app vs. R package, you have more flexibility with the naming scheme since you can browse to a specific input file, whereas the R package searches through multiple files in the same directory and runs the desired functions on the appropriate data files based on the file name.</p>
+<p>Another reason to use the recommended file naming scheme is because it keeps files well organized and easy to sort. For those using HOBO U20 water level loggers, it also makes matching air and water sensor files during the processing step easier and helps you identify gaps in the data.</p>
+<p>The recommended file naming scheme is:</p>
+<p><strong>SiteID_DataType_StartDate_EndDate</strong></p>
+<p>The four components are separated by underscores (“_”).</p>
+<p>Example: Hunting_Water_20130426_20130725</p>
+<ul>
+<li>Site ID (no spaces or underscores) = Hunting</li>
+<li>DataType: Air, Water, AW (air and water sensor data are combined into the same file), Gage</li>
+<li>Date, Start (YYYYMMDD) = 20130426</li>
+<li>Date, End (YYYYMMDD) = 20130725</li>
+</ul>
+<p>For multi-depth deployments (e.g., temperature sensors deployed at multiple depths at a lake), depth and units are added to the SiteID, separated by double-dashes as shown below -</p>
+<p>Example: RussWood–01M_TEMP_20130426_20130725</p>
+<p>Depth can include decimals (for example, 0.1M is ok) and does not need to include leading zeros (either 01M or 1M are acceptable). Units can be upper or lower case (M or m), and abbreviated (M) or spelled out (meters). You can change the double-dash separator if desired by customizing the <a href="https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Naming_Files">configuration file</a> (for example, you could change it to a tilde ~).</p>
+<p>If you are using the Shiny app and have more than one type of sensor deployed at the same depth (for example, both a DO and temperature sensor at 2M), you can put the sensor type in the second part of the file name (for example, DataType = TEMP, as shown in the example above, or DataType = DO).</p>
+<p>Below are examples of files that follow the recommended naming scheme.</p>
+</div>

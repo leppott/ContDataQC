@@ -1,0 +1,70 @@
+
+
+
+<div id="run-functions" class="section level1">
+<h1>Run Functions</h1>
+<p>The three main functions are listed in the drop-down menu under ‘Choose Operation to perform’</p>
+<ul>
+<li><strong>‘QC raw data’</strong> generates QC reports.</li>
+<li><strong>‘Aggregate QC’d data’</strong> merges the QC’d data files for the desired time periods together. The input files need to be from the same site and share common parameters.</li>
+<li><strong>‘Summary statistics’</strong> generates two sets of CSV files and a PDF with time series plots for each parameter. One of the CSVs has daily means and the other has a wider range of summary statistics (e.g., min, median, max, quartiles).</li>
+</ul>
+<p>ContDataQC works sequentially, meaning the user needs to run the QC function before running the Aggregate function, and the Aggregate function before the SummaryStats function. More detailed information on each function can be found below.</p>
+<p>This video provides an overview of the workflow: <strong>will send link later</strong></p>
+<p>Click <strong>here</strong> to download a PDF with instructions on how to set up Google Chrome so that it asks you where to save each file before downloading (which can be a big time-saver).</p>
+<div id="qc-reports" class="section level3">
+<h3>QC reports</h3>
+<p>Shiny app instructions</p>
+<ol style="list-style-type: decimal">
+<li>Click the ‘Browse’ button and select the input file(s) from the Data1_RAW folder. You can run multiple files at once. The status bar will tell you when the upload is complete.</li>
+<li>Select ‘QC Raw Data’ from the ‘Choose Operation to perform’ drop-down menu</li>
+<li>A ‘Run operation’ button will appear. Click this button. A status bar will appear in the lower right corner.</li>
+<li>After the function is done running, a ‘Download’ button will appear. Click this button.</li>
+<li>Save the zipped file in the Data2_QC folder.</li>
+<li>Open the QC reports. There are two types of outputs: a Data Quality Control Report that comes as either a Word document or Hypertext Markup Language (HTML) (the user specifies the desired format); and a comma-delimited (.csv) spreadsheet. The reports include results from the ‘flag’ tests (gross, spike, rate of change and flat line), missing data checks and time series plots.</li>
+<li>Review each set of files, check flagged data points, do visual checks on the time series plots, and decide if and how to make corrections.</li>
+</ol>
+<p>The Data Quality Control Report is organized into four main sections, starting with an overall summary followed by summaries for each parameter:</p>
+<ol style="list-style-type: decimal">
+<li>Data file information (siteID, date range, parameters, recording interval, QC test thresholds reference table)</li>
+<li>‘Count’ tables (# measurements/day) so that you can find inconsistencies (too few measurements (=missing data) or too many measurements)</li>
+<li>Results from the four ‘flag’ tests (gross, spike, rate of change and flat line) - # of entries marked as pass (P), suspect (S), fail (F), missing data (X) or not available (NA)</li>
+<li>Time series plots for each individual parameter and two sets of combined parameters (water and air temperature; water temperature and water level). It can also plot discrete/in situ values taken during site visits for accuracy checks (the discrete data points are overlaid on top of the sensor data). These are in situ measurements taken when people do field work and are used for calibration/validation of these continuous sensors</li>
+</ol>
+<p>The CSV file contains the time series data from the sensor plus additional data columns with flags for each test and parameter (e.g., Flag.Spike.Water.Temp.C, Flag.Flat.Water.Temp.C), comment fields for each parameter so that the user can document rationale for any changes (e.g., Comment.MOD.Water.Temp.C) and a duplicate set of the original ‘raw’ data values (e.g., RAW.Water.Temp.C). The ‘raw’ values are included in case the user decides to make corrections in the first set of data columns. It is important to maintain documentation of changes that are made when the user goes from “raw” to “quality controlled” versions. It also makes it easier for the user to go back at a later time and change how they handled a correction.</p>
+<p>Click <a href="https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Run_Functions_Files">here</a> to download an example output from the QC function for a HOBO temperature sensor file. It has a Word version of the Data Quality Control Report and the CSV output.</p>
+<p>This video provides tips on interpreting QC reports and deciding whether or not to make corrections: will send link later</p>
+<p>Currently there are no automated corrections programed into the QC function. The user must make the changes manually.</p>
+</div>
+<div id="aggregate" class="section level3">
+<h3>Aggregate</h3>
+<p>Shiny app instructions</p>
+<ol style="list-style-type: decimal">
+<li>Click the ‘Browse’ button and select the input files from the Data2_QC folder that you’d like to combine together. The status bar will tell you when the upload is complete.</li>
+<li>Select ‘Aggregate QC’d data’ from the ‘Choose Operation to perform’ drop-down menu</li>
+<li>A ‘Run operation’ button will appear. Click this button. A status bar will appear in the lower right corner.</li>
+<li>After the function is done running, a ‘Download’ button will appear. Click this button. Save the zipped file in the Data3_Aggregated folder.</li>
+<li>Save the zipped file in the Data3_Aggregated folder.</li>
+<li>Open and review the aggregated reports. As with the QC output, there are two types of outputs: a Data Quality Control Report that comes as either a Word document or Hypertext Markup Language (HTML) (the user specifies the desired format); and a comma-delimited (.csv) spreadsheet.</li>
+</ol>
+<p>Make sure the CSV file contains data for the desired time period before running it through the Summary statistics function.</p>
+<p>Click <a href="https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Run_Functions_Files">here</a> to download an example output from the aggregate function in which three years of temperature data (from multiple individual data files) were combined into one file.</p>
+</div>
+<div id="summary-statistics" class="section level3">
+<h3>Summary statistics</h3>
+<p>Shiny app instructions</p>
+<ol style="list-style-type: decimal">
+<li>Click the ‘Browse’ button and select the desired input file from the Data3_Aggregated folder. The status bar will tell you when the upload is complete.</li>
+<li>Select ‘Summary statistics’ from the ‘Choose Operation to perform’ drop-down menu</li>
+<li>A ‘Run operation’ button will appear. Click this button. A status bar will appear in the lower right corner.</li>
+<li>After the function is done running, a ‘Download’ button will appear. Click this button.</li>
+<li>Save the zipped file in the Data4_Stats folder.</li>
+<li>Open and review the summary statistics reports. There should be two sets of CSV files and a PDF with time series plots for each parameter. One of the CSVs has daily means and the other has a wider range of summary statistics (e.g., min, median, max, quartiles).</li>
+</ol>
+<p>Click <a href="https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Run_Functions_Files">here</a> to download an example output from the ‘summary statistics’ function in which three years of air and water temperature data were summarized.</p>
+</div>
+<div id="using-the-r-package" class="section level3">
+<h3>Using the R package</h3>
+<p>If you prefer using the R package vs. the Shiny app, we recommend reviewing the material on the GitHub site (<a href="https://github.com/leppott/ContDataQC" class="uri">https://github.com/leppott/ContDataQC</a>). The code for running the main functions can be copied and pasted from the Help file. After the user directs R to the correct directory, there are four places in the code where the user needs to make entries before running the QC function (see figure below).</p>
+</div>
+</div>
