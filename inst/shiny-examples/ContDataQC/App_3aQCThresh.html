@@ -1,0 +1,578 @@
+
+
+
+<div id="default-qc-flag-test-thresholds" class="section level1">
+<h1>Default QC flag test thresholds</h1>
+<p>Click <a href="https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Default_QC_Files">here</a> to download the default configuration file, which can be viewed in R or in Notepad.</p>
+<p>If a customized configuration file is not uploaded prior to running the QC function, the default thresholds and units listed below will be used for the four QC flag tests.</p>
+<p>The QC function runs each data point in the input file through the following four ‘flag’ tests.</p>
+<div id="flag-test-descriptions" class="section level3">
+<h3>Flag test descriptions</h3>
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+Flag Test
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Unrealistic values (‘Gross range’)
+</td>
+<td style="text-align:left;">
+Entries are flagged if values are above or below upper and lower limits
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Spikes
+</td>
+<td style="text-align:left;">
+Entries are flagged if adjacent points change by more than ‘x’ amount
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rate of change (RoC)
+</td>
+<td style="text-align:left;">
+Entries are flagged if the RoC exceeds a given threshold (e.g., = 3 st dev within 25 hrs)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Flat line
+</td>
+<td style="text-align:left;">
+Entries are flagged if a certain number of consecutive measurements are within a certain amount of each other (e.g., &gt;10 consecutive temperature measurements are within 0.01 degrees C of one another)
+</td>
+</tr>
+</tbody>
+</table>
+<p>The ‘flag’ tests were selected based on the following references:</p>
+<ul>
+<li><p>U.S. Integrated Ocean Observing System, 2017. Manual for the Use of Real-Time Oceanographic Data Quality Control Flags, Version 1.1. 43 pp. <a href="https://cdn.ioos.noaa.gov/media/2017/12/QARTOD-Data-Flags-Manual_Final_version1.1.pdf" class="uri">https://cdn.ioos.noaa.gov/media/2017/12/QARTOD-Data-Flags-Manual_Final_version1.1.pdf</a></p></li>
+<li><p>Wagner, R.J., Boulger, R.W., Oblinger, C.J., Smith, B.A., 2006. Guidelines and Standard Procedures for Continuous Water-quality Monitors: Station Operation, Record Computation, and Data Reporting. U.S. Geological Survey Techniques and Methods 1-D3, 51 pp. þ 8 attachments. <a href="http://pubs.water.usgs.gov/tm1d3" class="uri">http://pubs.water.usgs.gov/tm1d3</a>.</p></li>
+</ul>
+<p>R assigns the following flags to each data point:</p>
+<ul>
+<li>P = Pass</li>
+<li>S = Suspect</li>
+<li>F = Fail</li>
+<li>X = No Data or Not Applicable (NA)</li>
+</ul>
+<p>The default thresholds were developed for temperature and hydrologic data in cool, medium to high gradient stream RMN sites in the eastern US. However, we had very little data to go on at the time and we strongly encourage people with one or more years of continuous data at a site to evaluate the performance of the QC test thresholds for each parameter at each site and customize the configuration file as needed (for more information, see the ‘Customize QC flag test thresholds’ tab).</p>
+<p>Units are an important consideration as well. The default puts hydrologic parameters (like water level) in feet, which RMN partners generally seem to prefer for streams. However, with lakes, the RMN partners prefer to use meters. If units are changed from feet to meters but there isn’t a corresponding change in thresholds, the QC tests lose relevance.</p>
+<p>This table shows the default QC test thresholds for each parameter as of 6/17/2021.</p>
+</div>
+<div id="default-qc-test-thresholds" class="section level3">
+<h3>Default QC test thresholds</h3>
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameter
+</th>
+<th style="text-align:left;">
+Units
+</th>
+<th style="text-align:left;">
+Flag
+</th>
+<th style="text-align:left;">
+Gross
+</th>
+<th style="text-align:left;">
+Spike
+</th>
+<th style="text-align:left;">
+Rate of Change
+</th>
+<th style="text-align:left;">
+Flat Line
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Temperature, Water
+</td>
+<td style="text-align:left;">
+deg C
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+&gt;30 or &lt;-2
+</td>
+<td style="text-align:left;">
+=1.5 (±)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+&gt;30 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Suspect
+</td>
+<td style="text-align:left;">
+&gt;25 or &lt;-0.1
+</td>
+<td style="text-align:left;">
+=1.0 (±)
+</td>
+<td style="text-align:left;">
+=3 stdev within 25 hrs
+</td>
+<td style="text-align:left;">
+&gt;20 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Temperature, Air
+</td>
+<td style="text-align:left;">
+deg C
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+&gt;38 or &lt;-25
+</td>
+<td style="text-align:left;">
+=10 (±)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+&gt;20 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Suspect
+</td>
+<td style="text-align:left;">
+&gt;35 or &lt;-23
+</td>
+<td style="text-align:left;">
+=8 (±)
+</td>
+<td style="text-align:left;">
+=3 stdev within 25 hrs
+</td>
+<td style="text-align:left;">
+&gt;15 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sensor Depth or Water Level
+</td>
+<td style="text-align:left;">
+feet
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+&gt; 10^5 or &lt; -1
+</td>
+<td style="text-align:left;">
+=5 (±)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+&gt;60 consecutive measurements within 0 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Suspect
+</td>
+<td style="text-align:left;">
+&gt; 1000 or &lt; 1
+</td>
+<td style="text-align:left;">
+=3 (±)
+</td>
+<td style="text-align:left;">
+=3 stdev within 25 hrs
+</td>
+<td style="text-align:left;">
+&gt;20 consecutive measurements within 0 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Discharge
+</td>
+<td style="text-align:left;">
+ft3/s
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+&gt; 10^5 or &lt; -1
+</td>
+<td style="text-align:left;">
+=10^4 (±)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+&gt; 60 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Suspect
+</td>
+<td style="text-align:left;">
+&gt; 1000 or &lt; 1
+</td>
+<td style="text-align:left;">
+=10^3 (±)
+</td>
+<td style="text-align:left;">
+=3 stdev within 25 hrs
+</td>
+<td style="text-align:left;">
+&gt; 30 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dissolved oxygen
+</td>
+<td style="text-align:left;">
+mg/L
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+&gt; 20 or &lt; 1
+</td>
+<td style="text-align:left;">
+&gt;= 10 (±)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+&gt; 60 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Suspect
+</td>
+<td style="text-align:left;">
+&gt; 18 or &lt; 2
+</td>
+<td style="text-align:left;">
+&gt;= 5 (±)
+</td>
+<td style="text-align:left;">
+=3 stdev within 25 hrs
+</td>
+<td style="text-align:left;">
+&gt; 30 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Conductivity
+</td>
+<td style="text-align:left;">
+uS/cm
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+&gt; 1500 or &lt; 10
+</td>
+<td style="text-align:left;">
+&gt;= 10 (±)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+&gt; 60 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Suspect
+</td>
+<td style="text-align:left;">
+&gt;1200 or &lt; 20
+</td>
+<td style="text-align:left;">
+&gt;= 5 (±)
+</td>
+<td style="text-align:left;">
+=3 stdev within 25 hrs
+</td>
+<td style="text-align:left;">
+&gt; 30 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pH
+</td>
+<td style="text-align:left;">
+SU
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+&gt; 12 or &lt; 3
+</td>
+<td style="text-align:left;">
+&gt;= 10 (±)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+&gt; 60 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Suspect
+</td>
+<td style="text-align:left;">
+&gt; 11 or &lt; 4
+</td>
+<td style="text-align:left;">
+&gt;= 5 (±)
+</td>
+<td style="text-align:left;">
+=3 stdev within 25 hrs
+</td>
+<td style="text-align:left;">
+&gt; 30 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Turbidity
+</td>
+<td style="text-align:left;">
+NTU
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+&gt; 10^5 or &lt; -1
+</td>
+<td style="text-align:left;">
+=10^4 (±)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+&gt; 60 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Suspect
+</td>
+<td style="text-align:left;">
+&gt; 1000 or &lt; -1
+</td>
+<td style="text-align:left;">
+=10^3 (±)
+</td>
+<td style="text-align:left;">
+=3 stdev within 25 hrs
+</td>
+<td style="text-align:left;">
+&gt; 30 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pressure, Water
+</td>
+<td style="text-align:left;">
+psi
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+&gt;17 or &lt;13
+</td>
+<td style="text-align:left;">
+=0.7 (±)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+&gt;15 consecutive measurements within 0.001 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Suspect
+</td>
+<td style="text-align:left;">
+&gt;16.8 or &lt;13.5
+</td>
+<td style="text-align:left;">
+=0.5 (±)
+</td>
+<td style="text-align:left;">
+=3 stdev within 25 hrs
+</td>
+<td style="text-align:left;">
+&gt;10 consecutive measurements within 0.001 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Barometric Pressure, Air
+</td>
+<td style="text-align:left;">
+psi
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+&gt;15 or &lt;13
+</td>
+<td style="text-align:left;">
+=0.25 (±)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+&gt;15 consecutive measurements within 0.001 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Suspect
+</td>
+<td style="text-align:left;">
+&gt;14.8 or &lt;13
+</td>
+<td style="text-align:left;">
+=0.15 (±)
+</td>
+<td style="text-align:left;">
+=3 stdev within 25 hrs
+</td>
+<td style="text-align:left;">
+&gt;10 consecutive measurements within 0.001 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Chlorophyll a
+</td>
+<td style="text-align:left;">
+g/cm3
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+&gt; 10^5 or &lt; -1
+</td>
+<td style="text-align:left;">
+=10^4 (±)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+&gt; 60 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Suspect
+</td>
+<td style="text-align:left;">
+&gt; 1000 or &lt; -1
+</td>
+<td style="text-align:left;">
+=10^3 (±)
+</td>
+<td style="text-align:left;">
+=3 stdev within 25 hrs
+</td>
+<td style="text-align:left;">
+&gt; 30 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
