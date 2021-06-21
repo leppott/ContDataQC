@@ -3,9 +3,156 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-04-19 16:11:06
+    #> Last Update: 2021-06-21 16:41:56
 
 # Version History
+
+## v2.0.5.9109
+
+2021-06-21
+
+-   refactor: Consolidate Shiny app updates from pull request, Issue
+    \#126
+
+## v2.0.5.9108
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Final updates to section 7
+
+## v2.0.5.9107
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Beginning updates to section 7
+
+## v2.0.5.9106
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Updated section 8 text
+
+## v2.0.5.9105
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Updated text in section 9
+
+## v2.0.5.9104
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Updates to section 2 and section 3 - added sidebarpanels within
+        tabsets rather than at bottom of pages
+
+## v2.0.5.9103
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Updates sections 8 & 9.
+
+## v2.0.5.9102
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Updated section 4a, 4b, and 5.
+
+## v2.0.5.9101
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Updated 4a documents link
+
+## v2.0.5.9100
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Made final updates to section 3a code and began section 4 code
+        updates
+
+## v2.0.5.9099
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Updated 3b files
+
+## v2.0.5.9098
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Updated 3a section
+
+## v2.0.5.9097
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Updated tab 6 information
+
+## v2.0.5.9096
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Updated 2d HOBOware reformat
+
+## v2.0.5.9095
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Added 2c info to rmd and documents
+
+## v2.0.5.9094
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Updates to 2a and 2b text and data sources. Added files to
+        documents folder.
+
+## v2.0.5.9093
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Updated 2a text and created Documents folder
+
+## v2.0.5.9092
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   moved tab\_Reformat.R under tab\_2DataPrep subtab “Formatting
+        files”
+
+## v2.0.5.9091
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Update to ui.R subfiles - added all necessary new tab
+        structures.
+    -   Added content to tab\_1Overview using .rmd file.
+
+## v2.0.5.9090
+
+2021-06-18
+
+-   refactor: Update Shiny
+    -   Beginning updates in ui.R and subsequent code to accommodate
+        application changes.
 
 ## v2.0.5.9089
 
