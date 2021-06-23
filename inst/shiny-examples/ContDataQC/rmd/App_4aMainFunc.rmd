@@ -29,7 +29,7 @@ ContDataQC works sequentially, meaning the user needs to run the QC function bef
 
 This video provides an overview of the workflow: **will send link later**
 
-Click [here](https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Run_Functions_Files) to download a PDF with instructions on how to set up Google Chrome so that it asks you where to save each file before downloading (which can be a big time-saver).
+Click [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Run_Functions_Files) to download a PDF with instructions on how to set up Google Chrome so that it asks you where to save each file before downloading (which can be a big time-saver).
 
 ### QC reports
 Shiny app instructions
@@ -51,7 +51,7 @@ The Data Quality Control Report is organized into four main sections, starting w
 
 The CSV file contains the time series data from the sensor plus additional data columns with flags for each test and parameter (e.g., Flag.Spike.Water.Temp.C, Flag.Flat.Water.Temp.C), comment fields for each parameter so that the user can document rationale for any changes (e.g., Comment.MOD.Water.Temp.C) and a duplicate set of the original ‘raw’ data values (e.g., RAW.Water.Temp.C). The ‘raw’ values are included in case the user decides to make corrections in the first set of data columns. It is important to maintain documentation of changes that are made when the user goes from “raw” to “quality controlled” versions. It also makes it easier for the user to go back at a later time and change how they handled a correction.
 
-Click [here](https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Run_Functions_Files) to download an example output from the QC function for a HOBO temperature sensor file. It has a Word version of the Data Quality Control Report and the CSV output.
+Click [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Run_Functions_Files) to download an example output from the QC function for a HOBO temperature sensor file. It has a Word version of the Data Quality Control Report and the CSV output.
 
 This video provides tips on interpreting QC reports and deciding whether or not to make corrections: will send link later
 
@@ -70,7 +70,7 @@ Save the zipped file in the Data3_Aggregated folder.
 
 Make sure the CSV file contains data for the desired time period before running it through the Summary statistics function.
 
-Click [here](https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Run_Functions_Files) to download an example output from the aggregate function in which three years of temperature data (from multiple individual data files) were combined into one file.
+Click [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Run_Functions_Files) to download an example output from the aggregate function in which three years of temperature data (from multiple individual data files) were combined into one file.
 
 ### Summary statistics
 Shiny app instructions
@@ -82,7 +82,7 @@ Shiny app instructions
 5. Save the zipped file in the Data4_Stats folder.
 6. Open and review the summary statistics reports. There should be two sets of CSV files and a PDF with time series plots for each parameter. One of the CSVs has daily means and the other has a wider range of summary statistics (e.g., min, median, max, quartiles).
 
-Click [here](https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Run_Functions_Files) to download an example output from the ‘summary statistics’ function in which three years of air and water temperature data were summarized.
+Click [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Run_Functions_Files) to download an example output from the ‘summary statistics’ function in which three years of air and water temperature data were summarized.
 
 ### Using the R package
 If you prefer using the R package vs. the Shiny app, we recommend reviewing the material on the GitHub site (https://github.com/leppott/ContDataQC). The code for running the main functions can be copied and pasted from the Help file. After the user directs R to the correct directory, there are four places in the code where the user needs to make entries before running the QC function (see figure below).

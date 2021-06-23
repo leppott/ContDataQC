@@ -5,7 +5,7 @@ function(){
   tabPanel("5. Download USGS data"
            ,fluidRow(
              column(5,
-                    includeHTML("App_5USGSgage.html")
+                    includeHTML("www/App_5USGSgage.html")
              )# column ~ END
 
              ,column(5, offset = 1

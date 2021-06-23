@@ -4,7 +4,7 @@ function() {
 
   tabPanel("9. Status"
            , mainPanel(
-             includeHTML("App_9Status.html")
+             includeHTML("www/App_9Status.html")
 
            )## mainPanel ~ END
   )# tabPanel ~ END

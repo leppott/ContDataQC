@@ -3,9 +3,18 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-06-21 16:44:44
+    #> Last Update: 2021-06-23 09:41:10
 
 # Version History
+
+## v2.0.6.9002
+
+2021-06-23
+
+-   refactor: Updated app text
+-   refactor: Updated links to new documents repository
+    (ShinyAppDocuments)
+-   refactor: Changed location of .RMD files to ‘www’ folder
 
 ## v2.0.6
 

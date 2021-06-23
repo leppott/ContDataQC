@@ -19,7 +19,7 @@ if(boo_DEBUG==TRUE){
 
 # Default QC flag test thresholds
 
-Click [here](https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Default_QC_Files) to download the default configuration file, which can be viewed in R or in Notepad.
+Click [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Default_QC_Files) to download the default configuration file, which can be viewed in R or in Notepad.
 
 If a customized configuration file is not uploaded prior to running the QC function, the default thresholds and units listed below will be used for the four QC flag tests.
 

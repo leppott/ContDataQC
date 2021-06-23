@@ -6,7 +6,7 @@ function() {
         , mainPanel(
           tabsetPanel(type = "tabs"
             , tabPanel("Default"
-                       , includeHTML("App_3aQCThresh.html")
+                       , includeHTML("www/App_3aQCThresh.html")
             )## tabPanel ~ CURRENT ~ END
 
             , tabPanel("Custom"
@@ -27,7 +27,7 @@ function() {
                                      ,uiOutput('ui.defaultConfig'))
                          )# sidebarPanel~ END
                          , mainPanel(
-                           includeHTML("App_3bQCThresh.html")
+                           includeHTML("www/App_3bQCThresh.html")
                          ) ## mainPanel ~ END
                        )# sidebarLayout~ END
             )## tabPanel ~ Streams ~ END

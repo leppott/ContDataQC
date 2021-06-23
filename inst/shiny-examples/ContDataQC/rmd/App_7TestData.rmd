@@ -19,7 +19,7 @@ if(boo_DEBUG==TRUE){
 
 # Test Data
 
-Click [here](https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/TestData_Files) to access a folder with test data. The table below lists data that are currently available.
+Click [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/TestData_Files) to access a folder with test data. The table below lists data that are currently available.
 
 ### Test data and descriptions
 ```{r table_1}

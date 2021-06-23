@@ -47,13 +47,13 @@ function(){
 
                tabsetPanel(type="tabs"
                            ,tabPanel("Run functions"
-                                    , includeHTML("App_4aMainFunc.html")
+                                    , includeHTML("www/App_4aMainFunc.html")
                                     , img(src = "Fig_Rpackage_v1_20210617.png"
                                           , height = 500, width = 800)
                            ) # tabPanel ~END
 
                            , tabPanel("Check input file"
-                                      ,includeHTML("App_4bMainFunc.html")
+                                      ,includeHTML("www/App_4bMainFunc.html")
                                       #Shows an empty table until files are input
                                       ,tableOutput("nullTable1")
                                       ,tableOutput("nullTable2")

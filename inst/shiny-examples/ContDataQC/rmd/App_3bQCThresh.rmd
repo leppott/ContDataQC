@@ -21,18 +21,18 @@ if(boo_DEBUG==TRUE){
 
 We strongly encourage people with one or more years of continuous data to evaluate the performance of the QC test thresholds for each parameter at each site and customize the configuration file as needed. 
 
-You should also consider what units you’d like to use. If you are working with lakes and prefer to use meters over feet, click [here](https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Custom_QC_Files) to download a default configuration file that has been converted to meters. 
+You should also consider what units you’d like to use. If you are working with lakes and prefer to use meters over feet, click [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Custom_QC_Files) to download a default configuration file that has been converted to meters. 
 
 ### Evaluating threshold performance
 How does one evaluate the performance of the QC tests? 
 This video shows the approach we’ve been using most recently - **will send link later**
 
-One of our lake RMN collaborators, Tim Martin from Minnesota DNR, has also developed a R script to help with threshold evaluation. Click [here](https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Custom_QC_Files) to download his R script. 
+One of our lake RMN collaborators, Tim Martin from Minnesota DNR, has also developed a R script to help with threshold evaluation. Click [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Custom_QC_Files) to download his R script. 
 
 ### Customizing and uploading the customized configuration file
 Instructions
 
-1. Click [here](https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Custom_QC_Files) to download the default configuration file (hydrologic units = feet)
+1. Click [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Custom_QC_Files) to download the default configuration file (hydrologic units = feet)
 2. Open the file in R or Notepad (R is easier but both programs should work)
 3. Navigate to the ‘QC tests and calculations’ section of the code
     + Tip: you can quickly do this by clicking on the QC test section of the document outline – this is demonstrated in the video below)

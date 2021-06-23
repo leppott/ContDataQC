@@ -23,7 +23,7 @@ Not everyone has access to software and data management systems that can accommo
 
 If you don’t have a good file organization scheme, we recommend setting up folders as shown below as a starting point. Folders and files can be customized as you gain more experience. The files should be backed up regularly and accessible to other members of your data management team.
 
-Click [here](https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Organizing_Files) to download a zipped file with a ready-made set of (empty) folders. Simply put the file in the desired location, unzip it and then replace ‘SiteX’ with the appropriate site name.
+Click [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Organizing_Files) to download a zipped file with a ready-made set of (empty) folders. Simply put the file in the desired location, unzip it and then replace ‘SiteX’ with the appropriate site name.
 
 The Shiny app allows for more flexibility with the folder scheme than the R package. For example, you don’t need to name the folders exactly as shown below because you can browse to the desired input files and browse to save the output files to the desired location. However, if you decide to use the R package at some point, keeping the four ‘Data’ folders (Data0_Original, Data1_RAW, Data2_QC, Data3_Aggregated and Data4_Stats) will be important since the R code looks for and outputs files to these directories (although advanced R users can modify these default directories if desired). If you use the folder scheme below, it will give you more flexibility to go back and forth between using the R package and Shiny app.
 
