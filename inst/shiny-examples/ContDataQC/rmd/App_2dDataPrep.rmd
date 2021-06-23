@@ -37,10 +37,11 @@ Place the exported CSV file(s) into the Data0_Original folder.
 
 * Click the ‘Browse’ button and select the input file(s). You can run multiple files at once. The status bar will tell you when the upload is complete.
 * Select the Date format in your input file (options: YMD, MDY, DMY)
+  + Note: if you enter the wrong date format, the function will still run but your date field will be blank and you will not receive an error message. We recommend checking your output files to make sure the date field came through (as well as the other desired parameters; if those are not named correctly, they will be missing from the output file and you will not receive an error message).
 * Click the ‘Reformat HOBOware file(s)’ button; a status bar will appear in the lower right corner. 
 * After the function is done running, a ‘Download’ button will appear. Click this button.
 * Save the zipped file in the Data1_RAW folder
-  + Tip: Click here for instructions on how to set up Google Chrome so that it asks you where to save each file before downloading
+  + Tip: Click **here - will send later** for instructions on how to set up Google Chrome so that it asks you where to save each file before downloading
 * Your files are now ready to be run through the QC function!
 
 Click here to see a video demo: will provide link later 

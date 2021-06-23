@@ -8,8 +8,6 @@ function() {
 
                          , tabPanel("Organizing files"
                                     , includeHTML("App_2aDataPrep.html")
-                                    , img(src = "Fig_Organizing_v1_20210616.png"
-                                          , height = 600, width = 1000)
                          )## tabPanel ~ END
 
                          , tabPanel("Naming files"

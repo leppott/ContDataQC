@@ -6,11 +6,11 @@
 <p>Input files need to be formatted a specific way in order for the Shiny app and R package to work.</p>
 <p>Guidelines -</p>
 <ul>
-<li>Input files must be comma-delimited (CSV) (not a CSV UTF-8).</li>
+<li>Input files must be comma-delimited (CSV) (but not CSV UTF-8 files).</li>
 <li>The columns do not have to be in any specific order</li>
 <li>There are two required fields: SiteID; and Date and Time</li>
 <li>Acceptable entries for Date and Time are “Date Time” (one field) OR “Date” AND “Time” (in 2 separate fields) OR all 3 (in 3 fields)</li>
-<li>If you’re using the default configuration file, column names must match the capitalization, spelling and symbology shown in the table below (for example, R will not recognize ‘sensor depth ft’; it needs to be ‘Sensor Depth ft’)</li>
+<li>If you’re using the default <a href="https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Formatting_Files">configuration file</a>, column names must match the capitalization, spelling and symbology shown in the table below (for example, R will not recognize ‘sensor depth ft’; it needs to be ‘Sensor Depth ft’)</li>
 <li>You can have either periods or spaces in the column headings. For example, in the table below, air temperature is shown as ‘‘Air Temp C’ but it can also be entered as ‘Air.Temp.C’.</li>
 <li>In the table below, there are slashes in some of the units (like mg/L); instead of slashes, you can also use spaces or periods (e.g., DO.mg.L or DO mg L). Do NOT use parentheses.</li>
 <li>Additional variables (beyond the ones show in the table below) can be added by modifying the <a href="https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Formatting_Files">configuration file</a>; this requires more advanced R skills.</li>

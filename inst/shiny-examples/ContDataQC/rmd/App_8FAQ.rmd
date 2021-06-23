@@ -83,7 +83,7 @@ R package - https://leppott.github.io/LakeMonitoR/
 
 Shiny app - https://tetratech-wtr-wne.shinyapps.io/LakeMonitoR/
 
-**We don’t have anything available for streams yet but hope to by sometime in 2022.**
+We don’t have anything available for streams yet but hope to by sometime in 2022.
 
 
 

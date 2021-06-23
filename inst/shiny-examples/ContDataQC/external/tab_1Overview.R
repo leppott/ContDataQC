@@ -3,6 +3,8 @@
 function(){
 
   tabPanel("1. Overview"
-           ,includeHTML("App_1Overview.html")
+           , mainPanel(
+             includeHTML("App_1Overview.html")
+           )## mainPanel ~ END
   ) #tabPanel ~END
 }##FUNCTION ~ END

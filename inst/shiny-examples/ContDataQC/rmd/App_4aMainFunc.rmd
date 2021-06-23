@@ -29,7 +29,7 @@ ContDataQC works sequentially, meaning the user needs to run the QC function bef
 
 This video provides an overview of the workflow: **will send link later**
 
-Click **here** to download a PDF with instructions on how to set up Google Chrome so that it asks you where to save each file before downloading (which can be a big time-saver).
+Click [here](https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/Run_Functions_Files) to download a PDF with instructions on how to set up Google Chrome so that it asks you where to save each file before downloading (which can be a big time-saver).
 
 ### QC reports
 Shiny app instructions
@@ -55,7 +55,7 @@ Click [here](https://github.com/leppott/ContDataQC/tree/dev_shinymods/Documents/
 
 This video provides tips on interpreting QC reports and deciding whether or not to make corrections: will send link later
 
-Currently there are no automated corrections programed into the QC function. The user must make the changes manually.
+Currently there are no automated corrections programmed into the QC function. The user must make the changes manually.
 
 ### Aggregate
 Shiny app instructions

@@ -3,6 +3,9 @@
 function() {
 
   tabPanel("8. FAQ"
-           , includeHTML("App_8FAQ.html")
+           , mainPanel(
+             includeHTML("App_8FAQ.html")
+
+           )## mainPanel ~ END
   ) #tabPanel ~ END
 }## FUNCTION ~ END
