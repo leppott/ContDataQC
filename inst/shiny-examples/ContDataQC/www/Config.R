@@ -98,15 +98,15 @@ ContData.env$myName.Cond          <- paste0("Conductivity."
 ContData.env$myName.DO            <- paste0("DO."
                                             , ContData.env$myUnits.DO)
 ContData.env$myName.DO.adj        <- paste0("DO.adj."
-                                            , ContData.env$myUnits.DO)
+                                            , ContData.env$myUnits.DO.adj)
 ContData.env$myName.DO.pctsat     <- paste0("DO.pctsat."
-                                            , ContData.env$myUnits.DO)
+                                            , ContData.env$myUnits.DO.pctsat)
 ContData.env$myName.pH            <- paste0("pH."
                                             , ContData.env$myUnits.pH)
 ContData.env$myName.Turbidity     <- paste0("Turbidity."
-                                            , ContData.env$myUnits.DO)
+                                            , ContData.env$myUnits.Turbidity)
 ContData.env$myName.Chlorophylla   <- paste0("Chlorophylla."
-                                            , ContData.env$myUnits.pH)
+                                            , ContData.env$myUnits.Chlorophylla)
 ContData.env$myName.WaterLevel    <- paste0("Water.Level."
                                             , ContData.env$myUnits.WaterLevel)
 ## Plot Labels

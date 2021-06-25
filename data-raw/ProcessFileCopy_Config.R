@@ -32,3 +32,5 @@ file.copy(config.from, config.to, overwrite = TRUE)
 
 # 5. Create zip file from TEMPLATE
 ###### MANUAL *************************************
+
+shell.exec(normalizePath(file.path(".", "inst", "shiny-examples", "ContDataQC", "www")))

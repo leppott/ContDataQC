@@ -3,9 +3,20 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-06-25 13:51:23
+    #> Last Update: 2021-06-25 14:07:12
 
 # Version History
+
+## v2.0.6.9005
+
+2021-06-25
+
+-   refactor: Update config file with changes to units.
+    -   Correct some that were not correct
+-   refactor: Update config copy script in data-raw
+-   docs: Add markdown package to DESCRIPTION Suggests
+    -   Needed to to avoid GitHub Action build failure when creating
+        vignettes
 
 ## v2.0.6.9004
 
