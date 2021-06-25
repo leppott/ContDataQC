@@ -3,18 +3,43 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-06-23 09:41:10
+    #> Last Update: 2021-06-25 13:51:23
 
 # Version History
 
-## v2.0.6.9002
+## v2.0.6.9004
+
+2021-06-25
+
+-   style: Shiny, update code style in ui, server, and global
+    -   Not all code just code relevant to current refactor item
+-   refactor: Shiny add all parameters to table on 4MainFunction,
+    CheckInput tab
+
+## v2.0.6.9003
 
 2021-06-23
 
--   refactor: Updated app text
--   refactor: Updated links to new documents repository
-    (ShinyAppDocuments)
--   refactor: Changed location of .RMD files to ‘www’ folder
+-   refactor: Updated version number in ui.R
+
+## v2.0.6.9002
+
+2021-06-23 \* refactor: Shiny, pdated link locations to new repository
+(ShinyAppDocuments). \* style: Updated location of .rmd files to www/
+folder.
+
+## v2.0.6.9001
+
+2021-06-23
+
+-   refactor: Shiny updates to app description text
+
+## v2.0.6.9000
+
+2021-06-23
+
+-   style: Removed Documents folder
+    -   Move to new repository
 
 ## v2.0.6
 

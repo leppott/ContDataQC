@@ -57,11 +57,13 @@ function(){
                                       #Shows an empty table until files are input
                                       ,tableOutput("nullTable1")
                                       ,tableOutput("nullTable2")
+                                      ,tableOutput("nullTable3")
 
                                       #Outputs the table with properties of the input spreadsheets,
                                       #and a testing table of the beginning of the spreadsheets
                                       ,tableOutput("summaryTable1")
                                       ,tableOutput("summaryTable2")
+                                      ,tableOutput("summaryTable3")
 
                                       ,br()
 

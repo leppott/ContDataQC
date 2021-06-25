@@ -64,51 +64,50 @@ fileParse <- function(inputFile) {
   #Extracts which parameters are included in the spreadsheet.
   #These are all for the second summary table
   #Provides default values (parameter not found).
-  waterTemp <- "Not found"
-  airTemp <- "Not found"
-  waterPressure <- "Not found"
-  airPressure <- "Not found"
-  sensorDepth <- "Not found"
-  gageHeight <- "Not found"
-  flow <- "Not found"
+  txt_nf <- "Not found"
+  txt_f <- "Found"
 
   #Changes the table's value to "found" if the
-  #paramete is identified
-  if("Water.Temp.C" %in% colnames(inputFile)) {
-    waterTemp <- "Found"
-  }
+  #parameter is identified
+  waterTemp <- ifelse("Water.Temp.C" %in% colnames(inputFile), txt_f, txt_nf)
+  airTemp   <- ifelse("Air.Temp.C" %in% colnames(inputFile), txt_f, txt_nf)
+  waterPressure <- ifelse("Water.P.psi" %in% colnames(inputFile), txt_f, txt_nf)
+  airPressure <- ifelse("Air.BP.psi" %in% colnames(inputFile), txt_f, txt_nf)
+  sensorDepth <- ifelse("Sensor.Depth.ft" %in% colnames(inputFile), txt_f, txt_nf)
+  discharge  <- ifelse("Discharge.ft3.s" %in% colnames(inputFile), txt_f, txt_nf)
+  waterlevel <- ifelse("Water.Level.ft" %in% colnames(inputFile), txt_f, txt_nf)
+  cond  <- ifelse("Conductivity.uS.cm" %in% colnames(inputFile), txt_f, txt_nf)
+  do    <- ifelse("DO.mg.L" %in% colnames(inputFile), txt_f, txt_nf)
+  do_adj <- ifelse("DO.adj." %in% colnames(inputFile), txt_f, txt_nf)
+  do_pctsat <- ifelse("DO.pctsat.%" %in% colnames(inputFile), txt_f, txt_nf)
+  pH <- ifelse("pH.SU" %in% colnames(inputFile), txt_f, txt_nf)
+  turbidity <- ifelse("Turbidity.NTU" %in% colnames(inputFile), txt_f, txt_nf)
+  chla <- ifelse("Chlorophylla.g.cm3" %in% colnames(inputFile), txt_f, txt_nf)
 
-  if("Air.Temp.C" %in% colnames(inputFile)) {
-    airTemp <- "Found"
-  }
-
-  if("Water.P.psi" %in% colnames(inputFile)) {
-    waterPressure <- "Found"
-  }
-
-  if("Air.BP.psi" %in% colnames(inputFile)) {
-    airPressure <- "Found"
-  }
-
-  if("Sensor.Depth.ft" %in% colnames(inputFile)) {
-    sensorDepth <- "Found"
-  }
-
-  if("GageHeight" %in% colnames(inputFile)) {
-    gageHeight <- "Found"
-  }
-
-  if("Discharge" %in% colnames(inputFile)) {
-    flow <- "Found"
-  }
 
   #Compiles all spreadsheet properties into a single data.frame
-  siteDF <- data.frame(siteID, startDate, endDate,
-                recordCount, waterTemp, airTemp,
-                waterPressure, airPressure, sensorDepth, gageHeight, flow)
+  siteDF <- data.frame(siteID
+                       , startDate
+                       , endDate
+                       , recordCount
+                       , waterTemp
+                       , airTemp
+                       , waterPressure
+                       , airPressure
+                       , sensorDepth
+                       , discharge
+                       , waterlevel
+                       , cond
+                       , do
+                       , do_adj
+                       , do_pctsat
+                       , pH
+                       , turbidity
+                       , chla
+                       )
 
   return(siteDF)
-}
+}## fileParse ~ END
 
 
 #Converts the more intuitive operation names into operation names that
@@ -130,7 +129,7 @@ renameOperation <- function(operation) {
   else {
     operation <- ""
   }
-}
+}## renameOperation ~ END
 
 #Formats the date-time of the output file download
 timeFormatter <- function(time) {

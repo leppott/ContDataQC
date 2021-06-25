@@ -69,25 +69,48 @@ shinyServer(function(input, output, session) {
   fileAttribsNull <- reactive({
 
     #Column names for the table
-    summColNames <- c("File name", "Station ID",
-                      "Starting date", "Ending date",
-                      "Record count",
-                      "Water temperature", "Air temperature",
-                      "Water pressure", "Air pressure",
-                      "Sensor depth", "Flow")
+    summColNames <- c("File name"
+                      , "Station ID"
+                      , "Starting date"
+                      , "Ending date"
+                      , "Record count"
+                      , "Water temperature"
+                      , "Air temperature"
+                      , "Water pressure"
+                      , "Air pressure"
+                      , "Sensor depth"
+                      , "Discharge"
+                      , "Water Level"
+                      , "Conductivity"
+                      , "DO"
+                      , "DO, adj"
+                      , "DO, % Saturation"
+                      , "pH"
+                      , "Turbidity"
+                      , "Chlorophyll a")
 
     #Creates empty table columns
-    fileAttribsNull <- data.frame(filenameNull = "Awaiting data",
-                             stationIDNull = "Awaiting data",
-                             startDateNull = "Awaiting data",
-                             endDateNull = "Awaiting data",
-                             recCountNull = "Awaiting data",
-                             waterTempNull = "Awaiting data",
-                             airTempNull = "Awaiting data",
-                             waterPressureNull = "Awaiting data",
-                             airPressureNull = "Awaiting data",
-                             sensorDepthNull = "Awaiting data",
-                             flow = "Awaiting data")
+    txt_Waiting <- "Awaiting data"
+    fileAttribsNull <- data.frame(filenameNull = txt_Waiting
+                                  , stationIDNull = txt_Waiting
+                                  , startDateNull = txt_Waiting
+                                  , endDateNull = txt_Waiting
+                                  , recCountNull = txt_Waiting
+                                  , waterTempNull = txt_Waiting
+                                  , airTempNull = txt_Waiting
+                                  , waterPressureNull = txt_Waiting
+                                  , airPressureNull = txt_Waiting
+                                  , sensorDepthNull = txt_Waiting
+                                  , dischargeNull = txt_Waiting
+                                  , waterlevelNull = txt_Waiting
+                                  , condNull = txt_Waiting
+                                  , doNull = txt_Waiting
+                                  , doadjNull = txt_Waiting
+                                  , dopctsatNull = txt_Waiting
+                                  , pHNull = txt_Waiting
+                                  , turbidityNull = txt_Waiting
+                                  , chlaNull = txt_Waiting
+                                  )
 
     colnames(fileAttribsNull) <- summColNames
 
@@ -104,30 +127,47 @@ shinyServer(function(input, output, session) {
     }
 
     #Initializes the empty columns for the table
-    fileAttribsFull <- data.frame(filename = character(),
-                                  stationID = character(),
-                                  startDate = as.Date(character()),
-                                  endDate = as.Date(character()),
-                                  recordCount = as.integer(),
-                                  waterTempNull = character(),
-                                  airTempNull = character(),
-                                  waterPressureNull = character(),
-                                  airPressureNull = character(),
-                                  sensorDepthNull = character(),
-                                  flow = character())
+    fileAttribsFull <- data.frame(filename = character()
+                                  , stationID = character()
+                                  , startDate = as.Date(character())
+                                  , endDate = as.Date(character())
+                                  , recordCount = as.integer()
+                                  , waterTempNull = character()
+                                  , airTempNull = character()
+                                  , waterPressureNull = character()
+                                  , airPressureNull = character()
+                                  , sensorDepthNull = character()
+                                  , dischargeNull = character()
+                                  , waterlevelNull = character()
+                                  , condNull = character()
+                                  , doNull = character()
+                                  , doadjNull = character()
+                                  , dopctsatNull = character()
+                                  , pHNull = character()
+                                  , turbidityNull = character()
+                                  , chlaNull = character()
+                                  )
 
     #Column names for the table
-    summColNames <- c("File name",
-                      "Station ID",
-                       "Starting date",
-                       "Ending date",
-                       "Record count",
-                       "Water temperature",
-                       "Air temperature",
-                       "Water pressure",
-                       "Air pressure",
-                       "Sensor depth",
-                       "Flow")
+    summColNames <- c("File name"
+                      ,"Station ID"
+                      , "Starting date"
+                      , "Ending date"
+                      , "Record count"
+                      , "Water temperature"
+                      , "Air temperature"
+                      , "Water pressure"
+                      , "Air pressure"
+                      , "Sensor depth"
+                      , "Discharge"
+                      , "WaterLevel"
+                      , "Conductivity"
+                      , "DO"
+                      , "DO, adj"
+                      , "DO, % Saturation"
+                      , "pH"
+                      , "Turbidity"
+                      , "Chlorophyll a")
 
     #For each input file, gets the file attributes and adds it to
     #the table
@@ -190,11 +230,14 @@ shinyServer(function(input, output, session) {
   #This table includes file name and which data types were found in each file
   table2 <- reactive({
 
+    col_start <- 6
+    col_end <- 12
+
     #Shows the table headings before files are input
     if (is.null(allFiles())) {
 
       #Subsets the columns of the pre-upload data for display
-      nullTable2 <- fileAttribsNull()[c(1, 6:11)]
+      nullTable2 <- fileAttribsNull()[c(1, col_start:col_end)]
 
       #Sends the empty table to be displayed
       return(nullTable2)
@@ -203,8 +246,8 @@ shinyServer(function(input, output, session) {
     #Subsets the file attribute table with just
     #file name, water/air temp, water/air pressure, sensor depth,
     #gage height, and flow
-    summaryTable2 <- fileAttribsFull()[,c(1, 6:11)]
-    colnames(summaryTable2) <- colnames(fileAttribsFull()[c(1, 6:11)])
+    summaryTable2 <- fileAttribsFull()[,c(1, col_start:col_end)]
+  colnames(summaryTable2) <- colnames(fileAttribsFull()[c(1,col_start:col_end)])
 
     return(summaryTable2)
   })
@@ -214,6 +257,39 @@ shinyServer(function(input, output, session) {
   #Each input spreadsheet gets one row.
   output$summaryTable2 <- renderTable({
     table2()
+  })
+
+  #Creates a summary data.frame as a reactive object
+  #This table includes file name and which data types were found in each file
+  table3 <- reactive({
+
+    col_start <- 13
+    col_end <- 19 #19
+
+    #Shows the table headings before files are input
+    if (is.null(allFiles())) {
+
+      #Subsets the columns of the pre-upload data for display
+      nullTable3 <- fileAttribsNull()[c(1, col_start:col_end)]
+
+      #Sends the empty table to be displayed
+      return(nullTable3)
+    }
+
+    #Subsets the file attribute table with just
+    #file name, water/air temp, water/air pressure, sensor depth,
+    #gage height, and flow
+    summaryTable3 <- fileAttribsFull()[,c(1, col_start:col_end)]
+    colnames(summaryTable3) <- colnames(fileAttribsFull()[c(1, col_start:col_end)])
+
+    return(summaryTable3)
+  })
+
+  #Outputs a summary table with file name and whether each data
+  #type was found.
+  #Each input spreadsheet gets one row.
+  output$summaryTable3 <- renderTable({
+    table3()
   })
 
   # Run, HOBO, button ----
