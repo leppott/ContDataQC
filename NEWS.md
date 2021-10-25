@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-06-25 14:07:12
+    #> Last Update: 2021-10-25 13:45:12
 
 # Version History
+
+## v2.0.6.9006
+
+2021-10-25
+
+-   fix: Update fun.Stats.R and fun.Stats.File.R to use WaterLevel
+    instead of GageHeight, Issue \#124
 
 ## v2.0.6.9005
 
@@ -26,6 +33,7 @@ NEWS-ContDataQC
     -   Not all code just code relevant to current refactor item
 -   refactor: Shiny add all parameters to table on 4MainFunction,
     CheckInput tab
+    -   Issue \#127
 
 ## v2.0.6.9003
 

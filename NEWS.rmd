@@ -21,6 +21,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.6.9006
+2021-10-25
+
+* fix: Update fun.Stats.R and fun.Stats.File.R to use WaterLevel instead of
+GageHeight, Issue #124
+
+
 ## v2.0.6.9005
 2021-06-25
 
@@ -36,6 +43,7 @@ cat(paste0("Last Update: ",Sys.time()))
 * style: Shiny, update code style in ui, server, and global
     + Not all code just code relevant to current refactor item
 * refactor: Shiny add all parameters to table on 4MainFunction, CheckInput tab
+    + Issue #127
 
 ## v2.0.6.9003
 2021-06-23

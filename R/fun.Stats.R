@@ -243,7 +243,7 @@ fun.Stats <- function(fun.myData.SiteID
                            , ContData.env$myName.pH
                            , ContData.env$myName.Turbidity
                            , ContData.env$myName.Chlorophylla
-                           , ContData.env$myName.GageHeight)
+                           , ContData.env$myName.WaterLevel)
   myFields.Data.Flags <- paste0(ContData.env$myName.Flag,".",myFields.Data)
   myFields.Type       <- c("Thermal"
                            , "Thermal"

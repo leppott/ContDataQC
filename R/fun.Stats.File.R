@@ -223,13 +223,27 @@ fun.Stats.File <- function(fun.myFile
     ## Flow (SensorDepth and Discharge)
     ## Nothing on Pressure (used to calculate SensorDepth)
     # future add pH, Cond, etc from USGS gages
-    myFields.Data       <- c(ContData.env$myName.WaterTemp, ContData.env$myName.AirTemp, ContData.env$myName.SensorDepth
-                             ,ContData.env$myName.Discharge, ContData.env$myName.Cond, ContData.env$myName.DO, ContData.env$myName.pH
-                             ,ContData.env$myName.Turbidity, ContData.env$myName.Chlorophylla, ContData.env$myName.GageHeight)
-    myFields.Data.Flags <- paste0(ContData.env$myName.Flag,".",myFields.Data)
-    myFields.Type       <- c("Thermal", "Thermal", "Hydrologic"
-                             ,"Hydrologic", "WaterChemistry", "WaterChemistry", "WaterChemistry"
-                             , "WaterChemistry", "WaterChemistry", "Hydrologic")
+    myFields.Data       <- c(ContData.env$myName.WaterTemp
+                             , ContData.env$myName.AirTemp
+                             , ContData.env$myName.SensorDepth
+                             , ContData.env$myName.Discharge
+                             , ContData.env$myName.Cond
+                             , ContData.env$myName.DO
+                             , ContData.env$myName.pH
+                             , ContData.env$myName.Turbidity
+                             , ContData.env$myName.Chlorophylla
+                             , ContData.env$myName.WaterLevel)
+    myFields.Data.Flags <- paste0(ContData.env$myName.Flag, ".", myFields.Data)
+    myFields.Type       <- c("Thermal"
+                             , "Thermal"
+                             , "Hydrologic"
+                             , "Hydrologic"
+                             , "WaterChemistry"
+                             , "WaterChemistry"
+                             , "WaterChemistry"
+                             , "WaterChemistry"
+                             , "WaterChemistry"
+                             , "Hydrologic")
     myFields.Keep <- c(ContData.env$myName.SiteID
                        , ContData.env$myName.Date
                        , ContData.env$myName.Time
