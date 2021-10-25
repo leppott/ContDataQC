@@ -3,9 +3,15 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-10-25 13:45:12
+    #> Last Update: 2021-10-25 13:53:57
 
 # Version History
+
+## v2.0.6.9007
+
+2021-10-25
+
+-   refactor: Rename “master” branch to “main”.
 
 ## v2.0.6.9006
 
