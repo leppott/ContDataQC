@@ -10,6 +10,7 @@ library(ContDataQC)
 library(zoo)
 library(shinythemes)
 library(zip)
+library(shinyjs)
 
 ###For downloading new versions of ContDataQC and USGS' DataRetrieval package
 #library(devtools)

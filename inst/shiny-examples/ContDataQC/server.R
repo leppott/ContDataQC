@@ -1007,5 +1007,667 @@ shinyServer(function(input, output, session) {
     paste("This is for testing:", file.path(".", "data"))
   })
 
-}
-)
+  # QC Threshold Edits ####
+
+  # Source the config.R environment
+  source("./www/Config.R")
+
+  output$QC_Param_Unit <- renderText({
+    if(input$QC_Param_Input == "AirTemp"|input$QC_Param_Input == "WaterTemp"){
+      return("Parameter Unit: deg C")
+    } else if(input$QC_Param_Input == "AirBP"|input$QC_Param_Input == "WaterP"){
+      return("Parameter Unit: psi")
+    } else if(input$QC_Param_Input == "SensDepth"){
+      return("Parameter Unit: ft")
+    } else if(input$QC_Param_Input == "Discharge"){
+      return("Parameter Unit: ft3/s")
+    } else if(input$QC_Param_Input == "Cond"){
+      return("Parameter Unit: uS/cm")
+    } else if(input$QC_Param_Input == "DO"|input$QC_Param_Input == "DOadj"){
+      return("Parameter Unit: mg/L")
+    } else if(input$QC_Param_Input == "DOpctsat"){
+      return("Parameter Unit: %")
+    } else if(input$QC_Param_Input == "pH"){
+      return("Parameter Unit: SU")
+    } else if(input$QC_Param_Input == "Turbid"){
+      return("Parameter Unit: NTU")
+    } else if(input$QC_Param_Input == "Chla"){
+      return("Parameter Unit: g/cm3")
+    } else if(input$QC_Param_Input == "WtrLvl"){
+      return("Parameter Unit: ft")
+    } else {
+      return("Parameter Unit Missing")
+    } # else if ~ END
+  }) #renderText
+
+  ## Dynamic inputs ####
+  # create dynamic input values based on parameter
+
+  observeEvent(input$QC_Param_Input, {
+
+    ### AirTemp ####
+    if(input$QC_Param_Input == "AirTemp"){
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.AirTemp)
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.AirTemp)
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.AirTemp)
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.AirTemp)
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.AirTemp)
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.AirTemp)
+      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.AirTemp)
+      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.AirTemp)
+      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.AirTemp)
+      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.AirTemp)
+      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.AirTemp)
+
+      ## AirBP ####
+    } else if (input$QC_Param_Input == "AirBP"){
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.AirBP)
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.AirBP)
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.AirBP)
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.AirBP)
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.AirBP)
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.AirBP)
+      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.AirBP)
+      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.AirBP)
+      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.AirBP)
+      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.AirBP)
+      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.AirBP)
+
+      ### Chla ####
+    } else if (input$QC_Param_Input == "Chla"){
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla)
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.Chlorophylla)
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla)
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.Chlorophylla)
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.Chlorophylla)
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.Chlorophylla)
+      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.Chlorophylla)
+      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.Chlorophylla)
+      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.Chlorophylla)
+      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.Chlorophylla)
+      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.Chlorophylla)
+
+      ### Cond ####
+    } else if (input$QC_Param_Input == "Cond"){
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.Cond)
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.Cond)
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.Cond)
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.Cond)
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.Cond)
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.Cond)
+      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.Cond)
+      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.Cond)
+      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.Cond)
+      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.Cond)
+      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.Cond)
+
+      ### Discharge ####
+    } else if (input$QC_Param_Input == "Discharge"){
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.Discharge)
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.Discharge)
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.Discharge)
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.Discharge)
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.Discharge)
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.Discharge)
+      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.Discharge)
+      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.Discharge)
+      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.Discharge)
+      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.Discharge)
+      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.Discharge)
+
+      ### DO ####
+    } else if (input$QC_Param_Input == "DO"){
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.DO)
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.DO)
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.DO)
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.DO)
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.DO)
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.DO)
+      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.DO)
+      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.DO)
+      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.DO)
+      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.DO)
+      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.DO)
+
+      ### DOadj ####
+    } else if (input$QC_Param_Input == "DOadj"){
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.DO.adj)
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.DO.adj)
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.DO.adj)
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.DO.adj)
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.DO.adj)
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.DO.adj)
+      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.DO.adj)
+      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.DO.adj)
+      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.DO.adj)
+      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.DO.adj)
+      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.DO.adj)
+
+      ### DOpctsat ####
+    } else if (input$QC_Param_Input == "DOpctsat"){
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.DO.pctsat)
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.DO.pctsat)
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.DO.pctsat)
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.DO.pctsat)
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.DO.pctsat)
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.DO.pctsat)
+      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.DO.pctsat)
+      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.DO.pctsat)
+      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.DO.pctsat)
+      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.DO.pctsat)
+      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.DO.pctsat)
+
+      ### pH ####
+    } else if (input$QC_Param_Input == "pH"){
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.pH)
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.pH)
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.pH)
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.pH)
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.pH)
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.pH)
+      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.pH)
+      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.pH)
+      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.pH)
+      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.pH)
+      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.pH)
+
+      ### SensDepth ####
+    } else if (input$QC_Param_Input == "SensDepth"){
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.SensorDepth)
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.SensorDepth)
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth)
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth)
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.SensorDepth)
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.SensorDepth)
+      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.SensorDepth)
+      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.SensorDepth)
+      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.SensorDepth)
+      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.SensorDepth)
+      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.SensorDepth)
+
+      ### Turbid ####
+    } else if (input$QC_Param_Input == "Turbid"){
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.Turbidity)
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.Turbidity)
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.Turbidity)
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.Turbidity)
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.Turbidity)
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.Turbidity)
+      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.Turbidity)
+      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.Turbidity)
+      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.Turbidity)
+      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.Turbidity)
+      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.Turbidity)
+
+      ### WtrLvl ####
+    } else if (input$QC_Param_Input == "WtrLvl"){
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.WaterLevel)
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.WaterLevel)
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel)
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel)
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.WaterLevel)
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.WaterLevel)
+      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.WaterLevel)
+      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.WaterLevel)
+      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.WaterLevel)
+      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.WaterLevel)
+      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.WaterLevel)
+
+      ### WaterP ####
+    } else if (input$QC_Param_Input == "WaterP"){
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.WaterP)
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.WaterP)
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.WaterP)
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.WaterP)
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.WaterP)
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.WaterP)
+      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.WaterP)
+      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.WaterP)
+      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.WaterP)
+      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.WaterP)
+      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.WaterP)
+
+      ### WaterTemp ####
+    } else if (input$QC_Param_Input == "WaterTemp"){
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.WaterTemp)
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.WaterTemp)
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp)
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp)
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.WaterTemp)
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.WaterTemp)
+      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.WaterTemp)
+      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.WaterTemp)
+      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.WaterTemp)
+      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.WaterTemp)
+      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.WaterTemp)
+    } else {
+      return(NULL)
+    } # if else ~ END
+  }) # observeEvent
+
+  ## Config.R locations ####
+  # Read in dataset
+  df_Config <- read.table("www/Config.R", sep = "|")
+
+  # df_Config <- read.table("R/Config.R", sep = "|")
+
+  # Create custom configuration table for output
+  df_Config_Custom <- df_Config
+
+  # Identify locations
+  ### AirTemp ####
+  Loc.Gross.Fail.Hi.AirTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Hi.AirTemp"))
+  Loc.Gross.Fail.Lo.AirTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Lo.AirTemp"))
+  Loc.Gross.Suspect.Hi.AirTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Hi.AirTemp"))
+  Loc.Gross.Suspect.Lo.AirTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Lo.AirTemp"))
+  Loc.Spike.Hi.AirTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Hi.AirTemp"))
+  Loc.Spike.Lo.AirTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Lo.AirTemp"))
+  Loc.RoC.SD.number.AirTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.number.AirTemp"))
+  Loc.RoC.SD.period.AirTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.period.AirTemp"))
+  Loc.Flat.Hi.AirTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Hi.AirTemp"))
+  Loc.Flat.Lo.AirTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.AirTemp"))
+  Loc.Flat.Tolerance.AirTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.AirTemp"))
+  ### AirBP ####
+  Loc.Gross.Fail.Hi.AirBP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Hi.AirBP"))
+  Loc.Gross.Fail.Lo.AirBP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Lo.AirBP"))
+  Loc.Gross.Suspect.Hi.AirBP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Hi.AirBP"))
+  Loc.Gross.Suspect.Lo.AirBP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Lo.AirBP"))
+  Loc.Spike.Hi.AirBP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Hi.AirBP"))
+  Loc.Spike.Lo.AirBP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Lo.AirBP"))
+  Loc.RoC.SD.number.AirBP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.number.AirBP"))
+  Loc.RoC.SD.period.AirBP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.period.AirBP"))
+  Loc.Flat.Hi.AirBP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Hi.AirBP"))
+  Loc.Flat.Lo.AirBP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.AirBP"))
+  Loc.Flat.Tolerance.AirBP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.AirBP"))
+  ### Chla ####
+  Loc.Gross.Fail.Hi.Chlorophylla<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla"))
+  Loc.Gross.Fail.Lo.Chlorophylla<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Lo.Chlorophylla"))
+  Loc.Gross.Suspect.Hi.Chlorophylla<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla"))
+  Loc.Gross.Suspect.Lo.Chlorophylla<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Lo.Chlorophylla"))
+  Loc.Spike.Hi.Chlorophylla<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Hi.Chlorophylla"))
+  Loc.Spike.Lo.Chlorophylla<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Lo.Chlorophylla"))
+  Loc.RoC.SD.number.Chlorophylla<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.number.Chlorophylla"))
+  Loc.RoC.SD.period.Chlorophylla<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.period.Chlorophylla"))
+  Loc.Flat.Hi.Chlorophylla<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Hi.Chlorophylla"))
+  Loc.Flat.Lo.Chlorophylla<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.Chlorophylla"))
+  Loc.Flat.Tolerance.Chlorophylla<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.Chlorophylla"))
+  ### Cond ####
+  Loc.Gross.Fail.Hi.Cond<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Hi.Cond"))
+  Loc.Gross.Fail.Lo.Cond<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Lo.Cond"))
+  Loc.Gross.Suspect.Hi.Cond<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Hi.Cond"))
+  Loc.Gross.Suspect.Lo.Cond<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Lo.Cond"))
+  Loc.Spike.Hi.Cond<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Hi.Cond"))
+  Loc.Spike.Lo.Cond<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Lo.Cond"))
+  Loc.RoC.SD.number.Cond<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.number.Cond"))
+  Loc.RoC.SD.period.Cond<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.period.Cond"))
+  Loc.Flat.Hi.Cond<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Hi.Cond"))
+  Loc.Flat.Lo.Cond<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.Cond"))
+  Loc.Flat.Tolerance.Cond<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.Cond"))
+  ### Discharge ####
+  Loc.Gross.Fail.Hi.Discharge<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Hi.Discharge"))
+  Loc.Gross.Fail.Lo.Discharge<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Lo.Discharge"))
+  Loc.Gross.Suspect.Hi.Discharge<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Hi.Discharge"))
+  Loc.Gross.Suspect.Lo.Discharge<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Lo.Discharge"))
+  Loc.Spike.Hi.Discharge<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Hi.Discharge"))
+  Loc.Spike.Lo.Discharge<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Lo.Discharge"))
+  Loc.RoC.SD.number.Discharge<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.number.Discharge"))
+  Loc.RoC.SD.period.Discharge<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.period.Discharge"))
+  Loc.Flat.Hi.Discharge<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Hi.Discharge"))
+  Loc.Flat.Lo.Discharge<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.Discharge"))
+  Loc.Flat.Tolerance.Discharge<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.Discharge"))
+  ### DO ####
+  Loc.Gross.Fail.Hi.DO<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Hi.DO           <-"))
+  Loc.Gross.Fail.Lo.DO<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Lo.DO           <-"))
+  Loc.Gross.Suspect.Hi.DO<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Hi.DO           <-"))
+  Loc.Gross.Suspect.Lo.DO<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Lo.DO           <-"))
+  Loc.Spike.Hi.DO<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Hi.DO           <-"))
+  Loc.Spike.Lo.DO<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Lo.DO           <-"))
+  Loc.RoC.SD.number.DO<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.number.DO           <-"))
+  Loc.RoC.SD.period.DO<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.period.DO           <-"))
+  Loc.Flat.Hi.DO<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Hi.DO                  <-"))
+  Loc.Flat.Lo.DO<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.DO                  <-"))
+  Loc.Flat.Tolerance.DO<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.DO           <-"))
+  ### DOadj ####
+  Loc.Gross.Fail.Hi.DO.adj<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Hi.DO.adj"))
+  Loc.Gross.Fail.Lo.DO.adj<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Lo.DO.adj"))
+  Loc.Gross.Suspect.Hi.DO.adj<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Hi.DO.adj"))
+  Loc.Gross.Suspect.Lo.DO.adj<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Lo.DO.adj"))
+  Loc.Spike.Hi.DO.adj<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Hi.DO.adj"))
+  Loc.Spike.Lo.DO.adj<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Lo.DO.adj"))
+  Loc.RoC.SD.number.DO.adj<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.number.DO.adj"))
+  Loc.RoC.SD.period.DO.adj<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.period.DO.adj"))
+  Loc.Flat.Hi.DO.adj<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Hi.DO.adj"))
+  Loc.Flat.Lo.DO.adj<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.DO.adj"))
+  Loc.Flat.Tolerance.DO.adj<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.DO.adj"))
+  ### DOpctsat ####
+  Loc.Gross.Fail.Hi.DO.pctsat<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Hi.DO.pctsat"))
+  Loc.Gross.Fail.Lo.DO.pctsat<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Lo.DO.pctsat"))
+  Loc.Gross.Suspect.Hi.DO.pctsat<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Hi.DO.pctsat"))
+  Loc.Gross.Suspect.Lo.DO.pctsat<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Lo.DO.pctsat"))
+  Loc.Spike.Hi.DO.pctsat<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Hi.DO.pctsat"))
+  Loc.Spike.Lo.DO.pctsat<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Lo.DO.pctsat"))
+  Loc.RoC.SD.number.DO.pctsat<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.number.DO.pctsat"))
+  Loc.RoC.SD.period.DO.pctsat<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.period.DO.pctsat"))
+  Loc.Flat.Hi.DO.pctsat<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Hi.DO.pctsat"))
+  Loc.Flat.Lo.DO.pctsat<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.DO.pctsat"))
+  Loc.Flat.Tolerance.DO.pctsat<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.DO.pctsat"))
+  ### pH ####
+  Loc.Gross.Fail.Hi.pH<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Hi.pH"))
+  Loc.Gross.Fail.Lo.pH<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Lo.pH"))
+  Loc.Gross.Suspect.Hi.pH<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Hi.pH"))
+  Loc.Gross.Suspect.Lo.pH<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Lo.pH"))
+  Loc.Spike.Hi.pH<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Hi.pH"))
+  Loc.Spike.Lo.pH<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Lo.pH"))
+  Loc.RoC.SD.number.pH<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.number.pH"))
+  Loc.RoC.SD.period.pH<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.period.pH"))
+  Loc.Flat.Hi.pH<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Hi.pH"))
+  Loc.Flat.Lo.pH<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.pH"))
+  Loc.Flat.Tolerance.pH<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.pH"))
+  ### SensDepth ####
+  Loc.Gross.Fail.Hi.SensorDepth<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Hi.SensorDepth"))
+  Loc.Gross.Fail.Lo.SensorDepth<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Lo.SensorDepth"))
+  Loc.Gross.Suspect.Hi.SensorDepth<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth"))
+  Loc.Gross.Suspect.Lo.SensorDepth<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth"))
+  Loc.Spike.Hi.SensorDepth<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Hi.SensorDepth"))
+  Loc.Spike.Lo.SensorDepth<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Lo.SensorDepth"))
+  Loc.RoC.SD.number.SensorDepth<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.number.SensorDepth"))
+  Loc.RoC.SD.period.SensorDepth<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.period.SensorDepth"))
+  Loc.Flat.Hi.SensorDepth<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Hi.SensorDepth"))
+  Loc.Flat.Lo.SensorDepth<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.SensorDepth"))
+  Loc.Flat.Tolerance.SensorDepth<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.SensorDepth"))
+  ### Turbid ####
+  Loc.Gross.Fail.Hi.Turbidity<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Hi.Turbidity"))
+  Loc.Gross.Fail.Lo.Turbidity<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Lo.Turbidity"))
+  Loc.Gross.Suspect.Hi.Turbidity<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Hi.Turbidity"))
+  Loc.Gross.Suspect.Lo.Turbidity<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Lo.Turbidity"))
+  Loc.Spike.Hi.Turbidity<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Hi.Turbidity"))
+  Loc.Spike.Lo.Turbidity<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Lo.Turbidity"))
+  Loc.RoC.SD.number.Turbidity<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.number.Turbidity"))
+  Loc.RoC.SD.period.Turbidity<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.period.Turbidity"))
+  Loc.Flat.Hi.Turbidity<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Hi.Turbidity"))
+  Loc.Flat.Lo.Turbidity<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.Turbidity"))
+  Loc.Flat.Tolerance.Turbidity<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.Turbidity"))
+  ### WtrLvl ####
+  Loc.Gross.Fail.Hi.WaterLevel<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Hi.WaterLevel"))
+  Loc.Gross.Fail.Lo.WaterLevel<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Lo.WaterLevel"))
+  Loc.Gross.Suspect.Hi.WaterLevel<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel"))
+  Loc.Gross.Suspect.Lo.WaterLevel<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel"))
+  Loc.Spike.Hi.WaterLevel<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Hi.WaterLevel"))
+  Loc.Spike.Lo.WaterLevel<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Lo.WaterLevel"))
+  Loc.RoC.SD.number.WaterLevel<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.number.WaterLevel"))
+  Loc.RoC.SD.period.WaterLevel<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.period.WaterLevel"))
+  Loc.Flat.Hi.WaterLevel<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Hi.WaterLevel"))
+  Loc.Flat.Lo.WaterLevel<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.WaterLevel"))
+  Loc.Flat.Tolerance.WaterLevel<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.WaterLevel"))
+  ### WaterP ####
+  Loc.Gross.Fail.Hi.WaterP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Hi.WaterP"))
+  Loc.Gross.Fail.Lo.WaterP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Lo.WaterP"))
+  Loc.Gross.Suspect.Hi.WaterP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Hi.WaterP"))
+  Loc.Gross.Suspect.Lo.WaterP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Lo.WaterP"))
+  Loc.Spike.Hi.WaterP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Hi.WaterP"))
+  Loc.Spike.Lo.WaterP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Lo.WaterP"))
+  Loc.RoC.SD.number.WaterP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.number.WaterP"))
+  Loc.RoC.SD.period.WaterP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.period.WaterP"))
+  Loc.Flat.Hi.WaterP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Hi.WaterP"))
+  Loc.Flat.Lo.WaterP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.WaterP"))
+  Loc.Flat.Tolerance.WaterP<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.WaterP"))
+  ### WaterTemp ####
+  Loc.Gross.Fail.Hi.WaterTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Hi.WaterTemp"))
+  Loc.Gross.Fail.Lo.WaterTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Fail.Lo.WaterTemp"))
+  Loc.Gross.Suspect.Hi.WaterTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp"))
+  Loc.Gross.Suspect.Lo.WaterTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp"))
+  Loc.Spike.Hi.WaterTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Hi.WaterTemp"))
+  Loc.Spike.Lo.WaterTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Spike.Lo.WaterTemp"))
+  Loc.RoC.SD.number.WaterTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.number.WaterTemp"))
+  Loc.RoC.SD.period.WaterTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.RoC.SD.period.WaterTemp"))
+  Loc.Flat.Hi.WaterTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Hi.WaterTemp"))
+  Loc.Flat.Lo.WaterTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.WaterTemp"))
+  Loc.Flat.Tolerance.WaterTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.WaterTemp"))
+
+  # ## Save Button ###
+  #
+  # ## Notification of save
+  # observeEvent(input$QC_SaveBttn, {
+  #   showNotification(paste0("Threshold changes saved!"),
+  #                    type = "error", duration = 10)
+  # }) # observeEvent
+
+  ## Update Config.R ####
+  observeEvent(input$QC_SaveBttn, {
+    showNotification(paste0("Threshold changes saved!"),
+                     type = "error", duration = 10)
+    # browser()
+    ### AirTemp ####
+    if(input$QC_Param_Input == "AirTemp"){
+      df_Config_Custom[Loc.Gross.Fail.Hi.AirTemp,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.AirTemp <- ", input$GR_Fail_Max)
+      df_Config_Custom[Loc.Gross.Fail.Lo.AirTemp,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.AirTemp <- ", input$GR_Fail_Min)
+      df_Config_Custom[Loc.Gross.Suspect.Hi.AirTemp,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.AirTemp <- ", input$GR_Sus_Max)
+      df_Config_Custom[Loc.Gross.Suspect.Lo.AirTemp,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.AirTemp <- ", input$GR_Sus_Min)
+      df_Config_Custom[Loc.Spike.Hi.AirTemp,] <- paste0("ContData.env$myThresh.Spike.Hi.AirTemp <- ", input$Spike_Fail)
+      df_Config_Custom[Loc.Spike.Lo.AirTemp,] <- paste0("ContData.env$myThresh.Spike.Lo.AirTemp <- ", input$Spike_Sus)
+      df_Config_Custom[Loc.RoC.SD.number.AirTemp,] <- paste0("ContData.env$myThresh.RoC.SD.number.AirTemp <- ", input$RoC_SDs)
+      df_Config_Custom[Loc.RoC.SD.period.AirTemp,] <- paste0("ContData.env$myThresh.RoC.SD.period.AirTemp <- ", input$RoC_Hrs)
+      df_Config_Custom[Loc.Flat.Hi.AirTemp,] <- paste0("ContData.env$myThresh.Flat.Hi.AirTemp <- ", input$Flat_Fail)
+      df_Config_Custom[Loc.Flat.Lo.AirTemp,] <- paste0("ContData.env$myThresh.Flat.Lo.AirTemp <- ", input$Flat_Sus)
+      df_Config_Custom[Loc.Flat.Tolerance.AirTemp,] <- paste0("ContData.env$myThresh.Flat.Tolerance.AirTemp <- ", input$Flat_Toler)
+
+    ## AirBP ####
+    } else if(input$QC_Param_Input == "AirBP"){
+      df_Config_Custom[Loc.Gross.Fail.Hi.AirBP,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.AirBP <- ", input$GR_Fail_Max)
+      df_Config_Custom[Loc.Gross.Fail.Lo.AirBP,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.AirBP <- ", input$GR_Fail_Min)
+      df_Config_Custom[Loc.Gross.Suspect.Hi.AirBP,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.AirBP <- ", input$GR_Sus_Max)
+      df_Config_Custom[Loc.Gross.Suspect.Lo.AirBP,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.AirBP <- ", input$GR_Sus_Min)
+      df_Config_Custom[Loc.Spike.Hi.AirBP,] <- paste0("ContData.env$myThresh.Spike.Hi.AirBP <- ", input$Spike_Fail)
+      df_Config_Custom[Loc.Spike.Lo.AirBP,] <- paste0("ContData.env$myThresh.Spike.Lo.AirBP <- ", input$Spike_Sus)
+      df_Config_Custom[Loc.RoC.SD.number.AirBP,] <- paste0("ContData.env$myThresh.RoC.SD.number.AirBP <- ", input$RoC_SDs)
+      df_Config_Custom[Loc.RoC.SD.period.AirBP,] <- paste0("ContData.env$myThresh.RoC.SD.period.AirBP <- ", input$RoC_Hrs)
+      df_Config_Custom[Loc.Flat.Hi.AirBP,] <- paste0("ContData.env$myThresh.Flat.Hi.AirBP <- ", input$Flat_Fail)
+      df_Config_Custom[Loc.Flat.Lo.AirBP,] <- paste0("ContData.env$myThresh.Flat.Lo.AirBP <- ", input$Flat_Sus)
+      df_Config_Custom[Loc.Flat.Tolerance.AirBP,] <- paste0("ContData.env$myThresh.Flat.Tolerance.AirBP <- ", input$Flat_Toler)
+
+    ### Chla ####
+    } else if(input$QC_Param_Input == "Chla"){
+      df_Config_Custom[Loc.Gross.Fail.Hi.Chlorophylla,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla <- ", input$GR_Fail_Max)
+      df_Config_Custom[Loc.Gross.Fail.Lo.Chlorophylla,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.Chlorophylla <- ", input$GR_Fail_Min)
+      df_Config_Custom[Loc.Gross.Suspect.Hi.Chlorophylla,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla <- ", input$GR_Sus_Max)
+      df_Config_Custom[Loc.Gross.Suspect.Lo.Chlorophylla,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.Chlorophylla <- ", input$GR_Sus_Min)
+      df_Config_Custom[Loc.Spike.Hi.Chlorophylla,] <- paste0("ContData.env$myThresh.Spike.Hi.Chlorophylla <- ", input$Spike_Fail)
+      df_Config_Custom[Loc.Spike.Lo.Chlorophylla,] <- paste0("ContData.env$myThresh.Spike.Lo.Chlorophylla <- ", input$Spike_Sus)
+      df_Config_Custom[Loc.RoC.SD.number.Chlorophylla,] <- paste0("ContData.env$myThresh.RoC.SD.number.Chlorophylla <- ", input$RoC_SDs)
+      df_Config_Custom[Loc.RoC.SD.period.Chlorophylla,] <- paste0("ContData.env$myThresh.RoC.SD.period.Chlorophylla <- ", input$RoC_Hrs)
+      df_Config_Custom[Loc.Flat.Hi.Chlorophylla,] <- paste0("ContData.env$myThresh.Flat.Hi.Chlorophylla <- ", input$Flat_Fail)
+      df_Config_Custom[Loc.Flat.Lo.Chlorophylla,] <- paste0("ContData.env$myThresh.Flat.Lo.Chlorophylla <- ", input$Flat_Sus)
+      df_Config_Custom[Loc.Flat.Tolerance.Chlorophylla,] <- paste0("ContData.env$myThresh.Flat.Tolerance.Chlorophylla <- ", input$Flat_Toler)
+
+    ### Cond ####
+    } else if(input$QC_Param_Input == "Cond"){
+      df_Config_Custom[Loc.Gross.Fail.Hi.Cond,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.Cond <- ", input$GR_Fail_Max)
+      df_Config_Custom[Loc.Gross.Fail.Lo.Cond,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.Cond <- ", input$GR_Fail_Min)
+      df_Config_Custom[Loc.Gross.Suspect.Hi.Cond,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.Cond <- ", input$GR_Sus_Max)
+      df_Config_Custom[Loc.Gross.Suspect.Lo.Cond,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.Cond <- ", input$GR_Sus_Min)
+      df_Config_Custom[Loc.Spike.Hi.Cond,] <- paste0("ContData.env$myThresh.Spike.Hi.Cond <- ", input$Spike_Fail)
+      df_Config_Custom[Loc.Spike.Lo.Cond,] <- paste0("ContData.env$myThresh.Spike.Lo.Cond <- ", input$Spike_Sus)
+      df_Config_Custom[Loc.RoC.SD.number.Cond,] <- paste0("ContData.env$myThresh.RoC.SD.number.Cond <- ", input$RoC_SDs)
+      df_Config_Custom[Loc.RoC.SD.period.Cond,] <- paste0("ContData.env$myThresh.RoC.SD.period.Cond <- ", input$RoC_Hrs)
+      df_Config_Custom[Loc.Flat.Hi.Cond,] <- paste0("ContData.env$myThresh.Flat.Hi.Cond <- ", input$Flat_Fail)
+      df_Config_Custom[Loc.Flat.Lo.Cond,] <- paste0("ContData.env$myThresh.Flat.Lo.Cond <- ", input$Flat_Sus)
+      df_Config_Custom[Loc.Flat.Tolerance.Cond,] <- paste0("ContData.env$myThresh.Flat.Tolerance.Cond <- ", input$Flat_Toler)
+
+    ### Discharge ####
+    } else if(input$QC_Param_Input == "Discharge"){
+      df_Config_Custom[Loc.Gross.Fail.Hi.Discharge,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.Discharge <- ", input$GR_Fail_Max)
+      df_Config_Custom[Loc.Gross.Fail.Lo.Discharge,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.Discharge <- ", input$GR_Fail_Min)
+      df_Config_Custom[Loc.Gross.Suspect.Hi.Discharge,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.Discharge <- ", input$GR_Sus_Max)
+      df_Config_Custom[Loc.Gross.Suspect.Lo.Discharge,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.Discharge <- ", input$GR_Sus_Min)
+      df_Config_Custom[Loc.Spike.Hi.Discharge,] <- paste0("ContData.env$myThresh.Spike.Hi.Discharge <- ", input$Spike_Fail)
+      df_Config_Custom[Loc.Spike.Lo.Discharge,] <- paste0("ContData.env$myThresh.Spike.Lo.Discharge <- ", input$Spike_Sus)
+      df_Config_Custom[Loc.RoC.SD.number.Discharge,] <- paste0("ContData.env$myThresh.RoC.SD.number.Discharge <- ", input$RoC_SDs)
+      df_Config_Custom[Loc.RoC.SD.period.Discharge,] <- paste0("ContData.env$myThresh.RoC.SD.period.Discharge <- ", input$RoC_Hrs)
+      df_Config_Custom[Loc.Flat.Hi.Discharge,] <- paste0("ContData.env$myThresh.Flat.Hi.Discharge <- ", input$Flat_Fail)
+      df_Config_Custom[Loc.Flat.Lo.Discharge,] <- paste0("ContData.env$myThresh.Flat.Lo.Discharge <- ", input$Flat_Sus)
+      df_Config_Custom[Loc.Flat.Tolerance.Discharge,] <- paste0("ContData.env$myThresh.Flat.Tolerance.Discharge <- ", input$Flat_Toler)
+
+    ### DO ####
+    } else if(input$QC_Param_Input == "DO"){
+      df_Config_Custom[Loc.Gross.Fail.Hi.DO,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.DO <- ", input$GR_Fail_Max)
+      df_Config_Custom[Loc.Gross.Fail.Lo.DO,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.DO <- ", input$GR_Fail_Min)
+      df_Config_Custom[Loc.Gross.Suspect.Hi.DO,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.DO <- ", input$GR_Sus_Max)
+      df_Config_Custom[Loc.Gross.Suspect.Lo.DO,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.DO <- ", input$GR_Sus_Min)
+      df_Config_Custom[Loc.Spike.Hi.DO,] <- paste0("ContData.env$myThresh.Spike.Hi.DO <- ", input$Spike_Fail)
+      df_Config_Custom[Loc.Spike.Lo.DO,] <- paste0("ContData.env$myThresh.Spike.Lo.DO <- ", input$Spike_Sus)
+      df_Config_Custom[Loc.RoC.SD.number.DO,] <- paste0("ContData.env$myThresh.RoC.SD.number.DO <- ", input$RoC_SDs)
+      df_Config_Custom[Loc.RoC.SD.period.DO,] <- paste0("ContData.env$myThresh.RoC.SD.period.DO <- ", input$RoC_Hrs)
+      df_Config_Custom[Loc.Flat.Hi.DO,] <- paste0("ContData.env$myThresh.Flat.Hi.DO <- ", input$Flat_Fail)
+      df_Config_Custom[Loc.Flat.Lo.DO,] <- paste0("ContData.env$myThresh.Flat.Lo.DO <- ", input$Flat_Sus)
+      df_Config_Custom[Loc.Flat.Tolerance.DO,] <- paste0("ContData.env$myThresh.Flat.Tolerance.DO <- ", input$Flat_Toler)
+
+    ### DOadj ####
+    } else if(input$QC_Param_Input == "DOadj"){
+      df_Config_Custom[Loc.Gross.Fail.Hi.DO.adj,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.DO.adj <- ", input$GR_Fail_Max)
+      df_Config_Custom[Loc.Gross.Fail.Lo.DO.adj,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.DO.adj <- ", input$GR_Fail_Min)
+      df_Config_Custom[Loc.Gross.Suspect.Hi.DO.adj,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.DO.adj <- ", input$GR_Sus_Max)
+      df_Config_Custom[Loc.Gross.Suspect.Lo.DO.adj,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.DO.adj <- ", input$GR_Sus_Min)
+      df_Config_Custom[Loc.Spike.Hi.DO.adj,] <- paste0("ContData.env$myThresh.Spike.Hi.DO.adj <- ", input$Spike_Fail)
+      df_Config_Custom[Loc.Spike.Lo.DO.adj,] <- paste0("ContData.env$myThresh.Spike.Lo.DO.adj <- ", input$Spike_Sus)
+      df_Config_Custom[Loc.RoC.SD.number.DO.adj,] <- paste0("ContData.env$myThresh.RoC.SD.number.DO.adj <- ", input$RoC_SDs)
+      df_Config_Custom[Loc.RoC.SD.period.DO.adj,] <- paste0("ContData.env$myThresh.RoC.SD.period.DO.adj <- ", input$RoC_Hrs)
+      df_Config_Custom[Loc.Flat.Hi.DO.adj,] <- paste0("ContData.env$myThresh.Flat.Hi.DO.adj <- ", input$Flat_Fail)
+      df_Config_Custom[Loc.Flat.Lo.DO.adj,] <- paste0("ContData.env$myThresh.Flat.Lo.DO.adj <- ", input$Flat_Sus)
+      df_Config_Custom[Loc.Flat.Tolerance.DO.adj,] <- paste0("ContData.env$myThresh.Flat.Tolerance.DO.adj <- ", input$Flat_Toler)
+
+    ### DOpctsat ####
+    } else if(input$QC_Param_Input == "DOpctsat"){
+      df_Config_Custom[Loc.Gross.Fail.Hi.DO.pctsat,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.DO.pctsat <- ", input$GR_Fail_Max)
+      df_Config_Custom[Loc.Gross.Fail.Lo.DO.pctsat,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.DO.pctsat <- ", input$GR_Fail_Min)
+      df_Config_Custom[Loc.Gross.Suspect.Hi.DO.pctsat,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.DO.pctsat <- ", input$GR_Sus_Max)
+      df_Config_Custom[Loc.Gross.Suspect.Lo.DO.pctsat,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.DO.pctsat <- ", input$GR_Sus_Min)
+      df_Config_Custom[Loc.Spike.Hi.DO.pctsat,] <- paste0("ContData.env$myThresh.Spike.Hi.DO.pctsat <- ", input$Spike_Fail)
+      df_Config_Custom[Loc.Spike.Lo.DO.pctsat,] <- paste0("ContData.env$myThresh.Spike.Lo.DO.pctsat <- ", input$Spike_Sus)
+      df_Config_Custom[Loc.RoC.SD.number.DO.pctsat,] <- paste0("ContData.env$myThresh.RoC.SD.number.DO.pctsat <- ", input$RoC_SDs)
+      df_Config_Custom[Loc.RoC.SD.period.DO.pctsat,] <- paste0("ContData.env$myThresh.RoC.SD.period.DO.pctsat <- ", input$RoC_Hrs)
+      df_Config_Custom[Loc.Flat.Hi.DO.pctsat,] <- paste0("ContData.env$myThresh.Flat.Hi.DO.pctsat <- ", input$Flat_Fail)
+      df_Config_Custom[Loc.Flat.Lo.DO.pctsat,] <- paste0("ContData.env$myThresh.Flat.Lo.DO.pctsat <- ", input$Flat_Sus)
+      df_Config_Custom[Loc.Flat.Tolerance.DO.pctsat,] <- paste0("ContData.env$myThresh.Flat.Tolerance.DO.pctsat <- ", input$Flat_Toler)
+
+    ### pH ####
+    } else if(input$QC_Param_Input == "pH"){
+      df_Config_Custom[Loc.Gross.Fail.Hi.pH,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.pH <- ", input$GR_Fail_Max)
+      df_Config_Custom[Loc.Gross.Fail.Lo.pH,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.pH <- ", input$GR_Fail_Min)
+      df_Config_Custom[Loc.Gross.Suspect.Hi.pH,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.pH <- ", input$GR_Sus_Max)
+      df_Config_Custom[Loc.Gross.Suspect.Lo.pH,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.pH <- ", input$GR_Sus_Min)
+      df_Config_Custom[Loc.Spike.Hi.pH,] <- paste0("ContData.env$myThresh.Spike.Hi.pH <- ", input$Spike_Fail)
+      df_Config_Custom[Loc.Spike.Lo.pH,] <- paste0("ContData.env$myThresh.Spike.Lo.pH <- ", input$Spike_Sus)
+      df_Config_Custom[Loc.RoC.SD.number.pH,] <- paste0("ContData.env$myThresh.RoC.SD.number.pH <- ", input$RoC_SDs)
+      df_Config_Custom[Loc.RoC.SD.period.pH,] <- paste0("ContData.env$myThresh.RoC.SD.period.pH <- ", input$RoC_Hrs)
+      df_Config_Custom[Loc.Flat.Hi.pH,] <- paste0("ContData.env$myThresh.Flat.Hi.pH <- ", input$Flat_Fail)
+      df_Config_Custom[Loc.Flat.Lo.pH,] <- paste0("ContData.env$myThresh.Flat.Lo.pH <- ", input$Flat_Sus)
+      df_Config_Custom[Loc.Flat.Tolerance.pH,] <- paste0("ContData.env$myThresh.Flat.Tolerance.pH <- ", input$Flat_Toler)
+
+    ### SensDepth ####
+    } else if(input$QC_Param_Input == "SensDepth"){
+      df_Config_Custom[Loc.Gross.Fail.Hi.SensorDepth,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.SensorDepth <- ", input$GR_Fail_Max)
+      df_Config_Custom[Loc.Gross.Fail.Lo.SensorDepth,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.SensorDepth <- ", input$GR_Fail_Min)
+      df_Config_Custom[Loc.Gross.Suspect.Hi.SensorDepth,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth <- ", input$GR_Sus_Max)
+      df_Config_Custom[Loc.Gross.Suspect.Lo.SensorDepth,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth <- ", input$GR_Sus_Min)
+      df_Config_Custom[Loc.Spike.Hi.SensorDepth,] <- paste0("ContData.env$myThresh.Spike.Hi.SensorDepth <- ", input$Spike_Fail)
+      df_Config_Custom[Loc.Spike.Lo.SensorDepth,] <- paste0("ContData.env$myThresh.Spike.Lo.SensorDepth <- ", input$Spike_Sus)
+      df_Config_Custom[Loc.RoC.SD.number.SensorDepth,] <- paste0("ContData.env$myThresh.RoC.SD.number.SensorDepth <- ", input$RoC_SDs)
+      df_Config_Custom[Loc.RoC.SD.period.SensorDepth,] <- paste0("ContData.env$myThresh.RoC.SD.period.SensorDepth <- ", input$RoC_Hrs)
+      df_Config_Custom[Loc.Flat.Hi.SensorDepth,] <- paste0("ContData.env$myThresh.Flat.Hi.SensorDepth <- ", input$Flat_Fail)
+      df_Config_Custom[Loc.Flat.Lo.SensorDepth,] <- paste0("ContData.env$myThresh.Flat.Lo.SensorDepth <- ", input$Flat_Sus)
+      df_Config_Custom[Loc.Flat.Tolerance.SensorDepth,] <- paste0("ContData.env$myThresh.Flat.Tolerance.SensorDepth <- ", input$Flat_Toler)
+
+    ### Turbid ####
+    } else if(input$QC_Param_Input == "Turbid"){
+      df_Config_Custom[Loc.Gross.Fail.Hi.Turbidity,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.Turbidity <- ", input$GR_Fail_Max)
+      df_Config_Custom[Loc.Gross.Fail.Lo.Turbidity,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.Turbidity <- ", input$GR_Fail_Min)
+      df_Config_Custom[Loc.Gross.Suspect.Hi.Turbidity,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.Turbidity <- ", input$GR_Sus_Max)
+      df_Config_Custom[Loc.Gross.Suspect.Lo.Turbidity,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.Turbidity <- ", input$GR_Sus_Min)
+      df_Config_Custom[Loc.Spike.Hi.Turbidity,] <- paste0("ContData.env$myThresh.Spike.Hi.Turbidity <- ", input$Spike_Fail)
+      df_Config_Custom[Loc.Spike.Lo.Turbidity,] <- paste0("ContData.env$myThresh.Spike.Lo.Turbidity <- ", input$Spike_Sus)
+      df_Config_Custom[Loc.RoC.SD.number.Turbidity,] <- paste0("ContData.env$myThresh.RoC.SD.number.Turbidity <- ", input$RoC_SDs)
+      df_Config_Custom[Loc.RoC.SD.period.Turbidity,] <- paste0("ContData.env$myThresh.RoC.SD.period.Turbidity <- ", input$RoC_Hrs)
+      df_Config_Custom[Loc.Flat.Hi.Turbidity,] <- paste0("ContData.env$myThresh.Flat.Hi.Turbidity <- ", input$Flat_Fail)
+      df_Config_Custom[Loc.Flat.Lo.Turbidity,] <- paste0("ContData.env$myThresh.Flat.Lo.Turbidity <- ", input$Flat_Sus)
+      df_Config_Custom[Loc.Flat.Tolerance.Turbidity,] <- paste0("ContData.env$myThresh.Flat.Tolerance.Turbidity <- ", input$Flat_Toler)
+
+    ### WtrLvl ####
+    } else if(input$QC_Param_Input == "WtrLvl"){
+      df_Config_Custom[Loc.Gross.Fail.Hi.WaterLevel,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.WaterLevel <- ", input$GR_Fail_Max)
+      df_Config_Custom[Loc.Gross.Fail.Lo.WaterLevel,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.WaterLevel <- ", input$GR_Fail_Min)
+      df_Config_Custom[Loc.Gross.Suspect.Hi.WaterLevel,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel <- ", input$GR_Sus_Max)
+      df_Config_Custom[Loc.Gross.Suspect.Lo.WaterLevel,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel <- ", input$GR_Sus_Min)
+      df_Config_Custom[Loc.Spike.Hi.WaterLevel,] <- paste0("ContData.env$myThresh.Spike.Hi.WaterLevel <- ", input$Spike_Fail)
+      df_Config_Custom[Loc.Spike.Lo.WaterLevel,] <- paste0("ContData.env$myThresh.Spike.Lo.WaterLevel <- ", input$Spike_Sus)
+      df_Config_Custom[Loc.RoC.SD.number.WaterLevel,] <- paste0("ContData.env$myThresh.RoC.SD.number.WaterLevel <- ", input$RoC_SDs)
+      df_Config_Custom[Loc.RoC.SD.period.WaterLevel,] <- paste0("ContData.env$myThresh.RoC.SD.period.WaterLevel <- ", input$RoC_Hrs)
+      df_Config_Custom[Loc.Flat.Hi.WaterLevel,] <- paste0("ContData.env$myThresh.Flat.Hi.WaterLevel <- ", input$Flat_Fail)
+      df_Config_Custom[Loc.Flat.Lo.WaterLevel,] <- paste0("ContData.env$myThresh.Flat.Lo.WaterLevel <- ", input$Flat_Sus)
+      df_Config_Custom[Loc.Flat.Tolerance.WaterLevel,] <- paste0("ContData.env$myThresh.Flat.Tolerance.WaterLevel <- ", input$Flat_Toler)
+
+    ### WaterP ####
+    } else if(input$QC_Param_Input == "WaterP"){
+      df_Config_Custom[Loc.Gross.Fail.Hi.WaterP,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.WaterP <- ", input$GR_Fail_Max)
+      df_Config_Custom[Loc.Gross.Fail.Lo.WaterP,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.WaterP <- ", input$GR_Fail_Min)
+      df_Config_Custom[Loc.Gross.Suspect.Hi.WaterP,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.WaterP <- ", input$GR_Sus_Max)
+      df_Config_Custom[Loc.Gross.Suspect.Lo.WaterP,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.WaterP <- ", input$GR_Sus_Min)
+      df_Config_Custom[Loc.Spike.Hi.WaterP,] <- paste0("ContData.env$myThresh.Spike.Hi.WaterP <- ", input$Spike_Fail)
+      df_Config_Custom[Loc.Spike.Lo.WaterP,] <- paste0("ContData.env$myThresh.Spike.Lo.WaterP <- ", input$Spike_Sus)
+      df_Config_Custom[Loc.RoC.SD.number.WaterP,] <- paste0("ContData.env$myThresh.RoC.SD.number.WaterP <- ", input$RoC_SDs)
+      df_Config_Custom[Loc.RoC.SD.period.WaterP,] <- paste0("ContData.env$myThresh.RoC.SD.period.WaterP <- ", input$RoC_Hrs)
+      df_Config_Custom[Loc.Flat.Hi.WaterP,] <- paste0("ContData.env$myThresh.Flat.Hi.WaterP <- ", input$Flat_Fail)
+      df_Config_Custom[Loc.Flat.Lo.WaterP,] <- paste0("ContData.env$myThresh.Flat.Lo.WaterP <- ", input$Flat_Sus)
+      df_Config_Custom[Loc.Flat.Tolerance.WaterP,] <- paste0("ContData.env$myThresh.Flat.Tolerance.WaterP <- ", input$Flat_Toler)
+
+    ### WaterTemp ####
+    } else if(input$QC_Param_Input == "WaterTemp"){
+      df_Config_Custom[Loc.Gross.Fail.Hi.WaterTemp,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.WaterTemp <- ", input$GR_Fail_Max)
+      df_Config_Custom[Loc.Gross.Fail.Lo.WaterTemp,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.WaterTemp <- ", input$GR_Fail_Min)
+      df_Config_Custom[Loc.Gross.Suspect.Hi.WaterTemp,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp <- ", input$GR_Sus_Max)
+      df_Config_Custom[Loc.Gross.Suspect.Lo.WaterTemp,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp <- ", input$GR_Sus_Min)
+      df_Config_Custom[Loc.Spike.Hi.WaterTemp,] <- paste0("ContData.env$myThresh.Spike.Hi.WaterTemp <- ", input$Spike_Fail)
+      df_Config_Custom[Loc.Spike.Lo.WaterTemp,] <- paste0("ContData.env$myThresh.Spike.Lo.WaterTemp <- ", input$Spike_Sus)
+      df_Config_Custom[Loc.RoC.SD.number.WaterTemp,] <- paste0("ContData.env$myThresh.RoC.SD.number.WaterTemp <- ", input$RoC_SDs)
+      df_Config_Custom[Loc.RoC.SD.period.WaterTemp,] <- paste0("ContData.env$myThresh.RoC.SD.period.WaterTemp <- ", input$RoC_Hrs)
+      df_Config_Custom[Loc.Flat.Hi.WaterTemp,] <- paste0("ContData.env$myThresh.Flat.Hi.WaterTemp <- ", input$Flat_Fail)
+      df_Config_Custom[Loc.Flat.Lo.WaterTemp,] <- paste0("ContData.env$myThresh.Flat.Lo.WaterTemp <- ", input$Flat_Sus)
+      df_Config_Custom[Loc.Flat.Tolerance.WaterTemp,] <- paste0("ContData.env$myThresh.Flat.Tolerance.WaterTemp <- ", input$Flat_Toler)
+
+    } else {
+      showNotification(paste0("ERROR"),
+                       type = "error", duration = 60)
+    } # if else ~ END
+    ### Save file ####
+    write.table(x = df_Config_Custom, file = "www/QC_Custom_Config.csv"
+              , sep = ",", row.names = FALSE, col.names = FALSE)
+  }) # observeEvent
+
+  ## Download Handler ####
+  #https://stackoverflow.com/questions/33416557/r-shiny-download-existing-file
+  #https://stackoverflow.com/questions/25247852/shiny-app-disable-downloadbutton
+
+  # Start with download button disabled
+  shinyjs::disable("QC_Thresh_Download")
+
+  # Enable download button once save button is clicked at least once
+  observe({
+    if(input$QC_SaveBttn){
+
+      Sys.sleep(1)
+      # enable the download button
+      shinyjs::enable("QC_Thresh_Download")
+    } # if ~ END
+
+  }) # observe
+
+  # Download file
+  output$QC_Thresh_Download <- downloadHandler(
+    filename = function() {
+      paste("Custom_QC_Config_", format(Sys.Date(),"%Y%m%d")
+            ,"_",format(Sys.time(),"%H%M%S"), ".csv", sep=',')
+    },
+    content = function(file) {
+      file.copy("www/QC_Custom_Config.csv", file)
+    }
+  ) # downloadHandler
+})
