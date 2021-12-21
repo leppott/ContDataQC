@@ -1010,8 +1010,43 @@ shinyServer(function(input, output, session) {
   # QC Threshold Edits ####
 
   # Source the config.R environment
-  source("./www/Config.R")
+  # source("www/Config.R")
 
+  # Read in dataset
+  df_Config <- read.table("www/Config.R", sep = "|")
+
+  # df_Config <- read.table("R/Config.R", sep = "|")
+
+  # Create custom configuration table for output
+  df_Config_Custom <- df_Config
+  df_Config_Custom <- data.frame(df_Config_Custom,do.call(rbind,strsplit(df_Config_Custom$V1,"<- ")))
+
+  # rename columns
+  names(df_Config_Custom)[names(df_Config_Custom) == "V1"] <- "Orig"
+  names(df_Config_Custom)[names(df_Config_Custom) == "X1"] <- "Variable"
+  names(df_Config_Custom)[names(df_Config_Custom) == "X2"] <- "Value"
+
+  # change value to numeric
+  suppressWarnings(df_Config_Custom$Value <- as.numeric(df_Config_Custom$Value))
+
+  # Update with defaults
+  Loc.myDefault.RoC.SD.number<- which(startsWith(df_Config_Custom$Variable, "ContData.env$myDefault.RoC.SD.number"))
+  Loc.myDefault.RoC.SD.period<- which(startsWith(df_Config_Custom$Variable, "ContData.env$myDefault.RoC.SD.period"))
+  Loc.myDefault.Flat.Hi<- which(startsWith(df_Config_Custom$Variable, "ContData.env$myDefault.Flat.Hi"))
+  Loc.myDefault.Flat.Lo<- which(startsWith(df_Config_Custom$Variable, "ContData.env$myDefault.Flat.Lo"))
+
+  # Updated values for all Rate of Change values
+  Loc.myThresh.RoC.SD.number<- which(startsWith(df_Config_Custom$Variable, "ContData.env$myThresh.RoC.SD.number"))
+  df_Config_Custom[Loc.myThresh.RoC.SD.number,3] <- df_Config_Custom[Loc.myDefault.RoC.SD.number,3]
+
+  Loc.myThresh.RoC.SD.period<- which(startsWith(df_Config_Custom$Variable, "ContData.env$myThresh.RoC.SD.period"))
+  df_Config_Custom[Loc.myThresh.RoC.SD.period,3] <- df_Config_Custom[Loc.myDefault.RoC.SD.period,3]
+
+  # Create reactive data frame
+
+  df_Config_react <- reactiveValues(df = df_Config_Custom)
+
+  ## Parameter Units ####
   output$QC_Param_Unit <- renderText({
     if(input$QC_Param_Input == "AirTemp"|input$QC_Param_Input == "WaterTemp"){
       return("Parameter Unit: deg C")
@@ -1040,219 +1075,7 @@ shinyServer(function(input, output, session) {
     } # else if ~ END
   }) #renderText
 
-  ## Dynamic inputs ####
-  # create dynamic input values based on parameter
-
-  observeEvent(input$QC_Param_Input, {
-
-    ### AirTemp ####
-    if(input$QC_Param_Input == "AirTemp"){
-      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.AirTemp)
-      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.AirTemp)
-      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.AirTemp)
-      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.AirTemp)
-      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.AirTemp)
-      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.AirTemp)
-      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.AirTemp)
-      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.AirTemp)
-      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.AirTemp)
-      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.AirTemp)
-      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.AirTemp)
-
-      ## AirBP ####
-    } else if (input$QC_Param_Input == "AirBP"){
-      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.AirBP)
-      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.AirBP)
-      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.AirBP)
-      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.AirBP)
-      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.AirBP)
-      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.AirBP)
-      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.AirBP)
-      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.AirBP)
-      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.AirBP)
-      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.AirBP)
-      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.AirBP)
-
-      ### Chla ####
-    } else if (input$QC_Param_Input == "Chla"){
-      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla)
-      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.Chlorophylla)
-      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla)
-      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.Chlorophylla)
-      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.Chlorophylla)
-      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.Chlorophylla)
-      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.Chlorophylla)
-      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.Chlorophylla)
-      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.Chlorophylla)
-      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.Chlorophylla)
-      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.Chlorophylla)
-
-      ### Cond ####
-    } else if (input$QC_Param_Input == "Cond"){
-      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.Cond)
-      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.Cond)
-      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.Cond)
-      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.Cond)
-      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.Cond)
-      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.Cond)
-      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.Cond)
-      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.Cond)
-      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.Cond)
-      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.Cond)
-      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.Cond)
-
-      ### Discharge ####
-    } else if (input$QC_Param_Input == "Discharge"){
-      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.Discharge)
-      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.Discharge)
-      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.Discharge)
-      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.Discharge)
-      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.Discharge)
-      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.Discharge)
-      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.Discharge)
-      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.Discharge)
-      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.Discharge)
-      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.Discharge)
-      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.Discharge)
-
-      ### DO ####
-    } else if (input$QC_Param_Input == "DO"){
-      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.DO)
-      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.DO)
-      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.DO)
-      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.DO)
-      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.DO)
-      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.DO)
-      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.DO)
-      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.DO)
-      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.DO)
-      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.DO)
-      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.DO)
-
-      ### DOadj ####
-    } else if (input$QC_Param_Input == "DOadj"){
-      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.DO.adj)
-      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.DO.adj)
-      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.DO.adj)
-      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.DO.adj)
-      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.DO.adj)
-      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.DO.adj)
-      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.DO.adj)
-      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.DO.adj)
-      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.DO.adj)
-      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.DO.adj)
-      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.DO.adj)
-
-      ### DOpctsat ####
-    } else if (input$QC_Param_Input == "DOpctsat"){
-      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.DO.pctsat)
-      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.DO.pctsat)
-      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.DO.pctsat)
-      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.DO.pctsat)
-      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.DO.pctsat)
-      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.DO.pctsat)
-      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.DO.pctsat)
-      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.DO.pctsat)
-      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.DO.pctsat)
-      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.DO.pctsat)
-      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.DO.pctsat)
-
-      ### pH ####
-    } else if (input$QC_Param_Input == "pH"){
-      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.pH)
-      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.pH)
-      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.pH)
-      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.pH)
-      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.pH)
-      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.pH)
-      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.pH)
-      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.pH)
-      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.pH)
-      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.pH)
-      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.pH)
-
-      ### SensDepth ####
-    } else if (input$QC_Param_Input == "SensDepth"){
-      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.SensorDepth)
-      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.SensorDepth)
-      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth)
-      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth)
-      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.SensorDepth)
-      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.SensorDepth)
-      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.SensorDepth)
-      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.SensorDepth)
-      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.SensorDepth)
-      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.SensorDepth)
-      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.SensorDepth)
-
-      ### Turbid ####
-    } else if (input$QC_Param_Input == "Turbid"){
-      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.Turbidity)
-      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.Turbidity)
-      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.Turbidity)
-      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.Turbidity)
-      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.Turbidity)
-      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.Turbidity)
-      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.Turbidity)
-      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.Turbidity)
-      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.Turbidity)
-      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.Turbidity)
-      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.Turbidity)
-
-      ### WtrLvl ####
-    } else if (input$QC_Param_Input == "WtrLvl"){
-      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.WaterLevel)
-      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.WaterLevel)
-      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel)
-      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel)
-      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.WaterLevel)
-      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.WaterLevel)
-      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.WaterLevel)
-      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.WaterLevel)
-      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.WaterLevel)
-      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.WaterLevel)
-      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.WaterLevel)
-
-      ### WaterP ####
-    } else if (input$QC_Param_Input == "WaterP"){
-      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.WaterP)
-      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.WaterP)
-      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.WaterP)
-      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.WaterP)
-      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.WaterP)
-      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.WaterP)
-      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.WaterP)
-      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.WaterP)
-      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.WaterP)
-      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.WaterP)
-      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.WaterP)
-
-      ### WaterTemp ####
-    } else if (input$QC_Param_Input == "WaterTemp"){
-      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.WaterTemp)
-      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.WaterTemp)
-      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp)
-      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp)
-      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.WaterTemp)
-      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.WaterTemp)
-      updateNumericInput(session, "RoC_SDs", value = ContData.env$myThresh.RoC.SD.number.WaterTemp)
-      updateNumericInput(session, "RoC_Hrs", value = ContData.env$myThresh.RoC.SD.period.WaterTemp)
-      updateNumericInput(session, "Flat_Fail", value = ContData.env$myThresh.Flat.Hi.WaterTemp)
-      updateNumericInput(session, "Flat_Sus", value = ContData.env$myThresh.Flat.Lo.WaterTemp)
-      updateNumericInput(session, "Flat_Toler", value = ContData.env$myThresh.Flat.Tolerance.WaterTemp)
-    } else {
-      return(NULL)
-    } # if else ~ END
-  }) # observeEvent
-
   ## Config.R locations ####
-  # Read in dataset
-  df_Config <- read.table("www/Config.R", sep = "|")
-
-  # df_Config <- read.table("R/Config.R", sep = "|")
-
-  # Create custom configuration table for output
-  df_Config_Custom <- df_Config
 
   # Identify locations
   ### AirTemp ####
@@ -1424,222 +1247,668 @@ shinyServer(function(input, output, session) {
   Loc.Flat.Lo.WaterTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Lo.WaterTemp"))
   Loc.Flat.Tolerance.WaterTemp<- which(startsWith(df_Config$V1, "ContData.env$myThresh.Flat.Tolerance.WaterTemp"))
 
-  # ## Save Button ###
-  #
-  # ## Notification of save
-  # observeEvent(input$QC_SaveBttn, {
-  #   showNotification(paste0("Threshold changes saved!"),
-  #                    type = "error", duration = 10)
-  # }) # observeEvent
+  ## Dynamic inputs ####
+  # create dynamic input values based on parameter
+
+  observeEvent(input$QC_Param_Input, {
+
+    ### AirTemp ####
+    if(input$QC_Param_Input == "AirTemp"){
+      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.AirTemp,3])
+      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.AirTemp,3])
+      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.AirTemp,3])
+      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.AirTemp,3])
+      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.AirTemp,3])
+      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.AirTemp,3])
+      updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.AirTemp,3])
+      updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.AirTemp,3])
+      updateNumericInput(session, "Flat_Fail", value = df_Config_react$df[Loc.Flat.Hi.AirTemp,3])
+      updateNumericInput(session, "Flat_Sus", value = df_Config_react$df[Loc.Flat.Lo.AirTemp,3])
+      updateNumericInput(session, "Flat_Toler", value = df_Config_react$df[Loc.Flat.Tolerance.AirTemp,3])
+
+    ## AirBP ####
+    } else if (input$QC_Param_Input == "AirBP"){
+      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.AirBP,3])
+      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.AirBP,3])
+      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.AirBP,3])
+      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.AirBP,3])
+      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.AirBP,3])
+      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.AirBP,3])
+      updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.AirBP,3])
+      updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.AirBP,3])
+      updateNumericInput(session, "Flat_Fail", value = df_Config_react$df[Loc.Flat.Hi.AirBP,3])
+      updateNumericInput(session, "Flat_Sus", value = df_Config_react$df[Loc.Flat.Lo.AirBP,3])
+      updateNumericInput(session, "Flat_Toler", value = df_Config_react$df[Loc.Flat.Tolerance.AirBP,3])
+
+      ### Chla ####
+    } else if (input$QC_Param_Input == "Chla"){
+      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.Chlorophylla,3])
+      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.Chlorophylla,3])
+      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.Chlorophylla,3])
+      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.Chlorophylla,3])
+      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.Chlorophylla,3])
+      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.Chlorophylla,3])
+      updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.Chlorophylla,3])
+      updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.Chlorophylla,3])
+      updateNumericInput(session, "Flat_Fail", value = (df_Config_react$df[Loc.myDefault.Flat.Hi,3])*2)
+      updateNumericInput(session, "Flat_Sus", value = (df_Config_react$df[Loc.myDefault.Flat.Lo,3])*2)
+      updateNumericInput(session, "Flat_Toler", value = df_Config_react$df[Loc.Flat.Tolerance.Chlorophylla,3])
+
+      ### Cond ####
+    } else if (input$QC_Param_Input == "Cond"){
+      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.Cond,3])
+      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.Cond,3])
+      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.Cond,3])
+      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.Cond,3])
+      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.Cond,3])
+      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.Cond,3])
+      updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.Cond,3])
+      updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.Cond,3])
+      updateNumericInput(session, "Flat_Fail", value = (df_Config_react$df[Loc.myDefault.Flat.Hi,3])*2)
+      updateNumericInput(session, "Flat_Sus", value = (df_Config_react$df[Loc.myDefault.Flat.Lo,3])*2)
+      updateNumericInput(session, "Flat_Toler", value = df_Config_react$df[Loc.Flat.Tolerance.Cond,3])
+
+      ### Discharge ####
+    } else if (input$QC_Param_Input == "Discharge"){
+      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.Discharge,3])
+      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.Discharge,3])
+      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.Discharge,3])
+      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.Discharge,3])
+      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.Discharge,3])
+      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.Discharge,3])
+      updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.Discharge,3])
+      updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.Discharge,3])
+      updateNumericInput(session, "Flat_Fail", value = (df_Config_react$df[Loc.myDefault.Flat.Hi,3])*2)
+      updateNumericInput(session, "Flat_Sus", value = (df_Config_react$df[Loc.myDefault.Flat.Lo,3])*2)
+      updateNumericInput(session, "Flat_Toler", value = df_Config_react$df[Loc.Flat.Tolerance.Discharge,3])
+
+      ### DO ####
+    } else if (input$QC_Param_Input == "DO"){
+      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.DO,3])
+      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.DO,3])
+      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.DO,3])
+      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.DO,3])
+      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.DO,3])
+      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.DO,3])
+      updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.DO,3])
+      updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.DO,3])
+      updateNumericInput(session, "Flat_Fail", value = (df_Config_react$df[Loc.myDefault.Flat.Hi,3])*2)
+      updateNumericInput(session, "Flat_Sus", value = (df_Config_react$df[Loc.myDefault.Flat.Lo,3])*2)
+      updateNumericInput(session, "Flat_Toler", value = df_Config_react$df[Loc.Flat.Tolerance.DO,3])
+
+      ### DOadj ####
+    } else if (input$QC_Param_Input == "DOadj"){
+      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.DO.adj,3])
+      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.DO.adj,3])
+      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.DO.adj,3])
+      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.DO.adj,3])
+      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.DO.adj,3])
+      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.DO.adj,3])
+      updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.DO.adj,3])
+      updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.DO.adj,3])
+      updateNumericInput(session, "Flat_Fail", value = (df_Config_react$df[Loc.myDefault.Flat.Hi,3])*2)
+      updateNumericInput(session, "Flat_Sus", value = (df_Config_react$df[Loc.myDefault.Flat.Lo,3])*2)
+      updateNumericInput(session, "Flat_Toler", value = df_Config_react$df[Loc.Flat.Tolerance.DO.adj,3])
+
+      ### DOpctsat ####
+    } else if (input$QC_Param_Input == "DOpctsat"){
+      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.DO.pctsat,3])
+      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.DO.pctsat,3])
+      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.DO.pctsat,3])
+      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.DO.pctsat,3])
+      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.DO.pctsat,3])
+      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.DO.pctsat,3])
+      updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.DO.pctsat,3])
+      updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.DO.pctsat,3])
+      updateNumericInput(session, "Flat_Fail", value = (df_Config_react$df[Loc.myDefault.Flat.Hi,3])*2)
+      updateNumericInput(session, "Flat_Sus", value = (df_Config_react$df[Loc.myDefault.Flat.Lo,3])*2)
+      updateNumericInput(session, "Flat_Toler", value = df_Config_react$df[Loc.Flat.Tolerance.DO.pctsat,3])
+
+      ### pH ####
+    } else if (input$QC_Param_Input == "pH"){
+      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.pH,3])
+      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.pH,3])
+      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.pH,3])
+      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.pH,3])
+      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.pH,3])
+      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.pH,3])
+      updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.pH,3])
+      updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.pH,3])
+      updateNumericInput(session, "Flat_Fail", value = (df_Config_react$df[Loc.myDefault.Flat.Hi,3])*2)
+      updateNumericInput(session, "Flat_Sus", value = (df_Config_react$df[Loc.myDefault.Flat.Lo,3])*2)
+      updateNumericInput(session, "Flat_Toler", value = df_Config_react$df[Loc.Flat.Tolerance.pH,3])
+
+      ### SensDepth ####
+    } else if (input$QC_Param_Input == "SensDepth"){
+      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.SensorDepth,3])
+      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.SensorDepth,3])
+      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.SensorDepth,3])
+      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.SensorDepth,3])
+      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.SensorDepth,3])
+      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.SensorDepth,3])
+      updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.SensorDepth,3])
+      updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.SensorDepth,3])
+      updateNumericInput(session, "Flat_Fail", value = df_Config_react$df[Loc.Flat.Hi.SensorDepth,3])
+      updateNumericInput(session, "Flat_Sus", value = df_Config_react$df[Loc.Flat.Lo.SensorDepth,3])
+      updateNumericInput(session, "Flat_Toler", value = df_Config_react$df[Loc.Flat.Tolerance.SensorDepth,3])
+
+      ### Turbid ####
+    } else if (input$QC_Param_Input == "Turbid"){
+      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.Turbidity,3])
+      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.Turbidity,3])
+      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.Turbidity,3])
+      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.Turbidity,3])
+      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.Turbidity,3])
+      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.Turbidity,3])
+      updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.Turbidity,3])
+      updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.Turbidity,3])
+      updateNumericInput(session, "Flat_Fail", value = (df_Config_react$df[Loc.myDefault.Flat.Hi,3])*2)
+      updateNumericInput(session, "Flat_Sus", value = (df_Config_react$df[Loc.myDefault.Flat.Lo,3])*2)
+      updateNumericInput(session, "Flat_Toler", value = df_Config_react$df[Loc.Flat.Tolerance.Turbidity,3])
+
+      ### WtrLvl ####
+    } else if (input$QC_Param_Input == "WtrLvl"){
+      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.SensorDepth,3])
+      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.SensorDepth,3])
+      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.SensorDepth,3])
+      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.SensorDepth,3])
+      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.SensorDepth,3])
+      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.SensorDepth,3])
+      updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.WaterLevel,3])
+      updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.WaterLevel,3])
+      updateNumericInput(session, "Flat_Fail", value = df_Config_react$df[Loc.Flat.Hi.SensorDepth,3])
+      updateNumericInput(session, "Flat_Sus", value = df_Config_react$df[Loc.Flat.Lo.SensorDepth,3])
+      updateNumericInput(session, "Flat_Toler", value = df_Config_react$df[Loc.Flat.Tolerance.SensorDepth,3])
+
+      ### WaterP ####
+    } else if (input$QC_Param_Input == "WaterP"){
+      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.WaterP,3])
+      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.WaterP,3])
+      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.WaterP,3])
+      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.WaterP,3])
+      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.WaterP,3])
+      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.WaterP,3])
+      updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.WaterP,3])
+      updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.WaterP,3])
+      updateNumericInput(session, "Flat_Fail", value = df_Config_react$df[Loc.Flat.Hi.WaterP,3])
+      updateNumericInput(session, "Flat_Sus", value = df_Config_react$df[Loc.Flat.Lo.WaterP,3])
+      updateNumericInput(session, "Flat_Toler", value = df_Config_react$df[Loc.Flat.Tolerance.WaterP,3])
+
+      ### WaterTemp ####
+    } else if (input$QC_Param_Input == "WaterTemp"){
+      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.WaterTemp,3])
+      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.WaterTemp,3])
+      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.WaterTemp,3])
+      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.WaterTemp,3])
+      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.WaterTemp,3])
+      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.WaterTemp,3])
+      updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.WaterTemp,3])
+      updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.WaterTemp,3])
+      updateNumericInput(session, "Flat_Fail", value = df_Config_react$df[Loc.Flat.Hi.WaterTemp,3])
+      updateNumericInput(session, "Flat_Sus", value = df_Config_react$df[Loc.Flat.Lo.WaterTemp,3])
+      updateNumericInput(session, "Flat_Toler", value = df_Config_react$df[Loc.Flat.Tolerance.WaterTemp,3])
+    } else {
+      return(NULL)
+    } # if else ~ END
+  }) # observeEvent
 
   ## Update Config.R ####
   observeEvent(input$QC_SaveBttn, {
     showNotification(paste0("Threshold changes saved!"),
                      type = "error", duration = 10)
-    # browser()
+
     ### AirTemp ####
     if(input$QC_Param_Input == "AirTemp"){
-      df_Config_Custom[Loc.Gross.Fail.Hi.AirTemp,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.AirTemp <- ", input$GR_Fail_Max)
-      df_Config_Custom[Loc.Gross.Fail.Lo.AirTemp,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.AirTemp <- ", input$GR_Fail_Min)
-      df_Config_Custom[Loc.Gross.Suspect.Hi.AirTemp,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.AirTemp <- ", input$GR_Sus_Max)
-      df_Config_Custom[Loc.Gross.Suspect.Lo.AirTemp,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.AirTemp <- ", input$GR_Sus_Min)
-      df_Config_Custom[Loc.Spike.Hi.AirTemp,] <- paste0("ContData.env$myThresh.Spike.Hi.AirTemp <- ", input$Spike_Fail)
-      df_Config_Custom[Loc.Spike.Lo.AirTemp,] <- paste0("ContData.env$myThresh.Spike.Lo.AirTemp <- ", input$Spike_Sus)
-      df_Config_Custom[Loc.RoC.SD.number.AirTemp,] <- paste0("ContData.env$myThresh.RoC.SD.number.AirTemp <- ", input$RoC_SDs)
-      df_Config_Custom[Loc.RoC.SD.period.AirTemp,] <- paste0("ContData.env$myThresh.RoC.SD.period.AirTemp <- ", input$RoC_Hrs)
-      df_Config_Custom[Loc.Flat.Hi.AirTemp,] <- paste0("ContData.env$myThresh.Flat.Hi.AirTemp <- ", input$Flat_Fail)
-      df_Config_Custom[Loc.Flat.Lo.AirTemp,] <- paste0("ContData.env$myThresh.Flat.Lo.AirTemp <- ", input$Flat_Sus)
-      df_Config_Custom[Loc.Flat.Tolerance.AirTemp,] <- paste0("ContData.env$myThresh.Flat.Tolerance.AirTemp <- ", input$Flat_Toler)
+      df_Config_react$df[Loc.Gross.Fail.Hi.AirTemp, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.AirTemp <- ", input$GR_Fail_Max)
+      df_Config_react$df[Loc.Gross.Fail.Lo.AirTemp, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.AirTemp <- ", input$GR_Fail_Min)
+      df_Config_react$df[Loc.Gross.Suspect.Hi.AirTemp, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.AirTemp <- ", input$GR_Sus_Max)
+      df_Config_react$df[Loc.Gross.Suspect.Lo.AirTemp, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.AirTemp <- ", input$GR_Sus_Min)
+      df_Config_react$df[Loc.Spike.Hi.AirTemp, 1] <- paste0("ContData.env$myThresh.Spike.Hi.AirTemp <- ", input$Spike_Fail)
+      df_Config_react$df[Loc.Spike.Lo.AirTemp, 1] <- paste0("ContData.env$myThresh.Spike.Lo.AirTemp <- ", input$Spike_Sus)
+      df_Config_react$df[Loc.RoC.SD.number.AirTemp, 1] <- paste0("ContData.env$myThresh.RoC.SD.number.AirTemp <- ", input$RoC_SDs)
+      df_Config_react$df[Loc.RoC.SD.period.AirTemp, 1] <- paste0("ContData.env$myThresh.RoC.SD.period.AirTemp <- ", input$RoC_Hrs)
+      df_Config_react$df[Loc.Flat.Hi.AirTemp, 1] <- paste0("ContData.env$myThresh.Flat.Hi.AirTemp <- ", input$Flat_Fail)
+      df_Config_react$df[Loc.Flat.Lo.AirTemp, 1] <- paste0("ContData.env$myThresh.Flat.Lo.AirTemp <- ", input$Flat_Sus)
+      df_Config_react$df[Loc.Flat.Tolerance.AirTemp, 1] <- paste0("ContData.env$myThresh.Flat.Tolerance.AirTemp <- ", input$Flat_Toler)
+
+      df_Config_react$df[Loc.Gross.Fail.Hi.AirTemp, 3] <- input$GR_Fail_Max
+      df_Config_react$df[Loc.Gross.Fail.Lo.AirTemp, 3] <- input$GR_Fail_Min
+      df_Config_react$df[Loc.Gross.Suspect.Hi.AirTemp, 3] <- input$GR_Sus_Max
+      df_Config_react$df[Loc.Gross.Suspect.Lo.AirTemp, 3] <- input$GR_Sus_Min
+      df_Config_react$df[Loc.Spike.Hi.AirTemp, 3] <- input$Spike_Fail
+      df_Config_react$df[Loc.Spike.Lo.AirTemp, 3] <- input$Spike_Sus
+      df_Config_react$df[Loc.RoC.SD.number.AirTemp, 3] <- input$RoC_SDs
+      df_Config_react$df[Loc.RoC.SD.period.AirTemp, 3] <- input$RoC_Hrs
+      df_Config_react$df[Loc.Flat.Hi.AirTemp, 3] <- input$Flat_Fail
+      df_Config_react$df[Loc.Flat.Lo.AirTemp, 3] <- input$Flat_Sus
+      df_Config_react$df[Loc.Flat.Tolerance.AirTemp, 3] <- input$Flat_Toler
+
+      df_print <- df_Config_react$df[, 1]
+
+      ## Save file ###
+      write.table(x = df_print, file = "www/QC_Custom_Config.tsv"
+                  , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ## AirBP ####
     } else if(input$QC_Param_Input == "AirBP"){
-      df_Config_Custom[Loc.Gross.Fail.Hi.AirBP,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.AirBP <- ", input$GR_Fail_Max)
-      df_Config_Custom[Loc.Gross.Fail.Lo.AirBP,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.AirBP <- ", input$GR_Fail_Min)
-      df_Config_Custom[Loc.Gross.Suspect.Hi.AirBP,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.AirBP <- ", input$GR_Sus_Max)
-      df_Config_Custom[Loc.Gross.Suspect.Lo.AirBP,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.AirBP <- ", input$GR_Sus_Min)
-      df_Config_Custom[Loc.Spike.Hi.AirBP,] <- paste0("ContData.env$myThresh.Spike.Hi.AirBP <- ", input$Spike_Fail)
-      df_Config_Custom[Loc.Spike.Lo.AirBP,] <- paste0("ContData.env$myThresh.Spike.Lo.AirBP <- ", input$Spike_Sus)
-      df_Config_Custom[Loc.RoC.SD.number.AirBP,] <- paste0("ContData.env$myThresh.RoC.SD.number.AirBP <- ", input$RoC_SDs)
-      df_Config_Custom[Loc.RoC.SD.period.AirBP,] <- paste0("ContData.env$myThresh.RoC.SD.period.AirBP <- ", input$RoC_Hrs)
-      df_Config_Custom[Loc.Flat.Hi.AirBP,] <- paste0("ContData.env$myThresh.Flat.Hi.AirBP <- ", input$Flat_Fail)
-      df_Config_Custom[Loc.Flat.Lo.AirBP,] <- paste0("ContData.env$myThresh.Flat.Lo.AirBP <- ", input$Flat_Sus)
-      df_Config_Custom[Loc.Flat.Tolerance.AirBP,] <- paste0("ContData.env$myThresh.Flat.Tolerance.AirBP <- ", input$Flat_Toler)
+      df_Config_react$df[Loc.Gross.Fail.Hi.AirBP, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.AirBP <- ", input$GR_Fail_Max)
+      df_Config_react$df[Loc.Gross.Fail.Lo.AirBP, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.AirBP <- ", input$GR_Fail_Min)
+      df_Config_react$df[Loc.Gross.Suspect.Hi.AirBP, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.AirBP <- ", input$GR_Sus_Max)
+      df_Config_react$df[Loc.Gross.Suspect.Lo.AirBP, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.AirBP <- ", input$GR_Sus_Min)
+      df_Config_react$df[Loc.Spike.Hi.AirBP, 1] <- paste0("ContData.env$myThresh.Spike.Hi.AirBP <- ", input$Spike_Fail)
+      df_Config_react$df[Loc.Spike.Lo.AirBP, 1] <- paste0("ContData.env$myThresh.Spike.Lo.AirBP <- ", input$Spike_Sus)
+      df_Config_react$df[Loc.RoC.SD.number.AirBP, 1] <- paste0("ContData.env$myThresh.RoC.SD.number.AirBP <- ", input$RoC_SDs)
+      df_Config_react$df[Loc.RoC.SD.period.AirBP, 1] <- paste0("ContData.env$myThresh.RoC.SD.period.AirBP <- ", input$RoC_Hrs)
+      df_Config_react$df[Loc.Flat.Hi.AirBP, 1] <- paste0("ContData.env$myThresh.Flat.Hi.AirBP <- ", input$Flat_Fail)
+      df_Config_react$df[Loc.Flat.Lo.AirBP, 1] <- paste0("ContData.env$myThresh.Flat.Lo.AirBP <- ", input$Flat_Sus)
+      df_Config_react$df[Loc.Flat.Tolerance.AirBP, 1] <- paste0("ContData.env$myThresh.Flat.Tolerance.AirBP <- ", input$Flat_Toler)
+
+      df_Config_react$df[Loc.Gross.Fail.Hi.AirBP, 3] <- input$GR_Fail_Max
+      df_Config_react$df[Loc.Gross.Fail.Lo.AirBP, 3] <- input$GR_Fail_Min
+      df_Config_react$df[Loc.Gross.Suspect.Hi.AirBP, 3] <- input$GR_Sus_Max
+      df_Config_react$df[Loc.Gross.Suspect.Lo.AirBP, 3] <- input$GR_Sus_Min
+      df_Config_react$df[Loc.Spike.Hi.AirBP, 3] <- input$Spike_Fail
+      df_Config_react$df[Loc.Spike.Lo.AirBP, 3] <- input$Spike_Sus
+      df_Config_react$df[Loc.RoC.SD.number.AirBP, 3] <- input$RoC_SDs
+      df_Config_react$df[Loc.RoC.SD.period.AirBP, 3] <- input$RoC_Hrs
+      df_Config_react$df[Loc.Flat.Hi.AirBP, 3] <- input$Flat_Fail
+      df_Config_react$df[Loc.Flat.Lo.AirBP, 3] <- input$Flat_Sus
+      df_Config_react$df[Loc.Flat.Tolerance.AirBP, 3] <- input$Flat_Toler
+
+      df_print <- df_Config_react$df[, 1]
+
+      ## Save file ###
+      write.table(x = df_print, file = "www/QC_Custom_Config.tsv"
+                  , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ### Chla ####
     } else if(input$QC_Param_Input == "Chla"){
-      df_Config_Custom[Loc.Gross.Fail.Hi.Chlorophylla,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla <- ", input$GR_Fail_Max)
-      df_Config_Custom[Loc.Gross.Fail.Lo.Chlorophylla,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.Chlorophylla <- ", input$GR_Fail_Min)
-      df_Config_Custom[Loc.Gross.Suspect.Hi.Chlorophylla,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla <- ", input$GR_Sus_Max)
-      df_Config_Custom[Loc.Gross.Suspect.Lo.Chlorophylla,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.Chlorophylla <- ", input$GR_Sus_Min)
-      df_Config_Custom[Loc.Spike.Hi.Chlorophylla,] <- paste0("ContData.env$myThresh.Spike.Hi.Chlorophylla <- ", input$Spike_Fail)
-      df_Config_Custom[Loc.Spike.Lo.Chlorophylla,] <- paste0("ContData.env$myThresh.Spike.Lo.Chlorophylla <- ", input$Spike_Sus)
-      df_Config_Custom[Loc.RoC.SD.number.Chlorophylla,] <- paste0("ContData.env$myThresh.RoC.SD.number.Chlorophylla <- ", input$RoC_SDs)
-      df_Config_Custom[Loc.RoC.SD.period.Chlorophylla,] <- paste0("ContData.env$myThresh.RoC.SD.period.Chlorophylla <- ", input$RoC_Hrs)
-      df_Config_Custom[Loc.Flat.Hi.Chlorophylla,] <- paste0("ContData.env$myThresh.Flat.Hi.Chlorophylla <- ", input$Flat_Fail)
-      df_Config_Custom[Loc.Flat.Lo.Chlorophylla,] <- paste0("ContData.env$myThresh.Flat.Lo.Chlorophylla <- ", input$Flat_Sus)
-      df_Config_Custom[Loc.Flat.Tolerance.Chlorophylla,] <- paste0("ContData.env$myThresh.Flat.Tolerance.Chlorophylla <- ", input$Flat_Toler)
+      df_Config_react$df[Loc.Gross.Fail.Hi.Chlorophylla, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla <- ", input$GR_Fail_Max)
+      df_Config_react$df[Loc.Gross.Fail.Lo.Chlorophylla, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.Chlorophylla <- ", input$GR_Fail_Min)
+      df_Config_react$df[Loc.Gross.Suspect.Hi.Chlorophylla, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla <- ", input$GR_Sus_Max)
+      df_Config_react$df[Loc.Gross.Suspect.Lo.Chlorophylla, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.Chlorophylla <- ", input$GR_Sus_Min)
+      df_Config_react$df[Loc.Spike.Hi.Chlorophylla, 1] <- paste0("ContData.env$myThresh.Spike.Hi.Chlorophylla <- ", input$Spike_Fail)
+      df_Config_react$df[Loc.Spike.Lo.Chlorophylla, 1] <- paste0("ContData.env$myThresh.Spike.Lo.Chlorophylla <- ", input$Spike_Sus)
+      df_Config_react$df[Loc.RoC.SD.number.Chlorophylla, 1] <- paste0("ContData.env$myThresh.RoC.SD.number.Chlorophylla <- ", input$RoC_SDs)
+      df_Config_react$df[Loc.RoC.SD.period.Chlorophylla, 1] <- paste0("ContData.env$myThresh.RoC.SD.period.Chlorophylla <- ", input$RoC_Hrs)
+      df_Config_react$df[Loc.Flat.Hi.Chlorophylla, 1] <- paste0("ContData.env$myThresh.Flat.Hi.Chlorophylla <- ", input$Flat_Fail)
+      df_Config_react$df[Loc.Flat.Lo.Chlorophylla, 1] <- paste0("ContData.env$myThresh.Flat.Lo.Chlorophylla <- ", input$Flat_Sus)
+      df_Config_react$df[Loc.Flat.Tolerance.Chlorophylla, 1] <- paste0("ContData.env$myThresh.Flat.Tolerance.Chlorophylla <- ", input$Flat_Toler)
+
+      df_Config_react$df[Loc.Gross.Fail.Hi.Chlorophylla, 3] <- input$GR_Fail_Max
+      df_Config_react$df[Loc.Gross.Fail.Lo.Chlorophylla, 3] <- input$GR_Fail_Min
+      df_Config_react$df[Loc.Gross.Suspect.Hi.Chlorophylla, 3] <- input$GR_Sus_Max
+      df_Config_react$df[Loc.Gross.Suspect.Lo.Chlorophylla, 3] <- input$GR_Sus_Min
+      df_Config_react$df[Loc.Spike.Hi.Chlorophylla, 3] <- input$Spike_Fail
+      df_Config_react$df[Loc.Spike.Lo.Chlorophylla, 3] <- input$Spike_Sus
+      df_Config_react$df[Loc.RoC.SD.number.Chlorophylla, 3] <- input$RoC_SDs
+      df_Config_react$df[Loc.RoC.SD.period.Chlorophylla, 3] <- input$RoC_Hrs
+      df_Config_react$df[Loc.Flat.Hi.Chlorophylla, 3] <- input$Flat_Fail
+      df_Config_react$df[Loc.Flat.Lo.Chlorophylla, 3] <- input$Flat_Sus
+      df_Config_react$df[Loc.Flat.Tolerance.Chlorophylla, 3] <- input$Flat_Toler
+
+      df_print <- df_Config_react$df[, 1]
+
+      ## Save file ###
+      write.table(x = df_print, file = "www/QC_Custom_Config.tsv"
+                  , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ### Cond ####
     } else if(input$QC_Param_Input == "Cond"){
-      df_Config_Custom[Loc.Gross.Fail.Hi.Cond,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.Cond <- ", input$GR_Fail_Max)
-      df_Config_Custom[Loc.Gross.Fail.Lo.Cond,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.Cond <- ", input$GR_Fail_Min)
-      df_Config_Custom[Loc.Gross.Suspect.Hi.Cond,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.Cond <- ", input$GR_Sus_Max)
-      df_Config_Custom[Loc.Gross.Suspect.Lo.Cond,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.Cond <- ", input$GR_Sus_Min)
-      df_Config_Custom[Loc.Spike.Hi.Cond,] <- paste0("ContData.env$myThresh.Spike.Hi.Cond <- ", input$Spike_Fail)
-      df_Config_Custom[Loc.Spike.Lo.Cond,] <- paste0("ContData.env$myThresh.Spike.Lo.Cond <- ", input$Spike_Sus)
-      df_Config_Custom[Loc.RoC.SD.number.Cond,] <- paste0("ContData.env$myThresh.RoC.SD.number.Cond <- ", input$RoC_SDs)
-      df_Config_Custom[Loc.RoC.SD.period.Cond,] <- paste0("ContData.env$myThresh.RoC.SD.period.Cond <- ", input$RoC_Hrs)
-      df_Config_Custom[Loc.Flat.Hi.Cond,] <- paste0("ContData.env$myThresh.Flat.Hi.Cond <- ", input$Flat_Fail)
-      df_Config_Custom[Loc.Flat.Lo.Cond,] <- paste0("ContData.env$myThresh.Flat.Lo.Cond <- ", input$Flat_Sus)
-      df_Config_Custom[Loc.Flat.Tolerance.Cond,] <- paste0("ContData.env$myThresh.Flat.Tolerance.Cond <- ", input$Flat_Toler)
+      df_Config_react$df[Loc.Gross.Fail.Hi.Cond, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.Cond <- ", input$GR_Fail_Max)
+      df_Config_react$df[Loc.Gross.Fail.Lo.Cond, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.Cond <- ", input$GR_Fail_Min)
+      df_Config_react$df[Loc.Gross.Suspect.Hi.Cond, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.Cond <- ", input$GR_Sus_Max)
+      df_Config_react$df[Loc.Gross.Suspect.Lo.Cond, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.Cond <- ", input$GR_Sus_Min)
+      df_Config_react$df[Loc.Spike.Hi.Cond, 1] <- paste0("ContData.env$myThresh.Spike.Hi.Cond <- ", input$Spike_Fail)
+      df_Config_react$df[Loc.Spike.Lo.Cond, 1] <- paste0("ContData.env$myThresh.Spike.Lo.Cond <- ", input$Spike_Sus)
+      df_Config_react$df[Loc.RoC.SD.number.Cond, 1] <- paste0("ContData.env$myThresh.RoC.SD.number.Cond <- ", input$RoC_SDs)
+      df_Config_react$df[Loc.RoC.SD.period.Cond, 1] <- paste0("ContData.env$myThresh.RoC.SD.period.Cond <- ", input$RoC_Hrs)
+      df_Config_react$df[Loc.Flat.Hi.Cond, 1] <- paste0("ContData.env$myThresh.Flat.Hi.Cond <- ", input$Flat_Fail)
+      df_Config_react$df[Loc.Flat.Lo.Cond, 1] <- paste0("ContData.env$myThresh.Flat.Lo.Cond <- ", input$Flat_Sus)
+      df_Config_react$df[Loc.Flat.Tolerance.Cond, 1] <- paste0("ContData.env$myThresh.Flat.Tolerance.Cond <- ", input$Flat_Toler)
+
+      df_Config_react$df[Loc.Gross.Fail.Hi.Cond, 3] <- input$GR_Fail_Max
+      df_Config_react$df[Loc.Gross.Fail.Lo.Cond, 3] <- input$GR_Fail_Min
+      df_Config_react$df[Loc.Gross.Suspect.Hi.Cond, 3] <- input$GR_Sus_Max
+      df_Config_react$df[Loc.Gross.Suspect.Lo.Cond, 3] <- input$GR_Sus_Min
+      df_Config_react$df[Loc.Spike.Hi.Cond, 3] <- input$Spike_Fail
+      df_Config_react$df[Loc.Spike.Lo.Cond, 3] <- input$Spike_Sus
+      df_Config_react$df[Loc.RoC.SD.number.Cond, 3] <- input$RoC_SDs
+      df_Config_react$df[Loc.RoC.SD.period.Cond, 3] <- input$RoC_Hrs
+      df_Config_react$df[Loc.Flat.Hi.Cond, 3] <- input$Flat_Fail
+      df_Config_react$df[Loc.Flat.Lo.Cond, 3] <- input$Flat_Sus
+      df_Config_react$df[Loc.Flat.Tolerance.Cond, 3] <- input$Flat_Toler
+
+      df_print <- df_Config_react$df[, 1]
+
+      ## Save file ###
+      write.table(x = df_print, file = "www/QC_Custom_Config.tsv"
+                  , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ### Discharge ####
     } else if(input$QC_Param_Input == "Discharge"){
-      df_Config_Custom[Loc.Gross.Fail.Hi.Discharge,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.Discharge <- ", input$GR_Fail_Max)
-      df_Config_Custom[Loc.Gross.Fail.Lo.Discharge,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.Discharge <- ", input$GR_Fail_Min)
-      df_Config_Custom[Loc.Gross.Suspect.Hi.Discharge,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.Discharge <- ", input$GR_Sus_Max)
-      df_Config_Custom[Loc.Gross.Suspect.Lo.Discharge,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.Discharge <- ", input$GR_Sus_Min)
-      df_Config_Custom[Loc.Spike.Hi.Discharge,] <- paste0("ContData.env$myThresh.Spike.Hi.Discharge <- ", input$Spike_Fail)
-      df_Config_Custom[Loc.Spike.Lo.Discharge,] <- paste0("ContData.env$myThresh.Spike.Lo.Discharge <- ", input$Spike_Sus)
-      df_Config_Custom[Loc.RoC.SD.number.Discharge,] <- paste0("ContData.env$myThresh.RoC.SD.number.Discharge <- ", input$RoC_SDs)
-      df_Config_Custom[Loc.RoC.SD.period.Discharge,] <- paste0("ContData.env$myThresh.RoC.SD.period.Discharge <- ", input$RoC_Hrs)
-      df_Config_Custom[Loc.Flat.Hi.Discharge,] <- paste0("ContData.env$myThresh.Flat.Hi.Discharge <- ", input$Flat_Fail)
-      df_Config_Custom[Loc.Flat.Lo.Discharge,] <- paste0("ContData.env$myThresh.Flat.Lo.Discharge <- ", input$Flat_Sus)
-      df_Config_Custom[Loc.Flat.Tolerance.Discharge,] <- paste0("ContData.env$myThresh.Flat.Tolerance.Discharge <- ", input$Flat_Toler)
+      df_Config_react$df[Loc.Gross.Fail.Hi.Discharge, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.Discharge <- ", input$GR_Fail_Max)
+      df_Config_react$df[Loc.Gross.Fail.Lo.Discharge, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.Discharge <- ", input$GR_Fail_Min)
+      df_Config_react$df[Loc.Gross.Suspect.Hi.Discharge, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.Discharge <- ", input$GR_Sus_Max)
+      df_Config_react$df[Loc.Gross.Suspect.Lo.Discharge, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.Discharge <- ", input$GR_Sus_Min)
+      df_Config_react$df[Loc.Spike.Hi.Discharge, 1] <- paste0("ContData.env$myThresh.Spike.Hi.Discharge <- ", input$Spike_Fail)
+      df_Config_react$df[Loc.Spike.Lo.Discharge, 1] <- paste0("ContData.env$myThresh.Spike.Lo.Discharge <- ", input$Spike_Sus)
+      df_Config_react$df[Loc.RoC.SD.number.Discharge, 1] <- paste0("ContData.env$myThresh.RoC.SD.number.Discharge <- ", input$RoC_SDs)
+      df_Config_react$df[Loc.RoC.SD.period.Discharge, 1] <- paste0("ContData.env$myThresh.RoC.SD.period.Discharge <- ", input$RoC_Hrs)
+      df_Config_react$df[Loc.Flat.Hi.Discharge, 1] <- paste0("ContData.env$myThresh.Flat.Hi.Discharge <- ", input$Flat_Fail)
+      df_Config_react$df[Loc.Flat.Lo.Discharge, 1] <- paste0("ContData.env$myThresh.Flat.Lo.Discharge <- ", input$Flat_Sus)
+      df_Config_react$df[Loc.Flat.Tolerance.Discharge, 1] <- paste0("ContData.env$myThresh.Flat.Tolerance.Discharge <- ", input$Flat_Toler)
+
+      df_Config_react$df[Loc.Gross.Fail.Hi.Discharge, 3] <- input$GR_Fail_Max
+      df_Config_react$df[Loc.Gross.Fail.Lo.Discharge, 3] <- input$GR_Fail_Min
+      df_Config_react$df[Loc.Gross.Suspect.Hi.Discharge, 3] <- input$GR_Sus_Max
+      df_Config_react$df[Loc.Gross.Suspect.Lo.Discharge, 3] <- input$GR_Sus_Min
+      df_Config_react$df[Loc.Spike.Hi.Discharge, 3] <- input$Spike_Fail
+      df_Config_react$df[Loc.Spike.Lo.Discharge, 3] <- input$Spike_Sus
+      df_Config_react$df[Loc.RoC.SD.number.Discharge, 3] <- input$RoC_SDs
+      df_Config_react$df[Loc.RoC.SD.period.Discharge, 3] <- input$RoC_Hrs
+      df_Config_react$df[Loc.Flat.Hi.Discharge, 3] <- input$Flat_Fail
+      df_Config_react$df[Loc.Flat.Lo.Discharge, 3] <- input$Flat_Sus
+      df_Config_react$df[Loc.Flat.Tolerance.Discharge, 3] <- input$Flat_Toler
+
+      df_print <- df_Config_react$df[, 1]
+
+      ## Save file ###
+      write.table(x = df_print, file = "www/QC_Custom_Config.tsv"
+                  , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ### DO ####
     } else if(input$QC_Param_Input == "DO"){
-      df_Config_Custom[Loc.Gross.Fail.Hi.DO,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.DO <- ", input$GR_Fail_Max)
-      df_Config_Custom[Loc.Gross.Fail.Lo.DO,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.DO <- ", input$GR_Fail_Min)
-      df_Config_Custom[Loc.Gross.Suspect.Hi.DO,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.DO <- ", input$GR_Sus_Max)
-      df_Config_Custom[Loc.Gross.Suspect.Lo.DO,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.DO <- ", input$GR_Sus_Min)
-      df_Config_Custom[Loc.Spike.Hi.DO,] <- paste0("ContData.env$myThresh.Spike.Hi.DO <- ", input$Spike_Fail)
-      df_Config_Custom[Loc.Spike.Lo.DO,] <- paste0("ContData.env$myThresh.Spike.Lo.DO <- ", input$Spike_Sus)
-      df_Config_Custom[Loc.RoC.SD.number.DO,] <- paste0("ContData.env$myThresh.RoC.SD.number.DO <- ", input$RoC_SDs)
-      df_Config_Custom[Loc.RoC.SD.period.DO,] <- paste0("ContData.env$myThresh.RoC.SD.period.DO <- ", input$RoC_Hrs)
-      df_Config_Custom[Loc.Flat.Hi.DO,] <- paste0("ContData.env$myThresh.Flat.Hi.DO <- ", input$Flat_Fail)
-      df_Config_Custom[Loc.Flat.Lo.DO,] <- paste0("ContData.env$myThresh.Flat.Lo.DO <- ", input$Flat_Sus)
-      df_Config_Custom[Loc.Flat.Tolerance.DO,] <- paste0("ContData.env$myThresh.Flat.Tolerance.DO <- ", input$Flat_Toler)
+      df_Config_react$df[Loc.Gross.Fail.Hi.DO, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.DO <- ", input$GR_Fail_Max)
+      df_Config_react$df[Loc.Gross.Fail.Lo.DO, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.DO <- ", input$GR_Fail_Min)
+      df_Config_react$df[Loc.Gross.Suspect.Hi.DO, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.DO <- ", input$GR_Sus_Max)
+      df_Config_react$df[Loc.Gross.Suspect.Lo.DO, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.DO <- ", input$GR_Sus_Min)
+      df_Config_react$df[Loc.Spike.Hi.DO, 1] <- paste0("ContData.env$myThresh.Spike.Hi.DO <- ", input$Spike_Fail)
+      df_Config_react$df[Loc.Spike.Lo.DO, 1] <- paste0("ContData.env$myThresh.Spike.Lo.DO <- ", input$Spike_Sus)
+      df_Config_react$df[Loc.RoC.SD.number.DO, 1] <- paste0("ContData.env$myThresh.RoC.SD.number.DO <- ", input$RoC_SDs)
+      df_Config_react$df[Loc.RoC.SD.period.DO, 1] <- paste0("ContData.env$myThresh.RoC.SD.period.DO <- ", input$RoC_Hrs)
+      df_Config_react$df[Loc.Flat.Hi.DO, 1] <- paste0("ContData.env$myThresh.Flat.Hi.DO <- ", input$Flat_Fail)
+      df_Config_react$df[Loc.Flat.Lo.DO, 1] <- paste0("ContData.env$myThresh.Flat.Lo.DO <- ", input$Flat_Sus)
+      df_Config_react$df[Loc.Flat.Tolerance.DO, 1] <- paste0("ContData.env$myThresh.Flat.Tolerance.DO <- ", input$Flat_Toler)
+
+      df_Config_react$df[Loc.Gross.Fail.Hi.DO, 3] <- input$GR_Fail_Max
+      df_Config_react$df[Loc.Gross.Fail.Lo.DO, 3] <- input$GR_Fail_Min
+      df_Config_react$df[Loc.Gross.Suspect.Hi.DO, 3] <- input$GR_Sus_Max
+      df_Config_react$df[Loc.Gross.Suspect.Lo.DO, 3] <- input$GR_Sus_Min
+      df_Config_react$df[Loc.Spike.Hi.DO, 3] <- input$Spike_Fail
+      df_Config_react$df[Loc.Spike.Lo.DO, 3] <- input$Spike_Sus
+      df_Config_react$df[Loc.RoC.SD.number.DO, 3] <- input$RoC_SDs
+      df_Config_react$df[Loc.RoC.SD.period.DO, 3] <- input$RoC_Hrs
+      df_Config_react$df[Loc.Flat.Hi.DO, 3] <- input$Flat_Fail
+      df_Config_react$df[Loc.Flat.Lo.DO, 3] <- input$Flat_Sus
+      df_Config_react$df[Loc.Flat.Tolerance.DO, 3] <- input$Flat_Toler
+
+      df_print <- df_Config_react$df[, 1]
+
+      ## Save file ###
+      write.table(x = df_print, file = "www/QC_Custom_Config.tsv"
+                  , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ### DOadj ####
     } else if(input$QC_Param_Input == "DOadj"){
-      df_Config_Custom[Loc.Gross.Fail.Hi.DO.adj,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.DO.adj <- ", input$GR_Fail_Max)
-      df_Config_Custom[Loc.Gross.Fail.Lo.DO.adj,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.DO.adj <- ", input$GR_Fail_Min)
-      df_Config_Custom[Loc.Gross.Suspect.Hi.DO.adj,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.DO.adj <- ", input$GR_Sus_Max)
-      df_Config_Custom[Loc.Gross.Suspect.Lo.DO.adj,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.DO.adj <- ", input$GR_Sus_Min)
-      df_Config_Custom[Loc.Spike.Hi.DO.adj,] <- paste0("ContData.env$myThresh.Spike.Hi.DO.adj <- ", input$Spike_Fail)
-      df_Config_Custom[Loc.Spike.Lo.DO.adj,] <- paste0("ContData.env$myThresh.Spike.Lo.DO.adj <- ", input$Spike_Sus)
-      df_Config_Custom[Loc.RoC.SD.number.DO.adj,] <- paste0("ContData.env$myThresh.RoC.SD.number.DO.adj <- ", input$RoC_SDs)
-      df_Config_Custom[Loc.RoC.SD.period.DO.adj,] <- paste0("ContData.env$myThresh.RoC.SD.period.DO.adj <- ", input$RoC_Hrs)
-      df_Config_Custom[Loc.Flat.Hi.DO.adj,] <- paste0("ContData.env$myThresh.Flat.Hi.DO.adj <- ", input$Flat_Fail)
-      df_Config_Custom[Loc.Flat.Lo.DO.adj,] <- paste0("ContData.env$myThresh.Flat.Lo.DO.adj <- ", input$Flat_Sus)
-      df_Config_Custom[Loc.Flat.Tolerance.DO.adj,] <- paste0("ContData.env$myThresh.Flat.Tolerance.DO.adj <- ", input$Flat_Toler)
+      df_Config_react$df[Loc.Gross.Fail.Hi.DO.adj, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.DO.adj <- ", input$GR_Fail_Max)
+      df_Config_react$df[Loc.Gross.Fail.Lo.DO.adj, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.DO.adj <- ", input$GR_Fail_Min)
+      df_Config_react$df[Loc.Gross.Suspect.Hi.DO.adj, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.DO.adj <- ", input$GR_Sus_Max)
+      df_Config_react$df[Loc.Gross.Suspect.Lo.DO.adj, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.DO.adj <- ", input$GR_Sus_Min)
+      df_Config_react$df[Loc.Spike.Hi.DO.adj, 1] <- paste0("ContData.env$myThresh.Spike.Hi.DO.adj <- ", input$Spike_Fail)
+      df_Config_react$df[Loc.Spike.Lo.DO.adj, 1] <- paste0("ContData.env$myThresh.Spike.Lo.DO.adj <- ", input$Spike_Sus)
+      df_Config_react$df[Loc.RoC.SD.number.DO.adj, 1] <- paste0("ContData.env$myThresh.RoC.SD.number.DO.adj <- ", input$RoC_SDs)
+      df_Config_react$df[Loc.RoC.SD.period.DO.adj, 1] <- paste0("ContData.env$myThresh.RoC.SD.period.DO.adj <- ", input$RoC_Hrs)
+      df_Config_react$df[Loc.Flat.Hi.DO.adj, 1] <- paste0("ContData.env$myThresh.Flat.Hi.DO.adj <- ", input$Flat_Fail)
+      df_Config_react$df[Loc.Flat.Lo.DO.adj, 1] <- paste0("ContData.env$myThresh.Flat.Lo.DO.adj <- ", input$Flat_Sus)
+      df_Config_react$df[Loc.Flat.Tolerance.DO.adj, 1] <- paste0("ContData.env$myThresh.Flat.Tolerance.DO.adj <- ", input$Flat_Toler)
+
+      df_Config_react$df[Loc.Gross.Fail.Hi.DO.adj, 3] <- input$GR_Fail_Max
+      df_Config_react$df[Loc.Gross.Fail.Lo.DO.adj, 3] <- input$GR_Fail_Min
+      df_Config_react$df[Loc.Gross.Suspect.Hi.DO.adj, 3] <- input$GR_Sus_Max
+      df_Config_react$df[Loc.Gross.Suspect.Lo.DO.adj, 3] <- input$GR_Sus_Min
+      df_Config_react$df[Loc.Spike.Hi.DO.adj, 3] <- input$Spike_Fail
+      df_Config_react$df[Loc.Spike.Lo.DO.adj, 3] <- input$Spike_Sus
+      df_Config_react$df[Loc.RoC.SD.number.DO.adj, 3] <- input$RoC_SDs
+      df_Config_react$df[Loc.RoC.SD.period.DO.adj, 3] <- input$RoC_Hrs
+      df_Config_react$df[Loc.Flat.Hi.DO.adj, 3] <- input$Flat_Fail
+      df_Config_react$df[Loc.Flat.Lo.DO.adj, 3] <- input$Flat_Sus
+      df_Config_react$df[Loc.Flat.Tolerance.DO.adj, 3] <- input$Flat_Toler
+
+      df_print <- df_Config_react$df[, 1]
+
+      ## Save file ###
+      write.table(x = df_print, file = "www/QC_Custom_Config.tsv"
+                  , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ### DOpctsat ####
     } else if(input$QC_Param_Input == "DOpctsat"){
-      df_Config_Custom[Loc.Gross.Fail.Hi.DO.pctsat,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.DO.pctsat <- ", input$GR_Fail_Max)
-      df_Config_Custom[Loc.Gross.Fail.Lo.DO.pctsat,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.DO.pctsat <- ", input$GR_Fail_Min)
-      df_Config_Custom[Loc.Gross.Suspect.Hi.DO.pctsat,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.DO.pctsat <- ", input$GR_Sus_Max)
-      df_Config_Custom[Loc.Gross.Suspect.Lo.DO.pctsat,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.DO.pctsat <- ", input$GR_Sus_Min)
-      df_Config_Custom[Loc.Spike.Hi.DO.pctsat,] <- paste0("ContData.env$myThresh.Spike.Hi.DO.pctsat <- ", input$Spike_Fail)
-      df_Config_Custom[Loc.Spike.Lo.DO.pctsat,] <- paste0("ContData.env$myThresh.Spike.Lo.DO.pctsat <- ", input$Spike_Sus)
-      df_Config_Custom[Loc.RoC.SD.number.DO.pctsat,] <- paste0("ContData.env$myThresh.RoC.SD.number.DO.pctsat <- ", input$RoC_SDs)
-      df_Config_Custom[Loc.RoC.SD.period.DO.pctsat,] <- paste0("ContData.env$myThresh.RoC.SD.period.DO.pctsat <- ", input$RoC_Hrs)
-      df_Config_Custom[Loc.Flat.Hi.DO.pctsat,] <- paste0("ContData.env$myThresh.Flat.Hi.DO.pctsat <- ", input$Flat_Fail)
-      df_Config_Custom[Loc.Flat.Lo.DO.pctsat,] <- paste0("ContData.env$myThresh.Flat.Lo.DO.pctsat <- ", input$Flat_Sus)
-      df_Config_Custom[Loc.Flat.Tolerance.DO.pctsat,] <- paste0("ContData.env$myThresh.Flat.Tolerance.DO.pctsat <- ", input$Flat_Toler)
+      df_Config_react$df[Loc.Gross.Fail.Hi.DO.pctsat, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.DO.pctsat <- ", input$GR_Fail_Max)
+      df_Config_react$df[Loc.Gross.Fail.Lo.DO.pctsat, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.DO.pctsat <- ", input$GR_Fail_Min)
+      df_Config_react$df[Loc.Gross.Suspect.Hi.DO.pctsat, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.DO.pctsat <- ", input$GR_Sus_Max)
+      df_Config_react$df[Loc.Gross.Suspect.Lo.DO.pctsat, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.DO.pctsat <- ", input$GR_Sus_Min)
+      df_Config_react$df[Loc.Spike.Hi.DO.pctsat, 1] <- paste0("ContData.env$myThresh.Spike.Hi.DO.pctsat <- ", input$Spike_Fail)
+      df_Config_react$df[Loc.Spike.Lo.DO.pctsat, 1] <- paste0("ContData.env$myThresh.Spike.Lo.DO.pctsat <- ", input$Spike_Sus)
+      df_Config_react$df[Loc.RoC.SD.number.DO.pctsat, 1] <- paste0("ContData.env$myThresh.RoC.SD.number.DO.pctsat <- ", input$RoC_SDs)
+      df_Config_react$df[Loc.RoC.SD.period.DO.pctsat, 1] <- paste0("ContData.env$myThresh.RoC.SD.period.DO.pctsat <- ", input$RoC_Hrs)
+      df_Config_react$df[Loc.Flat.Hi.DO.pctsat, 1] <- paste0("ContData.env$myThresh.Flat.Hi.DO.pctsat <- ", input$Flat_Fail)
+      df_Config_react$df[Loc.Flat.Lo.DO.pctsat, 1] <- paste0("ContData.env$myThresh.Flat.Lo.DO.pctsat <- ", input$Flat_Sus)
+      df_Config_react$df[Loc.Flat.Tolerance.DO.pctsat, 1] <- paste0("ContData.env$myThresh.Flat.Tolerance.DO.pctsat <- ", input$Flat_Toler)
+
+      df_Config_react$df[Loc.Gross.Fail.Hi.DO.pctsat, 3] <- input$GR_Fail_Max
+      df_Config_react$df[Loc.Gross.Fail.Lo.DO.pctsat, 3] <- input$GR_Fail_Min
+      df_Config_react$df[Loc.Gross.Suspect.Hi.DO.pctsat, 3] <- input$GR_Sus_Max
+      df_Config_react$df[Loc.Gross.Suspect.Lo.DO.pctsat, 3] <- input$GR_Sus_Min
+      df_Config_react$df[Loc.Spike.Hi.DO.pctsat, 3] <- input$Spike_Fail
+      df_Config_react$df[Loc.Spike.Lo.DO.pctsat, 3] <- input$Spike_Sus
+      df_Config_react$df[Loc.RoC.SD.number.DO.pctsat, 3] <- input$RoC_SDs
+      df_Config_react$df[Loc.RoC.SD.period.DO.pctsat, 3] <- input$RoC_Hrs
+      df_Config_react$df[Loc.Flat.Hi.DO.pctsat, 3] <- input$Flat_Fail
+      df_Config_react$df[Loc.Flat.Lo.DO.pctsat, 3] <- input$Flat_Sus
+      df_Config_react$df[Loc.Flat.Tolerance.DO.pctsat, 3] <- input$Flat_Toler
+
+      df_print <- df_Config_react$df[, 1]
+
+      ## Save file ###
+      write.table(x = df_print, file = "www/QC_Custom_Config.tsv"
+                  , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ### pH ####
     } else if(input$QC_Param_Input == "pH"){
-      df_Config_Custom[Loc.Gross.Fail.Hi.pH,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.pH <- ", input$GR_Fail_Max)
-      df_Config_Custom[Loc.Gross.Fail.Lo.pH,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.pH <- ", input$GR_Fail_Min)
-      df_Config_Custom[Loc.Gross.Suspect.Hi.pH,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.pH <- ", input$GR_Sus_Max)
-      df_Config_Custom[Loc.Gross.Suspect.Lo.pH,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.pH <- ", input$GR_Sus_Min)
-      df_Config_Custom[Loc.Spike.Hi.pH,] <- paste0("ContData.env$myThresh.Spike.Hi.pH <- ", input$Spike_Fail)
-      df_Config_Custom[Loc.Spike.Lo.pH,] <- paste0("ContData.env$myThresh.Spike.Lo.pH <- ", input$Spike_Sus)
-      df_Config_Custom[Loc.RoC.SD.number.pH,] <- paste0("ContData.env$myThresh.RoC.SD.number.pH <- ", input$RoC_SDs)
-      df_Config_Custom[Loc.RoC.SD.period.pH,] <- paste0("ContData.env$myThresh.RoC.SD.period.pH <- ", input$RoC_Hrs)
-      df_Config_Custom[Loc.Flat.Hi.pH,] <- paste0("ContData.env$myThresh.Flat.Hi.pH <- ", input$Flat_Fail)
-      df_Config_Custom[Loc.Flat.Lo.pH,] <- paste0("ContData.env$myThresh.Flat.Lo.pH <- ", input$Flat_Sus)
-      df_Config_Custom[Loc.Flat.Tolerance.pH,] <- paste0("ContData.env$myThresh.Flat.Tolerance.pH <- ", input$Flat_Toler)
+      df_Config_react$df[Loc.Gross.Fail.Hi.pH, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.pH <- ", input$GR_Fail_Max)
+      df_Config_react$df[Loc.Gross.Fail.Lo.pH, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.pH <- ", input$GR_Fail_Min)
+      df_Config_react$df[Loc.Gross.Suspect.Hi.pH, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.pH <- ", input$GR_Sus_Max)
+      df_Config_react$df[Loc.Gross.Suspect.Lo.pH, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.pH <- ", input$GR_Sus_Min)
+      df_Config_react$df[Loc.Spike.Hi.pH, 1] <- paste0("ContData.env$myThresh.Spike.Hi.pH <- ", input$Spike_Fail)
+      df_Config_react$df[Loc.Spike.Lo.pH, 1] <- paste0("ContData.env$myThresh.Spike.Lo.pH <- ", input$Spike_Sus)
+      df_Config_react$df[Loc.RoC.SD.number.pH, 1] <- paste0("ContData.env$myThresh.RoC.SD.number.pH <- ", input$RoC_SDs)
+      df_Config_react$df[Loc.RoC.SD.period.pH, 1] <- paste0("ContData.env$myThresh.RoC.SD.period.pH <- ", input$RoC_Hrs)
+      df_Config_react$df[Loc.Flat.Hi.pH, 1] <- paste0("ContData.env$myThresh.Flat.Hi.pH <- ", input$Flat_Fail)
+      df_Config_react$df[Loc.Flat.Lo.pH, 1] <- paste0("ContData.env$myThresh.Flat.Lo.pH <- ", input$Flat_Sus)
+      df_Config_react$df[Loc.Flat.Tolerance.pH, 1] <- paste0("ContData.env$myThresh.Flat.Tolerance.pH <- ", input$Flat_Toler)
+
+      df_Config_react$df[Loc.Gross.Fail.Hi.pH, 3] <- input$GR_Fail_Max
+      df_Config_react$df[Loc.Gross.Fail.Lo.pH, 3] <- input$GR_Fail_Min
+      df_Config_react$df[Loc.Gross.Suspect.Hi.pH, 3] <- input$GR_Sus_Max
+      df_Config_react$df[Loc.Gross.Suspect.Lo.pH, 3] <- input$GR_Sus_Min
+      df_Config_react$df[Loc.Spike.Hi.pH, 3] <- input$Spike_Fail
+      df_Config_react$df[Loc.Spike.Lo.pH, 3] <- input$Spike_Sus
+      df_Config_react$df[Loc.RoC.SD.number.pH, 3] <- input$RoC_SDs
+      df_Config_react$df[Loc.RoC.SD.period.pH, 3] <- input$RoC_Hrs
+      df_Config_react$df[Loc.Flat.Hi.pH, 3] <- input$Flat_Fail
+      df_Config_react$df[Loc.Flat.Lo.pH, 3] <- input$Flat_Sus
+      df_Config_react$df[Loc.Flat.Tolerance.pH, 3] <- input$Flat_Toler
+
+      df_print <- df_Config_react$df[, 1]
+
+      ## Save file ###
+      write.table(x = df_print, file = "www/QC_Custom_Config.tsv"
+                  , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ### SensDepth ####
     } else if(input$QC_Param_Input == "SensDepth"){
-      df_Config_Custom[Loc.Gross.Fail.Hi.SensorDepth,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.SensorDepth <- ", input$GR_Fail_Max)
-      df_Config_Custom[Loc.Gross.Fail.Lo.SensorDepth,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.SensorDepth <- ", input$GR_Fail_Min)
-      df_Config_Custom[Loc.Gross.Suspect.Hi.SensorDepth,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth <- ", input$GR_Sus_Max)
-      df_Config_Custom[Loc.Gross.Suspect.Lo.SensorDepth,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth <- ", input$GR_Sus_Min)
-      df_Config_Custom[Loc.Spike.Hi.SensorDepth,] <- paste0("ContData.env$myThresh.Spike.Hi.SensorDepth <- ", input$Spike_Fail)
-      df_Config_Custom[Loc.Spike.Lo.SensorDepth,] <- paste0("ContData.env$myThresh.Spike.Lo.SensorDepth <- ", input$Spike_Sus)
-      df_Config_Custom[Loc.RoC.SD.number.SensorDepth,] <- paste0("ContData.env$myThresh.RoC.SD.number.SensorDepth <- ", input$RoC_SDs)
-      df_Config_Custom[Loc.RoC.SD.period.SensorDepth,] <- paste0("ContData.env$myThresh.RoC.SD.period.SensorDepth <- ", input$RoC_Hrs)
-      df_Config_Custom[Loc.Flat.Hi.SensorDepth,] <- paste0("ContData.env$myThresh.Flat.Hi.SensorDepth <- ", input$Flat_Fail)
-      df_Config_Custom[Loc.Flat.Lo.SensorDepth,] <- paste0("ContData.env$myThresh.Flat.Lo.SensorDepth <- ", input$Flat_Sus)
-      df_Config_Custom[Loc.Flat.Tolerance.SensorDepth,] <- paste0("ContData.env$myThresh.Flat.Tolerance.SensorDepth <- ", input$Flat_Toler)
+      df_Config_react$df[Loc.Gross.Fail.Hi.SensorDepth, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.SensorDepth <- ", input$GR_Fail_Max)
+      df_Config_react$df[Loc.Gross.Fail.Lo.SensorDepth, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.SensorDepth <- ", input$GR_Fail_Min)
+      df_Config_react$df[Loc.Gross.Suspect.Hi.SensorDepth, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth <- ", input$GR_Sus_Max)
+      df_Config_react$df[Loc.Gross.Suspect.Lo.SensorDepth, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth <- ", input$GR_Sus_Min)
+      df_Config_react$df[Loc.Spike.Hi.SensorDepth, 1] <- paste0("ContData.env$myThresh.Spike.Hi.SensorDepth <- ", input$Spike_Fail)
+      df_Config_react$df[Loc.Spike.Lo.SensorDepth, 1] <- paste0("ContData.env$myThresh.Spike.Lo.SensorDepth <- ", input$Spike_Sus)
+      df_Config_react$df[Loc.RoC.SD.number.SensorDepth, 1] <- paste0("ContData.env$myThresh.RoC.SD.number.SensorDepth <- ", input$RoC_SDs)
+      df_Config_react$df[Loc.RoC.SD.period.SensorDepth, 1] <- paste0("ContData.env$myThresh.RoC.SD.period.SensorDepth <- ", input$RoC_Hrs)
+      df_Config_react$df[Loc.Flat.Hi.SensorDepth, 1] <- paste0("ContData.env$myThresh.Flat.Hi.SensorDepth <- ", input$Flat_Fail)
+      df_Config_react$df[Loc.Flat.Lo.SensorDepth, 1] <- paste0("ContData.env$myThresh.Flat.Lo.SensorDepth <- ", input$Flat_Sus)
+      df_Config_react$df[Loc.Flat.Tolerance.SensorDepth, 1] <- paste0("ContData.env$myThresh.Flat.Tolerance.SensorDepth <- ", input$Flat_Toler)
+
+      df_Config_react$df[Loc.Gross.Fail.Hi.SensorDepth, 3] <- input$GR_Fail_Max
+      df_Config_react$df[Loc.Gross.Fail.Lo.SensorDepth, 3] <- input$GR_Fail_Min
+      df_Config_react$df[Loc.Gross.Suspect.Hi.SensorDepth, 3] <- input$GR_Sus_Max
+      df_Config_react$df[Loc.Gross.Suspect.Lo.SensorDepth, 3] <- input$GR_Sus_Min
+      df_Config_react$df[Loc.Spike.Hi.SensorDepth, 3] <- input$Spike_Fail
+      df_Config_react$df[Loc.Spike.Lo.SensorDepth, 3] <- input$Spike_Sus
+      df_Config_react$df[Loc.RoC.SD.number.SensorDepth, 3] <- input$RoC_SDs
+      df_Config_react$df[Loc.RoC.SD.period.SensorDepth, 3] <- input$RoC_Hrs
+      df_Config_react$df[Loc.Flat.Hi.SensorDepth, 3] <- input$Flat_Fail
+      df_Config_react$df[Loc.Flat.Lo.SensorDepth, 3] <- input$Flat_Sus
+      df_Config_react$df[Loc.Flat.Tolerance.SensorDepth, 3] <- input$Flat_Toler
+
+      df_print <- df_Config_react$df[, 1]
+
+      ## Save file ###
+      write.table(x = df_print, file = "www/QC_Custom_Config.tsv"
+                  , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ### Turbid ####
     } else if(input$QC_Param_Input == "Turbid"){
-      df_Config_Custom[Loc.Gross.Fail.Hi.Turbidity,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.Turbidity <- ", input$GR_Fail_Max)
-      df_Config_Custom[Loc.Gross.Fail.Lo.Turbidity,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.Turbidity <- ", input$GR_Fail_Min)
-      df_Config_Custom[Loc.Gross.Suspect.Hi.Turbidity,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.Turbidity <- ", input$GR_Sus_Max)
-      df_Config_Custom[Loc.Gross.Suspect.Lo.Turbidity,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.Turbidity <- ", input$GR_Sus_Min)
-      df_Config_Custom[Loc.Spike.Hi.Turbidity,] <- paste0("ContData.env$myThresh.Spike.Hi.Turbidity <- ", input$Spike_Fail)
-      df_Config_Custom[Loc.Spike.Lo.Turbidity,] <- paste0("ContData.env$myThresh.Spike.Lo.Turbidity <- ", input$Spike_Sus)
-      df_Config_Custom[Loc.RoC.SD.number.Turbidity,] <- paste0("ContData.env$myThresh.RoC.SD.number.Turbidity <- ", input$RoC_SDs)
-      df_Config_Custom[Loc.RoC.SD.period.Turbidity,] <- paste0("ContData.env$myThresh.RoC.SD.period.Turbidity <- ", input$RoC_Hrs)
-      df_Config_Custom[Loc.Flat.Hi.Turbidity,] <- paste0("ContData.env$myThresh.Flat.Hi.Turbidity <- ", input$Flat_Fail)
-      df_Config_Custom[Loc.Flat.Lo.Turbidity,] <- paste0("ContData.env$myThresh.Flat.Lo.Turbidity <- ", input$Flat_Sus)
-      df_Config_Custom[Loc.Flat.Tolerance.Turbidity,] <- paste0("ContData.env$myThresh.Flat.Tolerance.Turbidity <- ", input$Flat_Toler)
+      df_Config_react$df[Loc.Gross.Fail.Hi.Turbidity, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.Turbidity <- ", input$GR_Fail_Max)
+      df_Config_react$df[Loc.Gross.Fail.Lo.Turbidity, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.Turbidity <- ", input$GR_Fail_Min)
+      df_Config_react$df[Loc.Gross.Suspect.Hi.Turbidity, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.Turbidity <- ", input$GR_Sus_Max)
+      df_Config_react$df[Loc.Gross.Suspect.Lo.Turbidity, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.Turbidity <- ", input$GR_Sus_Min)
+      df_Config_react$df[Loc.Spike.Hi.Turbidity, 1] <- paste0("ContData.env$myThresh.Spike.Hi.Turbidity <- ", input$Spike_Fail)
+      df_Config_react$df[Loc.Spike.Lo.Turbidity, 1] <- paste0("ContData.env$myThresh.Spike.Lo.Turbidity <- ", input$Spike_Sus)
+      df_Config_react$df[Loc.RoC.SD.number.Turbidity, 1] <- paste0("ContData.env$myThresh.RoC.SD.number.Turbidity <- ", input$RoC_SDs)
+      df_Config_react$df[Loc.RoC.SD.period.Turbidity, 1] <- paste0("ContData.env$myThresh.RoC.SD.period.Turbidity <- ", input$RoC_Hrs)
+      df_Config_react$df[Loc.Flat.Hi.Turbidity, 1] <- paste0("ContData.env$myThresh.Flat.Hi.Turbidity <- ", input$Flat_Fail)
+      df_Config_react$df[Loc.Flat.Lo.Turbidity, 1] <- paste0("ContData.env$myThresh.Flat.Lo.Turbidity <- ", input$Flat_Sus)
+      df_Config_react$df[Loc.Flat.Tolerance.Turbidity, 1] <- paste0("ContData.env$myThresh.Flat.Tolerance.Turbidity <- ", input$Flat_Toler)
+
+      df_Config_react$df[Loc.Gross.Fail.Hi.Turbidity, 3] <- input$GR_Fail_Max
+      df_Config_react$df[Loc.Gross.Fail.Lo.Turbidity, 3] <- input$GR_Fail_Min
+      df_Config_react$df[Loc.Gross.Suspect.Hi.Turbidity, 3] <- input$GR_Sus_Max
+      df_Config_react$df[Loc.Gross.Suspect.Lo.Turbidity, 3] <- input$GR_Sus_Min
+      df_Config_react$df[Loc.Spike.Hi.Turbidity, 3] <- input$Spike_Fail
+      df_Config_react$df[Loc.Spike.Lo.Turbidity, 3] <- input$Spike_Sus
+      df_Config_react$df[Loc.RoC.SD.number.Turbidity, 3] <- input$RoC_SDs
+      df_Config_react$df[Loc.RoC.SD.period.Turbidity, 3] <- input$RoC_Hrs
+      df_Config_react$df[Loc.Flat.Hi.Turbidity, 3] <- input$Flat_Fail
+      df_Config_react$df[Loc.Flat.Lo.Turbidity, 3] <- input$Flat_Sus
+      df_Config_react$df[Loc.Flat.Tolerance.Turbidity, 3] <- input$Flat_Toler
+
+      df_print <- df_Config_react$df[, 1]
+
+      ## Save file ###
+      write.table(x = df_print, file = "www/QC_Custom_Config.tsv"
+                  , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ### WtrLvl ####
     } else if(input$QC_Param_Input == "WtrLvl"){
-      df_Config_Custom[Loc.Gross.Fail.Hi.WaterLevel,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.WaterLevel <- ", input$GR_Fail_Max)
-      df_Config_Custom[Loc.Gross.Fail.Lo.WaterLevel,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.WaterLevel <- ", input$GR_Fail_Min)
-      df_Config_Custom[Loc.Gross.Suspect.Hi.WaterLevel,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel <- ", input$GR_Sus_Max)
-      df_Config_Custom[Loc.Gross.Suspect.Lo.WaterLevel,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel <- ", input$GR_Sus_Min)
-      df_Config_Custom[Loc.Spike.Hi.WaterLevel,] <- paste0("ContData.env$myThresh.Spike.Hi.WaterLevel <- ", input$Spike_Fail)
-      df_Config_Custom[Loc.Spike.Lo.WaterLevel,] <- paste0("ContData.env$myThresh.Spike.Lo.WaterLevel <- ", input$Spike_Sus)
-      df_Config_Custom[Loc.RoC.SD.number.WaterLevel,] <- paste0("ContData.env$myThresh.RoC.SD.number.WaterLevel <- ", input$RoC_SDs)
-      df_Config_Custom[Loc.RoC.SD.period.WaterLevel,] <- paste0("ContData.env$myThresh.RoC.SD.period.WaterLevel <- ", input$RoC_Hrs)
-      df_Config_Custom[Loc.Flat.Hi.WaterLevel,] <- paste0("ContData.env$myThresh.Flat.Hi.WaterLevel <- ", input$Flat_Fail)
-      df_Config_Custom[Loc.Flat.Lo.WaterLevel,] <- paste0("ContData.env$myThresh.Flat.Lo.WaterLevel <- ", input$Flat_Sus)
-      df_Config_Custom[Loc.Flat.Tolerance.WaterLevel,] <- paste0("ContData.env$myThresh.Flat.Tolerance.WaterLevel <- ", input$Flat_Toler)
+      df_Config_react$df[Loc.Gross.Fail.Hi.WaterLevel, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.WaterLevel <- ", input$GR_Fail_Max)
+      df_Config_react$df[Loc.Gross.Fail.Lo.WaterLevel, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.WaterLevel <- ", input$GR_Fail_Min)
+      df_Config_react$df[Loc.Gross.Suspect.Hi.WaterLevel, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel <- ", input$GR_Sus_Max)
+      df_Config_react$df[Loc.Gross.Suspect.Lo.WaterLevel, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel <- ", input$GR_Sus_Min)
+      df_Config_react$df[Loc.Spike.Hi.WaterLevel, 1] <- paste0("ContData.env$myThresh.Spike.Hi.WaterLevel <- ", input$Spike_Fail)
+      df_Config_react$df[Loc.Spike.Lo.WaterLevel, 1] <- paste0("ContData.env$myThresh.Spike.Lo.WaterLevel <- ", input$Spike_Sus)
+      df_Config_react$df[Loc.RoC.SD.number.WaterLevel, 1] <- paste0("ContData.env$myThresh.RoC.SD.number.WaterLevel <- ", input$RoC_SDs)
+      df_Config_react$df[Loc.RoC.SD.period.WaterLevel, 1] <- paste0("ContData.env$myThresh.RoC.SD.period.WaterLevel <- ", input$RoC_Hrs)
+      df_Config_react$df[Loc.Flat.Hi.WaterLevel, 1] <- paste0("ContData.env$myThresh.Flat.Hi.WaterLevel <- ", input$Flat_Fail)
+      df_Config_react$df[Loc.Flat.Lo.WaterLevel, 1] <- paste0("ContData.env$myThresh.Flat.Lo.WaterLevel <- ", input$Flat_Sus)
+      df_Config_react$df[Loc.Flat.Tolerance.WaterLevel, 1] <- paste0("ContData.env$myThresh.Flat.Tolerance.WaterLevel <- ", input$Flat_Toler)
+
+      df_Config_react$df[Loc.Gross.Fail.Hi.WaterLevel, 3] <- input$GR_Fail_Max
+      df_Config_react$df[Loc.Gross.Fail.Lo.WaterLevel, 3] <- input$GR_Fail_Min
+      df_Config_react$df[Loc.Gross.Suspect.Hi.WaterLevel, 3] <- input$GR_Sus_Max
+      df_Config_react$df[Loc.Gross.Suspect.Lo.WaterLevel, 3] <- input$GR_Sus_Min
+      df_Config_react$df[Loc.Spike.Hi.WaterLevel, 3] <- input$Spike_Fail
+      df_Config_react$df[Loc.Spike.Lo.WaterLevel, 3] <- input$Spike_Sus
+      df_Config_react$df[Loc.RoC.SD.number.WaterLevel, 3] <- input$RoC_SDs
+      df_Config_react$df[Loc.RoC.SD.period.WaterLevel, 3] <- input$RoC_Hrs
+      df_Config_react$df[Loc.Flat.Hi.WaterLevel, 3] <- input$Flat_Fail
+      df_Config_react$df[Loc.Flat.Lo.WaterLevel, 3] <- input$Flat_Sus
+      df_Config_react$df[Loc.Flat.Tolerance.WaterLevel, 3] <- input$Flat_Toler
+
+      df_print <- df_Config_react$df[, 1]
+
+      ## Save file ###
+      write.table(x = df_print, file = "www/QC_Custom_Config.tsv"
+                  , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ### WaterP ####
     } else if(input$QC_Param_Input == "WaterP"){
-      df_Config_Custom[Loc.Gross.Fail.Hi.WaterP,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.WaterP <- ", input$GR_Fail_Max)
-      df_Config_Custom[Loc.Gross.Fail.Lo.WaterP,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.WaterP <- ", input$GR_Fail_Min)
-      df_Config_Custom[Loc.Gross.Suspect.Hi.WaterP,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.WaterP <- ", input$GR_Sus_Max)
-      df_Config_Custom[Loc.Gross.Suspect.Lo.WaterP,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.WaterP <- ", input$GR_Sus_Min)
-      df_Config_Custom[Loc.Spike.Hi.WaterP,] <- paste0("ContData.env$myThresh.Spike.Hi.WaterP <- ", input$Spike_Fail)
-      df_Config_Custom[Loc.Spike.Lo.WaterP,] <- paste0("ContData.env$myThresh.Spike.Lo.WaterP <- ", input$Spike_Sus)
-      df_Config_Custom[Loc.RoC.SD.number.WaterP,] <- paste0("ContData.env$myThresh.RoC.SD.number.WaterP <- ", input$RoC_SDs)
-      df_Config_Custom[Loc.RoC.SD.period.WaterP,] <- paste0("ContData.env$myThresh.RoC.SD.period.WaterP <- ", input$RoC_Hrs)
-      df_Config_Custom[Loc.Flat.Hi.WaterP,] <- paste0("ContData.env$myThresh.Flat.Hi.WaterP <- ", input$Flat_Fail)
-      df_Config_Custom[Loc.Flat.Lo.WaterP,] <- paste0("ContData.env$myThresh.Flat.Lo.WaterP <- ", input$Flat_Sus)
-      df_Config_Custom[Loc.Flat.Tolerance.WaterP,] <- paste0("ContData.env$myThresh.Flat.Tolerance.WaterP <- ", input$Flat_Toler)
+      df_Config_react$df[Loc.Gross.Fail.Hi.WaterP, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.WaterP <- ", input$GR_Fail_Max)
+      df_Config_react$df[Loc.Gross.Fail.Lo.WaterP, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.WaterP <- ", input$GR_Fail_Min)
+      df_Config_react$df[Loc.Gross.Suspect.Hi.WaterP, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.WaterP <- ", input$GR_Sus_Max)
+      df_Config_react$df[Loc.Gross.Suspect.Lo.WaterP, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.WaterP <- ", input$GR_Sus_Min)
+      df_Config_react$df[Loc.Spike.Hi.WaterP, 1] <- paste0("ContData.env$myThresh.Spike.Hi.WaterP <- ", input$Spike_Fail)
+      df_Config_react$df[Loc.Spike.Lo.WaterP, 1] <- paste0("ContData.env$myThresh.Spike.Lo.WaterP <- ", input$Spike_Sus)
+      df_Config_react$df[Loc.RoC.SD.number.WaterP, 1] <- paste0("ContData.env$myThresh.RoC.SD.number.WaterP <- ", input$RoC_SDs)
+      df_Config_react$df[Loc.RoC.SD.period.WaterP, 1] <- paste0("ContData.env$myThresh.RoC.SD.period.WaterP <- ", input$RoC_Hrs)
+      df_Config_react$df[Loc.Flat.Hi.WaterP, 1] <- paste0("ContData.env$myThresh.Flat.Hi.WaterP <- ", input$Flat_Fail)
+      df_Config_react$df[Loc.Flat.Lo.WaterP, 1] <- paste0("ContData.env$myThresh.Flat.Lo.WaterP <- ", input$Flat_Sus)
+      df_Config_react$df[Loc.Flat.Tolerance.WaterP, 1] <- paste0("ContData.env$myThresh.Flat.Tolerance.WaterP <- ", input$Flat_Toler)
+
+      df_Config_react$df[Loc.Gross.Fail.Hi.WaterP, 3] <- input$GR_Fail_Max
+      df_Config_react$df[Loc.Gross.Fail.Lo.WaterP, 3] <- input$GR_Fail_Min
+      df_Config_react$df[Loc.Gross.Suspect.Hi.WaterP, 3] <- input$GR_Sus_Max
+      df_Config_react$df[Loc.Gross.Suspect.Lo.WaterP, 3] <- input$GR_Sus_Min
+      df_Config_react$df[Loc.Spike.Hi.WaterP, 3] <- input$Spike_Fail
+      df_Config_react$df[Loc.Spike.Lo.WaterP, 3] <- input$Spike_Sus
+      df_Config_react$df[Loc.RoC.SD.number.WaterP, 3] <- input$RoC_SDs
+      df_Config_react$df[Loc.RoC.SD.period.WaterP, 3] <- input$RoC_Hrs
+      df_Config_react$df[Loc.Flat.Hi.WaterP, 3] <- input$Flat_Fail
+      df_Config_react$df[Loc.Flat.Lo.WaterP, 3] <- input$Flat_Sus
+      df_Config_react$df[Loc.Flat.Tolerance.WaterP, 3] <- input$Flat_Toler
+
+      df_print <- df_Config_react$df[, 1]
+
+      ## Save file ###
+      write.table(x = df_print, file = "www/QC_Custom_Config.tsv"
+                  , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ### WaterTemp ####
     } else if(input$QC_Param_Input == "WaterTemp"){
-      df_Config_Custom[Loc.Gross.Fail.Hi.WaterTemp,] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.WaterTemp <- ", input$GR_Fail_Max)
-      df_Config_Custom[Loc.Gross.Fail.Lo.WaterTemp,] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.WaterTemp <- ", input$GR_Fail_Min)
-      df_Config_Custom[Loc.Gross.Suspect.Hi.WaterTemp,] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp <- ", input$GR_Sus_Max)
-      df_Config_Custom[Loc.Gross.Suspect.Lo.WaterTemp,] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp <- ", input$GR_Sus_Min)
-      df_Config_Custom[Loc.Spike.Hi.WaterTemp,] <- paste0("ContData.env$myThresh.Spike.Hi.WaterTemp <- ", input$Spike_Fail)
-      df_Config_Custom[Loc.Spike.Lo.WaterTemp,] <- paste0("ContData.env$myThresh.Spike.Lo.WaterTemp <- ", input$Spike_Sus)
-      df_Config_Custom[Loc.RoC.SD.number.WaterTemp,] <- paste0("ContData.env$myThresh.RoC.SD.number.WaterTemp <- ", input$RoC_SDs)
-      df_Config_Custom[Loc.RoC.SD.period.WaterTemp,] <- paste0("ContData.env$myThresh.RoC.SD.period.WaterTemp <- ", input$RoC_Hrs)
-      df_Config_Custom[Loc.Flat.Hi.WaterTemp,] <- paste0("ContData.env$myThresh.Flat.Hi.WaterTemp <- ", input$Flat_Fail)
-      df_Config_Custom[Loc.Flat.Lo.WaterTemp,] <- paste0("ContData.env$myThresh.Flat.Lo.WaterTemp <- ", input$Flat_Sus)
-      df_Config_Custom[Loc.Flat.Tolerance.WaterTemp,] <- paste0("ContData.env$myThresh.Flat.Tolerance.WaterTemp <- ", input$Flat_Toler)
+      df_Config_react$df[Loc.Gross.Fail.Hi.WaterTemp, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.WaterTemp <- ", input$GR_Fail_Max)
+      df_Config_react$df[Loc.Gross.Fail.Lo.WaterTemp, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.WaterTemp <- ", input$GR_Fail_Min)
+      df_Config_react$df[Loc.Gross.Suspect.Hi.WaterTemp, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp <- ", input$GR_Sus_Max)
+      df_Config_react$df[Loc.Gross.Suspect.Lo.WaterTemp, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp <- ", input$GR_Sus_Min)
+      df_Config_react$df[Loc.Spike.Hi.WaterTemp, 1] <- paste0("ContData.env$myThresh.Spike.Hi.WaterTemp <- ", input$Spike_Fail)
+      df_Config_react$df[Loc.Spike.Lo.WaterTemp, 1] <- paste0("ContData.env$myThresh.Spike.Lo.WaterTemp <- ", input$Spike_Sus)
+      df_Config_react$df[Loc.RoC.SD.number.WaterTemp, 1] <- paste0("ContData.env$myThresh.RoC.SD.number.WaterTemp <- ", input$RoC_SDs)
+      df_Config_react$df[Loc.RoC.SD.period.WaterTemp, 1] <- paste0("ContData.env$myThresh.RoC.SD.period.WaterTemp <- ", input$RoC_Hrs)
+      df_Config_react$df[Loc.Flat.Hi.WaterTemp, 1] <- paste0("ContData.env$myThresh.Flat.Hi.WaterTemp <- ", input$Flat_Fail)
+      df_Config_react$df[Loc.Flat.Lo.WaterTemp, 1] <- paste0("ContData.env$myThresh.Flat.Lo.WaterTemp <- ", input$Flat_Sus)
+      df_Config_react$df[Loc.Flat.Tolerance.WaterTemp, 1] <- paste0("ContData.env$myThresh.Flat.Tolerance.WaterTemp <- ", input$Flat_Toler)
+
+      df_Config_react$df[Loc.Gross.Fail.Hi.WaterTemp, 3] <- input$GR_Fail_Max
+      df_Config_react$df[Loc.Gross.Fail.Lo.WaterTemp, 3] <- input$GR_Fail_Min
+      df_Config_react$df[Loc.Gross.Suspect.Hi.WaterTemp, 3] <- input$GR_Sus_Max
+      df_Config_react$df[Loc.Gross.Suspect.Lo.WaterTemp, 3] <- input$GR_Sus_Min
+      df_Config_react$df[Loc.Spike.Hi.WaterTemp, 3] <- input$Spike_Fail
+      df_Config_react$df[Loc.Spike.Lo.WaterTemp, 3] <- input$Spike_Sus
+      df_Config_react$df[Loc.RoC.SD.number.WaterTemp, 3] <- input$RoC_SDs
+      df_Config_react$df[Loc.RoC.SD.period.WaterTemp, 3] <- input$RoC_Hrs
+      df_Config_react$df[Loc.Flat.Hi.WaterTemp, 3] <- input$Flat_Fail
+      df_Config_react$df[Loc.Flat.Lo.WaterTemp, 3] <- input$Flat_Sus
+      df_Config_react$df[Loc.Flat.Tolerance.WaterTemp, 3] <- input$Flat_Toler
+
+      df_print <- df_Config_react$df[, 1]
+
+      ## Save file ###
+      write.table(x = df_print, file = "www/QC_Custom_Config.tsv"
+                  , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     } else {
       showNotification(paste0("ERROR"),
                        type = "error", duration = 60)
     } # if else ~ END
-    ### Save file ####
-    write.table(x = df_Config_Custom, file = "www/QC_Custom_Config.csv"
-              , sep = ",", row.names = FALSE, col.names = FALSE)
   }) # observeEvent
 
   ## Download Handler ####
@@ -1651,7 +1920,7 @@ shinyServer(function(input, output, session) {
 
   # Enable download button once save button is clicked at least once
   observe({
-    if(input$QC_SaveBttn){
+    if(input$QC_SaveBttn > 0){
 
       Sys.sleep(1)
       # enable the download button
@@ -1663,11 +1932,11 @@ shinyServer(function(input, output, session) {
   # Download file
   output$QC_Thresh_Download <- downloadHandler(
     filename = function() {
-      paste("Custom_QC_Config_", format(Sys.Date(),"%Y%m%d")
-            ,"_",format(Sys.time(),"%H%M%S"), ".csv", sep=',')
+      paste0("Custom_QC_Config_", format(Sys.Date(),"%Y%m%d")
+             ,"_",format(Sys.time(),"%H%M%S"), ".R")
     },
     content = function(file) {
-      file.copy("www/QC_Custom_Config.csv", file)
+      file.copy("www/QC_Custom_Config.tsv", file)
     }
   ) # downloadHandler
 })
