@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-12-22 15:06:17
+    #> Last Update: 2021-12-22 15:34:21
 
 # Version History
+
+## v2.0.6.9010
+
+2021-12-22
+
+-   fix: Updated custom config thresholds to handle quotes, Issue \#130
+-   docs: Added Ben Block as contributor for work on custom thresholds
 
 ## v2.0.6.9009
 
