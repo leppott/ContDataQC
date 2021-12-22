@@ -485,8 +485,6 @@ ContData.env$myThresh.Spike.Hi.Turbidity    <- 10^4 # this threshold has not bee
 ContData.env$myThresh.Spike.Lo.Turbidity    <- 10^3 # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Hi.Chlorophylla <- 10^4 # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Lo.Chlorophylla <- 10^3 # this threshold has not been closely evaluated
-ContData.env$myThresh.Spike.Hi.Chlorophylla <- 10^4 # this threshold has not been closely evaluated
-ContData.env$myThresh.Spike.Lo.Chlorophylla <- 10^3 # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Hi.WaterLevel  <- ContData.env$myThresh.Spike.Hi.SensorDepth
 ContData.env$myThresh.Spike.Lo.WaterLevel  <- ContData.env$myThresh.Spike.Lo.SensorDepth
 # _QC, ROC----
