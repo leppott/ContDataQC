@@ -402,9 +402,9 @@ ContData.env$myThresh.Gross.Fail.Hi.AirBP        <- 15
 ContData.env$myThresh.Gross.Fail.Lo.AirBP        <- 13
 ContData.env$myThresh.Gross.Fail.Hi.WaterP       <- 17
 ContData.env$myThresh.Gross.Fail.Lo.WaterP       <- 13
-ContData.env$myThresh.Gross.Fail.Hi.SensorDepth  <- 10^5 # dependent upon stream size
+ContData.env$myThresh.Gross.Fail.Hi.SensorDepth  <- 100000 # dependent upon stream size
 ContData.env$myThresh.Gross.Fail.Lo.SensorDepth  <- -1   # dependent upon stream size
-ContData.env$myThresh.Gross.Fail.Hi.Discharge    <- 10^5 # dependent upon stream size
+ContData.env$myThresh.Gross.Fail.Hi.Discharge    <- 100000 # dependent upon stream size
 ContData.env$myThresh.Gross.Fail.Lo.Discharge    <- -1   # dependent upon stream size
 ContData.env$myThresh.Gross.Fail.Hi.Cond         <- 1500 # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Lo.Cond         <- 10   # this threshold has not been closely evaluated
@@ -416,9 +416,9 @@ ContData.env$myThresh.Gross.Fail.Hi.DO.pctsat    <- 120   # this threshold has n
 ContData.env$myThresh.Gross.Fail.Lo.DO.pctsat    <- -1    # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Hi.pH           <- 12   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Lo.pH           <- 3    # this threshold has not been closely evaluated
-ContData.env$myThresh.Gross.Fail.Hi.Turbidity    <- 10^5 # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Fail.Hi.Turbidity    <- 100000 # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Lo.Turbidity    <- -1   # this threshold has not been closely evaluated
-ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla <- 10^5 # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla <- 100000 # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Lo.Chlorophylla <- -1   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Hi.WaterLevel   <- ContData.env$myThresh.Gross.Fail.Hi.SensorDepth
 ContData.env$myThresh.Gross.Fail.Lo.WaterLevel   <- ContData.env$myThresh.Gross.Fail.Lo.SensorDepth
@@ -433,9 +433,9 @@ ContData.env$myThresh.Gross.Suspect.Hi.AirBP        <- 14.8
 ContData.env$myThresh.Gross.Suspect.Lo.AirBP        <- 13.0
 ContData.env$myThresh.Gross.Suspect.Hi.WaterP       <- 16.8
 ContData.env$myThresh.Gross.Suspect.Lo.WaterP       <- 13.5
-ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth  <- 10^3 # dependent upon stream size
+ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth  <- 1000 # dependent upon stream size
 ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth  <- 0    # dependent upon stream size
-ContData.env$myThresh.Gross.Suspect.Hi.Discharge    <- 10^3 # dependent upon stream size
+ContData.env$myThresh.Gross.Suspect.Hi.Discharge    <- 1000 # dependent upon stream size
 ContData.env$myThresh.Gross.Suspect.Lo.Discharge    <- -1   # dependent upon stream size
 ContData.env$myThresh.Gross.Suspect.Hi.Cond         <- 1200 # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Lo.Cond         <- 20   # this threshold has not been closely evaluated
@@ -447,12 +447,12 @@ ContData.env$myThresh.Gross.Suspect.Hi.DO.pctsat    <- 100   # this threshold ha
 ContData.env$myThresh.Gross.Suspect.Lo.DO.pctsat    <- 0    # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Hi.pH           <- 11   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Lo.pH           <- 4    # this threshold has not been closely evaluated
-ContData.env$myThresh.Gross.Suspect.Hi.Turbidity    <- 10^3 # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Suspect.Hi.Turbidity    <- 1000 # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Lo.Turbidity    <- -1   # this threshold has not been closely evaluated
-ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla <- 10^3 # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla <- 1000 # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Lo.Chlorophylla <- 1    # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel   <- ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth
-ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel   <- ContData.env$myThresh.Gross.Suspect.Lo.SensorDept
+ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel   <- ContData.env$myThresh.Gross.Suspect.Lo.SensorDepth
 # _QC, Spike ----
 ## Spike thresholds (absolute change)
 ### Examines difference between consecutive measurements
@@ -466,10 +466,10 @@ ContData.env$myThresh.Spike.Hi.AirBP        <- 0.25
 ContData.env$myThresh.Spike.Lo.AirBP        <- 0.15
 ContData.env$myThresh.Spike.Hi.WaterP       <- 0.7
 ContData.env$myThresh.Spike.Lo.WaterP       <- 0.5
-ContData.env$myThresh.Spike.Hi.SensorDepth  <- 10^4 # dependent upon stream size
-ContData.env$myThresh.Spike.Lo.SensorDepth  <- 10^3 # dependent upon stream size
-ContData.env$myThresh.Spike.Hi.Discharge    <- 10^4 # dependent upon stream size
-ContData.env$myThresh.Spike.Lo.Discharge    <- 10^3 # dependent upon stream size
+ContData.env$myThresh.Spike.Hi.SensorDepth  <- 10000 # dependent upon stream size
+ContData.env$myThresh.Spike.Lo.SensorDepth  <- 1000 # dependent upon stream size
+ContData.env$myThresh.Spike.Hi.Discharge    <- 10000 # dependent upon stream size
+ContData.env$myThresh.Spike.Lo.Discharge    <- 1000 # dependent upon stream size
 ContData.env$myThresh.Spike.Hi.Cond         <- 10   # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Lo.Cond         <- 5    # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Hi.DO           <- 10   # this threshold has not been closely evaluated
@@ -480,12 +480,10 @@ ContData.env$myThresh.Spike.Hi.DO.pctsat    <- 25   # this threshold has not bee
 ContData.env$myThresh.Spike.Lo.DO.pctsat    <- 10    # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Hi.pH           <- 10   # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Lo.pH           <- 5    # this threshold has not been closely evaluated
-ContData.env$myThresh.Spike.Hi.Turbidity    <- 10^4 # this threshold has not been closely evaluated
-ContData.env$myThresh.Spike.Lo.Turbidity    <- 10^3 # this threshold has not been closely evaluated
-ContData.env$myThresh.Spike.Hi.Chlorophylla <- 10^4 # this threshold has not been closely evaluated
-ContData.env$myThresh.Spike.Lo.Chlorophylla <- 10^3 # this threshold has not been closely evaluated
-ContData.env$myThresh.Spike.Hi.Chlorophylla <- 10^4 # this threshold has not been closely evaluated
-ContData.env$myThresh.Spike.Lo.Chlorophylla <- 10^3 # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Hi.Turbidity    <- 10000 # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Lo.Turbidity    <- 1000 # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Hi.Chlorophylla <- 10000 # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Lo.Chlorophylla <- 1000 # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Hi.WaterLevel  <- ContData.env$myThresh.Spike.Hi.SensorDepth
 ContData.env$myThresh.Spike.Lo.WaterLevel  <- ContData.env$myThresh.Spike.Lo.SensorDepth
 # _QC, ROC----
