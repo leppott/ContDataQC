@@ -1911,7 +1911,7 @@ shinyServer(function(input, output, session) {
     } # if else ~ END
   }) # observeEvent
 
-  ## Download Handler ####
+  # Download Buttons ----
   #https://stackoverflow.com/questions/33416557/r-shiny-download-existing-file
   #https://stackoverflow.com/questions/25247852/shiny-app-disable-downloadbutton
 
@@ -1929,7 +1929,8 @@ shinyServer(function(input, output, session) {
 
   }) # observe
 
-  # Download file
+
+  ## Download, Thresh, Custom ----
   output$QC_Thresh_Download <- downloadHandler(
     filename = function() {
       paste0("Custom_QC_Config_", format(Sys.Date(),"%Y%m%d")
@@ -1938,5 +1939,17 @@ shinyServer(function(input, output, session) {
     content = function(file) {
       file.copy("www/QC_Custom_Config.tsv", file)
     }
-  ) # downloadHandler
-})
+  ) # downloadHandler, Thresh, Custom
+
+
+  ## Download, Thresh Eval Code ----
+  output$but_thresh_code <- downloadHandler(
+    filename = function() {"Threshold_Eval.zip"}##filename
+    , content = function(file) {
+      file.copy("www/Threshold_Eval.zip", file)
+    }## content
+  )## downloadHandler, Thresh Eval Code
+
+
+
+})## server
