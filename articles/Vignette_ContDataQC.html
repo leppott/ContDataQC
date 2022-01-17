@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9011</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
       <h1 data-toc-skip>ContDataQC Vignette</h1>
                         <h4 data-toc-skip class="author">Erik W. Leppo</h4>
             
-            <h4 data-toc-skip class="date">2021-12-22</h4>
+            <h4 data-toc-skip class="date">2022-01-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/leppott/ContDataQC/blob/HEAD/vignettes/Vignette_ContDataQC.Rmd" class="external-link"><code>vignettes/Vignette_ContDataQC.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette_ContDataQC.Rmd</code></div>
@@ -96,18 +96,18 @@
 
     
     
-<div class="section level1">
-<h1 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h1>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <p><code>ContDataQC</code> was created by Tetra Tech, Inc. for USEPA in 2017 to meet the needs of the Regional Monitoring Networks to apply a minimum level of quality control to the continuous monitoring data they were collecting.</p>
 <p>It is envisioned that this library can be a living package and will add additional functions and routines in the future.</p>
 <p>Many of the examples in this vignette are included in the examples in the corresponding functions. Each function in the <code>ContDataQC</code> library includes example data.</p>
 <p>The typical user of this package is envisioned as a user of Hobo or other continuous data loggers. Measured parameters are water temperature, sensor depth, air temperature, water pressure, and air pressure. The typical user will retrieve data from their data logger using Hoboware. Once the data is extracted from the logger and save some minimal cleanup to the column heades is performed before using the ‘ContDataQC’ R library.</p>
 <p>There is a configuration file (config.R) that allows for customization.</p>
 </div>
-<div class="section level1">
-<h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h1>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>The R library is saved on GitHub for ease of updating and distribution. Issues can be tracked, fixed, and code made available for download. Current users can update the library using the same code used to install the library (see below). Devtools is required for the installation.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
@@ -156,38 +156,38 @@ This necessitated a change in the R library <code>dataRetrieval</code>. As of th
 <span class="co"># library(devtools)</span>
 <span class="co"># install_github("USGS-R/dataRetrieval")</span></code></pre></div>
 </div>
-<div class="section level1">
-<h1 id="contents">Contents<a class="anchor" aria-label="anchor" href="#contents"></a>
-</h1>
+<div class="section level2">
+<h2 id="contents">Contents<a class="anchor" aria-label="anchor" href="#contents"></a>
+</h2>
 <ol style="list-style-type: decimal">
 <li><p>Preparing Raw Data</p></li>
 <li><p>ContDataQC Operations</p></li>
 <li><p>Other Features</p></li>
 </ol>
 </div>
-<div class="section level1">
-<h1 id="preparing-raw-data">Preparing Raw Data<a class="anchor" aria-label="anchor" href="#preparing-raw-data"></a>
-</h1>
-<p>The <code>ContDataQC</code> library makes some assumptions on file names and structure.</p>
 <div class="section level2">
-<h2 id="file-names">File Names<a class="anchor" aria-label="anchor" href="#file-names"></a>
+<h2 id="preparing-raw-data">Preparing Raw Data<a class="anchor" aria-label="anchor" href="#preparing-raw-data"></a>
 </h2>
+<p>The <code>ContDataQC</code> library makes some assumptions on file names and structure.</p>
+<div class="section level3">
+<h3 id="file-names">File Names<a class="anchor" aria-label="anchor" href="#file-names"></a>
+</h3>
 <p>Should be of the format StationID_DataType_StartDate_EndDate.csv. The delimiter between sections of the filename can be changed in config.R but not the order or the file type (csv). Date formats in the files can be set with config.R but the date format in the filename must be in the format YYYYMMDD (no separators).</p>
 <p>Data types are Air, Water, Gage, and single letter combinations (i.e., AW, AG, and WG).</p>
 </div>
-<div class="section level2">
-<h2 id="file-structure">File Structure<a class="anchor" aria-label="anchor" href="#file-structure"></a>
-</h2>
+<div class="section level3">
+<h3 id="file-structure">File Structure<a class="anchor" aria-label="anchor" href="#file-structure"></a>
+</h3>
 <p>The first line are the field (column) headers. These can be set in config.R.</p>
 </div>
 </div>
-<div class="section level1">
-<h1 id="the-contdataqc-function">The ContDataQC Function<a class="anchor" aria-label="anchor" href="#the-contdataqc-function"></a>
-</h1>
-<p>The ContDataQC() function is the main focus of this library. It is intended to allow the user to perform multiple functions from a single command with different inputs.</p>
 <div class="section level2">
-<h2 id="operations">Operations<a class="anchor" aria-label="anchor" href="#operations"></a>
+<h2 id="the-contdataqc-function">The ContDataQC Function<a class="anchor" aria-label="anchor" href="#the-contdataqc-function"></a>
 </h2>
+<p>The ContDataQC() function is the main focus of this library. It is intended to allow the user to perform multiple functions from a single command with different inputs.</p>
+<div class="section level3">
+<h3 id="operations">Operations<a class="anchor" aria-label="anchor" href="#operations"></a>
+</h3>
 <p>The operations of the ContDataQC() function are listed below but will be explained in more detail in their own section. <em>GetGageData </em>QCRaw <em>Aggregate </em>SummaryStats</p>
 <p>The library assumes that there are the following folders in the working directory: <em>Data0_Original </em>Data1_RAW <em>Data2_QC </em>Data3_Aggregated *Data4_Stats</p>
 <p>The folder “Data0_Original” is for the files exported from Hoboware (or other data logger software). These are the unedited files.</p>
@@ -253,9 +253,9 @@ This necessitated a change in the R library <code>dataRetrieval</code>. As of th
 <span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"config.TZ.Central.R"</span>
   <span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">path.package</a></span><span class="op">(</span><span class="st">"ContDataQC"</span><span class="op">)</span>, <span class="st">"extdata"</span>, <span class="va">myFile</span><span class="op">)</span>
             , <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">myFile</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="section level3">
-<h3 id="getgagedata">GetGageData<a class="anchor" aria-label="anchor" href="#getgagedata"></a>
-</h3>
+<div class="section level4">
+<h4 id="getgagedata">GetGageData<a class="anchor" aria-label="anchor" href="#getgagedata"></a>
+</h4>
 <p>The GetGageData operation of the ContDataQC() function retrieves USGS gage data based on user input. Example code and console output is below.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leppott/ContDataQC" class="external-link">ContDataQC</a></span><span class="op">)</span>
@@ -271,7 +271,7 @@ This necessitated a change in the R library <code>dataRetrieval</code>. As of th
                    , <span class="st">"Data3_Aggregated"</span>
                    , <span class="st">"Data4_Stats"</span><span class="op">)</span>
 <span class="op">(</span><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># create and print temp directory for example data</span></code></pre></div>
-<pre><code><span class="co">## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpYzyVGx"</span></code></pre>
+<pre><code><span class="co">## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp2ofc4c"</span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create data directories</span>
 <span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
@@ -337,8 +337,8 @@ This necessitated a change in the R library <code>dataRetrieval</code>. As of th
 <span class="co">## 532       NGVD29 01080207           uv   00065    &lt;NA&gt; 66867         NA</span>
 <span class="co">##     medium_grp_cd parm_grp_cd   srs_id access_cd begin_date   end_date count_nu</span>
 <span class="co">## 530           wat        &lt;NA&gt;  1645597         0 2015-11-04 2021-10-14     2171</span>
-<span class="co">## 531           wat        &lt;NA&gt;  1645423         0 1990-10-01 2021-12-22    11405</span>
-<span class="co">## 532           wat        &lt;NA&gt; 17164583         0 2007-10-01 2021-12-22     5196</span>
+<span class="co">## 531           wat        &lt;NA&gt;  1645423         0 1990-10-01 2022-01-17    11431</span>
+<span class="co">## 532           wat        &lt;NA&gt; 17164583         0 2007-10-01 2022-01-17     5222</span>
 <span class="co">## </span>
 <span class="co">## </span>
 <span class="co">## [1] "Processing item 1 of 1, COMPLETE, 01187300."</span>
@@ -376,9 +376,9 @@ This necessitated a change in the R library <code>dataRetrieval</code>. As of th
            , <span class="va">myDir.export</span>
            , <span class="va">myConfig</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="qcraw">QCRaw<a class="anchor" aria-label="anchor" href="#qcraw"></a>
-</h3>
+<div class="section level4">
+<h4 id="qcraw">QCRaw<a class="anchor" aria-label="anchor" href="#qcraw"></a>
+</h4>
 <p>This is operation is the main focus of the <code>ContDataQC</code> library. The raw continuous data files are examined for multiple QC tests and the results saved in a new data file (CSV) and a summary report (DOCX file) are generated.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leppott/ContDataQC" class="external-link">ContDataQC</a></span><span class="op">)</span>
@@ -442,9 +442,9 @@ Example data below. For this example the report output was changed to “html”
            , <span class="va">myDir.export</span>
            , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="aggregate">Aggregate<a class="anchor" aria-label="anchor" href="#aggregate"></a>
-</h3>
+<div class="section level4">
+<h4 id="aggregate">Aggregate<a class="anchor" aria-label="anchor" href="#aggregate"></a>
+</h4>
 <p>After QC the files are ready for analysis. The Aggregate operation allows the user to combine (or split) files across time periods. No report format was specified so the default “docx” format will be generated.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">contDataQC</span><span class="op">)</span>
@@ -478,9 +478,9 @@ Example data below. For this example the report output was changed to “html”
            , <span class="va">myDir.import</span>
            , <span class="va">myDir.export</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="summarystats">SummaryStats<a class="anchor" aria-label="anchor" href="#summarystats"></a>
-</h3>
+<div class="section level4">
+<h4 id="summarystats">SummaryStats<a class="anchor" aria-label="anchor" href="#summarystats"></a>
+</h4>
 <p>The SummaryStats operation calculates a number of statistics on the data for each sampling day. No report format was specified so the default “docx” format will be generated.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leppott/ContDataQC" class="external-link">ContDataQC</a></span><span class="op">)</span>
@@ -515,9 +515,9 @@ Example data below. For this example the report output was changed to “html”
            , <span class="va">myDir.export</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div class="section level2">
-<h2 id="single-file-versions-of-contdataqc-operatations">Single File Versions of ContDataQC Operatations<a class="anchor" aria-label="anchor" href="#single-file-versions-of-contdataqc-operatations"></a>
-</h2>
+<div class="section level3">
+<h3 id="single-file-versions-of-contdataqc-operatations">Single File Versions of ContDataQC Operatations<a class="anchor" aria-label="anchor" href="#single-file-versions-of-contdataqc-operatations"></a>
+</h3>
 <p>The base version of the ContDataQC() function searches the specified directories for files that match the data type and date range. This set up does not work for everyone. Included in the <code>ContDataQC</code> package are “file” versions of the same QCRaw, Aggregate, and SummaryStat functions. These work on a vector of file names (so multiple files can be processed this way).Different report options are used in each example in the code below.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leppott/ContDataQC" class="external-link">ContDataQC</a></span><span class="op">)</span>
@@ -569,14 +569,14 @@ Example data below. For this example the report output was changed to “html”
            , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span>
            , fun.myFile <span class="op">=</span> <span class="va">myFile</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="other-features">Other Features<a class="anchor" aria-label="anchor" href="#other-features"></a>
-</h2>
+<div class="section level3">
+<h3 id="other-features">Other Features<a class="anchor" aria-label="anchor" href="#other-features"></a>
+</h3>
 <p>There are other features built into the <code>ContDataQC</code> library. These are outlined below.</p>
 </div>
-<div class="section level2">
-<h2 id="configuration-file">Configuration File<a class="anchor" aria-label="anchor" href="#configuration-file"></a>
-</h2>
+<div class="section level3">
+<h3 id="configuration-file">Configuration File<a class="anchor" aria-label="anchor" href="#configuration-file"></a>
+</h3>
 <p>Through the use of a configuration file the user can change many of the variables in the library (e.g., the names of fields, thresholds, and date formats).</p>
 <p>The ContDataQC() function allows the user to input their own configuration file. Only variables that are different from the default need to be added. That is, the default configuration is loaded in the library and then the user supplied configuration. This allows the user configuration to overwrite the defaults for that session.</p>
 <p>The Config.out will output the contents of the configuration file as used by the package and stored in the environment ContData.env.</p>
@@ -1297,9 +1297,9 @@ Example data below. For this example the report output was changed to “html”
 <span class="co"># DOCX requires Pandoc.</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myReport.Dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">"ContDataQC"</span><span class="op">)</span>, <span class="st">"rmd"</span><span class="op">)</span></code></pre>
 </div>
-<div class="section level2">
-<h2 id="period-stats">Period Stats<a class="anchor" aria-label="anchor" href="#period-stats"></a>
-</h2>
+<div class="section level3">
+<h3 id="period-stats">Period Stats<a class="anchor" aria-label="anchor" href="#period-stats"></a>
+</h3>
 <p>The function PeriodStats() generates daily stats (N, mean, min, max, range, std deviation) for the specified time period before a given date. Output is a multiple column CSV (Date and Parameter Name by statistic) and a report (HTML or DOCX) with plots.</p>
 <p>The input is output of the QC function in ContDataQC. That is, a file with SiteID, Date, Time, Date.Time, and parameters.</p>
 <p>To get different periods (30, 60, or 90 days) change function input “fun.myPeriod.N”. It is possible to provide a vector for Period.N and Period.Units.</p>
@@ -1342,9 +1342,9 @@ Example data below. For this example the report output was changed to “html”
           , <span class="va">myThreshold</span>
           , <span class="va">myConfig</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="export-for-iha">Export for IHA<a class="anchor" aria-label="anchor" href="#export-for-iha"></a>
-</h2>
+<div class="section level3">
+<h3 id="export-for-iha">Export for IHA<a class="anchor" aria-label="anchor" href="#export-for-iha"></a>
+</h3>
 <p>The function Export.IHA() allows for the formatting of data for use with the Nature Conservancy’s IHA program as converted to R.</p>
 <p><a href="https://www.conservationgateway.org/ConservationPractices/Freshwater/EnvironmentalFlows/MethodsandTools/IndicatorsofHydrologicAlteration/Pages/indicators-hydrologic-alt.aspx" class="external-link uri">https://www.conservationgateway.org/ConservationPractices/Freshwater/EnvironmentalFlows/MethodsandTools/IndicatorsofHydrologicAlteration/Pages/indicators-hydrologic-alt.aspx</a></p>
 <p><a href="https://github.com/jasonelaw/iha" class="external-link uri">https://github.com/jasonelaw/iha</a></p>
@@ -1457,9 +1457,9 @@ This example makes use of the <code>XLConnect</code> R library to save the IHA o
 <span class="co"># save workbook</span>
 <span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/saveWorkbook-methods.html" class="external-link">saveWorkbook</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">myFile.XLSX</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="rarify-taxa-data">Rarify Taxa Data<a class="anchor" aria-label="anchor" href="#rarify-taxa-data"></a>
-</h2>
+<div class="section level3">
+<h3 id="rarify-taxa-data">Rarify Taxa Data<a class="anchor" aria-label="anchor" href="#rarify-taxa-data"></a>
+</h3>
 <p>At times benthic samples include more individuals than the target number or when combining data from multiple programs it is necessary to subsample all samples down to a common number. The rarify funtion is part of the RIVPACS set of R scripts written by USEPA Corvallis. The rarify function is in the package BioMonTools. The example below is from the help file from that package. The BioMonTools package should install with the ContDataQC package.</p>
 <p><a href="https://github.com/leppott/BioMonTools" class="external-link uri">https://github.com/leppott/BioMonTools</a></p>
 <p>The function takes a three column data frame (SampleID, TaxonID, Count) and returns a similar dataframe with revised Counts.</p>
@@ -1492,9 +1492,9 @@ This example makes use of the <code>XLConnect</code> R library to save the IHA o
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tbl_totals</span>
              , caption <span class="op">=</span> <span class="st">"Sample totals before and after subsampling."</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="visualization-of-daily-means">Visualization of Daily Means<a class="anchor" aria-label="anchor" href="#visualization-of-daily-means"></a>
-</h2>
+<div class="section level3">
+<h3 id="visualization-of-daily-means">Visualization of Daily Means<a class="anchor" aria-label="anchor" href="#visualization-of-daily-means"></a>
+</h3>
 <p>An Excel file is included in the folder of the library that allows for the plotting of up to five years of data for water temperature, sensor depth, and air temperature.</p>
 <p>The daily values from the SummaryStats operation of the ContDataQC() function can be copied into the Excel file and the plots are auto-updated.</p>
 <p>These plots could be created in R but the Excel file was included to make the plots available to a wider audience.</p>
@@ -1525,9 +1525,9 @@ This example makes use of the <code>XLConnect</code> R library to save the IHA o
            , <span class="va">myDir.import</span>
            , <span class="va">myDir.export</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="output-for-streamthermal">Output for StreamThermal<a class="anchor" aria-label="anchor" href="#output-for-streamthermal"></a>
-</h2>
+<div class="section level3">
+<h3 id="output-for-streamthermal">Output for StreamThermal<a class="anchor" aria-label="anchor" href="#output-for-streamthermal"></a>
+</h3>
 <p>The Export.StreamThermal() function exports data for use with the the <code>StreamThermal</code> library.<br>
 The data input for StreamThermal is a data frame with five columns (SiteID, Date, TMax, TMin, and TMean).</p>
 <p>The <code>StreamThermal</code> library is only available on GitHub.</p>
@@ -1823,9 +1823,9 @@ temperatures over various time periods"</span>
 <span class="co"># save workbook</span>
 <span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/saveWorkbook-methods.html" class="external-link">saveWorkbook</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">myFile.XLSX</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="comparison-cdfs">Comparison CDFs<a class="anchor" aria-label="anchor" href="#comparison-cdfs"></a>
-</h2>
+<div class="section level3">
+<h3 id="comparison-cdfs">Comparison CDFs<a class="anchor" aria-label="anchor" href="#comparison-cdfs"></a>
+</h3>
 <p>The function CompSite() allows the user to plot data from multiple sites on a single CDF.</p>
 <p>The function takes as input a data frame with date and up to 8 columns of parameter data. Column names are Date and SiteIDs and values are daily means for some measurement.</p>
 <p>More than 8 columns can be used but colors are recycled after 8 and the plot lines will be difficult to distinguish.</p>
@@ -1896,9 +1896,9 @@ The second plot is a CDF of values. The line represents the proportion of values
 </table>
 <p>An example plot is shown below. The column names from the input table will appear in the legend of the plot. <img src="Vignette_ContDataQC_files/figure-html/CompSiteCDF_plot-1.png" width="672"><img src="Vignette_ContDataQC_files/figure-html/CompSiteCDF_plot-2.png" width="672"></p>
 </div>
-<div class="section level2">
-<h2 id="richards-baker-flashiness-index">Richards-Baker (Flashiness) Index<a class="anchor" aria-label="anchor" href="#richards-baker-flashiness-index"></a>
-</h2>
+<div class="section level3">
+<h3 id="richards-baker-flashiness-index">Richards-Baker (Flashiness) Index<a class="anchor" aria-label="anchor" href="#richards-baker-flashiness-index"></a>
+</h3>
 <p>Calculates the RBI from a vector of flow measurements. Inputs are are vector of flow measurements over some time period (e.g., water year). Output is a single value that represents the RBI.</p>
 <p>The RBI is the sum of absolute differences between days divided by the total flow for the given time period.</p>
 <p>Baker, D.B., R.P. Richards, T.T. Loftus, and J.W. Kramer. 2004. A New Flashiness Index: Characteristics and Applications to Midwestern Rivers and Streams. April 2004. Journal of the American Water Resources Association (JAWRA). Pages 503:522.</p>
@@ -1926,9 +1926,9 @@ The second plot is a CDF of values. The line represents the proportion of values
 <p>The calculated value from this function was QCed against data in the journal article.</p>
 <p>Whiteoak Creek near Georgetown, Ohio (03238500) for the water year 1975 was download via the <code>dataRetrieval</code> package and used to generate the RBI. The value calculated by RBIcalc() matches the value in Figure 8 in the journal (0.98). The value was also verified using Excel.</p>
 </div>
-<div class="section level2">
-<h2 id="summary-stats-only">Summary Stats Only<a class="anchor" aria-label="anchor" href="#summary-stats-only"></a>
-</h2>
+<div class="section level3">
+<h3 id="summary-stats-only">Summary Stats Only<a class="anchor" aria-label="anchor" href="#summary-stats-only"></a>
+</h3>
 <p>The user sometimes will have data that is already QCed or that just needs summary stats. It is possible to run just the summary stats from <code>ContDataQC</code> but need to require certain fields.</p>
 <ul>
 <li>SiteID</li>
@@ -1984,9 +1984,9 @@ Examples below:
            , fun.myDir.export<span class="op">=</span><span class="va">myDir.export</span>
            , fun.myFile<span class="op">=</span><span class="va">myFile</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="format-of-hoboware-output">Format of HOBOware Output<a class="anchor" aria-label="anchor" href="#format-of-hoboware-output"></a>
-</h2>
+<div class="section level3">
+<h3 id="format-of-hoboware-output">Format of HOBOware Output<a class="anchor" aria-label="anchor" href="#format-of-hoboware-output"></a>
+</h3>
 <p>Following the suggested RMN guidelines for creating HOBOware (PDF files included in help section of the package) will produce files with a known structure.<br>
 HOBOware will not create files for use with R. The function formatHobo was created to bridge this gap.</p>
 <p>Imports a HoboWare output (with minimal tweaks) from a folder, reformats it using defaults from the ContDataQC config file, and exports a CSV to another folder for use with ContDataQC.</p>
@@ -2084,16 +2084,16 @@ HOBOware will not create files for use with R. The function formatHobo was creat
 <span class="co"># Run Function (with default config)</span>
 <span class="fu"><a href="../reference/formatHobo.html">formatHobo</a></span><span class="op">(</span><span class="va">myFiles</span>, <span class="va">myDir.import</span>, <span class="va">myDir.export</span>, <span class="va">HoboDateFormat</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="export-for-rlakeanalyzer">Export for rLakeAnalyzer<a class="anchor" aria-label="anchor" href="#export-for-rlakeanalyzer"></a>
-</h2>
+<div class="section level3">
+<h3 id="export-for-rlakeanalyzer">Export for rLakeAnalyzer<a class="anchor" aria-label="anchor" href="#export-for-rlakeanalyzer"></a>
+</h3>
 <p>Continuous data from Lakes is similar to that used in streams.<br>
 The only difference is the addition of depth to the data.<br>
 There are R packages designed for the analysis of lake monitoring data. One such example is <code>rLakeAnalyzer</code>.</p>
 <p>To aid users in QCing their continuous lake data an export function to <code>rLakeAnalyzer</code> was created in the <code>ContDataQC</code> package.</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># create and print temp directory for example data</span></code></pre></div>
-<pre><code><span class="co">## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpYzyVGx"</span></code></pre>
+<pre><code><span class="co">## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp2ofc4c"</span></code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Convert Data for use with rLakeAnalyzer</span>
 
@@ -2402,9 +2402,9 @@ There are R packages designed for the analysis of lake monitoring data. One such
 </table>
 </div>
 </div>
-<div class="section level1">
-<h1 id="data-from-other-sources">Data from Other Sources<a class="anchor" aria-label="anchor" href="#data-from-other-sources"></a>
-</h1>
+<div class="section level2">
+<h2 id="data-from-other-sources">Data from Other Sources<a class="anchor" aria-label="anchor" href="#data-from-other-sources"></a>
+</h2>
 <p>It is possible to use data from other sources. The focus of the package has been user’s with no data system. Some users already have a system such as Aquarius. Below is an example script for obtaining data from such a system.<br>
 The script was contributed by Mark Hoger of PA DEP. This script is saved in the extdata folder as Aquarius_Data_Aquisition_PADEP.r.</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
@@ -2621,7 +2621,7 @@ The script was contributed by Mark Hoger of PA DEP. This script is saved in the 
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>

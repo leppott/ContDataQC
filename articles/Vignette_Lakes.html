@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9011</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
       <h1 data-toc-skip>ContDataQC Lake ID String Vignette</h1>
                         <h4 data-toc-skip class="author">Erik W. Leppo</h4>
             
-            <h4 data-toc-skip class="date">2021-12-22</h4>
+            <h4 data-toc-skip class="date">2022-01-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/leppott/ContDataQC/blob/HEAD/vignettes/Vignette_Lakes.Rmd" class="external-link"><code>vignettes/Vignette_Lakes.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette_Lakes.Rmd</code></div>
@@ -96,9 +96,9 @@
 
     
     
-<div class="section level1">
-<h1 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h1>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <p><code>ContDataQC</code> was created by Tetra Tech, Inc. for USEPA in 2017 to meet the needs of the Regional Monitoring Networks to apply a minimum level of quality control to the continuous monitoring data they were collecting.</p>
 <p>It is envisioned that this library can be a living package and will add additional functions and routines in the future.</p>
 <p>Many of the examples in this vignette are included in the examples in the corresponding functions. Each function in the <code>ContDataQC</code> library includes example data.</p>
@@ -106,19 +106,19 @@
 <p>There is a second type of user for this package and that is of the user with data loggers in lakes (or other waterbodies) with sensors at different depths.<br>
 Many of the package features work equally well with these data types with a few modifications.</p>
 </div>
-<div class="section level1">
-<h1 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
-</h1>
-<p>It is envisioned that a user of data at different depths at the same location can use the QC function by working with each depth file separately. The “formatHobo” and “QC” steps will accommodate the lake profile data (assuming the SiteID is specified as below in the next section).</p>
 <div class="section level2">
-<h2 id="site-id">Site ID<a class="anchor" aria-label="anchor" href="#site-id"></a>
+<h2 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
 </h2>
+<p>It is envisioned that a user of data at different depths at the same location can use the QC function by working with each depth file separately. The “formatHobo” and “QC” steps will accommodate the lake profile data (assuming the SiteID is specified as below in the next section).</p>
+<div class="section level3">
+<h3 id="site-id">Site ID<a class="anchor" aria-label="anchor" href="#site-id"></a>
+</h3>
 <p>The <code>ContDataQC</code> package is set up to handle a single “SiteID” field. This is not appropriate for measurements at different depths for a single location. To work around this the package uses a delimiter, “–”, between the SiteID and depth (units optional). For example “Ellis–1.0m” would be entered into the “SiteID” field.</p>
 </div>
 </div>
-<div class="section level1">
-<h1 id="formathobo">FormatHobo<a class="anchor" aria-label="anchor" href="#formathobo"></a>
-</h1>
+<div class="section level2">
+<h2 id="formathobo">FormatHobo<a class="anchor" aria-label="anchor" href="#formathobo"></a>
+</h2>
 <p>The Format function works the same on depth profile data files.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Packages</span>
@@ -143,9 +143,9 @@ Many of the package features work equally well with these data types with a few 
 
 <span class="co"># Run Function (with default config)</span>
 <span class="fu"><a href="../reference/formatHobo.html">formatHobo</a></span><span class="op">(</span><span class="va">myFiles</span>, <span class="va">myDir.import</span>, <span class="va">myDir.export</span>, fun.HoboDateFormat<span class="op">=</span><span class="va">myFormat</span><span class="op">)</span></code></pre></div>
-<div class="section level2">
-<h2 id="qc">QC<a class="anchor" aria-label="anchor" href="#qc"></a>
-</h2>
+<div class="section level3">
+<h3 id="qc">QC<a class="anchor" aria-label="anchor" href="#qc"></a>
+</h3>
 <p>The QC function works the same on depth profile data files.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Packages</span>
@@ -180,9 +180,9 @@ Many of the package features work equally well with these data types with a few 
            , fun.myFile <span class="op">=</span> <span class="va">myFile</span>
            , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="aggregate">Aggregate<a class="anchor" aria-label="anchor" href="#aggregate"></a>
-</h2>
+<div class="section level3">
+<h3 id="aggregate">Aggregate<a class="anchor" aria-label="anchor" href="#aggregate"></a>
+</h3>
 <p>The file version of the aggregate function will merge all file provided in the fun.myFile parameter passed to ContDatQC(). The resulting file will have the name of the first file with “Append_X”. Where “X” will be the number of files that were aggregated.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Packages</span>
@@ -207,9 +207,9 @@ Many of the package features work equally well with these data types with a few 
            , fun.myFile <span class="op">=</span> <span class="va">myFile</span>
            , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="parse-id">Parse ID<a class="anchor" aria-label="anchor" href="#parse-id"></a>
-</h2>
+<div class="section level3">
+<h3 id="parse-id">Parse ID<a class="anchor" aria-label="anchor" href="#parse-id"></a>
+</h3>
 <p>An additional function, “ParseID”, is provided to parse the combined ID string with SiteID, depth, and units into 3 separate fields. The original SiteID is copied to SiteID_original and then the SiteID, depth, and depth_units are then populated. The configuration file contains the desired delimiter (defaulted as “–”).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>
@@ -229,9 +229,9 @@ Many of the package features work equally well with these data types with a few 
             , <span class="va">fun.Delim</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div class="section level1">
-<h1 id="example-analysis-of-aggregated-data">Example Analysis of Aggregated Data<a class="anchor" aria-label="anchor" href="#example-analysis-of-aggregated-data"></a>
-</h1>
+<div class="section level2">
+<h2 id="example-analysis-of-aggregated-data">Example Analysis of Aggregated Data<a class="anchor" aria-label="anchor" href="#example-analysis-of-aggregated-data"></a>
+</h2>
 <p>Once the depth profiles have been individually QCed and then Aggregated the user can analyse the data from a single file. Example plot is below.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Example code to Plot data</span>
@@ -271,7 +271,7 @@ Many of the package features work equally well with these data types with a few 
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
