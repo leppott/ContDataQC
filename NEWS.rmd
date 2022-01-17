@@ -21,6 +21,11 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.6.9012
+2022-01-17
+
+* refactor: Update QC Thresholds tab text in Shiny, Issue #131
+
 ## v2.0.6.9011
 2022-01-17
 

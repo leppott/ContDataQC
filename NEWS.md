@@ -3,9 +3,15 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-01-17 08:40:33
+    #> Last Update: 2022-01-17 16:26:56
 
 # Version History
+
+## v2.0.6.9012
+
+2022-01-17
+
+-   refactor: Update QC Thresholds tab text in Shiny, Issue #131
 
 ## v2.0.6.9011
 
