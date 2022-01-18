@@ -3,9 +3,15 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-01-18 09:50:46
+    #> Last Update: 2022-01-18 10:46:23
 
 # Version History
+
+## v2.0.6.9014
+
+2022-01-18
+
+-   refactor: Update Tim’s Threshold Analysis zip file
 
 ## v2.0.6.9013
 
