@@ -3,9 +3,18 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-01-17 16:26:56
+    #> Last Update: 2022-01-18 09:50:46
 
 # Version History
+
+## v2.0.6.9013
+
+2022-01-18
+
+-   fix: Update broken links in Shiny to Config_Lakes_Metric.R, Issue
+    #132
+    -   Linux case sensitive and wasn’t working online
+-   refactor: Update text for readability in Shiny for Edit Thresholds
 
 ## v2.0.6.9012
 

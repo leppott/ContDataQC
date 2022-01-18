@@ -68,6 +68,8 @@ function() {
                                       ,p(paste("Note: The downloaded file must be reuploaded"))
                                       ,downloadButton(outputId = "QC_Thresh_Download"
                                                       , label = "Download custom thresholds file")
+                                     , h4("5. Upload custom threshold file")
+                                     , p("Go to the 'upload custom thresholds' tab, browse to the custom thresholds file, upload the file and then, under 'Main functions', generate the QC reports. If you skip this step, the default QC thresholds will be used.")
 
                          ) # sidebarPanel~ END
                          , mainPanel(width = 7
@@ -75,13 +77,13 @@ function() {
                                      , p("There are two options for editing thresholds and creating customized configuration files:")
                                      , h3("Option 1, use the interactive functions shown left and below.")
                                      , p("* Select a parameter using the drop-down menu")
-                                     , p("* Edit thresholds using boxes on right")
+                                     , p("* Edit thresholds using boxes below")
                                      , p("* Save changes (for each parameter)")
                                      , p("* Download custom thresholds file")
                                      , h3("Option 2, download the default configuration file, open the file in R or Notepad++, make edits and save.")
                                      , p("Click ", a("here", href = "EditingQCtestThresholds_20220117.pdf") ,"  for instructions. To download the default configuration file, click ", a("here", href = "Config_Default.R") ,".  If you prefer to work in metric units, click ", a("here", href = "Config_Lakes_Metric.R") ," to download an alternate configuration file.")
                                      , br()
-                                     , p("For either option, make sure you save the customized configuration file in a folder that is easy to find (see the 'Data Preparation – Organizing Files' tab for suggestions). We also recommend including the SiteID in the file name along with other relevant information (for example, if you customized the file for a particular season (winter vs summer), include the season in the file name; and/or if it is intended to be used for a particular depth or layer in a lake (top, middle or bottom), it is helpful to include that information in the file name as well.")
+                                     , p("For either option, make sure you save the customized configuration file in a folder that is easy to find (see the 'Data Preparation – Organizing Files' tab for suggestions). We also recommend including the SiteID in the file name along with other relevant information. For example, if you customized the file for a particular season (winter vs summer), include the season in the file name; and/or if it is intended to be used for a particular depth or layer in a lake (top, middle or bottom), it is helpful to include that information in the file name as well.")
                                      , p("Acknowledgment: Tim Martin (MN DNR) wrote the R code that we used for the interactive functions below. ")
                                      , hr()
                                      , h3("2. Edit thresholds:")

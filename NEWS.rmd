@@ -21,6 +21,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.6.9013
+2022-01-18
+
+* fix: Update broken links in Shiny to Config_Lakes_Metric.R, Issue #132
+    + Linux case sensitive and wasn't working online
+* refactor: Update text for readability in Shiny for Edit Thresholds
+
 ## v2.0.6.9012
 2022-01-17
 
