@@ -43,7 +43,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -87,7 +87,7 @@
       <h1 data-toc-skip>ContDataQC Vignette</h1>
                         <h4 data-toc-skip class="author">Erik W. Leppo</h4>
             
-            <h4 data-toc-skip class="date">2022-01-18</h4>
+            <h4 data-toc-skip class="date">2022-04-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/leppott/ContDataQC/blob/HEAD/vignettes/Vignette_ContDataQC.Rmd" class="external-link"><code>vignettes/Vignette_ContDataQC.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette_ContDataQC.Rmd</code></div>
@@ -271,7 +271,7 @@ This necessitated a change in the R library <code>dataRetrieval</code>. As of th
                    , <span class="st">"Data3_Aggregated"</span>
                    , <span class="st">"Data4_Stats"</span><span class="op">)</span>
 <span class="op">(</span><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># create and print temp directory for example data</span></code></pre></div>
-<pre><code><span class="co">## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpKzo9Yq"</span></code></pre>
+<pre><code><span class="co">## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpV8TrgT"</span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create data directories</span>
 <span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
@@ -337,13 +337,13 @@ This necessitated a change in the R library <code>dataRetrieval</code>. As of th
 <span class="co">## 532       NGVD29 01080207           uv   00065    &lt;NA&gt; 66867         NA</span>
 <span class="co">##     medium_grp_cd parm_grp_cd   srs_id access_cd begin_date   end_date count_nu</span>
 <span class="co">## 530           wat        &lt;NA&gt;  1645597         0 2015-11-04 2021-10-14     2171</span>
-<span class="co">## 531           wat        &lt;NA&gt;  1645423         0 1990-10-01 2022-01-18    11432</span>
-<span class="co">## 532           wat        &lt;NA&gt; 17164583         0 2007-10-01 2022-01-18     5223</span>
+<span class="co">## 531           wat        &lt;NA&gt;  1645423         0 1990-10-01 2022-04-14    11518</span>
+<span class="co">## 532           wat        &lt;NA&gt; 17164583         0 2007-10-01 2022-04-14     5309</span>
 <span class="co">## </span>
 <span class="co">## </span>
 <span class="co">## [1] "Processing item 1 of 1, COMPLETE, 01187300."</span>
 <span class="co">## </span>
-<span class="co">## [1] "Task COMPLETE; 0.18 min."</span></code></pre>
+<span class="co">## [1] "Task COMPLETE; 0.23 min."</span></code></pre>
 <p>Example of getting gage data in a different time zone specified in user modified configuration file.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leppott/ContDataQC" class="external-link">ContDataQC</a></span><span class="op">)</span>
@@ -2093,7 +2093,7 @@ There are R packages designed for the analysis of lake monitoring data. One such
 <p>To aid users in QCing their continuous lake data an export function to <code>rLakeAnalyzer</code> was created in the <code>ContDataQC</code> package.</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># create and print temp directory for example data</span></code></pre></div>
-<pre><code><span class="co">## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpKzo9Yq"</span></code></pre>
+<pre><code><span class="co">## [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpV8TrgT"</span></code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Convert Data for use with rLakeAnalyzer</span>
 
