@@ -1,13 +1,11 @@
 #' CompSiteCDF.updated, compare CDFs of sites
-#' this R function is adopted from "CompSiteCDF" 
+#' this R function is adopted from "CompSiteCDF"
 #' from https://github.com/leppott/ContDataQC/blob/main/R/CompSiteCDF.R
+#' @keywords internal
 #' @examples
 #' CompSiteCDF.updated(ParamName.xlab = myXlab, df.input=myDF)
-#' 
+#'
 #' @export
-#' 
-
-
 CompSiteCDF.updated <- function(file.input = NULL
                         , dir.input = getwd()
                         , dir.output = getwd()
@@ -17,7 +15,7 @@ CompSiteCDF.updated <- function(file.input = NULL
                         , Plot.season = "Summer"
                         , hist.columnName = NULL
                         , df.input = NULL){##FUNCTION.CompSiteCDF.START
-  
+
   # load data (data.frame or from CSV)
   # if no data frame then import file.
   if (!is.null(df.input)) {##IF.START
@@ -29,8 +27,8 @@ CompSiteCDF.updated <- function(file.input = NULL
   # Site Names (Columns) before adding seasonal columns including the "Date" column
   #Col.Sites <- names(data.import)[!(names(data.import) %in% ContData.env$myName.Date)]
   Col.Sites <- names(data.import)
-  
-  
+
+
   # Add columns for time periods
   # add Year, Month, Season, YearSeason (names are in config.R)
   # assume Date is POSIXct
@@ -83,20 +81,20 @@ CompSiteCDF.updated <- function(file.input = NULL
       as.numeric(data.import[, ContData.env$myName.Yr]) + 1
       , data.import[, ContData.env$myName.Season],sep="")
   }##IF.sum.END
-  
+
   # Season Names
   SeasonNames <- c("Fall", "Winter", "Spring","Summer")
   if (!is.null(Plot.season)){
     data.import <- data.import[data.import[,ContData.env$myName.Season]==Plot.season,]
   }
-  
+
   data.plot <- data.import[colnames(data.import) %in% Col.Sites]
-  
+
   ## revised the plot to a ggplot
-  
-  data.plot <- reshape2::melt(data.plot,"Date") 
+
+  data.plot <- reshape2::melt(data.plot,"Date")
   print(colnames(data.plot))
-  
+
   if (Plot.type=="Density") {
   my_plot <- ggplot(data=data.plot,aes(x=value,y=stat(density),colour=variable))+
        geom_line(stat="density")+
@@ -122,8 +120,7 @@ CompSiteCDF.updated <- function(file.input = NULL
     scale_color_viridis_d(option="D")+
     ggtitle(Plot.title)
   }
-  
+
  return(my_plot);
-  
+
 }
-  

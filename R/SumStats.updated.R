@@ -31,6 +31,7 @@
 #' The default is always loaded first so only "new" values need to be included.
 #' This is the easiest way to control date and time formats.
 #' @return Returns a data frame
+#' @keywords internal
 #' @examples
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # Save example files from Package to use for example
@@ -94,13 +95,13 @@ SumStats.updated <- function(fun.myFile
     source(file.path(getwd(),"R","config.R"), local=TRUE)
     # might have to load manually
   }##IF.boo_DEBUG.END
-  
+
   # 0a.0. Load environment
   # config file load, 20170517
   if (fun.myConfig!="") {##IF.fun.myConfig.START
     config.load(fun.myConfig)
   }##IF.fun.myConfig.START
-  
+
   # change the default settings in Environment if needed
    # ContData.env$myName.Flag        <- "Flag" # flag prefix
    # ContData.env$myStats.Fails.Exclude <- TRUE  #FALSE #TRUE
@@ -109,7 +110,7 @@ SumStats.updated <- function(fun.myFile
   if (is.na(fun.myDateTime.Format)) {##IF.fun.myConfig.START
     fun.myDateTime.Format <- ContData.env$myFormat.DateTime
   }##IF.fun.myConfig.START
-  
+
   # 2.0. Load Data####
   # 2.1. Error Checking, make sure file exists
   if(fun.myFile %in% list.files(path=fun.myDir.import)==FALSE) {##IF.file.START
@@ -140,11 +141,11 @@ SumStats.updated <- function(fun.myFile
   }##IF.match.END
   # 2.4.  Error Checking, DateTime format
   #df.load[,fun.myDateTime.Name] <- as.Date()
-  
+
   # 2.5.  Number of Parameters
   # Check for 1 vs. 2 parameters
   param.len <- length(fun.myParam.Name)
-  
+
   # Loop, Stats ####
   if(boo_DEBUG==TRUE) {##IF.boo_DEBUG.START
     i <- fun.myParam.Name[1]
@@ -156,7 +157,7 @@ SumStats.updated <- function(fun.myFile
     i.num <- match(i, fun.myParam.Name)
     print(paste0("WORKING on parameter (", i.num,"/",param.len,"); ", i))
     utils::flush.console()
-    
+
     # QC.0. FLAGs ####
     # check if flag field is in data
     # Default values from config.R
@@ -199,8 +200,8 @@ included based on user's config file."
       calculations."
     }##IF.flagINnames.END
     cat(paste0(myMsg, "\n"))
-    
-    
+
+
     # 3. Munge Data####
     # 3.1. Subset Fields
     df.param <- df.load[,myCol]
@@ -249,13 +250,13 @@ included based on user's config file."
                                   , FUN=myFUN.sumBy
                                   , na.rm=TRUE
                                   , var.names=i)
-    
+
     new.list <- list(df=df.summary)
     names(new.list) <- i
     df.list <- c(df.list,new.list)
   }##FOR.i.END
-  
+
   return(df.list)
-  
+
 }##FUNCTION.END
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
