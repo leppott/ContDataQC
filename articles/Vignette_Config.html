@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9017</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9018</span>
       </span>
     </div>
 
@@ -352,11 +352,12 @@ Through the use of a configuration file the user can change many of the variable
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.Cond</span>       <span class="op">&lt;-</span> <span class="st">"uS.cm"</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.DO</span>         <span class="op">&lt;-</span> <span class="st">"mg.L"</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.DO.adj</span>     <span class="op">&lt;-</span> <span class="st">"mg.L"</span>
-<span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.DO.pctsat</span>  <span class="op">&lt;-</span> <span class="st">"%"</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.DO.pctsat</span>  <span class="op">&lt;-</span> <span class="st">"percent"</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.pH</span>         <span class="op">&lt;-</span> <span class="st">"SU"</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.Turbidity</span>  <span class="op">&lt;-</span> <span class="st">"NTU"</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.Chlorophylla</span> <span class="op">&lt;-</span> <span class="st">"g.cm3"</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.WaterLevel</span> <span class="op">&lt;-</span> <span class="st">"ft"</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.Salinity</span>   <span class="op">&lt;-</span> <span class="st">"ppt"</span>
 <span class="co">## Logger Fields ----</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.RowID.Water</span>   <span class="op">&lt;-</span> <span class="st">"Water.RowID"</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.LoggerID.Water</span><span class="op">&lt;-</span> <span class="st">"Water.LoggerID"</span>
@@ -382,12 +383,9 @@ Through the use of a configuration file the user can change many of the variable
                                             , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.Discharge</span><span class="op">)</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Cond</span>          <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Conductivity."</span>
                                             , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.Cond</span><span class="op">)</span>
-<span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.DO</span>            <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"DO."</span>
-                                            , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.DO</span><span class="op">)</span>
-<span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.DO.adj</span>        <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"DO.adj."</span>
-                                            , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.DO.adj</span><span class="op">)</span>
-<span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.DO.pctsat</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"DO.pctsat."</span>
-                                            , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.DO.pctsat</span><span class="op">)</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.DO</span>            <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"DO."</span>, <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.DO</span><span class="op">)</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.DO.adj</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"DO.adj."</span>, <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.DO.adj</span><span class="op">)</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.DO.pctsat</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"DO.pctsat."</span>, <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.DO.pctsat</span><span class="op">)</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.pH</span>            <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"pH."</span>
                                             , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.pH</span><span class="op">)</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Turbidity</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Turbidity."</span>
@@ -396,6 +394,8 @@ Through the use of a configuration file the user can change many of the variable
                                             , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.Chlorophylla</span><span class="op">)</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.WaterLevel</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Water.Level."</span>
                                             , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.WaterLevel</span><span class="op">)</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Salinity</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Salinity."</span>
+                                            , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.Salinity</span><span class="op">)</span>
 <span class="co">## Plot Labels</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Date</span>           <span class="op">&lt;-</span> <span class="st">"Date"</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.DateTime</span>       <span class="op">&lt;-</span> <span class="st">"Date"</span>
@@ -434,10 +434,9 @@ Through the use of a configuration file the user can change many of the variable
                                             ,<span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"\\."</span>,<span class="st">"/"</span>
                                                  ,<span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.DO.adj</span><span class="op">)</span>
                                             ,<span class="st">")"</span><span class="op">)</span>  <span class="co">#replace "." with "/"</span>
-<span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.DO.pctsat</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Dissolved Oxygen
-                                           , percent saturation ("</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.DO.pctsat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Dissolved Oxygen, percent saturation ("</span>
                                             ,<span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"\\."</span>,<span class="st">"/"</span>
-                                                ,<span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.DO.pctsat</span><span class="op">)</span>
+                                            ,<span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.DO.pctsat</span><span class="op">)</span>
                                             ,<span class="st">")"</span><span class="op">)</span>  <span class="co">#replace "." with "/"</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.pH</span>             <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"pH ("</span>
                                             ,<span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.pH</span>
@@ -451,6 +450,9 @@ Through the use of a configuration file the user can change many of the variable
                                             ,<span class="st">")"</span><span class="op">)</span>    <span class="co">#replace "." with "/"</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.WaterLevel</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Water Level ("</span>
                                             ,<span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.WaterLevel</span>
+                                            ,<span class="st">")"</span><span class="op">)</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Salinity</span>       <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Salinity ("</span>
+                                            ,<span class="va">ContData.env</span><span class="op">$</span><span class="va">myUnits.Salinity</span>
                                             ,<span class="st">")"</span><span class="op">)</span>
 <span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 <span class="co"># Discrete Measurements ####</span>
@@ -484,8 +486,8 @@ Through the use of a configuration file the user can change many of the variable
                                                  ,<span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.DO.adj</span>
                                                  ,sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Discrete.DO.pctsat</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myPrefix.Discrete</span>
-                                                 ,<span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.DO.pctsat</span>
-                                                 ,sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span>
+                                                 , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.DO.pctsat</span>
+                                                 , sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Discrete.pH</span>         <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myPrefix.Discrete</span>
                                                  ,<span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.pH</span>
                                                  ,sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span>
@@ -497,6 +499,9 @@ Through the use of a configuration file the user can change many of the variable
                                                  ,sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Discrete.WaterLevel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myPrefix.Discrete</span>
                                                  ,<span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.WaterLevel</span>
+                                                 ,sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Discrete.Salinity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myPrefix.Discrete</span>
+                                                 ,<span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Salinity</span>
                                                  ,sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span>
 <span class="co"># Discrete, Labels</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Discrete.WaterTemp</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.WaterTemp</span>
@@ -523,10 +528,10 @@ Through the use of a configuration file the user can change many of the variable
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Discrete.DO</span>          <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.DO</span>
                                                  ,<span class="st">"(Discrete)"</span>
                                                  ,sep<span class="op">=</span><span class="st">" "</span><span class="op">)</span>
-<span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Discrete.DO.adj</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.DO</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Discrete.DO.adj</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.DO.adj</span>
                                                  ,<span class="st">"(Discrete)"</span>
                                                  ,sep<span class="op">=</span><span class="st">" "</span><span class="op">)</span>
-<span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Discrete.DO.pctsat</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.DO</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Discrete.DO.pctsat</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.DO.pctsat</span>
                                                  ,<span class="st">"(Discrete)"</span>
                                                  ,sep<span class="op">=</span><span class="st">" "</span><span class="op">)</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Discrete.pH</span>          <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.pH</span>
@@ -539,6 +544,9 @@ Through the use of a configuration file the user can change many of the variable
                                                  ,<span class="st">"(Discrete)"</span>
                                                  ,sep<span class="op">=</span><span class="st">" "</span><span class="op">)</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Discrete.WaterLevel</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.WaterLevel</span>
+                                                 ,<span class="st">"(Discrete)"</span>
+                                                 ,sep<span class="op">=</span><span class="st">" "</span><span class="op">)</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Discrete.Salinity</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Salinity</span>
                                                  ,<span class="st">"(Discrete)"</span>
                                                  ,sep<span class="op">=</span><span class="st">" "</span><span class="op">)</span>
 <span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
@@ -586,6 +594,7 @@ Through the use of a configuration file the user can change many of the variable
                                      , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Discrete.Turbidity</span>
                                      , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Discrete.Chlorophylla</span>
                                      , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Discrete.WaterLevel</span>
+                                                       , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Discrete.Salinity</span>
                                      <span class="op">)</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myNames.DataFields.Lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.WaterTemp</span>
                                          , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.AirTemp</span>
@@ -615,6 +624,7 @@ Through the use of a configuration file the user can change many of the variable
                                          , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Discrete.Turbidity</span>
                                       , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Discrete.Chlorophylla</span>
                                         , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Discrete.WaterLevel</span>
+                                      , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myLab.Discrete.Salinity</span>
                                          <span class="op">)</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myNames.DataFields.Col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>,<span class="st">"green"</span>,<span class="st">"gray"</span>,<span class="st">"gray"</span>,<span class="st">"black"</span>
                                          ,<span class="st">"brown"</span>,<span class="st">"purple"</span>,<span class="st">"orange"</span>,<span class="st">"salmon"</span>
@@ -658,6 +668,7 @@ Through the use of a configuration file the user can change many of the variable
                                 , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Discrete.Turbidity</span>
                                 , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Discrete.Chlorophylla</span>
                                 , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Discrete.WaterLevel</span>
+                                , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Discrete.Salinity</span>
                                 <span class="op">)</span>
 <span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 <span class="co">## Data Quality Flag Values ####</span>
@@ -709,6 +720,8 @@ Through the use of a configuration file the user can change many of the variable
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Gross.Fail.Lo.Chlorophylla</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span>   <span class="co"># this threshold has not been closely evaluated</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Gross.Fail.Hi.WaterLevel</span>   <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Gross.Fail.Hi.SensorDepth</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Gross.Fail.Lo.WaterLevel</span>   <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Gross.Fail.Lo.SensorDepth</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Gross.Fail.Hi.Salinity</span>      <span class="op">&lt;-</span> <span class="fl">41</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Gross.Fail.Lo.Salinity</span>     <span class="op">&lt;-</span> <span class="fl">2</span>
 <span class="co">## Gross Min/Max, Suspect (extreme)</span>
 <span class="co">### Examines values as outliers versus threholds</span>
 <span class="co">### if value &gt;= Hi or &lt;= Lo then flagged as "Suspect"</span>
@@ -740,6 +753,8 @@ Through the use of a configuration file the user can change many of the variable
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Gross.Suspect.Lo.Chlorophylla</span> <span class="op">&lt;-</span> <span class="fl">1</span>    <span class="co"># this threshold has not been closely evaluated</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Gross.Suspect.Hi.WaterLevel</span>   <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Gross.Suspect.Hi.SensorDepth</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Gross.Suspect.Lo.WaterLevel</span>   <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Gross.Suspect.Lo.SensorDept</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Gross.Suspect.Hi.Salinity</span>    <span class="op">&lt;-</span> <span class="fl">37</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Gross.Suspect.Lo.Salinity</span>    <span class="op">&lt;-</span> <span class="fl">3</span>
 <span class="co"># _QC, Spike ----</span>
 <span class="co">## Spike thresholds (absolute change)</span>
 <span class="co">### Examines difference between consecutive measurements</span>
@@ -773,6 +788,8 @@ Through the use of a configuration file the user can change many of the variable
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Spike.Lo.Chlorophylla</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">^</span><span class="fl">3</span> <span class="co"># this threshold has not been closely evaluated</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Spike.Hi.WaterLevel</span>  <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Spike.Hi.SensorDepth</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Spike.Lo.WaterLevel</span>  <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Spike.Lo.SensorDepth</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Spike.Hi.Salinity</span>    <span class="op">&lt;-</span> <span class="fl">5</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Spike.Lo.Salinity</span>    <span class="op">&lt;-</span> <span class="fl">3</span>
 <span class="co"># _QC, ROC----</span>
 <span class="co">## Rate of Change (relative change)</span>
 <span class="co">### Examines SD over "period" and difference in consecutive values</span>
@@ -807,6 +824,8 @@ Through the use of a configuration file the user can change many of the variable
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.RoC.SD.period.Chlorophylla</span> <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myDefault.RoC.SD.period</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.RoC.SD.number.WaterLevel</span>   <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myDefault.RoC.SD.number</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.RoC.SD.period.WaterLevel</span>   <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myDefault.RoC.SD.period</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.RoC.SD.number.Salinity</span>     <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myDefault.RoC.SD.number</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.RoC.SD.period.Salinity</span>     <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myDefault.RoC.SD.period</span>
 <span class="co"># QC, Flat Line----</span>
 <span class="co">## No Change (flat-line)</span>
 <span class="co">### Examines consecutive values within "Tolerance" of each other</span>
@@ -857,6 +876,9 @@ Through the use of a configuration file the user can change many of the variable
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Hi.WaterLevel</span>          <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Hi.SensorDepth</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Lo.WaterLevel</span>          <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Lo.SensorDepth</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Tolerance.WaterLevel</span>   <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Tolerance.SensorDepth</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Hi.Salinity</span>            <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Hi.SensorDepth</span> <span class="op">*</span> <span class="fl">2</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Lo.Salinity</span>            <span class="op">&lt;-</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Lo.SensorDepth</span> <span class="op">*</span> <span class="fl">2</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Tolerance.Salinity</span>     <span class="op">&lt;-</span> <span class="fl">0.01</span>
 <span class="co">#</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.MaxComp</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Hi.WaterTemp</span>
                                              , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Hi.AirTemp</span>
@@ -872,6 +894,7 @@ Through the use of a configuration file the user can change many of the variable
                                              , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Hi.Turbidity</span>
                                              , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Hi.Chlorophylla</span>
                                              , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Hi.WaterLevel</span>
+                                             , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myThresh.Flat.Hi.Salinity</span>
                                              <span class="op">)</span>
 <span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 <span class="co"># Data Fields with Flags ####</span>
@@ -928,6 +951,9 @@ Through the use of a configuration file the user can change many of the variable
                                                , sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Flag.WaterLevel</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Flag</span>
                                                , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.WaterLevel</span>
+                                               , sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span>
+<span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Flag.Salinity</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Flag</span>
+                                               , <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Salinity</span>
                                                , sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span>
 <span class="co"># Data Quality Test Names</span>
 <span class="va">ContData.env</span><span class="op">$</span><span class="va">myNames.QCTests</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Gross"</span>,<span class="st">"Spike"</span>,<span class="st">"RoC"</span>,<span class="st">"Flat"</span><span class="op">)</span>

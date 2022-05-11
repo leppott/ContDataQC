@@ -20,7 +20,7 @@ with plots. Input is the ouput file of the QC operation of ContDataQC()."><!-- m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9017</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9018</span>
       </span>
     </div>
 
@@ -182,7 +182,7 @@ report.</p>
 <span class="r-in"><span class="va">myDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"DATA_period_test2_AW_20130101_20141231.csv"</span></span>
 <span class="r-in"><span class="va">df.x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir</span>, <span class="va">myFile</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpPNO8sL/DATA_period_test2_AW_20130101_20141231.csv': No such file or directory</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpClu4yO/DATA_period_test2_AW_20130101_20141231.csv': No such file or directory</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(file, "rt"):</span> cannot open the connection</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># function inputs</span></span>
@@ -216,7 +216,7 @@ report.</p>
 <span class="r-in">          , <span class="va">myDateTime.Format</span></span>
 <span class="r-in">          , <span class="va">myThreshold</span></span>
 <span class="r-in">          , <span class="va">myConfig</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpPNO8sL).</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpClu4yO).</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Example 2. DOCX report format</span></span>
 <span class="r-in"><span class="fu">PeriodStats</span><span class="op">(</span><span class="va">myDate</span></span>
@@ -232,7 +232,7 @@ report.</p>
 <span class="r-in">          , <span class="va">myThreshold</span></span>
 <span class="r-in">          , <span class="va">myConfig</span></span>
 <span class="r-in">          , <span class="va">myReport.format</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig, myReport.format):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpPNO8sL).</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig, myReport.format):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpClu4yO).</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Example 3. DOCX report format and Include Flag Failures</span></span>
 <span class="r-in"><span class="fu">PeriodStats</span><span class="op">(</span><span class="va">myDate</span></span>
@@ -248,7 +248,7 @@ report.</p>
 <span class="r-in">          , <span class="va">myThreshold</span></span>
 <span class="r-in">          , <span class="va">myConfig.Fail.Include</span></span>
 <span class="r-in">          , <span class="va">myReport.format</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig.Fail.Include, myReport.format):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpPNO8sL).</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig.Fail.Include, myReport.format):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpClu4yO).</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Example 4. DOCX report format with two parameters</span></span>
 <span class="r-in"><span class="va">myParam.Name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Water.Temp.C"</span>, <span class="st">"Sensor.Depth.ft"</span><span class="op">)</span></span>
@@ -265,7 +265,7 @@ report.</p>
 <span class="r-in">          , <span class="va">myThreshold</span></span>
 <span class="r-in">          , <span class="va">myConfig</span></span>
 <span class="r-in">          , <span class="va">myReport.format</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig, myReport.format):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpPNO8sL).</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig, myReport.format):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpClu4yO).</span>
 </code></pre></div>
     </div>
   </div>
