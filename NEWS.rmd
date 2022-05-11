@@ -21,6 +21,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.6.9018
+2022-05-11
+
+* feature: Add salinity to config file, Issue #138
+* feature: Add salinity to config.out RMD, Issue #138
+
 ## v2.0.6.9017
 2022-05-11
 

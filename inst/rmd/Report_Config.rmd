@@ -540,6 +540,43 @@ txt_Chlorophylla_S <- c(val_Chlorophylla[1]
                               ," consecutive measurements within ",val_Chlorophylla[13]
                               ," units of one another"))
 
+              
+## Salinity
+nam_Salinity <- c("myLab.Salinity"                       #1
+           , "myUnits.Salinity"                    #2
+           , "myThresh.Gross.Fail.Hi.Salinity"     #3
+           , "myThresh.Gross.Fail.Lo.Salinity"     #4
+           , "myThresh.Gross.Suspect.Hi.Salinity"  #5
+           , "myThresh.Gross.Suspect.Lo.Salinity"  #6
+           , "myThresh.Spike.Hi.Salinity"          #7
+           , "myThresh.Spike.Lo.Salinity"          #8
+           , "myThresh.RoC.SD.number.Salinity"     #9
+           , "myThresh.RoC.SD.period.Salinity"     #10
+           , "myThresh.Flat.Hi.Salinity"           #11
+           , "myThresh.Flat.Lo.Salinity"           #12
+           , "myThresh.Flat.Tolerance.Salinity"    #13
+           )
+val_Salinity <- mget(nam_Salinity, envir=ContData.env)
+txt_Salinity_F <- c(val_Salinity[1]
+                     , "Fail"
+                     , paste0("> ",val_Salinity[3]," ",val_Salinity[2]
+                              ,"  or < ",val_Salinity[4]," ",val_Salinity[2])
+                     , paste0(">= ", val_Salinity[7]," ",val_Salinity[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_Salinity[11]
+                              ," consecutive measurements within ",val_Salinity[13]
+                              ," units of one another"))
+txt_Salinity_S <- c(val_Salinity[1]
+                     , "Suspect"
+                     , paste0("> ",val_Salinity[5]," ",val_Salinity[2]
+                              ," or < ",val_Salinity[6]," ",val_Salinity[2])
+                     , paste0(">= ", val_Salinity[8]," ",val_Salinity[2]," (+/-)")
+                     , paste0(">= ",val_Salinity[9]," standard deviations within "
+                              ,val_Salinity[10]," hours")
+                     , paste0("> ",val_Salinity[12]
+                              ," consecutive measurements within ",val_Salinity[13]
+                              ," units of one another"))
+
 # Create Table
 df_Env <- data.frame(rbind(txt_WaterTemp_F, txt_WaterTemp_S
                            , txt_AirTemp_F, txt_AirTemp_S
@@ -555,6 +592,7 @@ df_Env <- data.frame(rbind(txt_WaterTemp_F, txt_WaterTemp_S
                            , txt_pH_F, txt_pH_S
                            , txt_Turbidity_F, txt_Turbidity_S
                            , txt_Chlorophylla_F, txt_Chlorophylla_S
+                           , txt_Salinity_F, txt_Salinity_S
                            )
                      , row.names = NULL)
 names(df_Env) <- txt_header
@@ -608,6 +646,7 @@ env_Nam <- c("myDelim"
              , "myUnits.pH"
              , "myUnits.Turbidity"
              , "myUnits.Chlorophylla"
+             , "myUnits.Salinity"
              , "myName.RowID.Water"
              , "myName.LoggerID.Water"
              , "myName.RowID.Air"
@@ -626,6 +665,7 @@ env_Nam <- c("myDelim"
              , "myName.pH"
              , "myName.Turbidity"
              , "myName.Chlorophylla"
+             , "myName.Salinity"
              , "myLab.WaterTemp"
              , "myLab.AirTemp"
              , "myLab.Date"
@@ -643,6 +683,7 @@ env_Nam <- c("myDelim"
              , "myLab.pH"
              , "myLab.Turbidity"
              , "myLab.Chlorophylla"
+             , "myLab.Salinity"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -670,6 +711,7 @@ env_Nam <- c("myPrefix.Discrete"
              , "myName.Discrete.pH"
              , "myName.Discrete.Turbidity"
              , "myName.Discrete.Chlorophylla"
+             , "myName.Discrete.Salinity"
              , "myLab.Discrete.WaterTemp"
              , "myLab.Discrete.AirTemp"
              , "myLab.Discrete.WaterP"
@@ -684,6 +726,7 @@ env_Nam <- c("myPrefix.Discrete"
              , "myLab.Discrete.pH"
              , "myLab.Discrete.Turbidity"
              , "myLab.Discrete.Chlorophylla"
+             , "myLab.Discrete.Salinity"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -789,6 +832,8 @@ env_Nam <- c("myThresh.Gross.Fail.Hi.WaterTemp"
              , "myThresh.Gross.Fail.Lo.Turbidity"
              , "myThresh.Gross.Fail.Hi.Chlorophylla"
              , "myThresh.Gross.Fail.Lo.Chlorophylla"
+             , "myThresh.Gross.Fail.Hi.Salinity"
+             , "myThresh.Gross.Fail.Lo.Salinity"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -830,6 +875,8 @@ env_Nam <- c("myThresh.Gross.Suspect.Hi.WaterTemp"
              , "myThresh.Gross.Suspect.Lo.Turbidity"
              , "myThresh.Gross.Suspect.Hi.Chlorophylla"
              , "myThresh.Gross.Suspect.Lo.Chlorophylla"
+             , "myThresh.Gross.Suspect.Hi.Salinity"
+             , "myThresh.Gross.Suspect.Lo.Salinity"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -872,6 +919,8 @@ env_Nam <- c("myThresh.Spike.Hi.WaterTemp"
              , "myThresh.Spike.Lo.Turbidity"
              , "myThresh.Spike.Hi.Chlorophylla"
              , "myThresh.Spike.Lo.Chlorophylla"
+             , "myThresh.Spike.Hi.Salinity"
+             , "myThresh.Spike.Lo.Salinity"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -915,6 +964,8 @@ env_Nam <- c("myDefault.RoC.SD.number"
              , "myThresh.RoC.SD.period.Turbidity"
              , "myThresh.RoC.SD.number.Chlorophylla"
              , "myThresh.RoC.SD.period.Chlorophylla"
+             , "myThresh.RoC.SD.number.Salinity"
+             , "myThresh.RoC.SD.period.Salinity"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
 df_Env <- data.frame(cbind(env_Nam, env_Val), row.names = NULL)
@@ -974,6 +1025,9 @@ env_Nam <- c("myDefault.Flat.Hi"
              , "myThresh.Flat.Hi.Chlorophylla"
              , "myThresh.Flat.Lo.Chlorophylla"
              , "myThresh.Flat.Tolerance.Chlorophylla"
+             , "myThresh.Flat.Hi.Salinity"
+             , "myThresh.Flat.Lo.Salinity"
+             , "myThresh.Flat.Tolerance.Salinity"
              , "myThresh.Flat.MaxComp"
              )
 env_Val <- mget(env_Nam, envir=ContData.env)
@@ -1005,6 +1059,7 @@ env_Nam <- c("myName.Flag"
              , "myName.Flag.pH"
              , "myName.Flag.Turbidity"
              , "myName.Flag.Chlorophylla"
+             , "myName.Flag.Salinity"
              , "myNames.QCTests"
              , "myNames.QCCalcs"
              )

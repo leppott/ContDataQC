@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-05-11 07:33:34
+    #> Last Update: 2022-05-11 14:47:29
 
 # Version History
+
+## v2.0.6.9018
+
+2022-05-11
+
+-   feature: Add salinity to config file, Issue #138
+-   feature: Add salinity to config.out RMD, Issue #138
 
 ## v2.0.6.9017
 
