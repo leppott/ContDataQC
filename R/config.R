@@ -65,7 +65,7 @@ ContData.env$myUnits.Discharge  <- "ft3.s"
 ContData.env$myUnits.Cond       <- "uS.cm"
 ContData.env$myUnits.DO         <- "mg.L"
 ContData.env$myUnits.DO.adj     <- "mg.L"
-ContData.env$myUnits.DO.pctsat  <- "%"
+ContData.env$myUnits.DO.pctsat  <- "percent"
 ContData.env$myUnits.pH         <- "SU"
 ContData.env$myUnits.Turbidity  <- "NTU"
 ContData.env$myUnits.Chlorophylla <- "g.cm3"
@@ -95,12 +95,9 @@ ContData.env$myName.Discharge     <- paste0("Discharge."
                                             , ContData.env$myUnits.Discharge)
 ContData.env$myName.Cond          <- paste0("Conductivity."
                                             , ContData.env$myUnits.Cond)
-ContData.env$myName.DO            <- paste0("DO."
-                                            , ContData.env$myUnits.DO)
-ContData.env$myName.DO.adj        <- paste0("DO.adj."
-                                            , ContData.env$myUnits.DO.adj)
-ContData.env$myName.DO.pctsat     <- paste0("DO.pctsat."
-                                            , ContData.env$myUnits.DO.pctsat)
+ContData.env$myName.DO            <- paste0("DO.", ContData.env$myUnits.DO)
+ContData.env$myName.DO.adj    <- paste0("DO.adj.", ContData.env$myUnits.DO.adj)
+ContData.env$myName.DO.pctsat     <- paste0("DO.pctsat.", ContData.env$myUnits.DO.pctsat)
 ContData.env$myName.pH            <- paste0("pH."
                                             , ContData.env$myUnits.pH)
 ContData.env$myName.Turbidity     <- paste0("Turbidity."
@@ -147,10 +144,9 @@ ContData.env$myLab.DO.adj         <- paste0("Dissolved Oxygen, adjusted ("
                                             ,sub("\\.","/"
                                                  ,ContData.env$myUnits.DO.adj)
                                             ,")")  #replace "." with "/"
-ContData.env$myLab.DO.pctsat     <- paste0("Dissolved Oxygen
-                                           , percent saturation ("
+ContData.env$myLab.DO.pctsat <- paste0("Dissolved Oxygen, percent saturation ("
                                             ,sub("\\.","/"
-                                                ,ContData.env$myUnits.DO.pctsat)
+                                            ,ContData.env$myUnits.DO.pctsat)
                                             ,")")  #replace "." with "/"
 ContData.env$myLab.pH             <- paste0("pH ("
                                             ,ContData.env$myUnits.pH
@@ -197,8 +193,8 @@ ContData.env$myName.Discrete.DO.adj     <- paste(ContData.env$myPrefix.Discrete
                                                  ,ContData.env$myName.DO.adj
                                                  ,sep=".")
 ContData.env$myName.Discrete.DO.pctsat  <- paste(ContData.env$myPrefix.Discrete
-                                                 ,ContData.env$myName.DO.pctsat
-                                                 ,sep=".")
+                                                 , ContData.env$myName.DO.pctsat
+                                                 , sep=".")
 ContData.env$myName.Discrete.pH         <- paste(ContData.env$myPrefix.Discrete
                                                  ,ContData.env$myName.pH
                                                  ,sep=".")
@@ -236,10 +232,10 @@ ContData.env$myLab.Discrete.Cond        <- paste(ContData.env$myLab.Cond
 ContData.env$myLab.Discrete.DO          <- paste(ContData.env$myLab.DO
                                                  ,"(Discrete)"
                                                  ,sep=" ")
-ContData.env$myLab.Discrete.DO.adj      <- paste(ContData.env$myLab.DO
+ContData.env$myLab.Discrete.DO.adj      <- paste(ContData.env$myLab.DO.adj
                                                  ,"(Discrete)"
                                                  ,sep=" ")
-ContData.env$myLab.Discrete.DO.pctsat   <- paste(ContData.env$myLab.DO
+ContData.env$myLab.Discrete.DO.pctsat   <- paste(ContData.env$myLab.DO.pctsat
                                                  ,"(Discrete)"
                                                  ,sep=" ")
 ContData.env$myLab.Discrete.pH          <- paste(ContData.env$myLab.pH
