@@ -3,9 +3,21 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-05-11 14:47:29
+    #> Last Update: 2022-05-17 13:50:50
 
 # Version History
+
+## v2.0.6.9019
+
+2022-05-17
+
+-   fix: Update Report_QC.rmd table statements with useNA = ifany, Issue
+    #117
+-   fix: Add new parameters to QC routine
+    -   DO adj, Issue #117
+    -   DO pct sat, Issue #117
+    -   Salinity, Issue #138
+-   refactor: Ensure Report_Config.RMD up to date with parameter changes
 
 ## v2.0.6.9018
 

@@ -21,6 +21,15 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.6.9019
+2022-05-17
+
+* fix: Update Report_QC.rmd table statements with useNA = ifany, Issue #117
+* fix: Add new parameters to QC routine
+    + DO adj, Issue #117
+    + DO pct sat, Issue #117
+    + Salinity, Issue #138
+
 ## v2.0.6.9018
 2022-05-11
 

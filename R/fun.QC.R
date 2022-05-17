@@ -716,11 +716,11 @@ fun.QC <- function(fun.myData.SiteID
 
     }##IF.myField.END
     #
-    # _B.6.08. Dissolved Oxygen----
+    # _B.6.08. Dissolved Oxygen, mg/L ----
     myField <- ContData.env$myName.DO
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
-      myMsg.data <- "DO"
+      myMsg.data <- "DO, mg/L"
       myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
       myItems.Complete <- myItems.Complete + 1
       myItems.Log[intCounter,2] <- myMsg
@@ -742,7 +742,59 @@ fun.QC <- function(fun.myData.SiteID
                                      ,ContData.env$myThresh.Flat.Tolerance.DO)
     }##IF.myField.END
     #
-    # _B.6.09. pH----
+    # _B.6.09. Dissolved Oxygen, adjusted----
+    myField <- ContData.env$myName.DO.adj
+    if(myField %in% myNames.DataFields.Present==TRUE){
+      #
+      myMsg.data <- "DO, adj"
+      myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter,2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      data.import <- fun.CalcQCStats(data.import
+                                     ,myField
+                                     ,ContData.env$myThresh.Gross.Fail.Hi.DO.adj
+                                     ,ContData.env$myThresh.Gross.Fail.Lo.DO.adj
+                                     ,ContData.env$myThresh.Gross.Suspect.Hi.DO.adj
+                                     ,ContData.env$myThresh.Gross.Suspect.Lo.DO.adj
+                                     ,ContData.env$myThresh.Spike.Hi.DO.adj
+                                     ,ContData.env$myThresh.Spike.Lo.DO.adj
+                                     ,ContData.env$myThresh.RoC.SD.period.DO.adj
+                                     ,ContData.env$myThresh.RoC.SD.number.DO.adj
+                                     ,ContData.env$myThresh.Flat.Hi.DO.adj
+                                     ,ContData.env$myThresh.Flat.Lo.DO.adj
+                                     ,ContData.env$myThresh.Flat.Tolerance.DO.adj)
+    }##IF.myField.END
+    #
+    # _B.6.10. Dissolved Oxygen, pct sat----
+    myField <- ContData.env$myName.DO.pctsat
+    if(myField %in% myNames.DataFields.Present==TRUE){
+      #
+      myMsg.data <- "DO, pct sat"
+      myMsg <- paste("WORKING (QC Tests and Flags - ",myMsg.data,")",sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter,2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      data.import <- fun.CalcQCStats(data.import
+                                     ,myField
+                                     ,ContData.env$myThresh.Gross.Fail.Hi.DO.pctsat
+                                     ,ContData.env$myThresh.Gross.Fail.Lo.DO.pctsat
+                                     ,ContData.env$myThresh.Gross.Suspect.Hi.DO.pctsat
+                                     ,ContData.env$myThresh.Gross.Suspect.Lo.DO.pctsat
+                                     ,ContData.env$myThresh.Spike.Hi.DO.pctsat
+                                     ,ContData.env$myThresh.Spike.Lo.DO.pctsat
+                                     ,ContData.env$myThresh.RoC.SD.period.DO.pctsat
+                                     ,ContData.env$myThresh.RoC.SD.number.DO.pctsat
+                                     ,ContData.env$myThresh.Flat.Hi.DO.pctsat
+                                     ,ContData.env$myThresh.Flat.Lo.DO.pctsat
+                                     ,ContData.env$myThresh.Flat.Tolerance.DO.pctsat)
+    }##IF.myField.END
+    #
+    # _B.6.11. pH----
     myField <- ContData.env$myName.pH
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -768,7 +820,7 @@ fun.QC <- function(fun.myData.SiteID
                                      ,ContData.env$myThresh.Flat.Tolerance.pH)
     }##IF.myField.END
     #
-    # _B.6.10. Turbidity----
+    # _B.6.12. Turbidity----
     myField <- ContData.env$myName.Turbidity
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -794,7 +846,7 @@ fun.QC <- function(fun.myData.SiteID
                                ,ContData.env$myThresh.Flat.Tolerance.Turbidity)
     }##IF.myField.END
     #
-    # _B.6.11. Chlorophyll a----
+    # _B.6.13. Chlorophyll a----
     myField <- ContData.env$myName.Chlorophylla
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -820,7 +872,7 @@ fun.QC <- function(fun.myData.SiteID
                            ,ContData.env$myThresh.Flat.Tolerance.Chlorophylla)
     }##IF.myField.END
     #
-    # _B.6.12. Water Level----
+    # _B.6.14. Water Level----
     myField <- ContData.env$myName.WaterLevel
     if(myField %in% myNames.DataFields.Present==TRUE){##IF.myField.START
       #
@@ -844,6 +896,32 @@ fun.QC <- function(fun.myData.SiteID
                              ,ContData.env$myThresh.Flat.Hi.WaterLevel
                              ,ContData.env$myThresh.Flat.Lo.WaterLevel
                              ,ContData.env$myThresh.Flat.Tolerance.WaterLevel)
+    }##IF.myField.END
+    #
+    # _B.6.15. Salinity----
+    myField <- ContData.env$myName.Salinity
+    if(myField %in% myNames.DataFields.Present==TRUE){
+      #
+      myMsg.data <- "Salinity"
+      myMsg <- paste("WORKING (QC Tests and Flags - ", myMsg.data, ")", sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter, 2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      data.import <- fun.CalcQCStats(data.import
+                                     ,myField
+                                     ,ContData.env$myThresh.Gross.Fail.Hi.Salinity
+                                     ,ContData.env$myThresh.Gross.Fail.Lo.Salinity
+                                     ,ContData.env$myThresh.Gross.Suspect.Hi.Salinity
+                                     ,ContData.env$myThresh.Gross.Suspect.Lo.Salinity
+                                     ,ContData.env$myThresh.Spike.Hi.Salinity
+                                     ,ContData.env$myThresh.Spike.Lo.Salinity
+                                     ,ContData.env$myThresh.RoC.SD.period.Salinity
+                                     ,ContData.env$myThresh.RoC.SD.number.Salinity
+                                     ,ContData.env$myThresh.Flat.Hi.Salinity
+                                     ,ContData.env$myThresh.Flat.Lo.Salinity
+                                     ,ContData.env$myThresh.Flat.Tolerance.Salinity)
     }##IF.myField.END
     #
     #
