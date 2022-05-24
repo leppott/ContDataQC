@@ -21,6 +21,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.6.9020
+2022-05-24
+
+* refactor: Update Report_QC.rmd used in Shiny app, Issue #117
+* feature: Prototype site data summary report, Issue #142
+* feature: Add google analytics to Shiny app
+
 ## v2.0.6.9019
 2022-05-17
 

@@ -3,9 +3,17 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-05-17 13:50:50
+    #> Last Update: 2022-05-24 14:59:17
 
 # Version History
+
+## v2.0.6.9020
+
+2022-05-24
+
+-   refactor: Update Report_QC.rmd used in Shiny app, Issue #117
+-   feature: Prototype site data summary report, Issue #142
+-   feature: Add google analytics to Shiny app
 
 ## v2.0.6.9019
 
@@ -17,7 +25,6 @@ NEWS-ContDataQC
     -   DO adj, Issue #117
     -   DO pct sat, Issue #117
     -   Salinity, Issue #138
--   refactor: Ensure Report_Config.RMD up to date with parameter changes
 
 ## v2.0.6.9018
 

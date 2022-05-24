@@ -136,7 +136,9 @@ if(boo_DEBUG==TRUE){
         
     cat("Number of records by year and month (with totals).")
     cat("\n")
-    myTable <- addmargins(table(data.import[,ContData.env$myName.Yr],data.import[,ContData.env$myName.Mo]))
+    myTable <- addmargins(table(data.import[,ContData.env$myName.Yr]
+                                ,data.import[,ContData.env$myName.Mo]
+                                , useNA = "ifany"))
         print(knitr::kable(myTable, format="markdown", row.names=TRUE))
     cat("\n\n")
 
@@ -144,7 +146,9 @@ if(boo_DEBUG==TRUE){
   # revert to longer table (20170228)
     cat("Number of records by day and month (with totals).")
     cat("\n")
-    myTable <- addmargins(table(data.import[,ContData.env$myName.Day],data.import[,ContData.env$myName.Mo]))
+    myTable <- addmargins(table(data.import[,ContData.env$myName.Day]
+                                ,data.import[,ContData.env$myName.Mo]
+                                , useNA = "ifany"))
         print(knitr::kable(myTable, format="markdown", row.names=TRUE))
     cat("\n\n") 
 
@@ -152,7 +156,9 @@ if(boo_DEBUG==TRUE){
 #     pandoc.table(myTable.month.day.rec.GT15,style="rmarkdown")
 #    
 #     
-    myTable.month.day.rec <- table(data.import[,ContData.env$myName.Mo],data.import[,ContData.env$myName.Day])
+    myTable.month.day.rec <- table(data.import[,ContData.env$myName.Mo]
+                                   ,data.import[,ContData.env$myName.Day]
+                                   , useNA = "ifany")
 #     use apply function to count number of records not equal to the expected value
     cat("\n\n")
     
@@ -474,7 +480,7 @@ txt_Cond_S <- c(val_Cond[1]
                      , paste0("> ",val_Cond[12]
                               ," consecutive measurements within ",val_Cond[13]
                               ," units of one another"))
-# DO
+# DO, mg/L
 nam_DO <- c("myLab.DO"                          #1
                    , "myUnits.DO"                    #2
                    , "myThresh.Gross.Fail.Hi.DO"     #3
@@ -508,6 +514,77 @@ txt_DO_S <- c(val_DO[1]
                               ,val_DO[10]," hours")
                      , paste0("> ",val_DO[12]
                               ," consecutive measurements within ",val_DO[13]
+                              ," units of one another"))
+# DO, adj
+nam_DO.adj <- c("myLab.DO.adj"                          #1
+                   , "myUnits.DO.adj"                    #2
+                   , "myThresh.Gross.Fail.Hi.DO.adj"     #3
+                   , "myThresh.Gross.Fail.Lo.DO.adj"     #4
+                   , "myThresh.Gross.Suspect.Hi.DO.adj"  #5
+                   , "myThresh.Gross.Suspect.Lo.DO.adj"  #6
+                   , "myThresh.Spike.Hi.DO.adj"          #7
+                   , "myThresh.Spike.Lo.DO.adj"          #8
+                   , "myThresh.RoC.SD.number.DO.adj"     #9
+                   , "myThresh.RoC.SD.period.DO.adj"     #10
+                   , "myThresh.Flat.Hi.DO.adj"           #11
+                   , "myThresh.Flat.Lo.DO.adj"           #12
+                   , "myThresh.Flat.Tolerance.DO.adj"    #13
+                   )
+val_DO.adj <- mget(nam_DO.adj, envir=ContData.env)
+txt_DO_F.adj <- c(val_DO.adj[1]
+                     , "Fail"
+                     , paste0("> ",val_DO.adj[3]," ",val_DO.adj[2]
+                              ,"  or < ",val_DO.adj[4]," ",val_DO.adj[2])
+                     , paste0(">= ", val_DO.adj[7]," ",val_DO.adj[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_DO.adj[11]
+                              ," consecutive measurements within ",val_DO.adj[13]
+                              ," units of one another"))
+txt_DO_S.adj <- c(val_DO.adj[1]
+                     , "Suspect"
+                     , paste0("> ",val_DO.adj[5]," ",val_DO.adj[2]
+                              ," or < ",val_DO.adj[6]," ",val_DO.adj[2])
+                     , paste0(">= ", val_DO.adj[8]," ",val_DO.adj[2]," (+/-)")
+                     , paste0(">= ",val_DO.adj[9]," standard deviations within "
+                              ,val_DO.adj[10]," hours")
+                     , paste0("> ",val_DO.adj[12]
+                              ," consecutive measurements within ",val_DO.adj[13]
+                              ," units of one another"))
+
+# DO, pct sat
+nam_DO.pctsat <- c("myLab.DO.pctsat"                          #1
+                   , "myUnits.DO.pctsat"                    #2
+                   , "myThresh.Gross.Fail.Hi.DO.pctsat"     #3
+                   , "myThresh.Gross.Fail.Lo.DO.pctsat"     #4
+                   , "myThresh.Gross.Suspect.Hi.DO.pctsat"  #5
+                   , "myThresh.Gross.Suspect.Lo.DO.pctsat"  #6
+                   , "myThresh.Spike.Hi.DO.pctsat"          #7
+                   , "myThresh.Spike.Lo.DO.pctsat"          #8
+                   , "myThresh.RoC.SD.number.DO.pctsat"     #9
+                   , "myThresh.RoC.SD.period.DO.pctsat"     #10
+                   , "myThresh.Flat.Hi.DO.pctsat"           #11
+                   , "myThresh.Flat.Lo.DO.pctsat"           #12
+                   , "myThresh.Flat.Tolerance.DO.pctsat"    #13
+                   )
+val_DO.pctsat <- mget(nam_DO.pctsat, envir=ContData.env)
+txt_DO_F.pctsat <- c(val_DO.pctsat[1]
+                     , "Fail"
+                     , paste0("> ",val_DO.pctsat[3]," ",val_DO.pctsat[2]
+                              ,"  or < ",val_DO.pctsat[4]," ",val_DO.pctsat[2])
+                     , paste0(">= ", val_DO.pctsat[7]," ",val_DO.pctsat[2]," (+/-)")
+                     , "NA"
+                     , paste0("> ",val_DO.pctsat[11]
+                              ," consecutive measurements within ",val_DO.pctsat[13]
+                              ," units of one another"))
+txt_DO_S.pctsat <- c(val_DO.pctsat[1]
+                     , "Suspect"
+                     , paste0("> ",val_DO.pctsat[5]," ",val_DO.pctsat[2]
+                              ," or < ",val_DO.pctsat[6]," ",val_DO.pctsat[2])
+                     , paste0(">= ", val_DO.pctsat[8]," ",val_DO[2]," (+/-)")
+                     , paste0(">= ",val_DO.pctsat[9]," standard deviations within "
+                              ,val_DO.pctsat[10]," hours")
+                     , paste0("> ",val_DO.pctsat[12]
+                              ," consecutive measurements within ",val_DO.pctsat[13]
                               ," units of one another"))
 # pH
 nam_pH <- c("myLab.pH"                          #1
@@ -649,6 +726,43 @@ txt_WaterLevel_S <- c(val_WaterLevel[1]
                      , paste0("> ",val_WaterLevel[10]
                               ," consecutive measurements within ",val_WaterLevel[11]
                               ," units of one another"))
+
+# Salinity
+nam_Salinity <- c("myLab.Salinity"                          #1
+                   , "myUnits.Salinity"                    #2
+                   , "myThresh.Gross.Fail.Hi.Salinity"     #3
+                   , "myThresh.Gross.Fail.Lo.Salinity"     #4
+                   , "myThresh.Gross.Suspect.Hi.Salinity"  #5
+                   , "myThresh.Gross.Suspect.Lo.Salinity"  #6
+                   , "myThresh.Spike.Hi.Salinity"          #7
+                   , "myThresh.Spike.Lo.Salinity"          #8
+                   , "myThresh.RoC.SD.number.Salinity"     #9
+                   , "myThresh.RoC.SD.period.Salinity"     #10
+                   , "myThresh.Flat.Hi.Salinity"           #11
+                   , "myThresh.Flat.Lo.Salinity"           #12
+                   , "myThresh.Flat.Tolerance.Salinity"    #13
+                   )
+val_Salinity <- mget(nam_Salinity, envir=ContData.env)
+txt_Salinity_F <- c(val_Salinity[1]
+                     , "Fail"
+                     , paste0("> ",val_Salinity[3]," ",val_Salinity[2]
+                              ,"  or < ",val_Salinity[4]," ",val_Salinity[2])
+                     , "NA"
+                     , "NA"
+                     , paste0("> ",val_Salinity[11]
+                              ," consecutive measurements within ",val_Salinity[13]
+                              ," units of one another"))
+txt_Salinity_S <- c(val_Salinity[1]
+                     , "Suspect"
+                     , paste0("> ",val_Salinity[5]," ",val_Salinity[2]
+                              ," or < ",val_Salinity[6]," ",val_Salinity[2])
+                     , "NA"
+                     , paste0(">= ",val_Salinity[9]," standard deviations within "
+                              ,val_Salinity[10]," hours")
+                     , paste0("> ",val_Salinity[12]
+                              ," consecutive measurements within ",val_Salinity[13]
+                              ," units of one another"))
+
 # Create Table
 ## Display only those parameters used in current dataset (data.import)
 # QC
@@ -705,6 +819,16 @@ if(!(ContData.env$myName.DO %in% names(data.import))){
   txt_DO_S <- NULL
 }
 #
+if(!(ContData.env$myName.DO.adj %in% names(data.import))){
+  txt_DO_F.adj <- NULL
+  txt_DO_S.adj <- NULL
+}
+#
+if(!(ContData.env$myName.DO.pctsat %in% names(data.import))){
+  txt_DO_F.pctsat <- NULL
+  txt_DO_S.pctsat <- NULL
+}
+#
 if(!(ContData.env$myName.pH %in% names(data.import))){
   txt_pH_F <- NULL
   txt_pH_S <- NULL
@@ -724,6 +848,11 @@ if(!(ContData.env$myName.WaterLevel %in% names(data.import))){
   txt_WaterLevel_F <- NULL
   txt_WaterLevel_S <- NULL
 } 
+#
+if(!(ContData.env$myName.Salinity %in% names(data.import))){
+  txt_Salinity_F <- NULL
+  txt_Salinity_S <- NULL
+}
 # Table
 df_Env <- data.frame(rbind(txt_WaterTemp_F, txt_WaterTemp_S
                            ,txt_AirTemp_F, txt_AirTemp_S
@@ -733,10 +862,13 @@ df_Env <- data.frame(rbind(txt_WaterTemp_F, txt_WaterTemp_S
                            , txt_Discharge_F, txt_Discharge_S
                            , txt_Cond_F, txt_Cond_S
                            , txt_DO_F, txt_DO_S
+                           , txt_DO_F.adj, txt_DO_S.adj
+                           , txt_DO_F.pctsat, txt_DO_S.pctsat
                            , txt_pH_F, txt_pH_S
                            , txt_Turbidity_F, txt_Turbidity_S
                            , txt_Chlorophylla_F, txt_Chlorophylla_S
                            , txt_WaterLevel_F, txt_WaterLevel_S
+                           , txt_Salinity_F, txt_Salinity_S
                            )
                      , row.names = NULL)
 names(df_Env) <- txt_header
@@ -759,7 +891,9 @@ Overall flags by parameter
        colnum <- match(paste("Flag",myParameters[j],sep="."),names(data.import))
        
        #print(myTable.Flags.Overall <- ftable(data.import[,colnum]))
-       myTable <- addmargins(table(data.import[,colnum]),1)
+       myTable <- addmargins(table(data.import[,colnum]
+                                   , useNA = "ifany")
+                             ,1)
        print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
        # future mod, 1,3,4,9 to Pass, Suspect, Fail, NA
        # exclude=NA to get all
@@ -795,7 +929,9 @@ Overall flags by parameter
              cat("\n\n")
       cat("#### Flag summary, overall number of records.")
       cat("\n\n")
-       myTable <- addmargins(table(data.import[,paste("Flag",i,sep=".")]),1)
+       myTable <- addmargins(table(data.import[,paste("Flag",i,sep=".")]
+                                   , useNA = "ifany")
+                             ,1)
        print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
       
       cat("\n\n")
@@ -809,13 +945,17 @@ Overall flags by parameter
       #
       cat("Number of records by year and month (with totals)")
       cat("\n")
-      myTable <- addmargins(table(data.import[,ContData.env$myName.Yr],data.import[,ContData.env$myName.Mo]))
+      myTable <- addmargins(table(data.import[,ContData.env$myName.Yr]
+                                  ,data.import[,ContData.env$myName.Mo]
+                                  , useNA = "ifany"))
       print(knitr::kable(myTable, format="markdown", row.names=TRUE))
       cat("\n\n")
       #
       cat("Number of records by day and month (with totals)")
       cat("\n")
-      myTable <- addmargins(table(data.import[,ContData.env$myName.Day],data.import[,ContData.env$myName.Mo]))
+      myTable <- addmargins(table(data.import[,ContData.env$myName.Day]
+                                  ,data.import[,ContData.env$myName.Mo]
+                                  , useNA = "ifany"))
       print(knitr::kable(myTable, format="markdown", row.names=TRUE))
       cat("\n\n") 
       #
@@ -833,22 +973,42 @@ Overall flags by parameter
       
       cat("##### Flags, Gross\n\n")
       
-      myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"Gross",i,sep=".")]),1)
+      myTable <- addmargins(table(data.import[, paste(ContData.env$myName.Flag
+                                                      ,"Gross"
+                                                      ,i
+                                                      ,sep=".")]
+                                  , useNA = "ifany")
+                            ,1)
       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
       cat("##### Flags, Spike\n\n")
       
-      myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"Spike",i,sep=".")]),1)
+      myTable <- addmargins(table(data.import[, paste(ContData.env$myName.Flag
+                                                     ,"Spike"
+                                                     ,i
+                                                     ,sep=".")]
+                                  , useNA = "ifany")
+                            ,1)
       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
       cat("##### Flags, RoC\n\n")
       
-      myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"RoC",i,sep=".")]),1)
+      myTable <- addmargins(table(data.import[, paste(ContData.env$myName.Flag
+                                                      ,"RoC"
+                                                      ,i
+                                                      ,sep=".")]
+                                  , useNA = "ifany")
+                            ,1)
       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
       cat("##### Flags, Flat\n\n")
       
-      myTable <- addmargins(table(data.import[,paste(ContData.env$myName.Flag,"Flat",i,sep=".")]),1)
+      myTable <- addmargins(table(data.import[, paste(ContData.env$myName.Flag
+                                                      ,"Flat"
+                                                      ,i
+                                                      ,sep=".")]
+                                  , useNA = "ifany")
+                            ,1)
       print(knitr::kable(t(as.matrix(myTable)), format = "markdown"))
         cat("\n\n")
       cat("QC Test Flag fields are saved in the data file so the user can identify data points that have been flagged as suspect or fail.")
