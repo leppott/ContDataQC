@@ -17,7 +17,7 @@
 #'
 #' * Replaced lubridate::use_tz with as.POSIXct.
 #'
-#' * Added filename parameter.
+#' * Added serial number as column.
 #'
 #' * Swaped order of operations so fail condition is triggered it happens before
 #' any work is done.
@@ -26,8 +26,8 @@
 #'
 #' @param folderpath The folder where the individual files are located
 #' @param savetofolder The folder where the output csv is to be saved
-#' @param filename Output filename.  Default = SerialNumber.csv
 #' @param local_tz Local time zone used for converting from UTC time zone.
+#'
 #' Default is Sys.timezone(location = TRUE).
 #'
 #' @return In ouput folder a CSV file
@@ -44,8 +44,8 @@
 #' @export
 minidot_cat <- function(folderpath
                         , savetofolder
-                        , filename = NULL
-                        , local_tz = Sys.timezone(location = TRUE)) {
+                        , local_tz = Sys.timezone(location = TRUE)
+                        ) {
 
   if (is.null(savetofolder)) {
 
@@ -58,6 +58,8 @@ minidot_cat <- function(folderpath
       dodata=as.data.frame(do.call(rbind,strsplit(dofile[,1],split = ",")))
       names(dodata)=as.character(unlist(dodata[2,]))
       dodata=dodata[-c(1,2),]
+      serialnum <- readLines(filename, 1)
+      dodata[, "serialnum"] <- serialnum
       return(dodata)
     }
 
@@ -73,6 +75,7 @@ minidot_cat <- function(folderpath
       tempformat=as.numeric(as.character(readdo$`  T (deg C)`))
       doformat=as.numeric(as.character(readdo$`  DO (mg/l)`))
       qformat=as.numeric(as.character(readdo$`  Q ()`))
+      serialnumformat <- as.character(readdo$serialnum)
 
 
 
@@ -86,7 +89,10 @@ minidot_cat <- function(folderpath
                             ,"Temperature"=as.character(tempformat)
                             ,"Dissolved.Oxygen"=as.character(doformat)
                             ,"Dissolved.Oxygen.Saturation"=NA
-                            ,"Q"=as.character(qformat),stringsAsFactors = FALSE)
+                            ,"Q"=as.character(qformat)
+                            , "serialnum" = as.character(serialnumformat)
+                            ,stringsAsFactors = FALSE
+                            )
 
       docombined=rbind(docombined,doreformat)
     }
@@ -98,25 +104,21 @@ minidot_cat <- function(folderpath
                         ,"Temperature"=as.character("(deg C)")
                         ,"Dissolved.Oxygen"=as.character("(mg/l)")
                         ,"Dissolved.Oxygen.Saturation"=as.character("(%)")
-                        ,"Q"=as.character("(none)"),stringsAsFactors = FALSE)
+                        ,"Q"=as.character("(none)")
+                        , "serialnum" = as.character("(none)")
+                        ,stringsAsFactors = FALSE)
     dofinal=rbind(dorowadd,docombined)
 
     folder=unlist(strsplit(folderpath,split = "/"))[
                               length(unlist(strsplit(folderpath,split = "/")))]
-    serialnum=unlist(strsplit(folder,split="-"))[2]
+    #serialnum=unlist(strsplit(folder,split="-"))[2] # specific to MN
+    serialnum <- dofinal[2, "serialnum"]
 
     if (substr(savetofolder,(nchar(savetofolder)),nchar(savetofolder))!="/") {
       savetofolder=paste0(savetofolder,"/")
     }
 
-    if(is.null(filename)) {
-      #date_time <- format(Sys.time(), "%Y%m%d_%H%M%S")
-      #filename <- paste0("miniDOT_cat_", date_time, ".csv")
-      filename <- paste0(serialnum, ".csv")
-    }## IF ~ isnull(filename)
-
-    #pathout=paste0(savetofolder,serialnum,".csv")
-    pathout <- file.path(savetofolder, filename)
+    pathout <- file.path(savetofolder, paste0(serialnum, ".csv"))
 
     utils::write.csv(dofinal,pathout,row.names = FALSE)
   }else{

@@ -21,6 +21,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.6.9023
+2022-05-25
+
+* refactor: Update minidot_cat function, Issue #141
+    + Remove filename parameter and use serial number from input file
+* feature: Add format minidot function, Issue #141
+
 ## v2.0.6.9022
 2022-05-25
 

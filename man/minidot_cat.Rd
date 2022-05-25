@@ -4,21 +4,15 @@
 \alias{minidot_cat}
 \title{Compile DO data}
 \usage{
-minidot_cat(
-  folderpath,
-  savetofolder,
-  filename = NULL,
-  local_tz = Sys.timezone(location = TRUE)
-)
+minidot_cat(folderpath, savetofolder, local_tz = Sys.timezone(location = TRUE))
 }
 \arguments{
 \item{folderpath}{The folder where the individual files are located}
 
 \item{savetofolder}{The folder where the output csv is to be saved}
 
-\item{filename}{Output filename.  Default = SerialNumber.csv}
-
 \item{local_tz}{Local time zone used for converting from UTC time zone.
+
 Default is Sys.timezone(location = TRUE).}
 }
 \value{
@@ -42,7 +36,7 @@ Edits:
 
 * Replaced lubridate::use_tz with as.POSIXct.
 
-* Added filename parameter.
+* Added serial number as column.
 
 * Swaped order of operations so fail condition is triggered it happens before
 any work is done.

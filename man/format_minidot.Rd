@@ -5,10 +5,10 @@
 \title{Format miniDOT concatenate (cat) output}
 \usage{
 format_minidot(
-  fun.myFile = "",
+  fun.myFile = NULL,
   fun.myDir.import = getwd(),
   fun.myDir.export = getwd(),
-  fun.myConfig = ""
+  fun.myConfig = NULL
 )
 }
 \arguments{
@@ -34,7 +34,7 @@ Format miniDOT concatenate (cat) output for use with
 the new file.
 }
 \details{
-1. Imports a miniDOT cat output from a folder.
+1. Imports a miniDOT cat output file from a folder.
 Can also use ContDataQC::minidot_cat function.
 
 2. Reformats it using defaults from the ContDataQC config file
@@ -50,118 +50,37 @@ exported to Data1_RAW.
 
 * ./Data1_RAW/ = Data logger files modified for use with library.
 Modifications for extra rows and file and column names.
-
-* ./Data2_QC/ = Repository for library output for QCed files.
-
-* ./Data3_Aggregated/ = Repository for library output for aggregated
-(or split) files.
-
-* ./Data4_Stats/ = Repository for library output for statistical
-summary files.
-
-File format should be "SiteID_SensorType_StartDate_EndData.csv".
-
- * SiteID = no spaces or underscores
-
- * SensorType = Air, Water, or AW (Air + Water in the same file)
-
- * Dates = YYYYMMDD (no delimiter)
-
- * Delimiter = underscore (as specified in the config file)
-
-Column names are inspected with regular expressions (R not Perl) to find
-matches before being renamed. If column names do not match the criteria below
-they will not be formatted properly.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-* Date = "date"
-
-* Air Temperature = "air.\*temp" or "temp.\*air"
-
-* Water Temperature = "water.\*temp" or "temp.\*water"
-
-* Air Presssure = "barom.\*pres" or "pres.\*barom"
-
-* Water Pressure = "pres" (search for Air Pressure first)
-
-* Sensor Depth = "depth"
-
-* Water Level = "level"
-
-* Dissolved Oxygen (conc) = "do conc"
-
-* Dissolved Oxygen (adj conc) = "do" & "adj" (searches for both)
-
-* Dissolved Oxygen (% saturation) = "do per"
-
-miniDOT files output time in UTC (origin 1970-01-01).
 }
 \examples{
-\dontrun{
-
-# Parameters
-Selection.Operation <- c("GetGageData"
-                         , "QCRaw"
-                         , "Aggregate"
-                         , "SummaryStats")
-Selection.Type      <- c("Air", "Water", "AW", "Gage", "AWG", "AG", "WG")
-Selection.SUB       <- c("Data0_Original"
-                         , "Data1_RAW"
-                         , "Data2_QC"
-                         , "Data3_Aggregated"
-                         , "Data4_Stats")
-myDir.BASE          <- tempdir()
-
-# Create data directories
-myDir.create <- file.path(myDir.BASE, Selection.SUB[1])
+# Create Folders
+myDir.BASE <- tempdir()
+myDir.create <- file.path(myDir.BASE, "Data0_Original")
   ifelse(dir.exists(myDir.create) == FALSE
          , dir.create(myDir.create)
          , "Directory already exists")
-myDir.create <- file.path(myDir.BASE, Selection.SUB[2])
+myDir.create <- file.path(myDir.BASE, "Data1_RAW")
   ifelse(dir.exists(myDir.create) == FALSE
          , dir.create(myDir.create)
          , "Directory already exists")
-myDir.create <- file.path(myDir.BASE, Selection.SUB[3])
-  ifelse(dir.exists(myDir.create) == FALSE
-         , dir.create(myDir.create)
-         , "Directory already exists")
-myDir.create <- file.path(myDir.BASE, Selection.SUB[4])
-  ifelse(dir.exists(myDir.create) == FALSE
-         , dir.create(myDir.create)
-         , "Directory already exists")
-myDir.create <- file.path(myDir.BASE, Selection.SUB[5])
+myDir.create <- file.path(myDir.BASE, "Data2_QC")
   ifelse(dir.exists(myDir.create) == FALSE
          , dir.create(myDir.create)
          , "Directory already exists")
 
-# Save example data (assumes directory ./Data0_Original/ exists)
-fn_1 <- "Charlies_Air_20170726_20170926.csv"
-fn_2 <- "Charlies_AW_20170726_20170926.csv"
-fn_3 <- "Charlies_Water_20170726_20170926.csv"
-fn_4 <- "ECO66G12_AW_20160128_20160418.csv"
-fn_5 <- "EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"
-lapply(c(fn_1, fn_2, fn_3, fn_4, fn_5), function(x)
-       file.copy(system.file("extdata", x, package="ContDataQC")
-       , file.path(myDir.BASE, Selection.SUB[1], x)))
+# Data
+dn_input <- file.path(system.file("extdata", package = "ContDataQC")
+                      , "minidot")
+dn_export <- file.path(myDir.BASE, "Data0_Original")
+filename <- "test_minidot.csv"
 
-# Function Inputs
-myFiles <- c("Charlies_Air_20170726_20170926.csv"
-             , "Charlies_AW_20170726_20170926.csv"
-             , "Charlies_Water_20170726_20170926.csv")
+# Create miniDOT concatenate file
+minidot_cat(folderpath = dn_input
+            , savetofolder = dn_export)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# FORMAT
+myFiles <- "7392-354869.csv"
+myDir.BASE <- tempdir()
 myDir.import <- file.path(myDir.BASE, "Data0_Original")
 myDir.export <- file.path(myDir.BASE, "Data1_RAW")
 
@@ -169,37 +88,17 @@ myDir.export <- file.path(myDir.BASE, "Data1_RAW")
 format_minidot(myFiles, myDir.import, myDir.export)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# QC Data
-myData.Operation <- "QCRaw" #Selection.Operation[2]
-myFile <- myFiles
+# QC newly created file
+myData.Operation <- "QCRaw"
+myFile <- "7392-354869.csv"
+myDir.BASE <- tempdir()
 myDir.import <- file.path(myDir.BASE, "Data1_RAW")
 myDir.export <- file.path(myDir.BASE, "Data2_QC")
-myReport.format <- "html"
+myReport.format <- "docx"
 ContDataQC(myData.Operation
-          , fun.myDir.import = myDir.import
-          , fun.myDir.export = myDir.export
-          , fun.myFile = myFile
-          , fun.myReport.format = myReport.format)
+           , fun.myDir.import = myDir.import
+           , fun.myDir.export = myDir.export
+           , fun.myFile = myFile
+           , fun.myReport.format = myReport.format)
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Example with unmodified dates
-myFiles <- "ECO66G12_AW_20160128_20160418.csv"
-myDir.import <- file.path(myDir.BASE, "Data0_Original")
-myDir.export <- file.path(myDir.BASE, "Data1_RAW")
-HoboDateFormat <- "MDY"
-
-# Run Function (with default config)
-format_minidot(myFiles, myDir.import, myDir.export, HoboDateFormat)
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Example with multiple DO fields
-myFiles <- "EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"
-myDir.import <- file.path(myDir.BASE, "Data0_Original")
-myDir.export <- file.path(myDir.BASE, "Data1_RAW")
-HoboDateFormat <- "MDY"
-
-# Run Function (with default config)
-format_minidot(myFiles, myDir.import, myDir.export, HoboDateFormat)
-
-}
 }

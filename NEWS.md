@@ -3,9 +3,17 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-05-25 16:06:42
+    #> Last Update: 2022-05-25 18:34:48
 
 # Version History
+
+## v2.0.6.9023
+
+2022-05-25
+
+-   refactor: Update minidot_cat function, Issue #141
+    -   Remove filename parameter and use serial number from input file
+-   feature: Add format minidot function, Issue #141
 
 ## v2.0.6.9022
 
