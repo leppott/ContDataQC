@@ -4,18 +4,25 @@
 \alias{minidot_cat}
 \title{Compile DO data}
 \usage{
-minidot_cat(folderpath, savetofolder, local_tz = Sys.timezone(location = TRUE))
+minidot_cat(
+  folderpath,
+  savetofolder,
+  filename = NULL,
+  local_tz = Sys.timezone(location = TRUE)
+)
 }
 \arguments{
 \item{folderpath}{The folder where the individual files are located}
 
 \item{savetofolder}{The folder where the output csv is to be saved}
 
+\item{filename}{Output filename.  Default = SerialNumber.csv}
+
 \item{local_tz}{Local time zone used for converting from UTC time zone.
 Default is Sys.timezone(location = TRUE).}
 }
 \value{
-a .csv file
+In ouput folder a CSV file
 }
 \description{
 This function compiles Dissolved Oxygen data files downloaded
@@ -24,22 +31,31 @@ java app on the logger.
 }
 \details{
 Original function (compile_do_folder) written by Tim Martin.
+
 https://github.com/mnsentinellakes/mnsentinellakes/blob/master/R/compile_do_folder.R
 
 Edits:
 
-* Renamved function
+* Renamed function
 
 * Added local_tz as a parameter.
 
 * Replaced lubridate::use_tz with as.POSIXct.
+
+* Added filename parameter.
+
+* Swaped order of operations so fail condition is triggered it happens before
+any work is done.
+
+* Added working example with data.
 }
 \examples{
-\dontrun{
-dn <- tempdir()
-compile_do_folder(
-  folderpath = file.path(dn, "Greenwood/2019/7450-516388"),
-  savetopath = file.path(dn, "Greenwood/2019")
-}
+# Data
+dn_input <- file.path(system.file("extdata", package = "ContDataQC")
+                      , "minidot")
+dn_export <- tempdir()
+
+# Function
+minidot_cat(folderpath = dn_input, savetofolder = dn_export)
 
 }

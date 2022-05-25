@@ -19,6 +19,9 @@ inspection of normality}
 \item{...}{: further arguments to be passed to the built-in t.test()
 R function}
 }
+\value{
+Returns t-test results
+}
 \description{
 Performs one or two samples t-test
 }

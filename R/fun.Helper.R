@@ -934,7 +934,7 @@ fun.DateTime.GroupBy.First <- function(df){
 #' @param ... : further arguments to be passed to the built-in t.test()
 #' R function
 #'
-#' @return
+#' @return Returns t-test results
 #'
 #' @export
 rquery.t.test<-function(x, y = NULL, paired = FALSE, graph = TRUE, ...)

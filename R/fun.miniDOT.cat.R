@@ -6,39 +6,52 @@
 #'
 #' @details
 #' Original function (compile_do_folder) written by Tim Martin.
+#'
 #' https://github.com/mnsentinellakes/mnsentinellakes/blob/master/R/compile_do_folder.R
 #'
 #' Edits:
 #'
-#' * Renamved function
+#' * Renamed function
 #'
 #' * Added local_tz as a parameter.
 #'
 #' * Replaced lubridate::use_tz with as.POSIXct.
 #'
+#' * Added filename parameter.
+#'
+#' * Swaped order of operations so fail condition is triggered it happens before
+#' any work is done.
+#'
+#' * Added working example with data.
+#'
 #' @param folderpath The folder where the individual files are located
 #' @param savetofolder The folder where the output csv is to be saved
+#' @param filename Output filename.  Default = SerialNumber.csv
 #' @param local_tz Local time zone used for converting from UTC time zone.
 #' Default is Sys.timezone(location = TRUE).
 #'
-# @keywords DO Dissolved Oxygen
-#'
-#' @return a .csv file
+#' @return In ouput folder a CSV file
 #'
 #' @examples
-#' \dontrun{
-#' dn <- tempdir()
-#' compile_do_folder(
-#'   folderpath = file.path(dn, "Greenwood/2019/7450-516388"),
-#'   savetopath = file.path(dn, "Greenwood/2019")
-#' }
+#' # Data
+#' dn_input <- file.path(system.file("extdata", package = "ContDataQC")
+#'                       , "minidot")
+#' dn_export <- tempdir()
+#'
+#' # Function
+#' minidot_cat(folderpath = dn_input, savetofolder = dn_export)
 #'
 #' @export
 minidot_cat <- function(folderpath
-                           , savetofolder
-                           , local_tz = Sys.timezone(location = TRUE)) {
+                        , savetofolder
+                        , filename = NULL
+                        , local_tz = Sys.timezone(location = TRUE)) {
 
-  if (!is.null(savetofolder)){
+  if (is.null(savetofolder)) {
+
+    warning("Missing saveto")
+
+  } else if(!is.null(savetofolder)) {
 
     read_do_files=function(filename){
       dofile=utils::read.delim(filename,stringsAsFactors = FALSE)
@@ -96,10 +109,17 @@ minidot_cat <- function(folderpath
       savetofolder=paste0(savetofolder,"/")
     }
 
-    pathout=paste0(savetofolder,serialnum,".csv")
+    if(is.null(filename)) {
+      #date_time <- format(Sys.time(), "%Y%m%d_%H%M%S")
+      #filename <- paste0("miniDOT_cat_", date_time, ".csv")
+      filename <- paste0(serialnum, ".csv")
+    }## IF ~ isnull(filename)
+
+    #pathout=paste0(savetofolder,serialnum,".csv")
+    pathout <- file.path(savetofolder, filename)
 
     utils::write.csv(dofinal,pathout,row.names = FALSE)
   }else{
-    warning("Missing saveto")
+    warning("ERROR")
   }
-}
+}## FUNCTION ~ END
