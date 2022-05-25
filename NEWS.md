@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-05-24 14:59:17
+    #> Last Update: 2022-05-25 12:28:50
 
 # Version History
+
+## v2.0.6.9021
+
+2022-05-24
+
+-   feature: Add miniDOT concatenate function, Issue #141
+    -   Modified compile_do_folder.R from mnsentinellakes
 
 ## v2.0.6.9020
 

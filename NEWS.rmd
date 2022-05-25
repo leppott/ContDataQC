@@ -21,6 +21,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.6.9021
+2022-05-24
+
+* feature: Add miniDOT concatenate function, Issue #141
+    + Modified compile_do_folder.R from mnsentinellakes
+
 ## v2.0.6.9020
 2022-05-24
 
