@@ -19,7 +19,7 @@ java app on the logger."><!-- mathjax --><script src="https://cdnjs.cloudflare.c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9022</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9023</span>
       </span>
     </div>
 
@@ -73,12 +73,7 @@ java app on the logger.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">minidot_cat</span><span class="op">(</span>
-  <span class="va">folderpath</span>,
-  <span class="va">savetofolder</span>,
-  filename <span class="op">=</span> <span class="cn">NULL</span>,
-  local_tz <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/timezones.html" class="external-link">Sys.timezone</a></span><span class="op">(</span>location <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">minidot_cat</span><span class="op">(</span><span class="va">folderpath</span>, <span class="va">savetofolder</span>, local_tz <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/timezones.html" class="external-link">Sys.timezone</a></span><span class="op">(</span>location <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -87,11 +82,9 @@ java app on the logger.</p>
 <dd><p>The folder where the individual files are located</p></dd>
 <dt>savetofolder</dt>
 <dd><p>The folder where the output csv is to be saved</p></dd>
-<dt>filename</dt>
-<dd><p>Output filename.  Default = SerialNumber.csv</p></dd>
 <dt>local_tz</dt>
-<dd><p>Local time zone used for converting from UTC time zone.
-Default is Sys.timezone(location = TRUE).</p></dd>
+<dd><p>Local time zone used for converting from UTC time zone.</p>
+<p>Default is Sys.timezone(location = TRUE).</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -105,7 +98,7 @@ Default is Sys.timezone(location = TRUE).</p></dd>
 <p>* Renamed function</p>
 <p>* Added local_tz as a parameter.</p>
 <p>* Replaced lubridate::use_tz with as.POSIXct.</p>
-<p>* Added filename parameter.</p>
+<p>* Added serial number as column.</p>
 <p>* Swaped order of operations so fail condition is triggered it happens before
 any work is done.</p>
 <p>* Added working example with data.</p>

@@ -20,7 +20,7 @@ with plots. Input is the ouput file of the QC operation of ContDataQC()."><!-- m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9022</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9023</span>
       </span>
     </div>
 
@@ -142,7 +142,7 @@ Requires doBy library for the daily statistics summary</p>
 <span class="r-in"><span class="va">myDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"DATA_period_test2_AW_20130101_20141231.csv"</span></span>
 <span class="r-in"><span class="va">df.x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir</span>, <span class="va">myFile</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp4wHkQy/DATA_period_test2_AW_20130101_20141231.csv': No such file or directory</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpHtPdHa/DATA_period_test2_AW_20130101_20141231.csv': No such file or directory</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(file, "rt"):</span> cannot open the connection</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># function inputs</span></span>
@@ -165,7 +165,7 @@ Requires doBy library for the daily statistics summary</p>
 <span class="r-in">          , <span class="va">myDateTime.Format</span></span>
 <span class="r-in">          , <span class="va">myThreshold</span></span>
 <span class="r-in">          , <span class="va">myConfig</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in SumStats.updated(myFile, myDir.import, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp4wHkQy).</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in SumStats.updated(myFile, myDir.import, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpHtPdHa).</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
