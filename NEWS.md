@@ -3,9 +3,19 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-05-25 18:34:48
+    #> Last Update: 2022-05-31 12:48:48
 
 # Version History
+
+## v2.0.6.9024
+
+2022-05-31
+
+-   fix: Modify flags so can handle all na, Issue #143
+    -   fun.QC.file.R
+    -   fun.QC.R
+    -   Report_QC.rmd
+        -   Base package and Shiny
 
 ## v2.0.6.9023
 
