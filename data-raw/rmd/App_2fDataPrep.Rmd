@@ -1,0 +1,43 @@
+---
+title: "DataPrep_miniDOT_Reformat"
+output: html_fragment
+---
+```{r setup, include=FALSE}
+# ---
+# title: "DataPrep_miniDOT_Reformat"
+# date: '2022-06-01'
+# ---
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# miniDOT Reformat
+
+The miniDOT reformat function will convert the concatenated miniDOT file to the standard expected input for use with ContDataQC.
+
+The CSV output of this function should be placed in the Data0_Original folder.
+
+## Instructions
+
+* Click the ‘Browse’ button and select the input file(s). You can run multiple files at once. The status bar will tell you when the upload is complete.
+
+* Click the ‘Reformat miniDOT file(s)’ button; a status bar will appear in the lower right corner.
+
+* After the function is done running, a ‘Download’ button will appear. Click this button.
+
+* Save the zipped file in the Data1_RAW folder
+
+* Your files are now ready to be run through the QC function!
+
+## Common errors -
+
+* DO percent saturation values of all NA.  This is caused by the miniDOT cat program when no inputs are provided to calculate DO percent saturation.  All NA values will cause no statistics to be generated for this parameter later in the QC process.
+
+## Examples
+
+Example images of before and and after performing reformat.
+
+![Concatenated miniDOT file](miniDOT_2cat.png)
+
+
+![Reformated miniDOT file](miniDOT_3reformat.png)
+

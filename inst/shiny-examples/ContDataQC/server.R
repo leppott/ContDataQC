@@ -18,7 +18,8 @@ shinyServer(function(input, output, session) {
       }
     )## downloadTemplate ~ END
 
-  # File Upload, Main ----
+  # File Upload ----
+  ## File Upload, Main ----
  ###Defines objects for the whole app
   #Creates a reactive object with all the input files
   allFiles <- reactive({
@@ -39,13 +40,13 @@ shinyServer(function(input, output, session) {
     return(allFiles()$datapath)
   })
 
-  # File Upload, HOBO ----
+  ## File Upload, HOBO ----
   #Creates a reactive object with all the input files
   allFiles_HOBO <- reactive({
     allFiles_HOBO <- input$selectedFiles_HOBO
     if(is.null(allFiles_HOBO)) return(NULL)
     return(allFiles_HOBO)
-  }) ## allFiles ~ END
+  }) ## allFiles_HOBO ~ END
 
   #Creates a reactive object with all the input files' names
   UserFile_Name_HOBO <- reactive({
@@ -57,6 +58,46 @@ shinyServer(function(input, output, session) {
   UserFile_Path_HOBO <- reactive({
     if(is.null(allFiles_HOBO())) return(NULL)
     return(allFiles_HOBO()$datapath)
+  })
+
+  ## File Upload, miniDOT_cat ----
+  #Creates a reactive object with all the input files
+  allFiles_miniDOT_cat <- reactive({
+    allFiles_miniDOT_cat <- input$selectedFiles_miniDOT_cat
+    if(is.null(allFiles_miniDOT_cat)) return(NULL)
+    return(allFiles_miniDOT_cat)
+  }) ## allFiles_miniDOT ~ END
+
+  #Creates a reactive object with all the input files' names
+  UserFile_Name_miniDOT_cat <- reactive({
+    if(is.null(allFiles_miniDOT_cat())) return(NULL)
+    return(allFiles_miniDOT_cat()$name)
+  })
+
+  #Creates a reactive object with all the input files' directories
+  UserFile_Path_miniDOT_cat <- reactive({
+    if(is.null(allFiles_miniDOT_cat())) return(NULL)
+    return(allFiles_miniDOT_cat()$datapath)
+  })
+
+  ## File Upload, miniDOT_reformat ----
+  #Creates a reactive object with all the input files
+  allFiles_miniDOT_reformat <- reactive({
+    allFiles_miniDOT_reformat <- input$selectedFiles_miniDOT_reformat
+    if(is.null(allFiles_miniDOT_reformat)) return(NULL)
+    return(allFiles_miniDOT_reformat)
+  }) ## allFiles_miniDOT ~ END
+
+  #Creates a reactive object with all the input files' names
+  UserFile_Name_miniDOT_reformat <- reactive({
+    if(is.null(allFiles_miniDOT_reformat())) return(NULL)
+    return(allFiles_miniDOT_reformat()$name)
+  })
+
+  #Creates a reactive object with all the input files' directories
+  UserFile_Path_miniDOT_reformat <- reactive({
+    if(is.null(allFiles_miniDOT_reformat())) return(NULL)
+    return(allFiles_miniDOT_reformat()$datapath)
   })
 
   # Reactive, Main ----
@@ -292,14 +333,29 @@ shinyServer(function(input, output, session) {
     table3()
   })
 
-  # Run, HOBO, button ----
+  # Run, buttons ----
+  ## Run, HOBO, button ----
   output$ui.runProcess_HOBO <- renderUI({
     if (is.null(allFiles_HOBO())) return() # Hidden unless upload files
     operation <- "formatHOBO"
     actionButton("runProcess_HOBO", "Reformat HOBOware file(s)")
   })
 
-  # Run Operation, button ----
+  ## Run, miniDOT_cat, button ----
+  output$ui.runProcess_miniDOT_cat <- renderUI({
+    if (is.null(allFiles_miniDOT_cat())) return() # Hidden unless upload files
+    operation <- "miniDOT_cat"
+    actionButton("runProcess_miniDOT_cat", "Concatenate miniDOT file(s)")
+  })
+
+  ## Run, miniDOT_reformat, button ----
+  output$ui.runProcess_miniDOT <- renderUI({
+    if (is.null(allFiles_miniDOT_cat())) return() # Hidden unless upload files
+    operation <- "miniDOT_reformat"
+    actionButton("runProcess_miniDOT_reformat", "Reformat miniDOT file(s)")
+  })
+
+  ## Run Operation, button ----
   ###Runs the selected process
   #Shows the "Run operation" button after the data are uploaded
   output$ui.runProcess <- renderUI({
@@ -496,9 +552,6 @@ shinyServer(function(input, output, session) {
 
   # })
 
-
-
-
   })## observerEvent ~ runProcess_HOBO ~ END
 
   # Run Operation, code ----
@@ -670,7 +723,8 @@ shinyServer(function(input, output, session) {
 
   })## observeEvent ~ input$runProcess ~ END
 
-  # Download, HOBO ----
+  # Download ----
+  ## Download, HOBO ----
   output$ui.downloadData_HOBO <- renderUI({
     if (is.null(console$disp)) return()
     downloadButton("downloadData_HOBO", "Download")
@@ -681,7 +735,7 @@ shinyServer(function(input, output, session) {
     # _zip-HOBO ----
     #Names the zip file
     filename <- function() {
-      paste0("formatHOBO_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".zip")
+      paste0("format_HOBO_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".zip")
     },
     #Zips the output files
     content <- function(fname) {
@@ -694,8 +748,55 @@ shinyServer(function(input, output, session) {
     ,contentType = "application/zip"
   )
 
+  ## Download, miniDOT_cat ----
+  output$ui.downloadData_miniDOTO_cat <- renderUI({
+    if (is.null(console$disp)) return()
+    downloadButton("downloadData_miniDOT_cat", "Download")
+  })## ui.downloadData ~ END
 
-  # Download, Remove files ----
+
+  output$downloadData_miniDOT_cat <- downloadHandler(
+    ### _zip-miniDOT_cat ----
+    #Names the zip file
+    filename <- function() {
+      paste0("miniDOT_cat_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".zip")
+    },
+    #Zips the output files
+    content <- function(fname) {
+      #Lists only the csv and html files on the server
+      files2zip <- file.path("miniDOT_cat"
+                             , list.files("miniDOT_cat"))
+      #Zips the files
+      zip(zipfile = fname, files = files2zip)
+    }# content ~ END
+    ,contentType = "application/zip"
+  )
+
+  ## Download, miniDOT_reformat ----
+  output$ui.downloadData_miniDOTO_reformat <- renderUI({
+    if (is.null(console$disp)) return()
+    downloadButton("downloadData_miniDOT_reformat", "Download")
+  })## ui.downloadData ~ END
+
+
+  output$downloadData_miniDOT_reformat <- downloadHandler(
+    ### _zip-miniDOT_reformat ----
+    #Names the zip file
+    filename <- function() {
+      paste0("miniDOT_reformat_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".zip")
+    },
+    #Zips the output files
+    content <- function(fname) {
+      #Lists only the csv and html files on the server
+      files2zip <- file.path("miniDOT_reformat"
+                             , list.files("miniDOT_reformat"))
+      #Zips the files
+      zip(zipfile = fname, files = files2zip)
+    }# content ~ END
+    ,contentType = "application/zip"
+  )
+
+  ## Download, Remove files ----
   ###Downloads the output data and deletes the created files
   #Shows the "Download" button after the selected process is run
   output$ui.downloadData <- renderUI({
@@ -714,7 +815,7 @@ shinyServer(function(input, output, session) {
     #Formats the download timestamp for the zip file
     operationTime <- timeFormatter(Sys.time())
 
-    ## _zip-qc ----
+    ### _zip-qc ----
     #Zipping procedures for the output of the QC process
     if (operation == "QCRaw"){
 

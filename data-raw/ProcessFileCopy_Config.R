@@ -20,6 +20,11 @@ config.from <- file.path(".", "R", "config.R")
 config.to.template <- file.path(".", "inst", "shiny-examples", "ContDataQC"
                                , "www", "Config_Template.R")
 file.copy(config.from, config.to.template, overwrite = TRUE)
+#
+config.from <- file.path(".", "R", "config.R")
+config.to.template <- file.path(".", "inst", "shiny-examples", "ContDataQC"
+                                , "www", "Config_Default.R")
+file.copy(config.from, config.to.template, overwrite = TRUE)
 
 # 3. Copy to extdata
 config.from <- file.path(".", "R", "config.R")

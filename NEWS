@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-05-31 12:48:48
+    #> Last Update: 2022-06-07 09:47:51
 
 # Version History
+
+## v2.0.6.9025
+
+2022-06-07
+
+-   fix: Modify config.R for salinity, Issue #138
+    -   Update other copies in package
 
 ## v2.0.6.9024
 

@@ -53,7 +53,59 @@ function() {
                                               , height = 600, width = 1000)
                                       ) ## mainPanel ~ END
                                     )# sidebarLayout~ END
-                         )## tabPanel  ~ END
+                         )## tabPanel ~ HOBO ~ END
+                         , tabPanel("miniDOT Concatenate"
+                                    , sidebarLayout(
+                                      sidebarPanel(
+                                        tags$div(title = "Select one miniDOT csv files to upload here"
+                                                 , fileInput("selectedFiles_miniDOT"
+                                                             , label = "Choose files"
+                                                             , multiple = TRUE
+                                                             , accept = ".csv"
+                                                             , width = "600px") # same as HOBO
+                                        )##tags$div ~ END
+                                        #Only shows the "Run operation" button after data are uploaded
+                                        ,tags$div(title="Click to run selected operation (miniDOT reformat)"
+                                                  ,uiOutput('ui.runProcess_miniDOT')
+                                        )# tags$div ~ END
+                                        , br()
+                                        #Only shows the "Download" button after the process has run
+                                        ,tags$div(title="Click to download your data"
+                                                  ,uiOutput('ui.downloadData_miniDOT')
+                                        )# tags$div ~ END
+                                      )# sidebarPanel~ END
+                                      , mainPanel(
+                                        includeHTML("www/App_2eDataPrep.html")
+
+                                      ) ## mainPanel ~ END
+                                    )# sidebarLayout~ END
+                         )## tabPanel ~ miniDOT cat ~ END
+                         , tabPanel("miniDOT Reformat"
+                                    , sidebarLayout(
+                                      sidebarPanel(
+                                        tags$div(title = "Select one miniDOT csv files to upload here"
+                                                 , fileInput("selectedFiles_miniDOT"
+                                                             , label = "Choose files"
+                                                             , multiple = TRUE
+                                                             , accept = ".csv"
+                                                             , width = "600px") # same as HOBO
+                                                 )##tags$div ~ END
+                                        #Only shows the "Run operation" button after data are uploaded
+                                        ,tags$div(title="Click to run selected operation (miniDOT reformat)"
+                                                  ,uiOutput('ui.runProcess_miniDOT')
+                                        )# tags$div ~ END
+                                        , br()
+                                        #Only shows the "Download" button after the process has run
+                                        ,tags$div(title="Click to download your data"
+                                                  ,uiOutput('ui.downloadData_miniDOT')
+                                        )# tags$div ~ END
+                                      )# sidebarPanel~ END
+                                      , mainPanel(
+                                        includeHTML("www/App_2fDataPrep.html")
+
+                                      ) ## mainPanel ~ END
+                                    )# sidebarLayout~ END
+                         )## tabPanel ~ miniDOT reformat ~ END
              )## tabsetPanel ~ END
            )## mainPanel ~ END
   ) ## tabPanel ~ Config ~ END

@@ -293,6 +293,7 @@ ContData.env$myNames.DataFields <- c(ContData.env$myName.WaterTemp
                                      , ContData.env$myName.Turbidity
                                      , ContData.env$myName.Chlorophylla
                                      , ContData.env$myName.WaterLevel
+									                   , ContData.env$myName.Salinity
                                      , ContData.env$myName.Discrete.WaterTemp
                                      , ContData.env$myName.Discrete.AirTemp
                                      , ContData.env$myName.Discrete.WaterP
@@ -323,6 +324,7 @@ ContData.env$myNames.DataFields.Lab <- c(ContData.env$myLab.WaterTemp
                                          , ContData.env$myLab.Turbidity
                                          , ContData.env$myLab.Chlorophylla
                                          , ContData.env$myLab.WaterLevel
+                                         , ContData.env$myLab.Salinity
                                          , ContData.env$myLab.Discrete.WaterTemp
                                          , ContData.env$myLab.Discrete.AirTemp
                                          , ContData.env$myLab.Discrete.WaterP
@@ -365,6 +367,7 @@ ContData.env$myNames.Order <- c(ContData.env$myName.SiteID
                                 , ContData.env$myName.Turbidity
                                 , ContData.env$myName.Chlorophylla
                                 , ContData.env$myName.WaterLevel
+                                , ContData.env$myName.Salinity
                                 , ContData.env$myName.LoggerID.Water
                                 , ContData.env$myName.RowID.Water
                                 , ContData.env$myName.Discrete.WaterTemp
