@@ -20,7 +20,7 @@ The 'file' version works on a single (or vector) of files."><!-- mathjax --><scr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9025</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9027</span>
       </span>
     </div>
 
@@ -88,18 +88,29 @@ The 'file' version works on a single (or vector) of files.</p>
     <h2>Arguments</h2>
     <dl><dt>fun.myFile</dt>
 <dd><p>Single (or vector of) file name(s).</p></dd>
+
+
 <dt>fun.myDir.import</dt>
 <dd><p>Directory for import data.  Default is current working directory.</p></dd>
+
+
 <dt>fun.myDir.export</dt>
 <dd><p>Directory for export data.  Default is current working directory.</p></dd>
+
+
 <dt>fun.myReport.format</dt>
 <dd><p>Report format (docx or html).  Default is specified in config.R (docx).  Can be customized in config.R; ContData.env$myReport.Format.</p></dd>
+
+
 <dt>fun.myReport.Dir</dt>
 <dd><p>Report (rmd) template folder.  Default is the package rmd folder.  Can be customized in config.R; ContData.env$myReport.Dir.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Returns a csv into the specified export directory with additional columns for calculated statistics.  And a PDF of summary plots by different time periods.</p>
+    
+
+<p>Returns a csv into the specified export directory with additional columns for calculated statistics.  And a PDF of summary plots by different time periods.</p>
     </div>
 
     <div id="ref-examples">
@@ -112,7 +123,7 @@ The 'file' version works on a single (or vector) of files.</p>
 <span class="r-in"><span class="fu">fun.Stats.File</span><span class="op">(</span><span class="va">myFile</span>, <span class="va">myDir.import</span>, <span class="va">myDir.export</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Total files to process = 1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ERROR; no such file exits.  Cannot generate summary statistics."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PATH = /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpBGoRap/file8e077221b9c/reference/Data2_QC"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PATH = /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmpgg8Y5K/file6bf79d1ffac/reference/Data2_QC"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "FILE = QC_test2_Aw_20130426_20130725.csv"</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in fun.Stats.File(myFile, myDir.import, myDir.export):</span> Bad file.</span>
 </code></pre></div>
@@ -129,7 +140,7 @@ The 'file' version works on a single (or vector) of files.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

@@ -19,7 +19,7 @@ measurement."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9025</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9027</span>
       </span>
     </div>
 
@@ -87,21 +87,32 @@ measurement.</p>
     <dl><dt>file.input</dt>
 <dd><p>Input data as CSV.  Needs Date column and it will handle up
 to 5 SiteIDs (with data under each SiteID).</p></dd>
+
+
 <dt>dir.input</dt>
 <dd><p>Directory where data file is located.
 Default is the working directory; getwd().</p></dd>
+
+
 <dt>dir.output</dt>
 <dd><p>Directory where PDF file is to be saved.
 Default is the working directory; getwd().</p></dd>
+
+
 <dt>ParamName.xlab</dt>
 <dd><p>Parameter name for x-axis on plots</p></dd>
+
+
 <dt>df.input</dt>
 <dd><p>Optionally use existing data frame over importing file.input.
 Default = NULL (import file.input).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Returns a PDF of CDFs.</p>
+    
+
+<p>Returns a PDF of CDFs.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -132,8 +143,8 @@ equal to parameter values on the x-axis.</p>
 <span class="r-in">           , dir.output <span class="op">=</span> <span class="va">myDir.output</span></span>
 <span class="r-in">           , ParamName.xlab <span class="op">=</span> <span class="va">myXlab</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PDF created:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpBGoRap</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CompSiteCDF_20220607_142411.pdf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpgg8Y5K</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CompSiteCDF_20220615_211143.pdf</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Variant 2 (with Data Frame)</span></span>
 <span class="r-in"><span class="co"># Load Data</span></span>
@@ -146,8 +157,8 @@ equal to parameter values on the x-axis.</p>
 <span class="r-in">            , df.input <span class="op">=</span> <span class="va">myDF</span></span>
 <span class="r-in">            , dir.output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PDF created:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpBGoRap</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CompSiteCDF_20220607_142412.pdf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpgg8Y5K</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CompSiteCDF_20220615_211144.pdf</span>
 </code></pre></div>
     </div>
   </div>
@@ -162,7 +173,7 @@ equal to parameter values on the x-axis.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

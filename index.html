@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9025</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9027</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
 <div class="section level1">
 <div class="page-header"><h1 id="readme-contdataqc">README-ContDataQC<a class="anchor" aria-label="anchor" href="#readme-contdataqc"></a>
 </h1></div>
-<!-- README.md is generated from README.Rmd. Please edit that file --><div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&gt; Last Update: 2021-04-02 21:13:00</span></span></code></pre></div>
+<!-- README.md is generated from README.Rmd. Please edit that file --><div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&gt; Last Update: 2022-06-15 17:05:50</span></span></code></pre></div>
 </div>
 <div class="section level1">
 <h1 id="contdataqc">ContDataQC<a class="anchor" aria-label="anchor" href="#contdataqc"></a>
@@ -107,16 +107,16 @@
 </h1>
 <p>To install the current version of the code from GitHub use the example below.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span><span class="op">}</span>  <span class="co">#install if needed</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"leppott/ContDataQC"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span><span class="op">}</span>  <span class="co">#install if needed</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"leppott/ContDataQC"</span><span class="op">)</span></code></pre></div>
 <p>The vignette (big help file) isn’t created when installing from GitHub with the above command. If you want the vignette download the compressed file from GitHub and install from that file or install with the command below. The “force = TRUE” command is used to ensure the package will install over and existing install of the same version (e.g., the same version without the vignettes).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span><span class="op">}</span>  <span class="co">#install if needed</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"leppott/ContDataQC"</span>, force <span class="op">=</span> <span class="cn">TRUE</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span><span class="op">}</span>  <span class="co">#install if needed</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"leppott/ContDataQC"</span>, force <span class="op">=</span> <span class="cn">TRUE</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>If dependent libraries do not install you can install them separately. This happens occasionally. Without all of the packages the main package and/or the vignettes will not install properly. Install the separate packages below and then retry installing ContDataQC.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># libraries to be installed</span>
-<span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"devtools"</span>        <span class="co"># install helper for non CRAN libraries</span>
+<span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"remotes"</span>        <span class="co"># install helper for non CRAN libraries</span>
         , <span class="st">"installr"</span>       <span class="co"># install helper</span>
         , <span class="st">"digest"</span>         <span class="co"># caused error in R v3.2.3 without it</span>
         , <span class="st">"dataRetrieval"</span>  <span class="co"># loads USGS data into R</span>
@@ -142,12 +142,12 @@
         <span class="op">)</span>
 <span class="co">#</span>
 <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>Non-CRAN packages have to be installed separately from GitHub using devtools.</p>
+<p>Non-CRAN packages have to be installed separately from GitHub using remotes.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span><span class="op">}</span>  <span class="co">#install if needed</span>
+<code class="sourceCode R"><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span><span class="op">}</span>  <span class="co">#install if needed</span>
 <span class="co"># non-CRAN packages</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"jasonelaw/iha"</span>, force <span class="op">=</span> <span class="cn">TRUE</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tsangyp/StreamThermal"</span>, force <span class="op">=</span> <span class="cn">TRUE</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"jasonelaw/iha"</span>, force <span class="op">=</span> <span class="cn">TRUE</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"tsangyp/StreamThermal"</span>, force <span class="op">=</span> <span class="cn">TRUE</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Additionally Pandoc is required for creating the reports and needs to be installed separately. If you have RStudio installed it comes with Pandoc and you don’t need to install Pandoc separately.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## pandoc</span>
@@ -186,7 +186,7 @@
 <h1 id="planned-updates">Planned Updates<a class="anchor" aria-label="anchor" href="#planned-updates"></a>
 </h1>
 <ul>
-<li><p><del>Spell out “AW”" and other abbreviations (e.g., AirWater). 20170308. On hold.</del></p></li>
+<li><p><del>Spell out “AW”” and other abbreviations (e.g., AirWater). 20170308. On hold.</del></p></li>
 <li><p><del>Gaps in data not always evident in the plots. 20170308.</del></p></li>
 <li><p><del>Use futile.logger to better log output for user. Issue #29. 20170606.</del></p></li>
 <li><p>Debug Aggregate operation. 20170919.</p></li>
@@ -223,8 +223,8 @@
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"ContDataQC_Vignette"</span>, package<span class="op">=</span><span class="st">"ContDataQC"</span><span class="op">)</span></code></pre></div>
 <p>If the vignette fails to show on your computer. Run the code below to reinstall the package and specify the creation of the vignette. As noted above if dependent packages are not installed the vignette will fail to build. See above for installing packages.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span>
-<span class="fu">install_github</span><span class="op">(</span><span class="st">"leppott/ContDataQC"</span>, force<span class="op">=</span><span class="cn">TRUE</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span>
+<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"leppott/ContDataQC"</span>, force<span class="op">=</span><span class="cn">TRUE</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <div class="section level2">
 <h2 id="guide-videos">Guide Videos<a class="anchor" aria-label="anchor" href="#guide-videos"></a>
 </h2>
@@ -296,7 +296,7 @@ The Powerpoint slides (pptx), R code notebooks (html), and videos are hosted on 
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer>

@@ -18,7 +18,7 @@ the format used by the rLakeAnalyzer package."><!-- mathjax --><script src="http
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9025</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9027</span>
       </span>
     </div>
 
@@ -85,24 +85,37 @@ the format used by the rLakeAnalyzer package.</p>
     <h2>Arguments</h2>
     <dl><dt>df_CDQC</dt>
 <dd><p>Data frame to be converted for use with rLakeAnalyzer.</p></dd>
+
+
 <dt>col_depth</dt>
 <dd><p>Column name for "depth" in df_CDQC.  Default = "Depth"</p></dd>
+
+
 <dt>col_CDQC</dt>
 <dd><p>Column names in df_CDQC to transform for use with
 rLakeAnalyzer.  Date time must be the first entry.</p></dd>
+
+
 <dt>col_rLA</dt>
 <dd><p>Column names to use with rLakeAnalyzer.  See details for
 accepted entries.  datetime must be the first entry.</p></dd>
+
+
 <dt>dir_export</dt>
 <dd><p>Directory for export data.
 Default = current working directory.</p></dd>
+
+
 <dt>fn_export</dt>
 <dd><p>File name of result to be exported.  If no name provided the
 data frame will not be exported.  Default = NULL.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Returns a data frame with daily mean values by date (in the specified
+    
+
+<p>Returns a data frame with daily mean values by date (in the specified
  range).  Also, a csv file is saved to the specified directory with the
  prefix "IHA" and the date range before the file extension.</p>
     </div>
@@ -199,7 +212,7 @@ package (from CRAN).</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

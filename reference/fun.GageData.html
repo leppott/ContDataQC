@@ -18,7 +18,7 @@ Daily means are the default data type."><!-- mathjax --><script src="https://cdn
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9025</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6.9027</span>
       </span>
     </div>
 
@@ -85,24 +85,37 @@ Daily means are the default data type.</p>
     <h2>Arguments</h2>
     <dl><dt>fun.myData.SiteID</dt>
 <dd><p>Station/SiteID (can be a vector).</p></dd>
+
+
 <dt>fun.myData.Type</dt>
 <dd><p>data type is "Gage".</p></dd>
+
+
 <dt>fun.myData.DateRange.Start</dt>
 <dd><p>Start date for requested data.
 Format = YYYY-MM-DD.</p></dd>
+
+
 <dt>fun.myData.DateRange.End</dt>
 <dd><p>End date for requested data.
 Format = YYYY-MM-DD.</p></dd>
+
+
 <dt>fun.myDir.export</dt>
 <dd><p>Directory for export data.
 Default is current working directory.</p></dd>
+
+
 <dt>fun.myTZ</dt>
 <dd><p>Timezone for requested gage.
 Default is in env.UserDefinedValues.R.  Can also be set with Sys.timezone().</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Returns a csv file to specified directory with the requested daily
+    
+
+<p>Returns a csv file to specified directory with the requested daily
 mean data.  During the data retrieval a summary is output to the console.</p>
     </div>
     <div id="details">
@@ -135,14 +148,14 @@ output.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 531       NGVD29 01080207           uv   00060    &lt;NA&gt; 66866         NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 532       NGVD29 01080207           uv   00065    &lt;NA&gt; 66867         NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     medium_grp_cd parm_grp_cd   srs_id access_cd begin_date   end_date count_nu</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 530           wat        &lt;NA&gt;  1645597         0 2015-11-04 2021-10-14     2171</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 531           wat        &lt;NA&gt;  1645423         0 1990-10-01 2022-06-07    11572</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 532           wat        &lt;NA&gt; 17164583         0 2007-10-01 2022-06-07     5363</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 530           wat        &lt;NA&gt;  1645597         0 2015-11-04 2022-06-09     2409</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 531           wat        &lt;NA&gt;  1645423         0 1990-10-01 2022-06-15    11580</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 532           wat        &lt;NA&gt; 17164583         0 2007-10-01 2022-06-15     5371</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 1 of 1, COMPLETE, 01187300."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE; 0.1 min."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE; 0.17 min."</span>
 </code></pre></div>
     </div>
   </div>
@@ -157,7 +170,7 @@ output.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>
