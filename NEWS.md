@@ -3,9 +3,15 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-06-07 09:47:51
+    #> Last Update: 2022-06-15 17:01:04
 
 # Version History
+
+## v2.0.6.9026
+
+2022-06-15
+
+-   feature: Add miniDOT functions to Shiny, Issue #141
 
 ## v2.0.6.9025
 

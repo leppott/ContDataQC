@@ -66,7 +66,7 @@ shinyServer(function(input, output, session) {
     allFiles_miniDOT_cat <- input$selectedFiles_miniDOT_cat
     if(is.null(allFiles_miniDOT_cat)) return(NULL)
     return(allFiles_miniDOT_cat)
-  }) ## allFiles_miniDOT ~ END
+  }) ## allFiles_miniDOT_cat ~ END
 
   #Creates a reactive object with all the input files' names
   UserFile_Name_miniDOT_cat <- reactive({
@@ -86,7 +86,7 @@ shinyServer(function(input, output, session) {
     allFiles_miniDOT_reformat <- input$selectedFiles_miniDOT_reformat
     if(is.null(allFiles_miniDOT_reformat)) return(NULL)
     return(allFiles_miniDOT_reformat)
-  }) ## allFiles_miniDOT ~ END
+  }) ## allFiles_miniDOT_reformat ~ END
 
   #Creates a reactive object with all the input files' names
   UserFile_Name_miniDOT_reformat <- reactive({
@@ -337,21 +337,21 @@ shinyServer(function(input, output, session) {
   ## Run, HOBO, button ----
   output$ui.runProcess_HOBO <- renderUI({
     if (is.null(allFiles_HOBO())) return() # Hidden unless upload files
-    operation <- "formatHOBO"
+    #operation <- "formatHOBO"
     actionButton("runProcess_HOBO", "Reformat HOBOware file(s)")
   })
 
   ## Run, miniDOT_cat, button ----
   output$ui.runProcess_miniDOT_cat <- renderUI({
     if (is.null(allFiles_miniDOT_cat())) return() # Hidden unless upload files
-    operation <- "miniDOT_cat"
+    #operation <- "miniDOT_cat"
     actionButton("runProcess_miniDOT_cat", "Concatenate miniDOT file(s)")
   })
 
   ## Run, miniDOT_reformat, button ----
-  output$ui.runProcess_miniDOT <- renderUI({
-    if (is.null(allFiles_miniDOT_cat())) return() # Hidden unless upload files
-    operation <- "miniDOT_reformat"
+  output$ui.runProcess_miniDOT_reformat <- renderUI({
+    if (is.null(allFiles_miniDOT_reformat())) return() # Hidden unless upload files
+    #operation <- "miniDOT_reformat"
     actionButton("runProcess_miniDOT_reformat", "Reformat miniDOT file(s)")
   })
 
@@ -554,6 +554,210 @@ shinyServer(function(input, output, session) {
 
   })## observerEvent ~ runProcess_HOBO ~ END
 
+  # Run, miniDOT_cat, code ----
+  observeEvent(input$runProcess_miniDOT_cat, {
+
+    # Remove files in "miniDOT_cat" folder
+    message("Remove File, miniDOT_cat")
+    file.remove(normalizePath(list.files(file.path("miniDOT_cat"), full.names = TRUE)))
+
+    #Moves the user-selected input files from the default upload folder to Shiny's working directory
+    message("Copy")
+    copy.from <- file.path(UserFile_Path_miniDOT_cat())
+    #copy.to <- file.path(getwd(), UserFile_Name())
+    copy.to <- file.path(".", "miniDOT_cat", UserFile_Name_miniDOT_cat())
+    file.copy(copy.from, copy.to)
+
+    #Allows users to use their own configuration/threshold files for QC.
+    #Copies the status of the config file to this event.
+    config_type <- config$x
+
+    #Temporary location for the config file
+    config <- file.path(".", "data")
+
+    #If a configuration file has been uploaded, the app uses it
+    if (config_type == "uploaded") {
+      #Copies the uploaded configuration file from where it was uploaded to
+      #                 into the working directory.
+      #The config file must be in the working directory for this to work.
+      copy.from2 <- file.path(input$configFile$datapath)
+      #copy.to2 <- file.path(getwd(), input$configFile$name)
+      copy.to2 <- file.path("data", input$configFile$name)
+      file.copy(copy.from2, copy.to2)
+
+      #Makes the configuration object refer to the uploaded configuration file
+      #config <- file.path(getwd(), input$configFile$name)
+      config <- file.path("data", input$configFile$name)
+
+    } else {
+      #If no configuration file has been uploaded, the default is used
+
+
+      #Deletes the uploaded configuration file, if there is one
+      #file.remove(file.path(getwd(), input$configFile$name))
+      file.remove(file.path("data", input$configFile$name))
+
+      # config <- system.file("extdata", "Config.COLD.R", package="ContDataQC")
+      #config <- system.file("extdata", "Config.ORIG.R", package="ContDataQC")
+      config <- file.path(".", "www", "Config.R")
+
+    }## IF ~ config_type ~ END
+
+    #Creates a data.frame for the R console output of the ContDataQC() script
+    console$disp <- data.frame(consoleOutput = character())
+
+    withProgress(message = paste("Running, runProcess_miniDOT_reformat"), value = 0, {
+
+      #A short pause before the operation begins
+      Sys.sleep(2)
+
+      #Creates a vector of filenames
+      fileNameVector <-  as.vector(UserFile_Name_miniDOT_cat())
+      message("File Name Vector")
+      message(paste(fileNameVector, collapse = ", "))
+
+      #Changes the status bar to say that aggregation is occurring
+      incProgress(0, detail = paste("miniDOT_cat ", length(fileNameVector), " files"))
+
+      #Saves the R console output of ContDataQC()
+      consoleRow <- capture.output(
+
+        message("Run function")
+        , message("dir import")
+        , message(file.path("miniDOT_cat"))
+        # Run function miniDOT_cat
+        , ContDataQC::minidot_cat(folderpath = file.path("miniDOT_cat")
+                                , savetofolder = file.path("miniDOT_cat")
+
+        ) # miniDOT_cat ~ END
+      )## consoleRow ~ END
+
+      #Appends the R console output generated from that input file to the
+      #console output data.frame
+      consoleRow <- data.frame(consoleRow)
+      console$disp <- rbind(console$disp, consoleRow)
+
+      #Fills in the progress bar once the operation is complete
+      incProgress(1, detail = paste("Finished miniDOT_cat files"))
+
+      #Pauses the progress bar once it's done
+      Sys.sleep(2)
+
+      #Names the single column of the R console output data.frame
+      colnames(console$disp) <- c(paste("R console messages for miniDOT_Cat"))
+
+      #unhide download button
+
+
+    })# with progress ~ END
+
+    # })
+
+  })## observerEvent ~ runProcess_miniDOT_cat ~ END
+
+  # Run, miniDOT_reformat, code ----
+  observeEvent(input$runProcess_miniDOT_reformat, {
+
+    # Remove files in "miniDOT_reformat" folder
+    message("Remove File, miniDOT_reformat")
+    file.remove(normalizePath(list.files(file.path("miniDOT_reformat"), full.names = TRUE)))
+
+    #Moves the user-selected input files from the default upload folder to Shiny's working directory
+    message("Copy")
+    copy.from <- file.path(UserFile_Path_miniDOT_reformat())
+    #copy.to <- file.path(getwd(), UserFile_Name())
+    copy.to <- file.path(".", "miniDOT_reformat", UserFile_Name_miniDOT_reformat())
+    file.copy(copy.from, copy.to)
+
+    #Allows users to use their own configuration/threshold files for QC.
+    #Copies the status of the config file to this event.
+    config_type <- config$x
+
+    #Temporary location for the config file
+    config <- file.path(".", "data")
+
+    #If a configuration file has been uploaded, the app uses it
+    if (config_type == "uploaded") {
+      #Copies the uploaded configuration file from where it was uploaded to
+      #                 into the working directory.
+      #The config file must be in the working directory for this to work.
+      copy.from2 <- file.path(input$configFile$datapath)
+      #copy.to2 <- file.path(getwd(), input$configFile$name)
+      copy.to2 <- file.path("data", input$configFile$name)
+      file.copy(copy.from2, copy.to2)
+
+      #Makes the configuration object refer to the uploaded configuration file
+      #config <- file.path(getwd(), input$configFile$name)
+      config <- file.path("data", input$configFile$name)
+
+    } else {
+      #If no configuration file has been uploaded, the default is used
+
+
+      #Deletes the uploaded configuration file, if there is one
+      #file.remove(file.path(getwd(), input$configFile$name))
+      file.remove(file.path("data", input$configFile$name))
+
+      # config <- system.file("extdata", "Config.COLD.R", package="ContDataQC")
+      #config <- system.file("extdata", "Config.ORIG.R", package="ContDataQC")
+      config <- file.path(".", "www", "Config.R")
+
+    }## IF ~ config_type ~ END
+
+    #Creates a data.frame for the R console output of the ContDataQC() script
+    console$disp <- data.frame(consoleOutput = character())
+
+    withProgress(message = paste("Running, miniDOT_reformat"), value = 0, {
+
+      #A short pause before the operation begins
+      Sys.sleep(2)
+
+      #Creates a vector of filenames
+      fileNameVector <-  as.vector(UserFile_Name_miniDOT_reformat())
+      message("File Name Vector")
+      message(fileNameVector)
+
+      #Changes the status bar to say that aggregation is occurring
+      incProgress(0, detail = paste("miniDOT_reformat ", length(fileNameVector), " files"))
+
+      #Saves the R console output of ContDataQC()
+      consoleRow <- capture.output(
+
+        message("Run function")
+        ,message("dir import")
+        ,message(file.path("miniDOT_reformat"))
+        # Run function miniDOT_reformat
+        ,ContDataQC::format_minidot(fun.myFile = fileNameVector
+                                , fun.myDir.import = file.path("miniDOT_reformat")
+                                , fun.myDir.export = file.path("miniDOT_reformat")
+
+                                , fun.myConfig = config
+        ) # format_minidot ~ END
+      )## consoleRow ~ END
+
+      #Appends the R console output generated from that input file to the
+      #console output data.frame
+      consoleRow <- data.frame(consoleRow)
+      console$disp <- rbind(console$disp, consoleRow)
+
+      #Fills in the progress bar once the operation is complete
+      incProgress(1, detail = paste("Finished miniDOT_reformat files"))
+
+      #Pauses the progress bar once it's done
+      Sys.sleep(2)
+
+      #Names the single column of the R console output data.frame
+      colnames(console$disp) <- c(paste("R console messages for format_miniDOT"))
+
+      #unhide download button
+
+
+    })# with progress ~ END
+
+    # })
+
+  })## observerEvent ~ runProcess_miniDOT_reformat ~ END
+
   # Run Operation, code ----
   #Runs the selected process by calling on the QC script that Erik Leppo wrote
   observeEvent(input$runProcess, {
@@ -749,23 +953,23 @@ shinyServer(function(input, output, session) {
   )
 
   ## Download, miniDOT_cat ----
-  output$ui.downloadData_miniDOTO_cat <- renderUI({
+  output$ui.downloadData_miniDOT_cat <- renderUI({
     if (is.null(console$disp)) return()
     downloadButton("downloadData_miniDOT_cat", "Download")
   })## ui.downloadData ~ END
 
-
+  ### _zip-miniDOT_cat ----
   output$downloadData_miniDOT_cat <- downloadHandler(
-    ### _zip-miniDOT_cat ----
+
     #Names the zip file
     filename <- function() {
       paste0("miniDOT_cat_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".zip")
     },
     #Zips the output files
     content <- function(fname) {
-      #Lists only the csv and html files on the server
+      #Lists only the csv files (input was txt)
       files2zip <- file.path("miniDOT_cat"
-                             , list.files("miniDOT_cat"))
+                             , list.files("miniDOT_cat", pattern = "csv$"))
       #Zips the files
       zip(zipfile = fname, files = files2zip)
     }# content ~ END
@@ -773,21 +977,21 @@ shinyServer(function(input, output, session) {
   )
 
   ## Download, miniDOT_reformat ----
-  output$ui.downloadData_miniDOTO_reformat <- renderUI({
+  output$ui.downloadData_miniDOT_reformat <- renderUI({
     if (is.null(console$disp)) return()
     downloadButton("downloadData_miniDOT_reformat", "Download")
   })## ui.downloadData ~ END
 
-
+  ### _zip-miniDOT_reformat ----
   output$downloadData_miniDOT_reformat <- downloadHandler(
-    ### _zip-miniDOT_reformat ----
+
     #Names the zip file
     filename <- function() {
       paste0("miniDOT_reformat_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".zip")
     },
     #Zips the output files
     content <- function(fname) {
-      #Lists only the csv and html files on the server
+      # Saved export file with same name as input file
       files2zip <- file.path("miniDOT_reformat"
                              , list.files("miniDOT_reformat"))
       #Zips the files

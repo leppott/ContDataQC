@@ -19,7 +19,7 @@ function() {
                          , tabPanel("Formatting files"
                                     , includeHTML("www/App_2cDataPrep.html")
                          )## tabPanel ~ END
-
+                          # Hoboware, reformat ----
                          , tabPanel("HOBOware Reformat"
                                     ,sidebarLayout(
                                       sidebarPanel(
@@ -43,7 +43,7 @@ function() {
                                         )# tags$div ~ END
                                         , br()
                                         #Only shows the "Download" button after the process has run
-                                        ,tags$div(title="Click to download your data"
+                                        ,tags$div(title="Click to download your data (HOBO reformat)"
                                                   ,uiOutput('ui.downloadData_HOBO')
                                         )# tags$div ~ END
                                       )# sidebarPanel~ END
@@ -54,24 +54,26 @@ function() {
                                       ) ## mainPanel ~ END
                                     )# sidebarLayout~ END
                          )## tabPanel ~ HOBO ~ END
+                         # miniDOT, cat ----
                          , tabPanel("miniDOT Concatenate"
                                     , sidebarLayout(
                                       sidebarPanel(
-                                        tags$div(title = "Select one miniDOT csv files to upload here"
-                                                 , fileInput("selectedFiles_miniDOT"
+                                        tags$div(title = "Select one or more miniDOT txt files to upload here"
+                                                 , fileInput("selectedFiles_miniDOT_cat"
                                                              , label = "Choose files"
                                                              , multiple = TRUE
-                                                             , accept = ".csv"
+                                                             , accept = ".txt"
                                                              , width = "600px") # same as HOBO
                                         )##tags$div ~ END
+                                        , br()
                                         #Only shows the "Run operation" button after data are uploaded
-                                        ,tags$div(title="Click to run selected operation (miniDOT reformat)"
-                                                  ,uiOutput('ui.runProcess_miniDOT')
+                                        ,tags$div(title="Click to run selected operation (miniDOT concatenate)"
+                                                  ,uiOutput('ui.runProcess_miniDOT_cat')
                                         )# tags$div ~ END
                                         , br()
                                         #Only shows the "Download" button after the process has run
-                                        ,tags$div(title="Click to download your data"
-                                                  ,uiOutput('ui.downloadData_miniDOT')
+                                        ,tags$div(title="Click to download your data (miniDOT_cat)"
+                                                  ,uiOutput('ui.downloadData_miniDOT_cat')
                                         )# tags$div ~ END
                                       )# sidebarPanel~ END
                                       , mainPanel(
@@ -80,24 +82,26 @@ function() {
                                       ) ## mainPanel ~ END
                                     )# sidebarLayout~ END
                          )## tabPanel ~ miniDOT cat ~ END
+                         # miniDOT, reformat ----
                          , tabPanel("miniDOT Reformat"
                                     , sidebarLayout(
                                       sidebarPanel(
                                         tags$div(title = "Select one miniDOT csv files to upload here"
-                                                 , fileInput("selectedFiles_miniDOT"
+                                                 , fileInput("selectedFiles_miniDOT_reformat"
                                                              , label = "Choose files"
-                                                             , multiple = TRUE
+                                                             , multiple = FALSE
                                                              , accept = ".csv"
                                                              , width = "600px") # same as HOBO
                                                  )##tags$div ~ END
+                                        , br()
                                         #Only shows the "Run operation" button after data are uploaded
                                         ,tags$div(title="Click to run selected operation (miniDOT reformat)"
-                                                  ,uiOutput('ui.runProcess_miniDOT')
+                                                  ,uiOutput('ui.runProcess_miniDOT_reformat')
                                         )# tags$div ~ END
                                         , br()
                                         #Only shows the "Download" button after the process has run
-                                        ,tags$div(title="Click to download your data"
-                                                  ,uiOutput('ui.downloadData_miniDOT')
+                                        ,tags$div(title="Click to download your data (miniDOT_reformat)"
+                                                  ,uiOutput('ui.downloadData_miniDOT_reformat')
                                         )# tags$div ~ END
                                       )# sidebarPanel~ END
                                       , mainPanel(
