@@ -565,7 +565,7 @@ shinyServer(function(input, output, session) {
     message("Copy")
     copy.from <- file.path(UserFile_Path_miniDOT_cat())
     #copy.to <- file.path(getwd(), UserFile_Name())
-    copy.to <- file.path(".", "miniDOT_cat", UserFile_Name_miniDOT_cat())
+    copy.to <- file.path("miniDOT_cat", UserFile_Name_miniDOT_cat())
     file.copy(copy.from, copy.to)
 
     #Allows users to use their own configuration/threshold files for QC.
@@ -666,7 +666,7 @@ shinyServer(function(input, output, session) {
     message("Copy")
     copy.from <- file.path(UserFile_Path_miniDOT_reformat())
     #copy.to <- file.path(getwd(), UserFile_Name())
-    copy.to <- file.path(".", "miniDOT_reformat", UserFile_Name_miniDOT_reformat())
+    copy.to <- file.path("miniDOT_reformat", UserFile_Name_miniDOT_reformat())
     file.copy(copy.from, copy.to)
 
     #Allows users to use their own configuration/threshold files for QC.

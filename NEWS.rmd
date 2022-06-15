@@ -21,6 +21,11 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.6.9028
+2022-06-15
+
+* refactor: Add dummy files to blank Shiny app folders to avoid being deleted
+
 ## v2.0.6.9027
 2022-06-15
 

@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-06-15 17:06:19
+    #> Last Update: 2022-06-15 17:38:48
 
 # Version History
+
+## v2.0.6.9028
+
+2022-06-15
+
+-   refactor: Add dummy files to blank Shiny app folders to avoid being
+    deleted
 
 ## v2.0.6.9027
 
