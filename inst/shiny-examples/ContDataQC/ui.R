@@ -29,7 +29,7 @@ tab_9Status     <- source("external/tab_9Status.R", local = TRUE)$value
 
 shinyUI(
   # VERSION ----
-  navbarPage("Continuous data QC, summary, and statistics - v2.0.6.9028",
+  navbarPage("Continuous data QC, summary, and statistics - v2.0.7",
              theme= shinytheme("spacelab")
              ,tab_1Overview()
              ,tab_2DataPrep()
