@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-06-15 17:01:04
+    #> Last Update: 2022-06-15 17:06:19
 
 # Version History
+
+## v2.0.6.9027
+
+2022-06-15
+
+-   refactor: Update readme examples to use remotes instead of devtools
+    package
 
 ## v2.0.6.9026
 

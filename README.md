@@ -3,7 +3,7 @@ README-ContDataQC
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-04-02 21:13:00
+    #> Last Update: 2022-06-15 17:05:50
 
 # ContDataQC
 
@@ -35,8 +35,8 @@ To install the current version of the code from GitHub use the example
 below.
 
 ``` r
-if(!require(devtools)){install.packages("devtools")}  #install if needed
-devtools::install_github("leppott/ContDataQC")
+if(!require(remotes)){install.packages("remotes")}  #install if needed
+remotes::install_github("leppott/ContDataQC")
 ```
 
 The vignette (big help file) isn’t created when installing from GitHub
@@ -47,8 +47,8 @@ install over and existing install of the same version (e.g., the same
 version without the vignettes).
 
 ``` r
-if(!require(devtools)){install.packages("devtools")}  #install if needed
-devtools::install_github("leppott/ContDataQC", force = TRUE, build_vignettes = TRUE)
+if(!require(remotes)){install.packages("remotes")}  #install if needed
+remotes::install_github("leppott/ContDataQC", force = TRUE, build_vignettes = TRUE)
 ```
 
 If dependent libraries do not install you can install them separately.
@@ -58,7 +58,7 @@ packages below and then retry installing ContDataQC.
 
 ``` r
 # libraries to be installed
-pkg <- c("devtools"        # install helper for non CRAN libraries
+pkg <- c("remotes"        # install helper for non CRAN libraries
         , "installr"       # install helper
         , "digest"         # caused error in R v3.2.3 without it
         , "dataRetrieval"  # loads USGS data into R
@@ -87,13 +87,13 @@ lapply(pkg, function(x) install.packages(x))
 ```
 
 Non-CRAN packages have to be installed separately from GitHub using
-devtools.
+remotes.
 
 ``` r
-if(!require(devtools)){install.packages("devtools")}  #install if needed
+if(!require(remotes)){install.packages("remotes")}  #install if needed
 # non-CRAN packages
-devtools::install_github("jasonelaw/iha", force = TRUE, build_vignettes = TRUE)
-devtools::install_github("tsangyp/StreamThermal", force = TRUE, build_vignettes = TRUE)
+remotes::install_github("jasonelaw/iha", force = TRUE, build_vignettes = TRUE)
+remotes::install_github("tsangyp/StreamThermal", force = TRUE, build_vignettes = TRUE)
 ```
 
 Additionally Pandoc is required for creating the reports and needs to be
@@ -158,13 +158,13 @@ setwd(myDir.BASE)
 
 # Planned Updates
 
--   ~~Spell out “AW”" and other abbreviations (e.g.,
+-   ~~Spell out “AW”” and other abbreviations (e.g.,
     AirWater). 20170308. On hold.~~
 
 -   ~~Gaps in data not always evident in the plots. 20170308.~~
 
 -   ~~Use futile.logger to better log output for user. Issue
-    \#29. 20170606.~~
+    #29. 20170606.~~
 
 -   Debug Aggregate operation. 20170919.
 
@@ -210,7 +210,7 @@ much easier to use the code below to call the vignette by name. There is
 also be a link to the vignette at the top of the help index for the
 package.
 
-“C:\\Programs\\R\\R-3.4.2\\library\\ContDataQC\\doc\\ContDataQC\_Vignette.html”
+“C:\\Programs\\R\\R-3.4.2\\library\\ContDataQC\\doc\\ContDataQC_Vignette.html”
 
 ``` r
 vignette("ContDataQC_Vignette", package="ContDataQC")
@@ -222,7 +222,7 @@ above if dependent packages are not installed the vignette will fail to
 build. See above for installing packages.
 
 ``` r
-library(devtools)
+library(remotes)
 install_github("leppott/ContDataQC", force=TRUE, build_vignettes=TRUE)
 ```
 

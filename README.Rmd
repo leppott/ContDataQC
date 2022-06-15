@@ -39,8 +39,8 @@ logger with 30 minute intervals.
 To install the current version of the code from GitHub use the example below.
 
 ```{r Install_Basic, eval=FALSE}
-if(!require(devtools)){install.packages("devtools")}  #install if needed
-devtools::install_github("leppott/ContDataQC")
+if(!require(remotes)){install.packages("remotes")}  #install if needed
+remotes::install_github("leppott/ContDataQC")
 ```
 
 The vignette (big help file) isn't created when installing from GitHub with the 
@@ -51,8 +51,8 @@ existing install of the same version (e.g., the same version without the
 vignettes).
 
 ```{r Install_Vignette, eval=FALSE}
-if(!require(devtools)){install.packages("devtools")}  #install if needed
-devtools::install_github("leppott/ContDataQC", force = TRUE, build_vignettes = TRUE)
+if(!require(remotes)){install.packages("remotes")}  #install if needed
+remotes::install_github("leppott/ContDataQC", force = TRUE, build_vignettes = TRUE)
 ```
 
 If dependent libraries do not install you can install them separately.  This 
@@ -62,7 +62,7 @@ then retry installing ContDataQC.
 
 ```{r Pkg_CRAN, eval=FALSE}
 # libraries to be installed
-pkg <- c("devtools"        # install helper for non CRAN libraries
+pkg <- c("remotes"        # install helper for non CRAN libraries
         , "installr"       # install helper
         , "digest"         # caused error in R v3.2.3 without it
         , "dataRetrieval"  # loads USGS data into R
@@ -90,13 +90,13 @@ pkg <- c("devtools"        # install helper for non CRAN libraries
 lapply(pkg, function(x) install.packages(x))
 ```
 
-Non-CRAN packages have to be installed separately from GitHub using devtools.
+Non-CRAN packages have to be installed separately from GitHub using remotes.
 
 ```{r Pkg_GitHub, eval=FALSE}
-if(!require(devtools)){install.packages("devtools")}  #install if needed
+if(!require(remotes)){install.packages("remotes")}  #install if needed
 # non-CRAN packages
-devtools::install_github("jasonelaw/iha", force = TRUE, build_vignettes = TRUE)
-devtools::install_github("tsangyp/StreamThermal", force = TRUE, build_vignettes = TRUE)
+remotes::install_github("jasonelaw/iha", force = TRUE, build_vignettes = TRUE)
+remotes::install_github("tsangyp/StreamThermal", force = TRUE, build_vignettes = TRUE)
 ```
 
 Additionally Pandoc is required for creating the reports and needs to be 
@@ -210,7 +210,7 @@ dependent packages are not installed the vignette will fail to build.  See above
 for installing packages.
 
 ```{r Install_Vignette2, eval=FALSE}
-library(devtools)
+library(remotes)
 install_github("leppott/ContDataQC", force=TRUE, build_vignettes=TRUE)
 ```
 
