@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-09-15 15:58:28
+    #> Last Update: 2022-09-15 16:27:15
 
 # Version History
+
+## v2.0.7.9002
+
+2022-09-15
+
+-   update: update Shiny app
+    -   Change names of navbar tabs and order
 
 ## v2.0.7.9001
 

@@ -17,14 +17,14 @@
 # tab_FAQ      <- source("external/tab_FAQ.R", local = TRUE)$value
 
 tab_1Overview   <- source("external/tab_1Overview.R", local = TRUE)$value
-tab_2DataPrep   <- source("external/tab_2DataPrep.R", local = TRUE)$value
-tab_3QCThresh   <- source("external/tab_3QCThresh.R", local = TRUE)$value
-tab_4MainFunc   <- source("external/tab_4MainFunc.R", local = TRUE)$value
-tab_5USGSgage   <- source("external/tab_5USGSgage.R", local = TRUE)$value
-tab_6Console    <- source("external/tab_6Console.R", local = TRUE)$value
-tab_7TestData   <- source("external/tab_7TestData.R", local = TRUE)$value
-tab_8FAQ        <- source("external/tab_8FAQ.R", local = TRUE)$value
-tab_9Status     <- source("external/tab_9Status.R", local = TRUE)$value
+tab_3DataPrep   <- source("external/tab_3DataPrep.R", local = TRUE)$value
+tab_4QCThresh   <- source("external/tab_4QCThresh.R", local = TRUE)$value
+tab_5MainFunc   <- source("external/tab_5MainFunc.R", local = TRUE)$value
+tab_6USGSgage   <- source("external/tab_6USGSgage.R", local = TRUE)$value
+tab_7Console    <- source("external/tab_7Console.R", local = TRUE)$value
+tab_8TestData   <- source("external/tab_8TestData.R", local = TRUE)$value
+tab_2FAQ        <- source("external/tab_2FAQ.R", local = TRUE)$value
+#tab_9Status     <- source("external/tab_9Status.R", local = TRUE)$value
 
 
 # shinyUI(
@@ -347,14 +347,14 @@ shinyUI(
             </div>'
         ),
          tab_1Overview(),
-         tab_2DataPrep(),
-         tab_3QCThresh(),
-         tab_4MainFunc(),
-         tab_5USGSgage(),
-         tab_6Console(),
-         tab_7TestData(),
-         tab_8FAQ(),
-         tab_9Status(),
+         tab_2FAQ(),
+         tab_3DataPrep(),
+         tab_4QCThresh(),
+         tab_5MainFunc(),
+         tab_6USGSgage(),
+         tab_7Console(),
+         tab_8TestData(),
+         #tab_9Status(),
       ),
 
     # Individual Page Footer

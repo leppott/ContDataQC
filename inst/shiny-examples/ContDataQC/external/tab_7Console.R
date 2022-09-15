@@ -2,7 +2,7 @@
 
 function() {
 
-  tabPanel("6. Console"
+  tabPanel("7. Console"
            ,includeHTML("www/App_6Console.html")
            ,tableOutput("logText")
            ,tableOutput("logTextUSGS")

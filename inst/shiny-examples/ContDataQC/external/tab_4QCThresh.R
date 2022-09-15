@@ -2,7 +2,7 @@
 
 function() {
 
-  tabPanel("3. QC Thresholds"
+  tabPanel("4. QC Thresholds"
         , mainPanel(
           tabsetPanel(type = "tabs"
             , tabPanel("Default"

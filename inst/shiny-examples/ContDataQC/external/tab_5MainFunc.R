@@ -4,7 +4,7 @@
 
 function(){
 
-  tabPanel("4. Main functions"
+  tabPanel("5. Main functions"
            # _Instruct, buttons ----
            # Sidebar with inputs for app
            ,sidebarLayout(
@@ -50,7 +50,7 @@ function(){
                                     , includeHTML("www/App_4aMainFunc.html")
                                     , img(src = "Fig_Rpackage_v1_20210617.png"
                                           , height = 500, width = 800)
-                           ) # tabPanel ~END
+                           ) # tabPanel ~ Run Functions ~ END
 
                            , tabPanel("Check input file"
                                       ,includeHTML("www/App_4bMainFunc.html")
@@ -76,7 +76,9 @@ function(){
                                       #for the Aggregate process
                                       ,h4(textOutput("moreThanOneSite"))
 
-                           ) # tabPanel ~END
+                           ) # tabPanel ~ Check Input ~ END
+                           , tabPanel("QC Tips"
+                                      )# tabPanel ~ QC Tips ~ END
                ) # tabsetPanel ~ END
              ) # mainPanel ~ END
            ) # sidebarLayout ~ END

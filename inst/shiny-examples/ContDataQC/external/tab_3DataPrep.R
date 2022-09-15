@@ -2,7 +2,7 @@
 
 function() {
 
-  tabPanel("2. Data Preparation"
+  tabPanel("3. Data Preparation"
            , mainPanel(
              tabsetPanel(type = "tabs"
 
