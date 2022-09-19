@@ -5,6 +5,9 @@ always_allow_html: true
 output:
   html_fragment:
     toc: yes
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
@@ -19,37 +22,29 @@ if(boo_DEBUG==TRUE){
 
 # Test Data
 
-Click [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/TestData_Files) to access a folder with test data. The table below lists data that are currently available.
+Test data can be downloaded [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/TestData_Files). 
+The test data consist of two
+comma-separated values (CSV) files that came from Onset U20 water level
+loggers (non-vented pressure transducers) that were deployed in the air
+and water. The files are from the same site but cover two different time
+periods.
 
-### Test data and descriptions
-```{r table_1}
-library(readxl)
-library(knitr)
-library(kableExtra)
-# state directories
-table.dir <- "tables"
-table.file <- "App_Information_Tables.xlsx"
-tab7.dir <- "TestData_Table7"
 
-table7 <- read_excel(file.path(table.dir, table.file), sheet = tab7.dir
-                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
-                     , col_names = TRUE)  
+You'll see two sets of folders:
 
-options(knitr.kable.NA = '')
-# kable(table1)
-table7 %>% 
-  kbl() %>% 
-  kable_styling(full_width = F, position = "left")
-```
+-   **Test**
 
-**You’ll see two sets of folders:** 
+    -   The two files are in the Data0_Original folder and are ready to
+        be run through the HOBOware Reformat function. Next, run them
+        through the Main Functions to generate QC reports, aggregate the
+        two QC'd CSV files and summarize the data.
 
-* **TestData** 
-  + These files are ready for you to run through the Shiny app or R package. Start with the CSV files in the Data0_Original folder.
-  + If you want to try using HOBOware, you can find HOBOware data files in the ‘HOBOware files’ folder. If you don’t have access to HOBOware and are working with temperature data alone, you can try downloading the free version of HOBOware and it might work (https://www.onsetcomp.com/hoboware-free-download/). Otherwise you’ll need to purchase HOBOware Pro. 
-* **CompletedRuns**
-  + This folder has the complete set of outputs for each of the Test datasets. Outputs are in the Data1_RAW through Data4_SumStats folders. We included these outputs for people who want to see examples of the QC reports and other outputs without having to run the data through the tool themselves. If you try using the R tool with the test data, you might want to reference these files to verify that the outputs you generated during your test run(s) were complete.
+-   **Completed**
 
-We’ll post more test files as they become available. So far our focus has been on the temperature and hydrologic data being collected at Regional Monitoring Networks (RMNs) sites, along with the dissolved oxygen data being collected in lakes. You may also notice that a lot of our test data are from Onset HOBO sensors. This is not an endorsement of HOBO sensors. Rather it’s a reflection of the fact that many of our partners are using HOBO sensors. We’re happy to add test data for other parameters (like conductivity and pH) and other sensor types to the test data folder. Please send your files to Jen Stamp (Jen.Stamp@tetratech.com).
-
-This video provides an overview of the workflow you’ll follow when you do the test runs: **will send link later**
+    -   This folder has the complete set of outputs for both files. .so
+        that you can see examples of the QC reports and other outputs
+        without having to run the test data through the R tool yourself.
+        We are happy to add more test data to this website. If you have
+        example files that you would like to contribute, please send
+        them to Jen Stamp
+        ([Jen.Stamp\@tetratech.com](mailto:Jen.Stamp@tetratech.com){.email}).

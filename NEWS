@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-09-15 16:27:15
+    #> Last Update: 2022-09-19 14:48:33
 
 # Version History
+
+## v2.0.7.9003
+
+2022-09-16
+
+-   update: update Shiny app
+    -   Update text
 
 ## v2.0.7.9002
 
@@ -1132,7 +1139,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 -   Ensure the package can handle “LakeID\~Depth” as “SiteID”
     -   Add Lake delimiter to Config files.
-        -   ContData.env$myDelim_LakeID \<- “\~”
+        -   ContData.env\$myDelim_LakeID \<- “\~”
 -   Reporte_Aggregate.rmd
     -   Turn on ggplot for dual parameter plots.
 -   ContDataQC
@@ -1854,7 +1861,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 -   Added air and water pressure in psi to gage download.
     fun.GageData.R. 20170609.
 
--   ContData.env$myNames.Order missing new fields. Was dropping fields
+-   ContData.env\$myNames.Order missing new fields. Was dropping fields
     not included (e.g., gage height). config.R. 20170609.
 
 -   fun.QC.R missing QC routine for gage height. 20170609.
@@ -1993,7 +2000,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 -   zfun.ContDataQC.R. Add in “test4” data (offset times) to examples.
     20170515.
 
--   config.R. Fix typo in ContData.env$myName.GageHeight; missing “.”
+-   config.R. Fix typo in ContData.env\$myName.GageHeight; missing “.”
     between name and unites. 20170517.
 
 -   fun.QC.R. Line 1034 bad reference for difftime; renamed
@@ -2046,11 +2053,11 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
     printing to the console all 11 parameters being checked. 20170512.
 
 -   config.R;
-    ContData.env![myName.Turbidity modified value, ContData.env](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;myName.Turbidity%20modified%20value%2C%20ContData.env "myName.Turbidity modified value, ContData.env")myName.Chlorophylla
+    ContData.env$myName.Turbidity modified value, ContData.env$myName.Chlorophylla
     modified typo in name (and changed value),
-    ContData.env![myLab.Chlorophylla modified value typo, ContData.env](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;myLab.Chlorophylla%20modified%20value%20typo%2C%20ContData.env "myLab.Chlorophylla modified value typo, ContData.env")myThresh.RoC.SD.number.Chlorophylla
+    ContData.env$myLab.Chlorophylla modified value typo, ContData.env$myThresh.RoC.SD.number.Chlorophylla
     name fix,
-    ContData.env![myName.Flag.Chlorophylla name fix, ContData.env](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;myName.Flag.Chlorophylla%20name%20fix%2C%20ContData.env "myName.Flag.Chlorophylla name fix, ContData.env")myUnits.Chlorophylla
+    ContData.env$myName.Flag.Chlorophylla name fix, ContData.env$myUnits.Chlorophylla
     name fix. 20170512.
 
 -   Offset data files. Fix overall data flags for each parameters.
@@ -2126,7 +2133,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 -   Renamed fun.UserDefinedValues.R to env.UserDefinedValues.R.
 
--   Converted all RMD and R files in package to use ContData.env$.
+-   Converted all RMD and R files in package to use ContData.env\$.
 
 -   Added NEWS.md
 

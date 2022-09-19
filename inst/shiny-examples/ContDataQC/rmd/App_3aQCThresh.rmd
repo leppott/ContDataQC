@@ -19,13 +19,12 @@ if(boo_DEBUG==TRUE){
 
 # Default QC flag test thresholds
 
-Click [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Default_QC_Files) to download the default configuration file, which can be viewed in R or in Notepad.
-
 If a customized configuration file is not uploaded prior to running the QC function, the default thresholds and units listed below will be used for the four QC flag tests.
 
-The QC function runs each data point in the input file through the following four ‘flag’ tests.
+The QC function runs each data point in the input file through the following four 'flag' tests.
 
 ### Flag test descriptions
+
 ```{r table_1}
 library(readxl)
 library(knitr)
@@ -46,26 +45,36 @@ table3a1 %>%
   kable_styling(full_width = F, position = "left")
 ```
 
-The ‘flag’ tests were selected based on the following references:
+The 'flag' tests were selected based on the following references:
 
-* U.S. Integrated Ocean Observing System, 2017. Manual for the Use of Real-Time Oceanographic Data Quality Control Flags, Version 1.1. 43 pp. https://cdn.ioos.noaa.gov/media/2017/12/QARTOD-Data-Flags-Manual_Final_version1.1.pdf
+-   U.S. Integrated Ocean Observing System, 2017. Manual for the Use of Real-Time Oceanographic Data Quality Control Flags, Version 1.1. 43 pp. <https://cdn.ioos.noaa.gov/media/2017/12/QARTOD-Data-Flags-Manual_Final_version1.1.pdf>
 
-* Wagner, R.J., Boulger, R.W., Oblinger, C.J., Smith, B.A., 2006. Guidelines and Standard Procedures for Continuous Water-quality Monitors: Station Operation, Record Computation, and Data Reporting. U.S. Geological Survey Techniques and Methods 1-D3, 51 pp. þ 8 attachments. http://pubs.water.usgs.gov/tm1d3.
+-   Wagner, R.J., Boulger, R.W., Oblinger, C.J., Smith, B.A., 2006. Guidelines and Standard Procedures for Continuous Water-quality Monitors: Station Operation, Record Computation, and Data Reporting. U.S. Geological Survey Techniques and Methods 1-D3, 51 pp. þ 8 attachments. <http://pubs.water.usgs.gov/tm1d3>.
 
 R assigns the following flags to each data point:
 
-* P = Pass
-* S = Suspect
-* F = Fail
-* X = No Data or Not Applicable (NA)
+-   P = Pass
 
-The default thresholds were developed for temperature and hydrologic data in cool, medium to high gradient stream RMN sites in the eastern US. However, we had very little data to go on at the time and we strongly encourage people with one or more years of continuous data at a site to evaluate the performance of the QC test thresholds for each parameter at each site and customize the configuration file as needed (for more information, see the ‘Customize QC flag test thresholds’ tab). 
+-   S = Suspect
 
-Units are an important consideration as well. The default puts hydrologic parameters (like water level) in feet, which RMN partners generally seem to prefer for streams. However, with lakes, the RMN partners prefer to use meters. If units are changed from feet to meters but there isn’t a corresponding change in thresholds, the QC tests lose relevance.
+-   F = Fail
+
+-   X = No Data or Not Applicable (NA)
+
+The default thresholds for temperature are based on data from cool, freshwater, wadeable, medium to high gradient streams in the eastern US. Default thresholds for the hydrologic parameters, turbidity and chlorophyll-a are set very high since values vary widely depending on site-specific factors such as stream size. Once you have one or more years of continuous data at a site, we strongly encourage you to evaluate the performance of the QC test thresholds for each parameter and customize the thresholds as needed by editing the configuration file. For more information, see the 'Customize QC flag test thresholds' tab.
+
+Units are an important consideration as well. The default configuration puts hydrologic parameters (like water level) in feet, which is generally preferred for streams among RMN partners. However, with lakes, more people prefer meters. If units are changed from feet to meters but there is not a corresponding change in thresholds, the QC tests lose relevance.
+
+Configuration files can be downloaded here
+
+-   Default, with hydrologic parameters in feet
+
+-   Customized, with hydrologic parameters in meters
 
 This table shows the default QC test thresholds for each parameter as of 6/17/2021.
 
 ### Default QC test thresholds
+
 ```{r table_2}
 library(readxl)
 library(knitr)

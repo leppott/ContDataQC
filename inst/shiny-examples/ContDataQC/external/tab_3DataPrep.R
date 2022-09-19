@@ -7,17 +7,17 @@ function() {
              tabsetPanel(type = "tabs"
 
                          , tabPanel("Organizing files"
-                                    , includeHTML("www/App_2aDataPrep.html")
+                                    , includeHTML("www/RMD_HTML/App_2aDataPrep.html")
                          )## tabPanel ~ END
 
                          , tabPanel("Naming files"
-                                    , includeHTML("www/App_2bDataPrep.html")
+                                    , includeHTML("www/RMD_HTML/App_2bDataPrep.html")
                                     , img(src = "Fig_NamingFiles_v1_20210617.png"
                                           , height = 600, width = 1000)
                          )## tabPanel~ END
 
                          , tabPanel("Formatting files"
-                                    , includeHTML("www/App_2cDataPrep.html")
+                                    , includeHTML("www/RMD_HTML/App_2cDataPrep.html")
                          )## tabPanel ~ END
                           # Hoboware, reformat ----
                          , tabPanel("HOBOware Reformat"
@@ -48,7 +48,7 @@ function() {
                                         )# tags$div ~ END
                                       )# sidebarPanel~ END
                                       , mainPanel(
-                                        includeHTML("www/App_2dDataPrep.html")
+                                        includeHTML("www/RMD_HTML/App_2dDataPrep.html")
                                         , img(src = "Fig_HOBOreformat_v1_20210617.png"
                                               , height = 600, width = 1000)
                                       ) ## mainPanel ~ END
@@ -77,7 +77,7 @@ function() {
                                         )# tags$div ~ END
                                       )# sidebarPanel~ END
                                       , mainPanel(
-                                        includeHTML("www/App_2eDataPrep.html")
+                                        includeHTML("www/RMD_HTML/App_2eDataPrep.html")
 
                                       ) ## mainPanel ~ END
                                     )# sidebarLayout~ END
@@ -105,7 +105,7 @@ function() {
                                         )# tags$div ~ END
                                       )# sidebarPanel~ END
                                       , mainPanel(
-                                        includeHTML("www/App_2fDataPrep.html")
+                                        includeHTML("www/RMD_HTML/App_2fDataPrep.html")
 
                                       ) ## mainPanel ~ END
                                     )# sidebarLayout~ END

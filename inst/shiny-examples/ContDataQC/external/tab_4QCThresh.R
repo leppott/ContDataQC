@@ -6,7 +6,7 @@ function() {
         , mainPanel(
           tabsetPanel(type = "tabs"
             , tabPanel("Default"
-                       , includeHTML("www/App_3aQCThresh.html")
+                       , includeHTML("www/RMD_HTML/App_3aQCThresh.html")
             )## tabPanel ~ CURRENT ~ END
 
             , tabPanel("Evaluate Thresholds"

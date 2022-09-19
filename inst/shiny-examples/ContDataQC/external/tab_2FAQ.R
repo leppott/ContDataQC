@@ -4,7 +4,7 @@ function() {
 
   tabPanel("2. Frequent Questions"
            , mainPanel(
-             includeHTML("www/App_8FAQ.html")
+             includeHTML("www/RMD_HTML/App_8FAQ.html")
 
            )## mainPanel ~ END
   ) #tabPanel ~ END

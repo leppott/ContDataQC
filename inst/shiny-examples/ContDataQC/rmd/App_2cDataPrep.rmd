@@ -19,23 +19,32 @@ if(boo_DEBUG==TRUE){
 
 # Formatting Files
 
-Input files need to be formatted a specific way in order for the Shiny app and R package to work.
+Input files need to be formatted a specific way in order for the Shiny app and R package to work. Guidelines -
 
-Guidelines -
+-   Input files must be comma-delimited (CSV) (but not CSV UTF-8 files).
 
-* Input files must be comma-delimited (CSV) (but not CSV UTF-8 files).
-* The columns do not have to be in any specific order
-* There are two required fields: SiteID; and Date and Time
-* Acceptable entries for Date and Time are “Date Time” (one field) OR “Date” AND “Time” (in 2 separate fields) OR all 3 (in 3 fields)
-* If you're using the default [configuration file](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Formatting_Files), column names must match the capitalization, spelling and symbology shown in the table below (for example, R will not recognize ‘sensor depth ft’; it needs to be ‘Sensor Depth ft’)
-* You can have either periods or spaces in the column headings. For example, in the table below, air temperature is shown as ‘‘Air Temp C’ but it can also be entered as ‘Air.Temp.C’. 
-* In the table below, there are slashes in some of the units (like mg/L); instead of slashes, you can also use spaces or periods (e.g., DO.mg.L or DO mg L). Do NOT use parentheses.
-* Additional variables (beyond the ones show in the table below) can be added by modifying the [configuration file](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Formatting_Files); this requires more advanced R skills.
-* Optional fields include rowID, logger ID (serial number) and discrete measurements. Discrete (in situ) measurements can be entered for any parameter (just add ‘Discrete’ to the beginning of the column heading; for example, ‘Discrete Air Temp C’). The discrete data point will be included in the time series plots that are generated when the user runs the QC function.
+-   The columns do not have to be in any specific order
 
-If you are using Onset HOBO sensors, you can save time by using the automated reformat function (**see HOBO Reformat section**)
+-   There are two required fields: SiteID; and "Date Time" (with Date and Time combined into one field).
+
+-   If using the default configuration file, column names must match the capitalization, spelling and symbology shown in the table below (for example, R will not recognize 'sensor depth ft'; it needs to be 'Sensor Depth ft')
+
+-   Either periods or spaces in the column headings are acceptable. For example, in the table below, air temperature is shown as ''Air Temp C' but it can also be entered as 'Air.Temp.C'.
+
+-   For units, slashes, spaces or periods (e.g., DO mg/L, DO.mg.L or DO mg L) are acceptable. Do NOT use parentheses.
+
+-   Advanced R users can add new parameters (beyond the ones show in the table below) to the configuration file..
+
+-   Optional fields include rowID, logger ID (serial number) and discrete measurements. Discrete (in situ) measurements can be entered for any parameter (just add 'Discrete' to the beginning of the column heading; for example, 'Discrete Air Temp C'). The discrete data point will be included in the time series plots that are generated when the user runs the QC function. If using Onset HOBO sensors, you can save time by using the automated reformat function (**see HOBO Reformat section**)
+
+## OLD
+
+-   If you're using the default [configuration file](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Formatting_Files),
+
+[configuration file](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Formatting_Files);
 
 ### Data formatting information
+
 ```{r table_1}
 library(readxl)
 library(knitr)
@@ -55,4 +64,3 @@ table2c %>%
   kbl() %>% 
   kable_styling(full_width = F, position = "left")
 ```
-
