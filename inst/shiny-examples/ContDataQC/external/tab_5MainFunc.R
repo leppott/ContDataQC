@@ -4,7 +4,7 @@
 
 function(){
 
-  tabPanel("5. Main functions"
+  tabPanel("5. Main Functions"
            # _Instruct, buttons ----
            # Sidebar with inputs for app
            ,sidebarLayout(
@@ -47,13 +47,13 @@ function(){
 
                tabsetPanel(type="tabs"
                            ,tabPanel("Run functions"
-                                    , includeHTML("www/RMD_HTML/App_4aMainFunc.html")
+                                    , includeHTML("www/RMD_HTML/App_5aMainFunc.html")
                                     , img(src = "Fig_Rpackage_v1_20210617.png"
                                           , height = 500, width = 800)
                            ) # tabPanel ~ Run Functions ~ END
 
                            , tabPanel("Check input file"
-                                      ,includeHTML("www/RMD_HTML/App_4bMainFunc.html")
+                                      ,includeHTML("www/RMD_HTML/App_5bMainFunc.html")
                                       #Shows an empty table until files are input
                                       ,tableOutput("nullTable1")
                                       ,tableOutput("nullTable2")
@@ -78,7 +78,7 @@ function(){
 
                            ) # tabPanel ~ Check Input ~ END
                            , tabPanel("QC Tips"
-                                      ,includeHTML("www/RMD_HTML/App_4cMainFunc.html")
+                                      ,includeHTML("www/RMD_HTML/App_5cMainFunc.html")
                                       )# tabPanel ~ QC Tips ~ END
                ) # tabsetPanel ~ END
              ) # mainPanel ~ END

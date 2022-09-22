@@ -1,5 +1,5 @@
 ---
-title: "Data Preparation"
+title: "Data Preparation, 3c"
 date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
 always_allow_html: true
 output:
@@ -27,21 +27,15 @@ Input files need to be formatted a specific way in order for the Shiny app and R
 
 -   There are two required fields: SiteID; and "Date Time" (with Date and Time combined into one field).
 
--   If using the default configuration file, column names must match the capitalization, spelling and symbology shown in the table below (for example, R will not recognize 'sensor depth ft'; it needs to be 'Sensor Depth ft')
+-   If using the default [configuration file](Config_default.zip), column names must match the capitalization, spelling and symbology shown in the table below (for example, R will not recognize 'sensor depth ft'; it needs to be 'Sensor Depth ft')
 
 -   Either periods or spaces in the column headings are acceptable. For example, in the table below, air temperature is shown as ''Air Temp C' but it can also be entered as 'Air.Temp.C'.
 
 -   For units, slashes, spaces or periods (e.g., DO mg/L, DO.mg.L or DO mg L) are acceptable. Do NOT use parentheses.
 
--   Advanced R users can add new parameters (beyond the ones show in the table below) to the configuration file..
+-   Advanced R users can add new parameters (beyond the ones show in the table below) to the configuration file.
 
 -   Optional fields include rowID, logger ID (serial number) and discrete measurements. Discrete (in situ) measurements can be entered for any parameter (just add 'Discrete' to the beginning of the column heading; for example, 'Discrete Air Temp C'). The discrete data point will be included in the time series plots that are generated when the user runs the QC function. If using Onset HOBO sensors, you can save time by using the automated reformat function (**see HOBO Reformat section**)
-
-## OLD
-
--   If you're using the default [configuration file](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Formatting_Files),
-
-[configuration file](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Formatting_Files);
 
 ### Data formatting information
 

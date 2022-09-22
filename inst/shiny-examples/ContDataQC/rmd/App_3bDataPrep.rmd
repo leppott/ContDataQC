@@ -1,5 +1,5 @@
 ---
-title: "2b Naming Files"
+title: "3b Naming Files"
 date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
 always_allow_html: true
 output:
@@ -56,8 +56,9 @@ Example: RussWood--01M_TEMP_20130426_20130725
 Depth can include decimals (for example, 0.1M is ok) and does not need to 
 include leading zeros (either 01M or 1M are acceptable). Units can be upper or 
 lower case (M or m), and abbreviated (M) or spelled out (meters). You can change
-the double-dash separator if desired by customizing the [configuration file](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/Naming_Files)
-(for example, you could change it to a tilde ~).
+the double-dash separator if desired by customizing the 
+[configuration file](Config_default.zip) (for example, you could change it to a
+tilde ~).
 
 If you are using the Shiny app and have more than one type of sensor deployed at
 the same depth (for example, both a DO and temperature sensor at 2M), you can 
@@ -65,3 +66,5 @@ put the sensor type in the second part of the file name (for example, DataType =
 TEMP, as shown in the example above, or DataType = DO).
 
 Below are examples of files that follow the recommended naming scheme.
+
+![Example files following recommended naming scheme](RMD_Images/Fig_NamingFiles_v1_20210617.png)

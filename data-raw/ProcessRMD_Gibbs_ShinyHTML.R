@@ -52,3 +52,4 @@ file.copy(myFile
           , overwrite = TRUE)
 # Delete
 unlink(myFile)
+

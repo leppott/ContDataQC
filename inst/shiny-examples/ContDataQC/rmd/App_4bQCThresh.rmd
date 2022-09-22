@@ -1,0 +1,40 @@
+---
+title: "QC Thresholds 4b"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if(boo_DEBUG==TRUE){
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+## Evaluate Thresholds
+
+If you have one or more years of continuous data for a site, we strongly 
+encourage you to evaluate the performance of the QC test thresholds for each 
+parameter at that site and customize the configuration file if needed.
+
+Click [here](EvaluateThresholds.zip) for instructions on how to generate pivot 
+tables and plots to evaluate thresholds for the Unrealistic values ('Gross 
+range') and Spike tests. 
+
+Another option is to use R code written by Tim Martin (Minnesota DNR) to 
+generate statistical outputs that can help inform thresholds for all four QC 
+tests. Click [here](TimMartin_R_ThresholdEval.zip) to download the R scripts and
+instructions. 
+
+To aid with documentation of the threshold evaluation process, click [here](ThresholdsCheckWorksheet_20220826.xlsx) to download an Excel worksheet 
+that lists the default thresholds for each parameter and has a column where you 
+can enter the customized values for a given site as well as rationale for making
+the changes.  When doing this, make sure you consider what units you are using 
+(as well as what the defaults are), since units have a large effect on 
+thresholds.

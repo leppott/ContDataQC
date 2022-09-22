@@ -3,13 +3,22 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-09-19 14:48:33
+    #> Last Update: 2022-09-22 12:01:44
 
 # Version History
 
+## v2.0.7.9004
+
+2022-09-22
+
+-   update: update Shiny app
+    -   Update links
+    -   Remove (comment out) EPA template
+    -   Rearrange Console and Test Data tabs
+
 ## v2.0.7.9003
 
-2022-09-16
+2022-09-19
 
 -   update: update Shiny app
     -   Update text

@@ -22,13 +22,11 @@ if(boo_DEBUG==TRUE){
 
 # Test Data
 
-Test data can be downloaded [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/ContDataQC/TestData_Files). 
-The test data consist of two
-comma-separated values (CSV) files that came from Onset U20 water level
-loggers (non-vented pressure transducers) that were deployed in the air
-and water. The files are from the same site but cover two different time
-periods.
-
+Test data can be downloaded [here](TestData_HOBOU20_20220822.zip). 
+The test data consist of two comma-separated values (CSV) files that came from 
+Onset U20 water level loggers (non-vented pressure transducers) that were 
+deployed in the air and water. The files are from the same site but cover two 
+different time periods.
 
 You'll see two sets of folders:
 

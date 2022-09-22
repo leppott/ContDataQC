@@ -34,13 +34,13 @@ missed errors; and standardize data for further analysis and sharing. The figure
 below lays out the general workflow for using the ContDataQC R tools. Items in 
 bold blue text show functions that can be performed with ContDataQC.
 
-![ContDataQC Shiny App workflow](RMD_Images/1_Overview_workflow_figure.jpg)
+![ContDataQC Shiny App workflow](RMD_Images/1_Overview_workflow_figure.jpg){width=95%}
 
 To date, ContDataQC has been used primarily on continuous temperature and 
 hydrologic data but is also configured for conductivity, pH, turbidity, 
 chlorophyll-a and salinity. Users with advanced R skills can add any other 
-parameters that they desire by making edits to the <a href="www/Config_default.zip" target="_blank">configuration file</a>
-, which can be viewed in R or in Notepad. 
+parameters that they desire by making edits to the
+[configuration file](Config_default.zip), which can be viewed in R or in Notepad. 
 
 Development of the ContDataQC R tools has been funded by the United States 
 Environmental Protection Agency (EPA) Office of Research and Development (ORD) 

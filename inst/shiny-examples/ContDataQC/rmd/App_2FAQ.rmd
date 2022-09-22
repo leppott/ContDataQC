@@ -77,4 +77,8 @@ A: Not at this time. Currently, all USGS gages you enter will have data download
 
 **Q: Are you working on a Shiny app that offers more options for data summary and visualization?**
 
-A: Yes, a beta version of the ContDataSumViz app will come online in fall 2022. In addition, for lakes, the beta version of the LakeMonitoR R package and Shiny app are available.
+A: Yes, a beta version of the ContDataSumViz app will come online in fall 2022. In addition, for lakes, the beta version of the LakeMonitoR
+<a href="https://github.com/leppott/LakeMonitoR" target="_blank">R package</a>
+and
+<a href="https://tetratech-wtr-wne.shinyapps.io/LakeMonitoR" target="_blank">Shiny app</a>
+are available.

@@ -1,5 +1,5 @@
 ---
-title: "2d HOBOware reformat"
+title: "3d HOBOware reformat"
 date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
 always_allow_html: true
 output:
@@ -23,13 +23,13 @@ The HOBOware reformat function is for data files from Onset HOBO sensors. It con
 
 HOBO sensor files must first be opened with HOBOware software, then processed and exported as CSV files. If you follow these instructions, you will be able to run them through the reformat function without manipulation -
 
-*	HOBOware default settings
+*	[HOBOware default settings](HOBOware_DefaultSettings_20220824.pdf)
 
-*	Temperature (proV2)
+*	[Temperature (proV2)](HOBOware_Temperature_20220825.pdf)
 
-*	Water level (U20 series)
+*	[Water level (U20 series)](HOBOware_WaterLevel_U20_20220824.pdf)
 
-*	Dissolved oxygen (U26)
+*	[Dissolved oxygen (U26)](HOBOware_DO_20220824.pdf)
 
 ### Instructions
 
@@ -52,7 +52,7 @@ HOBO sensor files must first be opened with HOBOware software, then processed an
 
 *	Save the zipped file in the Data1_RAW folder
 
-*	Time-saver tip: if you use Google Chrome as your internet browser, you can change its settings so that it asks what folder to download files to (versus files going to the default Download folder). Click here for instructions on how to set this up. Your files are now ready to be run through the QC function!
+*	Time-saver tip: if you use Google Chrome as your internet browser, you can change its settings so that it asks what folder to download files to (versus files going to the default Download folder). Click [here](GoogleChrome_TimesaverTips.pdf) for instructions on how to set this up. Your files are now ready to be run through the QC function!
 Below are examples of what HOBO U20 CSV files look like before and after they are run through the reformat function. The reformat function does the following -
 
 *	Changes column headings as needed

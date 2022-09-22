@@ -3,7 +3,7 @@
 function() {
 
   tabPanel("7. Console"
-           ,includeHTML("www/RMD_HTML/App_6Console.html")
+           ,includeHTML("www/RMD_HTML/App_8Console.html")
            ,tableOutput("logText")
            ,tableOutput("logTextUSGS")
            ,tags$b(textOutput("logTextMessage"))
