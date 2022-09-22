@@ -2,7 +2,7 @@
 
 function() {
 
-  tabPanel("7. Console"
+  tabPanel("8. Console"
            ,includeHTML("www/RMD_HTML/App_8Console.html")
            ,tableOutput("logText")
            ,tableOutput("logTextUSGS")
