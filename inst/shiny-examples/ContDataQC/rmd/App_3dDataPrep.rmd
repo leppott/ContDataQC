@@ -1,0 +1,76 @@
+---
+title: "3d HOBOware reformat"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if(boo_DEBUG==TRUE){
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+# HOBOware Reformat
+
+The HOBOware reformat function is for data files from Onset HOBO sensors. It converts them to a format that is ready to run through the DataQC function. This saves you time and eliminates errors that sometimes occur when manually reformatting files.
+
+HOBO sensor files must first be opened with HOBOware software, then processed and exported as CSV files. If you follow these instructions, you will be able to run them through the reformat function without manipulation -
+
+*	[HOBOware default settings](HOBOware_DefaultSettings_20220824.pdf)
+
+*	[Temperature (proV2)](HOBOware_Temperature_20220825.pdf)
+
+*	[Water level (U20 series)](HOBOware_WaterLevel_U20_20220824.pdf)
+
+*	[Dissolved oxygen (U26)](HOBOware_DO_20220824.pdf)
+
+### Instructions
+
+*	Export CSV files from HOBOware (following the instructions above) and place them into the Data0_Original folder.
+
+*	Click the ‘Browse’ button and select the input file(s). You can run multiple files at once. The status bar will tell you when the upload is complete.
+
+*	Select the Date format in your input file (options: YMD, MDY, DMY)
+
+  +	Note: if you enter the wrong date format, the function will still run but 
+  your date field will be blank and you will not receive an error message. We 
+  recommend checking your output files to make sure the date field came through 
+  (as well as the other desired parameters; if those are not named correctly, 
+  they will be missing from the output file and you will not receive an error 
+  message).
+
+*	Click the ‘Reformat HOBOware file(s)’ button; a status bar will appear in the lower right corner.
+
+*	After the function is done running, a ‘Download’ button will appear. Click this button.
+
+*	Save the zipped file in the Data1_RAW folder
+
+*	Time-saver tip: if you use Google Chrome as your internet browser, you can change its settings so that it asks what folder to download files to (versus files going to the default Download folder). Click [here](GoogleChrome_TimesaverTips.pdf) for instructions on how to set this up. Your files are now ready to be run through the QC function!
+Below are examples of what HOBO U20 CSV files look like before and after they are run through the reformat function. The reformat function does the following -
+
+*	Changes column headings as needed
+
+*	Creates a new ‘SiteID’ column and populates it with the SiteID that it takes from the first part of the input file name (the SiteID should precede the first underscore in the file name)
+
+*	Creates RowID columns for air and water sensors
+
+*	Creates LoggerID fields for air and water sensors based on the LGR S/N entries in the column headings
+
+*	Removes the first row (Plot Title)
+
+If there is a problem with the input file, the screen will turn gray and it will say ‘disconnected from the server’ in the lower left.
+
+### Common errors
+
+*	Unwanted ‘logged’ text entries in the bottom row of the CSV. These occur if you forget to uncheck the ‘select internal logger events to plot’ boxes during Plot SetUp in HOBOware
+
+*	Two serial numbers in the column heading (you should only have one S/N; make sure under Preferences-Export settings, you only have the ‘include logger serial number’ box checked, NOT the ‘include sensor serial number or label if available’ box)
+
+

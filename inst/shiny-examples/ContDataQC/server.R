@@ -2,7 +2,7 @@
 #Written 2017 and 2018
 
 #Source of supporting functions
-source("global.R")
+#source("global.R")
 
 shinyServer(function(input, output, session) {
 

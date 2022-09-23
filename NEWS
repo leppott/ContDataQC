@@ -3,9 +3,45 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-06-15 17:44:13
+    #> Last Update: 2022-09-22 14:03:40
 
 # Version History
+
+## v2.0.7.9005
+
+2022-09-22
+
+-   update: update Shiny app
+    -   Fix numbered tabs 7 and 8
+
+## v2.0.7.9004
+
+2022-09-22
+
+-   update: update Shiny app
+    -   Update links
+    -   Remove (comment out) EPA template
+    -   Rearrange Console and Test Data tabs
+
+## v2.0.7.9003
+
+2022-09-19
+
+-   update: update Shiny app
+    -   Update text
+
+## v2.0.7.9002
+
+2022-09-15
+
+-   update: update Shiny app
+    -   Change names of navbar tabs and order
+
+## v2.0.7.9001
+
+2022-09-15
+
+-   style: Use EPA Template for shiny app
 
 ## v2.0.7
 
@@ -31,20 +67,20 @@ NEWS-ContDataQC
 
 2022-06-15
 
--   feature: Add miniDOT functions to Shiny, Issue #141
+-   feature: Add miniDOT functions to Shiny, Issue \#141
 
 ## v2.0.6.9025
 
 2022-06-07
 
--   fix: Modify config.R for salinity, Issue #138
+-   fix: Modify config.R for salinity, Issue \#138
     -   Update other copies in package
 
 ## v2.0.6.9024
 
 2022-05-31
 
--   fix: Modify flags so can handle all na, Issue #143
+-   fix: Modify flags so can handle all na, Issue \#143
     -   fun.QC.file.R
     -   fun.QC.R
     -   Report_QC.rmd
@@ -54,30 +90,30 @@ NEWS-ContDataQC
 
 2022-05-25
 
--   refactor: Update minidot_cat function, Issue #141
+-   refactor: Update minidot_cat function, Issue \#141
     -   Remove filename parameter and use serial number from input file
--   feature: Add format minidot function, Issue #141
+-   feature: Add format minidot function, Issue \#141
 
 ## v2.0.6.9022
 
 2022-05-25
 
--   refactor: Updates to minidot_cat function, Issue #141
+-   refactor: Updates to minidot_cat function, Issue \#141
 -   refactor: Add missing return value for help script line 937
 
 ## v2.0.6.9021
 
 2022-05-25
 
--   feature: Add miniDOT concatenate function, Issue #141
+-   feature: Add miniDOT concatenate function, Issue \#141
     -   Modified compile_do_folder.R from mnsentinellakes
 
 ## v2.0.6.9020
 
 2022-05-24
 
--   refactor: Update Report_QC.rmd used in Shiny app, Issue #117
--   feature: Prototype site data summary report, Issue #142
+-   refactor: Update Report_QC.rmd used in Shiny app, Issue \#117
+-   feature: Prototype site data summary report, Issue \#142
 -   feature: Add google analytics to Shiny app
 
 ## v2.0.6.9019
@@ -85,18 +121,18 @@ NEWS-ContDataQC
 2022-05-17
 
 -   fix: Update Report_QC.rmd table statements with useNA = ifany, Issue
-    #117
+    \#117
 -   fix: Add new parameters to QC routine
-    -   DO adj, Issue #117
-    -   DO pct sat, Issue #117
-    -   Salinity, Issue #138
+    -   DO adj, Issue \#117
+    -   DO pct sat, Issue \#117
+    -   Salinity, Issue \#138
 
 ## v2.0.6.9018
 
 2022-05-11
 
--   feature: Add salinity to config file, Issue #138
--   feature: Add salinity to config.out RMD, Issue #138
+-   feature: Add salinity to config file, Issue \#138
+-   feature: Add salinity to config.out RMD, Issue \#138
 
 ## v2.0.6.9017
 
@@ -117,7 +153,7 @@ NEWS-ContDataQC
 2022-04-14
 
 -   feature: Add new functions from Yadong for EMVL project
-    -   Pull request #137
+    -   Pull request \#137
 
 ## v2.0.6.9014
 
@@ -130,7 +166,7 @@ NEWS-ContDataQC
 2022-01-18
 
 -   fix: Update broken links in Shiny to Config_Lakes_Metric.R, Issue
-    #132
+    \#132
     -   Linux case sensitive and wasn’t working online
 -   refactor: Update text for readability in Shiny for Edit Thresholds
 
@@ -138,13 +174,13 @@ NEWS-ContDataQC
 
 2022-01-17
 
--   refactor: Update QC Thresholds tab text in Shiny, Issue #131
+-   refactor: Update QC Thresholds tab text in Shiny, Issue \#131
 
 ## v2.0.6.9011
 
 2022-01-17
 
--   refactor: Update QC Thresholds tab in Shiny, Issue #131
+-   refactor: Update QC Thresholds tab in Shiny, Issue \#131
     -   Change order and names of tabs
     -   Add Evaluate code as a download
 
@@ -152,14 +188,14 @@ NEWS-ContDataQC
 
 2021-12-22
 
--   fix: Updated custom config thresholds to handle quotes, Issue #130
+-   fix: Updated custom config thresholds to handle quotes, Issue \#130
 -   docs: Added Ben Block as contributor for work on custom thresholds
 
 ## v2.0.6.9009
 
 2021-12-22
 
--   fix: Duplicate entry in config file, Issue #130
+-   fix: Duplicate entry in config file, Issue \#130
     -   Updated all versions in package and shiny folders
     -   Chlorophylla spike thresholds duplicated
 
@@ -167,7 +203,7 @@ NEWS-ContDataQC
 
 2021-12-21
 
--   feature: Shiny, add custom thresholds for config file, Issue #130
+-   feature: Shiny, add custom thresholds for config file, Issue \#130
     -   merge pull request
 
 ## v2.0.6.9007
@@ -181,7 +217,7 @@ NEWS-ContDataQC
 2021-10-25
 
 -   fix: Update fun.Stats.R and fun.Stats.File.R to use WaterLevel
-    instead of GageHeight, Issue #124
+    instead of GageHeight, Issue \#124
 
 ## v2.0.6.9005
 
@@ -202,7 +238,7 @@ NEWS-ContDataQC
     -   Not all code just code relevant to current refactor item
 -   refactor: Shiny add all parameters to table on 4MainFunction,
     CheckInput tab
-    -   Issue #127
+    -   Issue \#127
 
 ## v2.0.6.9003
 
@@ -240,7 +276,7 @@ folder.
 2021-06-21
 
 -   refactor: Consolidate Shiny app updates from pull request, Issue
-    #126
+    \#126
 
 ## v2.0.5.9108
 
@@ -386,7 +422,7 @@ folder.
 
 2021-04-19
 
--   refactor: Remove extra columns from QC routine, Issue #123
+-   refactor: Remove extra columns from QC routine, Issue \#123
     -   fun.QC.R
     -   fun.QC.File.R
 
@@ -442,7 +478,7 @@ folder.
 
 2021-03-31
 
--   feature: Add custom config with metric units for Lakes, Issue #119
+-   feature: Add custom config with metric units for Lakes, Issue \#119
     -   extdata.Lakes.metric.R
 
 ## v2.0.5.9084
@@ -450,42 +486,43 @@ folder.
 2021-02-24
 
 -   feature: Shiny formatHobo add inputselect for date format, Issue
-    #117
+    \#117
 -   refactor: Shiny server.R remove full.names from zip routine
-    preventing proper construction of download zip file, Issue #109
+    preventing proper construction of download zip file, Issue \#109
 
 ## v2.0.5.9083
 
 2021-02-23
 
--   refactor: Fix date in example reformatHobo for DO file, Issue #117
+-   refactor: Fix date in example reformatHobo for DO file, Issue \#117
 -   refactor: Update reformatHobo date time conversion to account for no
-    seconds and 2 vs 4 digit years, Issue #117
+    seconds and 2 vs 4 digit years, Issue \#117
 
 ## v2.0.5.9082
 
 2021-02-23
 
 -   refactor: Shiny server, zip files add -j to strip folder names,
-    Issue #109
--   feature: Add additional DO parameters to config, Issue #117
--   refactor: Update other versions of config, Issue #117
+    Issue \#109
+-   feature: Add additional DO parameters to config, Issue \#117
+-   refactor: Update other versions of config, Issue \#117
 -   docs: Update README install directions
 -   docs: README, trim lines to 80 characters
 -   docs: Move planned updates from NEWS to README
--   refactor: Update Report_Config.rmd for new DO parameters, Issue #117
+-   refactor: Update Report_Config.rmd for new DO parameters, Issue
+    \#117
 -   refactor: Update Report_Config.rmd so sensor depth and water level
     are next to each other
--   refactor: Copy updated Report_Config.rmd to Shiny app, Issue #117
+-   refactor: Copy updated Report_Config.rmd to Shiny app, Issue \#117
 -   feature: Add additional DO parameters (n=3) to reformatHobo function
-    , Issue #117
+    , Issue \#117
 
 ## v2.0.5.9081
 
 2021-02-08
 
 -   refactor: Rework logger deployment start/end to use first non-NA
-    date time instead of first and last row; Issue #107
+    date time instead of first and last row; Issue \#107
     -   fun.QC.R
     -   fun.QC.File.R
 
@@ -499,33 +536,34 @@ folder.
 
 2021-02-04
 
--   refactor: Update config spike flags for water level, Issue #116
+-   refactor: Update config spike flags for water level, Issue \#116
     -   Update other versions of config
 
 ## v2.0.5.9078
 
 2021-02-04
 
--   refactor: Update Config_Template.zip in Shiny, Issue #116
+-   refactor: Update Config_Template.zip in Shiny, Issue \#116
 -   docs: Retain NEWS.md for pkgdown to build changelog
 
 ## v2.0.5.9077
 
 2021-02-04
 
--   refactor: Update thresholds in config.R for sensor depth, Issue #116
+-   refactor: Update thresholds in config.R for sensor depth, Issue
+    \#116
 
 ## v2.0.5.9076
 
 2021-02-04
 
 -   refactor: Modify “gross” check for water level, sensor depth, and
-    discharge , Issue #113
+    discharge , Issue \#113
     -   Was only checking for negative values
     -   Set to evaluate like all other measured values
     -   fun.Helper.R, fun.CalcQCStats()
 -   refactor: Update config.R comments for gross check as above, Issue
-    #113
+    \#113
     -   Update other copies of config
 -   refactor: Add missing spike thresholds for water level, config.R
 -   refactor: Set water level tests to values for sensor depth
@@ -535,9 +573,9 @@ folder.
 2021-01-27
 
 -   feature: Begin updates to add comparison of deployment periods,
-    Issue #108
+    Issue \#108
     -   Add helper functions for rquery.t.test()
--   feature: Add MonthDay to data during QC operation, Issue #111
+-   feature: Add MonthDay to data during QC operation, Issue \#111
 -   style: Trim some lines to 80 characters
     -   fun.Stats.R
 
@@ -546,7 +584,7 @@ folder.
 2021-01-25
 
 -   docs: Update example in ContDataQC for aggregating lake/depth files,
-    Issue #85
+    Issue \#85
 
 ## v2.0.5.9073
 
@@ -561,7 +599,7 @@ folder.
 2021-01-21
 
 -   refactor: Report_QC.rmd, add Water Level vs. Water Temp plots, Issue
-    #110
+    \#110
 -   style: Report_QC.rmd, trim lines to 80 characters
 -   refactor: Copy Report_QC.rmd to shiny
 
@@ -580,11 +618,11 @@ folder.
     -   PeriodStats
     -   Export.IHA of getwd() to save file
 -   feature: Create logger deployment column during QC routine, Issue
-    #107
+    \#107
     -   ContDataQC
     -   fun.QC
     -   fun.QC.File
--   feature: Add logger deployment to config.R, Issue #107
+-   feature: Add logger deployment to config.R, Issue \#107
     -   myName.LoggerDeployment
     -   myName.LoggerDeployment.start
     -   myName.LoggerDeployment.end
@@ -620,13 +658,13 @@ folder.
 
 2021-01-18
 
--   refactor: Add “RAW” columns for flags in QC step Issue #106
+-   refactor: Add “RAW” columns for flags in QC step Issue \#106
 
 ## v2.0.5.9067
 
 2021-01-18
 
--   refactor: Shiny server, turn off renameAggOutput, Issue #104
+-   refactor: Shiny server, turn off renameAggOutput, Issue \#104
 
 ## v2.0.5.9066
 
@@ -653,7 +691,7 @@ folder.
 
 2021-01-14
 
--   refactor: Rename custom config and add instructions, Issue #104
+-   refactor: Rename custom config and add instructions, Issue \#104
     -   Won’t work if use newenv() within custom file
 -   docs: Update text in config.out function about newenv()
 
@@ -685,7 +723,7 @@ folder.
 
 2021-01-08
 
--   feature: Update formatHobo to output water level, Issue #100
+-   feature: Update formatHobo to output water level, Issue \#100
 
 ## v2.0.5.9060
 
@@ -718,24 +756,24 @@ folder.
 
 2021-01-07
 
--   feature: Modify formatHobo to use water level, issue #100
+-   feature: Modify formatHobo to use water level, issue \#100
 
 ## v2.0.5.9056
 
 2021-01-07
 
--   feature: Add water level as a parameter for QC checks, Issue #100
+-   feature: Add water level as a parameter for QC checks, Issue \#100
 -   refactor: Remove gage height as a parameter for QC checks, Issue
-    #100
+    \#100
 -   feature: Modify USGS download to change gage height to water level,
-    Issue #100
+    Issue \#100
     -   Match HOBOware terminology (most of user base)
 -   style: Trim lines to 80 characters
     -   config.R
     -   fun.GageData.R  
     -   fun.Report.R
     -   fun.Report.File.R
--   fix: Update copies and version of config.R with edits, Issue #100
+-   fix: Update copies and version of config.R with edits, Issue \#100
     -   Package
         -   data.R
         -   inst.COOL
@@ -789,7 +827,7 @@ folder.
 
 -   chore: Pkgdown site
 -   chore: Config change default report format from HTML to DOCX, Issue
-    #102
+    \#102
     -   Update data/config.R
     -   Copy to inst/shiny-examples/ContDataQC/www
     -   Update inst/shiny-examples/ContDataQC/config.RMDdir.R
@@ -910,7 +948,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 -   Shiny, USGS gage data
     -   Add placeholder text for start and end dates (YYYY-MM-DD).
     -   Add console message output for QA testing.
-    -   Modify zip file name for download, Issue #98
+    -   Modify zip file name for download, Issue \#98
 
 ## v2.0.5.9040
 
@@ -936,13 +974,13 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2020-12-16
 
--   formatHobo, update help text, Issue #97
+-   formatHobo, update help text, Issue \#97
 
 ## v2.0.5.9037
 
 2020-12-16
 
--   Shiny app, add ContDataQC::formatHobo(), Issue #96.
+-   Shiny app, add ContDataQC::formatHobo(), Issue \#96.
     -   ui.R
     -   server.R
 
@@ -973,8 +1011,8 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 2020-12-11
 
 -   global.R and server.R
-    -   Fix Aggregate not working (file error), Issue #92
-    -   Fix file delete issues, Issue #93
+    -   Fix Aggregate not working (file error), Issue \#92
+    -   Fix file delete issues, Issue \#93
 
 ## v2.0.5.9033
 
@@ -1052,7 +1090,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2019-05-17
 
--   Fix for R v3.6.0 staged install, Issue #88.
+-   Fix for R v3.6.0 staged install, Issue \#88.
     -   DESCRIPTION
         -   Remove StagedInstall: no
     -   README
@@ -1066,14 +1104,14 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 2019-05-02
 
 -   DESCRIPTION
-    -   StagedInstall: no for R v3.6.0. Issue #88.
+    -   StagedInstall: no for R v3.6.0. Issue \#88.
 
 ## v2.0.5.9022
 
 2019-05-02
 
 -   DESCRIPTION
-    -   StagedInstall: false for R v3.6.0. Issue #88.
+    -   StagedInstall: false for R v3.6.0. Issue \#88.
 
 ## v2.0.5.9021
 
@@ -1094,7 +1132,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2019-03-26
 
--   Report_PeriodStats.rmd, Issue #76
+-   Report_PeriodStats.rmd, Issue \#76
     -   Points to lines.
     -   Add min/max shaded
 
@@ -1103,13 +1141,13 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 2019-03-07
 
 -   ReadMe
-    -   Add link for config file modifications. Issue #86
+    -   Add link for config file modifications. Issue \#86
 
 ## v2.0.5.9017
 
 2019-03-05
 
--   Vignette for editing config file. Issue #86
+-   Vignette for editing config file. Issue \#86
 
 ## v2.0.5.9016
 
@@ -1117,12 +1155,12 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 -   Ensure the package can handle “LakeID\~Depth” as “SiteID”
     -   Add Lake delimiter to Config files.
-        -   ContData.env$myDelim_LakeID \<- “\~”
+        -   ContData.env\$myDelim_LakeID \<- “\~”
 -   Reporte_Aggregate.rmd
     -   Turn on ggplot for dual parameter plots.
 -   ContDataQC
     -   Add example (and data) for File Aggregate with Lake data. Issue
-        #85.
+        \#85.
 -   Add a “Lakes” vignette.
 
 ## v2.0.5.9015
@@ -1137,20 +1175,20 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 2019-02-22
 
 -   Update code to allow for plots in PeriodStats Report to use ggplot.
-    Issues #83 and 84.
+    Issues \#83 and 84.
     -   Incomplete. Still using base graphics.
 
 ## v2.0.5.9013
 
 2019-02-21
 
--   Update plots in Aggregate Report to ggplot. Issues #83 and 84.
+-   Update plots in Aggregate Report to ggplot. Issues \#83 and 84.
 
 ## v2.0.5.9012
 
 2019-02-21
 
--   Update plots in QC Report to ggplot. Issues #83 and 84.
+-   Update plots in QC Report to ggplot. Issues \#83 and 84.
 -   Import files fix, na.strings=
     -   Use c(““,”NA”) not just ““.
 
@@ -1158,7 +1196,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2019-02-19
 
--   Export.rLakeAnalyzer, Issue #82
+-   Export.rLakeAnalyzer, Issue \#82
     -   Examples for rLakeAnalyzer functions:
         -   schmidt.plot
         -   ts.schmidt.stability
@@ -1169,7 +1207,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 -   Export.rLakeAnalyzer
     -   Add rLakeAnalyzer package DESCRIPTION under suggests.
-    -   Generate output function. Issue #82.
+    -   Generate output function. Issue \#82.
         -   Include example for rLakeAnalyzer::wtr.heat.map
         -   Added example plot of multiple depths using ggplot2.
 -   Added ggplot2 to DESCRIPTION suggests.
@@ -1185,7 +1223,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2019-01-17
 
--   Add shiny app to package, Issue #81
+-   Add shiny app to package, Issue \#81
 -   DESCRIPTION
     -   Add David Gibbs
     -   Add packages for Shiny and sort.
@@ -1194,7 +1232,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2019-01-17
 
--   Make report output optional in ContDataQC, Issue #80.
+-   Make report output optional in ContDataQC, Issue \#80.
     -   ContDataQC
 
 ## v2.0.5.9006
@@ -1216,13 +1254,13 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2019-01-09
 
--   formatHobo, deal with 2 digit years in Date Time field, Issue #75
+-   formatHobo, deal with 2 digit years in Date Time field, Issue \#75
 
 ## v2.0.5.9003
 
 2019-01-09
 
--   Configuration thresholds not displaying correctly, Issue #74.
+-   Configuration thresholds not displaying correctly, Issue \#74.
     -   Suspect gross hi value was reported incorrectly for all
         parameters.
     -   Used the gross fail low value.
@@ -1241,7 +1279,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2019-01-07
 
--   folder “Data0_Original”, Issue #73.
+-   folder “Data0_Original”, Issue \#73.
     -   Function ContDataQC
         -   So is the same as the formatHobo function.
     -   Update Vignette.
@@ -1283,7 +1321,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2018-12-05
 
--   Fix error introduced in v2.0.2.9013, Issue #68.
+-   Fix error introduced in v2.0.2.9013, Issue \#68.
 -   Moved fun.CalcQCStats from fun.QC.R to fun.Helper.R.
 
 ## v2.0.3
@@ -1296,13 +1334,13 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2018-12-04
 
--   Add formatHobo to Vignette. Issue #69
+-   Add formatHobo to Vignette. Issue \#69
 
 ## v2.0.2.9013
 
 2018-11-27
 
--   Fix file version of functions error. Issue #68
+-   Fix file version of functions error. Issue \#68
     -   zfun.ContDataQC.R
 
 ## v2.0.2.9012
@@ -1323,7 +1361,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2018-11-16
 
--   rarify, move to another package, Issue #67
+-   rarify, move to another package, Issue \#67
     -   Moved to separate package.  
         \_ <https://github.com/leppott/BioMonTools>
         -   BioMonTools is for bioassessment and biomonitoring.
@@ -1357,19 +1395,19 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 2018-11-14
 
 -   fun.Stats.R
-    -   Fix tapply arguments must have same length error. Issue # 60.
+    -   Fix tapply arguments must have same length error. Issue \# 60.
 
 ## v2.0.2.9006
 
 2018-11-14
 
--   Add links to issues in commit. Issues #57 and #59.
+-   Add links to issues in commit. Issues \#57 and \#59.
 
 ## v2.0.2.9005
 
 2018-11-14
 
--   Reports, Issue #57 and Issue #59.
+-   Reports, Issue \#57 and Issue \#59.
     -   Modify function to use a single report rather than one for each
         output format (docx and html).
         -   fun.Report.R
@@ -1401,7 +1439,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2018-11-09
 
--   Thresholds in QC Report, Issue #15
+-   Thresholds in QC Report, Issue \#15
     -   Report_QC.rmd
     -   Report_QC_docx.rmd
     -   Report_QC_html.rmd
@@ -1410,7 +1448,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2018-11-08
 
--   Configuration Report, Issue #15
+-   Configuration Report, Issue \#15
     -   Report_Config.rmd
         -   New report in RMD folder
     -   fun.ConfigOut.R
@@ -1421,7 +1459,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 2018-09-25
 
 -   Update help file for rarify. Make the same as BCGcalc::rarify. Issue
-    #65.
+    \#65.
 -   Still need to modify vignette.
 
 ## v2.0.2.9001
@@ -1429,7 +1467,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 2018-02-12
 
 -   Added parameter for RMD (report template) directory.
-    -   For Shiny (Issue #39) and custom reports. Includes error
+    -   For Shiny (Issue \#39) and custom reports. Includes error
         checking for no RMD file found.
 -   Added config.RMDdir.R to “extdata” as a test.
 
@@ -1459,7 +1497,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 2018-01-18
 
 -   Reports. Missed updating some headers. Searched all files
-    thoroughly. Issue #56.
+    thoroughly. Issue \#56.
 -   PeriodStats. Minor update to description in help file.
 
 ## v2.0.1.9060
@@ -1467,13 +1505,13 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 2018-01-18
 
 -   PeriodStats
-    -   Make example easier to follow. Issue #55.
+    -   Make example easier to follow. Issue \#55.
     -   Allow for use of config file for inclusion/exclusion of
-        parameter flag “fails”. Issue #54.
+        parameter flag “fails”. Issue \#54.
     -   Report to user in console number of fails removed.
     -   Added example with config file with exclude.fails = FALSE.
 -   Update some section headers in report RMD files. Add space between
-    pound sign and header text. Issue #56.
+    pound sign and header text. Issue \#56.
 -   Added more information to the header section of the PeriodStats
     report.
     -   Minimum date in file.
@@ -1485,7 +1523,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 -   No reproducible error with vignette not being present. Added code to
     ReadMe that forces the vignette to build on users computer when the
-    package is installed. Issue #49.
+    package is installed. Issue \#49.
 
 ## v2.0.1.9058
 
@@ -1554,8 +1592,8 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2017-11-29
 
--   Update “=” to “\<-” in Export.IHA example in function and
-    vignette. 20171129.
+-   Update “=” to “\<-” in Export.IHA example in function and vignette.
+    20171129.
 
 -   SummaryStats (File) example for non-ContDataQC file. Add minimum
     necessary fields to a USGS download. 20171129.
@@ -1584,8 +1622,8 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 -   Fix error in myReport.format and then examples. 20171115.
 
--   Renamed report RMD files and altered reference in
-    PeriodStats(). 20171115.
+-   Renamed report RMD files and altered reference in PeriodStats().
+    20171115.
 
 -   Added myReport.Format to config.R and set the default there rather
     than in code. 20171115.
@@ -1635,8 +1673,8 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 -   Add knitr:: to all kable commands in RMD files. Had error after
     moving knitr from Depends to Suggests. 20170928.
 
--   Renamed RMD files with ’ - ’ to ’\_’. Recommended in
-    check(). 20170928.
+-   Renamed RMD files with ’ - ’ to ’\_’. Recommended in check().
+    20170928.
 
 ## v2.0.1.9044
 
@@ -1777,8 +1815,8 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2017-08-23
 
--   Convert Reports from DOCX to HTML. Needed for use with
-    Shiny. 20170823.
+-   Convert Reports from DOCX to HTML. Needed for use with Shiny.
+    20170823.
 
 ## v2.0.1.9027
 
@@ -1796,14 +1834,14 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2017-07-31
 
--   Thresholds. Tweaked config.R. Issue #36. 20170731.
+-   Thresholds. Tweaked config.R. Issue \#36. 20170731.
 
 ## v2.0.1.9024
 
 2017-07-27
 
 -   Thresholds. Updated config.R with more informed thresholds after
-    working with more data. Issue #36. 20170728.
+    working with more data. Issue \#36. 20170728.
 
 -   DESCRIPTION. Added Jen Stamp as contributor and added my middle
     initial. 20170728.
@@ -1813,33 +1851,33 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 2017-06-22
 
 -   QC report (and aggregate report), fixed water temp vs. sensor depth
-    legend. Colors were swapped. Issue # 35. 20170622.
+    legend. Colors were swapped. Issue \# 35. 20170622.
 
 ## v2.0.1.9022
 
 2017-06-21
 
 -   QC report header for water temp and sensor depth says water level.
-    Fixed. Issue #34. 20170621.
+    Fixed. Issue \#34. 20170621.
 
 ## v2.0.1.9021
 
 2017-06-21
 
 -   Dec 31 not being assigned a season in summary stats. Fixed. Issue
-    #33. 20170621.
+    \#33. 20170621.
 
 ## v2.0.1.9020
 
 2017-06-09
 
--   QC of gage data not using all parameters present. Fixed. Issue
-    #32. 20170609.
+-   QC of gage data not using all parameters present. Fixed. Issue \#32.
+    20170609.
 
 -   Added air and water pressure in psi to gage download.
     fun.GageData.R. 20170609.
 
--   ContData.env$myNames.Order missing new fields. Was dropping fields
+-   ContData.env\$myNames.Order missing new fields. Was dropping fields
     not included (e.g., gage height). config.R. 20170609.
 
 -   fun.QC.R missing QC routine for gage height. 20170609.
@@ -1849,7 +1887,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 2017-06-07
 
 -   Updated data flow for “aggregate” step so the QC report is generated
-    “after” the compiled file is created. Issue #31. 20170607.
+    “after” the compiled file is created. Issue \#31. 20170607.
 
 ## v2.0.1.9018
 
@@ -1857,14 +1895,14 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 -   Updated main function to allow for a single file or a vector of
     files. New “file” versions of most scripts. Some updates to the
-    Reports (rmd files). Issue #24. 20170607.
+    Reports (rmd files). Issue \#24. 20170607.
 
 ## v2.0.1.9017
 
 2017-06-06
 
--   Report_QC.rmd. Correct typo in “Flags” descriptions. Issue
-    #28. 20170606.
+-   Report_QC.rmd. Correct typo in “Flags” descriptions. Issue \#28.
+    20170606.
 
 ## v2.0.1.9016
 
@@ -1903,8 +1941,8 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2017-05-24
 
--   fun.Gage.R. Changed variable “myTZ” to “fun.myTZ” for
-    consistency. 20170524.
+-   fun.Gage.R. Changed variable “myTZ” to “fun.myTZ” for consistency.
+    20170524.
 
 ## v2.0.1.9011
 
@@ -1935,21 +1973,21 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 -   Update “test4” dataset. Change “Water Level ft”” to “Sensor Depth
     ft”. 20170519.
 
--   Summary Stats quit with error. Fixed in summaryBy
-    statements. 20170519.
+-   Summary Stats quit with error. Fixed in summaryBy statements.
+    20170519.
 
 ## v2.0.1.9008
 
 2017-05-18
 
--   Add example for offset data for QC in main function
-    (ContDataQC()). 20170518.
+-   Add example for offset data for QC in main function (ContDataQC()).
+    20170518.
 
 -   Fix plots (legend) in Report_QC.R (remove box as it is only
     partially displaying). 20170518.
 
--   Config file. Update Sensor Depth and Water Pressure display
-    names. 20170518.
+-   Config file. Update Sensor Depth and Water Pressure display names.
+    20170518.
 
 -   Label code chunks in RMD files. 20170518.
 
@@ -1975,10 +2013,10 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2017-05-17
 
--   zfun.ContDataQC.R. Add in “test4” data (offset times) to
-    examples. 20170515.
+-   zfun.ContDataQC.R. Add in “test4” data (offset times) to examples.
+    20170515.
 
--   config.R. Fix typo in ContData.env$myName.GageHeight; missing “.”
+-   config.R. Fix typo in ContData.env\$myName.GageHeight; missing “.”
     between name and unites. 20170517.
 
 -   fun.QC.R. Line 1034 bad reference for difftime; renamed
@@ -2015,27 +2053,27 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
     not starting at the same time). Fixed fun.QC.R(fun.QC() and
     fun.CalcQCStats()) to account for this disparity. Previous iteration
     flagged every other row. Rows without data are no longer flagged
-    (unless the data at the regular time interval was
-    missing). 20170512.
+    (unless the data at the regular time interval was missing).
+    20170512.
 
 -   Applied fix from fun.QC.R for difftime to report markdown files;
-    Report_Aggregate.RMD, Report_Stats.RMD, and
-    Report_QC.RMD.. 20170512.
+    Report_Aggregate.RMD, Report_Stats.RMD, and Report_QC.RMD..
+    20170512.
 
 -   Modified example files in /data-raw/ to use “Sensor Depth” instead
-    of “Water Level”. Reran ProcessData scripts to recreate data
-    files. 20170512.
+    of “Water Level”. Reran ProcessData scripts to recreate data files.
+    20170512.
 
 -   fun.QC(); moved “Working” message inside of IF statement to only
     reports to user if that data type is present in the data. Avoids
     printing to the console all 11 parameters being checked. 20170512.
 
 -   config.R;
-    ContData.env![myName.Turbidity modified value, ContData.env](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;myName.Turbidity%20modified%20value%2C%20ContData.env "myName.Turbidity modified value, ContData.env")myName.Chlorophylla
+    ContData.env$myName.Turbidity modified value, ContData.env$myName.Chlorophylla
     modified typo in name (and changed value),
-    ContData.env![myLab.Chlorophylla modified value typo, ContData.env](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;myLab.Chlorophylla%20modified%20value%20typo%2C%20ContData.env "myLab.Chlorophylla modified value typo, ContData.env")myThresh.RoC.SD.number.Chlorophylla
+    ContData.env$myLab.Chlorophylla modified value typo, ContData.env$myThresh.RoC.SD.number.Chlorophylla
     name fix,
-    ContData.env![myName.Flag.Chlorophylla name fix, ContData.env](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;myName.Flag.Chlorophylla%20name%20fix%2C%20ContData.env "myName.Flag.Chlorophylla name fix, ContData.env")myUnits.Chlorophylla
+    ContData.env$myName.Flag.Chlorophylla name fix, ContData.env$myUnits.Chlorophylla
     name fix. 20170512.
 
 -   Offset data files. Fix overall data flags for each parameters.
@@ -2050,8 +2088,8 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 -   Fix development version from 2.0.1.0004 to 2.0.1.9004. 20170505.
 
--   Update Description with version number (last edit was
-    2.0.1.0000). 20170505.
+-   Update Description with version number (last edit was 2.0.1.0000).
+    20170505.
 
 ## v2.0.1.0003
 
@@ -2064,8 +2102,8 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 -   Changed WaterLevel to GageHeight in fun.GageData.R and added new
     parameter to config.R. Added to config.R with thresholds. 20170505.
 
--   Corrected flag names for Turbidity and Chlorophyll a;
-    config.R. 20170505.
+-   Corrected flag names for Turbidity and Chlorophyll a; config.R.
+    20170505.
 
 ## v2.0.1.0002
 
@@ -2081,8 +2119,8 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 -   Renamed env.UserDefinedValues.R to config.R. 20170421.
 
 -   Added “config” functions to load user configuration (e.g.,
-    thresholds specific to coldwater streams)
-    \[fun.CustomConfig.R\] 20170421.
+    thresholds specific to coldwater streams) \[fun.CustomConfig.R\]
+    20170421.
 
 -   Tweak Reports (Report_Aggregate.RMD, Report_QC.RMD, and
     Report_Stats.RMD) and fun.QC.R for determining time frequency for
@@ -2111,7 +2149,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 -   Renamed fun.UserDefinedValues.R to env.UserDefinedValues.R.
 
--   Converted all RMD and R files in package to use ContData.env$.
+-   Converted all RMD and R files in package to use ContData.env\$.
 
 -   Added NEWS.md
 

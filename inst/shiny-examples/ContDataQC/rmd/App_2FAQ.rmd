@@ -1,0 +1,84 @@
+---
+title: "FAQ"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if(boo_DEBUG==TRUE){
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+# Frequently asked questions
+
+**Q: Do I need R software installed on my computer to run the online version of the Shiny app?**
+
+A: No, only internet access is required.
+
+**Q: I have slow internet speed. Is there a way to run the Shiny app off my local computer to speed things up?**
+
+A: Yes, if you have R software installed on your computer, you can run ContDataQC as a Shiny app on your local computer and it will likely be faster.
+
+**Q: What internet browsers is this website compatible with?**
+
+A: It has been tested and run successfully with Google Chrome, Firefox and Microsoft Edge. It may be compatible with other browsers but they have not been tested. Google Chrome is most frequently used. It allows users to specify what folder to download files to, which can be a time saver.
+
+**Q: Why isn't my spreadsheet processing? The screen grays out and says 'disconnected from the server'.**
+
+A: Your input file may not be formatted correctly. Start by checking that. If you don't find anything, send your input file(s) and a copy of your error message to Erik Leppo ([Erik.Leppo\@tetratech.com](mailto:Erik.Leppo@tetratech.com){.email}) and he'll do his best to help you troubleshoot. It could also be the Shiny app. Sometimes after we fix or update one thing, something else stops working, or R software makes an update which throws something in our code off.
+
+**Q: Is there a size limit on how big a file (or files) I can upload?**
+
+A: The limit is currently set to 70 MB but we can increase that if needed (email Erik Leppo ([Erik.Leppo\@tetratech.com](mailto:Erik.Leppo@tetratech.com){.email}) with your request).
+
+**Q: What's the limit on the number of spreadsheets I can upload?**
+
+A: There is no limit but the more files you run at once, the longer the processing time. We find it's often faster and easier to run smaller batches (for example, 4 smaller batches of 1 to 5 files versus 20 files all at once) but it's up to the user.
+
+**Q: Can other people download my files from the website?**
+
+A: No, each time the application is run it is independent from all other versions. That is, each user has their own copy of the app. Once the browser is closed that version is removed from the server along with all of the uploaded data.
+
+**Q: Can multiple people use this website simultaneously?**
+
+A: Yes, because it is on a Shiny server, multiple people can use it at the same time.
+
+**Q: Can I use this website on my phone?**
+
+A: Mobile use of this app is possible. A tablet should be fine but the screen size of a phone may make it impractical.
+
+**Q: What if I run the aggregate function on input files with overlapping date ranges? Are all records (even duplicates) included in the output?**
+
+A: Yes, the Shiny app will include all records, even the duplicates. It is up to the user to identify when these situations are occurring and remove the duplicate rows before running the files through the various functions.
+
+**Q: What if there are discrepancies between the SiteID and date ranges in the file name versus what's in the actual file?**
+
+A: The tool will still work. The output file names will use the site IDs and date ranges in the input file names. The output spreadsheets themselves will use the site IDs and date ranges inside the files (i.e. the dates of the first and last rows of each input file). Nevertheless, it is good practice to have both things match.
+
+**Q: What will happen if I accidentally run the wrong process on my input files (e.g., you run the QC operation but had intended to run the Aggregate function)?**
+
+A: Either the tool won't run at all or it will produce output files with weird names (e.g., if you run the QC operation on files you've already run through the QC operation, you'll get output files that start with the name 'QC_QC\_').
+
+**Q: Can I change the QC test thresholds that the QC process uses?**
+
+A: Yes, visit the 'Customize QC Thresholds' tab.
+
+**Q: Can I simultaneously download data from different USGS gages for different time periods?**
+
+A: Not at this time. Currently, all USGS gages you enter will have data downloaded over the same time period.
+
+**Q: Are you working on a Shiny app that offers more options for data summary and visualization?**
+
+A: Yes, a beta version of the ContDataSumViz app will come online in fall 2022. In addition, for lakes, the beta version of the LakeMonitoR
+<a href="https://github.com/leppott/LakeMonitoR" target="_blank">R package</a>
+and
+<a href="https://tetratech-wtr-wne.shinyapps.io/LakeMonitoR" target="_blank">Shiny app</a>
+are available.

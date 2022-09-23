@@ -1,0 +1,149 @@
+
+
+
+<div id="qc-tips" class="section level1">
+<h1>QC Tips</h1>
+<p>Below are instructional materials and links to resources we have
+compiled as we continue to gain experience QCing continuous data. To
+date, we have worked primarily with thermal and hydrologic data, and
+more recently, dissolved oxygen data from lakes. The data are typically
+downloaded 2-4 times a year. We have not worked with ‘real-time’
+data.</p>
+<p>If you have any questions, feedback on ways to improve this process
+or suggestions on additional materials that you feel would be helpful to
+share, please contact Jen Stamp (<a href="mailto:Jen.Stamp@tetratech.com" class="email">Jen.Stamp@tetratech.com</a>).</p>
+<div id="data-corrections" class="section level2">
+<h2>Data corrections</h2>
+<p>If you are processing data for the RMNs, we are currently
+recommending the following approach</p>
+<ul>
+<li><p>If you are certain a data point is erroneous, delete the
+measurement and flag as ‘F’. If you are not sure, flag the data as ‘S’
+and do not delete. Let the people using the data decide whether to
+remove questionable measurements from their analysis.</p></li>
+<li><p>Document that you checked each point flagged as ‘F’ and ‘S’ by
+adding a data qualifier to the Comment column. Click <a href="DataQualifiers_20220210.xlsx">here</a> to download the list of
+data qualifiers currently being used by RMN partners.</p></li>
+<li><p>Leave missing data cells blank.</p></li>
+</ul>
+</div>
+<div id="workflow" class="section level2">
+<h2>Workflow</h2>
+<p>Click <a href="Workflow_QC_report_20220824.pdf">here</a> for
+recommendations on a workflow for reviewing the QC reports.</p>
+<p>If you have a backlog of data files from multiple deployments and are
+wondering how to most efficiently QC the files, <a href="Workflow_DataPileup_20220824.pdf">here</a> is a recommended
+workflow.</p>
+<p>Click <a href="SiteVisitChecklist.zip">here</a> for a site visit
+checklist to help ensure that you do not forget to document information
+that is important for the data QC process.</p>
+</div>
+<div id="sensor-configuration" class="section level2">
+<h2>Sensor configuration</h2>
+<p>Some people have had problems with air and water sensors being out of
+sync ( e.g., one records at 11:00 and the other records at 11:07). If
+you are deploying air and water sensors at a site, make sure they are
+recording at the same time. This will make data processing faster and
+easier. If you are using Onset HOBO sensors, click <a href="HOBO_ConfigLaunch_20170803.pdf">here</a> for tips on configuring
+them in a way that ensures they will record at the same time.</p>
+<p>Another issue that sometimes occurs is data overlap (where more than
+one file has measurements covering part of the same time periods). If
+you are using Onset HOBO sensors, click <a href="HOBO_DataDownload_20170823.pdf">here</a> for procedures to follow
+during data download to clear sensor memory and avoid overlapping
+data.</p>
+</div>
+<div id="accuracy-checks" class="section level2">
+<h2>Accuracy checks</h2>
+<p>Accuracy checks are comparisons of discrete or in situ measurements
+taken in the lab and/or in the field with sensor measurements from the
+closest date/time. The sensor measurement should be within the accuracy
+quoted by the manufacturer ( e.g., ±0.2°C if you are using the Onset
+HOBO proV2 sensor). Accuracy checks are used to validate your data, and
+in some cases, correct for sensor drift. Click <a href="EXAMPLE_AccuracyCheckWkst.xlsx">here</a> to download an example of
+an accuracy check worksheet being kept by an RMN partner.</p>
+</div>
+<div id="visual-checks-of-time-series-plots" class="section level2">
+<h2>Visual checks of time series plots</h2>
+<p>Visual checks of time series plots are an important part of the QC
+process. Click <a href="PlotQC_WatchList_20220824.pdf">here</a> to see a
+compilation of patterns to watch for when interpreting the plots. They
+include ice cover, beaver activity, leaf packs, dewatering, and dead
+batteries. We will continue to add slides to this as we receive
+materials.</p>
+</div>
+<div id="checking-sensor-data-against-other-data-sources" class="section level2">
+<h2>Checking sensor data against other data sources</h2>
+<p>This is optional but encouraged if time permits. Click <a href="Daymet_Wx_Gage.zip">here</a> for instructional materials from
+David Smith (Kentucky Division of Water) on how he has been downloading
+data from nearby weather stations and USGS gages, as well as modeled air
+temperature and precipitation data from Daymet (
+<a href="https://daymet.ornl.gov/getdata" target="_blank">https://daymet.ornl.gov/getdata</a>
+), and comparing those data to sensor measurements as part of his QC
+process.</p>
+</div>
+<div id="additional-resources" class="section level2">
+<h2>Additional resources</h2>
+<p><strong>Logger Processing App</strong></p>
+<p>Developed by Tim Martin at the Minnesota Department of Natural
+Resources for processing, organizing, and vetting continuous
+environmental logger data. It has the same QC flag tests as ContDataQC
+plus more, including an interactive plot that allows you to flag or
+unflag data points.</p>
+<p><a href="https://tetratech-wtr-wne.shinyapps.io/logger_processing/" target="_blank">https://tetratech-wtr-wne.shinyapps.io/logger_processing/</a></p>
+<p><strong>driftR, an R package that corrects drift in water quality
+data</strong></p>
+<p>It implements either one- or two-point variable data corrections
+based on the number of standards used to calibrate the sensor of
+interest, then linearly interpolates the correction over the period of
+interest.</p>
+<p><a href="https://shaughnessyar.github.io/driftR/" target="_blank">https://shaughnessyar.github.io/driftR/</a></p>
+<p>Shaughnessy, A.R., Prener, C.G. and E.A. Hasenmueller. 2019. An R
+package for correcting continuous water quality monitoring data for
+drift. Environmental Monitoring and Assessment 191, 445.
+<a href="https://doi.org/10.1007/s10661-019-7586-x" target="_blank">https://doi.org/10.1007/s10661-019-7586-x</a></p>
+<p><strong>R package for detecting outliers</strong></p>
+<p><a href="https://cran.r-project.org/web/packages/outliers/outliers.pdf" target="_blank">https://cran.r-project.org/web/packages/outliers/outliers.pdf</a></p>
+<p>Campulova, M., Campula, R. and J. Holesovsky. 2022. An R package for
+identification of outliers in environmental time series data.
+Environmental Modelling &amp; Software, Volume 155.
+<a href="https://www.sciencedirect.com/science/article/abs/pii/S1364815222001414" target="_blank">https://www.sciencedirect.com/science/article/abs/pii/S1364815222001414</a></p>
+</div>
+<div id="wish-list-items" class="section level2">
+<h2>Wish list items</h2>
+<p>Items that we want to add in the future when resources permit</p>
+<ul>
+<li><p>‘Transition’ check</p></li>
+<li><p>We’re finding most errors concentrated around the times when the
+sensors are being taken out of position for data download. If you’re
+only QCing individual files after each download, you’re not evaluating
+the transition between data from the previous file and the new file.
+This check would bring in data from 1-2 days prior to the start time of
+the file being evaluated and alert users to data points that need to be
+trimmed.</p></li>
+<li><p>Automatic adjustments to gross limit QC test thresholds based on
+season and depth</p></li>
+<li><p>Right now the gross limit QC test is pretty limited because it
+doesn’t capture seasonal differences without the user creating multiple
+customized configuration files (and then the user would need to break up
+the input files for each time period). We’d like to figure out a way to
+have the R code automatically adjust the upper and lower gross limit
+thresholds based on seasonal considerations, and for lakes, for it to
+also make adjustments to gross limit thresholds based on depth.</p></li>
+<li><p>Automated accuracy check</p></li>
+<li><p>Users would upload in-situ files and the R code would
+automatically match the in-situ measurements with the closest sensor
+measurement, calculate the difference between the two measurements and
+report whether the sensor is meeting accuracy specs.</p></li>
+<li><p>Drift correction</p></li>
+<li><p>We’d add a feature that automates drift corrections.</p></li>
+<li><p>Weather station check</p></li>
+<li><p>Users would upload weather station data and the R code would
+match the measurements with the sensor data, generate time series plots
+in which the measurements are overlaid on one another, and generate some
+basic statistical measures to compare the two sets of data.</p></li>
+<li><p>Daily range check (max-min)</p></li>
+<li><p>This QC check is used by the USFS NorWeST temperature sensor
+network. It would be added in as a new function.</p></li>
+</ul>
+</div>
+</div>

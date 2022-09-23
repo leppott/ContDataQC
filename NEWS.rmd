@@ -21,6 +21,37 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.7.9005
+2022-09-22
+
+* update: update Shiny app
+    + Fix numbered tabs 7 and 8
+
+## v2.0.7.9004
+2022-09-22
+
+* update: update Shiny app
+    + Update links
+    + Remove (comment out) EPA template
+    + Rearrange Console and Test Data tabs
+
+## v2.0.7.9003
+2022-09-19
+
+* update: update Shiny app
+    + Update text
+
+## v2.0.7.9002
+2022-09-15
+
+* update: update Shiny app
+    + Change names of navbar tabs and order
+
+## v2.0.7.9001
+2022-09-15
+
+* style: Use EPA Template for shiny app
+
 ## v2.0.7
 2022-06-15
 

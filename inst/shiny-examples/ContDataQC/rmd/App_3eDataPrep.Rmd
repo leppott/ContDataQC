@@ -1,0 +1,18 @@
+---
+title: "DataPrep_miniDOT_Cat, 3e"
+output: html_fragment
+---
+```{r setup, include=FALSE}
+# ---
+# title: "DataPrep_miniDOT_Cat"
+# date: '2022-06-01'
+# ---
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# miniDOT Concatenate
+
+This function merges daily Dissolved Oxygen data files downloaded from PME 
+miniDot DO loggers into a single multi-column CSV file. Use if the data were not
+compiled using the PME java app on the logger. The output should be downloaded 
+into the Data0_Original folder.
