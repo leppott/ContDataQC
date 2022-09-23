@@ -3,9 +3,21 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-09-22 14:03:40
+    #> Last Update: 2022-09-23 10:51:35
 
 # Version History
+
+## v2.0.7.9007 EPA_Template branch
+
+2022-09-23
+
+-   refactor: Swap default template for EPA format in Shiny app
+
+## v2.0.7.9006
+
+2022-09-23
+
+-   update: Merge EPA_Updates branch with main branch
 
 ## v2.0.7.9005
 
