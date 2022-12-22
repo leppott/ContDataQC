@@ -3,13 +3,20 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-12-22 13:07:40
+    #> Last Update: 2022-12-22 15:02:31
 
 # Version History
 
+## v2.0.7.9007
+
+2022-12-22
+
+- fix: Shiny custom edit thresholds
+  - Change default config to version without env statement
+
 ## v2.0.7.9006
 
-2022-12-20
+2022-12-22
 
 - update: Update Shiny app
   - QC Thresholds, Edit Thresholds, Issue \#148

@@ -29,7 +29,7 @@ tab_8Console    <- source("external/tab_8Console.R", local = TRUE)$value
 
 shinyUI(
   # VERSION, 1, current [non-EPA] ----
-  navbarPage("Continuous data QC, summary, and statistics - v2.0.7.9006",
+  navbarPage("Continuous data QC, summary, and statistics - v2.0.7.9007",
              theme= shinytheme("spacelab")
              ,tab_1Overview()
              ,tab_2FAQ()

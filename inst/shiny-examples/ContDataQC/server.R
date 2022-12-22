@@ -1318,7 +1318,7 @@ shinyServer(function(input, output, session) {
   # source("www/Config.R")
 
   # Read in dataset
-  df_Config <- read.table("www/Config.R", sep = "|", quote = "")
+  df_Config <- read.table("www/Config_Template.R", sep = "|", quote = "")
 
   # df_Config <- read.table("R/Config.R", sep = "|", quote = "")
 
