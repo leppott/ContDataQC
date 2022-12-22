@@ -1,4 +1,7 @@
 # Panel, QC Thresholds
+# Ben Block, 2021-06-16
+# Erik Leppo, 2022-12-19, add Gross boxes
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function() {
 
@@ -61,6 +64,28 @@ function() {
                          ) # sidebarPanel~ END
                          , mainPanel(width = 7
                                      , includeHTML("www/RMD_HTML/App_4cQCThresh.html")
+                                     , tags$hr()
+                                     , h4("Gross Thresholds")
+                                     , p(paste("Test if data point exceeds a user defind"
+                                               , "threshold."))
+                                     , fluidRow(
+                                        column(width = 2,
+                                                numericInput(inputId = "GR_Fail_Max"
+                                                             , label = "Fail (Hi)"
+                                                             , value = "1"))
+                                       ,column(width = 2,
+                                              numericInput(inputId = "GR_Fail_Min"
+                                                           , label = "Fail (Lo)"
+                                                           , value = "1"))
+                                       , column(width = 2,
+                                               numericInput(inputId = "GR_Sus_Max"
+                                                            , label = "Suspect (Hi)"
+                                                            , value = "1"))
+                                       , column(width = 2,
+                                               numericInput(inputId = "GR_Sus_Min"
+                                                            , label = "Suspect (Lo)"
+                                                            , value = "1"))
+                                     ) # fluidRow
                                      , tags$hr()
                                      , h4("Spike Thresholds")
                                      , p(paste("Test if data point exceeds a user defined"

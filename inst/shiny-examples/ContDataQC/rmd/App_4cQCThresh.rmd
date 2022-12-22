@@ -32,22 +32,7 @@ custom thresholds file, upload the file and then, under 'Main functions',
 generate the QC reports. If you forget the upload step, the default QC 
 thresholds will be used.
 
-### Option 1, use the interactive functions shown left and below.
-
-* Select a parameter using the drop-down menu
-
-* Edit thresholds using boxes below
-
-* Save changes (for each parameter)
-
-* Download custom thresholds file
-
-If you do not want to use the default units, you will need to use Option 2.
-
-Acknowledgment: Tim Martin (MN DNR) wrote the R code that we used for the 
-interactive functions below.
-
-### Option 2, download the default configuration file, open the file in R or Notepad++, make edits and save.
+### Option 1, download the default configuration file, open the file in R or Notepad++, make edits and save.
 
 Configuration files can be downloaded here -
 
@@ -66,3 +51,19 @@ which is a separate program but is a useful code editor and interface (IDE) for
 R. If you cannot install R on your computer, we recommend use Notepad or 
 <a href="https://notepad-plus-plus.org/downloads" target="_blank">Notepad++</a>
 (some people prefer Notepad++ because it has color-coding).
+
+
+### Option 2, use the interactive functions shown left and below.
+
+* Select a parameter using the drop-down menu
+
+* Edit thresholds using boxes below
+
+* Save changes (for each parameter)
+
+* Download custom thresholds file
+
+If you do not want to use the default units, you will need to use Option 2.
+
+Acknowledgment: Tim Martin (MN DNR) wrote the R code that we used for the 
+interactive functions below.

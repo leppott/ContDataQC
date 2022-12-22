@@ -1587,12 +1587,12 @@ shinyServer(function(input, output, session) {
 
       ### Chla ####
     } else if (input$QC_Param_Input == "Chla"){
-      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.Chlorophylla,3])
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla) #df_Config_react$df[Loc.Gross.Fail.Hi.Chlorophylla,3])
       updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.Chlorophylla,3])
-      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.Chlorophylla,3])
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla) #df_Config_react$df[Loc.Gross.Suspect.Hi.Chlorophylla,3])
       updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.Chlorophylla,3])
-      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.Chlorophylla,3])
-      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.Chlorophylla,3])
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.Chlorophylla) #df_Config_react$df[Loc.Spike.Hi.Chlorophylla,3])
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.Chlorophylla) #df_Config_react$df[Loc.Spike.Lo.Chlorophylla,3])
       updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.Chlorophylla,3])
       updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.Chlorophylla,3])
       updateNumericInput(session, "Flat_Fail", value = (df_Config_react$df[Loc.myDefault.Flat.Hi,3])*2)
@@ -1615,12 +1615,12 @@ shinyServer(function(input, output, session) {
 
       ### Discharge ####
     } else if (input$QC_Param_Input == "Discharge"){
-      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.Discharge,3])
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.Discharge) #df_Config_react$df[Loc.Gross.Fail.Hi.Discharge,3])
       updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.Discharge,3])
-      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.Discharge,3])
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.Discharge) #df_Config_react$df[Loc.Gross.Suspect.Hi.Discharge,3])
       updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.Discharge,3])
-      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.Discharge,3])
-      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.Discharge,3])
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.Discharge)# df_Config_react$df[Loc.Spike.Hi.Discharge,3])
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.Discharge) #df_Config_react$df[Loc.Spike.Lo.Discharge,3])
       updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.Discharge,3])
       updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.Discharge,3])
       updateNumericInput(session, "Flat_Fail", value = (df_Config_react$df[Loc.myDefault.Flat.Hi,3])*2)
@@ -1685,12 +1685,12 @@ shinyServer(function(input, output, session) {
 
       ### SensDepth ####
     } else if (input$QC_Param_Input == "SensDepth"){
-      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.SensorDepth,3])
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.SensorDepth) #df_Config_react$df[Loc.Gross.Fail.Hi.SensorDepth,3])
       updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.SensorDepth,3])
-      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.SensorDepth,3])
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth) #df_Config_react$df[Loc.Gross.Suspect.Hi.SensorDepth,3])
       updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.SensorDepth,3])
-      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.SensorDepth,3])
-      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.SensorDepth,3])
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.SensorDepth) #df_Config_react$df[Loc.Spike.Hi.SensorDepth,3])
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.SensorDepth) #df_Config_react$df[Loc.Spike.Lo.SensorDepth,3])
       updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.SensorDepth,3])
       updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.SensorDepth,3])
       updateNumericInput(session, "Flat_Fail", value = df_Config_react$df[Loc.Flat.Hi.SensorDepth,3])
@@ -1699,12 +1699,12 @@ shinyServer(function(input, output, session) {
 
       ### Turbid ####
     } else if (input$QC_Param_Input == "Turbid"){
-      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.Turbidity,3])
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.Turbidity) #df_Config_react$df[Loc.Gross.Fail.Hi.Turbidity,3])
       updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.Turbidity,3])
-      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.Turbidity,3])
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.Turbidity) #df_Config_react$df[Loc.Gross.Suspect.Hi.Turbidity,3])
       updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.Turbidity,3])
-      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.Turbidity,3])
-      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.Turbidity,3])
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.Turbidity) #df_Config_react$df[Loc.Spike.Hi.Turbidity,3])
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.Turbidity) #df_Config_react$df[Loc.Spike.Lo.Turbidity,3])
       updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.Turbidity,3])
       updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.Turbidity,3])
       updateNumericInput(session, "Flat_Fail", value = (df_Config_react$df[Loc.myDefault.Flat.Hi,3])*2)
@@ -1713,12 +1713,12 @@ shinyServer(function(input, output, session) {
 
       ### WtrLvl ####
     } else if (input$QC_Param_Input == "WtrLvl"){
-      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.SensorDepth,3])
-      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.SensorDepth,3])
-      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.SensorDepth,3])
-      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.SensorDepth,3])
-      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.SensorDepth,3])
-      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.SensorDepth,3])
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.WaterLevel) #df_Config_react$df[Loc.Gross.Fail.Hi.SensorDepth,3])
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.WaterLevel) #df_Config_react$df[Loc.Gross.Fail.Lo.SensorDepth,3])
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel) #df_Config_react$df[Loc.Gross.Suspect.Hi.SensorDepth,3])
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel) #df_Config_react$df[Loc.Gross.Suspect.Lo.SensorDepth,3])
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.WaterLevel) #df_Config_react$df[Loc.Spike.Hi.SensorDepth,3])
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.WaterLevel) #df_Config_react$df[Loc.Spike.Lo.SensorDepth,3])
       updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.WaterLevel,3])
       updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.WaterLevel,3])
       updateNumericInput(session, "Flat_Fail", value = df_Config_react$df[Loc.Flat.Hi.SensorDepth,3])

@@ -12,6 +12,7 @@
 # R version, Erik.Leppo@tetratech.com, 20150806
 #
 # 20170115, EWL, replace "NA" with NA (can happen with Excel)
+# 20221104, copied from ContDataQC
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @param fun.DateTime Date, Time, or DateTime data
 #' @param fun.dt.Type type of input; date, time, or date

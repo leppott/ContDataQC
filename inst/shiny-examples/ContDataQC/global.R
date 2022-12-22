@@ -28,7 +28,17 @@ options(shiny.maxRequestSize = 70 * 1024^2)
 dataTemplate <- read.csv(file = "continuous_data_template_2017_11_15.csv"
                          , header = TRUE)
 
-#Extracts properties of the input spreadsheets
+# Environment ----
+# Load default config if not present
+# 2020-10-02 (ContDataQC.R), added to global 2022-12-22
+if(exists("ContData.env", mode = "environment") == FALSE) {
+  source(system.file(package = "ContDataQC", "extdata", "config.ORIG.R")
+         , local = TRUE)
+}## exists ~ END
+
+# Functions ----
+
+##Extracts properties of the input spreadsheets
 fileParse <- function(inputFile) {
 
   #Extracts site ID, start and end dates, and record count.
