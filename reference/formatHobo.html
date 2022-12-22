@@ -18,7 +18,7 @@ Works on single files.  Imports, modifies, and saves the new file."><!-- mathjax
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.7.9006</span>
       </span>
     </div>
 
@@ -71,13 +71,13 @@ Works on single files.  Imports, modifies, and saves the new file.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">formatHobo</span><span class="op">(</span>
-  fun.myFile <span class="op">=</span> <span class="st">""</span>,
-  fun.myDir.import <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,
-  fun.myDir.export <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,
-  fun.HoboDateFormat <span class="op">=</span> <span class="cn">NULL</span>,
-  fun.myConfig <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">formatHobo</span><span class="op">(</span></span>
+<span>  fun.myFile <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  fun.myDir.import <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  fun.myDir.export <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  fun.HoboDateFormat <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fun.myConfig <span class="op">=</span> <span class="st">""</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -162,97 +162,97 @@ The default of NULL will not modify the date format.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Parameters</span></span>
-<span class="r-in"><span class="va">Selection.Operation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GetGageData"</span></span>
-<span class="r-in">                         , <span class="st">"QCRaw"</span></span>
-<span class="r-in">                         , <span class="st">"Aggregate"</span></span>
-<span class="r-in">                         , <span class="st">"SummaryStats"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Selection.Type</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Air"</span>, <span class="st">"Water"</span>, <span class="st">"AW"</span>, <span class="st">"Gage"</span>, <span class="st">"AWG"</span>, <span class="st">"AG"</span>, <span class="st">"WG"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Selection.SUB</span>       <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data0_Original"</span></span>
-<span class="r-in">                         , <span class="st">"Data1_RAW"</span></span>
-<span class="r-in">                         , <span class="st">"Data2_QC"</span></span>
-<span class="r-in">                         , <span class="st">"Data3_Aggregated"</span></span>
-<span class="r-in">                         , <span class="st">"Data4_Stats"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.BASE</span>          <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Create data directories</span></span>
-<span class="r-in"><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span>
-<span class="r-in">         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span>
-<span class="r-in">         , <span class="st">"Directory already exists"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span>
-<span class="r-in">         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span>
-<span class="r-in">         , <span class="st">"Directory already exists"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span>
-<span class="r-in">         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span>
-<span class="r-in">         , <span class="st">"Directory already exists"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span>
-<span class="r-in">         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span>
-<span class="r-in">         , <span class="st">"Directory already exists"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span>
-<span class="r-in">         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span>
-<span class="r-in">         , <span class="st">"Directory already exists"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Save example data (assumes directory ./Data0_Original/ exists)</span></span>
-<span class="r-in"><span class="va">fn_1</span> <span class="op">&lt;-</span> <span class="st">"Charlies_Air_20170726_20170926.csv"</span></span>
-<span class="r-in"><span class="va">fn_2</span> <span class="op">&lt;-</span> <span class="st">"Charlies_AW_20170726_20170926.csv"</span></span>
-<span class="r-in"><span class="va">fn_3</span> <span class="op">&lt;-</span> <span class="st">"Charlies_Water_20170726_20170926.csv"</span></span>
-<span class="r-in"><span class="va">fn_4</span> <span class="op">&lt;-</span> <span class="st">"ECO66G12_AW_20160128_20160418.csv"</span></span>
-<span class="r-in"><span class="va">fn_5</span> <span class="op">&lt;-</span> <span class="st">"EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">fn_1</span>, <span class="va">fn_2</span>, <span class="va">fn_3</span>, <span class="va">fn_4</span>, <span class="va">fn_5</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in">       <span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="va">x</span>, package<span class="op">=</span><span class="st">"ContDataQC"</span><span class="op">)</span></span>
-<span class="r-in">       , <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Function Inputs</span></span>
-<span class="r-in"><span class="va">myFiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Charlies_Air_20170726_20170926.csv"</span></span>
-<span class="r-in">             , <span class="st">"Charlies_AW_20170726_20170926.csv"</span></span>
-<span class="r-in">             , <span class="st">"Charlies_Water_20170726_20170926.csv"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data0_Original"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data1_RAW"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Run Function (with default config)</span></span>
-<span class="r-in"><span class="fu">formatHobo</span><span class="op">(</span><span class="va">myFiles</span>, <span class="va">myDir.import</span>, <span class="va">myDir.export</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># QC Data</span></span>
-<span class="r-in"><span class="va">myData.Operation</span> <span class="op">&lt;-</span> <span class="st">"QCRaw"</span> <span class="co">#Selection.Operation[2]</span></span>
-<span class="r-in"><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="va">myFiles</span></span>
-<span class="r-in"><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data1_RAW"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data2_QC"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myReport.format</span> <span class="op">&lt;-</span> <span class="st">"html"</span></span>
-<span class="r-in"><span class="fu"><a href="ContDataQC.html">ContDataQC</a></span><span class="op">(</span><span class="va">myData.Operation</span></span>
-<span class="r-in">          , fun.myDir.import <span class="op">=</span> <span class="va">myDir.import</span></span>
-<span class="r-in">          , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span></span>
-<span class="r-in">          , fun.myFile <span class="op">=</span> <span class="va">myFile</span></span>
-<span class="r-in">          , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># Example with unmodified dates</span></span>
-<span class="r-in"><span class="va">myFiles</span> <span class="op">&lt;-</span> <span class="st">"ECO66G12_AW_20160128_20160418.csv"</span></span>
-<span class="r-in"><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data0_Original"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data1_RAW"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">HoboDateFormat</span> <span class="op">&lt;-</span> <span class="st">"MDY"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Run Function (with default config)</span></span>
-<span class="r-in"><span class="fu">formatHobo</span><span class="op">(</span><span class="va">myFiles</span>, <span class="va">myDir.import</span>, <span class="va">myDir.export</span>, <span class="va">HoboDateFormat</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># Example with multiple DO fields</span></span>
-<span class="r-in"><span class="va">myFiles</span> <span class="op">&lt;-</span> <span class="st">"EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"</span></span>
-<span class="r-in"><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data0_Original"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data1_RAW"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">HoboDateFormat</span> <span class="op">&lt;-</span> <span class="st">"MDY"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Run Function (with default config)</span></span>
-<span class="r-in"><span class="fu">formatHobo</span><span class="op">(</span><span class="va">myFiles</span>, <span class="va">myDir.import</span>, <span class="va">myDir.export</span>, <span class="va">HoboDateFormat</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Parameters</span></span></span>
+<span class="r-in"><span><span class="va">Selection.Operation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GetGageData"</span></span></span>
+<span class="r-in"><span>                         , <span class="st">"QCRaw"</span></span></span>
+<span class="r-in"><span>                         , <span class="st">"Aggregate"</span></span></span>
+<span class="r-in"><span>                         , <span class="st">"SummaryStats"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Selection.Type</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Air"</span>, <span class="st">"Water"</span>, <span class="st">"AW"</span>, <span class="st">"Gage"</span>, <span class="st">"AWG"</span>, <span class="st">"AG"</span>, <span class="st">"WG"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Selection.SUB</span>       <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data0_Original"</span></span></span>
+<span class="r-in"><span>                         , <span class="st">"Data1_RAW"</span></span></span>
+<span class="r-in"><span>                         , <span class="st">"Data2_QC"</span></span></span>
+<span class="r-in"><span>                         , <span class="st">"Data3_Aggregated"</span></span></span>
+<span class="r-in"><span>                         , <span class="st">"Data4_Stats"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.BASE</span>          <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Create data directories</span></span></span>
+<span class="r-in"><span><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span></span>
+<span class="r-in"><span>         , <span class="st">"Directory already exists"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span></span>
+<span class="r-in"><span>         , <span class="st">"Directory already exists"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span></span>
+<span class="r-in"><span>         , <span class="st">"Directory already exists"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span></span>
+<span class="r-in"><span>         , <span class="st">"Directory already exists"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span></span>
+<span class="r-in"><span>         , <span class="st">"Directory already exists"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Save example data (assumes directory ./Data0_Original/ exists)</span></span></span>
+<span class="r-in"><span><span class="va">fn_1</span> <span class="op">&lt;-</span> <span class="st">"Charlies_Air_20170726_20170926.csv"</span></span></span>
+<span class="r-in"><span><span class="va">fn_2</span> <span class="op">&lt;-</span> <span class="st">"Charlies_AW_20170726_20170926.csv"</span></span></span>
+<span class="r-in"><span><span class="va">fn_3</span> <span class="op">&lt;-</span> <span class="st">"Charlies_Water_20170726_20170926.csv"</span></span></span>
+<span class="r-in"><span><span class="va">fn_4</span> <span class="op">&lt;-</span> <span class="st">"ECO66G12_AW_20160128_20160418.csv"</span></span></span>
+<span class="r-in"><span><span class="va">fn_5</span> <span class="op">&lt;-</span> <span class="st">"EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">fn_1</span>, <span class="va">fn_2</span>, <span class="va">fn_3</span>, <span class="va">fn_4</span>, <span class="va">fn_5</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="va">x</span>, package<span class="op">=</span><span class="st">"ContDataQC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>       , <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Function Inputs</span></span></span>
+<span class="r-in"><span><span class="va">myFiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Charlies_Air_20170726_20170926.csv"</span></span></span>
+<span class="r-in"><span>             , <span class="st">"Charlies_AW_20170726_20170926.csv"</span></span></span>
+<span class="r-in"><span>             , <span class="st">"Charlies_Water_20170726_20170926.csv"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data0_Original"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data1_RAW"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Run Function (with default config)</span></span></span>
+<span class="r-in"><span><span class="fu">formatHobo</span><span class="op">(</span><span class="va">myFiles</span>, <span class="va">myDir.import</span>, <span class="va">myDir.export</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># QC Data</span></span></span>
+<span class="r-in"><span><span class="va">myData.Operation</span> <span class="op">&lt;-</span> <span class="st">"QCRaw"</span> <span class="co">#Selection.Operation[2]</span></span></span>
+<span class="r-in"><span><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="va">myFiles</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data1_RAW"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data2_QC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myReport.format</span> <span class="op">&lt;-</span> <span class="st">"html"</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ContDataQC.html">ContDataQC</a></span><span class="op">(</span><span class="va">myData.Operation</span></span></span>
+<span class="r-in"><span>          , fun.myDir.import <span class="op">=</span> <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>          , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span></span></span>
+<span class="r-in"><span>          , fun.myFile <span class="op">=</span> <span class="va">myFile</span></span></span>
+<span class="r-in"><span>          , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Example with unmodified dates</span></span></span>
+<span class="r-in"><span><span class="va">myFiles</span> <span class="op">&lt;-</span> <span class="st">"ECO66G12_AW_20160128_20160418.csv"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data0_Original"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data1_RAW"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">HoboDateFormat</span> <span class="op">&lt;-</span> <span class="st">"MDY"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Run Function (with default config)</span></span></span>
+<span class="r-in"><span><span class="fu">formatHobo</span><span class="op">(</span><span class="va">myFiles</span>, <span class="va">myDir.import</span>, <span class="va">myDir.export</span>, <span class="va">HoboDateFormat</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Example with multiple DO fields</span></span></span>
+<span class="r-in"><span><span class="va">myFiles</span> <span class="op">&lt;-</span> <span class="st">"EXAMPLE_DO_RUSSWOOD--02M_DO_20180918_20190610.csv"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data0_Original"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data1_RAW"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">HoboDateFormat</span> <span class="op">&lt;-</span> <span class="st">"MDY"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Run Function (with default config)</span></span></span>
+<span class="r-in"><span><span class="fu">formatHobo</span><span class="op">(</span><span class="va">myFiles</span>, <span class="va">myDir.import</span>, <span class="va">myDir.export</span>, <span class="va">HoboDateFormat</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -267,7 +267,7 @@ The default of NULL will not modify the date format.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -20,7 +20,7 @@ with plots. Input is the ouput file of the QC operation of ContDataQC()."><!-- m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.7.9006</span>
       </span>
     </div>
 
@@ -75,22 +75,22 @@ with plots. Input is the ouput file of the QC operation of ContDataQC().</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PeriodStats</span><span class="op">(</span>
-  <span class="va">fun.myDate</span>,
-  fun.myDate.Format <span class="op">=</span> <span class="cn">NA</span>,
-  fun.myPeriod.N <span class="op">=</span> <span class="fl">30</span>,
-  fun.myPeriod.Units <span class="op">=</span> <span class="st">"d"</span>,
-  <span class="va">fun.myFile</span>,
-  fun.myDir.import <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,
-  fun.myDir.export <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,
-  <span class="va">fun.myParam.Name</span>,
-  fun.myDateTime.Name <span class="op">=</span> <span class="st">"Date.Time"</span>,
-  fun.myDateTime.Format <span class="op">=</span> <span class="cn">NA</span>,
-  fun.myThreshold <span class="op">=</span> <span class="cn">NA</span>,
-  fun.myConfig <span class="op">=</span> <span class="st">""</span>,
-  fun.myReport.format <span class="op">=</span> <span class="st">""</span>,
-  fun.myReport.Dir <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PeriodStats</span><span class="op">(</span></span>
+<span>  <span class="va">fun.myDate</span>,</span>
+<span>  fun.myDate.Format <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  fun.myPeriod.N <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  fun.myPeriod.Units <span class="op">=</span> <span class="st">"d"</span>,</span>
+<span>  <span class="va">fun.myFile</span>,</span>
+<span>  fun.myDir.import <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  fun.myDir.export <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">fun.myParam.Name</span>,</span>
+<span>  fun.myDateTime.Name <span class="op">=</span> <span class="st">"Date.Time"</span>,</span>
+<span>  fun.myDateTime.Format <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  fun.myThreshold <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  fun.myConfig <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  fun.myReport.format <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  fun.myReport.Dir <span class="op">=</span> <span class="st">""</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -196,105 +196,105 @@ report.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># Save example files from Package to use for example</span></span>
-<span class="r-in"><span class="co">## This step not needed for users working on their own files</span></span>
-<span class="r-in"><span class="va">df.x</span> <span class="op">&lt;-</span> <span class="va">DATA_period_test2_Aw_20130101_20141231</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">df.x</span>,<span class="st">"DATA_period_test2_Aw_20130101_20141231.csv"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"config.ExcludeFailsFalse.R"</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">path.package</a></span><span class="op">(</span><span class="st">"ContDataQC"</span><span class="op">)</span>, <span class="st">"extdata"</span>, <span class="va">myFile</span><span class="op">)</span></span>
-<span class="r-in">          , <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">myFile</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Save example files from Package to use for example</span></span></span>
+<span class="r-in"><span><span class="co">## This step not needed for users working on their own files</span></span></span>
+<span class="r-in"><span><span class="va">df.x</span> <span class="op">&lt;-</span> <span class="va">DATA_period_test2_Aw_20130101_20141231</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">df.x</span>,<span class="st">"DATA_period_test2_Aw_20130101_20141231.csv"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"config.ExcludeFailsFalse.R"</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">path.package</a></span><span class="op">(</span><span class="st">"ContDataQC"</span><span class="op">)</span>, <span class="st">"extdata"</span>, <span class="va">myFile</span><span class="op">)</span></span></span>
+<span class="r-in"><span>          , <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">myFile</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Load File to use for PeriodStats</span></span>
-<span class="r-in"><span class="va">myDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"DATA_period_test2_AW_20130101_20141231.csv"</span></span>
-<span class="r-in"><span class="va">df.x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir</span>, <span class="va">myFile</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMk2p0Z/DATA_period_test2_AW_20130101_20141231.csv': No such file or directory</span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Load File to use for PeriodStats</span></span></span>
+<span class="r-in"><span><span class="va">myDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"DATA_period_test2_AW_20130101_20141231.csv"</span></span></span>
+<span class="r-in"><span><span class="va">df.x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir</span>, <span class="va">myFile</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptjgOo3/DATA_period_test2_AW_20130101_20141231.csv': No such file or directory</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(file, "rt"):</span> cannot open the connection</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># function inputs</span></span>
-<span class="r-in"><span class="va">myDate</span> <span class="op">&lt;-</span> <span class="st">"2013-09-30"</span></span>
-<span class="r-in"><span class="va">myDate.Format</span> <span class="op">&lt;-</span> <span class="st">"%Y-%m-%d"</span></span>
-<span class="r-in"><span class="va">myPeriod.N</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">60</span>, <span class="fl">90</span>, <span class="fl">120</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myPeriod.Units</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"d"</span>, <span class="st">"d"</span>, <span class="st">"d"</span>, <span class="st">"d"</span>, <span class="st">"y"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"DATA_period_test2_Aw_20130101_20141231.csv"</span></span>
-<span class="r-in"><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myParam.Name</span> <span class="op">&lt;-</span> <span class="st">"Water.Temp.C"</span></span>
-<span class="r-in"><span class="va">myDateTime.Name</span> <span class="op">&lt;-</span> <span class="st">"Date.Time"</span></span>
-<span class="r-in"><span class="va">myDateTime.Format</span> <span class="op">&lt;-</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span></span>
-<span class="r-in"><span class="va">myThreshold</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
-<span class="r-in"><span class="va">myConfig</span> <span class="op">&lt;-</span> <span class="st">""</span></span>
-<span class="r-in"><span class="va">myReport.format</span> <span class="op">&lt;-</span> <span class="st">"docx"</span></span>
-<span class="r-in"><span class="co"># Custom Config</span></span>
-<span class="r-in"><span class="va">myConfig.Fail.Include</span>  <span class="op">&lt;-</span> <span class="st">"config.ExcludeFailsFalse.R"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Run Function</span></span>
-<span class="r-in"><span class="co">## Example 1. default report format (html)</span></span>
-<span class="r-in"><span class="fu">PeriodStats</span><span class="op">(</span><span class="va">myDate</span></span>
-<span class="r-in">          , <span class="va">myDate.Format</span></span>
-<span class="r-in">          , <span class="va">myPeriod.N</span></span>
-<span class="r-in">          , <span class="va">myPeriod.Units</span></span>
-<span class="r-in">          , <span class="va">myFile</span></span>
-<span class="r-in">          , <span class="va">myDir.import</span></span>
-<span class="r-in">          , <span class="va">myDir.export</span></span>
-<span class="r-in">          , <span class="va">myParam.Name</span></span>
-<span class="r-in">          , <span class="va">myDateTime.Name</span></span>
-<span class="r-in">          , <span class="va">myDateTime.Format</span></span>
-<span class="r-in">          , <span class="va">myThreshold</span></span>
-<span class="r-in">          , <span class="va">myConfig</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMk2p0Z).</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example 2. DOCX report format</span></span>
-<span class="r-in"><span class="fu">PeriodStats</span><span class="op">(</span><span class="va">myDate</span></span>
-<span class="r-in">          , <span class="va">myDate.Format</span></span>
-<span class="r-in">          , <span class="va">myPeriod.N</span></span>
-<span class="r-in">          , <span class="va">myPeriod.Units</span></span>
-<span class="r-in">          , <span class="va">myFile</span></span>
-<span class="r-in">          , <span class="va">myDir.import</span></span>
-<span class="r-in">          , <span class="va">myDir.export</span></span>
-<span class="r-in">          , <span class="va">myParam.Name</span></span>
-<span class="r-in">          , <span class="va">myDateTime.Name</span></span>
-<span class="r-in">          , <span class="va">myDateTime.Format</span></span>
-<span class="r-in">          , <span class="va">myThreshold</span></span>
-<span class="r-in">          , <span class="va">myConfig</span></span>
-<span class="r-in">          , <span class="va">myReport.format</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig, myReport.format):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMk2p0Z).</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example 3. DOCX report format and Include Flag Failures</span></span>
-<span class="r-in"><span class="fu">PeriodStats</span><span class="op">(</span><span class="va">myDate</span></span>
-<span class="r-in">          , <span class="va">myDate.Format</span></span>
-<span class="r-in">          , <span class="va">myPeriod.N</span></span>
-<span class="r-in">          , <span class="va">myPeriod.Units</span></span>
-<span class="r-in">          , <span class="va">myFile</span></span>
-<span class="r-in">          , <span class="va">myDir.import</span></span>
-<span class="r-in">          , <span class="va">myDir.export</span></span>
-<span class="r-in">          , <span class="va">myParam.Name</span></span>
-<span class="r-in">          , <span class="va">myDateTime.Name</span></span>
-<span class="r-in">          , <span class="va">myDateTime.Format</span></span>
-<span class="r-in">          , <span class="va">myThreshold</span></span>
-<span class="r-in">          , <span class="va">myConfig.Fail.Include</span></span>
-<span class="r-in">          , <span class="va">myReport.format</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig.Fail.Include, myReport.format):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMk2p0Z).</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example 4. DOCX report format with two parameters</span></span>
-<span class="r-in"><span class="va">myParam.Name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Water.Temp.C"</span>, <span class="st">"Sensor.Depth.ft"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">PeriodStats</span><span class="op">(</span><span class="va">myDate</span></span>
-<span class="r-in">          , <span class="va">myDate.Format</span></span>
-<span class="r-in">          , <span class="va">myPeriod.N</span></span>
-<span class="r-in">          , <span class="va">myPeriod.Units</span></span>
-<span class="r-in">          , <span class="va">myFile</span></span>
-<span class="r-in">          , <span class="va">myDir.import</span></span>
-<span class="r-in">          , <span class="va">myDir.export</span></span>
-<span class="r-in">          , <span class="va">myParam.Name</span></span>
-<span class="r-in">          , <span class="va">myDateTime.Name</span></span>
-<span class="r-in">          , <span class="va">myDateTime.Format</span></span>
-<span class="r-in">          , <span class="va">myThreshold</span></span>
-<span class="r-in">          , <span class="va">myConfig</span></span>
-<span class="r-in">          , <span class="va">myReport.format</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig, myReport.format):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMk2p0Z).</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># function inputs</span></span></span>
+<span class="r-in"><span><span class="va">myDate</span> <span class="op">&lt;-</span> <span class="st">"2013-09-30"</span></span></span>
+<span class="r-in"><span><span class="va">myDate.Format</span> <span class="op">&lt;-</span> <span class="st">"%Y-%m-%d"</span></span></span>
+<span class="r-in"><span><span class="va">myPeriod.N</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">60</span>, <span class="fl">90</span>, <span class="fl">120</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myPeriod.Units</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"d"</span>, <span class="st">"d"</span>, <span class="st">"d"</span>, <span class="st">"d"</span>, <span class="st">"y"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"DATA_period_test2_Aw_20130101_20141231.csv"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myParam.Name</span> <span class="op">&lt;-</span> <span class="st">"Water.Temp.C"</span></span></span>
+<span class="r-in"><span><span class="va">myDateTime.Name</span> <span class="op">&lt;-</span> <span class="st">"Date.Time"</span></span></span>
+<span class="r-in"><span><span class="va">myDateTime.Format</span> <span class="op">&lt;-</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span></span></span>
+<span class="r-in"><span><span class="va">myThreshold</span> <span class="op">&lt;-</span> <span class="fl">20</span></span></span>
+<span class="r-in"><span><span class="va">myConfig</span> <span class="op">&lt;-</span> <span class="st">""</span></span></span>
+<span class="r-in"><span><span class="va">myReport.format</span> <span class="op">&lt;-</span> <span class="st">"docx"</span></span></span>
+<span class="r-in"><span><span class="co"># Custom Config</span></span></span>
+<span class="r-in"><span><span class="va">myConfig.Fail.Include</span>  <span class="op">&lt;-</span> <span class="st">"config.ExcludeFailsFalse.R"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Run Function</span></span></span>
+<span class="r-in"><span><span class="co">## Example 1. default report format (html)</span></span></span>
+<span class="r-in"><span><span class="fu">PeriodStats</span><span class="op">(</span><span class="va">myDate</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDate.Format</span></span></span>
+<span class="r-in"><span>          , <span class="va">myPeriod.N</span></span></span>
+<span class="r-in"><span>          , <span class="va">myPeriod.Units</span></span></span>
+<span class="r-in"><span>          , <span class="va">myFile</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDir.export</span></span></span>
+<span class="r-in"><span>          , <span class="va">myParam.Name</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDateTime.Name</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDateTime.Format</span></span></span>
+<span class="r-in"><span>          , <span class="va">myThreshold</span></span></span>
+<span class="r-in"><span>          , <span class="va">myConfig</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptjgOo3).</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example 2. DOCX report format</span></span></span>
+<span class="r-in"><span><span class="fu">PeriodStats</span><span class="op">(</span><span class="va">myDate</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDate.Format</span></span></span>
+<span class="r-in"><span>          , <span class="va">myPeriod.N</span></span></span>
+<span class="r-in"><span>          , <span class="va">myPeriod.Units</span></span></span>
+<span class="r-in"><span>          , <span class="va">myFile</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDir.export</span></span></span>
+<span class="r-in"><span>          , <span class="va">myParam.Name</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDateTime.Name</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDateTime.Format</span></span></span>
+<span class="r-in"><span>          , <span class="va">myThreshold</span></span></span>
+<span class="r-in"><span>          , <span class="va">myConfig</span></span></span>
+<span class="r-in"><span>          , <span class="va">myReport.format</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig, myReport.format):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptjgOo3).</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example 3. DOCX report format and Include Flag Failures</span></span></span>
+<span class="r-in"><span><span class="fu">PeriodStats</span><span class="op">(</span><span class="va">myDate</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDate.Format</span></span></span>
+<span class="r-in"><span>          , <span class="va">myPeriod.N</span></span></span>
+<span class="r-in"><span>          , <span class="va">myPeriod.Units</span></span></span>
+<span class="r-in"><span>          , <span class="va">myFile</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDir.export</span></span></span>
+<span class="r-in"><span>          , <span class="va">myParam.Name</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDateTime.Name</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDateTime.Format</span></span></span>
+<span class="r-in"><span>          , <span class="va">myThreshold</span></span></span>
+<span class="r-in"><span>          , <span class="va">myConfig.Fail.Include</span></span></span>
+<span class="r-in"><span>          , <span class="va">myReport.format</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig.Fail.Include, myReport.format):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptjgOo3).</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example 4. DOCX report format with two parameters</span></span></span>
+<span class="r-in"><span><span class="va">myParam.Name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Water.Temp.C"</span>, <span class="st">"Sensor.Depth.ft"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">PeriodStats</span><span class="op">(</span><span class="va">myDate</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDate.Format</span></span></span>
+<span class="r-in"><span>          , <span class="va">myPeriod.N</span></span></span>
+<span class="r-in"><span>          , <span class="va">myPeriod.Units</span></span></span>
+<span class="r-in"><span>          , <span class="va">myFile</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDir.export</span></span></span>
+<span class="r-in"><span>          , <span class="va">myParam.Name</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDateTime.Name</span></span></span>
+<span class="r-in"><span>          , <span class="va">myDateTime.Format</span></span></span>
+<span class="r-in"><span>          , <span class="va">myThreshold</span></span></span>
+<span class="r-in"><span>          , <span class="va">myConfig</span></span></span>
+<span class="r-in"><span>          , <span class="va">myReport.format</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PeriodStats(myDate, myDate.Format, myPeriod.N, myPeriod.Units,     myFile, myDir.import, myDir.export, myParam.Name, myDateTime.Name,     myDateTime.Format, myThreshold, myConfig, myReport.format):</span> Provided file (DATA_period_test2_Aw_20130101_20141231.csv) does not exist in the provided import directory (/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptjgOo3).</span>
 </code></pre></div>
     </div>
   </div>
@@ -309,7 +309,7 @@ report.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

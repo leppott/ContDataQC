@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.7.9006</span>
       </span>
     </div>
 
@@ -69,21 +69,21 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ContDataQC</span><span class="op">(</span>
-  <span class="va">fun.myData.Operation</span>,
-  <span class="va">fun.myData.SiteID</span>,
-  <span class="va">fun.myData.Type</span>,
-  <span class="va">fun.myData.DateRange.Start</span>,
-  <span class="va">fun.myData.DateRange.End</span>,
-  fun.myDir.import <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,
-  fun.myDir.export <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,
-  fun.myConfig <span class="op">=</span> <span class="st">""</span>,
-  fun.myFile <span class="op">=</span> <span class="st">""</span>,
-  fun.myReport.format <span class="op">=</span> <span class="st">""</span>,
-  fun.myReport.Dir <span class="op">=</span> <span class="st">""</span>,
-  fun.CreateReport <span class="op">=</span> <span class="cn">TRUE</span>,
-  fun.AddDeployCol <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ContDataQC</span><span class="op">(</span></span>
+<span>  <span class="va">fun.myData.Operation</span>,</span>
+<span>  <span class="va">fun.myData.SiteID</span>,</span>
+<span>  <span class="va">fun.myData.Type</span>,</span>
+<span>  <span class="va">fun.myData.DateRange.Start</span>,</span>
+<span>  <span class="va">fun.myData.DateRange.End</span>,</span>
+<span>  fun.myDir.import <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  fun.myDir.export <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  fun.myConfig <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  fun.myFile <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  fun.myReport.format <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  fun.myReport.Dir <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  fun.CreateReport <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  fun.AddDeployCol <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -193,87 +193,87 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Examples of each operation</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 00. Set up</span></span>
-<span class="r-in"><span class="co"># Parameters</span></span>
-<span class="r-in"><span class="va">Selection.Operation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GetGageData"</span></span>
-<span class="r-in">                         , <span class="st">"QCRaw"</span></span>
-<span class="r-in">                         , <span class="st">"Aggregate"</span></span>
-<span class="r-in">                         , <span class="st">"SummaryStats"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Selection.Type</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Air"</span>,<span class="st">"Water"</span>,<span class="st">"AW"</span>,<span class="st">"Gage"</span>,<span class="st">"AWG"</span>,<span class="st">"AG"</span>,<span class="st">"WG"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Selection.SUB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data0_Original"</span></span>
-<span class="r-in">                   , <span class="st">"Data1_RAW"</span></span>
-<span class="r-in">                   , <span class="st">"Data2_QC"</span></span>
-<span class="r-in">                   , <span class="st">"Data3_Aggregated"</span></span>
-<span class="r-in">                   , <span class="st">"Data4_Stats"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># create and print temp directory for example data</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMk2p0Z"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Create data directories</span></span>
-<span class="r-in"><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span>
-<span class="r-in">         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span>
-<span class="r-in">         , <span class="st">"Directory already exists"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Examples of each operation</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 00. Set up</span></span></span>
+<span class="r-in"><span><span class="co"># Parameters</span></span></span>
+<span class="r-in"><span><span class="va">Selection.Operation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GetGageData"</span></span></span>
+<span class="r-in"><span>                         , <span class="st">"QCRaw"</span></span></span>
+<span class="r-in"><span>                         , <span class="st">"Aggregate"</span></span></span>
+<span class="r-in"><span>                         , <span class="st">"SummaryStats"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Selection.Type</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Air"</span>,<span class="st">"Water"</span>,<span class="st">"AW"</span>,<span class="st">"Gage"</span>,<span class="st">"AWG"</span>,<span class="st">"AG"</span>,<span class="st">"WG"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Selection.SUB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data0_Original"</span></span></span>
+<span class="r-in"><span>                   , <span class="st">"Data1_RAW"</span></span></span>
+<span class="r-in"><span>                   , <span class="st">"Data2_QC"</span></span></span>
+<span class="r-in"><span>                   , <span class="st">"Data3_Aggregated"</span></span></span>
+<span class="r-in"><span>                   , <span class="st">"Data4_Stats"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># create and print temp directory for example data</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptjgOo3"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Create data directories</span></span></span>
+<span class="r-in"><span><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span></span>
+<span class="r-in"><span>         , <span class="st">"Directory already exists"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span>
-<span class="r-in">         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span>
-<span class="r-in">         , <span class="st">"Directory already exists"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span></span>
+<span class="r-in"><span>         , <span class="st">"Directory already exists"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span>
-<span class="r-in">         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span>
-<span class="r-in">         , <span class="st">"Directory already exists"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span></span>
+<span class="r-in"><span>         , <span class="st">"Directory already exists"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span>
-<span class="r-in">         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span>
-<span class="r-in">         , <span class="st">"Directory already exists"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span></span>
+<span class="r-in"><span>         , <span class="st">"Directory already exists"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span>
-<span class="r-in">         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span>
-<span class="r-in">         , <span class="st">"Directory already exists"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">myDir.create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span> <span class="op">==</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>         , <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">myDir.create</span><span class="op">)</span></span></span>
+<span class="r-in"><span>         , <span class="st">"Directory already exists"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Save example data (assumes myDir.BASE directory exists)</span></span>
-<span class="r-in"><span class="va">myData</span> <span class="op">&lt;-</span> <span class="va">data_raw_test2_AW_20130426_20130725</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">myData</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span></span>
-<span class="r-in">                              , <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
-<span class="r-in">                              , <span class="st">"test2_AW_20130426_20130725.csv"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myData</span> <span class="op">&lt;-</span> <span class="va">data_raw_test2_AW_20130725_20131015</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">myData</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span></span>
-<span class="r-in">                              , <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
-<span class="r-in">                              , <span class="st">"test2_AW_20130725_20131015.csv"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myData</span> <span class="op">&lt;-</span> <span class="va">data_raw_test2_AW_20140901_20140930</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">myData</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span></span>
-<span class="r-in">                              , <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
-<span class="r-in">                              , <span class="st">"test2_AW_20140901_20140930.csv"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myData</span> <span class="op">&lt;-</span> <span class="va">data_raw_test4_AW_20160418_20160726</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">myData</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span></span>
-<span class="r-in">                              , <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
-<span class="r-in">                              , <span class="st">"test4_AW_20160418_20160726.csv"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"config.TZ.Central.R"</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">path.package</a></span><span class="op">(</span><span class="st">"ContDataQC"</span><span class="op">)</span>, <span class="st">"extdata"</span>, <span class="va">myFile</span><span class="op">)</span></span>
-<span class="r-in">            , <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">myFile</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Save example data (assumes myDir.BASE directory exists)</span></span></span>
+<span class="r-in"><span><span class="va">myData</span> <span class="op">&lt;-</span> <span class="va">data_raw_test2_AW_20130426_20130725</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">myData</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span></span></span>
+<span class="r-in"><span>                              , <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span>                              , <span class="st">"test2_AW_20130426_20130725.csv"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myData</span> <span class="op">&lt;-</span> <span class="va">data_raw_test2_AW_20130725_20131015</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">myData</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span></span></span>
+<span class="r-in"><span>                              , <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span>                              , <span class="st">"test2_AW_20130725_20131015.csv"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myData</span> <span class="op">&lt;-</span> <span class="va">data_raw_test2_AW_20140901_20140930</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">myData</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span></span></span>
+<span class="r-in"><span>                              , <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span>                              , <span class="st">"test2_AW_20140901_20140930.csv"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myData</span> <span class="op">&lt;-</span> <span class="va">data_raw_test4_AW_20160418_20160726</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">myData</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span></span></span>
+<span class="r-in"><span>                              , <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span>                              , <span class="st">"test4_AW_20160418_20160726.csv"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"config.TZ.Central.R"</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">path.package</a></span><span class="op">(</span><span class="st">"ContDataQC"</span><span class="op">)</span>, <span class="st">"extdata"</span>, <span class="va">myFile</span><span class="op">)</span></span></span>
+<span class="r-in"><span>            , <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">myFile</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 01.A. Get Gage Data</span></span>
-<span class="r-in"><span class="va">myData.Operation</span>       <span class="op">&lt;-</span> <span class="st">"GetGageData"</span> <span class="co">#Selection.Operation[1]</span></span>
-<span class="r-in"><span class="va">myData.SiteID</span>          <span class="op">&lt;-</span> <span class="st">"01187300"</span> <span class="co"># Hubbard River near West Hartland, CT</span></span>
-<span class="r-in"><span class="va">myData.Type</span>            <span class="op">&lt;-</span> <span class="va">Selection.Type</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> <span class="co">#"Gage"</span></span>
-<span class="r-in"><span class="va">myData.DateRange.Start</span> <span class="op">&lt;-</span> <span class="st">"2013-01-01"</span></span>
-<span class="r-in"><span class="va">myData.DateRange.End</span>   <span class="op">&lt;-</span> <span class="st">"2014-12-31"</span></span>
-<span class="r-in"><span class="va">myDir.import</span>           <span class="op">&lt;-</span> <span class="st">""</span></span>
-<span class="r-in"><span class="va">myDir.export</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span>
-<span class="r-in">           , <span class="va">myData.SiteID</span></span>
-<span class="r-in">           , <span class="va">myData.Type</span></span>
-<span class="r-in">           , <span class="va">myData.DateRange.Start</span></span>
-<span class="r-in">           , <span class="va">myData.DateRange.End</span></span>
-<span class="r-in">           , <span class="va">myDir.import</span></span>
-<span class="r-in">           , <span class="va">myDir.export</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 01.A. Get Gage Data</span></span></span>
+<span class="r-in"><span><span class="va">myData.Operation</span>       <span class="op">&lt;-</span> <span class="st">"GetGageData"</span> <span class="co">#Selection.Operation[1]</span></span></span>
+<span class="r-in"><span><span class="va">myData.SiteID</span>          <span class="op">&lt;-</span> <span class="st">"01187300"</span> <span class="co"># Hubbard River near West Hartland, CT</span></span></span>
+<span class="r-in"><span><span class="va">myData.Type</span>            <span class="op">&lt;-</span> <span class="va">Selection.Type</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> <span class="co">#"Gage"</span></span></span>
+<span class="r-in"><span><span class="va">myData.DateRange.Start</span> <span class="op">&lt;-</span> <span class="st">"2013-01-01"</span></span></span>
+<span class="r-in"><span><span class="va">myData.DateRange.End</span>   <span class="op">&lt;-</span> <span class="st">"2014-12-31"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span>           <span class="op">&lt;-</span> <span class="st">""</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.SiteID</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.Type</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.DateRange.Start</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.DateRange.End</span></span></span>
+<span class="r-in"><span>           , <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>           , <span class="va">myDir.export</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Total items to process = 1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Getting available data; 01187300."</span>
@@ -291,34 +291,34 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 <span class="r-out co"><span class="r-pr">#&gt;</span> 531       NGVD29 01080207           uv   00060    &lt;NA&gt; 66866         NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 532       NGVD29 01080207           uv   00065    &lt;NA&gt; 66867         NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     medium_grp_cd parm_grp_cd   srs_id access_cd begin_date   end_date count_nu</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 530           wat        &lt;NA&gt;  1645597         0 2015-11-04 2022-06-09     2409</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 531           wat        &lt;NA&gt;  1645423         0 1990-10-01 2022-06-15    11580</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 532           wat        &lt;NA&gt; 17164583         0 2007-10-01 2022-06-15     5371</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 530           wat        &lt;NA&gt;  1645597         0 2015-11-04 2018-08-08     1008</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 531           wat        &lt;NA&gt;  1645423         0 1990-10-01 2022-12-22    11770</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 532           wat        &lt;NA&gt; 17164583         0 2007-10-01 2022-12-22     5561</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 1 of 1, COMPLETE, 01187300."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE; 0.31 min."</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 01.B. Get Gage Data (central time zone)</span></span>
-<span class="r-in"><span class="va">myData.Operation</span>       <span class="op">&lt;-</span> <span class="st">"GetGageData"</span> <span class="co">#Selection.Operation[1]</span></span>
-<span class="r-in"><span class="va">myData.SiteID</span>          <span class="op">&lt;-</span> <span class="st">"07032000"</span> <span class="co"># Mississippi River at Memphis, TN</span></span>
-<span class="r-in"><span class="va">myData.Type</span>            <span class="op">&lt;-</span> <span class="va">Selection.Type</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> <span class="co">#"Gage"</span></span>
-<span class="r-in"><span class="va">myData.DateRange.Start</span> <span class="op">&lt;-</span> <span class="st">"2013-01-01"</span></span>
-<span class="r-in"><span class="va">myData.DateRange.End</span>   <span class="op">&lt;-</span> <span class="st">"2014-12-31"</span></span>
-<span class="r-in"><span class="va">myDir.import</span>           <span class="op">&lt;-</span> <span class="st">""</span></span>
-<span class="r-in"><span class="va">myDir.export</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># include path if not in working directory</span></span>
-<span class="r-in"><span class="va">myConfig</span>               <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
-<span class="r-in">                                    , <span class="st">"config.TZ.central.R"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span>
-<span class="r-in">           , <span class="va">myData.SiteID</span></span>
-<span class="r-in">           , <span class="va">myData.Type</span></span>
-<span class="r-in">           , <span class="va">myData.DateRange.Start</span></span>
-<span class="r-in">           , <span class="va">myData.DateRange.End</span></span>
-<span class="r-in">           , <span class="va">myDir.import</span></span>
-<span class="r-in">           , <span class="va">myDir.export</span></span>
-<span class="r-in">           , <span class="va">myConfig</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE; 0.22 min."</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 01.B. Get Gage Data (central time zone)</span></span></span>
+<span class="r-in"><span><span class="va">myData.Operation</span>       <span class="op">&lt;-</span> <span class="st">"GetGageData"</span> <span class="co">#Selection.Operation[1]</span></span></span>
+<span class="r-in"><span><span class="va">myData.SiteID</span>          <span class="op">&lt;-</span> <span class="st">"07032000"</span> <span class="co"># Mississippi River at Memphis, TN</span></span></span>
+<span class="r-in"><span><span class="va">myData.Type</span>            <span class="op">&lt;-</span> <span class="va">Selection.Type</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> <span class="co">#"Gage"</span></span></span>
+<span class="r-in"><span><span class="va">myData.DateRange.Start</span> <span class="op">&lt;-</span> <span class="st">"2013-01-01"</span></span></span>
+<span class="r-in"><span><span class="va">myData.DateRange.End</span>   <span class="op">&lt;-</span> <span class="st">"2014-12-31"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span>           <span class="op">&lt;-</span> <span class="st">""</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># include path if not in working directory</span></span></span>
+<span class="r-in"><span><span class="va">myConfig</span>               <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span>                                    , <span class="st">"config.TZ.central.R"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.SiteID</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.Type</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.DateRange.Start</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.DateRange.End</span></span></span>
+<span class="r-in"><span>           , <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>           , <span class="va">myDir.export</span></span></span>
+<span class="r-in"><span>           , <span class="va">myConfig</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Total items to process = 1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Getting available data; 07032000."</span>
@@ -333,31 +333,31 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 <span class="r-out co"><span class="r-pr">#&gt;</span> 360 08010100           uv   00060    &lt;NA&gt; 131634         NA           wat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 361 08010100           uv   00065    &lt;NA&gt; 131635         NA           wat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parm_grp_cd   srs_id access_cd begin_date   end_date count_nu</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 360        &lt;NA&gt;  1645423         0 2014-10-01 2022-06-15     2814</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 361        &lt;NA&gt; 17164583         0 2011-05-09 2022-06-15     4055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 360        &lt;NA&gt;  1645423         0 2014-10-01 2022-12-22     3004</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 361        &lt;NA&gt; 17164583         0 2011-05-09 2022-12-22     4245</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 1 of 1, COMPLETE, 07032000."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE; 0.08 min."</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 02.A. QC Raw Data</span></span>
-<span class="r-in"><span class="va">myData.Operation</span>       <span class="op">&lt;-</span> <span class="st">"QCRaw"</span> <span class="co">#Selection.Operation[2]</span></span>
-<span class="r-in"><span class="va">myData.SiteID</span>          <span class="op">&lt;-</span> <span class="st">"test2"</span></span>
-<span class="r-in"><span class="va">myData.Type</span>            <span class="op">&lt;-</span> <span class="va">Selection.Type</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="co">#"AW"</span></span>
-<span class="r-in"><span class="va">myData.DateRange.Start</span> <span class="op">&lt;-</span> <span class="st">"2013-01-01"</span></span>
-<span class="r-in"><span class="va">myData.DateRange.End</span>   <span class="op">&lt;-</span> <span class="st">"2014-12-31"</span></span>
-<span class="r-in"><span class="va">myDir.import</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data1_RAW"</span></span>
-<span class="r-in"><span class="va">myDir.export</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data2_QC"</span></span>
-<span class="r-in"><span class="va">myReport.format</span>        <span class="op">&lt;-</span> <span class="st">"docx"</span></span>
-<span class="r-in"><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span>
-<span class="r-in">           , <span class="va">myData.SiteID</span></span>
-<span class="r-in">           , <span class="va">myData.Type</span></span>
-<span class="r-in">           , <span class="va">myData.DateRange.Start</span></span>
-<span class="r-in">           , <span class="va">myData.DateRange.End</span></span>
-<span class="r-in">           , <span class="va">myDir.import</span></span>
-<span class="r-in">           , <span class="va">myDir.export</span></span>
-<span class="r-in">           , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE; 0.02 min."</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 02.A. QC Raw Data</span></span></span>
+<span class="r-in"><span><span class="va">myData.Operation</span>       <span class="op">&lt;-</span> <span class="st">"QCRaw"</span> <span class="co">#Selection.Operation[2]</span></span></span>
+<span class="r-in"><span><span class="va">myData.SiteID</span>          <span class="op">&lt;-</span> <span class="st">"test2"</span></span></span>
+<span class="r-in"><span><span class="va">myData.Type</span>            <span class="op">&lt;-</span> <span class="va">Selection.Type</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="co">#"AW"</span></span></span>
+<span class="r-in"><span><span class="va">myData.DateRange.Start</span> <span class="op">&lt;-</span> <span class="st">"2013-01-01"</span></span></span>
+<span class="r-in"><span><span class="va">myData.DateRange.End</span>   <span class="op">&lt;-</span> <span class="st">"2014-12-31"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data1_RAW"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data2_QC"</span></span></span>
+<span class="r-in"><span><span class="va">myReport.format</span>        <span class="op">&lt;-</span> <span class="st">"docx"</span></span></span>
+<span class="r-in"><span><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.SiteID</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.Type</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.DateRange.Start</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.DateRange.End</span></span></span>
+<span class="r-in"><span>           , <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>           , <span class="va">myDir.export</span></span></span>
+<span class="r-in"><span>           , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Total files to process = 6"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 1 of 6, SKIPPED (Non-Match, SiteID), 01187300_Gage_20130101_20150101.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 2 of 6, SKIPPED (Non-Match, SiteID), 07032000_Gage_20140930_20141231.csv."</span>
@@ -366,7 +366,7 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 3 of 6, WORKING (QC Tests and Flags - WaterP), test2_AW_20130426_20130725.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 3 of 6, WORKING (QC Tests and Flags - AirP), test2_AW_20130426_20130725.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 3 of 6, WORKING (QC Tests and Flags - SensorDepth), test2_AW_20130426_20130725.csv."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 7.280334 secs."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 8.146331 secs."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "User defined parameters: SiteID (test2), Data Type (Aw), Date Range (2013-04-26 to 2013-07-25)."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 3 of 6, COMPLETE, test2_AW_20130426_20130725.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 4 of 6, WORKING (QC Tests and Flags - WaterTemp), test2_AW_20130725_20131015.csv."</span>
@@ -374,7 +374,7 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 4 of 6, WORKING (QC Tests and Flags - WaterP), test2_AW_20130725_20131015.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 4 of 6, WORKING (QC Tests and Flags - AirP), test2_AW_20130725_20131015.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 4 of 6, WORKING (QC Tests and Flags - SensorDepth), test2_AW_20130725_20131015.csv."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 5.719697 secs."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 6.796821 secs."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "User defined parameters: SiteID (test2), Data Type (Aw), Date Range (2013-07-25 to 2013-10-15)."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 4 of 6, COMPLETE, test2_AW_20130725_20131015.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 5 of 6, WORKING (QC Tests and Flags - WaterTemp), test2_AW_20140901_20140930.csv."</span>
@@ -382,29 +382,29 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 5 of 6, WORKING (QC Tests and Flags - WaterP), test2_AW_20140901_20140930.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 5 of 6, WORKING (QC Tests and Flags - AirP), test2_AW_20140901_20140930.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 5 of 6, WORKING (QC Tests and Flags - SensorDepth), test2_AW_20140901_20140930.csv."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 4.897989 secs."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 6.078141 secs."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "User defined parameters: SiteID (test2), Data Type (Aw), Date Range (2014-09-01 to 2014-09-30)."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 5 of 6, COMPLETE, test2_AW_20140901_20140930.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 6 of 6, SKIPPED (Non-Match, SiteID), test4_AW_20160418_20160726.csv."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE; 0.36 min."</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 02.B. QC Raw Data (offset collection times for air and water sensors)</span></span>
-<span class="r-in"><span class="va">myData.Operation</span>       <span class="op">&lt;-</span> <span class="st">"QCRaw"</span> <span class="co">#Selection.Operation[2]</span></span>
-<span class="r-in"><span class="va">myData.SiteID</span>          <span class="op">&lt;-</span> <span class="st">"test4"</span></span>
-<span class="r-in"><span class="va">myData.Type</span>            <span class="op">&lt;-</span> <span class="va">Selection.Type</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="co">#"AW"</span></span>
-<span class="r-in"><span class="va">myData.DateRange.Start</span> <span class="op">&lt;-</span> <span class="st">"2016-04-28"</span></span>
-<span class="r-in"><span class="va">myData.DateRange.End</span>   <span class="op">&lt;-</span> <span class="st">"2016-07-26"</span></span>
-<span class="r-in"><span class="va">myDir.import</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data1_RAW"</span></span>
-<span class="r-in"><span class="va">myDir.export</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data2_QC"</span></span>
-<span class="r-in"><span class="va">myReport.format</span>        <span class="op">&lt;-</span> <span class="st">"html"</span></span>
-<span class="r-in"><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span>
-<span class="r-in">           , <span class="va">myData.SiteID</span></span>
-<span class="r-in">           , <span class="va">myData.Type</span></span>
-<span class="r-in">           , <span class="va">myData.DateRange.Start</span></span>
-<span class="r-in">           , <span class="va">myData.DateRange.End</span></span>
-<span class="r-in">           , <span class="va">myDir.import</span></span>
-<span class="r-in">           , <span class="va">myDir.export</span></span>
-<span class="r-in">           , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE; 0.43 min."</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 02.B. QC Raw Data (offset collection times for air and water sensors)</span></span></span>
+<span class="r-in"><span><span class="va">myData.Operation</span>       <span class="op">&lt;-</span> <span class="st">"QCRaw"</span> <span class="co">#Selection.Operation[2]</span></span></span>
+<span class="r-in"><span><span class="va">myData.SiteID</span>          <span class="op">&lt;-</span> <span class="st">"test4"</span></span></span>
+<span class="r-in"><span><span class="va">myData.Type</span>            <span class="op">&lt;-</span> <span class="va">Selection.Type</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="co">#"AW"</span></span></span>
+<span class="r-in"><span><span class="va">myData.DateRange.Start</span> <span class="op">&lt;-</span> <span class="st">"2016-04-28"</span></span></span>
+<span class="r-in"><span><span class="va">myData.DateRange.End</span>   <span class="op">&lt;-</span> <span class="st">"2016-07-26"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data1_RAW"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data2_QC"</span></span></span>
+<span class="r-in"><span><span class="va">myReport.format</span>        <span class="op">&lt;-</span> <span class="st">"html"</span></span></span>
+<span class="r-in"><span><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.SiteID</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.Type</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.DateRange.Start</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.DateRange.End</span></span></span>
+<span class="r-in"><span>           , <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>           , <span class="va">myDir.export</span></span></span>
+<span class="r-in"><span>           , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Total files to process = 6"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 1 of 6, SKIPPED (Non-Match, SiteID), 01187300_Gage_20130101_20150101.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 2 of 6, SKIPPED (Non-Match, SiteID), 07032000_Gage_20140930_20141231.csv."</span>
@@ -416,87 +416,87 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 6 of 6, WORKING (QC Tests and Flags - WaterP), test4_AW_20160418_20160726.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 6 of 6, WORKING (QC Tests and Flags - AirP), test4_AW_20160418_20160726.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 6 of 6, WORKING (QC Tests and Flags - SensorDepth), test4_AW_20160418_20160726.csv."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 9.047415 secs."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 9.79235 secs."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "User defined parameters: SiteID (test4), Data Type (Aw), Date Range (2016-04-18 to 2016-07-26)."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 6 of 6, COMPLETE, test4_AW_20160418_20160726.csv."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE; 0.19 min."</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 03. Aggregate Data</span></span>
-<span class="r-in"><span class="va">myData.Operation</span>       <span class="op">&lt;-</span> <span class="st">"Aggregate"</span> <span class="co">#Selection.Operation[3]</span></span>
-<span class="r-in"><span class="va">myData.SiteID</span>          <span class="op">&lt;-</span> <span class="st">"test2"</span></span>
-<span class="r-in"><span class="va">myData.Type</span>            <span class="op">&lt;-</span> <span class="va">Selection.Type</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="co">#"AW"</span></span>
-<span class="r-in"><span class="va">myData.DateRange.Start</span> <span class="op">&lt;-</span> <span class="st">"2013-01-01"</span></span>
-<span class="r-in"><span class="va">myData.DateRange.End</span>   <span class="op">&lt;-</span> <span class="st">"2014-12-31"</span></span>
-<span class="r-in"><span class="va">myDir.import</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data2_QC"</span></span>
-<span class="r-in"><span class="va">myDir.export</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data3_Aggregated"</span></span>
-<span class="r-in"><span class="co">#Leave off myReport.format and get default (docx).</span></span>
-<span class="r-in"><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span>
-<span class="r-in">           , <span class="va">myData.SiteID</span></span>
-<span class="r-in">           , <span class="va">myData.Type</span></span>
-<span class="r-in">           , <span class="va">myData.DateRange.Start</span></span>
-<span class="r-in">           , <span class="va">myData.DateRange.End</span></span>
-<span class="r-in">           , <span class="va">myDir.import</span></span>
-<span class="r-in">           , <span class="va">myDir.export</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE; 0.21 min."</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 03. Aggregate Data</span></span></span>
+<span class="r-in"><span><span class="va">myData.Operation</span>       <span class="op">&lt;-</span> <span class="st">"Aggregate"</span> <span class="co">#Selection.Operation[3]</span></span></span>
+<span class="r-in"><span><span class="va">myData.SiteID</span>          <span class="op">&lt;-</span> <span class="st">"test2"</span></span></span>
+<span class="r-in"><span><span class="va">myData.Type</span>            <span class="op">&lt;-</span> <span class="va">Selection.Type</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="co">#"AW"</span></span></span>
+<span class="r-in"><span><span class="va">myData.DateRange.Start</span> <span class="op">&lt;-</span> <span class="st">"2013-01-01"</span></span></span>
+<span class="r-in"><span><span class="va">myData.DateRange.End</span>   <span class="op">&lt;-</span> <span class="st">"2014-12-31"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data2_QC"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data3_Aggregated"</span></span></span>
+<span class="r-in"><span><span class="co">#Leave off myReport.format and get default (docx).</span></span></span>
+<span class="r-in"><span><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.SiteID</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.Type</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.DateRange.Start</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.DateRange.End</span></span></span>
+<span class="r-in"><span>           , <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>           , <span class="va">myDir.export</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Total files to process = 4"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 6.416689 secs."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 6.560569 secs."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "User defined parameters: SiteID (test2), Data Type (Aw), Date Range (2013-01-01 to 2014-12-31)."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 1 of 4, COMPLETE, QC_test2_Aw_20130426_20130725.csv."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 8.052634 secs."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 8.362632 secs."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "User defined parameters: SiteID (test2), Data Type (Aw), Date Range (2013-01-01 to 2014-12-31)."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 2 of 4, COMPLETE, QC_test2_Aw_20130725_20131015.csv."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 8.794404 secs."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 8.817615 secs."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "User defined parameters: SiteID (test2), Data Type (Aw), Date Range (2013-01-01 to 2014-12-31)."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 3 of 4, COMPLETE, QC_test2_Aw_20140901_20140930.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 4 of 4, SKIPPED (Non-Match, SiteID), QC_test4_Aw_20160418_20160726.csv."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 9.094739 secs."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 9.115774 secs."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "User defined parameters: File Name (test2_Aw_20130101_20141231.csv)."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing of 4 of 4 files complete."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing of items (n=4) finished.  Total time = 34.0868 secs."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing of items (n=4) finished.  Total time = 34.54554 secs."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Items COMPLETE = 3."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Items SKIPPPED = 1."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "User defined parameters: SiteID (test2), Data Type (Aw), Date Range (2013-01-01 to 2014-12-31)."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "No other data type files exist for this SiteID and Date Range.\n    No combining across data types is possible."</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 04. Summary Stats</span></span>
-<span class="r-in"><span class="va">myData.Operation</span>       <span class="op">&lt;-</span> <span class="st">"SummaryStats"</span> <span class="co">#Selection.Operation[4]</span></span>
-<span class="r-in"><span class="va">myData.SiteID</span>          <span class="op">&lt;-</span> <span class="st">"test2"</span></span>
-<span class="r-in"><span class="va">myData.Type</span>            <span class="op">&lt;-</span> <span class="va">Selection.Type</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="co">#"AW"</span></span>
-<span class="r-in"><span class="va">myData.DateRange.Start</span> <span class="op">&lt;-</span> <span class="st">"2013-01-01"</span></span>
-<span class="r-in"><span class="va">myData.DateRange.End</span>   <span class="op">&lt;-</span> <span class="st">"2014-12-31"</span></span>
-<span class="r-in"><span class="va">myDir.import</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data3_Aggregated"</span></span>
-<span class="r-in"><span class="va">myDir.export</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data4_Stats"</span></span>
-<span class="r-in"><span class="co">#Leave off myReport.format and get default (docx).</span></span>
-<span class="r-in"><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span>
-<span class="r-in">           , <span class="va">myData.SiteID</span></span>
-<span class="r-in">           , <span class="va">myData.Type</span></span>
-<span class="r-in">           , <span class="va">myData.DateRange.Start</span></span>
-<span class="r-in">           , <span class="va">myData.DateRange.End</span></span>
-<span class="r-in">           , <span class="va">myDir.import</span></span>
-<span class="r-in">           , <span class="va">myDir.export</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 04. Summary Stats</span></span></span>
+<span class="r-in"><span><span class="va">myData.Operation</span>       <span class="op">&lt;-</span> <span class="st">"SummaryStats"</span> <span class="co">#Selection.Operation[4]</span></span></span>
+<span class="r-in"><span><span class="va">myData.SiteID</span>          <span class="op">&lt;-</span> <span class="st">"test2"</span></span></span>
+<span class="r-in"><span><span class="va">myData.Type</span>            <span class="op">&lt;-</span> <span class="va">Selection.Type</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="co">#"AW"</span></span></span>
+<span class="r-in"><span><span class="va">myData.DateRange.Start</span> <span class="op">&lt;-</span> <span class="st">"2013-01-01"</span></span></span>
+<span class="r-in"><span><span class="va">myData.DateRange.End</span>   <span class="op">&lt;-</span> <span class="st">"2014-12-31"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data3_Aggregated"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span> <span class="co">#"Data4_Stats"</span></span></span>
+<span class="r-in"><span><span class="co">#Leave off myReport.format and get default (docx).</span></span></span>
+<span class="r-in"><span><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.SiteID</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.Type</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.DateRange.Start</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.DateRange.End</span></span></span>
+<span class="r-in"><span>           , <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>           , <span class="va">myDir.export</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Total items to process = 3:"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Water.Temp.C"    "Air.Temp.C"      "Sensor.Depth.ft"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 1 of 3; Water.Temp.C"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 2 of 3; Air.Temp.C"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 3 of 3; Sensor.Depth.ft"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># File Versions</span></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 02.Alt. QC Data</span></span>
-<span class="r-in"><span class="va">myData.Operation</span> <span class="op">&lt;-</span> <span class="st">"QCRaw"</span> <span class="co">#Selection.Operation[2]</span></span>
-<span class="r-in"><span class="co">#myFile &lt;- "test2_AW_20130426_20130725.csv"</span></span>
-<span class="r-in"><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"test2_AW_20130426_20130725.csv"</span></span>
-<span class="r-in">           , <span class="st">"test2_AW_20130725_20131015.csv"</span></span>
-<span class="r-in">           , <span class="st">"test2_AW_20140901_20140930.csv"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data1_RAW"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data2_QC"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myReport.format</span> <span class="op">&lt;-</span> <span class="st">"docx"</span></span>
-<span class="r-in"><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span>
-<span class="r-in">           , fun.myDir.import <span class="op">=</span> <span class="va">myDir.import</span></span>
-<span class="r-in">           , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span></span>
-<span class="r-in">           , fun.myFile <span class="op">=</span> <span class="va">myFile</span></span>
-<span class="r-in">           , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># File Versions</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 02.Alt. QC Data</span></span></span>
+<span class="r-in"><span><span class="va">myData.Operation</span> <span class="op">&lt;-</span> <span class="st">"QCRaw"</span> <span class="co">#Selection.Operation[2]</span></span></span>
+<span class="r-in"><span><span class="co">#myFile &lt;- "test2_AW_20130426_20130725.csv"</span></span></span>
+<span class="r-in"><span><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"test2_AW_20130426_20130725.csv"</span></span></span>
+<span class="r-in"><span>           , <span class="st">"test2_AW_20130725_20131015.csv"</span></span></span>
+<span class="r-in"><span>           , <span class="st">"test2_AW_20140901_20140930.csv"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data1_RAW"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data2_QC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myReport.format</span> <span class="op">&lt;-</span> <span class="st">"docx"</span></span></span>
+<span class="r-in"><span><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span></span>
+<span class="r-in"><span>           , fun.myDir.import <span class="op">=</span> <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>           , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span></span></span>
+<span class="r-in"><span>           , fun.myFile <span class="op">=</span> <span class="va">myFile</span></span></span>
+<span class="r-in"><span>           , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Total files to process = 3"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 1 of 3, WORKING (QC Tests and Flags - WaterTemp), test2_AW_20130426_20130725.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 1 of 3, WORKING (QC Tests and Flags - AirTemp), test2_AW_20130426_20130725.csv."</span>
@@ -504,65 +504,65 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 1 of 3, WORKING (QC Tests and Flags - AirP), test2_AW_20130426_20130725.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 1 of 3, WORKING (QC Tests and Flags - SensorDepth), test2_AW_20130426_20130725.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ERROR; no such file exists.  Cannot create QC Report."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PATH = /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMk2p0Z/Data2_QC"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PATH = /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptjgOo3/Data2_QC"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "FILE = QC_test2_AW_20130426_20130725.csv"</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in fun.Report.File(strFile, fun.myDir.export, fun.myDir.export,     strFile.Out.Prefix, fun.myReport.format, fun.myReport.Dir):</span> Bad file.</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 03.Alt. Aggregate Data</span></span>
-<span class="r-in"><span class="va">myData.Operation</span> <span class="op">&lt;-</span> <span class="st">"Aggregate"</span> <span class="co">#Selection.Operation[3]</span></span>
-<span class="r-in"><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"QC_test2_Aw_20130426_20130725.csv"</span></span>
-<span class="r-in">           , <span class="st">"QC_test2_Aw_20130725_20131015.csv"</span></span>
-<span class="r-in">           , <span class="st">"QC_test2_Aw_20140901_20140930.csv"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data2_QC"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data3_Aggregated"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myReport.format</span> <span class="op">&lt;-</span> <span class="st">"html"</span></span>
-<span class="r-in"><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span>
-<span class="r-in">           , fun.myDir.import <span class="op">=</span> <span class="va">myDir.import</span></span>
-<span class="r-in">           , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span></span>
-<span class="r-in">           , fun.myFile <span class="op">=</span> <span class="va">myFile</span></span>
-<span class="r-in">           , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 03.Alt. Aggregate Data</span></span></span>
+<span class="r-in"><span><span class="va">myData.Operation</span> <span class="op">&lt;-</span> <span class="st">"Aggregate"</span> <span class="co">#Selection.Operation[3]</span></span></span>
+<span class="r-in"><span><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"QC_test2_Aw_20130426_20130725.csv"</span></span></span>
+<span class="r-in"><span>           , <span class="st">"QC_test2_Aw_20130725_20131015.csv"</span></span></span>
+<span class="r-in"><span>           , <span class="st">"QC_test2_Aw_20140901_20140930.csv"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data2_QC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data3_Aggregated"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myReport.format</span> <span class="op">&lt;-</span> <span class="st">"html"</span></span></span>
+<span class="r-in"><span><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span></span>
+<span class="r-in"><span>           , fun.myDir.import <span class="op">=</span> <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>           , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span></span></span>
+<span class="r-in"><span>           , fun.myFile <span class="op">=</span> <span class="va">myFile</span></span></span>
+<span class="r-in"><span>           , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Total files to process = 3"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 1 of 3, COMPLETE, QC_test2_Aw_20130426_20130725.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 2 of 3, COMPLETE, QC_test2_Aw_20130725_20131015.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 3 of 3, COMPLETE, QC_test2_Aw_20140901_20140930.csv."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 10.19011 secs."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 11.33369 secs."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "User defined parameters: File Name (QC_test2_Aw_20130426_20140930.csv)."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing of 3 of 3 files complete."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing of items (n=3) finished.  Total time = 11.89572 secs."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing of items (n=3) finished.  Total time = 13.14332 secs."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Items COMPLETE = 3."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Items SKIPPPED = 0."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "User defined parameters: File Output(DATA_QC_test2_Aw_20130426_20140930.csv)."</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 04. Alt. Summary Stats</span></span>
-<span class="r-in"><span class="va">myData.Operation</span> <span class="op">&lt;-</span> <span class="st">"SummaryStats"</span> <span class="co">#Selection.Operation[4]</span></span>
-<span class="r-in"><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"QC_test2_AW_20130426_20130725.csv"</span></span>
-<span class="r-in"><span class="co">#myFile &lt;- c("QC_test2_AW_20130426_20130725.csv"</span></span>
-<span class="r-in"><span class="co">#            , "QC_test2_AW_20130725_20131015.csv"</span></span>
-<span class="r-in"><span class="co">#            , "QC_test2_AW_20140901_20140930.csv")</span></span>
-<span class="r-in"><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data2_QC"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data4_Stats"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">#Leave off myReport.format and get default (docx).</span></span>
-<span class="r-in"><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span>
-<span class="r-in">           , fun.myDir.import <span class="op">=</span> <span class="va">myDir.import</span></span>
-<span class="r-in">           , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span></span>
-<span class="r-in">           , fun.myFile <span class="op">=</span> <span class="va">myFile</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 04. Alt. Summary Stats</span></span></span>
+<span class="r-in"><span><span class="va">myData.Operation</span> <span class="op">&lt;-</span> <span class="st">"SummaryStats"</span> <span class="co">#Selection.Operation[4]</span></span></span>
+<span class="r-in"><span><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"QC_test2_AW_20130426_20130725.csv"</span></span></span>
+<span class="r-in"><span><span class="co">#myFile &lt;- c("QC_test2_AW_20130426_20130725.csv"</span></span></span>
+<span class="r-in"><span><span class="co">#            , "QC_test2_AW_20130725_20131015.csv"</span></span></span>
+<span class="r-in"><span><span class="co">#            , "QC_test2_AW_20140901_20140930.csv")</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data2_QC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data4_Stats"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#Leave off myReport.format and get default (docx).</span></span></span>
+<span class="r-in"><span><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span></span>
+<span class="r-in"><span>           , fun.myDir.import <span class="op">=</span> <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>           , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span></span></span>
+<span class="r-in"><span>           , fun.myFile <span class="op">=</span> <span class="va">myFile</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Total files to process = 1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ERROR; no such file exits.  Cannot generate summary statistics."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PATH = /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMk2p0Z/Data2_QC"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PATH = /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptjgOo3/Data2_QC"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "FILE = QC_test2_AW_20130426_20130725.csv"</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in fun.Stats.File(fun.myFile, fun.myDir.import, fun.myDir.export,     fun.myReport.format, fun.myReport.Dir):</span> Bad file.</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># Summary Stats from Other Data</span></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># 05. Gage Data</span></span>
-<span class="r-in"><span class="co"># Get Gage Data via the dataRetrieval package from USGS 01187300 2013</span></span>
-<span class="r-in"><span class="co">#  (~4 seconds)</span></span>
-<span class="r-in"><span class="va">data.gage</span> <span class="op">&lt;-</span> <span class="fu">dataRetrieval</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/readNWISuv.html" class="external-link">readNWISuv</a></span><span class="op">(</span><span class="st">"01187300"</span></span>
-<span class="r-in">                                       , <span class="st">"00060"</span></span>
-<span class="r-in">                                       , <span class="st">"2013-01-01"</span></span>
-<span class="r-in">                                       , <span class="st">"2014-12-31"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data.gage</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Summary Stats from Other Data</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># 05. Gage Data</span></span></span>
+<span class="r-in"><span><span class="co"># Get Gage Data via the dataRetrieval package from USGS 01187300 2013</span></span></span>
+<span class="r-in"><span><span class="co">#  (~4 seconds)</span></span></span>
+<span class="r-in"><span><span class="va">data.gage</span> <span class="op">&lt;-</span> <span class="fu">dataRetrieval</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/readNWISuv.html" class="external-link">readNWISuv</a></span><span class="op">(</span><span class="st">"01187300"</span></span></span>
+<span class="r-in"><span>                                       , <span class="st">"00060"</span></span></span>
+<span class="r-in"><span>                                       , <span class="st">"2013-01-01"</span></span></span>
+<span class="r-in"><span>                                       , <span class="st">"2014-12-31"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data.gage</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   agency_cd  site_no            dateTime X_00060_00000 X_00060_00000_cd tz_cd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      USGS 01187300 2013-01-10 05:00:00          22.3                A   UTC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2      USGS 01187300 2013-01-10 05:15:00          22.5                A   UTC</span>
@@ -570,71 +570,71 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4      USGS 01187300 2013-01-10 05:45:00          22.3                A   UTC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5      USGS 01187300 2013-01-10 06:00:00          22.3                A   UTC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6      USGS 01187300 2013-01-10 06:15:00          22.3                A   UTC</span>
-<span class="r-in"><span class="co"># Rename fields</span></span>
-<span class="r-in"><span class="va">myNames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Agency"</span></span>
-<span class="r-in">             , <span class="st">"SiteID"</span></span>
-<span class="r-in">             , <span class="st">"Date.Time"</span></span>
-<span class="r-in">             , <span class="st">"Discharge.ft3.s"</span></span>
-<span class="r-in">             , <span class="st">"Code"</span></span>
-<span class="r-in">             , <span class="st">"TZ"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">data.gage</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">myNames</span></span>
-<span class="r-in"><span class="co"># Add Date and Time</span></span>
-<span class="r-in"><span class="va">data.gage</span><span class="op">[</span>,<span class="st">"Date"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">data.gage</span><span class="op">[</span>,<span class="st">"Date.Time"</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">data.gage</span><span class="op">[</span>,<span class="st">"Time"</span><span class="op">]</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strftime</a></span><span class="op">(</span><span class="va">data.gage</span><span class="op">[</span>,<span class="st">"Date.Time"</span><span class="op">]</span>, format<span class="op">=</span><span class="st">"%H:%M:%S"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Add "flag" fields that are added by QC function.</span></span>
-<span class="r-in"><span class="va">Names.Flags</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Flag."</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Date.Time"</span>, <span class="st">"Discharge.ft3.s"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">data.gage</span><span class="op">[</span>,<span class="va">Names.Flags</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"P"</span></span>
-<span class="r-in"><span class="co"># Save File</span></span>
-<span class="r-in"><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"01187300_Gage_20130101_20141231.csv"</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">data.gage</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">myFile</span><span class="op">)</span>, row.names<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Run Stats (File)</span></span>
-<span class="r-in"><span class="va">myData.Operation</span> <span class="op">&lt;-</span> <span class="st">"SummaryStats"</span></span>
-<span class="r-in"><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="va">myDir.BASE</span></span>
-<span class="r-in"><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="va">myDir.BASE</span></span>
-<span class="r-in"><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span>
-<span class="r-in">           , fun.myDir.import <span class="op">=</span> <span class="va">myDir.import</span></span>
-<span class="r-in">           , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span></span>
-<span class="r-in">           , fun.myFile <span class="op">=</span> <span class="va">myFile</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Rename fields</span></span></span>
+<span class="r-in"><span><span class="va">myNames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Agency"</span></span></span>
+<span class="r-in"><span>             , <span class="st">"SiteID"</span></span></span>
+<span class="r-in"><span>             , <span class="st">"Date.Time"</span></span></span>
+<span class="r-in"><span>             , <span class="st">"Discharge.ft3.s"</span></span></span>
+<span class="r-in"><span>             , <span class="st">"Code"</span></span></span>
+<span class="r-in"><span>             , <span class="st">"TZ"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">data.gage</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">myNames</span></span></span>
+<span class="r-in"><span><span class="co"># Add Date and Time</span></span></span>
+<span class="r-in"><span><span class="va">data.gage</span><span class="op">[</span>,<span class="st">"Date"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">data.gage</span><span class="op">[</span>,<span class="st">"Date.Time"</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data.gage</span><span class="op">[</span>,<span class="st">"Time"</span><span class="op">]</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strftime</a></span><span class="op">(</span><span class="va">data.gage</span><span class="op">[</span>,<span class="st">"Date.Time"</span><span class="op">]</span>, format<span class="op">=</span><span class="st">"%H:%M:%S"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Add "flag" fields that are added by QC function.</span></span></span>
+<span class="r-in"><span><span class="va">Names.Flags</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Flag."</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Date.Time"</span>, <span class="st">"Discharge.ft3.s"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data.gage</span><span class="op">[</span>,<span class="va">Names.Flags</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"P"</span></span></span>
+<span class="r-in"><span><span class="co"># Save File</span></span></span>
+<span class="r-in"><span><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"01187300_Gage_20130101_20141231.csv"</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">data.gage</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">myFile</span><span class="op">)</span>, row.names<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Run Stats (File)</span></span></span>
+<span class="r-in"><span><span class="va">myData.Operation</span> <span class="op">&lt;-</span> <span class="st">"SummaryStats"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span> <span class="op">&lt;-</span> <span class="va">myDir.BASE</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span> <span class="op">&lt;-</span> <span class="va">myDir.BASE</span></span></span>
+<span class="r-in"><span><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span></span>
+<span class="r-in"><span>           , fun.myDir.import <span class="op">=</span> <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>           , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span></span></span>
+<span class="r-in"><span>           , fun.myFile <span class="op">=</span> <span class="va">myFile</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Total files to process = 1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Total items to process = 1:"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Discharge.ft3.s"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 4 of 1; Discharge.ft3.s"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># Lake Data, Aggregate</span></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># create and print temp directory for example data</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMk2p0Z"</span>
-<span class="r-in"><span class="co"># 06. Lake Data</span></span>
-<span class="r-in"><span class="co"># Save example data (assumes directory exists)</span></span>
-<span class="r-in"><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"QC_Ellis--1.0m_Water_20180524_20180918.csv"</span></span>
-<span class="r-in">           , <span class="st">"QC_Ellis--3.0m_Water_20180524_20180918.csv"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"ContDataQC"</span><span class="op">)</span>, <span class="va">myFile</span><span class="op">)</span></span>
-<span class="r-in">          , <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data2_QC"</span>, <span class="va">myFile</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Lake Data, Aggregate</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># create and print temp directory for example data</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptjgOo3"</span>
+<span class="r-in"><span><span class="co"># 06. Lake Data</span></span></span>
+<span class="r-in"><span><span class="co"># Save example data (assumes directory exists)</span></span></span>
+<span class="r-in"><span><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"QC_Ellis--1.0m_Water_20180524_20180918.csv"</span></span></span>
+<span class="r-in"><span>           , <span class="st">"QC_Ellis--3.0m_Water_20180524_20180918.csv"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"ContDataQC"</span><span class="op">)</span>, <span class="va">myFile</span><span class="op">)</span></span></span>
+<span class="r-in"><span>          , <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data2_QC"</span>, <span class="va">myFile</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE TRUE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Aggregate Data</span></span>
-<span class="r-in"><span class="va">myData.Operation</span> <span class="op">&lt;-</span> <span class="st">"Aggregate"</span> <span class="co">#Selection.Operation[3]</span></span>
-<span class="r-in"><span class="va">myFile</span>           <span class="op">&lt;-</span> <span class="va">myFile</span></span>
-<span class="r-in"><span class="va">myDir.import</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data2_QC"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.export</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data3_Aggregated"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myReport.format</span>  <span class="op">&lt;-</span> <span class="st">"html"</span></span>
-<span class="r-in"><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span>
-<span class="r-in">           , fun.myDir.import <span class="op">=</span> <span class="va">myDir.import</span></span>
-<span class="r-in">           , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span></span>
-<span class="r-in">           , fun.myFile <span class="op">=</span> <span class="va">myFile</span></span>
-<span class="r-in">           , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Aggregate Data</span></span></span>
+<span class="r-in"><span><span class="va">myData.Operation</span> <span class="op">&lt;-</span> <span class="st">"Aggregate"</span> <span class="co">#Selection.Operation[3]</span></span></span>
+<span class="r-in"><span><span class="va">myFile</span>           <span class="op">&lt;-</span> <span class="va">myFile</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data2_QC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="st">"Data3_Aggregated"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myReport.format</span>  <span class="op">&lt;-</span> <span class="st">"html"</span></span></span>
+<span class="r-in"><span><span class="fu">ContDataQC</span><span class="op">(</span><span class="va">myData.Operation</span></span></span>
+<span class="r-in"><span>           , fun.myDir.import <span class="op">=</span> <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>           , fun.myDir.export <span class="op">=</span> <span class="va">myDir.export</span></span></span>
+<span class="r-in"><span>           , fun.myFile <span class="op">=</span> <span class="va">myFile</span></span></span>
+<span class="r-in"><span>           , fun.myReport.format <span class="op">=</span> <span class="va">myReport.format</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Total files to process = 2"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 1 of 2, COMPLETE, QC_Ellis--1.0m_Water_20180524_20180918.csv."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing item 2 of 2, COMPLETE, QC_Ellis--3.0m_Water_20180524_20180918.csv."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 1.907337 secs."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Task COMPLETE. QC Report.  Total time = 2.155681 secs."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "User defined parameters: File Name (QC_Ellis--1.0m_Water_20180524_20180918.csv)."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing of 2 of 2 files complete."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing of items (n=2) finished.  Total time = 2.606151 secs."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Processing of items (n=2) finished.  Total time = 2.551644 secs."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Items COMPLETE = 2."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Items SKIPPPED = 0."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "User defined parameters: File Output(DATA_QC_Ellis--1.0m_Water_20180524_20180918.csv)."</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -649,7 +649,7 @@ http://www.intowindows.com/how-to-run-msi-file-as-administrator-from-command-pro
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

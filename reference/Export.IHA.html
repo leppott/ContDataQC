@@ -18,7 +18,7 @@ used by the IHA package."><!-- mathjax --><script src="https://cdnjs.cloudflare.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.7.9006</span>
       </span>
     </div>
 
@@ -71,16 +71,16 @@ used by the IHA package.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Export.IHA</span><span class="op">(</span>
-  <span class="va">fun.myFile</span>,
-  fun.myDate.Format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span>,
-  fun.myDir.import <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,
-  fun.myDir.export <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,
-  fun.myDateRange.Start <span class="op">=</span> <span class="cn">NA</span>,
-  fun.myDateRange.End <span class="op">=</span> <span class="cn">NA</span>,
-  fun.myCol.DateTime <span class="op">=</span> <span class="st">"Date.Time"</span>,
-  fun.myCol.Parameter <span class="op">=</span> <span class="st">"Discharge.ft3.s"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Export.IHA</span><span class="op">(</span></span>
+<span>  <span class="va">fun.myFile</span>,</span>
+<span>  fun.myDate.Format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span>,</span>
+<span>  fun.myDir.import <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  fun.myDir.export <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  fun.myDateRange.Start <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  fun.myDateRange.End <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  fun.myCol.DateTime <span class="op">=</span> <span class="st">"Date.Time"</span>,</span>
+<span>  fun.myCol.Parameter <span class="op">=</span> <span class="st">"Discharge.ft3.s"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -147,57 +147,57 @@ are included in the example.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># 1.  Get Gage Data</span></span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="co"># 1.A. Use ContDataQC and Save (~1min for download)</span></span>
-<span class="r-in"><span class="va">myData.Operation</span>       <span class="op">&lt;-</span> <span class="st">"GetGageData"</span> <span class="co">#Selection.Operation[1]</span></span>
-<span class="r-in"><span class="va">myData.SiteID</span>          <span class="op">&lt;-</span> <span class="st">"01187300"</span> <span class="co"># Hubbard River near West Hartland, CT</span></span>
-<span class="r-in"><span class="va">myData.Type</span>            <span class="op">&lt;-</span>  <span class="st">"Gage"</span> <span class="co">#Selection.Type[4]</span></span>
-<span class="r-in"><span class="va">myData.DateRange.Start</span> <span class="op">&lt;-</span> <span class="st">"2013-01-01"</span></span>
-<span class="r-in"><span class="va">myData.DateRange.End</span>   <span class="op">&lt;-</span> <span class="st">"2014-12-31"</span></span>
-<span class="r-in"><span class="va">myDir.import</span>           <span class="op">&lt;-</span> <span class="st">""</span></span>
-<span class="r-in"><span class="va">myDir.export</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 1.  Get Gage Data</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="co"># 1.A. Use ContDataQC and Save (~1min for download)</span></span></span>
+<span class="r-in"><span><span class="va">myData.Operation</span>       <span class="op">&lt;-</span> <span class="st">"GetGageData"</span> <span class="co">#Selection.Operation[1]</span></span></span>
+<span class="r-in"><span><span class="va">myData.SiteID</span>          <span class="op">&lt;-</span> <span class="st">"01187300"</span> <span class="co"># Hubbard River near West Hartland, CT</span></span></span>
+<span class="r-in"><span><span class="va">myData.Type</span>            <span class="op">&lt;-</span>  <span class="st">"Gage"</span> <span class="co">#Selection.Type[4]</span></span></span>
+<span class="r-in"><span><span class="va">myData.DateRange.Start</span> <span class="op">&lt;-</span> <span class="st">"2013-01-01"</span></span></span>
+<span class="r-in"><span><span class="va">myData.DateRange.End</span>   <span class="op">&lt;-</span> <span class="st">"2014-12-31"</span></span></span>
+<span class="r-in"><span><span class="va">myDir.import</span>           <span class="op">&lt;-</span> <span class="st">""</span></span></span>
+<span class="r-in"><span><span class="va">myDir.export</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">myDir.BASE</span>, <span class="va">Selection.SUB</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file.path(myDir.BASE, Selection.SUB[2]):</span> object 'Selection.SUB' not found</span>
-<span class="r-in"><span class="fu"><a href="ContDataQC.html">ContDataQC</a></span><span class="op">(</span><span class="va">myData.Operation</span></span>
-<span class="r-in">           , <span class="va">myData.SiteID</span></span>
-<span class="r-in">           , <span class="va">myData.Type</span></span>
-<span class="r-in">           , <span class="va">myData.DateRange.Start</span></span>
-<span class="r-in">           , <span class="va">myData.DateRange.End</span></span>
-<span class="r-in">           , <span class="va">myDir.import</span></span>
-<span class="r-in">           , <span class="va">myDir.export</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="ContDataQC.html">ContDataQC</a></span><span class="op">(</span><span class="va">myData.Operation</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.SiteID</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.Type</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.DateRange.Start</span></span></span>
+<span class="r-in"><span>           , <span class="va">myData.DateRange.End</span></span></span>
+<span class="r-in"><span>           , <span class="va">myDir.import</span></span></span>
+<span class="r-in"><span>           , <span class="va">myDir.export</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in fun.GageData(fun.myData.SiteID, fun.myData.Type, fun.myData.DateRange.Start,     fun.myData.DateRange.End, fun.myDir.export):</span> object 'myDir.export' not found</span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="co"># 1.B. Use saved data</span></span>
-<span class="r-in"><span class="va">myData.SiteID</span>   <span class="op">&lt;-</span> <span class="st">"01187300"</span></span>
-<span class="r-in"><span class="va">myFile</span>          <span class="op">&lt;-</span> <span class="st">"01187300_Gage_20150101_20161231.csv"</span></span>
-<span class="r-in"><span class="va">myCol.DateTime</span>  <span class="op">&lt;-</span> <span class="st">"Date.Time"</span></span>
-<span class="r-in"><span class="va">myCol.Discharge</span> <span class="op">&lt;-</span> <span class="st">"Discharge.ft3.s"</span></span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="co"># 2. Prep Data</span></span>
-<span class="r-in"><span class="va">myData.IHA</span> <span class="op">&lt;-</span> <span class="fu">Export.IHA</span><span class="op">(</span><span class="va">myFile</span></span>
-<span class="r-in">                         , fun.myDir.import <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in">                         , fun.myDir.export <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in">                         , fun.myCol.DateTime <span class="op">=</span> <span class="va">myCol.DateTime</span></span>
-<span class="r-in">                         , fun.myCol.Parameter <span class="op">=</span> <span class="va">myCol.Discharge</span></span>
-<span class="r-in">                         <span class="op">)</span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="co"># 1.B. Use saved data</span></span></span>
+<span class="r-in"><span><span class="va">myData.SiteID</span>   <span class="op">&lt;-</span> <span class="st">"01187300"</span></span></span>
+<span class="r-in"><span><span class="va">myFile</span>          <span class="op">&lt;-</span> <span class="st">"01187300_Gage_20150101_20161231.csv"</span></span></span>
+<span class="r-in"><span><span class="va">myCol.DateTime</span>  <span class="op">&lt;-</span> <span class="st">"Date.Time"</span></span></span>
+<span class="r-in"><span><span class="va">myCol.Discharge</span> <span class="op">&lt;-</span> <span class="st">"Discharge.ft3.s"</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="co"># 2. Prep Data</span></span></span>
+<span class="r-in"><span><span class="va">myData.IHA</span> <span class="op">&lt;-</span> <span class="fu">Export.IHA</span><span class="op">(</span><span class="va">myFile</span></span></span>
+<span class="r-in"><span>                         , fun.myDir.import <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                         , fun.myDir.export <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                         , fun.myCol.DateTime <span class="op">=</span> <span class="va">myCol.DateTime</span></span></span>
+<span class="r-in"><span>                         , fun.myCol.Parameter <span class="op">=</span> <span class="va">myCol.Discharge</span></span></span>
+<span class="r-in"><span>                         <span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '01187300_Gage_20150101_20161231.csv': No such file or directory</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(file, "rt"):</span> cannot open the connection</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># 3. Run IHA</span></span>
-<span class="r-in"><span class="co"># Example using returned DF with IHA</span></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># User info</span></span>
-<span class="r-in"><span class="va">SiteID</span> <span class="op">&lt;-</span> <span class="va">myData.SiteID</span></span>
-<span class="r-in"><span class="va">Notes.User</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"USERNAME"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">#~~~~~</span></span>
-<span class="r-in"><span class="co"># Library (install if needed)</span></span>
-<span class="r-in"><span class="co"># devtools::install_github("jasonelaw/IHA")</span></span>
-<span class="r-in"><span class="co"># install.packages("XLConnect")</span></span>
-<span class="r-in"><span class="co"># Library (load)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va">IHA</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># 3. Run IHA</span></span></span>
+<span class="r-in"><span><span class="co"># Example using returned DF with IHA</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># User info</span></span></span>
+<span class="r-in"><span><span class="va">SiteID</span> <span class="op">&lt;-</span> <span class="va">myData.SiteID</span></span></span>
+<span class="r-in"><span><span class="va">Notes.User</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"USERNAME"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Library (install if needed)</span></span></span>
+<span class="r-in"><span><span class="co"># devtools::install_github("jasonelaw/IHA")</span></span></span>
+<span class="r-in"><span><span class="co"># install.packages("XLConnect")</span></span></span>
+<span class="r-in"><span><span class="co"># Library (load)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va">IHA</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: IHA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: zoo</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -205,81 +205,81 @@ are included in the example.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     as.Date, as.Date.numeric</span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://mirai-solutions.ch" class="external-link">XLConnect</a></span><span class="op">)</span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://mirai-solutions.ch" class="external-link">XLConnect</a></span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: XLConnect</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> XLConnect 1.0.5 by Mirai Solutions GmbH [aut],</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> XLConnect 1.0.6 by Mirai Solutions GmbH [aut],</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Martin Studer [cre],</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   The Apache Software Foundation [ctb, cph] (Apache POI),</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Graph Builder [ctb, cph] (Curvesapi Java library),</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Brett Woolridge [ctb, cph] (SparseBitSet Java library)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> https://mirai-solutions.ch</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> https://github.com/miraisolutions/xlconnect</span>
-<span class="r-in"><span class="co">#~~~~~</span></span>
-<span class="r-in"><span class="co"># IHA</span></span>
-<span class="r-in"><span class="va">myYr</span> <span class="op">&lt;-</span> <span class="st">"calendar"</span> <span class="co"># "water" or "calendar"</span></span>
-<span class="r-in"><span class="co"># IHA Metrics</span></span>
-<span class="r-in"><span class="co">## IHA parameters group 1; Magnitude of monthly water conditions</span></span>
-<span class="r-in"><span class="va">Analysis.Group.1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IHA/man/group1.html" class="external-link">group1</a></span><span class="op">(</span><span class="va">myData.IHA</span>, year<span class="op">=</span><span class="va">myYr</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">#~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># IHA</span></span></span>
+<span class="r-in"><span><span class="va">myYr</span> <span class="op">&lt;-</span> <span class="st">"calendar"</span> <span class="co"># "water" or "calendar"</span></span></span>
+<span class="r-in"><span><span class="co"># IHA Metrics</span></span></span>
+<span class="r-in"><span><span class="co">## IHA parameters group 1; Magnitude of monthly water conditions</span></span></span>
+<span class="r-in"><span><span class="va">Analysis.Group.1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IHA/man/group1.html" class="external-link">group1</a></span><span class="op">(</span><span class="va">myData.IHA</span>, year<span class="op">=</span><span class="va">myYr</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is.zoo(x):</span> object 'myData.IHA' not found</span>
-<span class="r-in"><span class="co">## IHA parameters group 2: Magnitude of monthly water condition and include</span></span>
-<span class="r-in"><span class="co"># 12 parameters</span></span>
-<span class="r-in"><span class="va">Analysis.Group.2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IHA/man/group2.html" class="external-link">group2</a></span><span class="op">(</span><span class="va">myData.IHA</span>, year<span class="op">=</span><span class="va">myYr</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## IHA parameters group 2: Magnitude of monthly water condition and include</span></span></span>
+<span class="r-in"><span><span class="co"># 12 parameters</span></span></span>
+<span class="r-in"><span><span class="va">Analysis.Group.2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IHA/man/group2.html" class="external-link">group2</a></span><span class="op">(</span><span class="va">myData.IHA</span>, year<span class="op">=</span><span class="va">myYr</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is.zoo(x):</span> object 'myData.IHA' not found</span>
-<span class="r-in"><span class="va">Analysis.Group.3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IHA/man/group3.html" class="external-link">group3</a></span><span class="op">(</span><span class="va">myData.IHA</span>, year<span class="op">=</span><span class="va">myYr</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">Analysis.Group.3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IHA/man/group3.html" class="external-link">group3</a></span><span class="op">(</span><span class="va">myData.IHA</span>, year<span class="op">=</span><span class="va">myYr</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is.zoo(x):</span> object 'myData.IHA' not found</span>
-<span class="r-in"><span class="co">## IHA parameters group 4; Frequency and duration of high and low pulses</span></span>
-<span class="r-in"><span class="co"># defaults to 25th and 75th percentiles</span></span>
-<span class="r-in"><span class="va">Analysis.Group.4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IHA/man/group4.html" class="external-link">group4</a></span><span class="op">(</span><span class="va">myData.IHA</span>, year<span class="op">=</span><span class="va">myYr</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## IHA parameters group 4; Frequency and duration of high and low pulses</span></span></span>
+<span class="r-in"><span><span class="co"># defaults to 25th and 75th percentiles</span></span></span>
+<span class="r-in"><span><span class="va">Analysis.Group.4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IHA/man/group4.html" class="external-link">group4</a></span><span class="op">(</span><span class="va">myData.IHA</span>, year<span class="op">=</span><span class="va">myYr</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is.zoo(x):</span> object 'myData.IHA' not found</span>
-<span class="r-in"><span class="co">## IHA parameters group 5; Rate and frequency of water condition changes</span></span>
-<span class="r-in"><span class="va">Analysis.Group.5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IHA/man/group5.html" class="external-link">group5</a></span><span class="op">(</span><span class="va">myData.IHA</span>, year<span class="op">=</span><span class="va">myYr</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## IHA parameters group 5; Rate and frequency of water condition changes</span></span></span>
+<span class="r-in"><span><span class="va">Analysis.Group.5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IHA/man/group5.html" class="external-link">group5</a></span><span class="op">(</span><span class="va">myData.IHA</span>, year<span class="op">=</span><span class="va">myYr</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is.zoo(x):</span> object 'myData.IHA' not found</span>
-<span class="r-in"><span class="co">#~~~~~</span></span>
-<span class="r-in"><span class="co"># Save Results to Excel (each group on its own worksheet)</span></span>
-<span class="r-in"><span class="va">Group.Desc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Magnitude of monthly water conditions"</span></span>
-<span class="r-in">           ,<span class="st">"Magnitude of monthly water condition and include 12 parameters"</span></span>
-<span class="r-in">                ,<span class="st">"Timing of annual extreme water conditions"</span></span>
-<span class="r-in">                ,<span class="st">"Frequency and duration of high and low pulses"</span></span>
-<span class="r-in">                ,<span class="st">"Rate and frequency of water condition changes"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">df.Groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Group"</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,<span class="va">Group.Desc</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="va">myDate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"%Y%m%d"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myTime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"%H%M%S"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Notes section (add min/max dates)</span></span>
-<span class="r-in"><span class="va">Notes.Names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dataset (SiteID)"</span>,<span class="st">"IHA.Year"</span>,<span class="st">"Analysis.Date (YYYYMMDD)"</span></span>
-<span class="r-in">                 ,<span class="st">"Analysis.Time (HHMMSS)"</span>,<span class="st">"Analysis.User"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Notes.Data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">SiteID</span>, <span class="va">myYr</span>, <span class="va">myDate</span>, <span class="va">myTime</span>, <span class="va">Notes.User</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">df.Notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">Notes.Names</span>,<span class="va">Notes.Data</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Notes.Summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/summary-methods.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">myData.IHA</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">#~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Save Results to Excel (each group on its own worksheet)</span></span></span>
+<span class="r-in"><span><span class="va">Group.Desc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Magnitude of monthly water conditions"</span></span></span>
+<span class="r-in"><span>           ,<span class="st">"Magnitude of monthly water condition and include 12 parameters"</span></span></span>
+<span class="r-in"><span>                ,<span class="st">"Timing of annual extreme water conditions"</span></span></span>
+<span class="r-in"><span>                ,<span class="st">"Frequency and duration of high and low pulses"</span></span></span>
+<span class="r-in"><span>                ,<span class="st">"Rate and frequency of water condition changes"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df.Groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Group"</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,<span class="va">Group.Desc</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="va">myDate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"%Y%m%d"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myTime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"%H%M%S"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Notes section (add min/max dates)</span></span></span>
+<span class="r-in"><span><span class="va">Notes.Names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dataset (SiteID)"</span>,<span class="st">"IHA.Year"</span>,<span class="st">"Analysis.Date (YYYYMMDD)"</span></span></span>
+<span class="r-in"><span>                 ,<span class="st">"Analysis.Time (HHMMSS)"</span>,<span class="st">"Analysis.User"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Notes.Data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">SiteID</span>, <span class="va">myYr</span>, <span class="va">myDate</span>, <span class="va">myTime</span>, <span class="va">Notes.User</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df.Notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">Notes.Names</span>,<span class="va">Notes.Data</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Notes.Summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/summary-methods.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">myData.IHA</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'object' in selecting a method for function 'summary': object 'myData.IHA' not found</span>
-<span class="r-in"><span class="co"># Open/Create file</span></span>
-<span class="r-in"><span class="va">myFile.XLSX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"IHA"</span>, <span class="va">SiteID</span>, <span class="va">myYr</span>, <span class="va">myDate</span>, <span class="va">myTime</span>, <span class="st">"xlsx"</span>, sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># load workbook, create if not existing</span></span>
-<span class="r-in"><span class="va">wb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/loadWorkbook.html" class="external-link">loadWorkbook</a></span><span class="op">(</span><span class="va">myFile.XLSX</span>, create <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># create sheets</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"NOTES"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"Group1"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"Group2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"Group3"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"Group4"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"Group5"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># write to worksheet</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">df.Notes</span>, sheet <span class="op">=</span> <span class="st">"NOTES"</span>, startRow<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">Notes.Summary</span>, sheet <span class="op">=</span> <span class="st">"NOTES"</span>, startRow<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Open/Create file</span></span></span>
+<span class="r-in"><span><span class="va">myFile.XLSX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"IHA"</span>, <span class="va">SiteID</span>, <span class="va">myYr</span>, <span class="va">myDate</span>, <span class="va">myTime</span>, <span class="st">"xlsx"</span>, sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># load workbook, create if not existing</span></span></span>
+<span class="r-in"><span><span class="va">wb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/loadWorkbook.html" class="external-link">loadWorkbook</a></span><span class="op">(</span><span class="va">myFile.XLSX</span>, create <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># create sheets</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"NOTES"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"Group1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"Group2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"Group3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"Group4"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"Group5"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># write to worksheet</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">df.Notes</span>, sheet <span class="op">=</span> <span class="st">"NOTES"</span>, startRow<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">Notes.Summary</span>, sheet <span class="op">=</span> <span class="st">"NOTES"</span>, startRow<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'data' in selecting a method for function 'writeWorksheet': object 'Notes.Summary' not found</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">df.Groups</span>, sheet<span class="op">=</span><span class="st">"NOTES"</span>, startRow<span class="op">=</span><span class="fl">25</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">Analysis.Group.1</span>, sheet <span class="op">=</span> <span class="st">"Group1"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">df.Groups</span>, sheet<span class="op">=</span><span class="st">"NOTES"</span>, startRow<span class="op">=</span><span class="fl">25</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">Analysis.Group.1</span>, sheet <span class="op">=</span> <span class="st">"Group1"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'data' in selecting a method for function 'writeWorksheet': object 'Analysis.Group.1' not found</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">Analysis.Group.2</span>, sheet <span class="op">=</span> <span class="st">"Group2"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">Analysis.Group.2</span>, sheet <span class="op">=</span> <span class="st">"Group2"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'data' in selecting a method for function 'writeWorksheet': object 'Analysis.Group.2' not found</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">Analysis.Group.3</span>, sheet <span class="op">=</span> <span class="st">"Group3"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">Analysis.Group.3</span>, sheet <span class="op">=</span> <span class="st">"Group3"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'data' in selecting a method for function 'writeWorksheet': object 'Analysis.Group.3' not found</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">Analysis.Group.4</span>, sheet <span class="op">=</span> <span class="st">"Group4"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">Analysis.Group.4</span>, sheet <span class="op">=</span> <span class="st">"Group4"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'data' in selecting a method for function 'writeWorksheet': object 'Analysis.Group.4' not found</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">Analysis.Group.5</span>, sheet <span class="op">=</span> <span class="st">"Group5"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">Analysis.Group.5</span>, sheet <span class="op">=</span> <span class="st">"Group5"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'data' in selecting a method for function 'writeWorksheet': object 'Analysis.Group.5' not found</span>
-<span class="r-in"><span class="co"># save workbook</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/saveWorkbook-methods.html" class="external-link">saveWorkbook</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">myFile.XLSX</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># save workbook</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/saveWorkbook-methods.html" class="external-link">saveWorkbook</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">myFile.XLSX</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -294,7 +294,7 @@ are included in the example.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -19,7 +19,7 @@ measurement."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.7.9006</span>
       </span>
     </div>
 
@@ -73,13 +73,13 @@ measurement.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">CompSiteCDF</span><span class="op">(</span>
-  file.input <span class="op">=</span> <span class="cn">NULL</span>,
-  dir.input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,
-  dir.output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,
-  <span class="va">ParamName.xlab</span>,
-  df.input <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CompSiteCDF</span><span class="op">(</span></span>
+<span>  file.input <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dir.input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  dir.output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">ParamName.xlab</span>,</span>
+<span>  df.input <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -129,36 +129,36 @@ equal to parameter values on the x-axis.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Variant 1 (with File)</span></span>
-<span class="r-in"><span class="co"># Load Data</span></span>
-<span class="r-in"><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"CDF_WaterTemp_2014_MA.csv"</span></span>
-<span class="r-in"><span class="co"># example file from ContDataQC library files</span></span>
-<span class="r-in"><span class="va">myDir.input</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">path.package</a></span><span class="op">(</span><span class="st">"ContDataQC"</span><span class="op">)</span>,<span class="st">"extdata"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myDir.output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># X Label</span></span>
-<span class="r-in"><span class="va">myXlab</span> <span class="op">&lt;-</span> <span class="st">"Temperature, Water (deg C)"</span></span>
-<span class="r-in"><span class="co"># Run the Function</span></span>
-<span class="r-in"><span class="fu">CompSiteCDF</span><span class="op">(</span>file.input <span class="op">=</span> <span class="va">myFile</span></span>
-<span class="r-in">           , dir.input <span class="op">=</span> <span class="va">myDir.input</span></span>
-<span class="r-in">           , dir.output <span class="op">=</span> <span class="va">myDir.output</span></span>
-<span class="r-in">           , ParamName.xlab <span class="op">=</span> <span class="va">myXlab</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Variant 1 (with File)</span></span></span>
+<span class="r-in"><span><span class="co"># Load Data</span></span></span>
+<span class="r-in"><span><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"CDF_WaterTemp_2014_MA.csv"</span></span></span>
+<span class="r-in"><span><span class="co"># example file from ContDataQC library files</span></span></span>
+<span class="r-in"><span><span class="va">myDir.input</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">path.package</a></span><span class="op">(</span><span class="st">"ContDataQC"</span><span class="op">)</span>,<span class="st">"extdata"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myDir.output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># X Label</span></span></span>
+<span class="r-in"><span><span class="va">myXlab</span> <span class="op">&lt;-</span> <span class="st">"Temperature, Water (deg C)"</span></span></span>
+<span class="r-in"><span><span class="co"># Run the Function</span></span></span>
+<span class="r-in"><span><span class="fu">CompSiteCDF</span><span class="op">(</span>file.input <span class="op">=</span> <span class="va">myFile</span></span></span>
+<span class="r-in"><span>           , dir.input <span class="op">=</span> <span class="va">myDir.input</span></span></span>
+<span class="r-in"><span>           , dir.output <span class="op">=</span> <span class="va">myDir.output</span></span></span>
+<span class="r-in"><span>           , ParamName.xlab <span class="op">=</span> <span class="va">myXlab</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PDF created:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMk2p0Z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CompSiteCDF_20220615_215031.pdf</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Variant 2 (with Data Frame)</span></span>
-<span class="r-in"><span class="co"># Load Data</span></span>
-<span class="r-in"><span class="va">myDF</span> <span class="op">&lt;-</span> <span class="va">data_CompSiteCDF</span></span>
-<span class="r-in"><span class="co"># X Label</span></span>
-<span class="r-in"><span class="va">myXlab</span> <span class="op">&lt;-</span> <span class="st">"Temperature, Water (deg C)"</span></span>
-<span class="r-in"><span class="co"># Run the Function</span></span>
-<span class="r-in"><span class="co"># (output will default to working directory if not specified)</span></span>
-<span class="r-in"><span class="fu">CompSiteCDF</span><span class="op">(</span>ParamName.xlab <span class="op">=</span> <span class="va">myXlab</span></span>
-<span class="r-in">            , df.input <span class="op">=</span> <span class="va">myDF</span></span>
-<span class="r-in">            , dir.output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptjgOo3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CompSiteCDF_20221222_181748.pdf</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Variant 2 (with Data Frame)</span></span></span>
+<span class="r-in"><span><span class="co"># Load Data</span></span></span>
+<span class="r-in"><span><span class="va">myDF</span> <span class="op">&lt;-</span> <span class="va">data_CompSiteCDF</span></span></span>
+<span class="r-in"><span><span class="co"># X Label</span></span></span>
+<span class="r-in"><span><span class="va">myXlab</span> <span class="op">&lt;-</span> <span class="st">"Temperature, Water (deg C)"</span></span></span>
+<span class="r-in"><span><span class="co"># Run the Function</span></span></span>
+<span class="r-in"><span><span class="co"># (output will default to working directory if not specified)</span></span></span>
+<span class="r-in"><span><span class="fu">CompSiteCDF</span><span class="op">(</span>ParamName.xlab <span class="op">=</span> <span class="va">myXlab</span></span></span>
+<span class="r-in"><span>            , df.input <span class="op">=</span> <span class="va">myDF</span></span></span>
+<span class="r-in"><span>            , dir.output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PDF created:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMk2p0Z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CompSiteCDF_20220615_215031.pdf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptjgOo3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CompSiteCDF_20221222_181750.pdf</span>
 </code></pre></div>
     </div>
   </div>
@@ -173,7 +173,7 @@ equal to parameter values on the x-axis.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -18,7 +18,7 @@ used by the StreamThermal package."><!-- mathjax --><script src="https://cdnjs.c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ContDataQC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.7.9006</span>
       </span>
     </div>
 
@@ -71,12 +71,12 @@ used by the StreamThermal package.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Export.StreamThermal</span><span class="op">(</span>
-  <span class="va">fun.myDF</span>,
-  fun.col.SiteID <span class="op">=</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.SiteID</span>,
-  fun.col.Date <span class="op">=</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Date</span>,
-  fun.col.Temp <span class="op">=</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.WaterTemp</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Export.StreamThermal</span><span class="op">(</span></span>
+<span>  <span class="va">fun.myDF</span>,</span>
+<span>  fun.col.SiteID <span class="op">=</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.SiteID</span>,</span>
+<span>  fun.col.Date <span class="op">=</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.Date</span>,</span>
+<span>  fun.col.Temp <span class="op">=</span> <span class="va">ContData.env</span><span class="op">$</span><span class="va">myName.WaterTemp</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -121,27 +121,27 @@ the devtools package:</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># Example 1, USGS data</span></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pubs.usgs.gov/tm/04/a10/" class="external-link">dataRetrieval</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># 1.1. Get USGS data</span></span>
-<span class="r-in"><span class="co"># code from StreamThermal T_frequency example</span></span>
-<span class="r-in"><span class="va">ExUSGSStreamTemp</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/readNWISdv.html" class="external-link">readNWISdv</a></span><span class="op">(</span><span class="st">"01382310"</span>,<span class="st">"00010"</span>,<span class="st">"2011-01-01"</span>,<span class="st">"2011-12-31"</span></span>
-<span class="r-in">                             ,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"00001"</span>,<span class="st">"00002"</span>,<span class="st">"00003"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sitedata</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">ExUSGSStreamTemp</span>, select<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"site_no"</span>,<span class="st">"Date"</span></span>
-<span class="r-in">                 ,<span class="st">"X_00010_00001"</span>,<span class="st">"X_00010_00002"</span>,<span class="st">"X_00010_00003"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"siteID"</span>,<span class="st">"Date"</span>,<span class="st">"MaxT"</span>,<span class="st">"MinT"</span>,<span class="st">"MeanT"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="co"># 1.2. Run StreamThermal</span></span>
-<span class="r-in"><span class="co"># Library (install if needed)</span></span>
-<span class="r-in"><span class="co"># devtools::install_github("tsangyp/StreamThermal")</span></span>
-<span class="r-in"><span class="co"># Library (load)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va">StreamThermal</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Example 1, USGS data</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://code.usgs.gov/water/dataRetrieval" class="external-link">dataRetrieval</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># 1.1. Get USGS data</span></span></span>
+<span class="r-in"><span><span class="co"># code from StreamThermal T_frequency example</span></span></span>
+<span class="r-in"><span><span class="va">ExUSGSStreamTemp</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/readNWISdv.html" class="external-link">readNWISdv</a></span><span class="op">(</span><span class="st">"01382310"</span>,<span class="st">"00010"</span>,<span class="st">"2011-01-01"</span>,<span class="st">"2011-12-31"</span></span></span>
+<span class="r-in"><span>                             ,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"00001"</span>,<span class="st">"00002"</span>,<span class="st">"00003"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sitedata</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">ExUSGSStreamTemp</span>, select<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"site_no"</span>,<span class="st">"Date"</span></span></span>
+<span class="r-in"><span>                 ,<span class="st">"X_00010_00001"</span>,<span class="st">"X_00010_00002"</span>,<span class="st">"X_00010_00003"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"siteID"</span>,<span class="st">"Date"</span>,<span class="st">"MaxT"</span>,<span class="st">"MinT"</span>,<span class="st">"MeanT"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="co"># 1.2. Run StreamThermal</span></span></span>
+<span class="r-in"><span><span class="co"># Library (install if needed)</span></span></span>
+<span class="r-in"><span><span class="co"># devtools::install_github("tsangyp/StreamThermal")</span></span></span>
+<span class="r-in"><span><span class="co"># Library (load)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va">StreamThermal</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: StreamThermal</span>
-<span class="r-in"><span class="co">#~~~~~</span></span>
-<span class="r-in"><span class="co"># StreamThermal</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">ST.freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_frequency.html" class="external-link">T_frequency</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">#~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># StreamThermal</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">ST.freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_frequency.html" class="external-link">T_frequency</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   SiteInfo FmaxcT1 FmaxcT2 FmaxcT3 FmaxcT4 FmaxcT5 FmaxcT6 FmaxcT7 FmaxcT8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 01382310       0       0       0       0      17      29      31      30</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   FmaxcT9 FmaxcT10 FmaxcT11 FmaxcT12 FmincT1 FmincT2 FmincT3 FmincT4 FmincT5</span>
@@ -154,7 +154,7 @@ the devtools package:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         0         0       17        7        10       90       83        85</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   FmaxcTfa FmincTfa FmeancTfa FmaxcTwi FmincTwi FmeancTwi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       42       28        33        0        0         0</span>
-<span class="r-in"><span class="op">(</span><span class="va">ST.mag</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_magnitude.html" class="external-link">T_magnitude</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">ST.mag</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_magnitude.html" class="external-link">T_magnitude</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   SiteInfo   ADmax1 ADmax2   ADmax3 ADmax4   ADmax5   ADmax6   ADmax7   ADmax8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 01382310 1.825806  1.775 4.864516   9.88 17.20645 21.47333 24.09677 22.68387</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ADmax9  ADmax10  ADmax11 ADmax12    ADmin1    ADmin2   ADmin3   ADmin4</span>
@@ -173,12 +173,12 @@ the devtools package:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         24.59048          22.67857         24.73571         23.21429</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Max7MovingAMaxT Max3MovingAMeanT Max3MovingAMaxT</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        25.17143         23.96667            26.1</span>
-<span class="r-in"><span class="op">(</span><span class="va">ST.roc</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_rateofchange.html" class="external-link">T_rateofchange</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">ST.roc</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_rateofchange.html" class="external-link">T_rateofchange</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   SiteInfo   RC1       RC2       RC3       RC4 RC5  RC6  RC7  RC8       RC9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 01382310 0.108 0.1352941 0.2866667 0.3518519 0.4 1.54 0.96 2.24 0.4357143</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   RC10      RC11      RC12      RCsp      RCsu      RCfa       RCwi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.32 0.4111111 0.2434783 0.2337079 0.5090909 0.1881579 0.02715655</span>
-<span class="r-in"><span class="op">(</span><span class="va">ST.tim</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_timing.html" class="external-link">T_timing</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">ST.tim</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_timing.html" class="external-link">T_timing</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   SiteInfo JDmaxMaxT1 JDmaxMaxT2 JDmaxMaxT3 JDmaxMaxT4 JDmaxMaxT5 JDmaxMaxT6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 01382310          0         48         76        118        150        151</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   JDmaxMaxT7 JDmaxMaxT8 JDmaxMaxT9 JDmaxMaxT10 JDmaxMaxT11 JDmaxMaxT12</span>
@@ -201,7 +201,7 @@ the devtools package:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         197        195         230        201       196       219.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   JDM3MAMaxT JDM3MADRT</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        202       196</span>
-<span class="r-in"><span class="op">(</span><span class="va">ST.var</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_variability.html" class="external-link">T_variability</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span> <span class="co"># example in package doesn't work</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">ST.var</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_variability.html" class="external-link">T_variability</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span> <span class="co"># example in package doesn't work</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>numerical expression has 2 elements: only the first used</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>longer object length is not a multiple of shorter object length</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   SiteInfo ADrange1 ADrange2 ADrange3 ADrange4 ADrange5 ADrange6 ADrange7</span>
@@ -230,25 +230,25 @@ the devtools package:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        4.371429             1.6       4.542857           0.55              5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   DiffExtreme1.3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1              0</span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># Example 2, ContDataQC Summary Stats Data</span></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># 2.1. Load ContDataQC file that has been processed with SummaryStats</span></span>
-<span class="r-in"><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"DATA_test2_Aw_20130101_20141231.csv"</span></span>
-<span class="r-in"><span class="va">myData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">path.package</a></span><span class="op">(</span><span class="st">"ContDataQC"</span><span class="op">)</span>,<span class="st">"extdata"</span>,<span class="va">myFile</span><span class="op">)</span></span>
-<span class="r-in">                   , stringsAsFactors<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Subset</span></span>
-<span class="r-in"><span class="va">Col.Keep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SiteID"</span>, <span class="st">"Date"</span>, <span class="st">"Water.Temp.C"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sitedata</span> <span class="op">&lt;-</span> <span class="va">myData</span><span class="op">[</span>,<span class="va">Col.Keep</span><span class="op">]</span></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="va">sitedata</span> <span class="op">&lt;-</span> <span class="fu">Export.StreamThermal</span><span class="op">(</span><span class="va">myData</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># 2.2. Run StreamThermal</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va">StreamThermal</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">#~~~~~</span></span>
-<span class="r-in"><span class="co"># StreamThermal</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">ST.freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_frequency.html" class="external-link">T_frequency</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Example 2, ContDataQC Summary Stats Data</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># 2.1. Load ContDataQC file that has been processed with SummaryStats</span></span></span>
+<span class="r-in"><span><span class="va">myFile</span> <span class="op">&lt;-</span> <span class="st">"DATA_test2_Aw_20130101_20141231.csv"</span></span></span>
+<span class="r-in"><span><span class="va">myData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">path.package</a></span><span class="op">(</span><span class="st">"ContDataQC"</span><span class="op">)</span>,<span class="st">"extdata"</span>,<span class="va">myFile</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                   , stringsAsFactors<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Subset</span></span></span>
+<span class="r-in"><span><span class="va">Col.Keep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SiteID"</span>, <span class="st">"Date"</span>, <span class="st">"Water.Temp.C"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sitedata</span> <span class="op">&lt;-</span> <span class="va">myData</span><span class="op">[</span>,<span class="va">Col.Keep</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="va">sitedata</span> <span class="op">&lt;-</span> <span class="fu">Export.StreamThermal</span><span class="op">(</span><span class="va">myData</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># 2.2. Run StreamThermal</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va">StreamThermal</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># StreamThermal</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">ST.freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_frequency.html" class="external-link">T_frequency</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   SiteInfo FmaxcT1 FmaxcT2 FmaxcT3 FmaxcT4 FmaxcT5 FmaxcT6 FmaxcT7 FmaxcT8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    Test2     NaN     NaN     NaN     NaN      17      30      32      31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   FmaxcT9 FmaxcT10 FmaxcT11 FmaxcT12 FmincT1 FmincT2 FmincT3 FmincT4 FmincT5</span>
@@ -261,7 +261,7 @@ the devtools package:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       NaN       NaN      NaN      NaN       NaN       93       92        93</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   FmaxcTfa FmincTfa FmeancTfa FmaxcTwi FmincTwi FmeancTwi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      NaN      NaN       NaN      NaN      NaN       NaN</span>
-<span class="r-in"><span class="op">(</span><span class="va">ST.mag</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_magnitude.html" class="external-link">T_magnitude</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">ST.mag</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_magnitude.html" class="external-link">T_magnitude</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>some methods for “zoo” objects do not work if the index entries in ‘order.by’ are not unique</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>some methods for “zoo” objects do not work if the index entries in ‘order.by’ are not unique</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>some methods for “zoo” objects do not work if the index entries in ‘order.by’ are not unique</span>
@@ -310,12 +310,12 @@ the devtools package:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1          21.23605         22.40393         21.86726          23.198</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Max3MovingAMeanT Max3MovingAMaxT</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1          22.2375        24.48967</span>
-<span class="r-in"><span class="op">(</span><span class="va">ST.roc</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_rateofchange.html" class="external-link">T_rateofchange</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">ST.roc</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_rateofchange.html" class="external-link">T_rateofchange</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   SiteInfo RC1 RC2 RC3 RC4       RC5       RC6       RC7      RC8       RC9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    Test2 NaN NaN NaN NaN 0.4328067 0.1452781 0.3250758 1.093146 0.1784598</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   RC10 RC11 RC12 RCsp     RCsu RCfa RCwi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  NaN  NaN  NaN  NaN 1.093146  NaN  NaN</span>
-<span class="r-in"><span class="op">(</span><span class="va">ST.tim</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_timing.html" class="external-link">T_timing</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">ST.tim</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_timing.html" class="external-link">T_timing</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>some methods for “zoo” objects do not work if the index entries in ‘order.by’ are not unique</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>some methods for “zoo” objects do not work if the index entries in ‘order.by’ are not unique</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>some methods for “zoo” objects do not work if the index entries in ‘order.by’ are not unique</span>
@@ -383,7 +383,7 @@ the devtools package:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         219        278         221        222       283         222</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   JDM3MAMaxT JDM3MADRT</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        261       283</span>
-<span class="r-in"><span class="op">(</span><span class="va">ST.var</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_variability.html" class="external-link">T_variability</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">ST.var</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/StreamThermal/man/T_variability.html" class="external-link">T_variability</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>some methods for “zoo” objects do not work if the index entries in ‘order.by’ are not unique</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>some methods for “zoo” objects do not work if the index entries in ‘order.by’ are not unique</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>some methods for “zoo” objects do not work if the index entries in ‘order.by’ are not unique</span>
@@ -440,84 +440,86 @@ the devtools package:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        3.204357        1.616734       5.034571     0.01802083       9.707667</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   DiffExtreme1.3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1              0</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="co"># Save Results to Excel (each group on its own worksheet)</span></span>
-<span class="r-in"><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mirai-solutions.ch" class="external-link">XLConnect</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Descriptions</span></span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="va">Desc.freq</span> <span class="op">&lt;-</span> <span class="st">"Frequency metrics indicate numbers of days in months or seasons</span>
-<span class="r-in">that key events exceed user-defined temperatures. "</span></span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="va">Desc.mag</span> <span class="op">&lt;-</span> <span class="st">"Magnitude metrics characterize monthly and seasonal averages and</span>
-<span class="r-in">the maximum and minimum from daily temperatures as well as 3-, 7-, 14-, 21-,</span>
-<span class="r-in">and 30-day moving averages for mean and maximum daily temperatures."</span></span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="va">Desc.roc</span> <span class="op">&lt;-</span> <span class="st">"Rate of change metrics include monthly and seasonal rate of</span>
-<span class="r-in">change, which indicates the difference in magnitude of maximum and minimum</span>
-<span class="r-in">temperatures divided by number of days between these events."</span></span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="va">Desc.tim</span> <span class="op">&lt;-</span> <span class="st">"Timing metrics indicate Julian days of key events including</span>
-<span class="r-in">mean, maximum, and minimum temperatures; they also indicate Julian days of</span>
-<span class="r-in">mean, maximum, and minimum values over moving windows of specified size."</span></span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="va">Desc.var</span> <span class="op">&lt;-</span> <span class="st">"Variability metrics summarize monthly and seasonal range in</span>
-<span class="r-in">daily mean temperatures as well as monthly coefficient of variation of daily</span>
-<span class="r-in">mean, maximum, and minimum temperatures. Variability metrics also include</span>
-<span class="r-in">moving averages for daily ranges and moving variability in extreme</span>
-<span class="r-in">temperatures, calculated from differences in average high and low</span>
-<span class="r-in">temperatures over various time periods"</span></span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="va">Group.Desc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Desc.freq</span>, <span class="va">Desc.mag</span>, <span class="va">Desc.roc</span>, <span class="va">Desc.tim</span>, <span class="va">Desc.var</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">df.Groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"freq"</span>,<span class="st">"mag"</span>,<span class="st">"roc"</span>,<span class="st">"tim"</span>,<span class="st">"var"</span><span class="op">)</span></span>
-<span class="r-in">                           ,<span class="va">Group.Desc</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="va">SiteID</span> <span class="op">&lt;-</span> <span class="va">sitedata</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">myDate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"%Y%m%d"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myTime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"%H%M%S"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Notes.User</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"USERNAME"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Notes section (add min/max dates)</span></span>
-<span class="r-in"><span class="va">Notes.Names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dataset (SiteID)"</span>, <span class="st">"Analysis.Date (YYYYMMDD)"</span></span>
-<span class="r-in">                 , <span class="st">"Analysis.Time (HHMMSS)"</span>, <span class="st">"Analysis.User"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Notes.Data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">SiteID</span>, <span class="va">myDate</span>, <span class="va">myTime</span>, <span class="va">Notes.User</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">df.Notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">Notes.Names</span>, <span class="va">Notes.Data</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Notes.Summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/summary-methods.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Open/Create file</span></span>
-<span class="r-in"><span class="co">## New File Name</span></span>
-<span class="r-in"><span class="va">myFile.XLSX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"StreamThermal"</span></span>
-<span class="r-in">                     , <span class="va">SiteID</span></span>
-<span class="r-in">                     , <span class="va">myDate</span></span>
-<span class="r-in">                     , <span class="va">myTime</span></span>
-<span class="r-in">                     , <span class="st">"xlsx"</span></span>
-<span class="r-in">                     , sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Copy over template with Metric Definitions</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">path.package</a></span><span class="op">(</span><span class="st">"ContDataQC"</span><span class="op">)</span></span>
-<span class="r-in">                                 ,<span class="st">"extdata"</span></span>
-<span class="r-in">                                 ,<span class="st">"StreamThermal_MetricList.xlsx"</span><span class="op">)</span></span>
-<span class="r-in">          , <span class="va">myFile.XLSX</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Save Results to Excel (each group on its own worksheet)</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mirai-solutions.ch" class="external-link">XLConnect</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Descriptions</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="va">Desc.freq</span> <span class="op">&lt;-</span> <span class="st">"Frequency metrics indicate numbers of days in months or seasons</span></span></span>
+<span class="r-in"><span><span class="st">that key events exceed user-defined temperatures. "</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="va">Desc.mag</span> <span class="op">&lt;-</span> <span class="st">"Magnitude metrics characterize monthly and seasonal averages and</span></span></span>
+<span class="r-in"><span><span class="st">the maximum and minimum from daily temperatures as well as 3-, 7-, 14-, 21-,</span></span></span>
+<span class="r-in"><span><span class="st">and 30-day moving averages for mean and maximum daily temperatures."</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="va">Desc.roc</span> <span class="op">&lt;-</span> <span class="st">"Rate of change metrics include monthly and seasonal rate of</span></span></span>
+<span class="r-in"><span><span class="st">change, which indicates the difference in magnitude of maximum and minimum</span></span></span>
+<span class="r-in"><span><span class="st">temperatures divided by number of days between these events."</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="va">Desc.tim</span> <span class="op">&lt;-</span> <span class="st">"Timing metrics indicate Julian days of key events including</span></span></span>
+<span class="r-in"><span><span class="st">mean, maximum, and minimum temperatures; they also indicate Julian days of</span></span></span>
+<span class="r-in"><span><span class="st">mean, maximum, and minimum values over moving windows of specified size."</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="va">Desc.var</span> <span class="op">&lt;-</span> <span class="st">"Variability metrics summarize monthly and seasonal range in</span></span></span>
+<span class="r-in"><span><span class="st">daily mean temperatures as well as monthly coefficient of variation of daily</span></span></span>
+<span class="r-in"><span><span class="st">mean, maximum, and minimum temperatures. Variability metrics also include</span></span></span>
+<span class="r-in"><span><span class="st">moving averages for daily ranges and moving variability in extreme</span></span></span>
+<span class="r-in"><span><span class="st">temperatures, calculated from differences in average high and low</span></span></span>
+<span class="r-in"><span><span class="st">temperatures over various time periods"</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="va">Group.Desc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Desc.freq</span>, <span class="va">Desc.mag</span>, <span class="va">Desc.roc</span>, <span class="va">Desc.tim</span>, <span class="va">Desc.var</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df.Groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"freq"</span>,<span class="st">"mag"</span>,<span class="st">"roc"</span>,<span class="st">"tim"</span>,<span class="st">"var"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                           ,<span class="va">Group.Desc</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="va">SiteID</span> <span class="op">&lt;-</span> <span class="va">sitedata</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">myDate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"%Y%m%d"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myTime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"%H%M%S"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Notes.User</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"USERNAME"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Notes section (add min/max dates)</span></span></span>
+<span class="r-in"><span><span class="va">Notes.Names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dataset (SiteID)"</span>, <span class="st">"Analysis.Date (YYYYMMDD)"</span></span></span>
+<span class="r-in"><span>                 , <span class="st">"Analysis.Time (HHMMSS)"</span>, <span class="st">"Analysis.User"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Notes.Data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">SiteID</span>, <span class="va">myDate</span>, <span class="va">myTime</span>, <span class="va">Notes.User</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df.Notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">Notes.Names</span>, <span class="va">Notes.Data</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Notes.Summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/summary-methods.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">sitedata</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Open/Create file</span></span></span>
+<span class="r-in"><span><span class="co">## New File Name</span></span></span>
+<span class="r-in"><span><span class="va">myFile.XLSX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"StreamThermal"</span></span></span>
+<span class="r-in"><span>                     , <span class="va">SiteID</span></span></span>
+<span class="r-in"><span>                     , <span class="va">myDate</span></span></span>
+<span class="r-in"><span>                     , <span class="va">myTime</span></span></span>
+<span class="r-in"><span>                     , <span class="st">"xlsx"</span></span></span>
+<span class="r-in"><span>                     , sep<span class="op">=</span><span class="st">"."</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Copy over template with Metric Definitions</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">path.package</a></span><span class="op">(</span><span class="st">"ContDataQC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                                 ,<span class="st">"extdata"</span></span></span>
+<span class="r-in"><span>                                 ,<span class="st">"StreamThermal_MetricList.xlsx"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>          , <span class="va">myFile.XLSX</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="co">## load workbook, create if not existing</span></span>
-<span class="r-in"><span class="va">wb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/loadWorkbook.html" class="external-link">loadWorkbook</a></span><span class="op">(</span><span class="va">myFile.XLSX</span>, create <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># create sheets</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"NOTES"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"freq"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"mag"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"roc"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"tim"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"var"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># write to worksheet</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">df.Notes</span>, sheet <span class="op">=</span> <span class="st">"NOTES"</span>, startRow<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">df.Groups</span>, sheet<span class="op">=</span><span class="st">"NOTES"</span>, startRow<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">Notes.Summary</span>, sheet <span class="op">=</span> <span class="st">"NOTES"</span>, startRow<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">ST.freq</span>, sheet <span class="op">=</span> <span class="st">"freq"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">ST.mag</span>, sheet <span class="op">=</span> <span class="st">"mag"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">ST.roc</span>, sheet <span class="op">=</span> <span class="st">"roc"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">ST.tim</span>, sheet <span class="op">=</span> <span class="st">"tim"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">ST.var</span>, sheet <span class="op">=</span> <span class="st">"var"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># save workbook</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/saveWorkbook-methods.html" class="external-link">saveWorkbook</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">myFile.XLSX</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## load workbook, create if not existing</span></span></span>
+<span class="r-in"><span><span class="va">wb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/loadWorkbook.html" class="external-link">loadWorkbook</a></span><span class="op">(</span><span class="va">myFile.XLSX</span>, create <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># create sheets</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"NOTES"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"freq"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"mag"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"roc"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"tim"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/createSheet-methods.html" class="external-link">createSheet</a></span><span class="op">(</span><span class="va">wb</span>, name <span class="op">=</span> <span class="st">"var"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># write to worksheet</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">df.Notes</span>, sheet <span class="op">=</span> <span class="st">"NOTES"</span>, startRow<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">df.Groups</span>, sheet<span class="op">=</span><span class="st">"NOTES"</span>, startRow<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> NoSuchMethodError (Java): org.apache.xmlbeans.XmlCursor.close()V</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">Notes.Summary</span>, sheet <span class="op">=</span> <span class="st">"NOTES"</span>, startRow<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> NoSuchMethodError (Java): org.apache.xmlbeans.XmlCursor.close()V</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">ST.freq</span>, sheet <span class="op">=</span> <span class="st">"freq"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">ST.mag</span>, sheet <span class="op">=</span> <span class="st">"mag"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">ST.roc</span>, sheet <span class="op">=</span> <span class="st">"roc"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">ST.tim</span>, sheet <span class="op">=</span> <span class="st">"tim"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/writeWorksheet-methods.html" class="external-link">writeWorksheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">ST.var</span>, sheet <span class="op">=</span> <span class="st">"var"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># save workbook</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/XLConnect/man/saveWorkbook-methods.html" class="external-link">saveWorkbook</a></span><span class="op">(</span><span class="va">wb</span>, <span class="va">myFile.XLSX</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -532,7 +534,7 @@ the devtools package:</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

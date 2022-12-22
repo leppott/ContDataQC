@@ -1,9 +1,9 @@
 pandoc: 2.7.3
-pkgdown: 2.0.4
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   Vignette_Config: Vignette_Config.html
   Vignette_ContDataQC: Vignette_ContDataQC.html
   Vignette_Lakes: Vignette_Lakes.html
-last_built: 2022-06-15T21:50Z
+last_built: 2022-12-22T18:17Z
 
