@@ -48,3 +48,5 @@ _test/
 rLA_TestLake_Water_20180702_20181012.csv
 docs
 debug.log
+/doc/
+/Meta/

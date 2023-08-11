@@ -3,9 +3,15 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-12-22 15:02:31
+    #> Last Update: 2023-08-11 08:51:16.365676
 
 # Version History
+
+## v2.0.7.9008
+
+2023-08-11
+
+- style: Update Report_SiteSummary spacing
 
 ## v2.0.7.9007
 
@@ -752,8 +758,8 @@ folder.
 
 2021-01-08
 
-- refactor: Modify LakeID\~Depth siteID to LakeID–Depth
-  - File names with \~ are non-portable.
+- refactor: Modify LakeID~Depth siteID to LakeID–Depth
+  - File names with ~ are non-portable.
 - style: Trim to 80 characters.
   - Vignette_Lakes
   - fun.ParseID
@@ -1158,9 +1164,9 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
 
 2019-02-25
 
-- Ensure the package can handle “LakeID\~Depth” as “SiteID”
+- Ensure the package can handle “LakeID~Depth” as “SiteID”
   - Add Lake delimiter to Config files.
-    - ContData.env\$myDelim_LakeID \<- “\~”
+    - ContData.env\$myDelim_LakeID \<- “~”
 - Reporte_Aggregate.rmd
   - Turn on ggplot for dual parameter plots.
 - ContDataQC

@@ -104,7 +104,7 @@ shinyUI(
 #       tags$meta(name="viewport", content="width=device-width, initial-scale=1.0"),
 #       tags$meta(`http-equiv`="x-ua-compatible", content="ie=edge"),
 #       tags$script(src = "js/pattern-lab-head-script.js"),
-#       # update title ----
+#       # _update title ----
 #       tags$title('ContDataQC | US EPA'),
 #       tags$link(rel="icon", type="image/x-icon", href="https://www.epa.gov/themes/epa_theme/images/favicon.ico"),
 #       tags$meta(name="msapplication-TileColor", content="#FFFFFF"),
@@ -296,7 +296,7 @@ shinyUI(
 #           <article class="article">'
 #     ),
 #
-#     # Insert your UI code here ----
+#     # _Insert your UI code here ----
 #     # ## Begin example UI code
 #     # titlePanel("Hello Shiny!"),
 #     # sidebarLayout
@@ -322,7 +322,7 @@ shinyUI(
 #     # IMPORTANT! For a navbar page, you will need to place the header and footer inside the navbar section (as shown below)  -
 #     # you will then want to comment out lines 201-213 and lines 254-263
 #       navbarPage(
-#         title = h2("Continuous data QC, summary, and statistics - v2.0.7"),
+#         title = h2("Continuous data QC, summary, and statistics - v2.0.7.9007"),
 #         #theme= shinytheme("spacelab"),
 #         header = HTML(
 #           '<div class="l-page  has-footer">
