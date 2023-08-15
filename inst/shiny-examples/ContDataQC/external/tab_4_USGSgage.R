@@ -2,10 +2,10 @@
 
 function(){
 
-  tabPanel("6. Download USGS Data"
+  tabPanel("Download USGS Gage Data"
            ,fluidRow(
              column(5,
-                    includeHTML("www/RMD_HTML/App_6USGSgage.html")
+                    includeHTML("www/RMD_HTML/App_4_USGSgage.html")
              )# column ~ END
 
              ,column(5, offset = 1

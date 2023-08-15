@@ -1,0 +1,35 @@
+---
+title: "Related Apps"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results = 'asis', echo = FALSE, warning = FALSE, message = FALSE, fig.align = "center")
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if (boo_DEBUG == TRUE) {
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+# Related Apps
+
+Some related apps for QC and continuous data.
+
+Some are stored on the <a href="https://nalms.shinyapps.io/NALMS_Shiny_Home/" target="_blank">NALMS Shiny server</a>.
+
+
+* <a href="https://nalms.shinyapps.io/logger_processing/" target="_blank">Logger Processing</a>
+
+* <a href="https://github.com/leppott/ContDataQC" target="_blank">ContDataQC</a>
+
+* <a href="https://nalms.shinyapps.io/LakeMonitoR/" target="_blank">LakeMonitoR</a>
+
+* <a href="https://nalms.shinyapps.io/Shiny_for_Water_Resources/" target="_blank">Water Resources for Shiny</a>
+
+* <a href="https://github.com/leppott/ContDataSumViz" target="_blank">ContDataSumViz</a> 

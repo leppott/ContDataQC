@@ -2,7 +2,7 @@
 
 function(){
 
-  tabPanel("1. About ContDataQC"
+  tabPanel("About"
            , mainPanel(
              includeHTML("www/RMD_HTML/App_1Overview.html")
              , tags$head(includeHTML(("google-analytics.html")))

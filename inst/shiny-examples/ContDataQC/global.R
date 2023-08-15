@@ -31,7 +31,7 @@ dataTemplate <- read.csv(file = "continuous_data_template_2017_11_15.csv"
 # Environment ----
 # Load default config if not present
 # 2020-10-02 (ContDataQC.R), added to global 2022-12-22
-if(exists("ContData.env", mode = "environment") == FALSE) {
+if (exists("ContData.env", mode = "environment") == FALSE) {
   source(system.file(package = "ContDataQC", "extdata", "config.ORIG.R")
          , local = TRUE)
 }## exists ~ END
@@ -48,27 +48,27 @@ fileParse <- function(inputFile) {
 
   #Dates are formatted differently for data input to QCRaw and data input
   #to Aggregate and Summarize (output from QCRaw)
-  if("Flag" %in% substr(colnames(inputFile),1,4)) {
-    startDate <-min(as.Date(inputFile$Date.Time, format = "%Y-%m-%d"))
+  if ("Flag" %in% substr(colnames(inputFile),1,4)) {
+    startDate <- min(as.Date(inputFile$Date.Time, format = "%Y-%m-%d"))
     endDate <- max(as.Date(inputFile$Date.Time, format = "%Y-%m-%d"))
   }
 
   #Recognizes dates if they are in a Date field as opposed to a Date.Time field
-  else if("Date" %in% colnames(inputFile)){
-    startDate <-min(as.Date(inputFile$Date, format = "%m/%d/%Y"))
+  else if ("Date" %in% colnames(inputFile)) {
+    startDate <- min(as.Date(inputFile$Date, format = "%m/%d/%Y"))
     endDate <- max(as.Date(inputFile$Date, format = "%m/%d/%Y"))
   }
 
   #Recognizes dates if they are in a "Date Time" field
   # as opposed to a Date.Time field
-  else if("Date Time" %in% colnames(inputFile)){
-    startDate <-min(as.Date(inputFile$`Date Time`, format = "%m/%d/%Y"))
+  else if ("Date Time" %in% colnames(inputFile)) {
+    startDate <- min(as.Date(inputFile$`Date Time`, format = "%m/%d/%Y"))
     endDate <- max(as.Date(inputFile$`Date Time`, format = "%m/%d/%Y"))
   }
 
   #Recognizes dates if they are in a Date.Time field
   else {
-    startDate <-min(as.Date(inputFile$Date.Time, format = "%m/%d/%Y"))
+    startDate <- min(as.Date(inputFile$Date.Time, format = "%m/%d/%Y"))
     endDate <- max(as.Date(inputFile$Date.Time, format = "%m/%d/%Y"))
   }
 
@@ -153,7 +153,7 @@ timeFormatter <- function(time) {
 #Converts a string of USGS site IDs (comma delimited)
 #into an array of site IDs for gage data retrieval
 USGSsiteParser <- function(siteIDs) {
-  USGSsiteVector <- unlist(strsplit(siteIDs, split=", "))
+  USGSsiteVector <- unlist(strsplit(siteIDs, split = ", "))
   return(USGSsiteVector)
 }
 
@@ -213,7 +213,7 @@ renameAggOutput <- function(directory, fileAttribsTable) {
 
   #Populates vectors for the input and output files if the input files are
   #output from the Aggregate process
-  if ("DATA_DATA" %in% substr(allFiles,1,9)){
+  if ("DATA_DATA" %in% substr(allFiles,1,9)) {
     csvInputs <- list.files(directory, pattern = "^DATA_QC.*csv")
     csvOutput <- list.files(directory, pattern = "DATA_DATA_QC.*csv")
     htmlOutput <- list.files(directory, pattern = "DATA_DATA_QC.*html")
@@ -237,7 +237,7 @@ renameAggOutput <- function(directory, fileAttribsTable) {
   data.type.inputs <- vector()
 
   #Extracts the data type from all input files
-  for (i in seq_len(length(csvInputs))){
+  for (i in seq_len(length(csvInputs))) {
     csvInputs.parts <- strsplit(csvInputs[i], myDelim)
     data.type.inputs.number <- which(csvInputs.parts[[1]] ==
                                        fileAttribsTable[1, 2]) + 1
@@ -253,9 +253,9 @@ renameAggOutput <- function(directory, fileAttribsTable) {
 
   #Changes the output file names if the input files have different data types
   #and have the same start and end dates
-  if(data.type.inputs[1] != data.type.inputs[2]
+  if (data.type.inputs[1] != data.type.inputs[2]
      && minStartDate == maxStartDate
-     && minEndDate == maxEndDate){
+     && minEndDate == maxEndDate) {
 
     #Creates a data.frame for converting the input data types to the
     #  output data type
@@ -269,8 +269,8 @@ renameAggOutput <- function(directory, fileAttribsTable) {
                                        , combined.data.type)
 
     #Finds the rows in the conversion data.frame which have that date type
-    type1 <- which(data.type.conversion[,1]==data.type.inputs[1])
-    type2 <- which(data.type.conversion[,2]==data.type.inputs[2])
+    type1 <- which(data.type.conversion[,1] == data.type.inputs[1])
+    type2 <- which(data.type.conversion[,2] == data.type.inputs[2])
 
     #Finds the one row on the conversion data.frame that corresponds to
     # those data types
@@ -278,20 +278,20 @@ renameAggOutput <- function(directory, fileAttribsTable) {
                                                      , 3])
 
     #Changes the data type in the output csv to the correct datatype
-    csvOutput.data.type <- gsub(paste("_", data.type.inputs[1], "_", sep=""),
-                                paste("_", output.type, "_", sep=""),
+    csvOutput.data.type <- gsub(paste("_", data.type.inputs[1], "_", sep = ""),
+                                paste("_", output.type, "_", sep = ""),
                                 csvOutput)
 
     #Sometimes the Aggregate process uses the second data type in its output
     # name.
     #This captures that eventuality.
-    csvOutput.data.type <- gsub(paste("_", data.type.inputs[2], "_", sep=""),
-                                paste("_", output.type, "_", sep=""),
+    csvOutput.data.type <- gsub(paste("_", data.type.inputs[2], "_", sep = ""),
+                                paste("_", output.type, "_", sep = ""),
                                 csvOutput.data.type)
 
     #Removes the "_append_x" from the output csv name
-    csvOutput.data.type <- gsub(paste("_Append_", length(csvInputs), sep=""),
-                                paste("", sep=""),
+    csvOutput.data.type <- gsub(paste("_Append_", length(csvInputs), sep = ""),
+                                paste("", sep = ""),
                                 csvOutput.data.type)
 
     #Renames the csv
@@ -300,25 +300,25 @@ renameAggOutput <- function(directory, fileAttribsTable) {
 
 
     #Changes the data type in the output html to the correct datatype
-    htmlOutput.data.type <- gsub(paste("_", data.type.inputs[1], "_", sep=""),
-                                paste("_", output.type, "_", sep=""),
+    htmlOutput.data.type <- gsub(paste("_", data.type.inputs[1], "_", sep = ""),
+                                paste("_", output.type, "_", sep = ""),
                                 htmlOutput)
 
     #Sometimes the Aggregate process uses the second data type in its output
     # name.
     #This captures that eventuality.
-    htmlOutput.data.type <- gsub(paste("_", data.type.inputs[2], "_", sep=""),
-                                 paste("_", output.type, "_", sep=""),
+    htmlOutput.data.type <- gsub(paste("_", data.type.inputs[2], "_", sep = ""),
+                                 paste("_", output.type, "_", sep = ""),
                                  htmlOutput.data.type)
 
     #Removes the "_append_x" from the output html name
-    htmlOutput.data.type <- gsub(paste("_Append_", length(csvInputs), sep=""),
-                                paste("", sep=""),
+    htmlOutput.data.type <- gsub(paste("_Append_", length(csvInputs), sep = ""),
+                                paste("", sep = ""),
                                 htmlOutput.data.type)
 
     #Removes the "_Report_Aggregate" from the output html name
-    htmlOutput.data.type <- gsub(paste("_Report_Aggregate", sep=""),
-                                 paste("", sep=""),
+    htmlOutput.data.type <- gsub(paste("_Report_Aggregate", sep = ""),
+                                 paste("", sep = ""),
                                  htmlOutput.data.type)
 
     #Renames the html output
@@ -344,27 +344,27 @@ renameAggOutput <- function(directory, fileAttribsTable) {
     #Determines how many characters should be removed from end of csv output
     # name (through the (inaccurate) second date in the name, which is not the
     # latest date of measurement)
-    csvCharsToRemove <- 8+1+8+1+6+1+nchar(numFiles)+4
+    csvCharsToRemove <- 8 + 1 + 8 + 1 + 6 + 1 + nchar(numFiles) + 4
     # date min (8) + sep (1) + date max (8) + sep (1) + append (6) +
     # NumFiles + .ext (4)
 
     #Removes the specified number of characters
-    csvNewName <- substr(csvOutput, 0, nchar(csvOutput)-csvCharsToRemove)
+    csvNewName <- substr(csvOutput, 0, nchar(csvOutput) - csvCharsToRemove)
 
     #Adds the last recorded date to the truncated file name
-    csvNewName <- paste(csvNewName, minDate, "_", maxDate, ".csv", sep="")
+    csvNewName <- paste(csvNewName, minDate, "_", maxDate, ".csv", sep = "")
 
     #Replaces the old file name with the new one
     file.rename(file.path(".", "data", csvOutput)
                 , file.path(".", "data", csvNewName))
 
     #Same as above but for the HTML reports
-    htmlCharsToRemove <- 8+1+8+1+6+1+nchar(numFiles)+1+6+1+8+6
+    htmlCharsToRemove <- 8 + 1 + 8 + 1 + 6 + 1 + nchar(numFiles) + 1 + 6 + 1 + 8 + 6
     # date min (8) + sep (1) + date max (8) + sep (1) + append (6) + NumFiles +
     # sep (1) + Report (6) + sep (1) + Aggregate (8) + .ext (6?)
 
-    htmlNewName <- substr(htmlOutput, 0, nchar(htmlOutput)-htmlCharsToRemove)
-    htmlNewName <- paste(htmlNewName, minDate, "_", maxDate, ".html", sep="")
+    htmlNewName <- substr(htmlOutput, 0, nchar(htmlOutput) - htmlCharsToRemove)
+    htmlNewName <- paste(htmlNewName, minDate, "_", maxDate, ".html", sep = "")
     file.rename(file.path(".", "data", htmlOutput)
                 , file.path(".", "data", htmlNewName))
 
@@ -396,7 +396,7 @@ nameParse <- function(strFile, process) {
                               ,tolower(substring(strFile.DataType
                                                  ,2
                                                  ,nchar(strFile.DataType)))
-                              ,sep="")
+                              ,sep = "")
     strFile.Date.Start <- as.Date(strFile.parts[[1]][4],"%Y%m%d")
     strFile.Date.End   <- as.Date(strFile.parts[[1]][5],"%Y%m%d")
   }
@@ -411,7 +411,7 @@ nameParse <- function(strFile, process) {
                               ,tolower(substring(strFile.DataType
                                                  ,2
                                                  ,nchar(strFile.DataType)))
-                              ,sep="")
+                              ,sep = "")
     strFile.Date.Start <- as.Date(strFile.parts[[1]][5],"%Y%m%d")
     strFile.Date.End   <- as.Date(strFile.parts[[1]][6],"%Y%m%d")
   }
@@ -425,7 +425,7 @@ nameParse <- function(strFile, process) {
                               ,tolower(substring(strFile.DataType
                                                  ,2
                                                  ,nchar(strFile.DataType)))
-                              ,sep="")
+                              ,sep = "")
     strFile.Date.Start <- as.Date(strFile.parts[[1]][3],"%Y%m%d")
     strFile.Date.End   <- as.Date(strFile.parts[[1]][4],"%Y%m%d")
   }

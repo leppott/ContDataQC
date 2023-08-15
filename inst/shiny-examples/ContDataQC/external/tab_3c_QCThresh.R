@@ -5,16 +5,16 @@
 
 function() {
 
-  tabPanel("4. QC Thresholds"
+  tabPanel("QC Thresholds"
         , mainPanel(
           tabsetPanel(type = "tabs"
             # 4.1. Default----
             , tabPanel("Default"
-                       , includeHTML("www/RMD_HTML/App_4aQCThresh.html")
+                       , includeHTML("www/RMD_HTML/App_3c1_QCThresh_Defaults.html")
             )## tabPanel ~ CURRENT ~ END
             # 4.2. Eval----
             , tabPanel("Evaluate Thresholds"
-                       , includeHTML("www/RMD_HTML/App_4bQCThresh.html")
+                       , includeHTML("www/RMD_HTML/App_3c2_QCThresh_Eval.html")
                       # , br()
                       # , downloadButton("but_thresh_code")
                        )## tabPanel ~ Eval Thresh
@@ -63,7 +63,7 @@ function() {
 
                          ) # sidebarPanel~ END
                          , mainPanel(width = 7
-                                     , includeHTML("www/RMD_HTML/App_4cQCThresh.html")
+                                     , includeHTML("www/RMD_HTML/App_3c3_QCThresh_Edit.html")
                                      , tags$hr()
                                      , h4("Gross Thresholds")
                                      , p(paste("Test if data point exceeds a user defind"
@@ -166,7 +166,7 @@ function() {
                                      ,uiOutput('ui.defaultConfig'))
                          )# sidebarPanel~ END
                          , mainPanel(
-                           includeHTML("www/RMD_HTML/App_4dQCThresh.html")
+                           includeHTML("www/RMD_HTML/App_3c4_QCThresh_Upload.html")
                          ) ## mainPanel ~ END
                        )# sidebarLayout~ END
             )## tabPanel ~ Custom Thresh ~ END

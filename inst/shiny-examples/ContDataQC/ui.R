@@ -5,41 +5,39 @@
 # Updated 2020 (Erik)
 # 2021-04-19, Erik, modular format
 # 2021-06-15, Ben Block, updated formatting
+# 2022-08-11, Erik, rework tab layout
 
 # Source ----
 
-# tab_Intro    <- source("external/tab_Intro.R", local = TRUE)$value
-# tab_Calc     <- source("external/tab_Calc.R", local = TRUE)$value
-# tab_Console  <- source("external/tab_Console.R", local = TRUE)$value
-# tab_Config   <- source("external/tab_Config.R", local = TRUE)$value
-# tab_Reformat <- source("external/tab_Reformat.R", local = TRUE)$value
-# tab_USGSgage <- source("external/tab_USGSgage.R", local = TRUE)$value
-# tab_FAQ      <- source("external/tab_FAQ.R", local = TRUE)$value
-
-tab_1Overview   <- source("external/tab_1Overview.R", local = TRUE)$value
-tab_2FAQ        <- source("external/tab_2FAQ.R", local = TRUE)$value
-tab_3DataPrep   <- source("external/tab_3DataPrep.R", local = TRUE)$value
-tab_4QCThresh   <- source("external/tab_4QCThresh.R", local = TRUE)$value
-tab_5MainFunc   <- source("external/tab_5MainFunc.R", local = TRUE)$value
-tab_6USGSgage   <- source("external/tab_6USGSgage.R", local = TRUE)$value
-tab_7TestData   <- source("external/tab_7TestData.R", local = TRUE)$value
-tab_8Console    <- source("external/tab_8Console.R", local = TRUE)$value
-#tab_9Status     <- source("external/tab_9Status.R", local = TRUE)$value
+tab_1_About      <- source("external/tab_1_About.R", local = TRUE)$value
+tab_1a_Overview  <- source("external/tab_1a_Overview.R", local = TRUE)$value
+tab_1b_TestData  <- source("external/tab_1b_TestData.R", local = TRUE)$value
+tab_1c_FAQ       <- source("external/tab_1c_FAQ.R", local = TRUE)$value
+tab_2_DataPrep   <- source("external/tab_2_DataPrep.R", local = TRUE)$value
+tab_3_MainFunc   <- source("external/tab_3_MainFunc.R", local = TRUE)$value
+tab_3c_QCThresh  <- source("external/tab_3c_QCThresh.R", local = TRUE)$value
+tab_4_USGSgage   <- source("external/tab_4_USGSgage.R", local = TRUE)$value
+tab_5_Troubleshooting <- source("external/tab_5_Troubleshooting.R"
+                               , local = TRUE)$value
+tab_5b_Console    <- source("external/tab_5b_Console.R", local = TRUE)$value
+#tab_9_Status     <- source("external/tab_9_Status.R", local = TRUE)$value
 
 
 shinyUI(
   # VERSION, 1, current [non-EPA] ----
-  navbarPage("Continuous data QC, summary, and statistics - v2.0.7.9007",
-             theme= shinytheme("spacelab")
-             ,tab_1Overview()
-             ,tab_2FAQ()
-             ,tab_3DataPrep()
-             ,tab_4QCThresh()
-             ,tab_5MainFunc()
-             ,tab_6USGSgage()
-             ,tab_7TestData()
-             ,tab_8Console()
-             #,tab_9Status()
+  navbarPage("Continuous data QC, summary, and statistics - v2.0.7.9009",
+             theme = shinytheme("spacelab")
+             ,tab_1_About()
+             #,tab_1a_Overview()
+             #,tab_1c_FAQ()
+             , tab_2_DataPrep()
+             , tab_3_MainFunc()
+             #,tab_3c_QCThresh()
+             , tab_4_USGSgage()
+             , tab_5_Troubleshooting()
+             #,tab_5b_Console()
+             #,tab_x_TestData()
+             #,tab_9_Status()
   )## navbarPage ~ END
 )## shinyUI ~ END
 

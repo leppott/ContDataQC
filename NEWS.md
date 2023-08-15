@@ -3,9 +3,17 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-08-11 08:51:16.365676
+    #> Last Update: 2023-08-15 15:04:52.777887
 
 # Version History
+
+## v2.0.7.9009
+
+2023-08-14
+
+- style: Update formating in global.R
+- refactor: Change order, locations, and names of tabs in Shiny app,
+  Issue \#152
 
 ## v2.0.7.9008
 

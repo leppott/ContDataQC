@@ -1,0 +1,24 @@
+---
+title: "Troubleshooting"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results = 'asis', echo = FALSE, warning = FALSE, message = FALSE, fig.align = "center")
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if (boo_DEBUG == TRUE) {
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+# Troubleshooting
+
+If there are any issues with the Shiny app please log an issue on 
+<a href="https://github.com/leppott/ContDataQC/issues" target="_blank">GitHub</a>
+or contact the developers (Erik.Leppo@tetratech.com and Jen.Stamp@tetratech.com).

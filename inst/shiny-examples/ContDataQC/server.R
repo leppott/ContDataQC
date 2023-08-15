@@ -2179,7 +2179,7 @@ shinyServer(function(input, output, session) {
                   , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ### WaterTemp ####
-    } else if(input$QC_Param_Input == "WaterTemp"){
+    } else if (input$QC_Param_Input == "WaterTemp") {
       df_Config_react$df[Loc.Gross.Fail.Hi.WaterTemp, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.WaterTemp <- ", input$GR_Fail_Max)
       df_Config_react$df[Loc.Gross.Fail.Lo.WaterTemp, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.WaterTemp <- ", input$GR_Fail_Min)
       df_Config_react$df[Loc.Gross.Suspect.Hi.WaterTemp, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp <- ", input$GR_Sus_Max)
@@ -2225,7 +2225,7 @@ shinyServer(function(input, output, session) {
 
   # Enable download button once save button is clicked at least once
   observe({
-    if(input$QC_SaveBttn > 0){
+    if (input$QC_SaveBttn > 0) {
 
       Sys.sleep(1)
       # enable the download button

@@ -51,6 +51,3 @@ continuous temperature and hydrologic data at targeted sites to detect changes
 over time. For more information on the RMNs, please refer to the 
 <a href="https://cfpub.epa.gov/ncea/global/recordisplay.cfm?deid=307973" target="blank">stream Regional Monitoring Networks report</a>.
 
-# Who to contact if you have problems or comments
-
-This is an open-source, collaborative effort. If you encounter problems with the Shiny app and/or have suggestions on ways to further improve it, please contact Erik W. Leppo from Tetra Tech via email (Erik.Leppo@tetratech.com) or via a post on the <a href="https://github.com/leppott/ContDataQC/discussions" target="_blank">ContDataQC GitHub Discussions page</a>.

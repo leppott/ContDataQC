@@ -2,7 +2,7 @@
 
 function() {
 
-  tabPanel("7. Test Data"
+  tabPanel("Test Data"
            , mainPanel(
              includeHTML("www/RMD_HTML/App_7TestData.html")
            )## mainPanel ~ END
