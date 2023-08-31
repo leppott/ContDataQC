@@ -3,6 +3,7 @@
 #
 # Erik.Leppo@tetratech.com
 # 2021-01-20
+# 2023-08-31, added other versions
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # 0. Prep ----
@@ -39,3 +40,13 @@ file.copy(config.from, config.to, overwrite = TRUE)
 ###### MANUAL *************************************
 
 shell.exec(normalizePath(file.path(".", "inst", "shiny-examples", "ContDataQC", "www")))
+
+# 6. Other versions
+# *NOT* updated
+# inst/extdata
+# COOL
+# ExcludeFailsFalse
+# RMDdir
+# TZ.Central
+# WARM
+ #ORIG taken care of already
