@@ -63,7 +63,7 @@ R assigns the following flags to each data point:
 
 -   X = No Data or Not Applicable (NA)
 
-The default thresholds for temperature are based on data from cool, freshwater, wadeable, medium to high gradient streams in the eastern US. Default thresholds for the hydrologic parameters, turbidity and chlorophyll-a are set very high since values vary widely depending on site-specific factors such as stream size. Once you have one or more years of continuous data at a site, we strongly encourage you to evaluate the performance of the QC test thresholds for each parameter and customize the thresholds as needed by editing the configuration file. For more information, see the 'Customize QC flag test thresholds' tab.
+The default thresholds for temperature are based on data from cool, freshwater, wadeable, medium to high gradient streams in the eastern US. Default thresholds for the hydrologic parameters, turbidity and chlorophyll-a are set very high since values vary widely depending on site-specific factors such as stream size. Once you have one or more years of continuous data at a site, we strongly encourage you to evaluate the performance of the QC test thresholds for each parameter and customize the thresholds as needed by editing the configuration file. For more information, see the 'Upload Custom Thresholds' tab.
 
 Units are an important consideration as well. The default configuration puts hydrologic parameters (like water level) in feet, which is generally preferred for streams among RMN partners. However, with lakes, more people prefer meters. If units are changed from feet to meters but there is not a corresponding change in thresholds, the QC tests lose relevance.
 
@@ -73,7 +73,7 @@ Configuration files can be downloaded here:
 
 -   [Customized](Config_Lakes_meters.zip), with hydrologic parameters in meters
 
-This table shows the default QC test thresholds for each parameter as of 06/17/2021.
+This table shows the default QC test thresholds for each parameter as of 2023-08-28.
 
 ### Default QC test thresholds
 

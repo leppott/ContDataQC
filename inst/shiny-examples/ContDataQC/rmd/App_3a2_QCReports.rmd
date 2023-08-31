@@ -33,16 +33,13 @@ appear in the lower right corner.
 4.	After the function is done running, a ‘Download’ button will appear. Click
 this button.
 
-5.	Save the zipped file in the Data2_QC folder.
+5.	You will be prompted to save a zipped file named ‘QCRaw.date_time.’ Save it in the Data2_QC folder.
 
-6.	Open the QC reports. There are two types of outputs: a Data Quality Control 
-Report that comes as either a Word document or Hypertext Markup Language (HTML)
-(the user specifies the desired format); and a comma-delimited (.csv) 
-spreadsheet. The reports include results from the ‘flag’ tests (gross, spike, 
-rate of change and flat line), missing data checks and time series plots. Click
-[here](Example_QCreports.zip) to download an example of a QC output.
+6.	Unzip/extract the file(s). After file is unzipped, a new folder called ‘data’ will appear, which contains QC reports that have ‘QC_’ as the prefix in the file name. The original zipped file can be deleted if desired.
 
-7.	Review each set of files, check flagged data points, do visual checks on the
+7.	Open the QC reports. There are two types of outputs: a Word document Data Quality Control Report  and a comma-delimited (.csv) spreadsheet. The reports include results from the ‘flag’ tests (gross, spike, rate of change and flat line), missing data checks and time series plots. Click [here](Example_QCreports.zip) to download an example of a QC output. If users prefer a Hypertext Markup Language (HTML) report instead of Word, they can change the format in the configuration file (this requires some familiarity with R code).
+
+8.	Review each set of files, check flagged data points, do visual checks on the
 time series plots, and decide if and how to make corrections. For tips on the QC
 process, see the ‘QC tips’ subtab. 
 

@@ -3,9 +3,18 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-08-31 14:33:39.742433
+    #> Last Update: 2023-08-31 16:55:06.991728
 
 # Version History
+
+## v2.0.7.9012
+
+2023-08-31
+
+- refactor: Update config (lakes) in library and Shiny, Issue \#153
+- refactor: Shiny app updates
+  - Update some images
+  - Update text
 
 ## v2.0.7.9011
 

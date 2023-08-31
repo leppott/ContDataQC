@@ -21,6 +21,14 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.7.9012
+2023-08-31
+
+* refactor: Update config (lakes) in library and Shiny, Issue #153
+* refactor: Shiny app updates
+    + Update some images
+    + Update text
+
 ## v2.0.7.9011
 2023-08-31
 

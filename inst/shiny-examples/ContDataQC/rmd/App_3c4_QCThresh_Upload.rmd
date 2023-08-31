@@ -25,12 +25,12 @@ uploaded. A new button will appear that gives you the option of returning to the
 default configuration file. Do not click this unless you change your mind and n
 o longer want to use the customized file.
 
-Go to the 'Main Functions' tab; select the desired input file(s); run them 
-through the QC function. Save the output to the desired location. Open the Word 
-or html QC report and scroll to the 'Thresholds, Quick Reference' table (in the 
-middle section of the report). Verify that the correct thresholds were used.
+Go to the ‘Main Functions’ tab; verify that the correct configuration file has been uploaded (by checking the file name); select the desired input file(s); run them through the QC function. Save the output to the desired location. Open the Word or html QC report and scroll to the ‘Thresholds, Quick Reference’ table (in the middle section of the report). Verify that the correct thresholds were used.
 
 Be aware that each time you close and reopen the Shiny app, it will 
 automatically revert back to the default configuration file. Also – remember the
 sequencing! If you forget to upload the customized configuration file prior to 
 running the QC function, it will use the default thresholds.
+
+Want to try this yourself? Click [here](Custom_QC_Config_ECO66G20_test1.R) to 
+download a test file.

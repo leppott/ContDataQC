@@ -27,9 +27,12 @@ A: No, only internet access is required.
 
 A: Yes, if you have R software installed on your computer, you can run ContDataQC as a Shiny app on your local computer and it will likely be faster.
 
+The Shiny app is availabe as part of the ContDataQC R package.  The <a href="https://github.com/leppott/ContDataQC" target="_blank">GitHub</a> includes
+install directions for R.
+
 **Q: What internet browsers is this website compatible with?**
 
-A: It has been tested and run successfully with Google Chrome, Firefox and Microsoft Edge. It may be compatible with other browsers but they have not been tested. Google Chrome is most frequently used. It allows users to specify what folder to download files to, which can be a time saver.
+A: It has been tested and run successfully with Google Chrome, Firefox and Microsoft Edge. It may be compatible with other browsers but they have not been tested. Google Chrome is most frequently used. Some browsers (like Chrome and Firefox) allow users to specify what folder to download files to, which can be a time saver.
 
 **Q: Why isn't my spreadsheet processing? The screen grays out and says 'disconnected from the server'.**
 
@@ -77,7 +80,8 @@ A: Not at this time. Currently, all USGS gages you enter will have data download
 
 **Q: Are you working on a Shiny app that offers more options for data summary and visualization?**
 
-A: Yes, a beta version of the ContDataSumViz app will come online in fall 2022. In addition, for lakes, the beta version of the LakeMonitoR
+A: Yes, a beta version of the ContDataSumViz app is currently available (for more 
+information contact Tom Faber (EPA Region 1):  [Faber.Tom\@epa.gov](mailto:Faber.Tom@epa.gov){.email} ). In addition, for lakes, the beta version of the LakeMonitoR
 <a href="https://github.com/leppott/LakeMonitoR" target="_blank">R package</a>
 and
 <a href="https://tetratech-wtr-wne.shinyapps.io/LakeMonitoR" target="_blank">Shiny app</a>

@@ -55,15 +55,43 @@ R. If you cannot install R on your computer, we recommend use Notepad or
 
 ### Option 2, use the interactive functions shown left and below.
 
-* Select a parameter using the drop-down menu
+* Select a parameter using the drop-down menu (upper left box)
 
-* Edit thresholds using boxes below
+* Edit thresholds using the boxes below
 
 * Save changes (for each parameter)
 
 * Download custom thresholds file
 
-If you do not want to use the default units, you will need to use Option 2.
+```{r}
+Parameter <- c("Temperature"
+              , "Sensor depth and water level"
+              , "Discharge"
+              , "Dissolved oxygen"
+              , "DO pctsat"
+              , "Conductivity"
+              , "Pressure"
+              , "pH"
+              , "Turbidity"
+              , "Salinity"
+              , "Chlorophylla")
+Units <- c("Celsius"
+          , "feet"
+          , "ft3/s"
+          , "mg/L"
+          , "%"
+          , "uS/cm"
+          , "psi"
+          , "SU"
+          , "NTU"
+          , "ppt"
+          , "g/cm3")
+df_param_units <- data.frame(Parameter, Units)
+cap_param_units <- "Default Units"
+knitr::kable(df_param_units, caption = cap_param_units)
+```
+
+If you do not want to use the default units, you will need to use Option 1.
 
 Acknowledgment: Tim Martin (MN DNR) wrote the R code that we used for the 
 interactive functions below.

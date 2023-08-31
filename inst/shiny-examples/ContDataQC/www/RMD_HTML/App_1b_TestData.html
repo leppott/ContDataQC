@@ -1,29 +1,53 @@
 
 
 
-<div id="test-data" class="section level1">
-<h1>Test Data</h1>
-<p>Test data can be downloaded <a href="TestData_HOBOU20_20220822.zip">here</a>. The test data consist of
-two comma-separated values (CSV) files that came from Onset U20 water
-level loggers (non-vented pressure transducers) that were deployed in
-the air and water. The files are from the same site but cover two
-different time periods.</p>
-<p>You’ll see two sets of folders:</p>
+<p>There are two sets of test files, one from Onset HOBO U20 water level
+loggers (non-vented pressure transducers) and one from a miniDOT DO
+sensor. We are happy to add more test data to this website. If you have
+example files that you would like to contribute, please send them to Jen
+Stamp (<a href="mailto:Jen.Stamp@tetratech.com" class="email">Jen.Stamp@tetratech.com</a>).</p>
+<div id="onset-hobo" class="section level1">
+<h1>Onset HOBO</h1>
+<p>The Onset HOBO U20 files can be downloaded <a href="TestData_HOBOU20_20220822.zip">here</a>. The test data consist of
+two comma-separated values (CSV) files. The files are from the same site
+but cover two different time periods.</p>
 <ul>
-<li><p><strong>Test</strong></p>
+<li><p><strong>Test</strong></p></li>
+<li><p>The two HOBO U20 test files are in the Data0_Original folder. Go
+to the <strong>Automated Reformat – Onset HOBO</strong> tab and run both
+files through the reformatting function. Multiple files can be run
+through the function at the same time (in ‘batches’). The function
+reformats the files so that they are ready to run through the QC report
+function. Next, go to the <strong>Main Functions-Import Files</strong>
+tab, import the reformatted files, run them through the ‘QC raw data’
+function (multiple files can be run through the function at the same
+time), check the flagged data (edit if needed), aggregate the two QC’d
+CSV files with the ‘Aggregate QC’ed data’ function, and run the ‘Summary
+Statistics’ function to summarize the data.
+<strong>Completed</strong></p>
 <ul>
-<li>The two files are in the Data0_Original folder and are ready to be
-run through the HOBOware Reformat function. Next, run them through the
-Main Functions to generate QC reports, aggregate the two QC’d CSV files
-and summarize the data.</li>
-</ul></li>
-<li><p><strong>Completed</strong></p>
-<ul>
-<li>This folder has the complete set of outputs for both files. .so that
+<li>This folder has the complete set of outputs for both files so that
 you can see examples of the QC reports and other outputs without having
-to run the test data through the R tool yourself. We are happy to add
-more test data to this website. If you have example files that you would
-like to contribute, please send them to Jen Stamp (<a href="mailto:Jen.Stamp@tetratech.com" class="email">Jen.Stamp@tetratech.com</a>).</li>
+to run the test data through the R tool yourself.</li>
 </ul></li>
+</ul>
+</div>
+<div id="minidot-do-sensors" class="section level1">
+<h1>miniDOT DO Sensors</h1>
+<p>The miniDOT DO test files can be downloaded <a href="TestData_HOBOU20_20220822.zip">here</a>. They are from one site
+and one deployment period. You’ll see two sets of folders. Within each
+folder are example input and output files.</p>
+<ul>
+<li><p><strong>miniDOT_concatenate</strong> - When data are initially
+downloaded from miniDOT sensors, there are separate .txt files for each
+day (in this example, 325 individual files). Go to the <strong>Automated
+Reformat – miniDOT</strong> tab and run the <strong>Concatenate</strong>
+function to combine them all into one file.</p></li>
+<li><p><strong>miniDOT_reformat</strong> – run the combined file through
+the Reformat function. The function reformats the file so that it is
+ready to run through the QC report function. Next, go to the Main
+<strong>Functions-Import Files</strong>s tab, import the reformatted
+file, run it through the ‘QC raw data’ function, and check the flagged
+data (edit if needed).</p></li>
 </ul>
 </div>

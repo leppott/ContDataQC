@@ -14,8 +14,6 @@
 # 20150928
 # 20170323, add 3 parameters (Cond, DO, pH)
 # 20210106, replace gageheight with waterlevel
-# 20210331, Lakes centric version, units as metric
-# 20230828, updated were QC flag test thresholds for Lakes, Jen
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # User defined variable names for input data
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -36,7 +34,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Environment Name ####
 # Environment for use only by ContDataQC library
-# ContData.env <- new.env(parent = emptyenv())
+#ContData.env <- new.env(parent = emptyenv())
 # The above line is not used in custom configurations.
 # assign variables to new environment requires editing of all lines.
 # For example, myDelim <- "_" BECOMES ContData.env$myDelim, "_"
@@ -60,10 +58,10 @@ ContData.env$myName.DateTime      <- "Date.Time"
 ### IF CHANGE UNITS WILL NEED TO MODIFY THRESHOLDS ###
 ContData.env$myUnits.AirTemp    <- "C" # C or F
 ContData.env$myUnits.WaterTemp  <- ContData.env$myUnits.AirTemp
-ContData.env$myUnits.AirBP      <- "kPa"
+ContData.env$myUnits.AirBP      <- "psi"
 ContData.env$myUnits.WaterP     <- ContData.env$myUnits.AirBP
-ContData.env$myUnits.SensorDepth <- "m"
-ContData.env$myUnits.Discharge  <- "m3.s"
+ContData.env$myUnits.SensorDepth <- "ft"
+ContData.env$myUnits.Discharge  <- "ft3.s"
 ContData.env$myUnits.Cond       <- "uS.cm"
 ContData.env$myUnits.DO         <- "mg.L"
 ContData.env$myUnits.DO.adj     <- "mg.L"
@@ -71,7 +69,7 @@ ContData.env$myUnits.DO.pctsat  <- "%"
 ContData.env$myUnits.pH         <- "SU"
 ContData.env$myUnits.Turbidity  <- "NTU"
 ContData.env$myUnits.Chlorophylla <- "g.cm3"
-ContData.env$myUnits.WaterLevel <- "m"
+ContData.env$myUnits.WaterLevel <- "ft"
 ## Logger Fields ----
 ContData.env$myName.RowID.Water   <- "Water.RowID"
 ContData.env$myName.LoggerID.Water<- "Water.LoggerID"
@@ -396,8 +394,8 @@ ContData.env$myFlagVal.Order   <- c(ContData.env$myFlagVal.Pass
 ## Gross Min/Max, Fail (equipment)
 ### Examines values as outliers versus threholds
 ### if value >= Hi or <= Lo then flagged as "Fail"
-ContData.env$myThresh.Gross.Fail.Hi.WaterTemp    <- 30
-ContData.env$myThresh.Gross.Fail.Lo.WaterTemp    <- -1
+ContData.env$myThresh.Gross.Fail.Hi.WaterTemp    <- 28
+ContData.env$myThresh.Gross.Fail.Lo.WaterTemp    <- -2
 ContData.env$myThresh.Gross.Fail.Hi.AirTemp      <- 38
 ContData.env$myThresh.Gross.Fail.Lo.AirTemp      <- -25
 ContData.env$myThresh.Gross.Fail.Hi.AirBP        <- 15
@@ -410,9 +408,9 @@ ContData.env$myThresh.Gross.Fail.Hi.Discharge    <- 10^5 # dependent upon stream
 ContData.env$myThresh.Gross.Fail.Lo.Discharge    <- -1   # dependent upon stream size
 ContData.env$myThresh.Gross.Fail.Hi.Cond         <- 1500 # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Lo.Cond         <- 10   # this threshold has not been closely evaluated
-ContData.env$myThresh.Gross.Fail.Hi.DO           <- 18   # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Fail.Hi.DO           <- 20   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Lo.DO           <- 1    # this threshold has not been closely evaluated
-ContData.env$myThresh.Gross.Fail.Hi.DO.adj       <- 18   # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Fail.Hi.DO.adj       <- 20   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Lo.DO.adj       <- 1    # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Hi.DO.pctsat    <- 120   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Fail.Lo.DO.pctsat    <- -1    # this threshold has not been closely evaluated
@@ -427,8 +425,8 @@ ContData.env$myThresh.Gross.Fail.Lo.WaterLevel   <- ContData.env$myThresh.Gross.
 ## Gross Min/Max, Suspect (extreme)
 ### Examines values as outliers versus threholds
 ### if value >= Hi or <= Lo then flagged as "Suspect"
-ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp    <- 25
-ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp    <- -0.5
+ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp    <- 26
+ContData.env$myThresh.Gross.Suspect.Lo.WaterTemp    <- -0.1
 ContData.env$myThresh.Gross.Suspect.Hi.AirTemp      <- 35
 ContData.env$myThresh.Gross.Suspect.Lo.AirTemp      <- -23
 ContData.env$myThresh.Gross.Suspect.Hi.AirBP        <- 14.8
@@ -441,9 +439,9 @@ ContData.env$myThresh.Gross.Suspect.Hi.Discharge    <- 10^3 # dependent upon str
 ContData.env$myThresh.Gross.Suspect.Lo.Discharge    <- -1   # dependent upon stream size
 ContData.env$myThresh.Gross.Suspect.Hi.Cond         <- 1200 # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Lo.Cond         <- 20   # this threshold has not been closely evaluated
-ContData.env$myThresh.Gross.Suspect.Hi.DO           <- 16   # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Suspect.Hi.DO           <- 18   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Lo.DO           <- 2    # this threshold has not been closely evaluated
-ContData.env$myThresh.Gross.Suspect.Hi.DO.adj       <- 16   # this threshold has not been closely evaluated
+ContData.env$myThresh.Gross.Suspect.Hi.DO.adj       <- 18   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Lo.DO.adj       <- 2    # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Hi.DO.pctsat    <- 100   # this threshold has not been closely evaluated
 ContData.env$myThresh.Gross.Suspect.Lo.DO.pctsat    <- 0    # this threshold has not been closely evaluated
@@ -460,8 +458,8 @@ ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel   <- ContData.env$myThresh.Gro
 ### Examines difference between consecutive measurements
 ### if delta >= Hi then flagged as "Fail"
 ### if delta >= Lo then flagged as "Suspect"
-ContData.env$myThresh.Spike.Hi.WaterTemp    <- 2
-ContData.env$myThresh.Spike.Lo.WaterTemp    <- 1.5
+ContData.env$myThresh.Spike.Hi.WaterTemp    <- 1
+ContData.env$myThresh.Spike.Lo.WaterTemp    <- 0.8
 ContData.env$myThresh.Spike.Hi.AirTemp      <- 10
 ContData.env$myThresh.Spike.Lo.AirTemp      <- 8
 ContData.env$myThresh.Spike.Hi.AirBP        <- 0.25
@@ -474,10 +472,10 @@ ContData.env$myThresh.Spike.Hi.Discharge    <- 10^4 # dependent upon stream size
 ContData.env$myThresh.Spike.Lo.Discharge    <- 10^3 # dependent upon stream size
 ContData.env$myThresh.Spike.Hi.Cond         <- 10   # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Lo.Cond         <- 5    # this threshold has not been closely evaluated
-ContData.env$myThresh.Spike.Hi.DO           <- 4   # this threshold has not been closely evaluated
-ContData.env$myThresh.Spike.Lo.DO           <- 2    # this threshold has not been closely evaluated
-ContData.env$myThresh.Spike.Hi.DO.adj       <- 4   # this threshold has not been closely evaluated
-ContData.env$myThresh.Spike.Lo.DO.adj       <- 2    # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Hi.DO           <- 10   # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Lo.DO           <- 5    # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Hi.DO.adj       <- 10   # this threshold has not been closely evaluated
+ContData.env$myThresh.Spike.Lo.DO.adj       <- 5    # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Hi.DO.pctsat    <- 25   # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Lo.DO.pctsat    <- 10    # this threshold has not been closely evaluated
 ContData.env$myThresh.Spike.Hi.pH           <- 10   # this threshold has not been closely evaluated
@@ -494,7 +492,7 @@ ContData.env$myThresh.Spike.Lo.WaterLevel  <- ContData.env$myThresh.Spike.Lo.Sen
 ## Rate of Change (relative change)
 ### Examines SD over "period" and difference in consecutive values
 ### If delta >= SD.number * SD then flagged as "Suspect"
-ContData.env$myDefault.RoC.SD.number  <- 6
+ContData.env$myDefault.RoC.SD.number  <- 5
 ContData.env$myDefault.RoC.SD.period  <- 25 #hours
 ContData.env$myThresh.RoC.SD.number.WaterTemp    <- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.WaterTemp    <- ContData.env$myDefault.RoC.SD.period
@@ -532,11 +530,11 @@ ContData.env$myThresh.RoC.SD.period.WaterLevel   <- ContData.env$myDefault.RoC.S
 ContData.env$myDefault.Flat.Hi        <- 30  # maximum is myThresh.Flat.MaxComp
 ContData.env$myDefault.Flat.Lo        <- 15
 ContData.env$myDefault.Flat.Tolerance <- 0.01 # set to one sigdig less than measurements.  Check with fivenum(x)
-ContData.env$myThresh.Flat.Hi.WaterTemp           <- 100
-ContData.env$myThresh.Flat.Lo.WaterTemp           <- 60
+ContData.env$myThresh.Flat.Hi.WaterTemp           <- 50
+ContData.env$myThresh.Flat.Lo.WaterTemp           <- 30
 ContData.env$myThresh.Flat.Tolerance.WaterTemp    <- 0.01
-ContData.env$myThresh.Flat.Hi.AirTemp             <- 60
-ContData.env$myThresh.Flat.Lo.AirTemp             <- 30
+ContData.env$myThresh.Flat.Hi.AirTemp             <- 20
+ContData.env$myThresh.Flat.Lo.AirTemp             <- 15
 ContData.env$myThresh.Flat.Tolerance.AirTemp      <- 0.01
 ContData.env$myThresh.Flat.Hi.AirBP               <- 15
 ContData.env$myThresh.Flat.Lo.AirBP               <- 10

@@ -19,17 +19,69 @@ if (boo_DEBUG == TRUE) {
 
 # Related Apps
 
-Some related apps for QC and continuous data.
+Below are links to some additional Shiny apps and/or R code that may also be useful for working with continuous sensor data. Some are stored on the <a href="https://nalms.shinyapps.io/NALMS_Shiny_Home/" target="_blank">NALMS Shiny server</a>.
 
-Some are stored on the <a href="https://nalms.shinyapps.io/NALMS_Shiny_Home/" target="_blank">NALMS Shiny server</a>.
+### ContDataSumViz, for summarizing and visualizing QC’d continuous sensor data
+
+Shiny app (beta version): <a href="https://contdataqcsumviz_containerized_stg.app.cloud.gov/" target="_blank">https://contdataqcsumviz_containerized_stg.app.cloud.gov/</a>
+
+R code: <a href="https://github.com/USEPA/dmap-ContDataQCSumViz" target="_blank">https://github.com/USEPA/dmap-ContDataQCSumViz</a>
+
+Primary contact: [Faber.Tom\@epa.gov](mailto:Faber.Tom@epa.gov){.email}
+
+### Logger Processing App, for processing, organizing, and vetting continuous environmental logger data. 
+
+It has the same QC flag tests as ContDataQC plus more, including an interactive plot that allows you to flag or unflag data points.
+
+Shiny app: <a href="https://nalms.shinyapps.io/logger_processing/" target="_blank">https://nalms.shinyapps.io/logger_processing/</a>
+
+GitHub: https://github.com/mnsentinellakes/logger_processing
+<a href="https://github.com/mnsentinellakes/logger_processing" target="_blank">https://github.com/mnsentinellakes/logger_processing</a>
+
+Primary contact: [tim.martin\@state.mn.us](mailto:tim.martin@state.mn.us){.email}
+
+#### LakeMonitoR, for summarizing and visualizing QC’d continuous vertical profile data for lakes. 
+
+Several of its outputs are based on the rLakeAnalyzer R package.
+
+Shiny app: <a href="https://nalms.shinyapps.io/LakeMonitoR/" target="_blank">https://nalms.shinyapps.io/LakeMonitoR/</a> 
+
+GitHub: <a href="https://github.com/leppott/LakeMonitoR/" target="_blank">https://github.com/leppott/LakeMonitoR/</a> 
+
+Primary point of contact: [Erik.Leppo\@tetratech.com](mailto:Erik.Leppo@tetratech.com){.email}
+
+### Regional Monitoring Network (RMN) protocol documents for deploying continuous temperature, water level or DO sensors and time lapse cameras in streams or lakes.
+
+Shiny app: nalms.shinyapps.io/RMN_Documents/
+
+Primary contact: [Jen.Stamp\@tetratech.com](mailto:Jen.Stamp@tetratech.com){.email}
+
+### Water Resources for Shiny, a resource for both those who are interested in learning how to create Shiny apps and those who are already experienced with making apps but want to see what other people are doing and what tools and packages are available for the community to use
+
+<a href="https://nalms.shinyapps.io/Shiny_for_Water_Resources/" target="_blank">https://nalms.shinyapps.io/Shiny_for_Water_Resources/</a>
+
+### rLakeAnalyzer, an R package for summarizing and visualizing continuous vertical profile data for lakes
+
+Read, J.S., Hamilton, D.P., Jones, I.D., Muraoka, K., Winslow, L.A., Kroiss, R., Wu, C.H., Gaiser, E., 2011. Derivation of lake mixing and stratification indices from high-resolution lake buoy data. Environmental Modelling & Software 26: 1325e1336.
+
+Winslow, L, J. Read, R. Woolway, J. Brentrup, T. Leach, J. Zwart, S.  Albers, and D. Collinge. 2019. rLakeAnalyzer: Lake Physics Tools. R Package version 1.11.4.1. 
+
+Available online: <a href="https://CRAN.R-project.org/package=rLakeAnalyzer" target="_blank">https://CRAN.R-project.org/package=rLakeAnalyzer</a>
+
+### driftR, an R package that corrects drift in water quality data
+
+It implements either one- or two-point variable data corrections based on the number of standards used to calibrate the sensor of interest, then linearly interpolates the correction over the period of interest.
+
+<a href="https://shaughnessyar.github.io/driftR/" target="_blank">https://shaughnessyar.github.io/driftR/</a>
+
+Shaughnessy, A.R., Prener, C.G. and E.A. Hasenmueller. 2019. An R package for correcting continuous water quality monitoring data for drift. Environmental Monitoring and Assessment 191, 445. 
+<a href="https://doi.org/10.1007/s10661-019-7586-x" target="_blank">https://doi.org/10.1007/s10661-019-7586-x</a>
+
+### R package for detecting outliers
+
+<a href="https://cran.r-project.org/web/packages/outliers/outliers.pdf" target="_blank">https://cran.r-project.org/web/packages/outliers/outliers.pdf</a>
+
+Campulova, M., Campula, R. and J. Holesovsky. 2022. An R package for identification of outliers in environmental time series data. Environmental Modelling & Software, Volume 155. <a href="https://www.sciencedirect.com/science/article/abs/pii/S1364815222001414" target="_blank">https://www.sciencedirect.com/science/article/abs/pii/S1364815222001414</a>
 
 
-* <a href="https://nalms.shinyapps.io/logger_processing/" target="_blank">Logger Processing</a>
 
-* <a href="https://github.com/leppott/ContDataQC" target="_blank">ContDataQC</a>
-
-* <a href="https://nalms.shinyapps.io/LakeMonitoR/" target="_blank">LakeMonitoR</a>
-
-* <a href="https://nalms.shinyapps.io/Shiny_for_Water_Resources/" target="_blank">Water Resources for Shiny</a>
-
-* <a href="https://github.com/leppott/ContDataSumViz" target="_blank">ContDataSumViz</a> 

@@ -5,22 +5,28 @@
 <h3>Aggregate</h3>
 <p>Shiny app instructions</p>
 <ol style="list-style-type: decimal">
-<li><p>Click the ‘Browse’ button and select the input files from the
-Data2_QC folder that you’d like to combine together. The status bar will
-tell you when the upload is complete.</p></li>
+<li><p>Click the ‘Browse’ button and select the QC’d input files that
+you’d like to combine. The input files need to be from the same site and
+share common parameters. The status bar will tell you when the upload is
+complete.</p></li>
 <li><p>Select ‘Aggregate QC’d data’ from the ‘Choose Operation to
-perform’ drop-down menu</p></li>
+perform’ drop-down menu.</p></li>
 <li><p>A ‘Run operation’ button will appear. Click this button. A status
 bar will appear in the lower right corner.</p></li>
 <li><p>After the function is done running, a ‘Download’ button will
-appear. Click this button. Save the zipped file in the Data3_Aggregated
+appear. Click this button. You will be prompted to save a zipped file
+named ‘Aggregate.date_time.’ Save it in the Data3_Aggregated
 folder.</p></li>
-<li><p>Save the zipped file in the Data3_Aggregated folder.</p></li>
+<li><p>Unzip/extract the file(s). After file is unzipped, a new folder
+called ‘data’ will appear. If a ‘data’ folder already exists, outputs
+will go into that folder. The aggregate reports have ‘DATA_’ as the
+prefix in the file name. The original zipped file can be deleted if
+desired.</p></li>
 <li><p>Open and review the aggregated reports. As with the QC output,
-there are two types of outputs: a Data Quality Control Report that comes
-as either a Word document or Hypertext Markup Language (HTML) (the user
-specifies the desired format); and a comma-delimited (.csv) spreadsheet.
-Click <a href="Example_Aggregate.zip">here</a> to download an example of
-an Aggregate output.</p></li>
+there are two types of outputs: a Word document Data Quality Control
+Report and a comma-delimited (.csv) spreadsheet. Click <a href="Example_Aggregate.zip">here</a> to download an example of an
+Aggregate output. If users prefer a Hypertext Markup Language (HTML)
+report instead of Word, they can change the format in the configuration
+file (this requires some familiarity with R code).</p></li>
 </ol>
 </div>

@@ -87,8 +87,7 @@ site-specific factors such as stream size. Once you have one or more
 years of continuous data at a site, we strongly encourage you to
 evaluate the performance of the QC test thresholds for each parameter
 and customize the thresholds as needed by editing the configuration
-file. For more information, see the ‘Customize QC flag test thresholds’
-tab.</p>
+file. For more information, see the ‘Upload Custom Thresholds’ tab.</p>
 <p>Units are an important consideration as well. The default
 configuration puts hydrologic parameters (like water level) in feet,
 which is generally preferred for streams among RMN partners. However,
@@ -103,7 +102,7 @@ parameters in feet</p></li>
 parameters in meters</p></li>
 </ul>
 <p>This table shows the default QC test thresholds for each parameter as
-of 06/17/2021.</p>
+of 2023-08-28.</p>
 </div>
 <div id="default-qc-test-thresholds" class="section level3">
 <h3>Default QC test thresholds</h3>
@@ -145,15 +144,15 @@ deg C
 Fail
 </td>
 <td style="text-align:left;">
-&gt;30 or &lt;-2
+&gt;30 or &lt;-1
 </td>
 <td style="text-align:left;">
-≥1.5 (±)
+≥2.0 (±)
 </td>
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-&gt;30 consecutive measurements within 0.01 units of one another
+&gt;100 consecutive measurements within 0.01 units of one another
 </td>
 </tr>
 <tr>
@@ -165,16 +164,16 @@ Fail
 Suspect
 </td>
 <td style="text-align:left;">
-&gt;25 or &lt;-0.1
+&gt;25 or &lt;-0.5
 </td>
 <td style="text-align:left;">
-≥1.0 (±)
+≥1.5 (±)
 </td>
 <td style="text-align:left;">
-≥3 stdev within 25 hrs
+≥6 stdev within 25 hrs
 </td>
 <td style="text-align:left;">
-&gt;20 consecutive measurements within 0.01 units of one another
+&gt;60 consecutive measurements within 0.01 units of one another
 </td>
 </tr>
 <tr>
@@ -196,7 +195,7 @@ Fail
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-&gt;20 consecutive measurements within 0.01 units of one another
+&gt;60 consecutive measurements within 0.01 units of one another
 </td>
 </tr>
 <tr>
@@ -214,10 +213,10 @@ Suspect
 ≥8 (±)
 </td>
 <td style="text-align:left;">
-≥3 stdev within 25 hrs
+≥6 stdev within 25 hrs
 </td>
 <td style="text-align:left;">
-&gt;15 consecutive measurements within 0.01 units of one another
+&gt;30 consecutive measurements within 0.01 units of one another
 </td>
 </tr>
 <tr>
@@ -257,10 +256,10 @@ Suspect
 ≥3 (±)
 </td>
 <td style="text-align:left;">
-≥3 stdev within 25 hrs
+≥6 stdev within 25 hrs
 </td>
 <td style="text-align:left;">
-&gt;20 consecutive measurements within 0 units of one another
+&gt;30 consecutive measurements within 0 units of one another
 </td>
 </tr>
 <tr>
@@ -300,7 +299,7 @@ Suspect
 ≥10^3 (±)
 </td>
 <td style="text-align:left;">
-≥3 stdev within 25 hrs
+≥6 stdev within 25 hrs
 </td>
 <td style="text-align:left;">
 &gt; 30 consecutive measurements within 0.01 units of one another
@@ -317,7 +316,7 @@ mg/L
 Fail
 </td>
 <td style="text-align:left;">
-&gt; 20 or &lt; 1
+&gt; 18 or &lt; 1
 </td>
 <td style="text-align:left;">
 &gt;= 10 (±)
@@ -337,13 +336,13 @@ Fail
 Suspect
 </td>
 <td style="text-align:left;">
-&gt; 18 or &lt; 2
+&gt; 16 or &lt; 2
 </td>
 <td style="text-align:left;">
 &gt;= 5 (±)
 </td>
 <td style="text-align:left;">
-≥3 stdev within 25 hrs
+≥6 stdev within 25 hrs
 </td>
 <td style="text-align:left;">
 &gt; 30 consecutive measurements within 0.01 units of one another
@@ -386,7 +385,7 @@ Suspect
 &gt;= 5 (±)
 </td>
 <td style="text-align:left;">
-≥3 stdev within 25 hrs
+≥6 stdev within 25 hrs
 </td>
 <td style="text-align:left;">
 &gt; 30 consecutive measurements within 0.01 units of one another
@@ -429,7 +428,7 @@ Suspect
 &gt;= 5 (±)
 </td>
 <td style="text-align:left;">
-≥3 stdev within 25 hrs
+≥6 stdev within 25 hrs
 </td>
 <td style="text-align:left;">
 &gt; 30 consecutive measurements within 0.01 units of one another
@@ -472,7 +471,7 @@ Suspect
 ≥10^3 (±)
 </td>
 <td style="text-align:left;">
-≥3 stdev within 25 hrs
+≥6 stdev within 25 hrs
 </td>
 <td style="text-align:left;">
 &gt; 30 consecutive measurements within 0.01 units of one another
@@ -515,7 +514,7 @@ Suspect
 ≥0.5 (±)
 </td>
 <td style="text-align:left;">
-≥3 stdev within 25 hrs
+≥6 stdev within 25 hrs
 </td>
 <td style="text-align:left;">
 &gt;10 consecutive measurements within 0.001 units of one another
@@ -558,7 +557,7 @@ Suspect
 ≥0.15 (±)
 </td>
 <td style="text-align:left;">
-≥3 stdev within 25 hrs
+≥6 stdev within 25 hrs
 </td>
 <td style="text-align:left;">
 &gt;10 consecutive measurements within 0.001 units of one another
@@ -601,7 +600,7 @@ Suspect
 ≥10^3 (±)
 </td>
 <td style="text-align:left;">
-≥3 stdev within 25 hrs
+≥6 stdev within 25 hrs
 </td>
 <td style="text-align:left;">
 &gt; 30 consecutive measurements within 0.01 units of one another
