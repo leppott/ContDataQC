@@ -24,7 +24,7 @@ function() {
                                                                              , width = "600px") # wider for long file names
                                                         )# tags$div ~ END
                                                         ,selectInput("HOBO_DateFormat"
-                                                                     ,label = "Choose date format from HOBOware file"
+                                                                     ,label = "Choose date format from the DateTime field in the input file"
                                                                      ,choices = c("MDY"
                                                                                   , "YMD"
                                                                                   , "DMY"

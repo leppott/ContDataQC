@@ -3,15 +3,25 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-08-31 12:53:52.078194
+    #> Last Update: 2023-08-31 14:33:39.742433
 
 # Version History
+
+## v2.0.7.9011
+
+2023-08-31
+
+- refactor: Shiny app updates
+  - Main tab name Troubleshoot to Troubleshooting
+  - Date format box text on HOBOware reformat
+  - Move QC Tips from Main Functions to About
 
 ## v2.0.7.9010
 
 2023-08-31
 
 - refactor: Update base config file, Issue \#153
+- refactor: Update ThresholdsCheckWorksheet links in Shiny, Issue \#153
 
 ## v2.0.7.9009
 

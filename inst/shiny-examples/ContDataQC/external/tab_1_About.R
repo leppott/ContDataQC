@@ -18,8 +18,12 @@ function() {
                                     , includeHTML("www/RMD_HTML/App_1c_FAQ.html")
                          )## tabPanel~ END
 
+                         , tabPanel("QC Tips"
+                                    ,includeHTML("www/RMD_HTML/App_1d_Tips.html")
+                         )# tabPanel ~ QC Tips ~ END
+
                          , tabPanel("Related Apps"
-                                    , includeHTML("www/RMD_HTML/App_1d_RelatedApps.html")
+                                    , includeHTML("www/RMD_HTML/App_1e_RelatedApps.html")
                          )## tabPanel ~ END
 
 

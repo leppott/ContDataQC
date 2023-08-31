@@ -101,10 +101,6 @@ function(){
 
                           , tab_3c_QCThresh()
 
-                          , tabPanel("QC Tips"
-                                     ,includeHTML("www/RMD_HTML/App_3d_Tips.html")
-                                    )# tabPanel ~ QC Tips ~ END
-
                           # , tabPanel("Advanced?"
                           #            )##tabPanel ~ Adv
 

@@ -1,7 +1,7 @@
 # Panel, Console
 
 function() {
-  tabPanel("Troubleshoot"
+  tabPanel("Troubleshooting"
            , mainPanel(
                tabsetPanel(type = "tabs"
                          , tabPanel("Troubleshooting"
