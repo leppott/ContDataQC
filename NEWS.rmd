@@ -21,6 +21,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.7.9014
+2023-09-08
+
+* refactor: Update Thresholds tab order
+* refactor: Add text to Main - Import tab
+
 ## v2.0.7.9013
 2023-09-08
 

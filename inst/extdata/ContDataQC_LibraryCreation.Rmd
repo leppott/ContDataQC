@@ -84,7 +84,23 @@ package directory
 myLibrary <- "ContDataQC"
 dir_base <- "C:/Users/Erik.Leppo/OneDrive - Tetra Tech, Inc/MyDocs_OneDrive/GitHub"
 setwd(file.path(dir_base, myLibrary))
-#
+
+
+# Remove all files in "Results" folder
+# Triggered here so can run different files
+path_shiny <- file.path("inst", "shiny-examples", "ContDataQC")
+path_results <- file.path(path_shiny, "data")
+fn_results <- list.files(path_results
+                         , full.names = TRUE
+                         , include.dirs = FALSE
+                         , recursive = TRUE)
+file.remove(fn_results) # ok if no files
+# Copy file to ensure directory not empty
+fn_copy    <- "remove.txt"
+path_from  <- file.path(path_shiny, "external", fn_copy)
+path_to    <- file.path(path_shiny, "data", fn_copy)
+file.copy(path_from, path_to)
+
 # NEWS
 # Render then Copy NEWS so picked up in help
 rmarkdown::render("NEWS.rmd", "all")

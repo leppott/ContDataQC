@@ -1,0 +1,111 @@
+
+
+
+<div id="edit-thresholds" class="section level2">
+<h2>Edit Thresholds</h2>
+<p>Click <a href="EditingQCtestThresholds_20220117.pdf">here</a> for
+instructions on how to edit thresholds and create customized
+configuration files. There are two options (see below). For either
+option, save the customized configuration file in a folder that is easy
+to find so that you can reuse the file each time you QC data for that
+site. It is helpful to include the StationID and other relevant
+information in the file name (for example, if thresholds are customized
+for a particular season).</p>
+<p>After you save the file, go to the ‘upload custom thresholds’ tab,
+browse to the custom thresholds file, upload the file and then, under
+‘Main functions’, generate the QC reports. If you forget the upload
+step, the default QC thresholds will be used.</p>
+<div id="option-1-download-the-default-configuration-file-open-the-file-in-r-or-notepad-make-edits-and-save." class="section level3">
+<h3>Option 1, download the default configuration file, open the file in
+R or Notepad++, make edits and save.</h3>
+<p>Configuration files can be downloaded here -</p>
+<ul>
+<li><p><a href="Config_default.zip">Default</a>, with hydrologic
+parameters in feet</p></li>
+<li><p><a href="Config_Lakes_meters.zip">Hydrologic parameters in
+meters</a> Navigate to the ‘QC tests and calculations’ section. Edit
+thresholds as desired. Save the file.</p></li>
+</ul>
+<p>When you download the configuration file(s), you will see two types
+of files: an R file (.R) and a text (.txt) file for users who do not
+have R installed on their computer. You can download R from this
+website:
+<a href="https://cran.r-project.org" target="_blank">https://cran.r-project.org</a>.
+You may also want to download
+<a href="https://www.rstudio.com/products/rstudio/download/" target="_blank">RStudio</a>,
+which is a separate program but is a useful code editor and interface
+(IDE) for R. If you cannot install R on your computer, we recommend use
+Notepad or
+<a href="https://notepad-plus-plus.org/downloads" target="_blank">Notepad++</a>
+(some people prefer Notepad++ because it has color-coding).</p>
+</div>
+<div id="option-2-use-the-interactive-functions-shown-left-and-below." class="section level3">
+<h3>Option 2, use the interactive functions shown left and below.</h3>
+<ul>
+<li><p>Select a parameter using the drop-down menu (upper left
+box)</p></li>
+<li><p>Edit thresholds using the boxes below</p></li>
+<li><p>Save changes (for each parameter)</p></li>
+<li><p>Download custom thresholds file</p></li>
+</ul>
+<table>
+<caption>Default Units</caption>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Units</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Temperature</td>
+<td align="left">Celsius</td>
+</tr>
+<tr class="even">
+<td align="left">Sensor depth and water level</td>
+<td align="left">feet</td>
+</tr>
+<tr class="odd">
+<td align="left">Discharge</td>
+<td align="left">ft3/s</td>
+</tr>
+<tr class="even">
+<td align="left">Dissolved oxygen</td>
+<td align="left">mg/L</td>
+</tr>
+<tr class="odd">
+<td align="left">DO pctsat</td>
+<td align="left">%</td>
+</tr>
+<tr class="even">
+<td align="left">Conductivity</td>
+<td align="left">uS/cm</td>
+</tr>
+<tr class="odd">
+<td align="left">Pressure</td>
+<td align="left">psi</td>
+</tr>
+<tr class="even">
+<td align="left">pH</td>
+<td align="left">SU</td>
+</tr>
+<tr class="odd">
+<td align="left">Turbidity</td>
+<td align="left">NTU</td>
+</tr>
+<tr class="even">
+<td align="left">Salinity</td>
+<td align="left">ppt</td>
+</tr>
+<tr class="odd">
+<td align="left">Chlorophylla</td>
+<td align="left">g/cm3</td>
+</tr>
+</tbody>
+</table>
+<p>If you do not want to use the default units, you will need to use
+Option 1.</p>
+<p>Acknowledgment: Tim Martin (MN DNR) wrote the R code that we used for
+the interactive functions below.</p>
+</div>
+</div>

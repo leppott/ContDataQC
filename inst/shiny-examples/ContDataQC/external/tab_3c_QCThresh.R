@@ -8,17 +8,43 @@ function() {
   tabPanel("QC Thresholds"
         , mainPanel(
           tabsetPanel(type = "tabs"
-            # 4.1. Default----
+            # 3c1. Default----
             , tabPanel("Default"
                        , includeHTML("www/RMD_HTML/App_3c1_QCThresh_Defaults.html")
             )## tabPanel ~ CURRENT ~ END
-            # 4.2. Eval----
+
+            # 3c2. Upload Custom ----
+            , tabPanel("Upload Custom Thresholds"
+                       ,sidebarLayout(
+                         sidebarPanel(
+                           tags$div(title="Select R configuration file to upload here"
+                                    #Only allows R files to be imported
+                                    ,fileInput("configFile"
+                                               , label = "Choose configuration file"
+                                               , multiple = FALSE
+                                               , accept = ".R")
+                           ) # tag$div ~ END
+                           , br()
+                           , br()
+
+                           #Only shows the "Default configuration" button after a user-selected file has been used
+                           ,tags$div(title = "Click to use default configuration data"
+                                     ,uiOutput('ui.defaultConfig'))
+                         )# sidebarPanel~ END
+                         , mainPanel(
+                           includeHTML("www/RMD_HTML/App_3c2_QCThresh_Upload.html")
+                         ) ## mainPanel ~ END
+                       )# sidebarLayout~ END
+            )## tabPanel ~ Custom Thresh ~ END
+
+            # 3c3. Eval----
             , tabPanel("Evaluate Thresholds"
-                       , includeHTML("www/RMD_HTML/App_3c2_QCThresh_Eval.html")
+                       , includeHTML("www/RMD_HTML/App_3c3_QCThresh_Eval.html")
                       # , br()
                       # , downloadButton("but_thresh_code")
                        )## tabPanel ~ Eval Thresh
-            # 4.3. Edit ----
+
+            # 3c4. Edit ----
             , tabPanel("Edit Thresholds"
                        ,shinyjs::useShinyjs()
                        # ,h3("Edit your thresholds here by parameter:")
@@ -63,7 +89,7 @@ function() {
 
                          ) # sidebarPanel~ END
                          , mainPanel(width = 7
-                                     , includeHTML("www/RMD_HTML/App_3c3_QCThresh_Edit.html")
+                                     , includeHTML("www/RMD_HTML/App_3c4_QCThresh_Edit.html")
                                      , tags$hr()
                                      , h4("Gross Thresholds")
                                      , p(paste("Test if data point exceeds a user defind"
@@ -147,29 +173,7 @@ function() {
                          )## mainPanel ~ END
                        )# sidebarLayout~ END
             ) ## tabPanel ~ Edit Thresh
-            # 4.4 Upload Custom ----
-            , tabPanel("Upload Custom Thresholds"
-                       ,sidebarLayout(
-                         sidebarPanel(
-                           tags$div(title="Select R configuration file to upload here"
-                                      #Only allows R files to be imported
-                                      ,fileInput("configFile"
-                                                 , label = "Choose configuration file"
-                                                 , multiple = FALSE
-                                                 , accept = ".R")
-                           ) # tag$div ~ END
-                           , br()
-                           , br()
 
-                           #Only shows the "Default configuration" button after a user-selected file has been used
-                           ,tags$div(title = "Click to use default configuration data"
-                                     ,uiOutput('ui.defaultConfig'))
-                         )# sidebarPanel~ END
-                         , mainPanel(
-                           includeHTML("www/RMD_HTML/App_3c4_QCThresh_Upload.html")
-                         ) ## mainPanel ~ END
-                       )# sidebarLayout~ END
-            )## tabPanel ~ Custom Thresh ~ END
 
           )## tabsetPanel ~ END
         )## mainPanel ~ END

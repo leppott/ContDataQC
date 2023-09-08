@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-08 11:07:40.603256
+    #> Last Update: 2023-09-08 14:58:39.04085
 
 # Version History
+
+## v2.0.7.9014
+
+2023-09-08
+
+- refactor: Update Thresholds tab order
+- refactor: Add text to Main - Import tab
 
 ## v2.0.7.9013
 

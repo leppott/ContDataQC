@@ -33,9 +33,12 @@ function(){
                           , tabPanel("Import Files"
                                      , sidebarLayout(
                                        sidebarPanel(
+                                         p("1. Upload customized QC test thresholds if desired; otherwise, the default thresholds will be used.")
+                                         , p("2. Confirm correct configuration file is being used.")
+                                         , p("3. Upload input files.")
                                          #The selected input file
                                          #Tool tip code from https://stackoverflow.com/questions/16449252/tooltip-on-shiny-r
-                                         tags$div(title="Select one or more csv files to upload here"
+                                         , tags$div(title = "Select one or more csv files to upload here"
 
                                                   #Only allows csv files to be imported
                                                   , fileInput("selectedFiles"
@@ -44,6 +47,7 @@ function(){
                                                               , accept = ".csv")
                                          )# tags$div ~ END
 
+                                         , p("4. Choose operation to perform.")
                                          #Operation to be performed on the selected data
                                          ,selectInput("Operation"
                                                       ,label = "Choose operation to perform"
