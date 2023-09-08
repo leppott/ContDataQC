@@ -21,6 +21,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.7.9013
+2023-09-08
+
+* refactor: Update formatminiDOT function to remove columns with all NA values
+    + Fixes issue with ContDataQC QC function
+
 ## v2.0.7.9012
 2023-08-31
 

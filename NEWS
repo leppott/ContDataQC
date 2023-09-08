@@ -3,9 +3,17 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-08-31 16:55:06.991728
+    #> Last Update: 2023-09-08 11:07:40.603256
 
 # Version History
+
+## v2.0.7.9013
+
+2023-09-08
+
+- refactor: Update formatminiDOT function to remove columns with all NA
+  values
+  - Fixes issue with ContDataQC QC function
 
 ## v2.0.7.9012
 

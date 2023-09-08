@@ -876,7 +876,6 @@ shinyServer(function(input, output, session) {
       #The QCRaw and Summarize functions can be fed individual input files
       #in order to have the progress bar increment after each one is processed
       else {
-
         #Iterates through all the selected files in the data.frame
         #to perform the QC script on them individually
         for (i in seq_len(nrow(allFiles()))) {
@@ -889,7 +888,6 @@ shinyServer(function(input, output, session) {
 
           #Saves the R console output of ContDataQC()
           consoleRow <- capture.output(
-
                           #Runs ContDataQC() on an individual file
                           ContDataQC(operation,
                           fun.myDir.import = file.path(".", "data"),

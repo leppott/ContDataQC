@@ -2,15 +2,18 @@
 #'
 #' @description  Format miniDOT concatenate (cat) output for use with
 #' `ContDataQC` package.   Works on single files.  Imports, modifies, and saves
-#' the new file.
+#' the new file.  Data columns with all NA values are removed.
 #'
 #' @details
 #' 1. Imports a miniDOT cat output file from a folder.
 #' Can also use ContDataQC::minidot_cat function.
 #'
-#' 2. Reformats it using defaults from the ContDataQC config file
+#' 2. Reformats it using defaults from the ContDataQC config file.
 #'
-#' 3. Exports a CSV to the provided folder for use with ContDataQC
+#' 3. As a QC step to prevent issues with ContDataQC function any columns that
+#' are all NA will be removed.
+#'
+#' 4. Exports a CSV to the provided folder for use with ContDataQC.
 #'
 #' Below are the default data directories assumed to exist in the working
 #' directory.  These can be created with code in the example.  Using this
@@ -93,7 +96,7 @@ format_minidot <- function(fun.myFile = NULL
                            ) {
   # debug ####
   boo.DEBUG <- FALSE
-  if(boo.DEBUG == TRUE){##IF.boo.DEBUG.START
+  if (boo.DEBUG == TRUE) {
     fun.myFile <- "7392-354869.csv"
     fun.myDir.import <- file.path(tempdir(), "Data0_Original")
     fun.myDir.export <- file.path(tempdir(), "Data1_RAW")
@@ -101,7 +104,7 @@ format_minidot <- function(fun.myFile = NULL
     # Load environment
     #ContData.env <- new.env(parent = emptyenv()) # in config.R
     dir_dev <- "C:\\Users\\Erik.Leppo\\OneDrive - Tetra Tech, Inc\\MyDocs_OneDrive\\GitHub\\ContDataQC"
-    source(file.path(dir_dev, "R", "config.R"), local=TRUE)
+    source(file.path(dir_dev, "R", "config.R"), local = TRUE)
   }##IF.boo.DEBUG.END
 
 	# 00. QC ####
@@ -112,13 +115,13 @@ format_minidot <- function(fun.myFile = NULL
   #
 
   ## dont need check if using "files" version
-  if(is.null(fun.myFile[1])) {
+  if (is.null(fun.myFile[1])) {
     # Error checking.  If any null then kick back
     ## (add later)
     # 20160204, Check for required fields
     #   Add to individual scripts as need to load the file first
     # QC Check - delimiter in site ID
-    if(ContData.env$myDelim==".") {##IF.myDelim.START
+    if (ContData.env$myDelim == ".") {
       # special case for regex check to follow (20170531)
       myDelim2Check <- "\\."
     } else {
@@ -144,10 +147,10 @@ format_minidot <- function(fun.myFile = NULL
     # 01.01. Import ####
     # import with read.delim (greater control than read.csv)
     df_md <- utils::read.delim(file.path(fun.myDir.import, i)
-                               , skip=0
-                               , header=TRUE
-                               , sep=","
-                               , check.names=FALSE
+                               , skip = 0
+                               , header = TRUE
+                               , sep = ","
+                               , check.names = FALSE
                                , stringsAsFactors = FALSE)
 
     # 01.02. Munge ####
@@ -167,11 +170,14 @@ format_minidot <- function(fun.myFile = NULL
     # Battery
     # Q
 
+    # QC columns to ensure not all NA
+    df_md <- df_md[, colSums(is.na(df_md)) < nrow(df_md)]
+
     #01.03. Reorder Columns----
     df_out <- df_md
 
     # 01.04. DF Save ####
-    utils::write.csv(df_out, file.path(fun.myDir.export, i), row.names=FALSE)
+    utils::write.csv(df_out, file.path(fun.myDir.export, i), row.names = FALSE)
 
     # 01.05. Cleanup
     rm(df_md)
