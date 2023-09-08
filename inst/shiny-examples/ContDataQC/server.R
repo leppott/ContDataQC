@@ -241,12 +241,13 @@ shinyServer(function(input, output, session) {
   #Creates a summary data.frame as a reactive object.
   #This table includes file name, station ID, start date, end date, and record count.
   table1 <- reactive({
+    # 20230908, drop dates, cols 3 and 4
 
     #Shows the table headings before files are input
     if (is.null(allFiles())) {
 
       #Subsets the columns of the pre-upload data for display
-      nullTable1 <- fileAttribsNull()[c(1:5)]
+      nullTable1 <- fileAttribsNull()[c(1, 2, 5)]
 
       #Sends the empty table to be displayed
       return(nullTable1)
@@ -255,7 +256,7 @@ shinyServer(function(input, output, session) {
     #Subsets the file attribute table with just
     #file name, site ID, start date, end date, and number of records
     summaryTable1 <- fileAttribsFull()[, c(1:5)]
-    colnames(summaryTable1) <- colnames(fileAttribsFull()[c(1:5)])
+    colnames(summaryTable1) <- colnames(fileAttribsFull()[c(1, 2, 5)])
 
     return(summaryTable1)
   })

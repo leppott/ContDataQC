@@ -8,10 +8,10 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
+knitr::opts_chunk$set(results = 'asis', echo = FALSE, warning = FALSE, message = FALSE)
 # needed for trouble shooting
 boo_DEBUG <- FALSE
-if(boo_DEBUG==TRUE){
+if (boo_DEBUG == TRUE) {
   # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
   # source(myConfig)
 }## IF ~ boo_DEBUG ~ END
@@ -24,7 +24,7 @@ we recommend setting up folders as shown below as a starting point. Folders and
 files can be customized as you gain more experience. The files should be backed
 up regularly and accessible to other members of your data management team.
 
-Click [here](FolderSetUp_20220825.zip) to download a zipped file with a 
+Click [here](SiteX_20230828.zip) to download a zipped file with a 
 ready-made set of (empty) folders.  Put the file in the desired location, unzip 
 it and then replace ‘SiteX’ with the appropriate site name.
 

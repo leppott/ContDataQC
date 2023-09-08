@@ -10,8 +10,11 @@ function() {
                                     , includeHTML("www/RMD_HTML/App_2a_FormattingFiles.html")
                          )## tabPanel ~ END
 
-                         , tabPanel("Sensor File Modification"
+                         , tabPanel("Automated Reformatting"
                             ,tabsetPanel(type = "tabs"
+                                         , tabPanel("About"
+                                                    , includeHTML("www/RMD_HTML/App_2az_About.html")
+                                         )## tabPanel ~ END
                                          # Hoboware, reformat ----
                                          , tabPanel("HOBOware Reformat"
                                                     ,sidebarLayout(

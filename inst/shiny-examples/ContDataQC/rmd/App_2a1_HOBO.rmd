@@ -11,7 +11,7 @@ output:
 knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
 # needed for trouble shooting
 boo_DEBUG <- FALSE
-if(boo_DEBUG==TRUE){
+if(boo_DEBUG == TRUE){
   # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
   # source(myConfig)
 }## IF ~ boo_DEBUG ~ END
@@ -19,7 +19,7 @@ if(boo_DEBUG==TRUE){
 
 # HOBOware Reformat
 
-The HOBOware reformat function is for data files from Onset HOBO sensors. It converts them to a format that is ready to run through the DataQC function. This saves you time and eliminates errors that sometimes occur when manually reformatting files.
+The HOBOware reformat function is for data files from Onset HOBO sensors. It converts them to a format that is ready to run through the QC report function (Main Functions - QC raw data). This saves you time and eliminates errors that sometimes occur when manually reformatting files.
 
 HOBO sensor files must first be opened with HOBOware software, then processed and exported as CSV files. If you follow these instructions, you will be able to run them through the reformat function without manipulation -
 
@@ -39,20 +39,17 @@ HOBO sensor files must first be opened with HOBOware software, then processed an
 
 *	Select the Date format in your input file (options: YMD, MDY, DMY)
 
-  +	Note: if you enter the wrong date format, the function will still run but 
-  your date field will be blank and you will not receive an error message. We 
-  recommend checking your output files to make sure the date field came through 
-  (as well as the other desired parameters; if those are not named correctly, 
-  they will be missing from the output file and you will not receive an error 
-  message).
-
 *	Click the ‘Reformat HOBOware file(s)’ button; a status bar will appear in the lower right corner.
 
 *	After the function is done running, a ‘Download’ button will appear. Click this button.
 
-*	Save the zipped file in the Data1_RAW folder
+* You will be prompted to save a zipped file named ‘format_HOBO_date_time’. Save the zipped file in the Data1_RAW folder.
 
-*	Time-saver tip: if you use Google Chrome as your internet browser, you can change its settings so that it asks what folder to download files to (versus files going to the default Download folder). Click [here](GoogleChrome_TimesaverTips.pdf) for instructions on how to set this up. Your files are now ready to be run through the QC function!
+*	Unzip/extract the file(s) or else the files won’t be seen as an option to upload to the QC report function (Main Functions - QC raw data). After file is unzipped, a new folder called ‘HOBO’ will appear. The original zipped file can be deleted if desired.
+
+Time-saver tip: some internet browsers, like Google Chrome and Mozilla Firefox, allow users to change settings so that users can select which folder to download files to (versus files going to the default Download folder). Click [here](GoogleChrome_TimesaverTips.pdf) for instructions on how to set this up in Chrome. With Mozilla Firefox, go to Settings > General > Files and Applications > Check box for “always ask where to save files.” 
+
+Your files are now ready to be run through the QC function!
 Below are examples of what HOBO U20 CSV files look like before and after they are run through the reformat function. The reformat function does the following -
 
 *	Changes column headings as needed
@@ -68,6 +65,13 @@ Below are examples of what HOBO U20 CSV files look like before and after they ar
 If there is a problem with the input file, the screen will turn gray and it will say ‘disconnected from the server’ in the lower left.
 
 ### Common errors
+
+* If you enter the wrong date format, the function will still run but 
+your date field will be blank and you will not receive an error message. We 
+recommend checking your output files to make sure the date field came through 
+(as well as the other desired parameters; if those are not named correctly, 
+they will be missing from the output file and you will not receive an error 
+message).
 
 *	Unwanted ‘logged’ text entries in the bottom row of the CSV. These occur if you forget to uncheck the ‘select internal logger events to plot’ boxes during Plot SetUp in HOBOware
 

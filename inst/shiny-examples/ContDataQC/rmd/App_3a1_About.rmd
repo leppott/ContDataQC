@@ -17,29 +17,21 @@ if(boo_DEBUG==TRUE){
 }## IF ~ boo_DEBUG ~ END
 ```
 
-# Run Functions
+# Main Functions
 
-The three main functions are listed in the drop-down menu under 'Choose 
-Operation to perform'
+_Workflow_
 
--   **'QC raw data'** generates QC reports.
+1.	**Select QC flag test thresholds.** Use the default thresholds or upload a customized configuration file. If you have one or more years of continuous data for a site, we encourage you to evaluate the performance of the QC test thresholds for each parameter at that site and customize the configuration file if needed. Click here for tips on evaluating thresholds. To learn how to edit thresholds, click here.
 
--   **'Aggregate QC'd data'** merges the QC'd data files for the desired time 
-periods together. The input files need to be from the same site and share common
-parameters.
+2.	**Check the configuration file name.** Make sure the correct configuration file has been uploaded prior to running the QC reports.
 
--   **'Summary statistics'** generates two sets of CSV files and a PDF with time
-series plots for each parameter. One of the CSVs has daily means and the other 
-has a wider range of summary statistics (e.g., min, median, max, quartiles).
+3.	**Upload the desired input file(s).**
 
-ContDataQC works sequentially, meaning the user needs to run the QC function 
-before running the Aggregate function, and the Aggregate function before the 
-SummaryStats function. More detailed information on each function can be found 
-below.
+4.	**Run the ‘QC raw data’** function to generate QC reports.
 
-Time-saver tip: if you use Google Chrome as your internet browser, you can 
-change its settings so that it asks what folder to download files to (versus 
-files going to the default Download folder). Click 
-[here](GoogleChrome_TimesaverTips.pdf) for instructions on how to set this up.
+5.	**After the data file(s) are QC’d, users can run them through the Aggregate function** to merge them with other files. The input files need to be from the same site and share common parameters.
 
+6.	**The user can run the aggregated file through the Summary Statistics function** to generate CSV files with an assortment of summary statistics (e.g., min, median, max, quartiles) and a PDF with time series plots for each parameter. 
+After running each function, users must unzip/extract the files or else the files won’t be seen as an option to upload for the next step. After files are unzipped, new folders will automatically appear and the original zipped files can be deleted if desired.
+Time-saver tip: some internet browsers, like Google Chrome and Mozilla Firefox, allow users to change settings so that users can select which folder to download files to (versus files going to the default Download folder). Click [here](GoogleChrome_TimesaverTips.pdf) for instructions on how to set this up in Chrome. With Mozilla Firefox, go to Settings > General > Files and Applications > Check box for “always ask where to save files.”
 

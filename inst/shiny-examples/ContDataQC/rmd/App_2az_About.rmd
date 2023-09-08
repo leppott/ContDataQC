@@ -1,0 +1,32 @@
+---
+title: "Automated Reformating, About"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if(boo_DEBUG==TRUE){
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+# Automated Reformatting
+
+These functions convert files coming directly from sensors or proprietary sensor software like HOBOware into a format that is ready to run through the QC report function (**Main Functions - QC raw data**). This saves you time and eliminates errors that sometimes occur when manually reformatting files.
+
+Currently, reformatting functions are available for two types of sensors:
+
+*	Onset HOBO (water level (U20), temperature (pro V2 and Pendant), and DO (U26); more can be added as needed)
+
+*	miniDOT DO
+
+Reformatting functions for other types of sensors can be added in the future, if requested.
+
+

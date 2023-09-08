@@ -21,6 +21,17 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.7.9015
+2023-09-08
+
+* refactor: Shiny tab text updates
+    + Check Input
+    + Main
+    + Organize Files
+    + HOBOware Reformat
+* refactor: Rename Sensor File Modification to Automated Reformatting
+    + Add About tab
+
 ## v2.0.7.9014
 2023-09-08
 

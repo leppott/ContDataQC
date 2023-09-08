@@ -3,9 +3,21 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-08 14:58:39.04085
+    #> Last Update: 2023-09-08 15:57:43.083915
 
 # Version History
+
+## v2.0.7.9015
+
+2023-09-08
+
+- refactor: Shiny tab text updates
+  - Check Input
+  - Main
+  - Organize Files
+  - HOBOware Reformat
+- refactor: Rename Sensor File Modification to Automated Reformatting
+  - Add About tab
 
 ## v2.0.7.9014
 
