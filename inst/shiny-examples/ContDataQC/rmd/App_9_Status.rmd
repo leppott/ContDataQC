@@ -35,23 +35,37 @@ We aren’t planning to make any major changes to the main functions in ContData
 **Here are the ContDataQC items we’re currently working on -**
 
 * Improving the instructional materials
+
 * Refining the QC test thresholds, not just for temperature and hydrology (the primary variables being collected at RMN sites), but also for dissolved oxygen, conductivity, pH and turbidity.  
+
 * Gaining a better understanding of the most common QC issues being encountered and how to best detect and address (or potentially prevent) those issues.
+
 * Improving guidance on addressing errors and flagged data points and documenting corrections and metadata.
 
 **ContDataQC ‘wish list’ items (that we lack funding to address but will tackle if resources permit) -**
 
 * Automated accuracy check
+
   + Users would upload in-situ files and the R code would automatically match the in-situ measurements with the closest sensor measurement, calculate the difference between the two measurements and report whether the sensor is meeting accuracy specs.
+  
 * Weather station check 
+
   + Users would upload weather station data and the R code would match the measurements with the sensor data, generate time series plots in which the measurements are overlaid on one another, and generate some basic statistical measures to compare the two sets of data.
+  
 * Daily range check (max-min)
+
   + This QC check is used by the USFS NorWeST temperature sensor network. It would be added in as a new function.
+  
 * ‘Transition’ check
+
   + We’re finding most errors concentrated around the times when the sensors are being taken out of position for data download. If you’re only QCing individual files after each download, you’re not evaluating the transition between data from the previous file and the new file. This check would bring in data from 1-2 days prior to the start time of the file being evaluated and alert users to data points that need to be trimmed.
+  
 * Automatic adjustments to gross limit QC test thresholds based on season and depth
+ 
   + Right now the gross limit QC test is pretty limited because it doesn’t capture seasonal differences without the user creating multiple customized configuration files (and then the user would need to break up the input files for each time period). We’d like to figure out a way to have the R code automatically adjust the upper and lower gross limit thresholds based on seasonal considerations, and for lakes, for it to also make adjustments to gross limit thresholds based on depth.    
+  
 * Drift correction
+
   + We’d add a feature that automates drift corrections. 
 
 **Other R packages and Shiny apps that may be of interest**

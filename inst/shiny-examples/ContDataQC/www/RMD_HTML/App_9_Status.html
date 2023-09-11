@@ -50,40 +50,39 @@ apps (for more information, see bottom of page).</p>
 <p><strong>Here are the ContDataQC items we’re currently working on
 -</strong></p>
 <ul>
-<li>Improving the instructional materials</li>
-<li>Refining the QC test thresholds, not just for temperature and
+<li><p>Improving the instructional materials</p></li>
+<li><p>Refining the QC test thresholds, not just for temperature and
 hydrology (the primary variables being collected at RMN sites), but also
-for dissolved oxygen, conductivity, pH and turbidity.<br />
-</li>
-<li>Gaining a better understanding of the most common QC issues being
+for dissolved oxygen, conductivity, pH and turbidity.</p></li>
+<li><p>Gaining a better understanding of the most common QC issues being
 encountered and how to best detect and address (or potentially prevent)
-those issues.</li>
-<li>Improving guidance on addressing errors and flagged data points and
-documenting corrections and metadata.</li>
+those issues.</p></li>
+<li><p>Improving guidance on addressing errors and flagged data points
+and documenting corrections and metadata.</p></li>
 </ul>
 <p><strong>ContDataQC ‘wish list’ items (that we lack funding to address
 but will tackle if resources permit) -</strong></p>
 <ul>
-<li>Automated accuracy check
+<li><p>Automated accuracy check</p>
 <ul>
 <li>Users would upload in-situ files and the R code would automatically
 match the in-situ measurements with the closest sensor measurement,
 calculate the difference between the two measurements and report whether
 the sensor is meeting accuracy specs.</li>
 </ul></li>
-<li>Weather station check
+<li><p>Weather station check</p>
 <ul>
 <li>Users would upload weather station data and the R code would match
 the measurements with the sensor data, generate time series plots in
 which the measurements are overlaid on one another, and generate some
 basic statistical measures to compare the two sets of data.</li>
 </ul></li>
-<li>Daily range check (max-min)
+<li><p>Daily range check (max-min)</p>
 <ul>
 <li>This QC check is used by the USFS NorWeST temperature sensor
 network. It would be added in as a new function.</li>
 </ul></li>
-<li>‘Transition’ check
+<li><p>‘Transition’ check</p>
 <ul>
 <li>We’re finding most errors concentrated around the times when the
 sensors are being taken out of position for data download. If you’re
@@ -93,8 +92,8 @@ This check would bring in data from 1-2 days prior to the start time of
 the file being evaluated and alert users to data points that need to be
 trimmed.</li>
 </ul></li>
-<li>Automatic adjustments to gross limit QC test thresholds based on
-season and depth
+<li><p>Automatic adjustments to gross limit QC test thresholds based on
+season and depth</p>
 <ul>
 <li>Right now the gross limit QC test is pretty limited because it
 doesn’t capture seasonal differences without the user creating multiple
@@ -102,10 +101,9 @@ customized configuration files (and then the user would need to break up
 the input files for each time period). We’d like to figure out a way to
 have the R code automatically adjust the upper and lower gross limit
 thresholds based on seasonal considerations, and for lakes, for it to
-also make adjustments to gross limit thresholds based on depth.<br />
-</li>
+also make adjustments to gross limit thresholds based on depth.</li>
 </ul></li>
-<li>Drift correction
+<li><p>Drift correction</p>
 <ul>
 <li>We’d add a feature that automates drift corrections.</li>
 </ul></li>

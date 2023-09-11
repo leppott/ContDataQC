@@ -1,0 +1,63 @@
+---
+title: "Formatting Files"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if(boo_DEBUG==TRUE){
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+
+# 20230911, file missing so recreated from Jen's "updates"
+```
+
+# Formatting Files
+
+Input files need to be formatted a specific way in order for the Shiny app and R package to work. Guidelines.
+
+*	Input files must be comma-delimited (CSV) (but not CSV UTF-8 files).
+
+*	The columns do not have to be in any specific order
+
+*	There are two required fields: SiteID; and “Date Time” (with Date and Time combined into one field).
+
+*	If using the default [configuration file](Config_default.zip), column names must match the capitalization, spelling and symbology shown in the table below (for example, R will not recognize ‘sensor depth ft’; it needs to be ‘Sensor Depth ft’)
+
+*	Either periods or spaces in the column headings are acceptable. For example, in the table below, air temperature is shown as ‘’Air Temp C’ but it can also be entered as ‘Air.Temp.C’.
+
+*	For units, slashes, spaces or periods (e.g., DO mg/L, DO.mg.L or DO mg L) are acceptable. Do NOT use parentheses.
+
+*	Advanced R users can add new parameters (beyond the ones show in the table below) to the configuration file.
+
+*	Optional fields include rowID, logger ID (serial number) and discrete measurements. Discrete (in situ) measurements can be entered for any parameter (just add ‘Discrete’ to the beginning of the column heading; for example, ‘Discrete Air Temp C’). The discrete data point will be included in the time series plots that are generated when the user runs the QC function. If using Onset HOBO sensors, you can save time by using the automated reformat function 
+
+
+## Data Formattting Information
+
+```{r table_1}
+library(readxl)
+library(knitr)
+library(kableExtra)
+# state directories
+table.dir  <- "tables"
+table.file <- "App_Information_Tables.xlsx"
+tab2a.dir  <- "DataPrep_Table2c"
+
+table2c <- read_excel(file.path(table.dir, table.file), sheet = tab2a.dir
+                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
+                     , col_names = TRUE)  
+
+options(knitr.kable.NA = '')
+# kable(table1)
+table2c %>% 
+  kbl() %>% 
+  kable_styling(full_width = F, position = "left")
+```

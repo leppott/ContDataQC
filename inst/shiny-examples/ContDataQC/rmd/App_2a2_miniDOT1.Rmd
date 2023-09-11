@@ -10,9 +10,37 @@ output: html_fragment
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# miniDOT Concatenate
+# miniDOT DO Concatenate
 
-This function merges daily Dissolved Oxygen data files downloaded from PME 
-miniDot DO loggers into a single multi-column CSV file. Use if the data were not
-compiled using the PME java app on the logger. The output should be downloaded 
-into the Data0_Original folder.
+When data are initially downloaded from miniDOT sensors, there are separate 
+.txt files for each day (in this example, 325 individual files). Users have two 
+options for combining them into one CSV file: 1) the **ContDataQC Concatenate** 
+function; or 2) the **PME java app** that comes with the logger.
+
+## Concatenate Instructions
+
+* Click the ‘Browse’ button and select all the individual files that you want to combine. The status bar will tell you when the upload is complete (be patient – you may not see anything happen for the first 30 seconds or so, depending on how many files you are uploading).
+
+*	Click the ‘Concatenate’ button; a status bar will appear in the lower right corner.
+
+*	After the function is done running, a ‘Download’ button will appear. Click this button.
+
+*	You will be prompted to save a zipped file named ‘miniDOT_cat_date_time’. Save the zipped file in the Data0_Original folder.
+
+*	Unzip/extract the file(s) or else the files won’t be seen as an option to upload to the Reformat function. After file is unzipped, a new folder called ‘miniDOT_cat’ will appear. The original zipped file can be deleted if desired.
+
+## Additional Notes
+
+*	Want to try it yourself? Click [here](SiteX_20230828.zip) to 
+download miniDOT DO test files.
+
+*	Why are the DO saturation values all NA? This occurs when no inputs are 
+provided to calculate DO percent saturation.  To avoid issues with the main 
+ContDataQC QC function any field with all NA's is when the miniDOT file is
+created.
+
+## Examples
+
+Example image after performing the **Concatenate** function.
+
+![Concatenated miniDOT file](RMD_Images/miniDOT_2cat.png)

@@ -22,8 +22,12 @@ function() {
                                     ,includeHTML("www/RMD_HTML/App_1d_Tips.html")
                          )# tabPanel ~ QC Tips ~ END
 
+                         , tabPanel("Advanced"
+                                    ,includeHTML("www/RMD_HTML/App_1e_Advanced.html")
+                         )# tabPanel ~ Advanced ~ END
+
                          , tabPanel("Related Apps"
-                                    , includeHTML("www/RMD_HTML/App_1e_RelatedApps.html")
+                                    , includeHTML("www/RMD_HTML/App_1f_RelatedApps.html")
                          )## tabPanel ~ END
 
 

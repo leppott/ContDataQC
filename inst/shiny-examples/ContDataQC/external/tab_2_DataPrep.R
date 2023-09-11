@@ -6,7 +6,7 @@ function() {
            , mainPanel(
              tabsetPanel(type = "tabs"
 
-                         , tabPanel("Formatting files"
+                         , tabPanel("Formatting Files"
                                     , includeHTML("www/RMD_HTML/App_2a_FormattingFiles.html")
                          )## tabPanel ~ END
 
@@ -113,12 +113,15 @@ function() {
                                         )## tabsetPanel
                           )## tabPanel ~ END
 
+                         , tabPanel("Discrete Data"
+                                    , includeHTML("www/RMD_HTML/App_2cz_DiscreteData.html")
+                                    )## tabPanel ~ END
 
-                         , tabPanel("Organizing files"
+                         , tabPanel("Organizing Files"
                                     , includeHTML("www/RMD_HTML/App_2b_OrganizingFiles.html")
                          )## tabPanel ~ END
 
-                         , tabPanel("Naming files"
+                         , tabPanel("Naming Files"
                                     , includeHTML("www/RMD_HTML/App_2c_NamingFiles.html")
                                     # included pic in RMD to HTML
                                     # , img(src = "Fig_NamingFiles_v1_20210617.png"

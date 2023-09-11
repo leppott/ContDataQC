@@ -3,9 +3,19 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-08 15:57:43.083915
+    #> Last Update: 2023-09-11 14:24:14.581759
 
 # Version History
+
+## v2.0.7.9016
+
+2023-09-11
+
+- refactor: Shiny tab text updates
+  - miniDOT concatenate
+  - miniDOT reformat
+  - Advanced (new tab)
+  - Formatting Files
 
 ## v2.0.7.9015
 
