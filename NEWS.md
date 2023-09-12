@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-11 14:24:14.581759
+    #> Last Update: 2023-09-12 10:23:52.966568
 
 # Version History
+
+## v2.0.7.9017
+
+2023-09-12
+
+- refactor: Change widths on Edit Thresholds tab
+  - Some boxes too small
 
 ## v2.0.7.9016
 

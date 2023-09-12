@@ -1,6 +1,8 @@
 # Panel, QC Thresholds
 # Ben Block, 2021-06-16
 # Erik Leppo, 2022-12-19, add Gross boxes
+# 2023-09-12, change boxes to width 3 (from 2)
+#    and remove sidebar and main panel width specifications
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function() {
@@ -53,9 +55,9 @@ function() {
                        # ,h4("3. Save changes (for each parameter)")
                        # ,h4("4. Download custom thresholds file")
                        ,sidebarLayout(
-                         sidebarPanel(width = 5
+                         sidebarPanel(#width = 5
                                      # , style = "position:fixed"#;width:22%"
-                                      ,h4("1. Select Parameter")
+                                      h4("1. Select Parameter")
                                       ,selectInput(inputId = "QC_Param_Input"
                                                    , label = NULL
                                                    , choices = c("Air Temperature" = "AirTemp"
@@ -83,31 +85,32 @@ function() {
                                       ,h4("4. Download your custom threshold file")
                                       ,p(paste("Note: The downloaded file must be reuploaded"))
                                       ,downloadButton(outputId = "QC_Thresh_Download"
-                                                      , label = "Download custom thresholds file")
+                                                      #, label = "Download custom thresholds file")
+                                                      , label = "Download")
                                      , h4("5. Upload custom threshold file")
                                      , p("Go to the 'upload custom thresholds' tab, browse to the custom thresholds file, upload the file and then, under 'Main functions', generate the QC reports. If you skip this step, the default QC thresholds will be used.")
 
                          ) # sidebarPanel~ END
-                         , mainPanel(width = 7
-                                     , includeHTML("www/RMD_HTML/App_3c4_QCThresh_Edit.html")
+                         , mainPanel(#width = 12
+                                      includeHTML("www/RMD_HTML/App_3c4_QCThresh_Edit.html")
                                      , tags$hr()
                                      , h4("Gross Thresholds")
                                      , p(paste("Test if data point exceeds a user defind"
                                                , "threshold."))
                                      , fluidRow(
-                                        column(width = 2,
+                                        column(width = 3,
                                                 numericInput(inputId = "GR_Fail_Max"
                                                              , label = "Fail (Hi)"
                                                              , value = "1"))
-                                       ,column(width = 2,
+                                       ,column(width = 3,
                                               numericInput(inputId = "GR_Fail_Min"
                                                            , label = "Fail (Lo)"
                                                            , value = "1"))
-                                       , column(width = 2,
+                                       , column(width = 3,
                                                numericInput(inputId = "GR_Sus_Max"
                                                             , label = "Suspect (Hi)"
                                                             , value = "1"))
-                                       , column(width = 2,
+                                       , column(width = 3,
                                                numericInput(inputId = "GR_Sus_Min"
                                                             , label = "Suspect (Lo)"
                                                             , value = "1"))
@@ -117,11 +120,11 @@ function() {
                                      , p(paste("Test if data point exceeds a user defined"
                                                ,"threshold relative to the previous data point."))
                                      , fluidRow(
-                                       column(width = 2,
+                                       column(width = 3,
                                               numericInput(inputId = "Spike_Fail"
                                                            , label = "Fail"
                                                            , value = "1"))
-                                       ,column(width = 2,
+                                       ,column(width = 3,
                                                numericInput(inputId = "Spike_Sus"
                                                             , label = "Suspect"
                                                             , value = "1"))
@@ -132,11 +135,11 @@ function() {
                                                ,"standard deviations from the previous"
                                                ,"data points over a user defined time period."))
                                      , fluidRow(
-                                       column(width = 2,
+                                       column(width = 3,
                                               numericInput(inputId = "RoC_SDs"
                                                            , label = "SDs"
                                                            , value = "1"))
-                                       ,column(width = 2,
+                                       ,column(width = 3,
                                                numericInput(inputId = "RoC_Hrs"
                                                             , label = "Hours"
                                                             , value = "1"))
@@ -147,15 +150,15 @@ function() {
                                                ,"threshold from previous data points over"
                                                ,"a user defined range."))
                                      , fluidRow(
-                                       column(width = 2,
+                                       column(width = 3,
                                               numericInput(inputId = "Flat_Fail"
                                                            , label = "Fail"
                                                            , value = "1"))
-                                       ,column(width = 2,
+                                       ,column(width = 3,
                                                numericInput(inputId = "Flat_Sus"
                                                             , label = "Suspect"
                                                             , value = "1"))
-                                       ,column(width = 2,
+                                       ,column(width = 3,
                                                numericInput(inputId = "Flat_Toler"
                                                             , label = "Tolerance"
                                                             , value = "1"))
