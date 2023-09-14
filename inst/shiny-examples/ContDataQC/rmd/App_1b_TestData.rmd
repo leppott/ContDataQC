@@ -28,13 +28,15 @@ The test data consist of two comma-separated values (CSV) files. The files are f
 
 * **Test**
 
-* The two HOBO U20 test files are in the Data0_Original folder. Go to the **Automated Reformat – Onset HOBO** tab and run both files through the reformatting function. Multiple files can be run through the function at the same time (in ‘batches’). The function reformats the files so that they are ready to run through the QC report function. Next, go to the **Main Functions-Import Files** tab, import the reformatted files, run them through the ‘QC raw data’ function (multiple files can be run through the function at the same time), check the flagged data (edit if needed),  aggregate the two QC’d CSV files with the ‘Aggregate QC’ed data’ function, and run the ‘Summary Statistics’ function to summarize the data. **Completed**
+  + The two HOBO U20 test files are in the Data0_Original folder. Go to the **Automated Reformat – Onset HOBO** tab and run both files through the reformatting function. Multiple files can be run through the function at the same time (in ‘batches’). The function reformats the files so that they are ready to run through the QC report function. Next, go to the **Main Functions-Import Files** tab, import the reformatted files, run them through the ‘QC raw data’ function (multiple files can be run through the function at the same time), check the flagged data (edit if needed),  aggregate the two QC’d CSV files with the ‘Aggregate QC’ed data’ function, and run the ‘Summary Statistics’ function to summarize the data. 
+  
+* **Completed**
 
     + This folder has the complete set of outputs for both files so that you can see examples of the QC reports and other outputs without having to run the test data through the R tool yourself. 
 
 # miniDOT DO Sensors
 
-The miniDOT DO test files can be downloaded [here](TestData_HOBOU20_20220822.zip).
+The miniDOT DO test files can be downloaded [here](TestData_miniDOT.zip).
 They are from one site and one deployment period.
 You’ll see two sets of folders. Within each folder are example input and output files.
 

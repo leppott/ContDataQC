@@ -36,6 +36,9 @@ if (exists("ContData.env", mode = "environment") == FALSE) {
          , local = TRUE)
 }## exists ~ END
 
+# Other ----
+sizeThreshEdit <- 4
+
 # Functions ----
 
 ##Extracts properties of the input spreadsheets

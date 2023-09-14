@@ -100,6 +100,31 @@ shinyServer(function(input, output, session) {
     return(allFiles_miniDOT_reformat()$datapath)
   })
 
+  # Display Import FileNames----
+
+  output$fn_input_display_config <- renderText({
+
+    #Allows users to use their own configuration/threshold files for QC.
+    #Copies the status of the config file to this event.
+    config_type <- config$x
+
+    if (config_type == "uploaded") {
+    #If a configuration file has been uploaded, the app uses it
+
+      config <- file.path("data", input$configFile$name)
+
+    } else {
+    #If no configuration file has been uploaded, the default is used
+
+      config <- system.file("extdata", "Config.ORIG.R", package="ContDataQC")
+
+    }## IF ~ config_type ~ END
+
+    return(paste0(config_type, "; ", basename(config)))
+
+
+  })## fn_input_display_config
+
   # Reactive, Main ----
   #Creates a reactive object that stores whether a configuration file has been uploaded
   config <- reactiveValues(
@@ -255,7 +280,7 @@ shinyServer(function(input, output, session) {
 
     #Subsets the file attribute table with just
     #file name, site ID, start date, end date, and number of records
-    summaryTable1 <- fileAttribsFull()[, c(1:5)]
+    summaryTable1 <- fileAttribsFull()[, c(1, 2, 5)]
     colnames(summaryTable1) <- colnames(fileAttribsFull()[c(1, 2, 5)])
 
     return(summaryTable1)
@@ -1274,7 +1299,8 @@ shinyServer(function(input, output, session) {
   #Shows the "Default" button after a user-selected config file is uploaded
   output$ui.defaultConfig <- renderUI({
     if (is.null(input$configFile)) return()
-    actionButton("defaultConfig", "Return to default configuration file")
+    actionButton("defaultConfig", "Default Config"
+                 , width = "100%")
   })
 
   #Changes the config object status to a file being uploaded

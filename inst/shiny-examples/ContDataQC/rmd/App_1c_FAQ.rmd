@@ -27,7 +27,7 @@ A: No, only internet access is required.
 
 A: Yes, if you have R software installed on your computer, you can run ContDataQC as a Shiny app on your local computer and it will likely be faster.
 
-The Shiny app is availabe as part of the ContDataQC R package.  The <a href="https://github.com/leppott/ContDataQC" target="_blank">GitHub</a> includes
+The Shiny app is available as part of the ContDataQC R package.  The <a href="https://github.com/leppott/ContDataQC" target="_blank">GitHub</a> includes
 install directions for R.
 
 **Q: What internet browsers is this website compatible with?**

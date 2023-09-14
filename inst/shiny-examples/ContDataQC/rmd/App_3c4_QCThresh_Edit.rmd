@@ -53,11 +53,15 @@ R. If you cannot install R on your computer, we recommend use Notepad or
 (some people prefer Notepad++ because it has color-coding).
 
 
-### Option 2, use the interactive functions shown left and below.
+### Option 2, use the interactive functions.
 
 * Select a parameter using the drop-down menu (upper left box)
 
 * Edit thresholds using the boxes below
+
+* After you make changes for each parameter, click ‘save changes’ as you go 
+(otherwise when you switch to a different parameter, it won’t save the changes 
+you made to the previous parameter)  
 
 * Save changes (for each parameter)
 

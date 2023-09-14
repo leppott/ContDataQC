@@ -37,6 +37,7 @@ Want to try it yourself? Click [here](Custom_QC_Config_ECO66G20_test1.R) to
 download test files.
 
 ![ContDataQC Shiny App workflow](RMD_Images/1.1_Fig1_About_20230828.jpg){width=95%}
+
 # Funding
 
 Development of the ContDataQC R tools has been funded by the United States 

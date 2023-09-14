@@ -10,31 +10,12 @@ function(){
 
               tabsetPanel(type = "tabs"
 
-                          , tabPanel("About"
-                          , tabsetPanel(type = "tabs"
-                                           , tabsetPanel(type="tabs"
-                                                        ,tabPanel("Run functions"
-                                                                  , includeHTML("www/RMD_HTML/App_3a1_About.html")
-                                                                  , img(src = "Fig_Rpackage_v1_20210617.png"
-                                                                        , height = 500, width = 800)
-                                                        ) # tabPanel ~ Run Functions ~ END
-                                                        , tabPanel("QC Reports"
-                                                                   , includeHTML("www/RMD_HTML/App_3a2_QCReports.html"))
-                                                        , tabPanel("Aggregate"
-                                                                   , includeHTML("www/RMD_HTML/App_3a3_Aggregate.html"))
-                                                        , tabPanel("Summary Stats"
-                                                                   , includeHTML("www/RMD_HTML/App_3a4_SummaryStats.html"))
-
-                                            ) # tabsetPanel ~ END
-
-                                       )## tabsetPanel
-                           )##tabPanel ~ About
-
-                          , tabPanel("Import Files"
+                          , tabPanel("Run Functions"
                                      , sidebarLayout(
                                        sidebarPanel(
                                          p("1. Upload customized QC test thresholds if desired; otherwise, the default thresholds will be used.")
                                          , p("2. Confirm correct configuration file is being used.")
+                                         , p(textOutput("fn_input_display_config"))
                                          , p("3. Upload input files.")
                                          #The selected input file
                                          #Tool tip code from https://stackoverflow.com/questions/16449252/tooltip-on-shiny-r
@@ -104,6 +85,24 @@ function(){
                                      )##tabPanel ~ Check
 
                           , tab_3c_QCThresh()
+
+                          , tabPanel("Instructions"
+                                     , tabsetPanel(type = "tabs"
+                                                   , tabsetPanel(type="tabs"
+                                                                 ,tabPanel("Workflow"
+                                                                           , includeHTML("www/RMD_HTML/App_3a1_About.html")
+                                                                 ) # tabPanel ~ Run Functions ~ END
+                                                                 , tabPanel("QC Reports"
+                                                                            , includeHTML("www/RMD_HTML/App_3a2_QCReports.html"))
+                                                                 , tabPanel("Aggregate"
+                                                                            , includeHTML("www/RMD_HTML/App_3a3_Aggregate.html"))
+                                                                 , tabPanel("Summary Stats"
+                                                                            , includeHTML("www/RMD_HTML/App_3a4_SummaryStats.html"))
+
+                                                   ) # tabsetPanel ~ END
+
+                                     )## tabsetPanel
+                          )##tabPanel ~ About
 
                           # , tabPanel("Advanced?"
                           #            )##tabPanel ~ Adv

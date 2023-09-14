@@ -30,7 +30,7 @@ function() {
                            , br()
 
                            #Only shows the "Default configuration" button after a user-selected file has been used
-                           ,tags$div(title = "Click to use default configuration data"
+                           ,tags$div(title = "Click to use default configuration file"
                                      ,uiOutput('ui.defaultConfig'))
                          )# sidebarPanel~ END
                          , mainPanel(
@@ -98,19 +98,19 @@ function() {
                                      , p(paste("Test if data point exceeds a user defind"
                                                , "threshold."))
                                      , fluidRow(
-                                        column(width = 3,
+                                        column(width = sizeThreshEdit,
                                                 numericInput(inputId = "GR_Fail_Max"
                                                              , label = "Fail (Hi)"
                                                              , value = "1"))
-                                       ,column(width = 3,
+                                       ,column(width = sizeThreshEdit,
                                               numericInput(inputId = "GR_Fail_Min"
                                                            , label = "Fail (Lo)"
                                                            , value = "1"))
-                                       , column(width = 3,
+                                       , column(width = sizeThreshEdit,
                                                numericInput(inputId = "GR_Sus_Max"
                                                             , label = "Suspect (Hi)"
                                                             , value = "1"))
-                                       , column(width = 3,
+                                       , column(width = sizeThreshEdit,
                                                numericInput(inputId = "GR_Sus_Min"
                                                             , label = "Suspect (Lo)"
                                                             , value = "1"))
@@ -120,11 +120,11 @@ function() {
                                      , p(paste("Test if data point exceeds a user defined"
                                                ,"threshold relative to the previous data point."))
                                      , fluidRow(
-                                       column(width = 3,
+                                       column(width = sizeThreshEdit,
                                               numericInput(inputId = "Spike_Fail"
                                                            , label = "Fail"
                                                            , value = "1"))
-                                       ,column(width = 3,
+                                       ,column(width = sizeThreshEdit,
                                                numericInput(inputId = "Spike_Sus"
                                                             , label = "Suspect"
                                                             , value = "1"))
@@ -135,11 +135,11 @@ function() {
                                                ,"standard deviations from the previous"
                                                ,"data points over a user defined time period."))
                                      , fluidRow(
-                                       column(width = 3,
+                                       column(width = sizeThreshEdit,
                                               numericInput(inputId = "RoC_SDs"
                                                            , label = "SDs"
                                                            , value = "1"))
-                                       ,column(width = 3,
+                                       ,column(width = sizeThreshEdit,
                                                numericInput(inputId = "RoC_Hrs"
                                                             , label = "Hours"
                                                             , value = "1"))
@@ -150,15 +150,15 @@ function() {
                                                ,"threshold from previous data points over"
                                                ,"a user defined range."))
                                      , fluidRow(
-                                       column(width = 3,
+                                       column(width = sizeThreshEdit,
                                               numericInput(inputId = "Flat_Fail"
                                                            , label = "Fail"
                                                            , value = "1"))
-                                       ,column(width = 3,
+                                       ,column(width = sizeThreshEdit,
                                                numericInput(inputId = "Flat_Sus"
                                                             , label = "Suspect"
                                                             , value = "1"))
-                                       ,column(width = 3,
+                                       ,column(width = sizeThreshEdit,
                                                numericInput(inputId = "Flat_Toler"
                                                             , label = "Tolerance"
                                                             , value = "1"))

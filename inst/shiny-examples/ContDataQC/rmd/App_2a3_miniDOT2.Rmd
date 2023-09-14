@@ -46,13 +46,12 @@ ready to run through the QC report function.
 
 ## Additional Notes
 
--   Want to try it yourself? Click [here](SiteX_20230828.zip) to
+-   Want to try it yourself? Click [here](TestData_miniDOT.zip) to
     download miniDOT DO test files.
 
--   Why are the DO saturation values all NA? This occurs when no inputs
-    are provided to calculate DO percent saturation. To avoid issues
-    with the main ContDataQC QC function any field with all NA's is when
-    the miniDOT file is created.
+*	Why are the DO saturation values all NA? This occurs when no inputs are 
+provided to calculate DO percent saturation.  For more information, please see 
+miniDOT manual or contact the miniDOT support team.
 
 ## Examples
 

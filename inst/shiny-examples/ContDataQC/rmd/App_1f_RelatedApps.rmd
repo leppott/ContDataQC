@@ -40,7 +40,7 @@ GitHub: https://github.com/mnsentinellakes/logger_processing
 
 Primary contact: [tim.martin\@state.mn.us](mailto:tim.martin@state.mn.us){.email}
 
-#### LakeMonitoR, for summarizing and visualizing QC’d continuous vertical profile data for lakes. 
+### LakeMonitoR, for summarizing and visualizing QC’d continuous vertical profile data for lakes. 
 
 Several of its outputs are based on the rLakeAnalyzer R package.
 
@@ -52,7 +52,7 @@ Primary point of contact: [Erik.Leppo\@tetratech.com](mailto:Erik.Leppo@tetratec
 
 ### Regional Monitoring Network (RMN) protocol documents for deploying continuous temperature, water level or DO sensors and time lapse cameras in streams or lakes.
 
-Shiny app: nalms.shinyapps.io/RMN_Documents/
+Shiny app: <a href="https://nalms.shinyapps.io/RMN_Documents/" target="_blank">https://nalms.shinyapps.io/RMN_Documents/</a> 
 
 Primary contact: [Jen.Stamp\@tetratech.com](mailto:Jen.Stamp@tetratech.com){.email}
 
