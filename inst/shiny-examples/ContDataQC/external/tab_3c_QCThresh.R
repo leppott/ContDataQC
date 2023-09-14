@@ -27,6 +27,8 @@ function() {
                                                , accept = ".R")
                            ) # tag$div ~ END
                            , br()
+                           , p("Configuration file being used.")
+                           , p(textOutput("fn_input_display_config_config"))
                            , br()
 
                            #Only shows the "Default configuration" button after a user-selected file has been used

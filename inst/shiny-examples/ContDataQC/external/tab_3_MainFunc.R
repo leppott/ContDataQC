@@ -15,7 +15,7 @@ function(){
                                        sidebarPanel(
                                          p("1. Upload customized QC test thresholds if desired; otherwise, the default thresholds will be used.")
                                          , p("2. Confirm correct configuration file is being used.")
-                                         , p(textOutput("fn_input_display_config"))
+                                         , p(textOutput("fn_input_display_config_main"))
                                          , p("3. Upload input files.")
                                          #The selected input file
                                          #Tool tip code from https://stackoverflow.com/questions/16449252/tooltip-on-shiny-r

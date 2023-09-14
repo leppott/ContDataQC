@@ -3,9 +3,17 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-14 16:55:51.688632
+    #> Last Update: 2023-09-14 17:11:42.524289
 
 # Version History
+
+## v2.0.7.9019
+
+2023-09-14
+
+- refactor: Added config file display name
+  - Main Functions - Run Functions
+  - Main Functions - QC Thresholds - Upload Custom Thresholds
 
 ## v2.0.7.9019
 

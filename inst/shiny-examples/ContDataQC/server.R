@@ -102,7 +102,8 @@ shinyServer(function(input, output, session) {
 
   # Display Import FileNames----
 
-  output$fn_input_display_config <- renderText({
+  output$fn_input_display_config_main <- renderText({
+    #**SAME CODE AS CONFIG**
 
     #Allows users to use their own configuration/threshold files for QC.
     #Copies the status of the config file to this event.
@@ -115,6 +116,30 @@ shinyServer(function(input, output, session) {
 
     } else {
     #If no configuration file has been uploaded, the default is used
+
+      config <- system.file("extdata", "Config.ORIG.R", package="ContDataQC")
+
+    }## IF ~ config_type ~ END
+
+    return(paste0(config_type, "; ", basename(config)))
+
+
+  })## fn_input_display_config
+
+  output$fn_input_display_config_config <- renderText({
+    #**SAME CODE AS MAIN**
+
+    #Allows users to use their own configuration/threshold files for QC.
+    #Copies the status of the config file to this event.
+    config_type <- config$x
+
+    if (config_type == "uploaded") {
+      #If a configuration file has been uploaded, the app uses it
+
+      config <- file.path("data", input$configFile$name)
+
+    } else {
+      #If no configuration file has been uploaded, the default is used
 
       config <- system.file("extdata", "Config.ORIG.R", package="ContDataQC")
 

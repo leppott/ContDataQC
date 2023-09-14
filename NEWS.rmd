@@ -21,6 +21,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.7.9020
+2023-09-14
+
+* refactor: Added config file display name
+   + Main Functions - Run Functions
+   + Main Functions - QC Thresholds - Upload Custom Thresholds
+
 ## v2.0.7.9019
 2023-09-14
 
