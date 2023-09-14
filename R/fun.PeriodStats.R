@@ -68,10 +68,10 @@
 #' # Save example files from Package to use for example
 #' ## This step not needed for users working on their own files
 #' df.x <- DATA_period_test2_Aw_20130101_20141231
-#' write.csv(df.x,"DATA_period_test2_Aw_20130101_20141231.csv")
+#' write.csv(df.x, file.path(tempdir(), "DATA_period_test2_Aw_20130101_20141231.csv"))
 #' myFile <- "config.ExcludeFailsFalse.R"
 #' file.copy(file.path(path.package("ContDataQC"), "extdata", myFile)
-#'           , file.path(getwd(), myFile))
+#'           , file.path(tempdir(), myFile))
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
 #' # Load File to use for PeriodStats
@@ -176,7 +176,7 @@ PeriodStats <- function(fun.myDate
 {##FUN.fun.Stats.START
   # 00. Debugging Variables####
   boo_DEBUG <- FALSE
-  if(boo_DEBUG==TRUE) {##IF.boo_DEBUG.START
+  if (boo_DEBUG == TRUE) {
     fun.myDate <- "2013-09-30"
     fun.myDate.Format <- "%Y-%m-%d"
     fun.myPeriod.N <- c(30, 60, 90, 120, 1)
@@ -194,13 +194,13 @@ PeriodStats <- function(fun.myDate
     fun.myReport.Dir <- ""
     # Load environment
     #ContData.env <- new.env(parent = emptyenv()) # in config.R
-    source(file.path(getwd(),"R","config.R"), local=TRUE)
+    source(file.path(getwd(),"R","config.R"), local = TRUE)
     # might have to load manually
   }##IF.boo_DEBUG.END
 
   # 0a.0. Load environment
   # config file load, 20170517
-  if (fun.myConfig!="") {##IF.fun.myConfig.START
+  if (fun.myConfig != "") {
     config.load(fun.myConfig)
   }##IF.fun.myConfig.START
 
@@ -217,7 +217,7 @@ PeriodStats <- function(fun.myDate
   # 0c.0. Error Checking, Period (N vs. Units)
   len.N <- length(fun.myPeriod.N)
   len.Units <- length(fun.myPeriod.Units)
-  if(len.N != len.Units) {##IF.length.START
+  if (len.N != len.Units) {
     myMsg <- paste0("Length of period N ("
                     ,len.N
                     ,") and Units ("
@@ -231,7 +231,7 @@ PeriodStats <- function(fun.myDate
   myDate.End <- as.POSIXlt(format(as.Date(fun.myDate, fun.myDate.Format), fd01))
   # use POSIX so can access parts
   # 1.1. Error Checking, Date Conversion
-  if(is.na(myDate.End)) {
+  if (is.na(myDate.End)) {
     myMsg <- paste0("Provided date (",fun.myDate,") and date format ("
                     ,fun.myDate.Format,") do not match.")
     stop(myMsg)
@@ -239,7 +239,7 @@ PeriodStats <- function(fun.myDate
 
   # 2.0. Load Data####
   # 2.1. Error Checking, make sure file exists
-  if(fun.myFile %in% list.files(path=fun.myDir.import)==FALSE) {##IF.file.START
+  if (fun.myFile %in% list.files(path = fun.myDir.import) == FALSE) {
     #
     myMsg <- paste0("Provided file ("
                     ,fun.myFile
@@ -251,12 +251,13 @@ PeriodStats <- function(fun.myDate
   }##IF.file.END
   # 2.2. Load File
   df.load <- utils::read.csv(file.path(fun.myDir.import, fun.myFile)
-                             ,as.is=TRUE,na.strings=c("","NA"))
+                             , as.is = TRUE
+                             , na.strings = c("","NA"))
   # 2.3. Error Checking, data field names
   param.len <- length(fun.myParam.Name)
   myNames2Match <- c(fun.myParam.Name, fun.myDateTime.Name)
   #myNames2Match %in% names(df.load)
-  if(sum(myNames2Match %in% names(df.load))!= (param.len + 1)){##IF.match.START
+  if (sum(myNames2Match %in% names(df.load)) != (param.len + 1)) {
     # find non match
     Names.NonMatch <- myNames2Match[is.na(match(myNames2Match, names(df.load)))]
     myMsg <- paste0("Provided data file ("
@@ -273,11 +274,11 @@ PeriodStats <- function(fun.myDate
   param.len <- length(fun.myParam.Name)
 
   # Loop, Stats ####
-  if(boo_DEBUG==TRUE) {##IF.boo_DEBUG.START
+  if (boo_DEBUG == TRUE) {
     i <- fun.myParam.Name[1]
   }##IF.boo_DEBUG.END
   # 20181114, added for 2nd parameter
-  for (i in fun.myParam.Name){##FOR.i.START
+  for (i in fun.myParam.Name) {
     #
     i.num <- match(i, fun.myParam.Name)
     print(paste0("WORKING on parameter (", i.num,"/",param.len,"); ", i))
@@ -295,7 +296,7 @@ PeriodStats <- function(fun.myDate
     #
     # QC.1. Define parameter flag field
     ## If flag parameter names is different from config then it won't be found
-    myParam.Name.Flag <- paste(ContData.env$myName.Flag, i, sep=".")
+    myParam.Name.Flag <- paste(ContData.env$myName.Flag, i, sep = ".")
     # QC.2. Modify columns to keep (see 3.2.) based on presence of "flag" field
     ## give user feedback
     if (myParam.Name.Flag %in% names(df.load)) {##IF.flagINnames.START
@@ -304,7 +305,7 @@ PeriodStats <- function(fun.myDate
       # QC.2.1.1. Convert "Fails" to NA where appropriate
       if (ContData.env$myStats.Fails.Exclude == TRUE) {##IF.Fails.START
         # find Fails
-        myFails <- df.load[,myParam.Name.Flag]==ContData.env$myFlagVal.Fail
+        myFails <- df.load[,myParam.Name.Flag] == ContData.env$myFlagVal.Fail
         myFails.Num <- sum(myFails)
         # convert to NA
         df.load[myFails, i] <- NA
@@ -353,34 +354,35 @@ included based on user's config file."
                      ,"var"
                      ,"cv"
                      ,"n"
-                     ,paste("q",formatC(100*myQ,width=2,flag="0"),sep=""))
+                     ,paste("q", formatC(100 * myQ, width = 2, flag = "0")
+                            , sep = ""))
     #
     myFUN.sumBy <- function(x, ...){##FUN.myFUN.sumBy.START
-      c(mean=mean(x,na.rm=TRUE)
-        ,median=stats::median(x,na.rm=TRUE)
-        ,min=min(x,na.rm=TRUE)
-        ,max=max(x,na.rm=TRUE)
-        ,range=max(x,na.rm=TRUE)-min(x,na.rm=TRUE)
-        ,sd=stats::sd(x,na.rm=TRUE)
-        ,var=stats::var(x,na.rm=TRUE)
-        ,cv=stats::sd(x,na.rm=TRUE)/mean(x,na.rm=TRUE)
-        ,n=length(x)
-        ,q=stats::quantile(x,probs=myQ,na.rm=TRUE)
+      c(mean = mean(x, na.rm = TRUE)
+        ,median = stats::median(x, na.rm = TRUE)
+        ,min = min(x, na.rm = TRUE)
+        ,max = max(x, na.rm = TRUE)
+        ,range = max(x, na.rm = TRUE) - min(x, na.rm = TRUE)
+        ,sd = stats::sd(x, na.rm = TRUE)
+        ,var = stats::var(x, na.rm = TRUE)
+        ,cv = stats::sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
+        ,n = length(x)
+        ,q = stats::quantile(x, probs = myQ, na.rm = TRUE)
       )
     }##FUN.myFUN.sumBy.END
     # 4.2.  Rename data column (summaryBy doesn't like variables)
-    names(df.param)[match(i,names(df.param))] <- "x"
+    names(df.param)[match(i, names(df.param))] <- "x"
     # 4.2. Summary
     df.summary <- doBy::summaryBy(x ~ Date
-                                  , data=df.param
-                                  , FUN=myFUN.sumBy
-                                  , na.rm=TRUE
-                                  , var.names=i)
+                                  , data = df.param
+                                  , FUN = myFUN.sumBy
+                                  , na.rm = TRUE
+                                  , var.names = i)
 
     # 20181115, Save df.summary for report
-    if(i.num==1){##FOR.i.num.START
+    if (i.num == 1) {
       df.summary.plot.1 <- df.summary
-    } else if (i.num==2){
+    } else if (i.num == 2) {
       df.summary.plot.2 <- df.summary
     }
     #~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -401,15 +403,15 @@ included based on user's config file."
     numPeriods <- length(fun.myPeriod.N)
     myDate.Start <- rep(myDate.End, numPeriods)
     for (k in seq_len(numPeriods)) {##FOR.k.START
-      if(tolower(fun.myPeriod.Units[k])=="d" ) {##IF.format.START
+      if (tolower(fun.myPeriod.Units[k]) == "d" ) {##IF.format.START
         # day, $mday
         myDate.Start[k]$mday <- myDate.End$mday - (fun.myPeriod.N[k] - 1)
-      } else if(tolower(fun.myPeriod.Units[k])=="y") {
+      } else if (tolower(fun.myPeriod.Units[k]) == "y") {
         # year, $year
         myDate.Start[k]$year <- myDate.End$year - fun.myPeriod.N[k]
         myDate.Start[k]$mday <- myDate.End$mday + 1
       } else {
-        myMsg <- paste0("Provided period units (",fun.myPeriod.Units
+        myMsg <- paste0("Provided period units (", fun.myPeriod.Units
                         ,") unrecognized.
                         Accepted values are 'd', 'm', or 'y').")
         stop(myMsg)
@@ -445,31 +447,31 @@ included based on user's config file."
     myDate <- format(Sys.Date(),"%Y%m%d")
     myTime <- format(Sys.time(),"%H%M%S")
     myFile.Export.ext <- ".csv"
-    myFile.Export.base <- substr(fun.myFile,1,nchar(fun.myFile)-4)
+    myFile.Export.base <- substr(fun.myFile, 1, nchar(fun.myFile) - 4)
     # Loop through sets
     # numPeriods defined above
-    for (j in seq_len(numPeriods)){##FOR.j.START
+    for (j in seq_len(numPeriods)) {
       # subset
-      df.summary.subset <- df.summary[df.summary[,myDate.Name]>=
+      df.summary.subset <- df.summary[df.summary[, myDate.Name] >=
                                         as.Date(myDate.Start[j]) &
-                                        df.summary[,myDate.Name]<=
-                                        as.Date(myDate.End),]
+                                        df.summary[,myDate.Name] <=
+                                        as.Date(myDate.End), ]
       # create file name
       myFile.Export.full <- paste0(paste(myFile.Export.base
-                                         ,"PeriodStats"
-                                         ,fun.myDate
-                                         ,i
-                                         ,paste0(fun.myPeriod.N[j]
+                                         , "PeriodStats"
+                                         , fun.myDate
+                                         , i
+                                         , paste0(fun.myPeriod.N[j]
                                                  ,fun.myPeriod.Units[j])
-                                         ,myDate
-                                         ,myTime
-                                         ,sep="_")
+                                         , myDate
+                                         , myTime
+                                         , sep = "_")
                                    ,myFile.Export.ext)
       # save
       utils::write.csv(df.summary.subset, file.path(fun.myDir.export
                                                     , myFile.Export.full)
-                       ,quote=FALSE
-                       ,row.names=FALSE)
+                       ,quote = FALSE
+                       ,row.names = FALSE)
     }##FOR.j.END
     #
   }##FOR.i.END
@@ -484,21 +486,21 @@ included based on user's config file."
     as.Date(myDate.File.Min)
 
   # Error Check, Report Format
-  if(fun.myReport.format==""){
+  if (fun.myReport.format == "") {
     fun.myReport.format <- ContData.env$myReport.Format
   }
   fun.myReport.format <- tolower(fun.myReport.format)
 
   # 20180212
   # Error Check, Report Directory
-  if(fun.myReport.Dir==""){
+  if (fun.myReport.Dir == "") {
     fun.myReport.Dir <- ContData.env$myReport.Dir
   }
 
   #myReport.Name <- paste0("Report_PeriodStats","_",fun.myReport.format)
   myReport.Name <- "Report_PeriodStats"
   myPkg <- "ContDataQC"
-  if(boo_DEBUG==TRUE){
+  if (boo_DEBUG == TRUE) {
     strFile.RMD <- file.path(getwd(),"inst","rmd",paste0(myReport.Name,".rmd"))
     # for testing
   } else {
@@ -513,21 +515,21 @@ included based on user's config file."
   strFile.out <- paste0(paste(myFile.Export.base
                               ,"PeriodStats"
                               ,fun.myDate
-                              ,paste(fun.myParam.Name,collapse="_")
-                              ,myDate,myTime,sep="_")
+                              ,paste(fun.myParam.Name, collapse = "_")
+                              ,myDate,myTime, sep = "_")
                         , strFile.out.ext)
-  strFile.RMD.format <- paste0(ifelse(fun.myReport.format=="docx"
-                                      ,"word"
-                                      ,fun.myReport.format)
-                               ,"_document")
+  strFile.RMD.format <- paste0(ifelse(fun.myReport.format == "docx"
+                                      , "word"
+                                      , fun.myReport.format)
+                               , "_document")
   #
   # 20180212
   # Test if RMD file exists
-  if (file.exists(strFile.RMD)){##IF.file.exists.START
+  if (file.exists(strFile.RMD)) {
     #suppressWarnings(
-    rmarkdown::render(strFile.RMD, output_format=strFile.RMD.format
-                      ,output_file=strFile.out, output_dir=fun.myDir.export
-                      , quiet=TRUE)
+    rmarkdown::render(strFile.RMD, output_format = strFile.RMD.format
+                      ,output_file = strFile.out, output_dir = fun.myDir.export
+                      , quiet = TRUE)
     #)
   } else {
     Msg.Line0 <- "\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
@@ -543,7 +545,7 @@ included based on user's config file."
                  , Msg.Line3
                  , Msg.Line4
                  , Msg.Line0
-                 , sep="\n\n")
+                 , sep = "\n\n")
     cat(Msg)
     utils::flush.console()
   }##IF.file.exists.END

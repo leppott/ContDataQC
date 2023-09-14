@@ -103,10 +103,10 @@ report.
 # Save example files from Package to use for example
 ## This step not needed for users working on their own files
 df.x <- DATA_period_test2_Aw_20130101_20141231
-write.csv(df.x,"DATA_period_test2_Aw_20130101_20141231.csv")
+write.csv(df.x, file.path(tempdir(), "DATA_period_test2_Aw_20130101_20141231.csv"))
 myFile <- "config.ExcludeFailsFalse.R"
 file.copy(file.path(path.package("ContDataQC"), "extdata", myFile)
-          , file.path(getwd(), myFile))
+          , file.path(tempdir(), myFile))
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Load File to use for PeriodStats

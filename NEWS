@@ -3,9 +3,17 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-12 10:23:52.966568
+    #> Last Update: 2023-09-13 13:56:12.588924
 
 # Version History
+
+## v2.0.7.9018
+
+2023-09-13
+
+- refactor: Update period stats plots with legend
+  - inst\_PeriodStats.rmd
+- fix: Update example code in PeriodStats
 
 ## v2.0.7.9017
 
