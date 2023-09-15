@@ -41,7 +41,7 @@ this button.
 
 8.	Review each set of files, check flagged data points, do visual checks on the
 time series plots, and decide if and how to make corrections. For tips on the QC
-process, see the ‘QC tips’ subtab. 
+process, see the ‘About - QC tips’ subtab. 
 
 The Data Quality Control Report is organized into four main sections, starting 
 with an overall summary followed by summaries for each parameter:
@@ -72,5 +72,5 @@ change how they handled a correction.
 
 Currently there are no automated corrections programmed into the QC function. 
 The user must make the changes manually. For tips on the QC process, see the 
-‘QC tips’ subtab. 
+‘About - QC tips’ subtab. 
 

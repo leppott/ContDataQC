@@ -62,3 +62,5 @@ table2a %>%
   kbl() %>% 
   kable_styling(full_width = F, position = "left")
 ```
+
+Click [here](EXAMPLE_AccuracyCheckWkst.xlsx) to download example Accuracy Check worksheet.

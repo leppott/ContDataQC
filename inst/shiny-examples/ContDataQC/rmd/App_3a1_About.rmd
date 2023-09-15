@@ -19,7 +19,7 @@ if(boo_DEBUG==TRUE){
 
 # Workflow
 
-1.	**Select QC flag test thresholds.** Use the default thresholds or upload a customized configuration file. If you have one or more years of continuous data for a site, we encourage you to evaluate the performance of the QC test thresholds for each parameter at that site and customize the configuration file if needed. Click here for tips on evaluating thresholds. To learn how to edit thresholds, click here.
+1.	**Select QC flag test thresholds.** Use the default thresholds ('Main - QC Thresholds - Default' tab) or upload a customized configuration file ('Main - QC Thresholds - Upload Custom Thresholds' tab). If you have one or more years of continuous data for a site, we encourage you to evaluate the performance of the QC test thresholds for each parameter at that site and customize the configuration file if needed. Click 'Main - QC Thresholds - Evaluate Thresholds' tab for tips on evaluating thresholds. To learn how to edit thresholds, click 'Main - QC Thresholds - Edit Thresholds' tab.
 
 2.	**Check the configuration file name.** Make sure the correct configuration file has been uploaded prior to running the QC reports.
 
@@ -34,5 +34,5 @@ After running each function, users must unzip/extract the files or else the file
 Time-saver tip: some internet browsers, like Google Chrome and Mozilla Firefox, allow users to change settings so that users can select which folder to download files to (versus files going to the default Download folder). Click [here](GoogleChrome_TimesaverTips.pdf) for instructions on how to set this up in Chrome. With Mozilla Firefox, go to Settings > General > Files and Applications > Check box for “always ask where to save files.”
 
 Some users may prefer to use the R code instead of the Shiny app. 
-For more information, see the ‘Advanced’ tab 
+For more information, see the ‘About - Advanced’ tab 
 

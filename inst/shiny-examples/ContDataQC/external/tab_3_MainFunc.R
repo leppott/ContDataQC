@@ -13,7 +13,7 @@ function(){
                           , tabPanel("Run Functions"
                                      , sidebarLayout(
                                        sidebarPanel(
-                                         p("1. Upload customized QC test thresholds if desired; otherwise, the default thresholds will be used.")
+                                         p("1. Upload customized QC test thresholds ('Main - QC Thresholds - Upload Custom Thresholds' tab) if desired; otherwise, the default thresholds ('Main - QC Threholds - Default' tab) will be used.")
                                          , p("2. Confirm correct configuration file is being used.")
                                          , p(textOutput("fn_input_display_config_main"))
                                          , p("3. Upload input files.")
