@@ -82,7 +82,7 @@ SumStats.updated <- function(fun.myFile
 {##FUN.fun.Stats.START
   # 00. Debugging Variables####
   boo_DEBUG <- FALSE
-  if(boo_DEBUG==TRUE) {##IF.boo_DEBUG.START
+  if (boo_DEBUG == TRUE) {
     fun.myFile <- "DATA_test2_Aw_20130101_20141231.csv"
     fun.myDir.import <- file.path(".","data-raw")
     fun.myParam.Name <- c("Water.Temp.C", "Sensor.Depth.ft")
@@ -92,13 +92,13 @@ SumStats.updated <- function(fun.myFile
     fun.myConfig <- ""
     # Load environment
     #ContData.env <- new.env(parent = emptyenv()) # in config.R
-    source(file.path(getwd(),"R","config.R"), local=TRUE)
+    source(file.path(getwd(), "R", "config.R"), local = TRUE)
     # might have to load manually
   }##IF.boo_DEBUG.END
 
   # 0a.0. Load environment
   # config file load, 20170517
-  if (fun.myConfig!="") {##IF.fun.myConfig.START
+  if (fun.myConfig != "") {
     config.load(fun.myConfig)
   }##IF.fun.myConfig.START
 
@@ -113,7 +113,7 @@ SumStats.updated <- function(fun.myFile
 
   # 2.0. Load Data####
   # 2.1. Error Checking, make sure file exists
-  if(fun.myFile %in% list.files(path=fun.myDir.import)==FALSE) {##IF.file.START
+  if (fun.myFile %in% list.files(path = fun.myDir.import) == FALSE) {
     #
     myMsg <- paste0("Provided file ("
                     ,fun.myFile
@@ -125,12 +125,12 @@ SumStats.updated <- function(fun.myFile
   }##IF.file.END
   # 2.2. Load File
   df.load <- utils::read.csv(file.path(fun.myDir.import, fun.myFile)
-                             ,as.is=TRUE,na.strings=c("","NA"))
+                             ,as.is = TRUE, na.strings = c("", "NA"))
   # 2.3. Error Checking, data field names
   param.len <- length(fun.myParam.Name)
   myNames2Match <- c(fun.myParam.Name, fun.myDateTime.Name)
   #myNames2Match %in% names(df.load)
-  if(sum(myNames2Match %in% names(df.load))!= (param.len + 1)){##IF.match.START
+  if (sum(myNames2Match %in% names(df.load)) != (param.len + 1)) {
     # find non match
     Names.NonMatch <- myNames2Match[is.na(match(myNames2Match, names(df.load)))]
     myMsg <- paste0("Provided data file ("
@@ -147,12 +147,12 @@ SumStats.updated <- function(fun.myFile
   param.len <- length(fun.myParam.Name)
 
   # Loop, Stats ####
-  if(boo_DEBUG==TRUE) {##IF.boo_DEBUG.START
+  if (boo_DEBUG == TRUE) {
     i <- fun.myParam.Name[1]
   }##IF.boo_DEBUG.END
   # 20181114, added for 2nd parameter
   df.list <- list()
-  for (i in fun.myParam.Name){##FOR.i.START
+  for (i in fun.myParam.Name) {
     #
     i.num <- match(i, fun.myParam.Name)
     print(paste0("WORKING on parameter (", i.num,"/",param.len,"); ", i))
@@ -170,16 +170,16 @@ SumStats.updated <- function(fun.myFile
     #
     # QC.1. Define parameter flag field
     ## If flag parameter names is different from config then it won't be found
-    myParam.Name.Flag <- paste(ContData.env$myName.Flag, i, sep=".")
+    myParam.Name.Flag <- paste(ContData.env$myName.Flag, i, sep = ".")
     # QC.2. Modify columns to keep (see 3.2.) based on presence of "flag" field
     ## give user feedback
-    if (myParam.Name.Flag %in% names(df.load)) {##IF.flagINnames.START
+    if (myParam.Name.Flag %in% names(df.load)) {
       # QC.2.1. Flag field present in data
       myCol <- c(fun.myDateTime.Name, i, myParam.Name.Flag)
       # QC.2.1.1. Convert "Fails" to NA where appropriate
-      if (ContData.env$myStats.Fails.Exclude == TRUE) {##IF.Fails.START
+      if (ContData.env$myStats.Fails.Exclude == TRUE) {
         # find Fails
-        myFails <- df.load[,myParam.Name.Flag]==ContData.env$myFlagVal.Fail
+        myFails <- df.load[, myParam.Name.Flag] == ContData.env$myFlagVal.Fail
         myFails.Num <- sum(myFails)
         # convert to NA
         df.load[myFails, i] <- NA
@@ -217,41 +217,43 @@ included based on user's config file."
     # 4. Daily Stats for data####
     # Calculate daily mean, max, min, range, sd, n
     # 4.1. Define FUNCTION for use with summaryBy
-    myQ <- c(0.01,0.05,0.10,0.25,0.50,0.75,0.90,0.95,0.99)
+    myQ <- c(0.01, 0.05, 0.10, 0.25, 0.50, 0.75, 0.90, 0.95, 0.99)
     myFUN.Names <- c("mean"
-                     ,"median"
-                     ,"min"
-                     ,"max"
-                     ,"range"
-                     ,"sd"
-                     ,"var"
-                     ,"cv"
-                     ,"n"
-                     ,paste("q",formatC(100*myQ,width=2,flag="0"),sep=""))
+                     , "median"
+                     , "min"
+                     , "max"
+                     , "range"
+                     , "sd"
+                     , "var"
+                     , "cv"
+                     , "n"
+                     ,paste("q"
+                            , formatC(100 * myQ, width = 2, flag = "0")
+                            , sep = ""))
     #
-    myFUN.sumBy <- function(x, ...){##FUN.myFUN.sumBy.START
-      c(mean=mean(x,na.rm=TRUE)
-        ,median=stats::median(x,na.rm=TRUE)
-        ,min=min(x,na.rm=TRUE)
-        ,max=max(x,na.rm=TRUE)
-        ,range=max(x,na.rm=TRUE)-min(x,na.rm=TRUE)
-        ,sd=stats::sd(x,na.rm=TRUE)
-        ,var=stats::var(x,na.rm=TRUE)
-        ,cv=stats::sd(x,na.rm=TRUE)/mean(x,na.rm=TRUE)
-        ,n=length(x)
-        ,q=stats::quantile(x,probs=myQ,na.rm=TRUE)
+    myFUN.sumBy <- function(x, ...){
+      c(mean = mean(x ,na.rm = TRUE)
+        , median = stats::median(x, na.rm = TRUE)
+        , min = min(x, na.rm = TRUE)
+        , max = max(x, na.rm = TRUE)
+        , range = max(x, na.rm = TRUE) - min(x, na.rm = TRUE)
+        , sd = stats::sd(x, na.rm = TRUE)
+        , var = stats::var(x, na.rm = TRUE)
+        , cv = stats::sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
+        , n = sum(!is.na(x))
+        , q = stats::quantile(x, probs = myQ, na.rm = TRUE)
       )
     }##FUN.myFUN.sumBy.END
     # 4.2.  Rename data column (summaryBy doesn't like variables)
     names(df.param)[match(i,names(df.param))] <- "x"
     # 4.2. Summary
     df.summary <- doBy::summaryBy(x ~ Date
-                                  , data=df.param
-                                  , FUN=myFUN.sumBy
-                                  , na.rm=TRUE
-                                  , var.names=i)
+                                  , data = df.param
+                                  , FUN = myFUN.sumBy
+                                  , na.rm = TRUE
+                                  , var.names = i)
 
-    new.list <- list(df=df.summary)
+    new.list <- list(df = df.summary)
     names(new.list) <- i
     df.list <- c(df.list,new.list)
   }##FOR.i.END

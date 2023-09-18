@@ -366,7 +366,7 @@ included based on user's config file."
         ,sd = stats::sd(x, na.rm = TRUE)
         ,var = stats::var(x, na.rm = TRUE)
         ,cv = stats::sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
-        ,n = length(x)
+        ,n = sum(!is.na(x))
         ,q = stats::quantile(x, probs = myQ, na.rm = TRUE)
       )
     }##FUN.myFUN.sumBy.END

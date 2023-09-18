@@ -3,11 +3,28 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-14 17:11:42.524289
+    #> Last Update: 2023-09-18 08:25:37.45011
 
 # Version History
 
-## v2.0.7.9019
+## v2.0.7.9022
+
+2023-09-18
+
+- fix: Change stats N from total records to non-NA records, Issue \#140
+  - length(x) to sum(!is.na(x))
+  - SumStats.updated.R
+  - fun.Stats.R
+  - fun.Stats.File.R
+  - fun.PeriodStats.R
+
+## v2.0.7.9021
+
+2023-09-15
+
+- refactor: Add text for tab references instead of links
+
+## v2.0.7.9020
 
 2023-09-14
 
