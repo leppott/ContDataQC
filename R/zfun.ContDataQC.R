@@ -419,7 +419,7 @@ ContDataQC <- function(fun.myData.Operation
     myReport.format <- NULL
 
   # DEBUG ####
-  #browser()
+  # browser()
   boo_DEBUG <- FALSE
   if(boo_DEBUG == TRUE){##IF~boo_DEBUG~START
     fun.myData.Operation       <- myData.Operation
@@ -632,8 +632,12 @@ ContDataQC <- function(fun.myData.Operation
                 , fun.myReport.format
                 , fun.myReport.Dir)
     } else {
+      # QC
+      # browser()
+      # source("C:/Users/Erik.Leppo/OneDrive - Tetra Tech, Inc/MyDocs_OneDrive/GitHub/ContDataQC/R/config.R")
+      # source("C:/Users/Erik.Leppo/OneDrive - Tetra Tech, Inc/MyDocs_OneDrive/GitHub/ContDataQC/R/fun.Helper.R")
       #file version
-      fun.Stats.File(fun.myFile
+       fun.Stats.File(fun.myFile
                      , fun.myDir.import
                      , fun.myDir.export
                      , fun.myReport.format

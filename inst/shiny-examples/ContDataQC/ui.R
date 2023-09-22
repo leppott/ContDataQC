@@ -25,7 +25,7 @@ tab_5b_Console    <- source("external/tab_5b_Console.R", local = TRUE)$value
 
 shinyUI(
   # VERSION, 1, current [non-EPA] ----
-  navbarPage("Continuous data QC, summary, and statistics - v2.0.7.9022",
+  navbarPage("Continuous data QC, summary, and statistics - v2.0.7.9023",
              theme = shinytheme("spacelab")
              ,tab_1_About()
              #,tab_1a_Overview()

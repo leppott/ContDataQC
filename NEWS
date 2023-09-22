@@ -3,9 +3,17 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-18 08:25:37.45011
+    #> Last Update: 2023-09-22 16:14:21.634179
 
 # Version History
+
+## v2.0.7.9023
+
+2023-09-18
+
+- refactor: Update stats plots with legend
+  - fun.Stats.R
+  - fun.Stats.File.R
 
 ## v2.0.7.9022
 

@@ -64,6 +64,10 @@ fun.Stats <- function(fun.myData.SiteID
   # global variable bindings ----
   Selection.Type <- myDir.BASE <- Selection.SUB <- NULL
 
+  # par
+  par.orig <- par(no.readonly = TRUE) # save original par settings
+  leg_inset <- c(0, -0.25)
+
   #
 #   ##
 #   # QC (from fun.Master.R)
@@ -489,12 +493,15 @@ fun.Stats <- function(fun.myData.SiteID
     # print(paste0("QC.Section: ",qc.section))
     # flush.console()
     #
-    #
+
     # Save plots as PDF
     strFile.Prefix.Out <- fun.myProcedure.Step
     strFile.plot <- paste(paste(strFile.Prefix.Out,strFile.SiteID,fun.myData.Type,strFile.Date.Start,strFile.Date.End,i,sep=ContData.env$myDelim),"pdf",sep=".")
     #pdf(file=paste(myDir.data.export,strFile.plot,sep="/"),width=11,height=8.5)
     grDevices::pdf(file=file.path(myDir.data.export,strFile.plot),width=11,height=8.5)
+
+      # Add extra space to right of plot area
+      par(mar = c(10, 4.1, 4.1, 2))
 
       ## Daily
         myTimeFrame <- "day"
@@ -543,6 +550,17 @@ fun.Stats <- function(fun.myData.SiteID
           myAT <- c(1,round(n.Total * pct,0))
           myLab <- stats.i[,"TimeValue"][myAT]
           graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
+
+          legend("bottom"
+                 , legend = c("mean", "Range (min, max)")
+                 , col = c("black", "gray")
+                 , lty = c("solid", NA)
+                 , pch = c(NA, 15)
+                 , pt.cex = 2
+                 , bty = "n"
+                 , inset = leg_inset
+                 , xpd = TRUE
+          )# legend
         #dev.off()
 
       ## Julian Day
@@ -581,6 +599,16 @@ fun.Stats <- function(fun.myData.SiteID
       myAT <- c(1,round(n.Total * pct,0))
       myLab <- stats.i[,"TimeValue"][myAT]
       graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
+      legend("bottom"
+             , legend = c("mean", "Range (min, max)")
+             , col = c("black", "gray")
+             , lty = c("solid", NA)
+             , pch = c(NA, 15)
+             , pt.cex = 2
+             , bty = "n"
+             , inset = leg_inset
+             , xpd = TRUE
+      )# legend
       #dev.off()
 
       ## Year_Month
@@ -618,6 +646,16 @@ fun.Stats <- function(fun.myData.SiteID
         myAT <- seq_len(n.Total)
         myLab <- stats.i[,"TimeValue"][myAT]
         graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
+        legend("bottom"
+               , legend = c("mean", "Range (min, max)")
+               , col = c("black", "gray")
+               , lty = c("solid", NA)
+               , pch = c(NA, 15)
+               , pt.cex = 2
+               , bty = "n"
+               , inset = leg_inset
+               , xpd = TRUE
+        )# legend
         #dev.off()
       #
 
@@ -656,6 +694,16 @@ fun.Stats <- function(fun.myData.SiteID
         myAT <- seq_len(n.Total)
         myLab <- stats.i[,"TimeValue"][myAT]
         graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
+        legend("bottom"
+               , legend = c("mean", "Range (min, max)")
+               , col = c("black", "gray")
+               , lty = c("solid", NA)
+               , pch = c(NA, 15)
+               , pt.cex = 2
+               , bty = "n"
+               , inset = leg_inset
+               , xpd = TRUE
+        )# legend
         #dev.off()
         #
       ## Year_Season
@@ -693,6 +741,16 @@ fun.Stats <- function(fun.myData.SiteID
         myAT <- seq_len(n.Total)
         myLab <- stats.i[,"TimeValue"][myAT]
         graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
+        legend("bottom"
+               , legend = c("mean", "Range (min, max)")
+               , col = c("black", "gray")
+               , lty = c("solid", NA)
+               , pch = c(NA, 15)
+               , pt.cex = 2
+               , bty = "n"
+               , inset = leg_inset
+               , xpd = TRUE
+        )# legend
         #dev.off()
       #
         #
@@ -731,6 +789,16 @@ fun.Stats <- function(fun.myData.SiteID
         myAT <- seq_len(n.Total)
         myLab <- stats.i[,"TimeValue"][myAT]
         graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
+        legend("bottom"
+               , legend = c("mean", "Range (min, max)")
+               , col = c("black", "gray")
+               , lty = c("solid", NA)
+               , pch = c(NA, 15)
+               , pt.cex = 2
+               , bty = "n"
+               , inset = leg_inset
+               , xpd = TRUE
+        )# legend
         #dev.off()
         #
       ## Year
@@ -768,13 +836,21 @@ fun.Stats <- function(fun.myData.SiteID
         myAT <- seq_len(n.Total)
         myLab <- stats.i[,"TimeValue"][myAT]
         graphics::axis(1,at=myAT,labels=myLab,tick=TRUE)
+        legend("bottom"
+               , legend = c("mean", "Range (min, max)")
+               , col = c("black", "gray")
+               , lty = c("solid", NA)
+               , pch = c(NA, 15)
+               , pt.cex = 2
+               , bty = "n"
+               , inset = leg_inset
+               , xpd = TRUE
+        )# legend
         #dev.off()
       #
       #
 
     grDevices::dev.off()##PDF.END
-
-
 
     # Combine (all the same so just rbind)
     stats.i.ALL <- rbind(stats.i.y, stats.i.s, stats.i.ys, stats.i.m, stats.i.ym, stats.i.jd, stats.i.d)
@@ -799,6 +875,11 @@ fun.Stats <- function(fun.myData.SiteID
 
     #
   }##FOR.i.END
+
+
+  # par
+  #par(par.orig) # return to original par settings
+
       #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   # Run QC Report

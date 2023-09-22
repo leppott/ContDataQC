@@ -21,6 +21,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.7.9023
+2023-09-18
+
+* refactor: Update stats plots with legend
+    + fun.Stats.R
+    + fun.Stats.File.R
+
 ## v2.0.7.9022
 2023-09-18
 
