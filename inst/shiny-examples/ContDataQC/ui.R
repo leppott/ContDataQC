@@ -320,7 +320,7 @@ shinyUI(
     # IMPORTANT! For a navbar page, you will need to place the header and footer inside the navbar section (as shown below)  -
     # you will then want to comment out lines 201-213 and lines 254-263
       navbarPage(
-        title = h2("Continuous data QC, summary, and statistics - v2.0.7.9024"),
+        title = h2("Continuous data QC, summary, and statistics - v2.0.7.9025"),
         #theme= shinytheme("spacelab"),
         header = HTML(
           '<div class="l-page  has-footer">

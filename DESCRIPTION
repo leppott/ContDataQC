@@ -1,6 +1,6 @@
 Package: ContDataQC
 Title: Quality Control (QC) of Continous Monitoring Data
-Version: 2.0.7.9024
+Version: 2.0.7.9025
 Authors@R: c(
 	person("Erik W", "Leppo", email="Erik.Leppo@tetratech.com",role=c("aut","cre")),
 	person("Ann","Roseberry Lincoln", role="ctb"),
@@ -42,5 +42,5 @@ Remotes:
     tsangyp/StreamThermal,
     jasonelaw/iha
 StagedInstall: no
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0
 Config/testthat/edition: 3

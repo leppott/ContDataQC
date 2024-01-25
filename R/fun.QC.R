@@ -1078,8 +1078,8 @@ fun.QC <- function(fun.myData.SiteID
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Names of columns for QC Calculations and Tests with Flags for each data column present
     # combine so can check for and remove later.
-    myNames.DataFields.Present.QCCalcs <- as.vector(t(outer(myNames.DataFields.Present,ContData.env$myNames.QCCalcs,paste,sep=".")))
-    myNames.Flags.QCTests <- paste("Flag.",as.vector(t(outer(ContData.env$myNames.QCTests,myNames.DataFields.Present,paste,sep="."))),sep="")
+    myNames.DataFields.Present.QCCalcs <- as.vector(t(outer(myNames.DataFields.Present,ContData.env$myNames.QCCalcs,paste,sep = ".")))
+    myNames.Flags.QCTests <- paste("Flag.",as.vector(t(outer(ContData.env$myNames.QCTests,myNames.DataFields.Present,paste,sep = "."))),sep = "")
         #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # not sure if need this little bit anymore
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1145,9 +1145,9 @@ fun.QC <- function(fun.myData.SiteID
         for (j in myNames.DataFields2Mod) {##FOR.j.START
           #
           # A. Add comment field and leave blank
-          data.import[, paste(myName.Comment.Mod, j, sep=".")] <- ""
+          data.import[, paste(myName.Comment.Mod, j, sep = ".")] <- ""
           # B. Add data.RAW and populate with original data
-          data.import[, paste(myName.Raw, j, sep=".")] <- data.import[, j]
+          data.import[, paste(myName.Raw, j, sep = ".")] <- data.import[, j]
           #
         }##FOR.j.END
         #
@@ -1164,7 +1164,204 @@ fun.QC <- function(fun.myData.SiteID
 #     data.import[,paste(myName.Raw,j,sep=".")] <- data.import[,j]
     #
     # 6-9 #not here
-    #
+
+    # B.5.1. Move "Comment.MOD" and "Flag" ----
+    ## Next to measurement (but not Date.Time)
+    # 2024-01-22
+    boo_move_CM <- TRUE
+    if (boo_move_CM) {
+
+      # boo_DEBUG <- FALSE
+
+      patt_flag_env <- ContData.env$myName.Flag
+      patt_flag     <- paste0("^", patt_flag_env, ".")
+      patt_cm_env   <- "Comment.MOD"
+      patt_cm       <-  paste0("^", patt_cm_env, ".")
+      patt_datetime <- c(ContData.env$myName.Date
+                         , ContData.env$myName.Time
+                         , ContData.env$myName.DateTime)
+      patt_flag_datetime <- paste(patt_flag_env, patt_datetime, sep = ".")
+      patt_cm_datetime   <- paste(patt_cm_env, patt_datetime, sep = ".")
+
+      ## Names, all
+      names_all <- names(data.import)
+      if (boo_DEBUG) {
+        names_all
+      }## IF ~ boo_DEBUG
+
+      ## Names, Flag
+      names_flag <- names(data.import)[grepl(patt_flag, names(data.import))]
+      if (boo_DEBUG) {
+        names_flag
+      }## IF ~ boo_DEBUG
+      # Remove Discrete
+      patt_discrete <- "Discrete."
+      names_flag <- names_flag[!grepl(patt_discrete, names_flag)]
+
+      ## Names, Comment.MOD
+      names_cm <- names(data.import)[grepl(patt_cm, names(data.import))]
+      # remove date time
+      names_cm <- names_cm[!names_cm %in% patt_cm_datetime]
+      if (boo_DEBUG) {
+        names_cm
+      }## IF ~ boo_DEBUG
+
+      #ContData.env$myNames.QCTests <- c("Gross","Spike","RoC","Flat")
+      myNames.QCTests <- c("Gross","Spike","RoC","Flat")
+      patt_QCTests <- paste(myNames.QCTests, collapse = "|")
+      # ONLY QC Test flags
+      names_flag_qctests <- names_flag[grepl(patt_QCTests, names_flag)]
+      # Non QC Test flags
+      names_flag_overall <- names_flag[!grepl(patt_QCTests, names_flag)]
+      # Non Discrete
+      patt_discrete <- "Discrete."
+      names_flag_overall <- names_flag_overall[!grepl(patt_discrete, names_flag_overall)]
+      ## remove Date.Time
+      names_flag_overall <- names_flag_overall[!names_flag_overall %in% patt_flag_datetime]
+
+      #IF len not > 0 then quit
+
+      # Names, Measurements
+      names_flag_measurements <- sub(patt_flag, "", names_flag_overall)
+      names_cm_measurements <- sub(patt_cm, "", names_cm)
+      # remove Date.Time
+      names_flag_measurements <- names_flag_measurements[!names_flag_measurements %in% patt_datetime]
+      names_cm_measurements <- names_cm_measurements[!names_cm_measurements %in% patt_datetime]
+
+      if (boo_DEBUG) {
+        names_flag_qctests
+        names_flag_overall
+        names_flag_measurements
+        names_cm_measurements
+        names_cm
+      }## IF ~ boo_DEBUG
+
+      # names position
+      colnums_flag_qctests <- match(names_flag_qctests, names(data.import))
+      colnums_flag_overall <- match(names_flag_overall, names(data.import))
+      colnums_cm <- match(names_cm, names(data.import))
+      colnums_remove <- sort(c(colnums_flag_overall, colnums_flag_qctests, colnums_cm))
+
+      colnums_orig <- seq_len(ncol(data.import))
+      colnums_remove_all <- colnums_orig[-c(colnums_remove )]
+
+      # measurements should be in the same order for flags and cm but not guaranteed!
+
+      # at position of each names_flag_overall create new order
+      # p <- names_flag_measurements[1] # testing
+
+      for (p in names_flag_measurements) {
+
+        if (boo_DEBUG) {
+          print(p)
+          print(names_flag_overall)
+          print(colnums_flag_overall)
+          print(colnums_cm)
+        }## IF ~ boo_DEBUG
+
+        # number for iterations
+        p_num <- match(p, names_flag_measurements)
+        if (boo_DEBUG) {
+          p_num
+        }## IF ~ boo_DEBUG
+
+        # flag measure
+        p_flag_msr <- p
+        if (boo_DEBUG) {
+          print(p_flag_msr)
+        }## IF ~ boo_DEBUG
+
+        # match flag measure with cm measure
+        p_flag_msr_match_cm_msr <- match(p_flag_msr, names_cm_measurements)
+        if (boo_DEBUG) {
+          print(p_flag_msr_match_cm_msr)
+        }## IF ~ boo_DEBUG
+
+        # cm
+        p_cm <- names_cm[p_flag_msr_match_cm_msr]
+        if (boo_DEBUG) {
+          print(p_cm)
+        }## IF ~ boo_DEBUG
+
+        # flag_overall
+        p_flag_overall <- names_flag_overall[grepl(p, names_flag_overall)]
+        if (boo_DEBUG) {
+          print(p_flag_overall)
+        }## IF ~ boo_DEBUG
+
+        # flag_qctests
+        p_flag_qctests <- names_flag_qctests[grepl(p, names_flag_qctests)]
+        if (boo_DEBUG) {
+          print(p_flag_qctests)
+        }## IF ~ boo_DEBUG
+
+        # Col Num, all
+        if (p_num == 1) {
+          colnums_mod <- colnums_remove_all
+        }## IF ~ p_num == 1
+        if (boo_DEBUG) {
+          print(colnums_mod)
+        }## IF ~ boo_DEBUG
+
+        # 0. find measurement colnum
+        # insert after it using append
+        # 1. Flag overall
+        # 2. Comment.MOD
+        # 3. Other flags
+
+        # Col Num, p (measurement)
+        colnum_p_orig <- match(p, names_all)
+        if (boo_DEBUG) {
+          print(colnum_p_orig)
+        }## IF ~ boo_DEBUG
+
+        # Col Num, p_flag_overall
+        colnum_p_flag_overall_orig <- match(p_flag_overall, names_all)
+        if (boo_DEBUG) {
+          print(colnum_p_flag_overall_orig)
+        }## IF ~ boo_DEBUG
+
+        # Col Num, p_cm
+        colnum_p_cm_orig <- match(p_cm, names_all)
+        # MIGHT CHANGE, could be out of order
+        if (boo_DEBUG) {
+          print(colnum_p_cm_orig)
+        }## IF ~ boo_DEBUG
+
+        # Col Num, p_flag_qctests
+        colnum_p_flag_qctests_orig <- match(p_flag_qctests, names_all)
+        # MIGHT CHANGE, could be out of order
+        if (boo_DEBUG) {
+          print(colnum_p_flag_qctests_orig)
+        }## IF ~ boo_DEBUG
+
+        # Col Num, insert
+        colnum_p_insert <- c(colnum_p_flag_overall_orig
+                             , colnum_p_cm_orig
+                             , colnum_p_flag_qctests_orig)
+
+        # new position in modified data frame
+        colnum_p_new <- match(colnum_p_orig, colnums_mod)
+        if (boo_DEBUG) {
+          print(colnum_p_new)
+        }## IF ~ boo_DEBUG
+
+        # insert CM after Flag
+        colnums_mod <- append(colnums_mod
+                              , values = colnum_p_insert
+                              , after = colnum_p_new)
+
+      }## FOR ~ p ~ names_flag_overall
+
+      # resort data frame on new columns
+      data.import <- data.import[, colnums_mod]
+
+    }## IF ~ boo_move_CM
+
+
+
+
+
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # save file then run QC Report in a separate Script
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1182,16 +1379,16 @@ fun.QC <- function(fun.myData.SiteID
                                ,strFile.DataType
                                ,File.Date.Start
                                ,File.Date.End
-                               ,sep=ContData.env$myDelim)
-                         ,"csv"
-                         ,sep=".")
+                               ,sep = ContData.env$myDelim)
+                         , "csv"
+                         , sep = ".")
     # 10.2. Save to File the data (overwrites any existing file).
     #print(paste("Saving output of file ",intCounter," of ",intCounter.Stop," files complete.",sep=""))
     #utils::flush.console()
     #write.csv(data.import,file=paste(myDir.data.export,"/",strFile.Out,sep=""),quote=FALSE,row.names=FALSE)
     utils::write.csv(data.import,file = file.path(myDir.data.export, strFile.Out)
-                     ,quote=FALSE
-                     ,row.names=FALSE)
+                     ,quote = FALSE
+                     ,row.names = FALSE)
     #
 #     # B.11. Clean up
 #     # B.11.1. Inform user of progress and update LOG
@@ -1214,7 +1411,7 @@ fun.QC <- function(fun.myData.SiteID
     # insert QC Report so runs without user intervention
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # DEBUG, REPORT ####
-    if(boo_DEBUG==TRUE){##IF~boo_DEBUG~START
+    if (boo_DEBUG == TRUE) {
       fun.myData.SiteID           <- strFile.SiteID
       fun.myData.Type             <- strFile.DataType
       fun.myData.DateRange.Start  <- fun.myData.DateRange.Start
@@ -1228,7 +1425,7 @@ fun.QC <- function(fun.myData.SiteID
     # run with same import and export directory
     ###
     # B.10.3. Report ####
-    if (fun.CreateReport==TRUE){##IF.CreateReport.START
+    if (fun.CreateReport == TRUE) {
       fun.Report(strFile.SiteID
                  , strFile.DataType
                  , strFile.Date.Start
@@ -1238,7 +1435,8 @@ fun.QC <- function(fun.myData.SiteID
                  , strFile.Out.Prefix
                  , fun.myReport.format
                  , fun.myReport.Dir
-                 ) }##IF.CreateReport.END
+                 )
+    }##IF.CreateReport.END
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1257,7 +1455,9 @@ fun.QC <- function(fun.myData.SiteID
   #
   # C. Return ####
   myTime.End <- Sys.time()
-  print(paste("Task COMPLETE; ",round(difftime(myTime.End,myTime.Start,units="mins"),2)," min.",sep=""))
+  print(paste("Task COMPLETE; "
+              , round(difftime(myTime.End,myTime.Start, units = "mins"), 2)
+              ," min.", sep = ""))
   utils::flush.console()
   #
   # return data table

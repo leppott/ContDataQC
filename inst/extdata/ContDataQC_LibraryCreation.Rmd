@@ -139,6 +139,7 @@ After creating the package reload it after restarting R within RStudio
 pkg <- "ContDataQC"
 library(pkg, character.only = TRUE)
 help(package=(pkg))
+shell.exec(tempdir())
 #
 ?PeriodStats
 #?CompSiteCDF

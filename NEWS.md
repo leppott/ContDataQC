@@ -3,9 +3,17 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-28 11:06:45.427073
+    #> Last Update: 2024-01-25 12:04:12.540163
 
 # Version History
+
+## v2.0.7.9025
+
+2024-01-25
+
+- refactor: QC function to move QC columns, Issue \#154
+  - Flag. and Comment.MOD cols next to measurement columns
+  - Ignore Date, Time, and Date.Time
 
 ## v2.0.7.9024
 
