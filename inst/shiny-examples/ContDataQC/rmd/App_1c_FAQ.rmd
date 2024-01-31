@@ -27,7 +27,7 @@ A: No, only internet access is required.
 
 A: Yes, if you have R software installed on your computer, you can run ContDataQC as a Shiny app on your local computer and it will likely be faster.
 
-The Shiny app is available as part of the ContDataQC R package.  The <a href="https://github.com/leppott/ContDataQC" target="_blank">GitHub</a> includes
+The Shiny app is available as part of the ContDataQC R package.  The <a href="https://github.com/leppott/ContDataQC" data-once="external-links protected-links" target="_blank">GitHub<svg class="icon icon--exit is-spaced-before" role="img"> == $0 <title>Exit EPA's website</title><use href="https://www.epa.gov/themes/epa_theme/images/sprite.svg#launch"></use></svg></a> includes
 install directions for R.
 
 **Q: What internet browsers is this website compatible with?**
@@ -82,7 +82,7 @@ A: Not at this time. Currently, all USGS gages you enter will have data download
 
 A: Yes, a beta version of the ContDataSumViz app is currently available (for more 
 information contact Tom Faber (EPA Region 1):  [Faber.Tom\@epa.gov](mailto:Faber.Tom@epa.gov){.email} ). In addition, for lakes, the beta version of the LakeMonitoR
-<a href="https://github.com/leppott/LakeMonitoR" target="_blank">R package</a>
+<a href="https://github.com/leppott/LakeMonitoR" data-once="external-links protected-links" target="_blank">R package<svg class="icon icon--exit is-spaced-before" role="img"> == $0 <title>Exit EPA's website</title><use href="https://www.epa.gov/themes/epa_theme/images/sprite.svg#launch"></use></svg></a>
 and
-<a href="https://tetratech-wtr-wne.shinyapps.io/LakeMonitoR" target="_blank">Shiny app</a>
+<a href="https://tetratech-wtr-wne.shinyapps.io/LakeMonitoR" data-once="external-links protected-links" target="_blank">Shiny app<svg class="icon icon--exit is-spaced-before" role="img"> == $0 <title>Exit EPA's website</title><use href="https://www.epa.gov/themes/epa_theme/images/sprite.svg#launch"></use></svg></a>
 are available.

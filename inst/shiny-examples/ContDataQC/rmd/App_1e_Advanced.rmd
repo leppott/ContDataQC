@@ -19,7 +19,7 @@ if(boo_DEBUG==TRUE){
 # Advanced
 
 Some users may prefer to use the 
-<a href="https://github.com/leppott/ContDataQC" target="_blank">R code</a> 
+<a href="https://github.com/leppott/ContDataQC" data-once="external-links protected-links" target="_blank">R code<svg class="icon icon--exit is-spaced-before" role="img"> == $0 <title>Exit EPA's website</title><use href="https://www.epa.gov/themes/epa_theme/images/sprite.svg#launch"></use></svg></a> 
 instead of the Shiny app. The example code in Figure 1 shows how to run the main
 functions when using the default settings in the R package. After the user 
 directs R to the correct directories and selects the operation (QCRaw, Aggregate

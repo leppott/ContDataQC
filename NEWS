@@ -3,9 +3,15 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-01-31 17:15:26.657884
+    #> Last Update: 2024-01-31 18:26:09.974138
 
 # Version History
+
+## v2.0.7.9029
+
+2024-01-31
+
+- refactor: Shiny app add “exit” tags to html links, Issue \#159
 
 ## v2.0.7.9028
 
