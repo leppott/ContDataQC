@@ -23,7 +23,7 @@ if(boo_DEBUG==TRUE){
 There are two sets of test files, one from Onset HOBO U20 water level loggers (non-vented pressure transducers) and one from a miniDOT DO sensor. We are happy to add more test data to this website. If you have example files that you would like to contribute, please send them to Jen Stamp ([Jen.Stamp\@tetratech.com](mailto:Jen.Stamp@tetratech.com){.email}).
 
 # Onset HOBO
-The Onset HOBO U20 files can be downloaded [here](TestData_HOBOU20_20220822.zip).
+The Onset HOBO U20 files can be downloaded [here](TestData_HOBOU20_20220822.zip) [ZIP].
 The test data consist of two comma-separated values (CSV) files. The files are from the same site but cover two different time periods. 
 
 * **Test**
@@ -36,7 +36,7 @@ The test data consist of two comma-separated values (CSV) files. The files are f
 
 # miniDOT DO Sensors
 
-The miniDOT DO test files can be downloaded [here](TestData_miniDOT.zip).
+The miniDOT DO test files can be downloaded [here](TestData_miniDOT.zip) [ZIP].
 They are from one site and one deployment period.
 You’ll see two sets of folders. Within each folder are example input and output files.
 

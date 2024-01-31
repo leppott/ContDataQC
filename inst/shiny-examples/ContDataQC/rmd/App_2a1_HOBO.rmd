@@ -23,13 +23,13 @@ The HOBOware reformat function is for data files from Onset HOBO sensors. It con
 
 HOBO sensor files must first be opened with HOBOware software, then processed and exported as CSV files. If you follow these instructions, you will be able to run them through the reformat function without manipulation -
 
-*	[HOBOware default settings](HOBOware_DefaultSettings_20220824.pdf)
+*	[HOBOware default settings](HOBOware_DefaultSettings_20220824.pdf) [PDF]
 
-*	[Temperature (proV2)](HOBOware_Temperature_20220825.pdf)
+*	[Temperature (proV2)](HOBOware_Temperature_20220825.pdf) [PDF]
 
-*	[Water level (U20 series)](HOBOware_WaterLevel_U20_20220824.pdf)
+*	[Water level (U20 series)](HOBOware_WaterLevel_U20_20220824.pdf) [PDF]
 
-*	[Dissolved oxygen (U26)](HOBOware_DO_20220824.pdf)
+*	[Dissolved oxygen (U26)](HOBOware_DO_20220824.pdf) [PDF]
 
 ### Instructions
 
@@ -47,7 +47,7 @@ HOBO sensor files must first be opened with HOBOware software, then processed an
 
 *	Unzip/extract the file(s) or else the files won’t be seen as an option to upload to the QC report function (Main Functions - QC raw data). After file is unzipped, a new folder called ‘HOBO’ will appear. The original zipped file can be deleted if desired.
 
-Time-saver tip: some internet browsers, like Google Chrome and Mozilla Firefox, allow users to change settings so that users can select which folder to download files to (versus files going to the default Download folder). Click [here](GoogleChrome_TimesaverTips.pdf) for instructions on how to set this up in Chrome. With Mozilla Firefox, go to Settings > General > Files and Applications > Check box for “always ask where to save files.” 
+Time-saver tip: some internet browsers, like Google Chrome and Mozilla Firefox, allow users to change settings so that users can select which folder to download files to (versus files going to the default Download folder). Click [here](GoogleChrome_TimesaverTips.pdf) [PDF] for instructions on how to set this up in Chrome. With Mozilla Firefox, go to Settings > General > Files and Applications > Check box for “always ask where to save files.” 
 
 Your files are now ready to be run through the QC function!
 Below are examples of what HOBO U20 CSV files look like before and after they are run through the reformat function. The reformat function does the following -

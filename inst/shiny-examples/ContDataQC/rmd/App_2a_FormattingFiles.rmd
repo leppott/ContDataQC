@@ -29,7 +29,7 @@ Input files need to be formatted a specific way in order for the Shiny app and R
 
 *	There are two required fields: SiteID; and “Date Time” (with Date and Time combined into one field).
 
-*	If using the default [configuration file](Config_default.zip), column names must match the capitalization, spelling and symbology shown in the table below (for example, R will not recognize ‘sensor depth ft’; it needs to be ‘Sensor Depth ft’)
+*	If using the default [configuration file](Config_default.zip) [ZIP], column names must match the capitalization, spelling and symbology shown in the table below (for example, R will not recognize ‘sensor depth ft’; it needs to be ‘Sensor Depth ft’)
 
 *	Either periods or spaces in the column headings are acceptable. For example, in the table below, air temperature is shown as ‘’Air Temp C’ but it can also be entered as ‘Air.Temp.C’.
 

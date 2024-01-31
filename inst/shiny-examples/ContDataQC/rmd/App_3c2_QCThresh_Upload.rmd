@@ -32,5 +32,5 @@ automatically revert back to the default configuration file. Also – remember t
 sequencing! If you forget to upload the customized configuration file prior to 
 running the QC function, it will use the default thresholds.
 
-Want to try this yourself? Click [here](Custom_QC_Config_ECO66G20_test1.R) to 
+Want to try this yourself? Click [here](Custom_QC_Config_ECO66G20_test1.R) [R] to 
 download a test file.

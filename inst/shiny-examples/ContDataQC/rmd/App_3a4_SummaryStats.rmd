@@ -38,5 +38,5 @@ appear in the lower right corner.
 6.  Open and review the summary statistics reports. There should be two sets of 
 CSV files and a PDF with time series plots for each parameter. One of the CSVs 
 has daily means and the other has a wider range of summary statistics (e.g., 
-min, median, max, quartiles). Click [here](Example_SumStats.zip) to download an
+min, median, max, quartiles). Click [here](Example_SumStats.zip) [ZIP] to download an
 example of a Summary Stats output.

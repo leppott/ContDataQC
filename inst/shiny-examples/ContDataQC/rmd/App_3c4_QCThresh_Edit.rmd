@@ -19,7 +19,7 @@ if(boo_DEBUG==TRUE){
 
 ## Edit Thresholds
 
-Click [here](EditingQCtestThresholds_20220117.pdf) for instructions on how to 
+Click [here](EditingQCtestThresholds_20220117.pdf) [PDF] for instructions on how to 
 edit thresholds and create customized configuration files. There are two options
 (see below). For either option, save the customized configuration file in a 
 folder that is easy to find so that you can reuse the file each time you QC data
@@ -36,9 +36,9 @@ thresholds will be used.
 
 Configuration files can be downloaded here -
 
-*	[Default](Config_default.zip), with hydrologic parameters in feet
+*	[Default](Config_default.zip) [ZIP], with hydrologic parameters in feet
 
-*	[Hydrologic parameters in meters](Config_Lakes_meters.zip)
+*	[Hydrologic parameters in meters](Config_Lakes_meters.zip) [ZIP]
 Navigate to the ‘QC tests and calculations’ section. Edit thresholds as desired. Save the file.
 
 When you download the configuration file(s), you will see two types of files: an

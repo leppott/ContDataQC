@@ -40,21 +40,21 @@ people using the data decide whether to remove questionable measurements from
 their analysis. 
 
 *	Document that you checked each point flagged as ‘F’ and ‘S’ by adding a data 
-qualifier to the Comment column. Click [here](DataQualifiers_20220210.xlsx) to 
+qualifier to the Comment column. Click [here](DataQualifiers_20220210.xlsx) [XLSX] to 
 download the list of data qualifiers currently being used by RMN partners.
 
 *	Leave missing data cells blank.
 
 ## Workflow
 
-Click [here](Workflow_QC_report_20220824.pdf) for recommendations on a workflow
+Click [here](Workflow_QC_report_20220824.pdf) [PDF] for recommendations on a workflow
 for reviewing the QC reports.
 
 If you have a backlog of data files from multiple deployments and are wondering 
-how to most efficiently QC the files, [here](Workflow_DataPileup_20220824.pdf) 
+how to most efficiently QC the files, [here](Workflow_DataPileup_20220824.pdf) [PDF] 
 is a recommended workflow.
 
-Click [here](SiteVisitChecklist.zip) for a site visit checklist to help ensure 
+Click [here](SiteVisitChecklist.zip) [ZIP] for a site visit checklist to help ensure 
 that you do not forget to document information that is important for the data QC
 process.
 
@@ -64,12 +64,12 @@ Some people have had problems with air and water sensors being out of sync (
 e.g., one records at 11:00 and the other records at 11:07). If you are deploying
 air and water sensors at a site, make sure they are recording at the same time. 
 This will make data processing faster and easier. If you are using Onset HOBO 
-sensors, click [here](HOBO_ConfigLaunch_20170803.pdf) for tips on configuring 
+sensors, click [here](HOBO_ConfigLaunch_20170803.pdf) [PDF] for tips on configuring 
 them in a way that ensures they will record at the same time. 
 
 Another issue that sometimes occurs is data overlap (where more than one file 
 has measurements covering part of the same time periods). If you are using Onset
-HOBO sensors, click [here](HOBO_DataDownload_20170823.pdf) for procedures to 
+HOBO sensors, click [here](HOBO_DataDownload_20170823.pdf) [PDF] for procedures to 
 follow during data download to clear sensor memory and avoid overlapping data.
 
 ## Accuracy checks
@@ -79,20 +79,20 @@ lab and/or in the field with sensor measurements from the closest date/time. The
 sensor measurement should be within the accuracy quoted by the manufacturer (
 e.g., ±0.2°C if you are using the Onset HOBO proV2 sensor). Accuracy checks are 
 used to validate your data, and in some cases, correct for sensor drift. Click 
-[here](EXAMPLE_AccuracyCheckWkst.xlsx) to download an example of an accuracy 
+[here](EXAMPLE_AccuracyCheckWkst.xlsx) [XLSX] to download an example of an accuracy 
 check worksheet being kept by an RMN partner. 
 
 ## Visual checks of time series plots
 
 Visual checks of time series plots are an important part of the QC process. 
-Click [here](PlotQC_WatchList_20220824.pdf) to see a compilation of patterns to 
+Click [here](PlotQC_WatchList_20220824.pdf) [PDF] to see a compilation of patterns to 
 watch for when interpreting the plots. They include ice cover, beaver activity, 
 leaf packs, dewatering, and dead batteries. We will continue to add slides to 
 this as we receive materials.
 
 ## Checking sensor data against other data sources
 
-This is optional but encouraged if time permits. Click [here](Daymet_Wx_Gage.zip) for instructional 
+This is optional but encouraged if time permits. Click [here](Daymet_Wx_Gage.zip) [ZIP] for instructional 
 materials from David Smith (Kentucky Division of Water) on how he has been 
 downloading data from nearby weather stations and USGS gages, as well as modeled
 air temperature and precipitation data from Daymet (

@@ -57,7 +57,7 @@ Depth can include decimals (for example, 0.1M is ok) and does not need to
 include leading zeros (either 01M or 1M are acceptable). Units can be upper or 
 lower case (M or m), and abbreviated (M) or spelled out (meters). You can change
 the double-dash separator if desired by customizing the 
-[configuration file](Config_default.zip) (for example, you could change it to a
+[configuration file](Config_default.zip) [ZIP] (for example, you could change it to a
 tilde ~).
 
 If you are using the Shiny app and have more than one type of sensor deployed at

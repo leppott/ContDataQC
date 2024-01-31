@@ -48,7 +48,7 @@ table3a1 %>%
 The 'flag' tests were selected based on the following references:
 
 -   U.S. Integrated Ocean Observing System, 2017. Manual for the Use of Real-Time Oceanographic Data Quality Control Flags, Version 1.1. 43 pp.
-<a href="https://cdn.ioos.noaa.gov/media/2017/12/QARTOD-Data-Flags-Manual_Final_version1.1.pdf" target="_blank">https://cdn.ioos.noaa.gov/media/2017/12/QARTOD-Data-Flags-Manual_Final_version1.1.pdf</a>
+<a href="https://cdn.ioos.noaa.gov/media/2017/12/QARTOD-Data-Flags-Manual_Final_version1.1.pdf" target="_blank">https://cdn.ioos.noaa.gov/media/2017/12/QARTOD-Data-Flags-Manual_Final_version1.1.pdf</a> [PDF]
 
 -   Wagner, R.J., Boulger, R.W., Oblinger, C.J., Smith, B.A., 2006. Guidelines and Standard Procedures for Continuous Water-quality Monitors: Station Operation, Record Computation, and Data Reporting. U.S. Geological Survey Techniques and Methods 1-D3, 51 pp. þ 8 attachments. 
 <a href="http://pubs.water.usgs.gov/tm1d3" target="_blank">http://pubs.water.usgs.gov/tm1d3</a>.
@@ -69,9 +69,9 @@ Units are an important consideration as well. The default configuration puts hyd
 
 Configuration files can be downloaded here: 
 
--   [Default](Config_default.zip), with hydrologic parameters in feet
+-   [Default](Config_default.zip) [ZIP], with hydrologic parameters in feet
 
--   [Customized](Config_Lakes_meters.zip), with hydrologic parameters in meters
+-   [Customized](Config_Lakes_meters.zip) [ZIP], with hydrologic parameters in meters
 
 This table shows the default QC test thresholds for each parameter as of 2023-08-28.
 

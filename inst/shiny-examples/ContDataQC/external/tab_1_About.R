@@ -7,6 +7,7 @@ function() {
              tabsetPanel(type = "tabs"
 
                          , tabPanel("Overview"
+                                    , p(paste0("Version ", version, "."))
                                     , includeHTML("www/RMD_HTML/App_1a_Overview.html")
                          )## tabPanel ~ END
 

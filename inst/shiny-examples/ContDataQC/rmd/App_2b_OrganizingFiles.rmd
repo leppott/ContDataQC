@@ -24,7 +24,7 @@ we recommend setting up folders as shown below as a starting point. Folders and
 files can be customized as you gain more experience. The files should be backed
 up regularly and accessible to other members of your data management team.
 
-Click [here](SiteX_20230828.zip) to download a zipped file with a 
+Click [here](SiteX_20230828.zip) [ZIP] to download a zipped file with a 
 ready-made set of (empty) folders.  Put the file in the desired location, unzip 
 it and then replace ‘SiteX’ with the appropriate site name.
 
@@ -63,4 +63,4 @@ table2a %>%
   kable_styling(full_width = F, position = "left")
 ```
 
-Click [here](EXAMPLE_AccuracyCheckWkst.xlsx) to download example Accuracy Check worksheet.
+Click [here](EXAMPLE_AccuracyCheckWkst.xlsx) [XLSX] to download example Accuracy Check worksheet.

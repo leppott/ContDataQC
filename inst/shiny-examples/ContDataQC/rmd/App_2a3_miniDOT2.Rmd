@@ -46,7 +46,7 @@ ready to run through the QC report function.
 
 ## Additional Notes
 
--   Want to try it yourself? Click [here](TestData_miniDOT.zip) to
+-   Want to try it yourself? Click [here](TestData_miniDOT.zip) [ZIP] to
     download miniDOT DO test files.
 
 *	Why are the DO saturation values all NA? This occurs when no inputs are 

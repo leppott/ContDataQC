@@ -4,7 +4,65 @@
 # 2022-09-16
 #~~~~~~~~~~~~~~
 
+# AUTO, RMD 2 HTML ----
+# EWL, 2024-01-31
+# Render RMD to HTML and move to www
 
+# Packages
+# libary(rmarkdown)
+
+# Files
+myFiles <- list.files(path = "inst/shiny-examples/ContDataQC/rmd"
+                      , pattern = "^App_"
+                      , full.names = TRUE)
+
+# Loop over files
+
+
+# Render as HTML
+path_shiny_www <- file.path("inst"
+                            , "shiny-examples"
+                            , "ContDataQC"
+                            , "www"
+                            , "RMD_HTML")
+
+
+for (i in myFiles) {
+  # file name w/o extension
+  #i_fn <- tools::file_path_sans_ext(basename(i))
+  # save to HTML
+  rmarkdown::render(input = i
+                    , output_dir = path_shiny_www)
+}## FOR ~ i
+
+shell.exec(normalizePath(path_shiny_www))
+
+
+# MANUAL, Move Knitted HTML ----
+# Knit to HTML manually
+# Move those HTML files to www
+
+path_rmd <- file.path("inst", "shiny-examples", "ContDataQC", "rmd")
+path_shiny_www <- file.path("inst", "shiny-examples", "ContDataQC", "www", "RMD_HTML")
+
+# open folder
+shell.exec(normalizePath(path_rmd))
+
+# Copy
+myFile <- list.files(path = path_rmd
+                     , pattern = "^App_.+\\.html$"
+                     , full.names = TRUE)
+file.copy(myFile
+          , file.path(path_shiny_www, basename(myFile))
+          , overwrite = TRUE)
+# Delete
+unlink(myFile)
+
+
+
+
+# OLD code ----
+#
 # Packages
 # libary(rmarkdown)
 
@@ -33,23 +91,3 @@
 # }## FOR ~ i
 #
 # shell.exec(normalizePath(path_shiny_www))
-
-#______________________________
-# Knit to HTML manually
-
-path_rmd <- file.path("inst", "shiny-examples", "ContDataQC", "rmd")
-path_shiny_www <- file.path("inst", "shiny-examples", "ContDataQC", "www", "RMD_HTML")
-
-# open folder
-shell.exec(normalizePath(path_rmd))
-
-# Copy
-myFile <- list.files(path = path_rmd
-                     , pattern = "^App_.+\\.html$"
-                     , full.names = TRUE)
-file.copy(myFile
-          , file.path(path_shiny_www, basename(myFile))
-          , overwrite = TRUE)
-# Delete
-unlink(myFile)
-

@@ -33,7 +33,7 @@ The ContDataQC R package and Shiny app were developed with the following objecti
 
 The figure below lays out the general workflow for using the ContDataQC R tools. Items in bold blue text show functions that can be performed with ContDataQC.
 
-Want to try it yourself? Click [here](Custom_QC_Config_ECO66G20_test1.R) to 
+Want to try it yourself? Click [here](Custom_QC_Config_ECO66G20_test1.R) [R] to 
 download test files.
 
 ![ContDataQC Shiny App workflow](RMD_Images/1.1_Fig1_About_20230828.jpg){width=95%}
