@@ -35,5 +35,3 @@ PDF) by editing a plain text [configuration file](Config_default.zip) [ZIP].  Us
 have more flexibility using the Shiny app versus R package when it comes to 
 setting directories and file naming schemes because they can browse to the 
 desired input file(s).
-
-![Figure 1. Example code from the ContDataQC R package for running the QCRaw function. Entries highlighted in yellow show places where users can modify entries. The other colors show where linkages exist between lines of code, with comments explaining how the R code uses each entry.](RMD_Images/1.6_Fig1_Advanced_20230828.jpg){width=95%}

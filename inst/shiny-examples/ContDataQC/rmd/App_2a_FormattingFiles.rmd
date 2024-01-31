@@ -40,7 +40,7 @@ Input files need to be formatted a specific way in order for the Shiny app and R
 *	Optional fields include rowID, logger ID (serial number) and discrete measurements. Discrete (in situ) measurements can be entered for any parameter (just add ‘Discrete’ to the beginning of the column heading; for example, ‘Discrete Air Temp C’). The discrete data point will be included in the time series plots that are generated when the user runs the QC function. If using Onset HOBO sensors, you can save time by using the automated reformat function ('Data Preparation - Automated Formatting - HOBOware reformat' tab). 
 
 
-## Data Formattting Information
+## Data Formatting Information
 
 ```{r table_1}
 library(readxl)

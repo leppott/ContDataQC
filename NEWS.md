@@ -3,9 +3,15 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-01-31 16:53:57.644938
+    #> Last Update: 2024-01-31 17:15:26.657884
 
 # Version History
+
+## v2.0.7.9028
+
+2024-01-31
+
+- refactor: Replace images in Shiny, Issue \#157
 
 ## v2.0.7.9027
 
