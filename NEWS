@@ -3,9 +3,15 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-01-31 14:12:04.111378
+    #> Last Update: 2024-01-31 16:53:57.644938
 
 # Version History
+
+## v2.0.7.9027
+
+2024-01-31
+
+- refactor: Apply revised USEPA template (2023-12-15), Issue \#155
 
 ## v2.0.7.9026
 
