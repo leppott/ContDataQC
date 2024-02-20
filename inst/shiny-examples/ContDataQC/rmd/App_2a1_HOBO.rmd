@@ -78,3 +78,54 @@ message).
 *	Two serial numbers in the column heading (you should only have one S/N; make sure under Preferences-Export settings, you only have the ‘include logger serial number’ box checked, NOT the ‘include sensor serial number or label if available’ box)
 
 
+## Example
+Running the HOBOware reformat function on a HOBO U20 water level logger file.
+
+**Before**
+
+```{r}
+library(readxl)
+library(knitr)
+library(kableExtra)
+# state directories
+table.dir  <- "tables"
+table.file <- "HOBOreformat_BEFORE_20240131.xlsx"
+table.sheet  <- "Sheet1"
+
+table <- read_excel(file.path(table.dir, table.file), sheet = table.sheet
+                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
+                     , col_names = TRUE)  
+# Munge
+## remove extra colnames
+colnames(table)[2:6] <- ""
+
+options(knitr.kable.NA = '')
+# kable(table1)
+table %>% 
+  kbl() %>% 
+  kable_styling(full_width = F, position = "left")
+
+cat("\n\n")
+```
+
+**After**
+
+```{r}
+library(readxl)
+library(knitr)
+library(kableExtra)
+# state directories
+table.dir  <- "tables"
+table.file <- "HOBOreformat_AFTER_20240131.xlsx"
+table.sheet  <- "Sheet1"
+
+table <- read_excel(file.path(table.dir, table.file), sheet = table.sheet
+                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
+                     , col_names = TRUE)  
+
+options(knitr.kable.NA = '')
+# kable(table1)
+table %>% 
+  kbl() %>% 
+  kable_styling(full_width = F, position = "left")
+```

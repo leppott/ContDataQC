@@ -28,7 +28,7 @@ information in the file name (for example, if thresholds are customized for a
 particular season). 
 
 After you save the file, go to the 'upload custom thresholds' tab, browse to the
-custom thresholds file, upload the file and then, under 'Main functions', 
+custom thresholds file, upload the file and then, under 'Run functions', 
 generate the QC reports. If you forget the upload step, the default QC 
 thresholds will be used.
 
@@ -36,10 +36,11 @@ thresholds will be used.
 
 Configuration files can be downloaded here -
 
-*	[Default](Config_default.zip) [ZIP], with hydrologic parameters in feet
+*	[Default](Config_default.zip) [ZIP], with hydrologic parameters in feet.
 
-*	[Hydrologic parameters in meters](Config_Lakes_meters.zip) [ZIP]
-Navigate to the ‘QC tests and calculations’ section. Edit thresholds as desired. Save the file.
+*	[Hydrologic parameters in meters](Config_Lakes_meters.zip) [ZIP].
+
+Navigate to the ‘QC tests and calculations’ section of the configuration file, which is about halfway through the file. Edit thresholds as desired. Save the file.
 
 When you download the configuration file(s), you will see two types of files: an
 R file (.R) and a text (.txt) file for users who do not have R installed on 
@@ -59,11 +60,7 @@ R. If you cannot install R on your computer, we recommend use Notepad or
 
 * Edit thresholds using the boxes below
 
-* After you make changes for each parameter, click ‘save changes’ as you go 
-(otherwise when you switch to a different parameter, it won’t save the changes 
-you made to the previous parameter)  
-
-* Save changes (for each parameter)
+* After you make changes for each parameter, click ‘save changes’ as you go (upper left box). Otherwise when you switch to a different parameter, it won’t save the changes you made to the previous parameter. 
 
 * Download custom thresholds file
 

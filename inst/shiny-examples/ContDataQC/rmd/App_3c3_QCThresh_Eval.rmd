@@ -35,6 +35,4 @@ instructions.
 To aid with documentation of the threshold evaluation process, click [here](ThresholdsCheckWorksheet_20220826.xlsx) [XLSX] to download an Excel worksheet 
 that lists the default thresholds for each parameter and has a column where you 
 can enter the customized values for a given site as well as rationale for making
-the changes.  When doing this, make sure you consider what units you are using 
-(as well as what the defaults are), since units have a large effect on 
-thresholds.
+the changes.  When doing this, make sure you consider what units you are using, since units have a large effect on thresholds.

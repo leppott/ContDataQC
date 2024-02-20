@@ -20,19 +20,13 @@ if(boo_DEBUG==TRUE){
 # QC Tips
 
 Below are instructional materials and links to resources we have compiled as we 
-continue to gain experience QCing continuous data. To date, we have worked 
-primarily with thermal and hydrologic data, and more recently, dissolved oxygen 
+continue to gain experience QCing continuous data for the Regional Monitoring Network project. To date, we have worked primarily with thermal and hydrologic data, and more recently, dissolved oxygen 
 data from lakes. The data are typically downloaded 2-4 times a year. We have not
 worked with ‘real-time’ data.
 
-If you have any questions, feedback on ways to improve this process or 
-suggestions on additional materials that you feel would be helpful to share, 
-please contact Jen Stamp (Jen.Stamp@tetratech.com).
+## Data edits
 
-## Data corrections
-
-If you are processing data for the RMNs, we are currently recommending the 
-following approach 
+When reviewing the QC reports, it is important to be consistent in how you handle flagged data. As an example, some users do the following -
 
 *	If you are certain a data point is erroneous, delete the measurement and flag 
 as ‘F’. If you are not sure, flag the data as ‘S’ and do not delete. Let the 
@@ -41,18 +35,18 @@ their analysis.
 
 *	Document that you checked each point flagged as ‘F’ and ‘S’ by adding a data 
 qualifier to the Comment column. Click [here](DataQualifiers_20220210.xlsx) [XLSX] to 
-download the list of data qualifiers currently being used by RMN partners.
+download a list of example data qualifiers.
 
 *	Leave missing data cells blank.
 
 ## Workflow
 
-Click [here](Workflow_QC_report_20220824.pdf) [PDF] for recommendations on a workflow
+Click [here](Workflow_QC_report_20220824.pdf) [PDF] for a description of a common workflow
 for reviewing the QC reports.
 
 If you have a backlog of data files from multiple deployments and are wondering 
-how to most efficiently QC the files, [here](Workflow_DataPileup_20220824.pdf) [PDF] 
-is a recommended workflow.
+how to most efficiently QC the files, click [here](Workflow_DataPileup_20220824.pdf) [PDF] 
+for a description of a workflow that has worked well.
 
 Click [here](SiteVisitChecklist.zip) [ZIP] for a site visit checklist to help ensure 
 that you do not forget to document information that is important for the data QC
@@ -80,21 +74,20 @@ sensor measurement should be within the accuracy quoted by the manufacturer (
 e.g., ±0.2°C if you are using the Onset HOBO proV2 sensor). Accuracy checks are 
 used to validate your data, and in some cases, correct for sensor drift. Click 
 [here](EXAMPLE_AccuracyCheckWkst.xlsx) [XLSX] to download an example of an accuracy 
-check worksheet being kept by an RMN partner. 
+check worksheet. 
 
 ## Visual checks of time series plots
 
 Visual checks of time series plots are an important part of the QC process. 
 Click [here](PlotQC_WatchList_20220824.pdf) [PDF] to see a compilation of patterns to 
 watch for when interpreting the plots. They include ice cover, beaver activity, 
-leaf packs, dewatering, and dead batteries. We will continue to add slides to 
-this as we receive materials.
+leaf packs, dewatering, and dead batteries.
 
 ## Checking sensor data against other data sources
 
-This is optional but encouraged if time permits. Click [here](Daymet_Wx_Gage.zip) [ZIP] for instructional 
-materials from David Smith (Kentucky Division of Water) on how he has been 
-downloading data from nearby weather stations and USGS gages, as well as modeled
+Some partners have been downloading data from nearby weather stations and USGS gages, as well as modeled
 air temperature and precipitation data from Daymet (
 <a href="https://daymet.ornl.gov/getdata" data-once="external-links protected-links" target="_blank">https://daymet.ornl.gov/getdata<svg class="icon icon--exit is-spaced-before" role="img"> == $0 <title>Exit EPA's website</title><use href="https://www.epa.gov/themes/epa_theme/images/sprite.svg#launch"></use></svg></a>
-), and comparing those data to sensor measurements as part of his QC process.
+), and comparing those data to sensor measurements as part of their QC process.
+Click [here](Daymet_Wx_Gage.zip) [ZIP] for instructional materials.
+

@@ -20,6 +20,4 @@ if(boo_DEBUG==TRUE){
 # R console output
 
 This panel shows messages output by the QC, aggregating, summarizing, and USGS 
-data retrieval processes. If there are any errors when the tool runs, please 
-copy the messages and send them and your input files to Erik Leppo 
-(Erik.Leppo@tetratech.com).
+data retrieval processes.

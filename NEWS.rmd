@@ -21,6 +21,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.7.9030
+2024-02-20
+
+* refactor: Text updates on most tabs of Shiny app
+* refactor: Remove Troubleshooting info in Shiny app, except for Console
+* refactor: Figures of tables to tables in Shiny app, Issue #157
+
 ## v2.0.7.9029
 2024-01-31
 

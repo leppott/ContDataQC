@@ -19,28 +19,10 @@ if (boo_DEBUG == TRUE) {
 
 # Organizing Files
 
-If you do not already have a good system for organizing continuous data files, 
-we recommend setting up folders as shown below as a starting point. Folders and 
-files can be customized as you gain more experience. The files should be backed
-up regularly and accessible to other members of your data management team.
+If you do not already have a good system for organizing continuous data files, we recommend that you set up a folder for each site, and within each site folder, set up subfolders as shown in the table below. You can download a ready-made set of (empty) folders by clicking [here](SiteX_20230828.zip) [ZIP]. Put the file in the desired location, unzip it and then replace ‘SiteX’ with the appropriate site name.
 
-Click [here](SiteX_20230828.zip) [ZIP] to download a zipped file with a 
-ready-made set of (empty) folders.  Put the file in the desired location, unzip 
-it and then replace ‘SiteX’ with the appropriate site name.
+You have more flexibility with file organization when using the Shiny app vs R package. With the Shiny app, it is not necessary to name the folders exactly as shown below because you can browse to the desired input files and browse to save the output files to the desired location. However, if you decide to use the R package at some point, keeping the four ‘Data’ folders (Data0_Original, Data1_RAW, Data2_QC, Data3_Aggregated and Data4_Stats) will be important since the R code searches in specific folders for input files and outputs files to specific directories. Advanced users can modify the default directories by editing the configuration file.
 
-You have more flexibility with file organization when using the Shiny app vs R 
-package. With the Shiny app, it is not necessary to name the folders exactly as 
-shown below because you can browse to the desired input files and browse to save
-the output files to the desired location. However, if you decide to use the R 
-package at some point, keeping the four ‘Data’ folders (Data0_Original, 
-Data1_RAW, Data2_QC, Data3_Aggregated and Data4_Stats) will be important since 
-the R code searches in specific folders for input files and outputs files to 
-specific directories. Advanced R users can modify the default directories by 
-editing the configuration file. 
-
-```{r, echo=FALSE, out.width="60%"}
-knitr::include_graphics("RMD_Images/Fig_Organizing_v1_20210616.png")
-```
 
 ### Folder descriptions
 ```{r table_1}
@@ -62,5 +44,3 @@ table2a %>%
   kbl() %>% 
   kable_styling(full_width = F, position = "left")
 ```
-
-Click [here](EXAMPLE_AccuracyCheckWkst.xlsx) [XLSX] to download example Accuracy Check worksheet.

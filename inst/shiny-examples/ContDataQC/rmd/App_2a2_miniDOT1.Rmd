@@ -38,8 +38,27 @@ download miniDOT DO test files.
 provided to calculate DO percent saturation.  For more information, please see 
 miniDOT manual or contact the miniDOT support team.
 
-## Examples
+## Example
 
-Example image after performing the **Concatenate** function.
+Example table after performing the **Concatenate** function.
 
-![Concatenated miniDOT file](RMD_Images/miniDOT_2cat.png)
+
+```{r}
+library(readxl)
+library(knitr)
+library(kableExtra)
+# state directories
+table.dir  <- "tables"
+table.file <- "miniDOT_After_Concatenate_20240131.xlsx"
+table.sheet  <- "Sheet1"
+
+table <- read_excel(file.path(table.dir, table.file), sheet = table.sheet
+                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
+                     , col_names = TRUE)  
+
+options(knitr.kable.NA = '')
+# kable(table1)
+table %>% 
+  kbl() %>% 
+  kable_styling(full_width = F, position = "left")
+```

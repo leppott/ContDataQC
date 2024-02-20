@@ -86,4 +86,644 @@ one S/N; make sure under Preferences-Export settings, you only have the
 serial number or label if available’ box)</p></li>
 </ul>
 </div>
+<div id="example" class="section level2">
+<h2>Example</h2>
+<p>Running the HOBOware reformat function on a HOBO U20 water level
+logger file.</p>
+<p><strong>Before</strong></p>
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+Plot Title: B-009-7 Vaughn Crk
+</th>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Date Time, GMT-05:00
+</td>
+<td style="text-align:left;">
+Water BP, psi (LGR S/N: 10246120)
+</td>
+<td style="text-align:left;">
+Water Temp, °C (LGR S/N: 10246120)
+</td>
+<td style="text-align:left;">
+Air BP, psi (LGR S/N: 10246124)
+</td>
+<td style="text-align:left;">
+Water Level, feet (LGR S/N: 10246120)
+</td>
+<td style="text-align:left;">
+AirTemp, °C (LGR S/N: 10246124)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+42068
+</td>
+<td style="text-align:left;">
+14.5947
+</td>
+<td style="text-align:left;">
+11.916
+</td>
+<td style="text-align:left;">
+14.1206
+</td>
+<td style="text-align:left;">
+1.02
+</td>
+<td style="text-align:left;">
+18.331
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+42068.020833333336
+</td>
+<td style="text-align:left;">
+14.597200000000001
+</td>
+<td style="text-align:left;">
+11.916
+</td>
+<td style="text-align:left;">
+14.118
+</td>
+<td style="text-align:left;">
+1.032
+</td>
+<td style="text-align:left;">
+16.902999999999999
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+42068.041666666664
+</td>
+<td style="text-align:left;">
+14.5928
+</td>
+<td style="text-align:left;">
+12.013
+</td>
+<td style="text-align:left;">
+14.112500000000001
+</td>
+<td style="text-align:left;">
+1.034
+</td>
+<td style="text-align:left;">
+16.713000000000001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+42068.0625
+</td>
+<td style="text-align:left;">
+14.5928
+</td>
+<td style="text-align:left;">
+12.013
+</td>
+<td style="text-align:left;">
+14.1083
+</td>
+<td style="text-align:left;">
+1.044
+</td>
+<td style="text-align:left;">
+16.902999999999999
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+42068.083333333336
+</td>
+<td style="text-align:left;">
+14.5908
+</td>
+<td style="text-align:left;">
+12.11
+</td>
+<td style="text-align:left;">
+14.113200000000001
+</td>
+<td style="text-align:left;">
+1.028
+</td>
+<td style="text-align:left;">
+16.902999999999999
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+42068.104166666664
+</td>
+<td style="text-align:left;">
+14.5908
+</td>
+<td style="text-align:left;">
+12.11
+</td>
+<td style="text-align:left;">
+14.1035
+</td>
+<td style="text-align:left;">
+1.05
+</td>
+<td style="text-align:left;">
+16.902999999999999
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+42068.125
+</td>
+<td style="text-align:left;">
+14.585599999999999
+</td>
+<td style="text-align:left;">
+12.013
+</td>
+<td style="text-align:left;">
+14.098699999999999
+</td>
+<td style="text-align:left;">
+1.0489999999999999
+</td>
+<td style="text-align:left;">
+16.902999999999999
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+42068.145833333336
+</td>
+<td style="text-align:left;">
+14.5808
+</td>
+<td style="text-align:left;">
+12.013
+</td>
+<td style="text-align:left;">
+14.0909
+</td>
+<td style="text-align:left;">
+1.056
+</td>
+<td style="text-align:left;">
+16.713000000000001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+42068.166666666664
+</td>
+<td style="text-align:left;">
+14.5808
+</td>
+<td style="text-align:left;">
+12.013
+</td>
+<td style="text-align:left;">
+14.0884
+</td>
+<td style="text-align:left;">
+1.0620000000000001
+</td>
+<td style="text-align:left;">
+16.713000000000001
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>After</strong></p>
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+SiteID
+</th>
+<th style="text-align:left;">
+Date.Time
+</th>
+<th style="text-align:right;">
+Air.Temp.C
+</th>
+<th style="text-align:right;">
+Air.LoggerID
+</th>
+<th style="text-align:right;">
+Air.RowID
+</th>
+<th style="text-align:right;">
+Water.Temp.C
+</th>
+<th style="text-align:right;">
+Water.LoggerID
+</th>
+<th style="text-align:right;">
+Water.RowID
+</th>
+<th style="text-align:right;">
+Water.Level.ft
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+B0997
+</td>
+<td style="text-align:left;">
+2015-03-05 00:00:00
+</td>
+<td style="text-align:right;">
+18.331
+</td>
+<td style="text-align:right;">
+10246124
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+11.916
+</td>
+<td style="text-align:right;">
+10246120
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B0997
+</td>
+<td style="text-align:left;">
+2015-03-05 00:30:00
+</td>
+<td style="text-align:right;">
+16.903
+</td>
+<td style="text-align:right;">
+10246124
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+11.916
+</td>
+<td style="text-align:right;">
+10246120
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.032
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B0997
+</td>
+<td style="text-align:left;">
+2015-03-05 01:00:00
+</td>
+<td style="text-align:right;">
+16.713
+</td>
+<td style="text-align:right;">
+10246124
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+12.013
+</td>
+<td style="text-align:right;">
+10246120
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1.034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B0997
+</td>
+<td style="text-align:left;">
+2015-03-05 01:30:00
+</td>
+<td style="text-align:right;">
+16.903
+</td>
+<td style="text-align:right;">
+10246124
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+12.013
+</td>
+<td style="text-align:right;">
+10246120
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1.044
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B0997
+</td>
+<td style="text-align:left;">
+2015-03-05 02:00:00
+</td>
+<td style="text-align:right;">
+16.903
+</td>
+<td style="text-align:right;">
+10246124
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+12.110
+</td>
+<td style="text-align:right;">
+10246120
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+1.028
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B0997
+</td>
+<td style="text-align:left;">
+2015-03-05 02:30:00
+</td>
+<td style="text-align:right;">
+16.903
+</td>
+<td style="text-align:right;">
+10246124
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+12.110
+</td>
+<td style="text-align:right;">
+10246120
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+1.050
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B0997
+</td>
+<td style="text-align:left;">
+2015-03-05 03:00:00
+</td>
+<td style="text-align:right;">
+16.903
+</td>
+<td style="text-align:right;">
+10246124
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+12.013
+</td>
+<td style="text-align:right;">
+10246120
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+1.049
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B0997
+</td>
+<td style="text-align:left;">
+2015-03-05 03:30:00
+</td>
+<td style="text-align:right;">
+16.713
+</td>
+<td style="text-align:right;">
+10246124
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+12.013
+</td>
+<td style="text-align:right;">
+10246120
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+1.056
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B0997
+</td>
+<td style="text-align:left;">
+2015-03-05 04:00:00
+</td>
+<td style="text-align:right;">
+16.713
+</td>
+<td style="text-align:right;">
+10246124
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+12.013
+</td>
+<td style="text-align:right;">
+10246120
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+1.062
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B0997
+</td>
+<td style="text-align:left;">
+2015-03-05 04:30:00
+</td>
+<td style="text-align:right;">
+16.808
+</td>
+<td style="text-align:right;">
+10246124
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+12.110
+</td>
+<td style="text-align:right;">
+10246120
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+1.046
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B0997
+</td>
+<td style="text-align:left;">
+2015-03-05 05:00:00
+</td>
+<td style="text-align:right;">
+16.903
+</td>
+<td style="text-align:right;">
+10246124
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+12.110
+</td>
+<td style="text-align:right;">
+10246120
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+1.061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B0997
+</td>
+<td style="text-align:left;">
+2015-03-05 05:30:00
+</td>
+<td style="text-align:right;">
+16.903
+</td>
+<td style="text-align:right;">
+10246124
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+12.013
+</td>
+<td style="text-align:right;">
+10246120
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+1.055
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B0997
+</td>
+<td style="text-align:left;">
+2015-03-05 06:00:00
+</td>
+<td style="text-align:right;">
+16.903
+</td>
+<td style="text-align:right;">
+10246124
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+12.110
+</td>
+<td style="text-align:right;">
+10246120
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+1.061
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
