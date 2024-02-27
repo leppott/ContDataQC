@@ -21,4 +21,8 @@ if(boo_DEBUG==TRUE){
 Users with intermediate to advanced-level computer skills can customize the settings (e.g., add new parameters, change units, change file naming and formatting requirements, change the format of one of the QC reports from Word to html or PDF) by editing a plain text [configuration file](Config_default.zip) [ZIP]. You can do this in R or Notepad.
 
 Some users may prefer to use the ContDataQC
-<a href="https://github.com/leppott/ContDataQC" data-once="external-links protected-links" target="_blank">R code<svg class="icon icon--exit is-spaced-before" role="img"> == $0 <title>Exit EPA's website</title><use href="https://www.epa.gov/themes/epa_theme/images/sprite.svg#launch"></use></svg></a> instead of the Shiny app. While using the R code allows for some additional layers of customization beyond this, when it comes to file naming schemes and setting directories, users have more flexibility using the Shiny app because they can browse to the desired input file(s).
+<a class="menu__link" href="https://github.com/leppott/ContDataQC" target="_blank">R code<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a> instead of the Shiny app. While using the R code allows for some additional layers of customization beyond this, when it comes to file naming schemes and setting directories, users have more flexibility using the Shiny app because they can browse to the desired input file(s).

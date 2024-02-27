@@ -2,7 +2,7 @@
 
 function() {
 
-  tabPanel("FAQs"
+  tabPanel("Basis Info"
            , mainPanel(
              includeHTML("www/RMD_HTML/App_2FAQ.html")
 

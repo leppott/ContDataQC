@@ -20,11 +20,14 @@ if(boo_DEBUG==TRUE){
 }## IF ~ boo_DEBUG ~ END
 ```
 
-There are two sets of test files, one from Onset HOBO U20 water level loggers (non-vented pressure transducers) and one from a miniDOT DO sensor. Please contact us if you have example files from other sensors that you would like us to add to this website.
+Below are test files that you can download and run through the Shiny app. They are from Onset HOBO U20 water level loggers (non-vented pressure transducers) and miniDOT DO sensors. Please contact us if you have example files from other sensors that you would like us to add to this website.
 
-# Onset HOBO
-The Onset HOBO U20 files can be downloaded [here](TestData_HOBOU20_20220822.zip) [ZIP].
-The test data consist of two comma-separated values (CSV) files. The files are from the same site but cover two different time periods. You'll see two folders:
+# Test files
+* [Onset HOBO U20](TestData_HOBOU20_20220822.zip) [ZIP]
+* [miniDOT DO](TestData_miniDOT.zip) [ZIP]
+
+## Onset HOBO
+The Onset HOBO U20 test data consist of two comma-separated values (CSV) files. The files are from the same site but cover two different time periods. You'll see two folders:
 
 * **Test**
 
@@ -34,10 +37,9 @@ The test data consist of two comma-separated values (CSV) files. The files are f
 
     + This folder has the complete set of outputs for both files so that you can see examples of the QC reports and other outputs without having to run the test data through the functions yourself. 
 
-# miniDOT DO Sensors
+## miniDOT DO Sensors
 
-The miniDOT DO test files can be downloaded [here](TestData_miniDOT.zip) [ZIP].
-They are from one site and one deployment period.
+The miniDOT DO test files are from one site and one deployment period.
 You’ll see two sets of folders. Within each folder are example input and output files.
 
 * **miniDOT_concatenate** - When data are initially downloaded from miniDOT sensors, there are separate .txt files for each day (in this example, 325 individual files). Go to the **Automated Reformat – miniDOT** tab and run the **Concatenate** function to combine them all into one file. 

@@ -45,8 +45,8 @@ function() {
                                                       )# sidebarPanel~ END
                                                       , mainPanel(
                                                         includeHTML("www/RMD_HTML/App_2a1_HOBO.html")
-                                                        , img(src = "Fig_HOBOreformat_v1_20210617.png"
-                                                              , height = 600, width = 1000)
+                                                        # , img(src = "Fig_HOBOreformat_v1_20210617.png"
+                                                        #       , height = 600, width = 1000)
                                                       ) ## mainPanel ~ END
                                                     )# sidebarLayout~ END
                                          )## tabPanel ~ HOBO ~ END

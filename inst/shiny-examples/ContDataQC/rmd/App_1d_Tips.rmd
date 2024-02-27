@@ -17,77 +17,59 @@ if(boo_DEBUG==TRUE){
 }## IF ~ boo_DEBUG ~ END
 ```
 
-# QC Tips
+# Tips
 
-Below are instructional materials and links to resources we have compiled as we 
-continue to gain experience QCing continuous data for the Regional Monitoring Network project. To date, we have worked primarily with thermal and hydrologic data, and more recently, dissolved oxygen 
-data from lakes. The data are typically downloaded 2-4 times a year. We have not
-worked with ‘real-time’ data.
+Below are tips and links to resources from the Regional Monitoring Network (RMN) project. To date, RMN partners have worked primarily with thermal and hydrologic data, and more recently, with dissolved oxygen data from lakes. The data are typically downloaded 2-4 times a year (not ‘real-time’ data).
 
-## Data edits
+## Site visits
 
-When reviewing the QC reports, it is important to be consistent in how you handle flagged data. As an example, some users do the following -
-
-*	If you are certain a data point is erroneous, delete the measurement and flag 
-as ‘F’. If you are not sure, flag the data as ‘S’ and do not delete. Let the 
-people using the data decide whether to remove questionable measurements from 
-their analysis. 
-
-*	Document that you checked each point flagged as ‘F’ and ‘S’ by adding a data 
-qualifier to the Comment column. Click [here](DataQualifiers_20220210.xlsx) [XLSX] to 
-download a list of example data qualifiers.
-
-*	Leave missing data cells blank.
-
-## Workflow
-
-Click [here](Workflow_QC_report_20220824.pdf) [PDF] for a description of a common workflow
-for reviewing the QC reports.
-
-If you have a backlog of data files from multiple deployments and are wondering 
-how to most efficiently QC the files, click [here](Workflow_DataPileup_20220824.pdf) [PDF] 
-for a description of a workflow that has worked well.
-
-Click [here](SiteVisitChecklist.zip) [ZIP] for a site visit checklist to help ensure 
-that you do not forget to document information that is important for the data QC
-process.
+It helps speed up the Quality Control (QC) process if you follow a checklist during site visits and document anything that might affect the quality of the data (e.g., sensor out of water or buried in sediment, beaver activity, low battery).
+* **Resource:** [Site visit checklist](SiteVisitChecklist.zip) [ZIP] 
 
 ## Sensor configuration
 
 Some people have had problems with air and water sensors being out of sync (
-e.g., one records at 11:00 and the other records at 11:07). If you are deploying
-air and water sensors at a site, make sure they are recording at the same time. 
-This will make data processing faster and easier. If you are using Onset HOBO 
-sensors, click [here](HOBO_ConfigLaunch_20170803.pdf) [PDF] for tips on configuring 
-them in a way that ensures they will record at the same time. 
+e.g., one records at 11:00 and the other records at 11:07). If you are deploying air and water sensors at a site, make sure you configure them so that they are recording at the same time. This will make data processing faster and easier. 
+* **Resource:** [Onset HOBO configuration tips](HOBO_ConfigLaunch_20170803.pdf) [PDF] 
 
-Another issue that sometimes occurs is data overlap (where more than one file 
-has measurements covering part of the same time periods). If you are using Onset
-HOBO sensors, click [here](HOBO_DataDownload_20170823.pdf) [PDF] for procedures to 
-follow during data download to clear sensor memory and avoid overlapping data.
+Another issue that sometimes occurs is data overlap (where more than one file has measurements covering part of the same time periods). Make sure you clear the sensor's memory when you download data and relaunch sensors to avoid overlapping data.
+* **Resource:** [Onset HOBO download and relaunch tips](HOBO_DataDownload_20170823.pdf) [PDF]
+
+## QC workflow
+
+There are generally two scenarios: 1) users QC their data after each download and work with one file per site at a time; or 2) users have a backlog of data that cover multiple deployment periods that they aggregate into one file before performing QC. 
+* **Resources:** Suggested workflows for each scenario:
+  + [Single file](Workflow_QC_report_20220824.pdf) [PDF]
+  + [Multiple files](Workflow_DataPileup_20220824.pdf) [PDF]
+
+## Data edits
+
+When reviewing the QC reports, it is important to be consistent in how you handle flagged data. Here is an example of an approach -
+
+*	If you are certain a data point is erroneous, delete the measurement and flag as ‘F’. If you are not sure, flag the data as ‘S’ and do not delete. Let the people using the data decide whether to remove questionable measurements from their analysis.
+
+*	Document that you checked each point flagged as ‘F’ and ‘S’ by adding a note or data qualifier to the Comment column.
+* **Resource:** [List of example data qualifiers](DataQualifiers_20220210.xlsx) [XLSX]
+
+*	Leave missing data cells as is (vs. deleting)
+
 
 ## Accuracy checks
 
-Accuracy checks are comparisons of discrete or in situ measurements taken in the
-lab and/or in the field with sensor measurements from the closest date/time. The
-sensor measurement should be within the accuracy quoted by the manufacturer (
-e.g., ±0.2°C if you are using the Onset HOBO proV2 sensor). Accuracy checks are 
-used to validate your data, and in some cases, correct for sensor drift. Click 
-[here](EXAMPLE_AccuracyCheckWkst.xlsx) [XLSX] to download an example of an accuracy 
-check worksheet. 
+Accuracy checks are comparisons of discrete or in situ measurements taken in the lab and/or in the field with sensor measurements from the closest date/time. The difference between the sensor and discrete measurements should be within the accuracy quoted by the manufacturer (e.g., ±0.2°C if you are using the Onset HOBO proV2 sensor).
+* **Resource:** [Example accuracy check worksheet](EXAMPLE_AccuracyCheckWkst.xlsx) [XLSX] 
 
 ## Visual checks of time series plots
 
-Visual checks of time series plots are an important part of the QC process. 
-Click [here](PlotQC_WatchList_20220824.pdf) [PDF] to see a compilation of patterns to 
-watch for when interpreting the plots. They include ice cover, beaver activity, 
-leaf packs, dewatering, and dead batteries.
+Visual checks of time series plots are an important part of the QC process. Some issues, such as dewatering, sediment burial, ice cover and beaver activity, show fairly common patterns, and we've been compiling examples of these patterns to help people recognize potential QC issues with their data.
+* **Resource:** [Visual checks](PlotQC_WatchList_20220824.pdf) [PDF]
 
 ## Checking sensor data against other data sources
 
-Some partners have been downloading data from nearby weather stations and USGS gages, as well as modeled
-air temperature and precipitation data from Daymet (
-<a href="https://daymet.ornl.gov/getdata" data-once="external-links protected-links" target="_blank">https://daymet.ornl.gov/getdata<svg class="icon icon--exit is-spaced-before" role="img"> == $0 <title>Exit EPA's website</title><use href="https://www.epa.gov/themes/epa_theme/images/sprite.svg#launch"></use></svg></a>
-), and comparing those data to sensor measurements as part of their QC process.
-Click [here](Daymet_Wx_Gage.zip) [ZIP] for instructional materials.
+Some partners have been downloading data from nearby weather stations and USGS gages, as well as modeled air temperature and precipitation data from sources such as Daymet (<a class="menu__link" href="https://daymet.ornl.gov/getdata" target="_blank">https://daymet.ornl.gov/getdata<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>), and comparing those data to sensor measurements as part of their QC process.
+* **Resource:** [Daymet or USGS gage check](Daymet_Wx_Gage.zip) [ZIP]
 

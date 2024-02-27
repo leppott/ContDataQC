@@ -19,18 +19,15 @@ if(boo_DEBUG==TRUE){
 
 ## Edit Thresholds
 
-Click [here](EditingQCtestThresholds_20220117.pdf) [PDF] for instructions on how to 
-edit thresholds and create customized configuration files. There are two options
-(see below). For either option, save the customized configuration file in a 
-folder that is easy to find so that you can reuse the file each time you QC data
-for that site. It is helpful to include the StationID and other relevant 
-information in the file name (for example, if thresholds are customized for a 
-particular season). 
+[Instructions for editing thresholds](EditingQCtestThresholds_20220117.pdf) [PDF]
 
-After you save the file, go to the 'upload custom thresholds' tab, browse to the
-custom thresholds file, upload the file and then, under 'Run functions', 
-generate the QC reports. If you forget the upload step, the default QC 
-thresholds will be used.
+There are two options for editing thresholds:
+* download the default configuration file, open it in R or Notepad++, make edits and save.
+* use the interactive functions at the bottom of this page. 
+
+For either option, include the StationID and other relevant information in the file name (e.g., perhaps it's customized for a particular season) and save it in a folder that is easy to find since you'll want to reuse the file each time you QC data for that site in the future.
+
+After you save the file, go to the 'upload custom thresholds' tab, browse to the custom thresholds file, upload the file and then, under 'Run functions', generate the QC reports. If you forget the upload step, the default QC thresholds will be used.
 
 ### Option 1, download the default configuration file, open the file in R or Notepad++, make edits and save.
 
@@ -42,15 +39,22 @@ Configuration files can be downloaded here -
 
 Navigate to the ‘QC tests and calculations’ section of the configuration file, which is about halfway through the file. Edit thresholds as desired. Save the file.
 
-When you download the configuration file(s), you will see two types of files: an
-R file (.R) and a text (.txt) file for users who do not have R installed on 
-their computer. You can download R from this website: 
-<a href="https://cran.r-project.org" data-once="external-links protected-links" target="_blank">https://cran.r-project.org<svg class="icon icon--exit is-spaced-before" role="img"> == $0 <title>Exit EPA's website</title><use href="https://www.epa.gov/themes/epa_theme/images/sprite.svg#launch"></use></svg></a>. 
-You may also want to download 
-<a href="https://www.rstudio.com/products/rstudio/download/" data-once="external-links protected-links" target="_blank">RStudio<svg class="icon icon--exit is-spaced-before" role="img"> == $0 <title>Exit EPA's website</title><use href="https://www.epa.gov/themes/epa_theme/images/sprite.svg#launch"></use></svg></a>,
-which is a separate program but is a useful code editor and interface (IDE) for 
-R. If you cannot install R on your computer, we recommend use Notepad or 
-<a href="https://notepad-plus-plus.org/downloads" data-once="external-links protected-links" target="_blank">Notepad++<svg class="icon icon--exit is-spaced-before" role="img"> == $0 <title>Exit EPA's website</title><use href="https://www.epa.gov/themes/epa_theme/images/sprite.svg#launch"></use></svg></a>
+When you download the configuration file(s), you will see two types of files: an R file (.R) and a text (.txt) file for users who do not have R installed on their computer. You can download R from this website: 
+<a class="menu__link" href="https://cran.r-project.org" target="_blank">https://cran.r-project.org<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>. 
+You may also want to download <a class="menu__link" href="https://www.rstudio.com/products/rstudio/download/" target="_blank">RStudio<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>, which is a separate program but is a useful code editor and interface (IDE) for R. If you cannot install R on your computer, we recommend use Notepad or 
+<a class="menu__link" href="https://notepad-plus-plus.org/downloads" target="_blank">Notepad++<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
 (some people prefer Notepad++ because it has color-coding).
 
 
@@ -93,6 +97,3 @@ knitr::kable(df_param_units, caption = cap_param_units)
 ```
 
 If you do not want to use the default units, you will need to use Option 1.
-
-Acknowledgment: Tim Martin (MN DNR) wrote the R code that we used for the 
-interactive functions below.

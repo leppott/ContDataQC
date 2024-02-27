@@ -21,12 +21,14 @@ if(boo_DEBUG==TRUE){
 
 # Discrete Data
 
-Discrete measurements are important for validating your data, and in some cases, can be used to correct for sensor drift. Accuracy checks are comparisons of discrete or in situ measurements taken in the lab and/or in the field with sensor measurements from the closest date/time. The sensor measurement should be within the accuracy quoted by the manufacturer (e.g., ±0.2°C if you are using the Onset HOBO proV2 sensor). Click [here](EXAMPLE_AccuracyCheckWkst.xlsx) [XLSX] to download an example of an accuracy check worksheet.
+Discrete measurements are important for validating your data, and in some cases, can be used to correct for sensor drift. Accuracy checks are comparisons of discrete or in situ measurements taken in the lab and/or in the field with sensor measurements from the closest date/time. The difference between the sensor and discrete measurements should be within the accuracy quoted by the manufacturer (e.g., ±0.2°C if you are using the Onset HOBO proV2 sensor).
+* **Resource:** [Example accuracy check worksheet](EXAMPLE_AccuracyCheckWkst.xlsx) [XLSX]
 
-Discrete (in situ) measurements will be included in the time series plots in the QC reports (see example below) if the user manually enters them into the input file. This should be done after the file has been formatted (for example, after a HOBO file has been run through the Reformat function), via the following steps:
+Discrete (in situ) measurements will be included in the time series plots in the QC reports (see example below) if the user manually enters them into the input file. This should be done after the file has been formatted (for example, after a HOBO file has been run through the Reformat function).
 
+To enter the discrete data -
 * add a new column to the CSV
-* follow this naming scheme for the column heading: parameter name and units, with ‘Discrete’ at the beginning (for example, ‘Discrete Air Temp C’)
-* enter the data into the row that most closely matches the date/time of the sensor measurements 
+* name the column "Discrete" followed by the parameter name and units (for example, ‘Discrete Air Temp C’)
+* enter the data into the row that most closely matches the date/time of the sensor measurement
 
-![Example QC plot with discrete data](RMD_Images/2.3_Discrete_Fig1_20230828.jpg)
+![Example QC plot with discrete data](RMD_Images/2.3_Discrete_Fig1_20230828.jpg){fig-alt="Example QC plot with discrete data.  Scatterplot of Water Temperature (y-axis) against Date (x-axis).  Some values are 'discrete' measurements."}

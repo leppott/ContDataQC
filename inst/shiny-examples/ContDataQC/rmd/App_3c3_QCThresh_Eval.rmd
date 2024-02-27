@@ -19,20 +19,9 @@ if(boo_DEBUG==TRUE){
 
 ## Evaluate Thresholds
 
-If you have one or more years of continuous data for a site, we strongly 
-encourage you to evaluate the performance of the QC test thresholds for each 
-parameter at that site and customize the configuration file if needed.
+If you have one or more years of continuous data for a site, we encourage you to evaluate the performance of the QC test thresholds for each parameter at that site and customize the configuration file if needed. Make sure you consider what units you are using, since units have a large effect on thresholds.
 
-Click [here](EvaluateThresholds.zip) [ZIP] for instructions on how to generate pivot 
-tables and plots to evaluate thresholds for the Unrealistic values ('Gross 
-range') and Spike tests. 
-
-Another option is to use R code written by Tim Martin (Minnesota DNR) to 
-generate statistical outputs that can help inform thresholds for all four QC 
-tests. Click [here](TimMartin_R_ThresholdEval.zip) [ZIP] to download the R scripts and
-instructions. 
-
-To aid with documentation of the threshold evaluation process, click [here](ThresholdsCheckWorksheet_20220826.xlsx) [XLSX] to download an Excel worksheet 
-that lists the default thresholds for each parameter and has a column where you 
-can enter the customized values for a given site as well as rationale for making
-the changes.  When doing this, make sure you consider what units you are using, since units have a large effect on thresholds.
+**Resources for evaluating thresholds:**
+* [Pivot tables and charts](EvaluateThresholds.zip) [ZIP] for evaluating the Unrealistic values ('Gross range') and Spike tests in Excel. 
+* [R code statistics](TimMartin_R_ThresholdEval.zip) [ZIP] that can help inform thresholds for all four QC tests.
+* [Threshold evaluation worksheet](ThresholdsCheckWorksheet_20220826.xlsx) [XLSX] that lists the default thresholds for each parameter and has columns where you enter customized thresholds for one or multiple sites.

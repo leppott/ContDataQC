@@ -13,9 +13,7 @@ knitr::opts_chunk$set(echo = FALSE)
 # miniDOT DO Concatenate
 
 When data are initially downloaded from miniDOT sensors, there are separate 
-.txt files for each day (in this example, 325 individual files). Users have two 
-options for combining them into one CSV file: 1) the **ContDataQC Concatenate** 
-function; or 2) the **PME java app** that comes with the logger.
+.txt files for each day (in this example, 325 individual files). Users have two options for combining them into one CSV file: 1) the **ContDataQC Concatenate** function; or 2) the **PME java app** that comes with the logger.
 
 ## Concatenate Instructions
 
@@ -29,19 +27,11 @@ function; or 2) the **PME java app** that comes with the logger.
 
 *	Unzip/extract the file(s) or else the files won’t be seen as an option to upload to the Reformat function. After file is unzipped, a new folder called ‘miniDOT_cat’ will appear. The original zipped file can be deleted if desired.
 
-## Additional Notes
+## Test files
 
-*	Want to try it yourself? Click [here](TestData_miniDOT.zip) [ZIP] to 
-download miniDOT DO test files.
+[miniDOT test data](TestData_miniDOT.zip) [ZIP] 
 
-*	Why are the DO saturation values all NA? This occurs when no inputs are 
-provided to calculate DO percent saturation.  For more information, please see 
-miniDOT manual or contact the miniDOT support team.
-
-## Example
-
-Example table after performing the **Concatenate** function.
-
+Below is an example of what the output file looks like after running the **Concatenate** function.
 
 ```{r}
 library(readxl)
@@ -49,7 +39,7 @@ library(knitr)
 library(kableExtra)
 # state directories
 table.dir  <- "tables"
-table.file <- "miniDOT_After_Concatenate_20240131.xlsx"
+table.file <- "miniDOT_After_Concatenate_20240226.xlsx"
 table.sheet  <- "Sheet1"
 
 table <- read_excel(file.path(table.dir, table.file), sheet = table.sheet
@@ -62,3 +52,7 @@ table %>%
   kbl() %>% 
   kable_styling(full_width = F, position = "left")
 ```
+
+## Additional Notes
+
+If you're wondering why your DO saturation values are all NA, this occurs when no inputs are provided to calculate DO percent saturation. For more information, please see the miniDOT manual or contact the miniDOT support team.

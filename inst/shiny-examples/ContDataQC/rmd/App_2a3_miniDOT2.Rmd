@@ -44,18 +44,11 @@ ready to run through the QC report function.
 
 -   See below for examples of files before and after reformatting.
 
-## Additional Notes
+## Test files
 
--   Want to try it yourself? Click [here](TestData_miniDOT.zip) [ZIP] to
-    download miniDOT DO test files.
+[miniDOT test data](TestData_miniDOT.zip) [ZIP]
 
-*	Why are the DO saturation values all NA? This occurs when no inputs are 
-provided to calculate DO percent saturation.  For more information, please see 
-miniDOT manual or contact the miniDOT support team.
-
-## Example
-
-Example table before after performing the **Reformat** function.
+Below is an example of what files look like before and after running the **Reformat** function.
 
 **Before**
 
@@ -65,7 +58,7 @@ library(knitr)
 library(kableExtra)
 # state directories
 table.dir  <- "tables"
-table.file <- "miniDOTreformat_ BEFORE_20240131.xlsx"
+table.file <- "miniDOTreformat_ BEFORE_20240226.xlsx"
 table.sheet  <- "Sheet1"
 
 table <- read_excel(file.path(table.dir, table.file), sheet = table.sheet
@@ -89,7 +82,7 @@ library(knitr)
 library(kableExtra)
 # state directories
 table.dir  <- "tables"
-table.file <- "miniDOTreformat_ AFTER_20240131.xlsx"
+table.file <- "miniDOTreformat_ AFTER_20240226.xlsx"
 table.sheet  <- "Sheet1"
 
 table <- read_excel(file.path(table.dir, table.file), sheet = table.sheet
@@ -103,3 +96,6 @@ table %>%
   kable_styling(full_width = F, position = "left")
 ```
 
+## Additional Notes
+
+If you're wondering why your DO saturation values are all NA, this occurs when no inputs are provided to calculate DO percent saturation. For more information, please see the miniDOT manual or contact the miniDOT support team.

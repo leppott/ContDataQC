@@ -23,7 +23,11 @@ if(boo_DEBUG==TRUE){
 
 **Failure to run:** When the Shiny app fails to run, the screen will gray out and the message 'disconnected from the server' will appear. The problem typically stems from a formatting issue with the input file, in particular the Date/Time field. Check your input file, refresh the app and try again. If you still have problems, click the 'contact us' link at the bottom of this page and request assistance. Be prepared to share  a copy of your input file(s) and the error message.
 
-**Speed:** If you have a slow internet connection, you can run ContDataQC as a Shiny app on your local computer and it will likely be faster. Running it locally requires that you have R software and the ContDataQC R package installed on your computer, which can be downloaded from GitHub <a href="https://github.com/leppott/ContDataQC" data-once="external-links protected-links" target="_blank">GitHub<svg class="icon icon--exit is-spaced-before" role="img"> == $0 <title>Exit EPA's website</title><use href="https://www.epa.gov/themes/epa_theme/images/sprite.svg#launch"></use></svg></a>.
+**Speed:** If you have a slow internet connection, you can run ContDataQC as a Shiny app on your local computer and it will likely be faster. Running it locally requires that you have R software and the ContDataQC R package installed on your computer, which can be downloaded from GitHub <a class="menu__link" href="https://github.com/leppott/ContDataQC" target="_blank">GitHub<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>.
 
 **Internet browsers:** This Shiny app has been tested and run successfully with Google Chrome, Firefox and Microsoft Edge. It may be compatible with other browsers but they have not been tested. Google Chrome is most frequently used. Some browsers (like Chrome and Firefox) allow users to specify what folder to download files to, which can be a time saver.
 
@@ -38,10 +42,18 @@ if(boo_DEBUG==TRUE){
 **Usability on phones:** Mobile use of this app is possible although the screen size of a phone may make it impractical.
 
 **Data summary and visualization:** The ContDataSumViz app has more summary and visualization options.
-Shiny app (beta version): <a href="https://contdataqcsumviz_containerized_stg.app.cloud.gov/" data-once="external-links protected-links" target="_blank">https://contdataqcsumviz_containerized_stg.app.cloud.gov/<svg class="icon icon--exit is-spaced-before" role="img"> == $0 <title>Exit EPA's website</title><use href="https://www.epa.gov/themes/epa_theme/images/sprite.svg#launch"></use></svg></a>
+Shiny app (beta version): <a class="menu__link" href="https://contdataqcsumviz_containerized_stg.app.cloud.gov/" target="_blank">https://contdataqcsumviz_containerized_stg.app.cloud.gov/<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
 
-R code: <a href="https://github.com/USEPA/dmap-ContDataQCSumViz" data-once="external-links protected-links" target="_blank">https://github.com/USEPA/dmap-ContDataQCSumViz<svg class="icon icon--exit is-spaced-before" role="img"> == $0 <title>Exit EPA's website</title><use href="https://www.epa.gov/themes/epa_theme/images/sprite.svg#launch"></use></svg></a>
-
+R code: <a class="menu__link" href="https://github.com/USEPA/dmap-ContDataQCSumViz" target="_blank">https://github.com/USEPA/dmap-ContDataQCSumViz<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
+                
 **Downloading USGS gage data:**You can simultaneously download data from different USGS gages but only for the same time period.
 
 **Aggregating files with overlapping dates:** If you run the aggregate function on input files with overlapping date ranges, all records (even duplicates) are included in the output. It is up to the user to identify when these situations are occurring and remove the duplicate rows before running the files through the various functions.

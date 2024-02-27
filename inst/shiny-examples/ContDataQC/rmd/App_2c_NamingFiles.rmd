@@ -21,100 +21,31 @@ if(boo_DEBUG==TRUE){
 
 You have more flexibility with naming files when using the Shiny app vs R 
 package because you can browse to the desired input file(s), whereas the R 
-package searches through files in a specified directory and selects data files 
-based on the file name. Even if you are using the Shiny app, consider using the 
-file naming scheme below since you may decide to use the R package at some point
-in the future. Another reason to use the recommended file naming scheme is 
-because it keeps files well organized and easy to sort. For example, if using 
-HOBO U20 water level loggers, it makes matching air and water sensor files 
-easier during the processing step and helps you identify gaps in the data.
-The recommended file naming scheme is:
+package searches through files in a specified directory and selects data files based on the file name. Even if you are using the Shiny app, consider using the file naming scheme below since you may decide to use the R package at some point in the future. Another reason to use the recommended file naming scheme is because it keeps files well organized and sorts them in chronological order. This is particularly helpful if you are using HOBO U20 water level loggers, as it makes matching air and water sensor files easier during the processing step and helps you identify gaps in the data.
 
-The recommended file naming scheme is: 
+If you are using the R package, there are four components to the file name for single sensor deployments, which are separated by underscores (“_”).
 
 **SiteID_DataType_StartDate_EndDate**
-
-The four components are separated by underscores (“_”).
 
 Example: Hunting_Water_20130426_20130725
 
 * Site ID (no spaces or underscores) = Hunting
 
-*	DataType: Air, Water, AW (air and water sensor data are combined into the same
-file), Gage, DO
+*	Data Type options: Air, Water, AW (air and water sensor data are combined into the same file), Gage, DO
 
 * Date, Start (YYYYMMDD) = 20130426
 
 * Date, End (YYYYMMDD) = 20130725
 
-For multi-depth deployments (e.g., temperature sensors deployed at multiple 
-depths at a lake), depth and units are added to the SiteID, separated by 
-double-dashes as shown below: 
+For multi-sensor deployments (e.g., temperature sensors deployed at multiple depths at a lake), add depth and units or some other differentiating characteristic, such as sensor type, to the SiteID, separated by 
+double-dashes as shown below:
 
-Example: RussWood--01M_TEMP_20130426_20130725
+Example: RussWood--02M_Water_20130426_20130725
 
 Depth can include decimals (for example, 0.1M is ok) and does not need to 
-include leading zeros (either 01M or 1M are acceptable). Units can be upper or 
-lower case (M or m), and abbreviated (M) or spelled out (meters). You can change
-the double-dash separator if desired by customizing the 
-[configuration file](Config_default.zip) [ZIP] (for example, you could change it to a
-tilde ~).
+include leading zeros (either 01M or 1M are acceptable). Units can be upper or lower case (M or m), and abbreviated (M) or spelled out (meters). 
 
-If you are using the Shiny app and have more than one type of sensor deployed at
-the same depth (for example, both a DO and temperature sensor at 2M), you can 
-put the sensor type in the second part of the file name (for example, DataType = 
-TEMP, as shown in the example above, or DataType = DO).
+You can change the double-dash separator if desired by customizing the 
+[configuration file](Config_default.zip) [ZIP] (for example, you could change it to a tilde ~).
 
-Below are examples of files that follow the recommended naming scheme.
-
-Example files from a RMN stream sties, where one temperature sensor was deployed
-on land and the other in the water.  In the AW files, air and water sensore data
-were combined into the same file.
-
-```{r}
-library(readxl)
-library(knitr)
-library(kableExtra)
-# state directories
-table.dir  <- "tables"
-table.file <- "FileNaming_Streams_20240131.xlsx"
-table.sheet  <- "Sheet1"
-
-table <- read_excel(file.path(table.dir, table.file), sheet = table.sheet
-                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
-                     , col_names = TRUE)  
-
-options(knitr.kable.NA = '')
-# kable(table1)
-table %>% 
-  kbl() %>% 
-  kable_styling(full_width = F, position = "left")
-```
-
-Example file for a lake RMN site where temperature sensors were deployed at 
-multiple depths and DO sensors were also deployed.  The two types of sensors
-overlapped at the 2M depth and the second part of the file name (DataType) was
-used to distinguish between the two (TEMP vs. DO).
-
-```{r}
-library(readxl)
-library(knitr)
-library(kableExtra)
-# state directories
-table.dir  <- "tables"
-table.file <- "FileNaming_Lakes_20240131.xlsx"
-table.sheet  <- "Sheet1"
-
-table <- read_excel(file.path(table.dir, table.file), sheet = table.sheet
-                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
-                     , col_names = TRUE)  
-
-options(knitr.kable.NA = '')
-# kable(table1)
-table %>% 
-  kbl() %>% 
-  kable_styling(full_width = F, position = "left")
-```
-
-
-
+If you are using the Shiny app instead of R package, you are not restricted to using the Data Types shown above (Air, Water, AW, etc.). If you have more than one type of sensor deployed at the same depth (e.g., both a DO and temperature sensor at 2M), consider using sensor type in the second part of the file name (for example, RussWood--02M_TEMP_20130426_20130725 or RussWood--02M_DO_20130426_20130725).

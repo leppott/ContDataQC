@@ -47,7 +47,9 @@ HOBO sensor files must first be opened with HOBOware software, then processed an
 
 *	Unzip/extract the file(s) or else the files won’t be seen as an option to upload to the QC report function (Main Functions - QC raw data). After file is unzipped, a new folder called ‘HOBO’ will appear. The original zipped file can be deleted if desired.
 
-Time-saver tip: some internet browsers, like Google Chrome and Mozilla Firefox, allow users to change settings so that users can select which folder to download files to (versus files going to the default Download folder). Click [here](GoogleChrome_TimesaverTips.pdf) [PDF] for instructions on how to set this up in Chrome. With Mozilla Firefox, go to Settings > General > Files and Applications > Check box for “always ask where to save files.” 
+Time-saver tip: some internet browsers, like Google Chrome and Mozilla Firefox, allow users to change settings so that users can select which folder to download files to (versus files going to the default Download folder).
+*	Mozilla Firefox: go to Settings > General > Files and Applications > Check box for “always ask where to save files.” 
+* [Google Chrome file saving tip](GoogleChrome_TimesaverTips.pdf) [PDF] 
 
 Your files are now ready to be run through the QC function!
 Below are examples of what HOBO U20 CSV files look like before and after they are run through the reformat function. The reformat function does the following -
@@ -89,7 +91,7 @@ library(knitr)
 library(kableExtra)
 # state directories
 table.dir  <- "tables"
-table.file <- "HOBOreformat_BEFORE_20240131.xlsx"
+table.file <- "HOBOreformat_BEFORE_20240226.xlsx"
 table.sheet  <- "Sheet1"
 
 table <- read_excel(file.path(table.dir, table.file), sheet = table.sheet
@@ -116,7 +118,7 @@ library(knitr)
 library(kableExtra)
 # state directories
 table.dir  <- "tables"
-table.file <- "HOBOreformat_AFTER_20240131.xlsx"
+table.file <- "HOBOreformat_AFTER_20240226.xlsx"
 table.sheet  <- "Sheet1"
 
 table <- read_excel(file.path(table.dir, table.file), sheet = table.sheet
