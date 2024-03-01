@@ -27,7 +27,7 @@ Below are links to some additional Shiny apps and/or R code that may also be use
 
 ### ContDataSumViz, for summarizing and visualizing QC’d continuous sensor data
 
-Shiny app (beta version): <a class="menu__link" href="https://contdataqcsumviz_containerized_stg.app.cloud.gov/" target="_blank">https://contdataqcsumviz_containerized_stg.app.cloud.gov/<span class="usa-tag external-link__tag" title="Exit EPA Website">
+Shiny app (beta version): <a class="menu__link" href="https://dmap-contdataqcsumviz.app.cloud.gov/" target="_blank">https://dmap-contdataqcsumviz.app.cloud.gov/<span class="usa-tag external-link__tag" title="Exit EPA Website">
                     <span aria-hidden="true">Exit</span>
                     <span class="u-visually-hidden"> Exit EPA Website</span>
                   </span>
@@ -65,7 +65,7 @@ Shiny app: <a class="menu__link" href="https://nalms.shinyapps.io/LakeMonitoR/" 
                   </span>
                 </a>
 
-GitHub: <a class="menu__link" https://github.com/leppott/LakeMonitoR/" target="_blank">https://github.com/leppott/LakeMonitoR/<span class="usa-tag external-link__tag" title="Exit EPA Website">
+GitHub: <a class="menu__link" href="https://github.com/leppott/LakeMonitoR/" target="_blank">https://github.com/leppott/LakeMonitoR/<span class="usa-tag external-link__tag" title="Exit EPA Website">
                     <span aria-hidden="true">Exit</span>
                     <span class="u-visually-hidden"> Exit EPA Website</span>
                   </span>

@@ -33,24 +33,8 @@ When data are initially downloaded from miniDOT sensors, there are separate
 
 Below is an example of what the output file looks like after running the **Concatenate** function.
 
-```{r}
-library(readxl)
-library(knitr)
-library(kableExtra)
-# state directories
-table.dir  <- "tables"
-table.file <- "miniDOT_After_Concatenate_20240226.xlsx"
-table.sheet  <- "Sheet1"
-
-table <- read_excel(file.path(table.dir, table.file), sheet = table.sheet
-                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
-                     , col_names = TRUE)  
-
-options(knitr.kable.NA = '')
-# kable(table1)
-table %>% 
-  kbl() %>% 
-  kable_styling(full_width = F, position = "left")
+```{r, fig.alt="miniDOT DO file after running the Concatenate function."}
+knitr::include_graphics("RMD_Images/miniDOT_AFTER_Concatenate.jpg")
 ```
 
 ## Additional Notes

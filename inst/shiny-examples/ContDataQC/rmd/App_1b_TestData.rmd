@@ -44,4 +44,4 @@ You’ll see two sets of folders. Within each folder are example input and outpu
 
 * **miniDOT_concatenate** - When data are initially downloaded from miniDOT sensors, there are separate .txt files for each day (in this example, 325 individual files). Go to the **Automated Reformat – miniDOT** tab and run the **Concatenate** function to combine them all into one file. 
 
-*	**miniDOT_reformat** – run the combined file through the Reformat function. The function reformats the file so that it is ready to run through the QC report function. Next, go to the Main **Functions-Import Files**s tab, import the reformatted file, run it through the ‘QC raw data’ function, and check the flagged data (edit if needed).
+*	**miniDOT_reformat** – run the combined file through the Reformat function. The function reformats the file so that it is ready to run through the QC report function. Next, go to the Main **Functions-Import Files** tab, import the reformatted file, run it through the ‘QC raw data’ function, and check the flagged data (edit if needed).

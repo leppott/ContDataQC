@@ -22,7 +22,7 @@ library(shinyjs)
 # Sys.setenv(PATH = paste(Sys.getenv("PATH"), "C:\\Rtools\\bin", sep = ";"))
 
 # Version Number
-version <- "2.0.7.9031"
+version <- "2.0.7.9032"
 
 #Maximum individual file size that can be uploaded is 70 MB
 options(shiny.maxRequestSize = 70 * 1024^2)

@@ -23,7 +23,7 @@ if(boo_DEBUG==TRUE){
 
 **Failure to run:** When the Shiny app fails to run, the screen will gray out and the message 'disconnected from the server' will appear. The problem typically stems from a formatting issue with the input file, in particular the Date/Time field. Check your input file, refresh the app and try again. If you still have problems, click the 'contact us' link at the bottom of this page and request assistance. Be prepared to share  a copy of your input file(s) and the error message.
 
-**Speed:** If you have a slow internet connection, you can run ContDataQC as a Shiny app on your local computer and it will likely be faster. Running it locally requires that you have R software and the ContDataQC R package installed on your computer, which can be downloaded from GitHub <a class="menu__link" href="https://github.com/leppott/ContDataQC" target="_blank">GitHub<span class="usa-tag external-link__tag" title="Exit EPA Website">
+**Speed:** If you have a slow internet connection, you can run ContDataQC as a Shiny app on your local computer and it will likely be faster. Running it locally requires that you have R software and the ContDataQC R package installed on your computer, which can be downloaded from <a class="menu__link" href="https://github.com/leppott/ContDataQC" target="_blank">GitHub<span class="usa-tag external-link__tag" title="Exit EPA Website">
                     <span aria-hidden="true">Exit</span>
                     <span class="u-visually-hidden"> Exit EPA Website</span>
                   </span>
@@ -42,7 +42,7 @@ if(boo_DEBUG==TRUE){
 **Usability on phones:** Mobile use of this app is possible although the screen size of a phone may make it impractical.
 
 **Data summary and visualization:** The ContDataSumViz app has more summary and visualization options.
-Shiny app (beta version): <a class="menu__link" href="https://contdataqcsumviz_containerized_stg.app.cloud.gov/" target="_blank">https://contdataqcsumviz_containerized_stg.app.cloud.gov/<span class="usa-tag external-link__tag" title="Exit EPA Website">
+Shiny app (beta version): <a class="menu__link" href="https://dmap-contdataqcsumviz.app.cloud.gov/" target="_blank">https://dmap-contdataqcsumviz.app.cloud.gov/<span class="usa-tag external-link__tag" title="Exit EPA Website">
                     <span aria-hidden="true">Exit</span>
                     <span class="u-visually-hidden"> Exit EPA Website</span>
                   </span>

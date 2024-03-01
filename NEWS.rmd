@@ -22,6 +22,14 @@ cat(paste0("Last Update: ",Sys.time()))
 # Version History
 
 ## v2.0.7.9031
+2024-03-01
+
+* refactor: Update Shiny app
+    + typos
+    + indents
+    + replace some tables with figures
+
+## v2.0.7.9031
 2024-02-27
 
 * refactor: Update Shiny app text and tables, Issue #156
