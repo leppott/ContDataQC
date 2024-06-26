@@ -36,10 +36,12 @@ Edits:
 
 * Replaced lubridate::use_tz with as.POSIXct.
 
+* Added format to avoid loss of time on midnight entries.
+
 * Added serial number as column.
 
-* Swaped order of operations so fail condition is triggered it happens before
-any work is done.
+* Swapped order of operations so if fail condition is triggered it happens
+before any work is done.
 
 * Added working example with data.
 }

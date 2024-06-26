@@ -565,7 +565,7 @@ ContData.env$myThresh.Flat.Lo.WaterP              <- 10
 ContData.env$myThresh.Flat.Tolerance.WaterP       <- 0.001
 ContData.env$myThresh.Flat.Hi.SensorDepth         <- 60
 ContData.env$myThresh.Flat.Lo.SensorDepth         <- 30
-ContData.env$myThresh.Flat.Tolerance.SensorDepth  <- 0.0
+ContData.env$myThresh.Flat.Tolerance.SensorDepth  <- 0.01
 ContData.env$myThresh.Flat.Hi.Discharge           <- ContData.env$myDefault.Flat.Hi * 2
 ContData.env$myThresh.Flat.Lo.Discharge           <- ContData.env$myDefault.Flat.Lo * 2
 ContData.env$myThresh.Flat.Tolerance.Discharge    <- 0.01

@@ -3,9 +3,31 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-03-01 13:34:32.498829
+    #> Last Update: 2024-06-26 15:12:12.624955
 
 # Version History
+
+## v2.0.7.9032
+
+2024-06-26
+
+- fix: Update minidoct_cat() function to display midnight values, Issue
+  \#163
+- refactor: Update config file, Issue \#162
+  - threshold for flat tolerance sensor depth from 0.0 to 0.01
+  - ext
+    - config.ORIG.R
+    - config.COOL.R
+    - config.WARM.R
+    - config.Lakes.metric.R
+  - shiny-examples
+    - Config_Default.R
+    - Config_default.zip
+    - Config_Lakes_meters.zip
+    - Config_Lakes_metric.R
+    - Config_Template.R
+    - Config_Template.zip
+    - Config.R
 
 ## v2.0.7.9031
 
@@ -2261,7 +2283,7 @@ zFun.AggregateData + config docs: DESCRIPTION, Add Remotes for non-CRAN
   printing to the console all 11 parameters being checked. 20170512.
 
 - config.R;
-  ContData.env$myName.Turbidity modified value, ContData.env$myName.Chlorophylla
+  ContData.env$myName.Turbidity modified value,  ContData.env$myName.Chlorophylla
   modified typo in name (and changed value),
   ContData.env$myLab.Chlorophylla modified value typo, ContData.env$myThresh.RoC.SD.number.Chlorophylla
   name fix,

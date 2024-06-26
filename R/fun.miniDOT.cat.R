@@ -17,10 +17,12 @@
 #'
 #' * Replaced lubridate::use_tz with as.POSIXct.
 #'
+#' * Added format to avoid loss of time on midnight entries.
+#'
 #' * Added serial number as column.
 #'
-#' * Swaped order of operations so fail condition is triggered it happens before
-#' any work is done.
+#' * Swapped order of operations so if fail condition is triggered it happens
+#' before any work is done.
 #'
 #' * Added working example with data.
 #'
@@ -46,6 +48,8 @@ minidot_cat <- function(folderpath
                         , savetofolder
                         , local_tz = Sys.timezone(location = TRUE)
                         ) {
+
+  dt_format <- "%Y-%m-%d %H:%M:%S"
 
   if (is.null(savetofolder)) {
 
@@ -80,11 +84,15 @@ minidot_cat <- function(folderpath
 
 
       doreformat=data.frame("Unix.Timestamp"=as.character(datetime)
-                            ,"UTC_Date_._Time"=as.character(datetimeutc)
+                            ,"UTC_Date_._Time"=as.character(format(datetimeutc
+                                                                   , dt_format
+                                                              , usetz = FALSE))
                             # ,"Central.Standard.Time"=as.character(
                             #      lubridate::with_tz(datetimeutc,'US/Central'))
-                            ,"Local.Time" = as.character(as.POSIXct(
-                                datetime, origin = "1970-01-01", tz = local_tz))
+                            ,"Local.Time" = as.character(format(as.POSIXct(datetime
+                                                          , origin = "1970-01-01"
+                                                          , tz = local_tz)
+                                                                , dt_format))
                             ,"Battery"=as.character(batteryformat)
                             ,"Temperature"=as.character(tempformat)
                             ,"Dissolved.Oxygen"=as.character(doformat)

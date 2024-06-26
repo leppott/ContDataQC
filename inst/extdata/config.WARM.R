@@ -43,7 +43,7 @@ ContData.env$myThresh.Flat.Lo.AirBP             <- ContData.env$myDefault.Flat.L
 ContData.env$myThresh.Flat.Tolerance.AirBP      <- 0.001
 ContData.env$myThresh.Flat.Hi.SensorDepth        <- ContData.env$myDefault.Flat.Hi * 2
 ContData.env$myThresh.Flat.Lo.SensorDepth        <- ContData.env$myDefault.Flat.Lo * 2
-ContData.env$myThresh.Flat.Tolerance.SensorDepth <- 0.0
+ContData.env$myThresh.Flat.Tolerance.SensorDepth <- 0.01
 ContData.env$myThresh.Flat.Hi.Discharge         <- ContData.env$myDefault.Flat.Hi * 2
 ContData.env$myThresh.Flat.Lo.Discharge         <- ContData.env$myDefault.Flat.Lo * 2
 ContData.env$myThresh.Flat.Tolerance.Discharge  <- 0.01

@@ -31,15 +31,15 @@ ContDataQC QC function will be generated in the specified output directory.
 \description{
 Format miniDOT concatenate (cat) output for use with
 `ContDataQC` package.   Works on single files.  Imports, modifies, and saves
-the new file.  Data columns with all NA values are removed.
+the combined new file.  Data columns with all NA values are removed.
 }
 \details{
 1. Imports a miniDOT cat output file from a folder.
 Can also use ContDataQC::minidot_cat function.
 
-2. Reformats it using defaults from the ContDataQC config file.
+2. Reformat using defaults from the ContDataQC config file.
 
-3. As a QC step to prevent issues with ContDataQC function any columns that
+3. As a QC step, to prevent issues with ContDataQC function, any columns that
 are all NA will be removed.
 
 4. Exports a CSV to the provided folder for use with ContDataQC.

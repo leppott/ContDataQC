@@ -83,7 +83,7 @@ package directory
 # Set working directory
 myLibrary <- "ContDataQC"
 dir_base <- "C:/Users/Erik.Leppo/OneDrive - Tetra Tech, Inc/MyDocs_OneDrive/GitHub"
-setwd(file.path(dir_base, myLibrary))
+#setwd(file.path(dir_base, myLibrary))
 
 
 # Remove all files in "Results" folder
