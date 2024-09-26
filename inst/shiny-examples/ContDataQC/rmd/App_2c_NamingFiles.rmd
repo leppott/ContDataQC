@@ -1,0 +1,51 @@
+---
+title: "3b Naming Files"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if(boo_DEBUG==TRUE){
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+# Naming Files
+
+You have more flexibility with naming files when using the ContDataQC Shiny app vs the R 
+package because you can browse to the desired input file(s), whereas the R 
+package searches through files in a specified directory and selects data files based on the file name. Even if you are using the Shiny app, consider using the file naming scheme below since you may decide to use the R package at some point in the future. Another reason to use the recommended file naming scheme is because it keeps files well-organized and sorts them in chronological order. This is particularly helpful if you are using HOBO U20 water level loggers, as it makes matching air and water sensor files easier during the processing step and helps you identify gaps in the data.
+
+If you are using the R package, there are four components to the file name for single sensor deployments, which are separated by underscores (“_”).
+
+**SiteID_DataType_StartDate_EndDate**
+
+Example: Hunting_Water_20130426_20130725
+
+* SiteID (no spaces or underscores) = Hunting
+
+*	Data Type options: Air, Water, AW (air and water sensor data are combined into the same file), Gage, DO
+
+* StartDate (YYYYMMDD) = 20130426
+
+* EndDate (YYYYMMDD) = 20130725
+
+For multi-sensor deployments (e.g., temperature sensors deployed at multiple depths at a lake), add depth and units or some other differentiating characteristic, such as sensor type, to the SiteID, separated by 
+double-dashes: for example,
+
+RussWood--02M_Water_20130426_20130725
+
+Depth can include decimals (for example, 0.1M) and does not need to 
+include leading zeros (either 01M or 1M are acceptable). Units can be upper or lower case (M or m), and abbreviated (M) or spelled out (meters). 
+
+You can change the double-dash separator if desired by customizing the 
+[configuration file](Config_default.zip) [ZIP] (for example, you could change it to a tilde ~).
+
+If you are using the ContDataQC Shiny app instead of the R package, you are not restricted to using the Data Types shown above (Air, Water, AW, etc.). If you have more than one type of sensor deployed at the same depth (e.g., both a DO and temperature sensor at 2M), consider using sensor type in the second part of the file name: for example, RussWood--02M_TEMP_20130426_20130725 or RussWood--02M_DO_20130426_20130725.

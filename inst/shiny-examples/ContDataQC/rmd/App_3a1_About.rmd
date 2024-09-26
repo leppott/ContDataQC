@@ -1,0 +1,43 @@
+---
+title: "Main Functions 5a"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if(boo_DEBUG==TRUE){
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+# Workflow
+
+1.	**Select QC flag test thresholds.** Use the default thresholds (**Main Functions >> QC Thresholds >> Default** tab) or upload a customized configuration file (**Main Functions >> QC Thresholds >> Upload Custom Thresholds** tab). If you have one or more years of continuous data for a site, we encourage you to evaluate the performance of the QC test thresholds for each parameter at that site and customize the configuration file if needed. Click **Main Functions >> QC Thresholds >> Evaluate Thresholds** tab for tips on evaluating thresholds. To learn how to edit thresholds, click **Main Functions >> QC Thresholds >> Edit Thresholds** tab.
+
+2.	**Check the configuration file name.** Make sure the correct configuration file has been uploaded prior to running the QC reports.
+
+3.	**Upload the desired input file(s).**
+
+4.	**Run the ‘QC raw data’** function to generate QC reports.
+
+5.	**After the data file(s) are QC’d, users can run them through the Aggregate function** to merge them with other files. The input files need to be from the same site and share common parameters.
+
+6.	**The user can run the aggregated file through the Summary Statistics function** to generate CSV files with an assortment of summary statistics (e.g., min, median, max, quartiles) and a PDF with time series plots for each parameter.
+
+After running each function, users must unzip/extract the files or the files won’t be seen as an option to upload for the next step. After files are unzipped, new folders will automatically appear and the original zipped files can be deleted if desired.
+
+Time-saver tip: some internet browsers, like Google Chrome and Mozilla Firefox, allow users to change settings so that users can select which folder to download files to (versus files going to the default Download folder).
+
+*	Mozilla Firefox: go to Settings > General > Files and Applications > Check box for “always ask where to save files.” 
+
+* [Google Chrome file saving tip](GoogleChrome_TimesaverTips.pdf) [PDF] 
+
+Some users may prefer to use the R code instead of the Shiny app. 
+For more information, see the ‘About - Advanced’ tab 
