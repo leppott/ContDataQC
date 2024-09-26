@@ -1,0 +1,131 @@
+---
+title: "Related Apps"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results = 'asis', echo = FALSE, warning = FALSE, message = FALSE, fig.align = "center")
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if (boo_DEBUG == TRUE) {
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+# Related Apps
+
+Below are links to some additional Shiny apps and/or R code that may also be useful for working with continuous sensor data. Some are stored on the <a class="menu__link" href="https://nalms.shinyapps.io/NALMS_Shiny_Home/" target="_blank">NALMS Shiny server<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>.
+
+### ContDataSumViz, for summarizing and visualizing QC’d continuous sensor data
+
+Shiny app (beta version): <a class="menu__link" href="https://contdatasumviz_2.app.cloud.gov/" target="_blank">ContDataSumViz<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
+
+R code: <a class="menu__link" href="https://github.com/USEPA/dmap-ContDataQCSumViz" target="_blank">GitHub: ContDataSumViz<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
+
+### Logger Processing App, for processing, organizing, and vetting continuous environmental logger data 
+
+This app has the same QC flag tests as ContDataQC plus more, including an interactive plot that allows you to flag or unflag data points.
+
+Shiny app: <a class="menu__link" href="https://nalms.shinyapps.io/logger_processing/" target="_blank">Aquatic Ecological Logger Processing App<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
+
+GitHub: <a class="menu__link" href="https://github.com/mnsentinellakes/logger_processing" target="_blank">GitHub: logger-processing<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
+
+### LakeMonitoR, for summarizing and visualizing QC’d continuous vertical profile data for lakes 
+
+Several of its outputs are based on the rLakeAnalyzer R package (see below).
+
+Shiny app: <a class="menu__link" href="https://nalms.shinyapps.io/LakeMonitoR/" target="_blank">LakeMonitoR<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
+
+GitHub: <a class="menu__link" href="https://github.com/leppott/LakeMonitoR/" target="_blank">GitHub: LakeMonitoR<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
+
+### rLakeAnalyzer, an R package for summarizing and visualizing continuous vertical profile data for lakes
+
+Available online: <a class="menu__link" href="https://CRAN.R-project.org/package=rLakeAnalyzer" target="_blank">rLakeAnalyzer<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
+
+Read, J.S., Hamilton, D.P., Jones, I.D., Muraoka, K., Winslow, L.A., Kroiss, R., Wu, C.H., Gaiser, E., 2011. Derivation of lake mixing and stratification indices from high-resolution lake buoy data. Environmental Modelling & Software 26: 1325e1336.
+
+Winslow, L, J. Read, R. Woolway, J. Brentrup, T. Leach, J. Zwart, S.  Albers, and D. Collinge. 2019. rLakeAnalyzer: Lake Physics Tools. R Package version 1.11.4.1. 
+
+### Regional Monitoring Network (RMN) protocol documents for deploying continuous temperature, water level, or DO sensors and time lapse cameras in streams or lakes
+
+Shiny app: <a class="menu__link" href="https://nalms.shinyapps.io/RMN_Documents/" target="_blank">RMN Documents/<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
+
+### Water Resources for Shiny, a resource for both those who are interested in learning how to create Shiny apps and those who are already experienced with making apps but want to see what other people are doing and what tools and packages are available for the community to use
+
+Available online: <a class="menu__link" href="https://nalms.shinyapps.io/Shiny_for_Water_Resources/" target="_blank">Shiny_for_Water_Resources/<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
+
+### driftR, an R package that corrects drift in water quality data
+
+This package implements either one- or two-point variable data corrections based on the number of standards used to calibrate the sensor of interest, then linearly interpolates the correction over the period of interest.
+
+Available online: <a class="menu__link" href="https://shaughnessyar.github.io/driftR/" target="_blank">GitHub: driftR<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
+
+Shaughnessy, A.R., Prener, C.G. and E.A. Hasenmueller. 2019. An R package for correcting continuous water quality monitoring data for drift. Environmental Monitoring and Assessment 191, 445. 
+<a class="menu__link" href="https://doi.org/10.1007/s10661-019-7586-x" target="_blank">https://doi.org/10.1007/s10661-019-7586-x<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
+
+### R package for detecting outliers
+
+Available online: <a class="menu__link" href="https://cran.r-project.org/web/packages/outliers/outliers.pdf" target="_blank">https://cran.r-project.org/web/packages/outliers/outliers.pdf<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a> [PDF]
+
+Campulova, M., Campula, R. and J. Holesovsky. 2022. An R package for identification of outliers in environmental time series data. Environmental Modelling & Software, Volume 155. <a class="menu__link" href="https://www.sciencedirect.com/science/article/abs/pii/S1364815222001414" target="_blank">https://www.sciencedirect.com/science/article/abs/pii/S1364815222001414<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>

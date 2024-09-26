@@ -1,0 +1,59 @@
+---
+title: "Basic Information"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if(boo_DEBUG==TRUE){
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+# Basic Information
+
+**Requirements:** You do not need R software installed on your computer to run this Shiny app. You only need an internet connection.
+
+**Failure to run:** When the Shiny app fails to run, the screen will gray out and the message 'disconnected from the server' will appear. The problem typically stems from a formatting issue with the input file, in particular the Date/Time field. Check your input file, refresh the application and try again. If you still have problems, click the 'Contact Us' link at the bottom of this page and request assistance. Be prepared to share  a copy of your input file(s) and the error message.
+
+**Speed:** If you have a slow internet connection, you can run ContDataQC as a Shiny app on your local computer and it will likely be faster. Running it locally requires that you have R software and the ContDataQC R package installed on your computer, which can be downloaded from <a class="menu__link" href="https://github.com/USEPA/ContDataQC" target="_blank">GitHub<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>.
+
+**Internet browsers:** This Shiny app has been tested and run successfully with Google Chrome, Firefox and Microsoft Edge. It may be compatible with other browsers but they have not been tested. Google Chrome is most frequently used. Some browsers (like Chrome and Firefox) allow users to specify what folder to download files to, which can save time.
+
+**Limits on input file(s):** The input file size limit is currently set to 70 MB. This can be increased upon request (see Contact Us). There is no limit on the number of files you can upload but the more files you run at once, the longer the processing time. It's often faster and easier to run smaller file batches (e.g., 4 smaller batches of 1 to 5 files versus 20 files all at once).
+
+**Security:** Other people cannot see or download your files from the application. Each time the application is run it is independent from all other versions. That is, each user has their own copy of the app. Once the browser is closed, that version is removed from the server along with all of the uploaded data.
+
+**Simultaneous use:** Because this Shiny app is on a Shiny server, multiple people can use it at the same time.
+
+**Customizing QC test thresholds:** Instructions on how to evaluate and customize thresholds can be found on the **Main Functions >> QC Thresholds page.**
+
+**Usability on phones:** Mobile use of the ContDataQC Shiny app is possible, although the screen size of a phone may make it impractical.
+
+**Data summary and visualization:** The ContDataSumViz Shiny app, which was designed for data visualization and reporting for continuous monitoring data, has more summary and visualization options. A beta version of this Shiny app is available at: <a class="menu__link" 
+href="https://contdatasumviz_2.app.cloud.gov/" target="_blank">ContDataSumViz<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
+
+R code is available at: <a class="menu__link" href="https://github.com/USEPA/dmap-ContDataQCSumViz" target="_blank">GitHub<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>
+                
+**Downloading USGS gage data:**You can simultaneously download data from different USGS gages but only for the same time period.
+
+**Aggregating files with overlapping dates:** If you run the aggregate function on input files with overlapping date ranges, all records (even duplicates) are included in the output. It is up to the user to identify when these situations are occurring and remove the duplicate rows before running the files through the various functions.

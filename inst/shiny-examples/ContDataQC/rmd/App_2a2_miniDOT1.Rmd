@@ -1,0 +1,42 @@
+---
+title: "DataPrep_miniDOT_Cat, 3e"
+output: html_fragment
+---
+```{r setup, include=FALSE}
+# ---
+# title: "DataPrep_miniDOT_Cat"
+# date: '2022-06-01'
+# ---
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# miniDOT DO Concatenate
+
+When data are initially downloaded from miniDOT sensors, there are separate 
+.txt files for each day (in this example, 325 individual files). Users have two options for combining them into one CSV file: 1) the **ContDataQC Concatenate** function; or 2) the **PME java app** that comes with the logger.
+
+## Instructions
+
+* Click the ‘Browse’ button and select all the individual files that you want to combine. The status bar will tell you when the upload is complete (be patient – you may not see anything happen for the first 30 seconds or so, depending on how many files you are uploading).
+
+*	After you select your input file(s), click the ‘Concatenate’ button that appears; a status bar will appear in the lower right corner.
+
+*	After the function is done running, a ‘Download’ button will appear. Click this button.
+
+*	You will be prompted to save a zipped file named ‘miniDOT_cat_date_time’. Save the zipped file in the Data0_Original folder.
+
+*	Unzip/extract the file(s) or the files won’t be seen as an option to upload to the Reformat function. After file is unzipped, a new folder called ‘miniDOT_cat’ will appear. The original zipped file can be deleted if desired.
+
+## Test files
+
+[miniDOT test data](TestData_miniDOT.zip) [ZIP] 
+
+Below is an example of what the output file looks like after running the **Concatenate** function.
+
+```{r, fig.alt="miniDOT DO file after running the Concatenate function."}
+knitr::include_graphics("RMD_Images/miniDOT_AFTER_Concatenate.jpg")
+```
+
+## Additional Notes
+
+If you're wondering why your DO saturation values are all NA, this occurs when no inputs are provided to calculate DO percent saturation. For more information, please see the miniDOT manual or contact the miniDOT support team.
