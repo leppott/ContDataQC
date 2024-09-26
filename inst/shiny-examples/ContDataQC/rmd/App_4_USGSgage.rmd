@@ -1,0 +1,37 @@
+---
+title: "Download USGS gage data"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if(boo_DEBUG==TRUE){
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+# Instructions
+
+You can find USGS gage locations and IDs using the 
+<a class="menu__link" href="https://maps.waterdata.usgs.gov/mapper/index.html" target="_blank">National Water Information System Mapper<span class="usa-tag external-link__tag" title="Exit EPA Website">
+                    <span aria-hidden="true">Exit</span>
+                    <span class="u-visually-hidden"> Exit EPA Website</span>
+                  </span>
+                </a>.
+
+To download data (at the right):
+
+1.  Enter as many USGS station IDs as desired, separated by commas and spaces (e.g., 01187300, 01493000, 01639500).
+
+2.  Enter a starting and ending date for which data will be retrieved; the same date range will be used for every station.
+
+3.  Click the 'Retrieve USGS data' button. A progress bar will appear in the bottom-right of the tab. It will advance as each file is completed (i.e., if you select three stations, it will wait at 0%, jump to 33%, jump to 66%, and then jump to 100%).
+
+4.  After data retrieval completes, a download button will appear. Click the button to download a zip file of the records.
