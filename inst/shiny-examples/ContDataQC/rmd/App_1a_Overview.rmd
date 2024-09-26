@@ -57,11 +57,7 @@ table %>%
 Development of the ContDataQC R Shiny app has been funded by the United States 
 Environmental Protection Agency (EPA) Office of Research and Development (ORD) as part of a larger project to establish Regional Monitoring Networks (RMNs) for freshwater streams and inland lakes. The RMNs are a volunteer, collaborative effort in which entities collect long-term continuous temperature and hydrologic data at targeted sites to detect changes 
 over time. For more information on the RMNs, please refer to the 
-<a class="menu__link" href="https://assessments.epa.gov/global/document/&deid=307973" target="_blank">Regional Monitoring Networks (RMN) to Detect Changing Baselines in Freshwater Wadeable Streams (Final Report)<span class="usa-tag external-link__tag" title="Exit EPA Website">
-                    <span aria-hidden="true">Exit</span>
-                    <span class="u-visually-hidden"> Exit EPA Website</span>
-                  </span>
-                </a>.
+<a class="menu__link" href="https://assessments.epa.gov/global/document/&deid=307973" target="_blank">Regional Monitoring Networks (RMN) to Detect Changing Baselines in Freshwater Wadeable Streams (Final Report)</a>.
 
 ```{r}
 
