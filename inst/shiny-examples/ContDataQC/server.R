@@ -100,6 +100,56 @@ shinyServer(function(input, output, session) {
     return(allFiles_miniDOT_reformat()$datapath)
   })
 
+  # Display Import FileNames----
+
+  output$fn_input_display_config_main <- renderText({
+    #**SAME CODE AS CONFIG**
+
+    #Allows users to use their own configuration/threshold files for QC.
+    #Copies the status of the config file to this event.
+    config_type <- config$x
+
+    if (config_type == "uploaded") {
+    #If a configuration file has been uploaded, the app uses it
+
+      config <- file.path("data", input$configFile$name)
+
+    } else {
+    #If no configuration file has been uploaded, the default is used
+
+      config <- system.file("extdata", "Config.ORIG.R", package="ContDataQC")
+
+    }## IF ~ config_type ~ END
+
+    return(paste0(config_type, "; ", basename(config)))
+
+
+  })## fn_input_display_config
+
+  output$fn_input_display_config_config <- renderText({
+    #**SAME CODE AS MAIN**
+
+    #Allows users to use their own configuration/threshold files for QC.
+    #Copies the status of the config file to this event.
+    config_type <- config$x
+
+    if (config_type == "uploaded") {
+      #If a configuration file has been uploaded, the app uses it
+
+      config <- file.path("data", input$configFile$name)
+
+    } else {
+      #If no configuration file has been uploaded, the default is used
+
+      config <- system.file("extdata", "Config.ORIG.R", package="ContDataQC")
+
+    }## IF ~ config_type ~ END
+
+    return(paste0(config_type, "; ", basename(config)))
+
+
+  })## fn_input_display_config
+
   # Reactive, Main ----
   #Creates a reactive object that stores whether a configuration file has been uploaded
   config <- reactiveValues(
@@ -241,12 +291,13 @@ shinyServer(function(input, output, session) {
   #Creates a summary data.frame as a reactive object.
   #This table includes file name, station ID, start date, end date, and record count.
   table1 <- reactive({
+    # 20230908, drop dates, cols 3 and 4
 
     #Shows the table headings before files are input
     if (is.null(allFiles())) {
 
       #Subsets the columns of the pre-upload data for display
-      nullTable1 <- fileAttribsNull()[c(1:5)]
+      nullTable1 <- fileAttribsNull()[c(1, 2, 5)]
 
       #Sends the empty table to be displayed
       return(nullTable1)
@@ -254,8 +305,8 @@ shinyServer(function(input, output, session) {
 
     #Subsets the file attribute table with just
     #file name, site ID, start date, end date, and number of records
-    summaryTable1 <- fileAttribsFull()[, c(1:5)]
-    colnames(summaryTable1) <- colnames(fileAttribsFull()[c(1:5)])
+    summaryTable1 <- fileAttribsFull()[, c(1, 2, 5)]
+    colnames(summaryTable1) <- colnames(fileAttribsFull()[c(1, 2, 5)])
 
     return(summaryTable1)
   })
@@ -876,7 +927,6 @@ shinyServer(function(input, output, session) {
       #The QCRaw and Summarize functions can be fed individual input files
       #in order to have the progress bar increment after each one is processed
       else {
-
         #Iterates through all the selected files in the data.frame
         #to perform the QC script on them individually
         for (i in seq_len(nrow(allFiles()))) {
@@ -889,7 +939,6 @@ shinyServer(function(input, output, session) {
 
           #Saves the R console output of ContDataQC()
           consoleRow <- capture.output(
-
                           #Runs ContDataQC() on an individual file
                           ContDataQC(operation,
                           fun.myDir.import = file.path(".", "data"),
@@ -1243,7 +1292,7 @@ shinyServer(function(input, output, session) {
 
     if (is.null(console$disp) && is.null(consoleUSGS$disp)){
 
-      beforeRun <- paste("Check here for script messages after running process...")
+      beforeRun <- paste("Check here for script messages after running each process.")
       return(beforeRun)
     }
   })
@@ -1275,7 +1324,8 @@ shinyServer(function(input, output, session) {
   #Shows the "Default" button after a user-selected config file is uploaded
   output$ui.defaultConfig <- renderUI({
     if (is.null(input$configFile)) return()
-    actionButton("defaultConfig", "Return to default configuration file")
+    actionButton("defaultConfig", "Default Config"
+                 , width = "100%")
   })
 
   #Changes the config object status to a file being uploaded
@@ -1318,7 +1368,7 @@ shinyServer(function(input, output, session) {
   # source("www/Config.R")
 
   # Read in dataset
-  df_Config <- read.table("www/Config.R", sep = "|", quote = "")
+  df_Config <- read.table("www/Config_Template.R", sep = "|", quote = "")
 
   # df_Config <- read.table("R/Config.R", sep = "|", quote = "")
 
@@ -1587,12 +1637,12 @@ shinyServer(function(input, output, session) {
 
       ### Chla ####
     } else if (input$QC_Param_Input == "Chla"){
-      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.Chlorophylla,3])
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.Chlorophylla) #df_Config_react$df[Loc.Gross.Fail.Hi.Chlorophylla,3])
       updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.Chlorophylla,3])
-      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.Chlorophylla,3])
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.Chlorophylla) #df_Config_react$df[Loc.Gross.Suspect.Hi.Chlorophylla,3])
       updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.Chlorophylla,3])
-      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.Chlorophylla,3])
-      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.Chlorophylla,3])
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.Chlorophylla) #df_Config_react$df[Loc.Spike.Hi.Chlorophylla,3])
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.Chlorophylla) #df_Config_react$df[Loc.Spike.Lo.Chlorophylla,3])
       updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.Chlorophylla,3])
       updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.Chlorophylla,3])
       updateNumericInput(session, "Flat_Fail", value = (df_Config_react$df[Loc.myDefault.Flat.Hi,3])*2)
@@ -1615,12 +1665,12 @@ shinyServer(function(input, output, session) {
 
       ### Discharge ####
     } else if (input$QC_Param_Input == "Discharge"){
-      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.Discharge,3])
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.Discharge) #df_Config_react$df[Loc.Gross.Fail.Hi.Discharge,3])
       updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.Discharge,3])
-      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.Discharge,3])
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.Discharge) #df_Config_react$df[Loc.Gross.Suspect.Hi.Discharge,3])
       updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.Discharge,3])
-      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.Discharge,3])
-      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.Discharge,3])
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.Discharge)# df_Config_react$df[Loc.Spike.Hi.Discharge,3])
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.Discharge) #df_Config_react$df[Loc.Spike.Lo.Discharge,3])
       updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.Discharge,3])
       updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.Discharge,3])
       updateNumericInput(session, "Flat_Fail", value = (df_Config_react$df[Loc.myDefault.Flat.Hi,3])*2)
@@ -1685,12 +1735,12 @@ shinyServer(function(input, output, session) {
 
       ### SensDepth ####
     } else if (input$QC_Param_Input == "SensDepth"){
-      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.SensorDepth,3])
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.SensorDepth) #df_Config_react$df[Loc.Gross.Fail.Hi.SensorDepth,3])
       updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.SensorDepth,3])
-      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.SensorDepth,3])
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.SensorDepth) #df_Config_react$df[Loc.Gross.Suspect.Hi.SensorDepth,3])
       updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.SensorDepth,3])
-      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.SensorDepth,3])
-      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.SensorDepth,3])
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.SensorDepth) #df_Config_react$df[Loc.Spike.Hi.SensorDepth,3])
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.SensorDepth) #df_Config_react$df[Loc.Spike.Lo.SensorDepth,3])
       updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.SensorDepth,3])
       updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.SensorDepth,3])
       updateNumericInput(session, "Flat_Fail", value = df_Config_react$df[Loc.Flat.Hi.SensorDepth,3])
@@ -1699,12 +1749,12 @@ shinyServer(function(input, output, session) {
 
       ### Turbid ####
     } else if (input$QC_Param_Input == "Turbid"){
-      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.Turbidity,3])
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.Turbidity) #df_Config_react$df[Loc.Gross.Fail.Hi.Turbidity,3])
       updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.Turbidity,3])
-      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.Turbidity,3])
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.Turbidity) #df_Config_react$df[Loc.Gross.Suspect.Hi.Turbidity,3])
       updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.Turbidity,3])
-      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.Turbidity,3])
-      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.Turbidity,3])
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.Turbidity) #df_Config_react$df[Loc.Spike.Hi.Turbidity,3])
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.Turbidity) #df_Config_react$df[Loc.Spike.Lo.Turbidity,3])
       updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.Turbidity,3])
       updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.Turbidity,3])
       updateNumericInput(session, "Flat_Fail", value = (df_Config_react$df[Loc.myDefault.Flat.Hi,3])*2)
@@ -1713,12 +1763,12 @@ shinyServer(function(input, output, session) {
 
       ### WtrLvl ####
     } else if (input$QC_Param_Input == "WtrLvl"){
-      updateNumericInput(session, "GR_Fail_Max", value = df_Config_react$df[Loc.Gross.Fail.Hi.SensorDepth,3])
-      updateNumericInput(session, "GR_Fail_Min", value = df_Config_react$df[Loc.Gross.Fail.Lo.SensorDepth,3])
-      updateNumericInput(session, "GR_Sus_Max", value = df_Config_react$df[Loc.Gross.Suspect.Hi.SensorDepth,3])
-      updateNumericInput(session, "GR_Sus_Min", value = df_Config_react$df[Loc.Gross.Suspect.Lo.SensorDepth,3])
-      updateNumericInput(session, "Spike_Fail", value = df_Config_react$df[Loc.Spike.Hi.SensorDepth,3])
-      updateNumericInput(session, "Spike_Sus", value = df_Config_react$df[Loc.Spike.Lo.SensorDepth,3])
+      updateNumericInput(session, "GR_Fail_Max", value = ContData.env$myThresh.Gross.Fail.Hi.WaterLevel) #df_Config_react$df[Loc.Gross.Fail.Hi.SensorDepth,3])
+      updateNumericInput(session, "GR_Fail_Min", value = ContData.env$myThresh.Gross.Fail.Lo.WaterLevel) #df_Config_react$df[Loc.Gross.Fail.Lo.SensorDepth,3])
+      updateNumericInput(session, "GR_Sus_Max", value = ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel) #df_Config_react$df[Loc.Gross.Suspect.Hi.SensorDepth,3])
+      updateNumericInput(session, "GR_Sus_Min", value = ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel) #df_Config_react$df[Loc.Gross.Suspect.Lo.SensorDepth,3])
+      updateNumericInput(session, "Spike_Fail", value = ContData.env$myThresh.Spike.Hi.WaterLevel) #df_Config_react$df[Loc.Spike.Hi.SensorDepth,3])
+      updateNumericInput(session, "Spike_Sus", value = ContData.env$myThresh.Spike.Lo.WaterLevel) #df_Config_react$df[Loc.Spike.Lo.SensorDepth,3])
       updateNumericInput(session, "RoC_SDs", value = df_Config_react$df[Loc.RoC.SD.number.WaterLevel,3])
       updateNumericInput(session, "RoC_Hrs", value = df_Config_react$df[Loc.RoC.SD.period.WaterLevel,3])
       updateNumericInput(session, "Flat_Fail", value = df_Config_react$df[Loc.Flat.Hi.SensorDepth,3])
@@ -2179,7 +2229,7 @@ shinyServer(function(input, output, session) {
                   , sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
     ### WaterTemp ####
-    } else if(input$QC_Param_Input == "WaterTemp"){
+    } else if (input$QC_Param_Input == "WaterTemp") {
       df_Config_react$df[Loc.Gross.Fail.Hi.WaterTemp, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Hi.WaterTemp <- ", input$GR_Fail_Max)
       df_Config_react$df[Loc.Gross.Fail.Lo.WaterTemp, 1] <- paste0("ContData.env$myThresh.Gross.Fail.Lo.WaterTemp <- ", input$GR_Fail_Min)
       df_Config_react$df[Loc.Gross.Suspect.Hi.WaterTemp, 1] <- paste0("ContData.env$myThresh.Gross.Suspect.Hi.WaterTemp <- ", input$GR_Sus_Max)
@@ -2225,7 +2275,7 @@ shinyServer(function(input, output, session) {
 
   # Enable download button once save button is clicked at least once
   observe({
-    if(input$QC_SaveBttn > 0){
+    if (input$QC_SaveBttn > 0) {
 
       Sys.sleep(1)
       # enable the download button
