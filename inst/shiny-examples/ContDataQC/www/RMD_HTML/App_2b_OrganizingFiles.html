@@ -1,0 +1,175 @@
+
+
+
+<div id="organizing-files" class="section level1">
+<h1>Organizing Files</h1>
+<p>If you do not already have a good system for organizing continuous
+data files, consider setting up a folder for each site, and within each
+site folder, set up subfolders as shown in the table below. A quick way
+to get started is to download this <a href="SiteX_20230828.zip">ready-made set of (empty) folders</a> [ZIP].
+Put this file in the desired directory, unzip it and then replace
+‘SiteX’ with the appropriate site name.</p>
+<p>You have more flexibility with file organization when using the
+ContDataQC Shiny app vs the R package. With the Shiny app, it is not
+necessary to name the folders exactly as shown below because you can
+browse to the desired input files and browse to save the output files to
+the desired location. However, if you decide to use the R package at
+some point, keeping the five ‘Data’ folders (Data0_Original, Data1_RAW,
+Data2_QC, Data3_Aggregated and Data4_Stats) will be important since the
+R code searches in specific folders for input files and outputs files to
+specific directories. Advanced users can modify the default directories
+by editing the configuration file.</p>
+<div id="folder-descriptions" class="section level3">
+<h3>Folder descriptions</h3>
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+Folder name
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Data0_Original
+</td>
+<td style="text-align:left;">
+For .csv files that are exported out of the sensor software (like
+HOBOWare) and need to be reformatted before they can be run through the
+QC function.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data1_RAW
+</td>
+<td style="text-align:left;">
+For formatted .csv files that are ready to run through the QC function.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data2_QC
+</td>
+<td style="text-align:left;">
+After you run the QC function, put the QC reports into this folder. Make
+corrections to the .csv QC files as needed. When you run the Aggregate
+function, you will use the QC’d data files from this folder.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data3_Aggregated
+</td>
+<td style="text-align:left;">
+After you run the Aggregate function to combine the QC’d data files, put
+the output files into this folder. When you run the SummaryStats
+function, you will use the aggregated data files from this folder.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data4_Stats
+</td>
+<td style="text-align:left;">
+After you run the SummaryStats function, put the output files into this
+folder.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FieldForms
+</td>
+<td style="text-align:left;">
+Observations from site visits are very important for the QC process as
+they can provide clues as to why erroneous measurements or changes may
+have occurred (e.g., sensor movement, sensor out of water, sensor buried
+in sediment, vandalism).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+in_situ
+</td>
+<td style="text-align:left;">
+An important QC check (what we call an ‘accuracy check’) involves
+comparing in situ measurements taken during site visits to the closest
+sensor measurement(s). We recommend keeping an accuracy check worksheet
+in this folder (click link in the Discrete Data tab to download an
+example worksheet).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+orig
+</td>
+<td style="text-align:left;">
+If you are overrun with raw files that are not named consistently and
+are poorly organized (for example, sometimes files are saved multiple
+times with different names and in different folders), it may be helpful
+to put all the raw files for a site into one folder, inventory them, and
+then sort them into the appropriate folders.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Photos
+</td>
+<td style="text-align:left;">
+We recommend taking photos from the same locations during each site
+visit. Photographs are important for relocating the sensors and
+documenting changes to the monitoring location.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R_ConfigurationFiles
+</td>
+<td style="text-align:left;">
+Creating customized configuration file(s) for a site allows users to
+adjust QC test thresholds, make changes to units and more. The
+customized file(s) need to be uploaded before running the QC function,
+otherwise the default settings will be used.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SensorFile
+</td>
+<td style="text-align:left;">
+We recommend retaining original sensor files in case you need to go back
+and regenerate certain data. In some situations, it may be helpful to
+add subfolders for each sensor type (for example, with lakes, there may
+be many temperature files mixed in with DO and water level files; in
+these cases, it may be easier to find files if you create subfolders for
+temperature, DO, and water level).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USGSgage
+</td>
+<td style="text-align:left;">
+If there is a nearby, representative USGS gage, we recommend comparing
+sensor hydrologic data to the USGS gage data as an additional QC check.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WxStation
+</td>
+<td style="text-align:left;">
+If there is a nearby, representative weather station, we recommend
+comparing your sensor data to the weather station data as an additional
+QC check. Modeled daily air temperature and precipitation data are also
+available from Daymet and PRISM.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
