@@ -3,7 +3,7 @@ README-ContDataQC
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-04 15:58:54.225115
+    #> Last Update: 2024-10-04 16:28:51.780514
 
 # ContDataQC
 
@@ -16,22 +16,22 @@ data logger with 30 minute intervals.
 
 # Badges
 
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/leppott/ContDataQC/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/USEPA/ContDataQC/graphs/commit-activity)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://cran.r-project.org/web/licenses/MIT)
 
-[![CodeFactor](https://www.codefactor.io/repository/github/leppott/ContDataQC/badge)](https://www.codefactor.io/repository/github/leppott/ContDataQC)
-[![codecov](https://codecov.io/gh/leppott/ContDataQC/branch/master/graph/badge.svg)](https://codecov.io/gh/leppott/ContDataQC)
-[![R-CMD-check](https://github.com/leppott/ContDataQC/workflows/R-CMD-check/badge.svg)](https://github.com/leppott/ContDataQC/actions)
+[![CodeFactor](https://www.codefactor.io/repository/github/USEPA/ContDataQC/badge)](https://www.codefactor.io/repository/github/USEPA/ContDataQC)
+[![codecov](https://codecov.io/gh/USEPA/ContDataQC/branch/master/graph/badge.svg)](https://codecov.io/gh/USEPA/ContDataQC)
+[![R-CMD-check](https://github.com/USEPA/ContDataQC/workflows/R-CMD-check/badge.svg)](https://github.com/USEPA/ContDataQC/actions)
 
 [![GitHub
-issues](https://img.shields.io/github/issues/leppott/ContDataQC.svg)](https://GitHub.com/leppott/ContDataQC/issues/)
+issues](https://img.shields.io/github/issues/USEPA/ContDataQC.svg)](https://GitHub.com/USEPA/ContDataQC/issues/)
 
 [![GitHub
-release](https://img.shields.io/github/release/leppott/ContDataQC.svg)](https://GitHub.com/leppott/ContDataQC/releases/)
+release](https://img.shields.io/github/release/USEPA/ContDataQC.svg)](https://GitHub.com/USEPA/ContDataQC/releases/)
 [![Github all
-releases](https://img.shields.io/github/downloads/leppott/ContDataQC/total.svg)](https://GitHub.com/leppott/ContDataQC/releases/)
+releases](https://img.shields.io/github/downloads/USEPA/ContDataQC/total.svg)](https://GitHub.com/USEPA/ContDataQC/releases/)
 
 # Installation
 
@@ -40,7 +40,7 @@ below.
 
 ``` r
 if(!require(remotes)){install.packages("remotes")}  #install if needed
-remotes::install_github("leppott/ContDataQC")
+remotes::install_github("USEPA/ContDataQC")
 ```
 
 The vignette (big help file) isn’t created when installing from GitHub
@@ -52,7 +52,7 @@ version without the vignettes).
 
 ``` r
 if(!require(remotes)){install.packages("remotes")}  #install if needed
-remotes::install_github("leppott/ContDataQC", force = TRUE, build_vignettes = TRUE)
+remotes::install_github("USEPA/ContDataQC", force = TRUE, build_vignettes = TRUE)
 ```
 
 If dependent libraries do not install you can install them separately.
@@ -199,7 +199,7 @@ build. See above for installing packages.
 
 ``` r
 library(remotes)
-install_github("leppott/ContDataQC", force=TRUE, build_vignettes=TRUE)
+install_github("USEPA/ContDataQC", force=TRUE, build_vignettes=TRUE)
 ```
 
 ## Guide Videos
