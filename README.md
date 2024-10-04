@@ -3,12 +3,16 @@ README-ContDataQC
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-06-15 17:05:50
+    #> Last Update: 2024-10-04 15:58:54.225115
 
 # ContDataQC
 
 Quality control checks on continuous data. Example data is from a HOBO
 data logger with 30 minute intervals.
+
+# R Shiny application (web-version):
+
+<https://shiny.epa.gov/ContDataQC>
 
 # Badges
 
@@ -119,13 +123,13 @@ summary stats.
 The code was presented at the following workshops. And further developed
 under contract to USEPA.
 
--   Oct 2015, SWPBA (Region 4 regional biologist meeting, Myrtle Beach,
-    SC).
+- Oct 2015, SWPBA (Region 4 regional biologist meeting, Myrtle Beach,
+  SC).
 
--   Mar 2016, AMAAB (Region 3 regional biologist meeting, Cacapon, WV).
+- Mar 2016, AMAAB (Region 3 regional biologist meeting, Cacapon, WV).
 
--   Apr 2016, NWQMC (National Water Monitoring Council Conference,
-    Tampa, FL).
+- Apr 2016, NWQMC (National Water Monitoring Council Conference, Tampa,
+  FL).
 
 Functions were developed to help data generators handle data from
 continuous data sensors (e.g., HOBO data loggers).
@@ -182,7 +186,7 @@ much easier to use the code below to call the vignette by name. There is
 also be a link to the vignette at the top of the help index for the
 package.
 
-“C:\\Programs\\R\\R-3.4.2\\library\\ContDataQC\\doc\\ContDataQC_Vignette.html”
+“C:\Programs\R\R-3.4.2\library\ContDataQC\doc\ContDataQC_Vignette.html”
 
 ``` r
 vignette("ContDataQC_Vignette", package="ContDataQC")
@@ -209,13 +213,13 @@ hosted on a companion GitHub site.
 
 YouTube video links below.
 
--   Introduction
-    -   <https://youtu.be/FJAv7g9GPHI>
--   Config
-    -   <https://youtu.be/qbUgPczdfdo>
--   Basic Functions
-    -   <https://youtu.be/zlq1YDPTBsw>
--   Gage Data
-    -   <https://youtu.be/vXyvp9r2tv4>
--   Config File Modifications
-    -   <https://youtu.be/LCHnFs-AdXc>
+- Introduction
+  - <https://youtu.be/FJAv7g9GPHI>
+- Config
+  - <https://youtu.be/qbUgPczdfdo>
+- Basic Functions
+  - <https://youtu.be/zlq1YDPTBsw>
+- Gage Data
+  - <https://youtu.be/vXyvp9r2tv4>
+- Config File Modifications
+  - <https://youtu.be/LCHnFs-AdXc>
