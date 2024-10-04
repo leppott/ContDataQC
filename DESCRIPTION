@@ -1,8 +1,9 @@
 Package: ContDataQC
 Title: Quality Control (QC) of Continous Monitoring Data
-Version: 2.0.7.9005
+Version: 202410
 Authors@R: c(
 	person("Erik W", "Leppo", email="Erik.Leppo@tetratech.com",role=c("aut","cre")),
+	person("Michael", "Pennino", role="ctb"),
 	person("Ann","Roseberry Lincoln", role="ctb"),
 	person("Jen", "Stamp", role="ctb"),
 	person("David", "Gibbs", role="ctb"),
@@ -14,8 +15,8 @@ Depends:
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/leppott/ContDataQC
-BugReports: https://github.com/leppott/ContDataQC/issues
+URL: https://github.com/USEPA/ContDataQC
+BugReports: https://github.com/USEPA/ContDataQC/issues
 Imports:
     dataRetrieval,
     doBy,
