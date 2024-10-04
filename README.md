@@ -3,7 +3,7 @@ README-ContDataQC
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-04 16:28:51.780514
+    #> Last Update: 2024-10-04 16:45:35.744778
 
 # ContDataQC
 
@@ -21,9 +21,9 @@ data logger with 30 minute intervals.
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://cran.r-project.org/web/licenses/MIT)
 
-[![CodeFactor](https://www.codefactor.io/repository/github/USEPA/ContDataQC/badge)](https://www.codefactor.io/repository/github/USEPA/ContDataQC)
+[![CodeFactor](https://www.codefactor.io/repository/github/leppott/ContDataQC/badge)](https://www.codefactor.io/repository/github/leppott/ContDataQC)
 [![codecov](https://codecov.io/gh/USEPA/ContDataQC/branch/master/graph/badge.svg)](https://codecov.io/gh/USEPA/ContDataQC)
-[![R-CMD-check](https://github.com/USEPA/ContDataQC/workflows/R-CMD-check/badge.svg)](https://github.com/USEPA/ContDataQC/actions)
+[![R-CMD-check](https://github.com/leppott/ContDataQC/workflows/R-CMD-check/badge.svg)](https://github.com/leppott/ContDataQC/actions)
 
 [![GitHub
 issues](https://img.shields.io/github/issues/USEPA/ContDataQC.svg)](https://GitHub.com/USEPA/ContDataQC/issues/)
