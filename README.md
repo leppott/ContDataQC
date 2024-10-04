@@ -156,34 +156,6 @@ myDir.BASE <- getwd()
 setwd(myDir.BASE)
 ```
 
-# Planned Updates
-
--   ~~Spell out “AW”” and other abbreviations (e.g.,
-    AirWater). 20170308. On hold.~~
-
--   ~~Gaps in data not always evident in the plots. 20170308.~~
-
--   ~~Use futile.logger to better log output for user. Issue
-    #29. 20170606.~~
-
--   Debug Aggregate operation. 20170919.
-
--   Create CDFs. Similar to code already used in previous analyses by
-    Lei. 20170919.
-
--   PeriodStats(), add number and/or percent of observations above given
-    threshold. 20170919.
-
--   Fix mixed case issue with filenames in “file” versions of QCRaw,
-    Aggregate, and Stats. 20170929.
-
-    -   More check data stuff.
-    -   Update vignette
-    -   Threshold number or pct on plot
-    -   Excel file update (see 9/28/2017 email)
-
--   PeriodStats, standardize range of y-axis for each time period.
-
 # Help
 
 Every function has a help file with a working example. There is also a
