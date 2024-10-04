@@ -21,6 +21,14 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+# v202410
+2024-10-04
+
+* update: EPA version produced for publication in SoftwareX journal.  
+    + R package code did not change
+    + Updates to readme, description, and other similar files. 
+    + link to R shiny app now included
+
 ## v2.0.7.9005
 2022-09-22
 
