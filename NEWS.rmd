@@ -21,8 +21,8 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
-# v202410
-2024-10-04
+# v2.1.0
+2024-10-07
 
 * update: EPA version produced for publication in SoftwareX journal.  
     + R package code did not change

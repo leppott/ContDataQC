@@ -3,13 +3,13 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-04 17:07:21.197062
+    #> Last Update: 2024-10-07 10:08:23.189563
 
 # Version History
 
-# v202410
+# v2.1.0
 
-2024-10-04
+2024-10-07
 
 - update: EPA version produced for publication in SoftwareX journal.
   - R package code did not change
