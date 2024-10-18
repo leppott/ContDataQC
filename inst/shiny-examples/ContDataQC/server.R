@@ -657,6 +657,29 @@ shinyServer(function(input, output, session) {
     #Creates a data.frame for the R console output of the ContDataQC() script
     console$disp <- data.frame(consoleOutput = character())
 
+    # check files for import errors
+    # popup with issues
+    # minidot_cat_warn <- FALSE
+    # tryCatch({result <- read.delim(list.files("miniDOT_cat", full.names = TRUE)[2])}
+    #          ,             )
+    for (f in list.files(file.path("miniDOT_cat"), full.names = TRUE)) {
+      tryCatch({
+        df_test <- read.delim(f, stringsAsFactors = FALSE)
+      }, error = function(e) {
+        # pop up here OR log file name and delete, at end pop up with bad files
+        # end process with pop up
+        msg <- "'INDEX_NAME' column name is missing!"
+        shinyalert::shinyalert(title = "Bad file!"
+                               , text = basename(f)
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      })## tryCatch
+    }## f ~ check files
+
+
+
     withProgress(message = paste("Running, runProcess_miniDOT_reformat"), value = 0, {
 
       #A short pause before the operation begins

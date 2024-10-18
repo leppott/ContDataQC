@@ -3,11 +3,18 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-06-26 15:12:12.624955
+    #> Last Update: 2024-10-18 09:53:59.053843
 
 # Version History
 
-## v2.0.7.9032
+## v2.0.7.9034
+
+2024-10-18
+
+- refactor: Add error message for bad files in miniDOT concatenate in
+  Shiny app
+
+## v2.0.7.9033
 
 2024-06-26
 
@@ -29,7 +36,7 @@ NEWS-ContDataQC
     - Config_Template.zip
     - Config.R
 
-## v2.0.7.9031
+## v2.0.7.9032
 
 2024-03-01
 

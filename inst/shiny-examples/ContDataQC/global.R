@@ -11,6 +11,7 @@ library(zoo)
 library(shinythemes)
 library(zip)
 library(shinyjs)
+library(shinyalert)
 
 ###For downloading new versions of ContDataQC and USGS' DataRetrieval package
 #library(devtools)
@@ -22,7 +23,7 @@ library(shinyjs)
 # Sys.setenv(PATH = paste(Sys.getenv("PATH"), "C:\\Rtools\\bin", sep = ";"))
 
 # Version Number
-version <- "2.0.7.9033"
+version <- "2.0.7.9034"
 
 #Maximum individual file size that can be uploaded is 70 MB
 options(shiny.maxRequestSize = 70 * 1024^2)

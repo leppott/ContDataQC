@@ -58,7 +58,7 @@ function() {
                        # ,h4("4. Download custom thresholds file")
                        ,sidebarLayout(
                          sidebarPanel(#width = 5
-                                     # , style = "position:fixed"#;width:22%"
+                                      # , style = "position:fixed"#;width:22%"
                                       h4("1. Select Parameter")
                                       ,selectInput(inputId = "QC_Param_Input"
                                                    , label = NULL
