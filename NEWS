@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-18 09:53:59.053843
+    #> Last Update: 2024-11-04 13:25:07.843989
 
 # Version History
+
+## v2.0.7.9035
+
+2024-11-04
+
+- refactor: Add pop up on HOBOware reformat for date time conversion
+  - Success and failure
 
 ## v2.0.7.9034
 
