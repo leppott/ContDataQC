@@ -203,6 +203,14 @@ fun.GageData <- function(fun.myData.SiteID
     strFile.Date.End   <- format(max(data.myGage[,ContData.env$myName.DateTime])
                                   ,ContData.env$myFormat.Date)
 
+    # Update DateTime format
+    # 2024-11-14, midnight, 00:00 dropped if don't convert to character using format
+    # data.myGage[, "dt_char"] <- as.character(data.myGage[,ContData.env$myName.DateTime])
+    data.myGage[, ContData.env$myName.DateTime] <- as.character(
+      format(data.myGage[,ContData.env$myName.DateTime]
+             , ContData.env$myFormat.DateTime
+             , usetz = FALSE))
+
     # 10.0. Output file
     # 10.1. Set Name
     File.Date.Start <- format(as.Date(strFile.Date.Start

@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-11-04 13:25:07.843989
+    #> Last Update: 2024-11-14 12:21:43.318815
 
 # Version History
+
+## v2.0.7.9036
+
+2024-11-14
+
+- fix: Update USGS gage data retreival for midnight entries, Issue \#165
+  - Same as miniDOT Issue \#163
 
 ## v2.0.7.9035
 
