@@ -23,7 +23,7 @@ library(shinyalert)
 # Sys.setenv(PATH = paste(Sys.getenv("PATH"), "C:\\Rtools\\bin", sep = ";"))
 
 # Version Number
-version <- "2.0.7.9036"
+version <- "2.0.7.9037"
 
 #Maximum individual file size that can be uploaded is 70 MB
 options(shiny.maxRequestSize = 70 * 1024^2)
@@ -87,21 +87,36 @@ fileParse <- function(inputFile) {
 
   #Changes the table's value to "found" if the
   #parameter is identified
-  waterTemp <- ifelse("Water.Temp.C" %in% colnames(inputFile), txt_f, txt_nf)
-  airTemp   <- ifelse("Air.Temp.C" %in% colnames(inputFile), txt_f, txt_nf)
-  waterPressure <- ifelse("Water.P.psi" %in% colnames(inputFile), txt_f, txt_nf)
-  airPressure <- ifelse("Air.BP.psi" %in% colnames(inputFile), txt_f, txt_nf)
-  sensorDepth <- ifelse("Sensor.Depth.ft" %in% colnames(inputFile), txt_f, txt_nf)
-  discharge  <- ifelse("Discharge.ft3.s" %in% colnames(inputFile), txt_f, txt_nf)
-  waterlevel <- ifelse("Water.Level.ft" %in% colnames(inputFile), txt_f, txt_nf)
-  cond  <- ifelse("Conductivity.uS.cm" %in% colnames(inputFile), txt_f, txt_nf)
-  do    <- ifelse("DO.mg.L" %in% colnames(inputFile), txt_f, txt_nf)
-  do_adj <- ifelse("DO.adj." %in% colnames(inputFile), txt_f, txt_nf)
-  do_pctsat <- ifelse("DO.pctsat.%" %in% colnames(inputFile), txt_f, txt_nf)
-  pH <- ifelse("pH.SU" %in% colnames(inputFile), txt_f, txt_nf)
-  turbidity <- ifelse("Turbidity.NTU" %in% colnames(inputFile), txt_f, txt_nf)
-  chla <- ifelse("Chlorophylla.g.cm3" %in% colnames(inputFile), txt_f, txt_nf)
-
+  # waterTemp <- ifelse("Water.Temp.C" %in% colnames(inputFile), txt_f, txt_nf)
+  # airTemp   <- ifelse("Air.Temp.C" %in% colnames(inputFile), txt_f, txt_nf)
+  # waterPressure <- ifelse("Water.P.psi" %in% colnames(inputFile), txt_f, txt_nf)
+  # airPressure <- ifelse("Air.BP.psi" %in% colnames(inputFile), txt_f, txt_nf)
+  # sensorDepth <- ifelse("Sensor.Depth.ft" %in% colnames(inputFile), txt_f, txt_nf)
+  # discharge  <- ifelse("Discharge.ft3.s" %in% colnames(inputFile), txt_f, txt_nf)
+  # waterlevel <- ifelse("Water.Level.ft" %in% colnames(inputFile), txt_f, txt_nf)
+  # cond  <- ifelse("Conductivity.uS.cm" %in% colnames(inputFile), txt_f, txt_nf)
+  # do    <- ifelse("DO.mg.L" %in% colnames(inputFile), txt_f, txt_nf)
+  # do_adj <- ifelse("DO.adj.mg.L" %in% colnames(inputFile), txt_f, txt_nf)
+  # do_pctsat <- ifelse("DO.pctsat.percent" %in% colnames(inputFile), txt_f, txt_nf)
+  # pH <- ifelse("pH.SU" %in% colnames(inputFile), txt_f, txt_nf)
+  # turbidity <- ifelse("Turbidity.NTU" %in% colnames(inputFile), txt_f, txt_nf)
+  # chla <- ifelse("Chlorophylla.g.cm3" %in% colnames(inputFile), txt_f, txt_nf)
+  # 20241202, modify to use values from config
+  waterTemp <- ifelse(ContData.env$myName.WaterTemp %in% colnames(inputFile), txt_f, txt_nf)
+  airTemp   <- ifelse(ContData.env$myName.AirTemp %in% colnames(inputFile), txt_f, txt_nf)
+  waterPressure <- ifelse(ContData.env$myName.WaterP %in% colnames(inputFile), txt_f, txt_nf)
+  airPressure <- ifelse(ContData.env$myName.AirBP %in% colnames(inputFile), txt_f, txt_nf)
+  sensorDepth <- ifelse(ContData.env$myName.SensorDepth %in% colnames(inputFile), txt_f, txt_nf)
+  discharge  <- ifelse(ContData.env$myName.Discharge %in% colnames(inputFile), txt_f, txt_nf)
+  waterlevel <- ifelse(ContData.env$myName.WaterLevel %in% colnames(inputFile), txt_f, txt_nf)
+  cond  <- ifelse(ContData.env$myName.Cond %in% colnames(inputFile), txt_f, txt_nf)
+  do    <- ifelse(ContData.env$myName.DO %in% colnames(inputFile), txt_f, txt_nf)
+  do_adj <- ifelse(ContData.env$myName.DO.adj %in% colnames(inputFile), txt_f, txt_nf)
+  do_pctsat <- ifelse(ContData.env$myName.DO.pctsat %in% colnames(inputFile), txt_f, txt_nf)
+  pH <- ifelse(ContData.env$myName.pH %in% colnames(inputFile), txt_f, txt_nf)
+  turbidity <- ifelse(ContData.env$myName.Turbidity %in% colnames(inputFile), txt_f, txt_nf)
+  chla <- ifelse(ContData.env$myName.Chlorophylla %in% colnames(inputFile), txt_f, txt_nf)
+ # salinity not included
 
   #Compiles all spreadsheet properties into a single data.frame
   siteDF <- data.frame(siteID

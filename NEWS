@@ -3,9 +3,16 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-11-14 12:21:43.318815
+    #> Last Update: 2024-12-02 10:13:21.357636
 
 # Version History
+
+## v2.0.7.9037
+
+2024-12-02
+
+- fix: Update Shiny file upload parameter check to use names from
+  config, Issue \#166
 
 ## v2.0.7.9036
 
