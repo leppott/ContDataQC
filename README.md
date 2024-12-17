@@ -3,7 +3,7 @@ README-ContDataQC
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-04 16:45:35.744778
+    #> Last Update: 2024-12-16 16:29:26.375795
 
 # ContDataQC
 
@@ -44,11 +44,11 @@ remotes::install_github("USEPA/ContDataQC")
 ```
 
 The vignette (big help file) isn’t created when installing from GitHub
-with the above command. If you want the vignette download the compressed
-file from GitHub and install from that file or install with the command
-below. The “force = TRUE” command is used to ensure the package will
-install over and existing install of the same version (e.g., the same
-version without the vignettes).
+with the above command. If you want the vignette, download the
+compressed file from GitHub and install from that file or install with
+the command below. The “force = TRUE” command is used to ensure the
+package will install over and existing install of the same version
+(e.g., the same version without the vignettes).
 
 ``` r
 if(!require(remotes)){install.packages("remotes")}  #install if needed
@@ -183,7 +183,7 @@ help(package="ContDataQC")
 The vignette file is located in the “doc” directory of the library in
 the R install folder. Below is the path to the file on my PC. But it is
 much easier to use the code below to call the vignette by name. There is
-also be a link to the vignette at the top of the help index for the
+also a link to the vignette at the top of the help index for the
 package.
 
 “C:\Programs\R\R-3.4.2\library\ContDataQC\doc\ContDataQC_Vignette.html”
