@@ -209,7 +209,7 @@ https://github.com/USEPA/ContDataQC/tree/main/inst/_vignettes
 
 Or, in the following general path after downloading the package:
 
-"~ContDataQC\inst\_vignettes"
+"~ContDataQC\inst\\_vignettes"
 
 ## Guide Videos
 
