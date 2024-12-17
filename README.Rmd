@@ -195,6 +195,15 @@ library(remotes)
 install_github("USEPA/ContDataQC", force=TRUE, build_vignettes=TRUE)
 ```
 
+If the vignettes still do not show on your computer, there are pre-loaded html copies 
+of the vignettes located in the following GitHub folder:
+
+https://github.com/USEPA/ContDataQC/tree/main/inst/_vignettes
+
+Or, in the following general path after downloading the package:
+
+"~ContDataQC\\inst\\_vignettes"
+
 ## Guide Videos
 Guide videos were created for the ContDataQC package and posted on YouTube.  
 The Powerpoint slides (pptx), R code notebooks (html), and videos are hosted on 
