@@ -3,9 +3,15 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-12-17 08:49:02.377954
+    #> Last Update: 2024-12-17 09:14:27.476666
 
 # Version History
+
+## v2.0.7.9039
+
+2024-12-17
+
+- docs: Add vignettes to inst folder so can link to from GitHub
 
 ## v2.0.7.9038
 
