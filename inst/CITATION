@@ -1,0 +1,20 @@
+citHeader("To cite ContDataQC in publications use:")
+
+bibentry(
+  bibtype  = "Article",
+  title    = "ContDataQC",
+  author   = personList(as.person()),
+  year     = ,
+
+  textVersion =
+  paste("Leppo, E.W., ",
+       "ContDataQC -- An R package for "
+)
+
+
+person("Erik W", "Leppo"),
+	person("Ann","Roseberry Lincoln"),
+	person("Jen", "Stamp"),
+	person("David", "Gibbs"),
+	person("Ben", "Block"),
+	person("Yadong", "Xu")

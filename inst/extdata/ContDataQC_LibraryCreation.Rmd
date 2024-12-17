@@ -25,8 +25,9 @@ Package related code.
 
 ```{r Vignette_Data, eval=FALSE}
 # 1. change wd to vignettes
-setwd(file.path("C:","Users","Erik.Leppo","OneDrive - Tetra Tech, Inc"
-                ,"MyDocs_OneDrive","GitHub","ContDataQC","vignettes"))
+# setwd(file.path("C:","Users","Erik.Leppo","OneDrive - Tetra Tech, Inc"
+#                 ,"MyDocs_OneDrive","GitHub","ContDataQC","vignettes"))
+setwd("vignettes")
 #
 # 2. Add data for vignette examples
 # Parameters
@@ -82,7 +83,7 @@ package directory
 ```{r, eval=FALSE}
 # Set working directory
 myLibrary <- "ContDataQC"
-dir_base <- "C:/Users/Erik.Leppo/OneDrive - Tetra Tech, Inc/MyDocs_OneDrive/GitHub"
+dir_base <- "C:/Users/Erik.Leppo/Documents/GitHub"
 #setwd(file.path(dir_base, myLibrary))
 
 
