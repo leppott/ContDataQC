@@ -404,7 +404,7 @@ ContData.env$myFlagVal.Order   <- c(ContData.env$myFlagVal.Pass
 #myNames.QCTests.Calcs.combo <- as.vector(t(outer(myNames.QCTests,myNames.QCTests.Calcs,paste,sep=".")))
 # combine so can check for and remove later.
 #myNames.DataFields.QCTests.Calcs.combo <- as.vector(t(outer(myNames.DataFields,myNames.QCTests.Calcs.combo,paste,sep=".")))
-# Data Quality Flag Thresholds
+# Data Quality Flag Thresholds ####
 # _QC, Gross----
 ## Gross Min/Max, Fail (equipment)
 ### Examines values as outliers versus threholds
