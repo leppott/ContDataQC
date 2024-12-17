@@ -399,7 +399,7 @@ ContData.env$myFlagVal.Order   <- c(ContData.env$myFlagVal.Pass
                                     , ContData.env$myFlagVal.Fail
                                     , ContData.env$myFlagVal.NoData)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# QC Tests and Calculations ####
+# QC Tests and Calculations (Thresholds) ####
 #http://stackoverflow.com/questions/16143700/pasting-two-vectors-with-combinations-of-all-vectors-elements
 #myNames.QCTests.Calcs.combo <- as.vector(t(outer(myNames.QCTests,myNames.QCTests.Calcs,paste,sep=".")))
 # combine so can check for and remove later.
