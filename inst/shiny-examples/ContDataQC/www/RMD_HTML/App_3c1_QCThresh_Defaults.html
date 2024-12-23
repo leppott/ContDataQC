@@ -10,7 +10,7 @@ used for the four QC flag tests.</p>
 following four ‘flag’ tests.</p>
 <div id="flag-test-descriptions" class="section level3">
 <h3>Flag test descriptions</h3>
-<table class="table" style="width: auto !important; ">
+<table class="table" style="color: black; width: auto !important; ">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -108,7 +108,7 @@ of 2023-08-28.</p>
 </div>
 <div id="default-qc-test-thresholds" class="section level3">
 <h3>Default QC test thresholds</h3>
-<table class="table" style="width: auto !important; ">
+<table class="table" style="color: black; width: auto !important; ">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -321,7 +321,7 @@ Fail
 &gt; 18 or &lt; 1
 </td>
 <td style="text-align:left;">
-&gt;= 10 (±)
+&gt;= 4 (±)
 </td>
 <td style="text-align:left;">
 </td>
@@ -341,7 +341,93 @@ Suspect
 &gt; 16 or &lt; 2
 </td>
 <td style="text-align:left;">
-&gt;= 5 (±)
+&gt;= 2 (±)
+</td>
+<td style="text-align:left;">
+≥6 stdev within 25 hrs
+</td>
+<td style="text-align:left;">
+&gt; 30 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dissolved oxygen, Adjusted
+</td>
+<td style="text-align:left;">
+mg/L
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+&gt; 18 or &lt; 1
+</td>
+<td style="text-align:left;">
+&gt;= 4 (±)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+&gt; 60 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Suspect
+</td>
+<td style="text-align:left;">
+&gt; 16 or &lt; 2
+</td>
+<td style="text-align:left;">
+&gt;= 2 (±)
+</td>
+<td style="text-align:left;">
+≥6 stdev within 25 hrs
+</td>
+<td style="text-align:left;">
+&gt; 30 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dissolved oxygen, percent saturation
+</td>
+<td style="text-align:left;">
+%
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+&gt;120 or &lt; -1
+</td>
+<td style="text-align:left;">
+&gt;= 25 (±)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+&gt; 60 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Suspect
+</td>
+<td style="text-align:left;">
+&gt;100 or &lt; 0
+</td>
+<td style="text-align:left;">
+&gt;= 10 (±)
 </td>
 <td style="text-align:left;">
 ≥6 stdev within 25 hrs
@@ -600,6 +686,49 @@ Suspect
 </td>
 <td style="text-align:left;">
 ≥10^3 (±)
+</td>
+<td style="text-align:left;">
+≥6 stdev within 25 hrs
+</td>
+<td style="text-align:left;">
+&gt; 30 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Salinity
+</td>
+<td style="text-align:left;">
+ppt
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+&gt; 41 or &lt; 2
+</td>
+<td style="text-align:left;">
+&gt;= 5 (±)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+&gt; 60 consecutive measurements within 0.01 units of one another
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Suspect
+</td>
+<td style="text-align:left;">
+&gt; 37 or &lt; 3
+</td>
+<td style="text-align:left;">
+&gt;= 3 (±)
 </td>
 <td style="text-align:left;">
 ≥6 stdev within 25 hrs
