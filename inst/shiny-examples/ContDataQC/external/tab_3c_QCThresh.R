@@ -8,8 +8,8 @@
 function() {
 
   tabPanel("QC Thresholds"
-        , mainPanel(
-          tabsetPanel(type = "tabs"
+        # , mainPanel(
+         , tabsetPanel(type = "tabs"
             # 3c1. Default----
             , tabPanel("Default"
                        , includeHTML("www/RMD_HTML/App_3c1_QCThresh_Defaults.html")
@@ -58,7 +58,7 @@ function() {
                        # ,h4("4. Download custom thresholds file")
                        ,sidebarLayout(
                          sidebarPanel(#width = 5
-                                      # , style = "position:fixed"#;width:22%"
+                                      #, style = "position:fixed"#;width:22%"
                                       h4("1. Select Parameter")
                                       ,selectInput(inputId = "QC_Param_Input"
                                                    , label = NULL
@@ -175,7 +175,7 @@ function() {
                                      # , p(paste("Note: The downloaded file must be reuploaded"))
                                      # , downloadButton(outputId = "QC_Thresh_Download"
                                      #                  , label = "Download custom thresholds file")
-                         )## mainPanel ~ END
+                         # )## mainPanel ~ END
                        )# sidebarLayout~ END
             ) ## tabPanel ~ Edit Thresh
 

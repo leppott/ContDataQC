@@ -3,9 +3,17 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-12-17 09:14:27.476666
+    #> Last Update: 2024-12-23 15:40:30.505169
 
 # Version History
+
+## v2.0.7.9040
+
+2024-12-23
+
+- refactor: Remove extra mainPanel on 3c (Main_QCThresh_EditThresh)
+  - Reclaim blank screen space
+  - Space reserved for mainPanel not being used
 
 ## v2.0.7.9039
 
