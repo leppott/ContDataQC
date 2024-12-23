@@ -3,9 +3,24 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-12-23 15:40:30.505169
+    #> Last Update: 2024-12-23 16:25:53.162752
 
 # Version History
+
+## v2.0.7.9042
+
+2024-12-23
+
+- refactor: Text edits of flags in Report_QC.rmd
+- refactor: Update Report_QC.rmd in shiny rmd folder
+
+## v2.0.7.9041
+
+2024-12-23
+
+- refactor: Update thresholds display table
+  - DO Spike
+  - Add DO Adj, DO % Sat, and Salinity
 
 ## v2.0.7.9040
 
