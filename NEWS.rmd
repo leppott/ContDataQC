@@ -21,6 +21,11 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.7.9043
+2024-12-23
+
+* refactor: Update workflow step 2 text (3a1_About)
+
 ## v2.0.7.9042
 2024-12-23
 

@@ -3,9 +3,15 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-12-23 16:25:53.162752
+    #> Last Update: 2024-12-23 16:29:24.101959
 
 # Version History
+
+## v2.0.7.9043
+
+2024-12-23
+
+- refactor: Update workflow step 2 text (3a1_About)
 
 ## v2.0.7.9042
 

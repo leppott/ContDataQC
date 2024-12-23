@@ -21,7 +21,7 @@ if(boo_DEBUG==TRUE){
 
 1.	**Select QC flag test thresholds.** Use the default thresholds ('Main - QC Thresholds - Default' tab) or upload a customized configuration file ('Main - QC Thresholds - Upload Custom Thresholds' tab). If you have one or more years of continuous data for a site, we encourage you to evaluate the performance of the QC test thresholds for each parameter at that site and customize the configuration file if needed. Click 'Main - QC Thresholds - Evaluate Thresholds' tab for tips on evaluating thresholds. To learn how to edit thresholds, click 'Main - QC Thresholds - Edit Thresholds' tab.
 
-2.	**Check the configuration file name.** Make sure the correct configuration file has been uploaded prior to running the QC reports.
+2.	**Check the configuration file name.** Under Run Functions (gray box, step 2), it will show the configuration file name that will be used for the QC tests. Check to make sure the correct file is being used. If you don’t upload a custom file, it will read 'default'.
 
 3.	**Upload the desired input file(s).**
 
