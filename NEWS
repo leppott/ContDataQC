@@ -3,9 +3,15 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-12-23 16:40:09.429273
+    #> Last Update: 2024-12-26 12:35:08.668478
 
 # Version History
+
+## v2.0.7.9045
+
+2024-12-26
+
+- fix: Update link to Shinay 3c3_QCThresh_Eval
 
 ## v2.0.7.9044
 

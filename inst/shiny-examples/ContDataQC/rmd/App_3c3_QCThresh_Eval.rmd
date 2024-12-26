@@ -27,4 +27,4 @@ If you have one or more years of continuous data for a site, we encourage you to
 
 * [R code statistics](TimMartin_R_ThresholdEval.zip) [ZIP] that can help inform thresholds for all four QC tests.
 
-* [Threshold evaluation worksheet](ThresholdsCheckWorksheet_2020925.xlsx) [XLSX] that lists the default thresholds for each parameter and has columns where you enter customized thresholds for one or multiple sites.
+* [Threshold evaluation worksheet](ThresholdsCheckWorksheet_20240925.xlsx) [XLSX] that lists the default thresholds for each parameter and has columns where you enter customized thresholds for one or multiple sites.
