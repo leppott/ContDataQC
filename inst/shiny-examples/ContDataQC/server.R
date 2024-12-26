@@ -588,36 +588,40 @@ shinyServer(function(input, output, session) {
         )## consoleRow ~ END
 
         #~~~
-        # testing, 2024-11-04
-        df_test <-  utils::read.delim(file.path("HOBO", fileNameVector)
+        # testing, 2024-11-04 (update for multiple files 20241226)
+        for(t in fileNameVector) {
+          df_test <-  utils::read.delim(file.path("HOBO", t)
                                       , skip = 0
                                       , header = TRUE
                                       , sep = ","
                                       , check.names = FALSE
                                       , stringsAsFactors = FALSE)
-        # pop up
-        na_date <- is.na(df_test[,ContData.env$myName.DateTime])
-        if (any(na_date)) {
           # pop up
-          n_na <- sum(na_date)
-          msg <- paste0("Some 'Date Time' records did not convert!\n\n"
-                        , n_na, " / ", nrow(df_test), " records converted to 'NA'.\n\n"
-                        , "The user specified format '"
-                        , HOBO_DateFormat_User
-                        , "' "
-                        , "did not match the data.\n\n"
-                        , "Try another format and/or check your data in Notepad "
-                        , "(or other similar text editor).  "
-                        , "Avoid Excel as it doesn't show dates or times 'as is'.")
-        } else {
-          msg <- "Date Time converted without issues."
-        }## IF ~ any NA in datetime
-        shinyalert::shinyalert(title = "HOBOware Date Time Conversion"
-                               , text = msg
-                               , type = "info"
-                               , closeOnEsc = TRUE
-                               , closeOnClickOutside = TRUE)
-        validate(msg)
+          na_date <- is.na(df_test[,ContData.env$myName.DateTime])
+           if (any(na_date)) {
+             # pop up
+             n_na <- sum(na_date)
+             msg <- paste0("Some 'Date Time' records did not convert!\n\n"
+                           , t, "\n\n"
+                           , n_na, " / ", nrow(df_test), " records converted to 'NA'.\n\n"
+                           , "The user specified format '"
+                           , HOBO_DateFormat_User
+                           , "' "
+                           , "did not match the data.\n\n"
+                           , "Try another format and/or check your data in Notepad "
+                           , "(or other similar text editor).  "
+                           , "Avoid Excel as it doesn't show dates or times 'as is'.")
+           } else {
+             msg <- paste0(t, "\n\n"
+                           , "Date Time converted without issues.")
+           }## IF ~ any NA in datetime
+           shinyalert::shinyalert(title = "HOBOware Date Time Conversion"
+                                  , text = msg
+                                  , type = "info"
+                                  , closeOnEsc = TRUE
+                                  , closeOnClickOutside = TRUE)
+           validate(msg)
+        }## FOR ~ t
         #~~~
 
         #Appends the R console output generated from that input file to the

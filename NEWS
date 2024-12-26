@@ -3,9 +3,15 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-12-26 12:35:08.668478
+    #> Last Update: 2024-12-26 13:39:53.643252
 
 # Version History
+
+## v2.0.7.9046
+
+2024-12-26
+
+- fix: Update shinyalert for HOBO reformat for multiple files
 
 ## v2.0.7.9045
 
@@ -17,7 +23,7 @@ NEWS-ContDataQC
 
 2024-12-23
 
-- refactor: Update Excel file in Shinay 3c3_QCThresh_Eval
+- refactor: Update Excel file in Shiny 3c3_QCThresh_Eval
 
 ## v2.0.7.9043
 
