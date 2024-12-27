@@ -3,15 +3,24 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-12-26 13:39:53.643252
+    #> Last Update: 2024-12-27 08:13:47.849707
 
 # Version History
+
+## v2.0.7.9047
+
+2024-12-27
+
+- fix: Update shinyalalert for HOBO reformat, Issue \#164
+  - Shiny removes empty directories, add ‘remove.text’ file before
+    upload
 
 ## v2.0.7.9046
 
 2024-12-26
 
-- fix: Update shinyalert for HOBO reformat for multiple files
+- fix: Update shinyalert for HOBO reformat for multiple files, Issue
+  \#164
 
 ## v2.0.7.9045
 
@@ -84,7 +93,8 @@ NEWS-ContDataQC
 
 2024-11-04
 
-- refactor: Add pop up on HOBOware reformat for date time conversion
+- refactor: Add pop up on HOBOware reformat for date time conversion,
+  Issue \#164
   - Success and failure
 
 ## v2.0.7.9034

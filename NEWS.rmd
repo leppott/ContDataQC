@@ -21,10 +21,18 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v2.0.7.9047
+2024-12-27
+
+* fix: Update shinyalalert for HOBO reformat, Issue #164
+    + Shiny removes empty directories, add 'remove.text' file before upload
+* tests: Add code to library creation script to add temp file to HOBO folder
+    + Avoid having empty directory removed during upload to ShinyApps.io
+
 ## v2.0.7.9046
 2024-12-26
 
-* fix: Update shinyalert for HOBO reformat for multiple files
+* fix: Update shinyalert for HOBO reformat for multiple files, Issue #164
 
 ## v2.0.7.9045
 2024-12-26
@@ -85,7 +93,7 @@ cat(paste0("Last Update: ",Sys.time()))
 ## v2.0.7.9035
 2024-11-04
 
-* refactor: Add pop up on HOBOware reformat for date time conversion
+* refactor: Add pop up on HOBOware reformat for date time conversion, Issue #164
     + Success and failure
 
 ## v2.0.7.9034

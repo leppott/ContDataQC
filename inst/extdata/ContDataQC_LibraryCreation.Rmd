@@ -101,6 +101,12 @@ fn_copy    <- "remove.txt"
 path_from  <- file.path(path_shiny, "external", fn_copy)
 path_to    <- file.path(path_shiny, "data", fn_copy)
 file.copy(path_from, path_to)
+# also HOBO folder
+file.remove(list.files(file.path(path_shiny, "HOBO"),
+                       full.names = TRUE,
+                       include.dirs = TRUE,
+                       recursive = TRUE))
+file.copy(path_from, file.path(path_shiny, "HOBO", fn_copy))
 
 # NEWS
 # Render then Copy NEWS so picked up in help
