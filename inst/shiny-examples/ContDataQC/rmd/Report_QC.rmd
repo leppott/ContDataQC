@@ -200,7 +200,7 @@ if(boo_DEBUG==TRUE){
 # FLAGS
 Each data point is checked by each of the four QC tests below. 
 
-* **Unrealistic values (Gross range):** Entries are flagged fi values are above or below
+* **Unrealistic values (Gross range):** Entries are flagged if values are above or below
 upper or lower limits.
 * **Spikes:** Entries are flagged if adjacent points change by more than 'x' amount.
 * **Rate of Change (RoC):** Entries are flagged if the RoC exceeds a given threshold (e.g., >= 3 standard deviations within 25 hours).

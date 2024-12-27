@@ -3,9 +3,17 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-12-27 08:13:47.849707
+    #> Last Update: 2024-12-27 14:04:51.728046
 
 # Version History
+
+## v2.0.7.9048
+
+2024-12-27
+
+- refactor: Fix typo in Report_QC.rmd, Issue \#167
+  - inst/rmd
+  - inst/shiny-examples/ContDataQC/rmd
 
 ## v2.0.7.9047
 
@@ -14,6 +22,9 @@ NEWS-ContDataQC
 - fix: Update shinyalalert for HOBO reformat, Issue \#164
   - Shiny removes empty directories, add ‘remove.text’ file before
     upload
+- tests: Add code to library creation script to add temp file to HOBO
+  folder
+  - Avoid having empty directory removed during upload to ShinyApps.io
 
 ## v2.0.7.9046
 
