@@ -3,9 +3,15 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-12-27 14:04:51.728046
+    #> Last Update: 2025-01-02 14:40:32.353055
 
 # Version History
+
+## v2.0.7.9049
+
+2025-01-02
+
+- refactor: Update HOBO U20 example data file
 
 ## v2.0.7.9048
 
