@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
-# Version History
+# Version History 
 
 # v2.1.0
 2024-10-07
