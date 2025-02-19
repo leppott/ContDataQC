@@ -1,7 +1,7 @@
 NEWS-ContDataQC
 ================
 
-<!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
+<!-- NEWS.md is generated from NEWS.Rmd. Please edit that file --> 
 
     #> Last Update: 2024-10-07 10:08:23.189563
 
