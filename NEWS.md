@@ -5,7 +5,7 @@ NEWS-ContDataQC
 
     #> Last Update: 2024-10-07 10:08:23.189563
 
-# Version History
+# Version History 
 
 # v2.1.0
 
