@@ -52,9 +52,11 @@ tab_5b_Console    <- source("external/tab_5b_Console.R", local = TRUE)$value
 # 3 places to edit: title, UI code, date (~500)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# require(shiny)
 
-# ui <- fluidPage(
+# # require(shiny)
+#
+# # ui <- fluidPage(
+
 shinyUI(fluidPage(
   tags$html(class = "no-js", lang="en"),
   tags$head(
