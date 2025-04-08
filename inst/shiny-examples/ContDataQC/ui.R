@@ -276,7 +276,7 @@ shinyUI(fluidPage(
             <div class="web-area-title"></div>
           </div>
           <div class="l-page__header-last">
-            <a href="#" class="header-link">Contact Us</a>
+            <a href="https://www.epa.gov/rmn/forms/contact-us-about-regional-monitoring-networks-rmns" class="header-link">Contact Us</a>
           </div>
         </div>
         <article class="article">'
@@ -339,7 +339,7 @@ shinyUI(fluidPage(
     </div>
     <div class="l-page__footer">
       <div class="l-constrain">
-        <p><a href="#">Contact Us</a> to ask a question, provide feedback, or report a problem.</p>
+        <p><a href="https://www.epa.gov/rmn/forms/contact-us-about-regional-monitoring-networks-rmns">Contact Us</a> to ask a question, provide feedback, or report a problem.</p>
       </div>
     </div>
   </div>'
