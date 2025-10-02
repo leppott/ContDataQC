@@ -3,11 +3,43 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-01-02 14:40:32.353055
+    #> Last Update: 2025-10-02 17:08:28.016728
 
 # Version History
 
-## v2.0.7.9049
+# v2.1.0.9002
+
+2025-10-02
+
+- fix: Manual merge changes from GitHub and local. Out of sync.
+  - NEWS.rmd
+  - DESCRIPTION
+  - fun.QC.File.R
+  - zfun.ContDataQC.R
+- refactor: Add 10 extra generic variables
+  - extdata.ORIG.R
+  - R.R
+  - fun.QC.R
+  - fun.QC.File.R
+  - rmd\_QC.rmd
+
+# v2.1.0.9001
+
+2025-10-01
+
+- docs: Update config vignette to reference new parameters
+- docs: Update config vignette to show line numbers in config output
+
+# v2.1.0
+
+2024-10-07
+
+- update: EPA version produced for publication in SoftwareX journal.
+  - R package code did not change
+  - Updates to readme, description, and other similar files.
+  - link to R shiny app now included
+
+# v2.0.7.9049
 
 2025-01-02
 

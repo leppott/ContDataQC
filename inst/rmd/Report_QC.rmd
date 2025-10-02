@@ -764,6 +764,406 @@ txt_Salinity_S <- c(val_Salinity[1]
                               ," consecutive measurements within ",val_Salinity[13]
                               ," units of one another"))
 
+# x16
+nam_x16 <- c("myLab.x16"                          #1
+                   , "myUnits.x16"                    #2
+                   , "myThresh.Gross.Fail.Hi.x16"     #3
+                   , "myThresh.Gross.Fail.Lo.x16"     #4
+                   , "myThresh.Gross.Suspect.Hi.x16"  #5
+                   , "myThresh.Gross.Suspect.Lo.x16"  #6
+                   , "myThresh.Spike.Hi.x16"          #7
+                   , "myThresh.Spike.Lo.x16"          #8
+                   , "myThresh.RoC.SD.number.x16"     #9
+                   , "myThresh.RoC.SD.period.x16"     #10
+                   , "myThresh.Flat.Hi.x16"           #11
+                   , "myThresh.Flat.Lo.x16"           #12
+                   , "myThresh.Flat.Tolerance.x16"    #13
+                   )
+val_x16 <- mget(nam_x16, envir=ContData.env)
+txt_x16_F <- c(val_x16[1]
+                     , "Fail"
+                     , paste0("> ",val_x16[3]," ",val_x16[2]
+                              ,"  or < ",val_x16[4]," ",val_x16[2])
+                     , "NA"
+                     , "NA"
+                     , paste0("> ",val_x16[11]
+                              ," consecutive measurements within ",val_x16[13]
+                              ," units of one another"))
+txt_x16_S <- c(val_x16[1]
+                     , "Suspect"
+                     , paste0("> ",val_x16[5]," ",val_x16[2]
+                              ," or < ",val_x16[6]," ",val_x16[2])
+                     , "NA"
+                     , paste0(">= ",val_x16[9]," standard deviations within "
+                              ,val_x16[10]," hours")
+                     , paste0("> ",val_x16[12]
+                              ," consecutive measurements within ",val_x16[13]
+                              ," units of one another"))
+
+# x17
+nam_x17 <- c("myLab.x17"                          #1
+                   , "myUnits.x17"                    #2
+                   , "myThresh.Gross.Fail.Hi.x17"     #3
+                   , "myThresh.Gross.Fail.Lo.x17"     #4
+                   , "myThresh.Gross.Suspect.Hi.x17"  #5
+                   , "myThresh.Gross.Suspect.Lo.x17"  #6
+                   , "myThresh.Spike.Hi.x17"          #7
+                   , "myThresh.Spike.Lo.x17"          #8
+                   , "myThresh.RoC.SD.number.x17"     #9
+                   , "myThresh.RoC.SD.period.x17"     #10
+                   , "myThresh.Flat.Hi.x17"           #11
+                   , "myThresh.Flat.Lo.x17"           #12
+                   , "myThresh.Flat.Tolerance.x17"    #13
+                   )
+val_x17 <- mget(nam_x17, envir=ContData.env)
+txt_x17_F <- c(val_x17[1]
+                     , "Fail"
+                     , paste0("> ",val_x17[3]," ",val_x17[2]
+                              ,"  or < ",val_x17[4]," ",val_x17[2])
+                     , "NA"
+                     , "NA"
+                     , paste0("> ",val_x17[11]
+                              ," consecutive measurements within ",val_x17[13]
+                              ," units of one another"))
+txt_x17_S <- c(val_x17[1]
+                     , "Suspect"
+                     , paste0("> ",val_x17[5]," ",val_x17[2]
+                              ," or < ",val_x17[6]," ",val_x17[2])
+                     , "NA"
+                     , paste0(">= ",val_x17[9]," standard deviations within "
+                              ,val_x17[10]," hours")
+                     , paste0("> ",val_x17[12]
+                              ," consecutive measurements within ",val_x17[13]
+                              ," units of one another"))
+
+
+# x18
+nam_x18 <- c("myLab.x18"                          #1
+                   , "myUnits.x18"                    #2
+                   , "myThresh.Gross.Fail.Hi.x18"     #3
+                   , "myThresh.Gross.Fail.Lo.x18"     #4
+                   , "myThresh.Gross.Suspect.Hi.x18"  #5
+                   , "myThresh.Gross.Suspect.Lo.x18"  #6
+                   , "myThresh.Spike.Hi.x18"          #7
+                   , "myThresh.Spike.Lo.x18"          #8
+                   , "myThresh.RoC.SD.number.x18"     #9
+                   , "myThresh.RoC.SD.period.x18"     #10
+                   , "myThresh.Flat.Hi.x18"           #11
+                   , "myThresh.Flat.Lo.x18"           #12
+                   , "myThresh.Flat.Tolerance.x18"    #13
+                   )
+val_x18 <- mget(nam_x18, envir=ContData.env)
+txt_x18_F <- c(val_x18[1]
+                     , "Fail"
+                     , paste0("> ",val_x18[3]," ",val_x18[2]
+                              ,"  or < ",val_x18[4]," ",val_x18[2])
+                     , "NA"
+                     , "NA"
+                     , paste0("> ",val_x18[11]
+                              ," consecutive measurements within ",val_x18[13]
+                              ," units of one another"))
+txt_x18_S <- c(val_x18[1]
+                     , "Suspect"
+                     , paste0("> ",val_x18[5]," ",val_x18[2]
+                              ," or < ",val_x18[6]," ",val_x18[2])
+                     , "NA"
+                     , paste0(">= ",val_x18[9]," standard deviations within "
+                              ,val_x18[10]," hours")
+                     , paste0("> ",val_x18[12]
+                              ," consecutive measurements within ",val_x18[13]
+                              ," units of one another"))
+
+
+# x19
+nam_x19 <- c("myLab.x19"                          #1
+                   , "myUnits.x19"                    #2
+                   , "myThresh.Gross.Fail.Hi.x19"     #3
+                   , "myThresh.Gross.Fail.Lo.x19"     #4
+                   , "myThresh.Gross.Suspect.Hi.x19"  #5
+                   , "myThresh.Gross.Suspect.Lo.x19"  #6
+                   , "myThresh.Spike.Hi.x19"          #7
+                   , "myThresh.Spike.Lo.x19"          #8
+                   , "myThresh.RoC.SD.number.x19"     #9
+                   , "myThresh.RoC.SD.period.x19"     #10
+                   , "myThresh.Flat.Hi.x19"           #11
+                   , "myThresh.Flat.Lo.x19"           #12
+                   , "myThresh.Flat.Tolerance.x19"    #13
+                   )
+val_x19 <- mget(nam_x19, envir=ContData.env)
+txt_x19_F <- c(val_x19[1]
+                     , "Fail"
+                     , paste0("> ",val_x19[3]," ",val_x19[2]
+                              ,"  or < ",val_x19[4]," ",val_x19[2])
+                     , "NA"
+                     , "NA"
+                     , paste0("> ",val_x19[11]
+                              ," consecutive measurements within ",val_x19[13]
+                              ," units of one another"))
+txt_x19_S <- c(val_x19[1]
+                     , "Suspect"
+                     , paste0("> ",val_x19[5]," ",val_x19[2]
+                              ," or < ",val_x19[6]," ",val_x19[2])
+                     , "NA"
+                     , paste0(">= ",val_x19[9]," standard deviations within "
+                              ,val_x19[10]," hours")
+                     , paste0("> ",val_x19[12]
+                              ," consecutive measurements within ",val_x19[13]
+                              ," units of one another"))
+
+
+# x20
+nam_x20 <- c("myLab.x20"                          #1
+                   , "myUnits.x20"                    #2
+                   , "myThresh.Gross.Fail.Hi.x20"     #3
+                   , "myThresh.Gross.Fail.Lo.x20"     #4
+                   , "myThresh.Gross.Suspect.Hi.x20"  #5
+                   , "myThresh.Gross.Suspect.Lo.x20"  #6
+                   , "myThresh.Spike.Hi.x20"          #7
+                   , "myThresh.Spike.Lo.x20"          #8
+                   , "myThresh.RoC.SD.number.x20"     #9
+                   , "myThresh.RoC.SD.period.x20"     #10
+                   , "myThresh.Flat.Hi.x20"           #11
+                   , "myThresh.Flat.Lo.x20"           #12
+                   , "myThresh.Flat.Tolerance.x20"    #13
+                   )
+val_x20 <- mget(nam_x20, envir=ContData.env)
+txt_x20_F <- c(val_x20[1]
+                     , "Fail"
+                     , paste0("> ",val_x20[3]," ",val_x20[2]
+                              ,"  or < ",val_x20[4]," ",val_x20[2])
+                     , "NA"
+                     , "NA"
+                     , paste0("> ",val_x20[11]
+                              ," consecutive measurements within ",val_x20[13]
+                              ," units of one another"))
+txt_x20_S <- c(val_x20[1]
+                     , "Suspect"
+                     , paste0("> ",val_x20[5]," ",val_x20[2]
+                              ," or < ",val_x20[6]," ",val_x20[2])
+                     , "NA"
+                     , paste0(">= ",val_x20[9]," standard deviations within "
+                              ,val_x20[10]," hours")
+                     , paste0("> ",val_x20[12]
+                              ," consecutive measurements within ",val_x20[13]
+                              ," units of one another"))
+
+
+# x21
+nam_x21 <- c("myLab.x21"                          #1
+                   , "myUnits.x21"                    #2
+                   , "myThresh.Gross.Fail.Hi.x21"     #3
+                   , "myThresh.Gross.Fail.Lo.x21"     #4
+                   , "myThresh.Gross.Suspect.Hi.x21"  #5
+                   , "myThresh.Gross.Suspect.Lo.x21"  #6
+                   , "myThresh.Spike.Hi.x21"          #7
+                   , "myThresh.Spike.Lo.x21"          #8
+                   , "myThresh.RoC.SD.number.x21"     #9
+                   , "myThresh.RoC.SD.period.x21"     #10
+                   , "myThresh.Flat.Hi.x21"           #11
+                   , "myThresh.Flat.Lo.x21"           #12
+                   , "myThresh.Flat.Tolerance.x21"    #13
+                   )
+val_x21 <- mget(nam_x21, envir=ContData.env)
+txt_x21_F <- c(val_x21[1]
+                     , "Fail"
+                     , paste0("> ",val_x21[3]," ",val_x21[2]
+                              ,"  or < ",val_x21[4]," ",val_x21[2])
+                     , "NA"
+                     , "NA"
+                     , paste0("> ",val_x21[11]
+                              ," consecutive measurements within ",val_x21[13]
+                              ," units of one another"))
+txt_x21_S <- c(val_x21[1]
+                     , "Suspect"
+                     , paste0("> ",val_x21[5]," ",val_x21[2]
+                              ," or < ",val_x21[6]," ",val_x21[2])
+                     , "NA"
+                     , paste0(">= ",val_x21[9]," standard deviations within "
+                              ,val_x21[10]," hours")
+                     , paste0("> ",val_x21[12]
+                              ," consecutive measurements within ",val_x21[13]
+                              ," units of one another"))
+
+# x22
+nam_x22 <- c("myLab.x22"                          #1
+                   , "myUnits.x22"                    #2
+                   , "myThresh.Gross.Fail.Hi.x22"     #3
+                   , "myThresh.Gross.Fail.Lo.x22"     #4
+                   , "myThresh.Gross.Suspect.Hi.x22"  #5
+                   , "myThresh.Gross.Suspect.Lo.x22"  #6
+                   , "myThresh.Spike.Hi.x22"          #7
+                   , "myThresh.Spike.Lo.x22"          #8
+                   , "myThresh.RoC.SD.number.x22"     #9
+                   , "myThresh.RoC.SD.period.x22"     #10
+                   , "myThresh.Flat.Hi.x22"           #11
+                   , "myThresh.Flat.Lo.x22"           #12
+                   , "myThresh.Flat.Tolerance.x22"    #13
+                   )
+val_x22 <- mget(nam_x22, envir=ContData.env)
+txt_x22_F <- c(val_x22[1]
+                     , "Fail"
+                     , paste0("> ",val_x22[3]," ",val_x22[2]
+                              ,"  or < ",val_x22[4]," ",val_x22[2])
+                     , "NA"
+                     , "NA"
+                     , paste0("> ",val_x22[11]
+                              ," consecutive measurements within ",val_x22[13]
+                              ," units of one another"))
+txt_x22_S <- c(val_x22[1]
+                     , "Suspect"
+                     , paste0("> ",val_x22[5]," ",val_x22[2]
+                              ," or < ",val_x22[6]," ",val_x22[2])
+                     , "NA"
+                     , paste0(">= ",val_x22[9]," standard deviations within "
+                              ,val_x22[10]," hours")
+                     , paste0("> ",val_x22[12]
+                              ," consecutive measurements within ",val_x22[13]
+                              ," units of one another"))
+
+# x23
+nam_x23 <- c("myLab.x23"                          #1
+                   , "myUnits.x23"                    #2
+                   , "myThresh.Gross.Fail.Hi.x23"     #3
+                   , "myThresh.Gross.Fail.Lo.x23"     #4
+                   , "myThresh.Gross.Suspect.Hi.x23"  #5
+                   , "myThresh.Gross.Suspect.Lo.x23"  #6
+                   , "myThresh.Spike.Hi.x23"          #7
+                   , "myThresh.Spike.Lo.x23"          #8
+                   , "myThresh.RoC.SD.number.x23"     #9
+                   , "myThresh.RoC.SD.period.x23"     #10
+                   , "myThresh.Flat.Hi.x23"           #11
+                   , "myThresh.Flat.Lo.x23"           #12
+                   , "myThresh.Flat.Tolerance.x23"    #13
+                   )
+val_x23 <- mget(nam_x23, envir=ContData.env)
+txt_x23_F <- c(val_x23[1]
+                     , "Fail"
+                     , paste0("> ",val_x23[3]," ",val_x23[2]
+                              ,"  or < ",val_x23[4]," ",val_x23[2])
+                     , "NA"
+                     , "NA"
+                     , paste0("> ",val_x23[11]
+                              ," consecutive measurements within ",val_x23[13]
+                              ," units of one another"))
+txt_x23_S <- c(val_x23[1]
+                     , "Suspect"
+                     , paste0("> ",val_x23[5]," ",val_x23[2]
+                              ," or < ",val_x23[6]," ",val_x23[2])
+                     , "NA"
+                     , paste0(">= ",val_x23[9]," standard deviations within "
+                              ,val_x23[10]," hours")
+                     , paste0("> ",val_x23[12]
+                              ," consecutive measurements within ",val_x23[13]
+                              ," units of one another"))
+
+# x24
+nam_x24 <- c("myLab.x24"                          #1
+                   , "myUnits.x24"                    #2
+                   , "myThresh.Gross.Fail.Hi.x24"     #3
+                   , "myThresh.Gross.Fail.Lo.x24"     #4
+                   , "myThresh.Gross.Suspect.Hi.x24"  #5
+                   , "myThresh.Gross.Suspect.Lo.x24"  #6
+                   , "myThresh.Spike.Hi.x24"          #7
+                   , "myThresh.Spike.Lo.x24"          #8
+                   , "myThresh.RoC.SD.number.x24"     #9
+                   , "myThresh.RoC.SD.period.x24"     #10
+                   , "myThresh.Flat.Hi.x24"           #11
+                   , "myThresh.Flat.Lo.x24"           #12
+                   , "myThresh.Flat.Tolerance.x24"    #13
+                   )
+val_x24 <- mget(nam_x24, envir=ContData.env)
+txt_x24_F <- c(val_x24[1]
+                     , "Fail"
+                     , paste0("> ",val_x24[3]," ",val_x24[2]
+                              ,"  or < ",val_x24[4]," ",val_x24[2])
+                     , "NA"
+                     , "NA"
+                     , paste0("> ",val_x24[11]
+                              ," consecutive measurements within ",val_x24[13]
+                              ," units of one another"))
+txt_x24_S <- c(val_x24[1]
+                     , "Suspect"
+                     , paste0("> ",val_x24[5]," ",val_x24[2]
+                              ," or < ",val_x24[6]," ",val_x24[2])
+                     , "NA"
+                     , paste0(">= ",val_x24[9]," standard deviations within "
+                              ,val_x24[10]," hours")
+                     , paste0("> ",val_x24[12]
+                              ," consecutive measurements within ",val_x24[13]
+                              ," units of one another"))
+
+# x25
+nam_x25 <- c("myLab.x25"                          #1
+                   , "myUnits.x25"                    #2
+                   , "myThresh.Gross.Fail.Hi.x25"     #3
+                   , "myThresh.Gross.Fail.Lo.x25"     #4
+                   , "myThresh.Gross.Suspect.Hi.x25"  #5
+                   , "myThresh.Gross.Suspect.Lo.x25"  #6
+                   , "myThresh.Spike.Hi.x25"          #7
+                   , "myThresh.Spike.Lo.x25"          #8
+                   , "myThresh.RoC.SD.number.x25"     #9
+                   , "myThresh.RoC.SD.period.x25"     #10
+                   , "myThresh.Flat.Hi.x25"           #11
+                   , "myThresh.Flat.Lo.x25"           #12
+                   , "myThresh.Flat.Tolerance.x25"    #13
+                   )
+val_x25 <- mget(nam_x25, envir=ContData.env)
+txt_x25_F <- c(val_x25[1]
+                     , "Fail"
+                     , paste0("> ",val_x25[3]," ",val_x25[2]
+                              ,"  or < ",val_x25[4]," ",val_x25[2])
+                     , "NA"
+                     , "NA"
+                     , paste0("> ",val_x25[11]
+                              ," consecutive measurements within ",val_x25[13]
+                              ," units of one another"))
+txt_x25_S <- c(val_x25[1]
+                     , "Suspect"
+                     , paste0("> ",val_x25[5]," ",val_x25[2]
+                              ," or < ",val_x25[6]," ",val_x25[2])
+                     , "NA"
+                     , paste0(">= ",val_x25[9]," standard deviations within "
+                              ,val_x25[10]," hours")
+                     , paste0("> ",val_x25[12]
+                              ," consecutive measurements within ",val_x25[13]
+                              ," units of one another"))
+
+# x26
+nam_x26 <- c("myLab.x26"                          #1
+                   , "myUnits.x26"                    #2
+                   , "myThresh.Gross.Fail.Hi.x26"     #3
+                   , "myThresh.Gross.Fail.Lo.x26"     #4
+                   , "myThresh.Gross.Suspect.Hi.x26"  #5
+                   , "myThresh.Gross.Suspect.Lo.x26"  #6
+                   , "myThresh.Spike.Hi.x26"          #7
+                   , "myThresh.Spike.Lo.x26"          #8
+                   , "myThresh.RoC.SD.number.x26"     #9
+                   , "myThresh.RoC.SD.period.x26"     #10
+                   , "myThresh.Flat.Hi.x26"           #11
+                   , "myThresh.Flat.Lo.x26"           #12
+                   , "myThresh.Flat.Tolerance.x26"    #13
+                   )
+val_x26 <- mget(nam_x26, envir=ContData.env)
+txt_x26_F <- c(val_x26[1]
+                     , "Fail"
+                     , paste0("> ",val_x26[3]," ",val_x26[2]
+                              ,"  or < ",val_x26[4]," ",val_x26[2])
+                     , "NA"
+                     , "NA"
+                     , paste0("> ",val_x26[11]
+                              ," consecutive measurements within ",val_x26[13]
+                              ," units of one another"))
+txt_x26_S <- c(val_x26[1]
+                     , "Suspect"
+                     , paste0("> ",val_x26[5]," ",val_x26[2]
+                              ," or < ",val_x26[6]," ",val_x26[2])
+                     , "NA"
+                     , paste0(">= ",val_x26[9]," standard deviations within "
+                              ,val_x26[10]," hours")
+                     , paste0("> ",val_x26[12]
+                              ," consecutive measurements within ",val_x26[13]
+                              ," units of one another"))
+
 # Create Table
 ## Display only those parameters used in current dataset (data.import)
 # QC
@@ -854,6 +1254,61 @@ if(!(ContData.env$myName.Salinity %in% names(data.import))){
   txt_Salinity_F <- NULL
   txt_Salinity_S <- NULL
 }
+#
+if(!(ContData.env$myName.x16 %in% names(data.import))){
+  txt_x16_F <- NULL
+  txt_x16_S <- NULL
+}
+#
+if(!(ContData.env$myName.x17 %in% names(data.import))){
+  txt_x17_F <- NULL
+  txt_x17_S <- NULL
+}
+#
+if(!(ContData.env$myName.x18 %in% names(data.import))){
+  txt_x18_F <- NULL
+  txt_x18_S <- NULL
+}
+#
+if(!(ContData.env$myName.x19 %in% names(data.import))){
+  txt_x19_F <- NULL
+  txt_x19_S <- NULL
+}
+#
+if(!(ContData.env$myName.x20 %in% names(data.import))){
+  txt_x20_F <- NULL
+  txt_x20_S <- NULL
+}
+#
+if(!(ContData.env$myName.x21 %in% names(data.import))){
+  txt_x21_F <- NULL
+  txt_x21_S <- NULL
+}
+#
+if(!(ContData.env$myName.x22 %in% names(data.import))){
+  txt_x22_F <- NULL
+  txt_x22_S <- NULL
+}
+#
+if(!(ContData.env$myName.x23 %in% names(data.import))){
+  txt_x23_F <- NULL
+  txt_x23_S <- NULL
+}
+#
+if(!(ContData.env$myName.x24 %in% names(data.import))){
+  txt_x24_F <- NULL
+  txt_x24_S <- NULL
+}
+#
+if(!(ContData.env$myName.x25 %in% names(data.import))){
+  txt_x25_F <- NULL
+  txt_x25_S <- NULL
+}
+#
+if(!(ContData.env$myName.x26 %in% names(data.import))){
+  txt_x26_F <- NULL
+  txt_x26_S <- NULL
+}
 # Table
 df_Env <- data.frame(rbind(txt_WaterTemp_F, txt_WaterTemp_S
                            ,txt_AirTemp_F, txt_AirTemp_S
@@ -870,6 +1325,17 @@ df_Env <- data.frame(rbind(txt_WaterTemp_F, txt_WaterTemp_S
                            , txt_Chlorophylla_F, txt_Chlorophylla_S
                            , txt_WaterLevel_F, txt_WaterLevel_S
                            , txt_Salinity_F, txt_Salinity_S
+                           , txt_x16_F, txt_x16_S
+                           , txt_x17_F, txt_x17_S
+                           , txt_x18_F, txt_x18_S
+                           , txt_x19_F, txt_x19_S
+                           , txt_x20_F, txt_x20_S
+                           , txt_x21_F, txt_x21_S
+                           , txt_x22_F, txt_x22_S
+                           , txt_x23_F, txt_x23_S
+                           , txt_x24_F, txt_x24_S
+                           , txt_x25_F, txt_x25_S
+                           , txt_x26_F, txt_x26_S
                            )
                      , row.names = NULL)
 names(df_Env) <- txt_header

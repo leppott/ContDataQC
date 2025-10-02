@@ -16,6 +16,7 @@
 # 20151112, combine Auto and Manual QC
 # 20170323, added 3 parameters (Cond, DO, and pH)
 # 20170324, added 2 more parameters (Turbidity and Chlrophylla)
+# 20251002, add 10 generic parameters, total parameter = 26
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # assumes use of CSV.  If using TXT have to modify list.files(pattern)
 # , read.csv(), and write.csv()
@@ -1071,6 +1072,402 @@ fun.QC <- function(fun.myData.SiteID
                                        ,ContData.env$myThresh.Flat.Hi.Salinity
                                        ,ContData.env$myThresh.Flat.Lo.Salinity
                                        ,ContData.env$myThresh.Flat.Tolerance.Salinity)
+      }## IF ~ all(is.na())
+    }##IF.myField.END
+    #
+    # _B.6.16. x16----
+    myField <- ContData.env$myName.x16
+    if(myField %in% myNames.DataFields.Present==TRUE){
+      #
+      myMsg.data <- ContData.env$myLab.x16
+      myMsg <- paste("WORKING (QC Tests and Flags - ", myMsg.data, ")", sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter, 2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      if(all(is.na(data.import[, myField]))) {
+        # Flag Field
+        data.import[, paste(ContData.env$myName.Flag, myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Gross", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Spike", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "RoC", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Flat", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+      } else {
+        # Calc Stats
+        data.import <- fun.CalcQCStats(data.import
+                                       ,myField
+                                       ,ContData.env$myThresh.Gross.Fail.Hi.x16
+                                       ,ContData.env$myThresh.Gross.Fail.Lo.x16
+                                       ,ContData.env$myThresh.Gross.Suspect.Hi.x16
+                                       ,ContData.env$myThresh.Gross.Suspect.Lo.x16
+                                       ,ContData.env$myThresh.Spike.Hi.x16
+                                       ,ContData.env$myThresh.Spike.Lo.x16
+                                       ,ContData.env$myThresh.RoC.SD.period.x16
+                                       ,ContData.env$myThresh.RoC.SD.number.x16
+                                       ,ContData.env$myThresh.Flat.Hi.x16
+                                       ,ContData.env$myThresh.Flat.Lo.x16
+                                       ,ContData.env$myThresh.Flat.Tolerance.x16)
+      }## IF ~ all(is.na())
+    }##IF.myField.END
+
+    # _B.6.17. x17----
+    myField <- ContData.env$myName.x17
+    if(myField %in% myNames.DataFields.Present==TRUE){
+      #
+      myMsg.data <- ContData.env$myLab.x17
+      myMsg <- paste("WORKING (QC Tests and Flags - ", myMsg.data, ")", sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter, 2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      if(all(is.na(data.import[, myField]))) {
+        # Flag Field
+        data.import[, paste(ContData.env$myName.Flag, myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Gross", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Spike", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "RoC", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Flat", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+      } else {
+        # Calc Stats
+        data.import <- fun.CalcQCStats(data.import
+                                       ,myField
+                                       ,ContData.env$myThresh.Gross.Fail.Hi.x17
+                                       ,ContData.env$myThresh.Gross.Fail.Lo.x17
+                                       ,ContData.env$myThresh.Gross.Suspect.Hi.x17
+                                       ,ContData.env$myThresh.Gross.Suspect.Lo.x17
+                                       ,ContData.env$myThresh.Spike.Hi.x17
+                                       ,ContData.env$myThresh.Spike.Lo.x17
+                                       ,ContData.env$myThresh.RoC.SD.period.x17
+                                       ,ContData.env$myThresh.RoC.SD.number.x17
+                                       ,ContData.env$myThresh.Flat.Hi.x17
+                                       ,ContData.env$myThresh.Flat.Lo.x17
+                                       ,ContData.env$myThresh.Flat.Tolerance.x17)
+      }## IF ~ all(is.na())
+    }##IF.myField.END
+
+    # _B.6.18. x18----
+    myField <- ContData.env$myName.x18
+    if(myField %in% myNames.DataFields.Present==TRUE){
+      #
+      myMsg.data <- ContData.env$myLab.x18
+      myMsg <- paste("WORKING (QC Tests and Flags - ", myMsg.data, ")", sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter, 2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      if(all(is.na(data.import[, myField]))) {
+        # Flag Field
+        data.import[, paste(ContData.env$myName.Flag, myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Gross", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Spike", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "RoC", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Flat", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+      } else {
+        # Calc Stats
+        data.import <- fun.CalcQCStats(data.import
+                                       ,myField
+                                       ,ContData.env$myThresh.Gross.Fail.Hi.x18
+                                       ,ContData.env$myThresh.Gross.Fail.Lo.x18
+                                       ,ContData.env$myThresh.Gross.Suspect.Hi.x18
+                                       ,ContData.env$myThresh.Gross.Suspect.Lo.x18
+                                       ,ContData.env$myThresh.Spike.Hi.x18
+                                       ,ContData.env$myThresh.Spike.Lo.x18
+                                       ,ContData.env$myThresh.RoC.SD.period.x18
+                                       ,ContData.env$myThresh.RoC.SD.number.x18
+                                       ,ContData.env$myThresh.Flat.Hi.x18
+                                       ,ContData.env$myThresh.Flat.Lo.x18
+                                       ,ContData.env$myThresh.Flat.Tolerance.x18)
+      }## IF ~ all(is.na())
+    }##IF.myField.END
+
+    # _B.6.19. x19----
+    myField <- ContData.env$myName.x19
+    if(myField %in% myNames.DataFields.Present==TRUE){
+      #
+      myMsg.data <- ContData.env$myLab.x19
+      myMsg <- paste("WORKING (QC Tests and Flags - ", myMsg.data, ")", sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter, 2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      if(all(is.na(data.import[, myField]))) {
+        # Flag Field
+        data.import[, paste(ContData.env$myName.Flag, myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Gross", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Spike", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "RoC", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Flat", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+      } else {
+        # Calc Stats
+        data.import <- fun.CalcQCStats(data.import
+                                       ,myField
+                                       ,ContData.env$myThresh.Gross.Fail.Hi.x19
+                                       ,ContData.env$myThresh.Gross.Fail.Lo.x19
+                                       ,ContData.env$myThresh.Gross.Suspect.Hi.x19
+                                       ,ContData.env$myThresh.Gross.Suspect.Lo.x19
+                                       ,ContData.env$myThresh.Spike.Hi.x19
+                                       ,ContData.env$myThresh.Spike.Lo.x19
+                                       ,ContData.env$myThresh.RoC.SD.period.x19
+                                       ,ContData.env$myThresh.RoC.SD.number.x19
+                                       ,ContData.env$myThresh.Flat.Hi.x19
+                                       ,ContData.env$myThresh.Flat.Lo.x19
+                                       ,ContData.env$myThresh.Flat.Tolerance.x19)
+      }## IF ~ all(is.na())
+    }##IF.myField.END
+
+    # _B.6.20. x20----
+    myField <- ContData.env$myName.x20
+    if(myField %in% myNames.DataFields.Present==TRUE){
+      #
+      myMsg.data <- ContData.env$myLab.x20
+      myMsg <- paste("WORKING (QC Tests and Flags - ", myMsg.data, ")", sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter, 2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      if(all(is.na(data.import[, myField]))) {
+        # Flag Field
+        data.import[, paste(ContData.env$myName.Flag, myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Gross", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Spike", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "RoC", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Flat", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+      } else {
+        # Calc Stats
+        data.import <- fun.CalcQCStats(data.import
+                                       ,myField
+                                       ,ContData.env$myThresh.Gross.Fail.Hi.x20
+                                       ,ContData.env$myThresh.Gross.Fail.Lo.x20
+                                       ,ContData.env$myThresh.Gross.Suspect.Hi.x20
+                                       ,ContData.env$myThresh.Gross.Suspect.Lo.x20
+                                       ,ContData.env$myThresh.Spike.Hi.x20
+                                       ,ContData.env$myThresh.Spike.Lo.x20
+                                       ,ContData.env$myThresh.RoC.SD.period.x20
+                                       ,ContData.env$myThresh.RoC.SD.number.x20
+                                       ,ContData.env$myThresh.Flat.Hi.x20
+                                       ,ContData.env$myThresh.Flat.Lo.x20
+                                       ,ContData.env$myThresh.Flat.Tolerance.x20)
+      }## IF ~ all(is.na())
+    }##IF.myField.END
+
+    # _B.6.21. x21----
+    myField <- ContData.env$myName.x21
+    if(myField %in% myNames.DataFields.Present==TRUE){
+      #
+      myMsg.data <- ContData.env$myLab.x21
+      myMsg <- paste("WORKING (QC Tests and Flags - ", myMsg.data, ")", sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter, 2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      if(all(is.na(data.import[, myField]))) {
+        # Flag Field
+        data.import[, paste(ContData.env$myName.Flag, myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Gross", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Spike", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "RoC", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Flat", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+      } else {
+        # Calc Stats
+        data.import <- fun.CalcQCStats(data.import
+                                       ,myField
+                                       ,ContData.env$myThresh.Gross.Fail.Hi.x21
+                                       ,ContData.env$myThresh.Gross.Fail.Lo.x21
+                                       ,ContData.env$myThresh.Gross.Suspect.Hi.x21
+                                       ,ContData.env$myThresh.Gross.Suspect.Lo.x21
+                                       ,ContData.env$myThresh.Spike.Hi.x21
+                                       ,ContData.env$myThresh.Spike.Lo.x21
+                                       ,ContData.env$myThresh.RoC.SD.period.x21
+                                       ,ContData.env$myThresh.RoC.SD.number.x21
+                                       ,ContData.env$myThresh.Flat.Hi.x21
+                                       ,ContData.env$myThresh.Flat.Lo.x21
+                                       ,ContData.env$myThresh.Flat.Tolerance.x21)
+      }## IF ~ all(is.na())
+    }##IF.myField.END
+
+    # _B.6.22. x22----
+    myField <- ContData.env$myName.x22
+    if(myField %in% myNames.DataFields.Present==TRUE){
+      #
+      myMsg.data <- ContData.env$myLab.x22
+      myMsg <- paste("WORKING (QC Tests and Flags - ", myMsg.data, ")", sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter, 2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      if(all(is.na(data.import[, myField]))) {
+        # Flag Field
+        data.import[, paste(ContData.env$myName.Flag, myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Gross", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Spike", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "RoC", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Flat", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+      } else {
+        # Calc Stats
+        data.import <- fun.CalcQCStats(data.import
+                                       ,myField
+                                       ,ContData.env$myThresh.Gross.Fail.Hi.x22
+                                       ,ContData.env$myThresh.Gross.Fail.Lo.x22
+                                       ,ContData.env$myThresh.Gross.Suspect.Hi.x22
+                                       ,ContData.env$myThresh.Gross.Suspect.Lo.x22
+                                       ,ContData.env$myThresh.Spike.Hi.x22
+                                       ,ContData.env$myThresh.Spike.Lo.x22
+                                       ,ContData.env$myThresh.RoC.SD.period.x22
+                                       ,ContData.env$myThresh.RoC.SD.number.x22
+                                       ,ContData.env$myThresh.Flat.Hi.x22
+                                       ,ContData.env$myThresh.Flat.Lo.x22
+                                       ,ContData.env$myThresh.Flat.Tolerance.x22)
+      }## IF ~ all(is.na())
+    }##IF.myF
+    #
+    # _B.6.23. x23----
+    myField <- ContData.env$myName.x23
+    if(myField %in% myNames.DataFields.Present==TRUE){
+      #
+      myMsg.data <- ContData.env$myLab.x23
+      myMsg <- paste("WORKING (QC Tests and Flags - ", myMsg.data, ")", sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter, 2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      if(all(is.na(data.import[, myField]))) {
+        # Flag Field
+        data.import[, paste(ContData.env$myName.Flag, myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Gross", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Spike", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "RoC", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Flat", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+      } else {
+        # Calc Stats
+        data.import <- fun.CalcQCStats(data.import
+                                       ,myField
+                                       ,ContData.env$myThresh.Gross.Fail.Hi.x23
+                                       ,ContData.env$myThresh.Gross.Fail.Lo.x23
+                                       ,ContData.env$myThresh.Gross.Suspect.Hi.x23
+                                       ,ContData.env$myThresh.Gross.Suspect.Lo.x23
+                                       ,ContData.env$myThresh.Spike.Hi.x23
+                                       ,ContData.env$myThresh.Spike.Lo.x23
+                                       ,ContData.env$myThresh.RoC.SD.period.x23
+                                       ,ContData.env$myThresh.RoC.SD.number.x23
+                                       ,ContData.env$myThresh.Flat.Hi.x23
+                                       ,ContData.env$myThresh.Flat.Lo.x23
+                                       ,ContData.env$myThresh.Flat.Tolerance.x23)
+      }## IF ~ all(is.na())
+    }##IF.myField.ENDield.END
+
+    # _B.6.24. x24----
+    myField <- ContData.env$myName.x24
+    if(myField %in% myNames.DataFields.Present==TRUE){
+      #
+      myMsg.data <- ContData.env$myLab.x24
+      myMsg <- paste("WORKING (QC Tests and Flags - ", myMsg.data, ")", sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter, 2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      if(all(is.na(data.import[, myField]))) {
+        # Flag Field
+        data.import[, paste(ContData.env$myName.Flag, myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Gross", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Spike", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "RoC", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Flat", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+      } else {
+        # Calc Stats
+        data.import <- fun.CalcQCStats(data.import
+                                       ,myField
+                                       ,ContData.env$myThresh.Gross.Fail.Hi.x24
+                                       ,ContData.env$myThresh.Gross.Fail.Lo.x24
+                                       ,ContData.env$myThresh.Gross.Suspect.Hi.x24
+                                       ,ContData.env$myThresh.Gross.Suspect.Lo.x24
+                                       ,ContData.env$myThresh.Spike.Hi.x24
+                                       ,ContData.env$myThresh.Spike.Lo.x24
+                                       ,ContData.env$myThresh.RoC.SD.period.x24
+                                       ,ContData.env$myThresh.RoC.SD.number.x24
+                                       ,ContData.env$myThresh.Flat.Hi.x24
+                                       ,ContData.env$myThresh.Flat.Lo.x24
+                                       ,ContData.env$myThresh.Flat.Tolerance.x24)
+      }## IF ~ all(is.na())
+    }##IF.myField.END
+
+    # _B.6.25. x25----
+    myField <- ContData.env$myName.x25
+    if(myField %in% myNames.DataFields.Present==TRUE){
+      #
+      myMsg.data <- ContData.env$myLab.x25
+      myMsg <- paste("WORKING (QC Tests and Flags - ", myMsg.data, ")", sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter, 2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      if(all(is.na(data.import[, myField]))) {
+        # Flag Field
+        data.import[, paste(ContData.env$myName.Flag, myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Gross", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Spike", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "RoC", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Flat", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+      } else {
+        # Calc Stats
+        data.import <- fun.CalcQCStats(data.import
+                                       ,myField
+                                       ,ContData.env$myThresh.Gross.Fail.Hi.x25
+                                       ,ContData.env$myThresh.Gross.Fail.Lo.x25
+                                       ,ContData.env$myThresh.Gross.Suspect.Hi.x25
+                                       ,ContData.env$myThresh.Gross.Suspect.Lo.x25
+                                       ,ContData.env$myThresh.Spike.Hi.x25
+                                       ,ContData.env$myThresh.Spike.Lo.x25
+                                       ,ContData.env$myThresh.RoC.SD.period.x25
+                                       ,ContData.env$myThresh.RoC.SD.number.x25
+                                       ,ContData.env$myThresh.Flat.Hi.x25
+                                       ,ContData.env$myThresh.Flat.Lo.x25
+                                       ,ContData.env$myThresh.Flat.Tolerance.x25)
+      }## IF ~ all(is.na())
+    }##IF.myField.END
+
+    # _B.6.26. x26----
+    myField <- ContData.env$myName.x26
+    if(myField %in% myNames.DataFields.Present==TRUE){
+      #
+      myMsg.data <- ContData.env$myLab.x26
+      myMsg <- paste("WORKING (QC Tests and Flags - ", myMsg.data, ")", sep="")
+      myItems.Complete <- myItems.Complete + 1
+      myItems.Log[intCounter, 2] <- myMsg
+      fun.Msg.Status(myMsg, intCounter, intItems.Total, strFile)
+      utils::flush.console()
+      #
+      if(all(is.na(data.import[, myField]))) {
+        # Flag Field
+        data.import[, paste(ContData.env$myName.Flag, myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Gross", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Spike", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "RoC", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+        data.import[, paste(ContData.env$myName.Flag, "Flat", myField, sep = ".")] <- ContData.env$myFlagVal.NoData
+      } else {
+        # Calc Stats
+        data.import <- fun.CalcQCStats(data.import
+                                       ,myField
+                                       ,ContData.env$myThresh.Gross.Fail.Hi.x26
+                                       ,ContData.env$myThresh.Gross.Fail.Lo.x26
+                                       ,ContData.env$myThresh.Gross.Suspect.Hi.x26
+                                       ,ContData.env$myThresh.Gross.Suspect.Lo.x26
+                                       ,ContData.env$myThresh.Spike.Hi.x26
+                                       ,ContData.env$myThresh.Spike.Lo.x26
+                                       ,ContData.env$myThresh.RoC.SD.period.x26
+                                       ,ContData.env$myThresh.RoC.SD.number.x26
+                                       ,ContData.env$myThresh.Flat.Hi.x26
+                                       ,ContData.env$myThresh.Flat.Lo.x26
+                                       ,ContData.env$myThresh.Flat.Tolerance.x26)
       }## IF ~ all(is.na())
     }##IF.myField.END
     #

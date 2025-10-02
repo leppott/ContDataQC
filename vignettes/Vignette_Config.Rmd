@@ -53,7 +53,8 @@ package at start up.  Then any parameters specified in a custom configuration
 are loaded and overwrite the defaults.
 
 The file can be edited in a text editor or in R-Studio.  It is not recommended 
-to use Word or other word processing programs.
+to use Word or other word processing programs as this can add non-ASCII 
+characters.
 
 ## Example Edit
 If the user wanted to change the change the following three parameters and 
@@ -65,7 +66,6 @@ to be modified.
 * "Water.BP.kpa" 
 
 * "Water.Level.m"
-
 
 | Item                       | AirBP| WaterP| SensorDepth| Other   |
 |----------------------------|:----:|:------:|:---------:|:-------:|
@@ -86,6 +86,16 @@ to be modified.
 | Thresholds, Flat, combo    |      |        |           | 508:417 |  
 | Flag Labels                |      |        |           | 539:545 |
 | Test Names                 |      |        |           | 575     |
+
+## Adding New Parameters
+There are 15 pre-defined variables.  There are another 11 generic variables in 
+the config file that can be modified by the user for a total of 26 possible 
+variables that can be analyzed at once.
+
+To add a new parameter there are 11  generic variables. The table in the 
+previous section shows the line numbers and sections where the above parameters 
+are listed in the config file.  Follow the examples of other parameters to set 
+up new parameters.  
 
 ## R Conventions
 R code has a few conventions that the user should be aware of when making edits 
@@ -111,7 +121,11 @@ the window below is narrow and some lines wrap to the next line.
 
 ```{r Config, comment="", eval=TRUE, echo=FALSE}
 fn <- file.path(system.file("extdata", "config.ORIG.R", package="ContDataQC"))
-cat(readLines(fn), sep="\n")
+#cat(readLines(fn), sep="\n")
+lines <- readLines(fn)
+for (i in seq_along(lines)) {
+  cat(sprintf("%3d: %s\n", i, lines[i]))
+}## FOR ~ i
 ```
 
 

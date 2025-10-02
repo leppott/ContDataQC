@@ -11,10 +11,13 @@
 # Continuous data helper script
 # Default Values
 # Erik.Leppo@tetratech.com (EWL)
+# 20250930, added 2 par (TDS, spcond) - Rene Camacho
 # 20150928
 # 20170323, add 3 parameters (Cond, DO, pH)
 # 20210106, replace gageheight with waterlevel
 # 20230828, updated were QC flag test thresholds, Jen
+# 20251002, Add 10 generic parameters, total parameters = 26
+#       Add entries to describe config file (version, description, date, person)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # User defined variable names for input data
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -44,6 +47,11 @@ ContData.env <- new.env(parent = emptyenv())
 # ls(ContData.env)  # all elements in environment
 # as.list(ContData.env)  # all elements in environment with assigned values
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ContData.env$.version     <- "Base"
+ContData.env$.description <- "ContDataQC base config file"
+ContData.env$.date        <- "2025-10-02"
+ContData.env$.person      <- "Erik Leppo"
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Delimiter in File Names (e.g., test2_AW_201301_20131231.csv)
 ContData.env$myDelim <- "_"
 ContData.env$myDelim_LakeID <- "--"
@@ -72,6 +80,17 @@ ContData.env$myUnits.Turbidity  <- "NTU"
 ContData.env$myUnits.Chlorophylla <- "g.cm3"
 ContData.env$myUnits.WaterLevel <- "ft"
 ContData.env$myUnits.Salinity   <- "ppt"
+ContData.env$myUnits.x16        <- "mg.L"
+ContData.env$myUnits.x17        <- "mg.L"
+ContData.env$myUnits.x18        <- "mg.L"
+ContData.env$myUnits.x19        <- "mg.L"
+ContData.env$myUnits.x20        <- "mg.L"
+ContData.env$myUnits.x21        <- "mg.L"
+ContData.env$myUnits.x22        <- "mg.L"
+ContData.env$myUnits.x23        <- "mg.L"
+ContData.env$myUnits.x24        <- "mg.L"
+ContData.env$myUnits.x25        <- "mg.L"
+ContData.env$myUnits.x26        <- "mg.L"
 ## Logger Fields ----
 ContData.env$myName.RowID.Water   <- "Water.RowID"
 ContData.env$myName.LoggerID.Water<- "Water.LoggerID"
@@ -105,11 +124,33 @@ ContData.env$myName.pH            <- paste0("pH."
 ContData.env$myName.Turbidity     <- paste0("Turbidity."
                                             , ContData.env$myUnits.Turbidity)
 ContData.env$myName.Chlorophylla   <- paste0("Chlorophylla."
-                                            , ContData.env$myUnits.Chlorophylla)
+                                             , ContData.env$myUnits.Chlorophylla)
 ContData.env$myName.WaterLevel    <- paste0("Water.Level."
                                             , ContData.env$myUnits.WaterLevel)
 ContData.env$myName.Salinity      <- paste0("Salinity."
                                             , ContData.env$myUnits.Salinity)
+ContData.env$myName.x16      <- paste0("TDS."
+                                       , ContData.env$myUnits.x16)
+ContData.env$myName.x17      <- paste0("x."
+                                       , ContData.env$myUnits.x17)
+ContData.env$myName.x18      <- paste0("x."
+                                       , ContData.env$myUnits.x18)
+ContData.env$myName.x19      <- paste0("x."
+                                       , ContData.env$myUnits.x19)
+ContData.env$myName.x20      <- paste0("x."
+                                       , ContData.env$myUnits.x20)
+ContData.env$myName.x21      <- paste0("x."
+                                       , ContData.env$myUnits.x21)
+ContData.env$myName.x22      <- paste0("x."
+                                       , ContData.env$myUnits.x22)
+ContData.env$myName.x23      <- paste0("x."
+                                       , ContData.env$myUnits.x23)
+ContData.env$myName.x24      <- paste0("x."
+                                       , ContData.env$myUnits.x24)
+ContData.env$myName.x25      <- paste0("x."
+                                       , ContData.env$myUnits.x25)
+ContData.env$myName.x26      <- paste0("x."
+                                       , ContData.env$myUnits.x26)
 ## Plot Labels
 ContData.env$myLab.Date           <- "Date"
 ContData.env$myLab.DateTime       <- "Date"
@@ -134,7 +175,7 @@ ContData.env$myLab.Temp.BOTH      <- paste0("Temperature (deg "
                                             ,")")
 ContData.env$myLab.Discharge      <- paste0("Discharge ("
                                             ,sub("\\.","/"
-                                                ,ContData.env$myUnits.Discharge)
+                                                 ,ContData.env$myUnits.Discharge)
                                             ,")")  #replace "." with "/"
 ContData.env$myLab.Cond           <- paste0("Conductivity ("
                                             ,sub("\\.","/"
@@ -149,9 +190,9 @@ ContData.env$myLab.DO.adj         <- paste0("Dissolved Oxygen, adjusted ("
                                                  ,ContData.env$myUnits.DO.adj)
                                             ,")")  #replace "." with "/"
 ContData.env$myLab.DO.pctsat <- paste0("Dissolved Oxygen, percent saturation ("
-                                            ,sub("\\.","/"
+                                       ,sub("\\.","/"
                                             ,ContData.env$myUnits.DO.pctsat)
-                                            ,")")  #replace "." with "/"
+                                       ,")")  #replace "." with "/"
 ContData.env$myLab.pH             <- paste0("pH ("
                                             ,ContData.env$myUnits.pH
                                             ,")")
@@ -160,7 +201,7 @@ ContData.env$myLab.Turbidity      <- paste0("Turbidity ("
                                             ,")")
 ContData.env$myLab.Chlorophylla   <- paste0("Chlorophyll a ("
                                             ,sub("\\.","/"
-                                             ,ContData.env$myUnits.Chlorophylla)
+                                                 ,ContData.env$myUnits.Chlorophylla)
                                             ,")")    #replace "." with "/"
 ContData.env$myLab.WaterLevel     <- paste0("Water Level ("
                                             ,ContData.env$myUnits.WaterLevel
@@ -168,6 +209,39 @@ ContData.env$myLab.WaterLevel     <- paste0("Water Level ("
 ContData.env$myLab.Salinity       <- paste0("Salinity ("
                                             ,ContData.env$myUnits.Salinity
                                             ,")")
+ContData.env$myLab.x16       <- paste0("TDS ("
+                                       ,ContData.env$myUnits.x16
+                                       ,")")
+ContData.env$myLab.x17       <- paste0("x ("
+                                       ,ContData.env$myUnits.x17
+                                       ,")")
+ContData.env$myLab.x18       <- paste0("x ("
+                                       ,ContData.env$myUnits.x18
+                                       ,")")
+ContData.env$myLab.x19       <- paste0("x ("
+                                       ,ContData.env$myUnits.x19
+                                       ,")")
+ContData.env$myLab.x20       <- paste0("x ("
+                                       ,ContData.env$myUnits.x20
+                                       ,")")
+ContData.env$myLab.x21       <- paste0("x ("
+                                       ,ContData.env$myUnits.x21
+                                       ,")")
+ContData.env$myLab.x22       <- paste0("x ("
+                                       ,ContData.env$myUnits.x22
+                                       ,")")
+ContData.env$myLab.x23       <- paste0("x ("
+                                       ,ContData.env$myUnits.x23
+                                       ,")")
+ContData.env$myLab.x24       <- paste0("x ("
+                                       ,ContData.env$myUnits.x24
+                                       ,")")
+ContData.env$myLab.x25       <- paste0("x ("
+                                       ,ContData.env$myUnits.x25
+                                       ,")")
+ContData.env$myLab.x26       <- paste0("x ("
+                                       ,ContData.env$myUnits.x26
+                                       ,")")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Discrete Measurements ####
 ContData.env$myPrefix.Discrete          <- "Discrete"
@@ -185,7 +259,7 @@ ContData.env$myName.Discrete.WaterP     <- paste(ContData.env$myPrefix.Discrete
                                                  ,ContData.env$myName.WaterP
                                                  ,sep=".")
 ContData.env$myName.Discrete.SensorDepth <- paste(ContData.env$myPrefix.Discrete
-                                                ,ContData.env$myName.SensorDepth
+                                                  ,ContData.env$myName.SensorDepth
                                                   ,sep=".")
 ContData.env$myName.Discrete.Discharge  <- paste(ContData.env$myPrefix.Discrete
                                                  ,ContData.env$myName.Discharge
@@ -209,24 +283,57 @@ ContData.env$myName.Discrete.Turbidity  <- paste(ContData.env$myPrefix.Discrete
                                                  ,ContData.env$myName.Turbidity
                                                  ,sep=".")
 ContData.env$myName.Discrete.Chlorophylla <-paste(ContData.env$myPrefix.Discrete
-                                                 ,ContData.env$myName.Chlorophylla
-                                                 ,sep=".")
+                                                  ,ContData.env$myName.Chlorophylla
+                                                  ,sep=".")
 ContData.env$myName.Discrete.WaterLevel <- paste(ContData.env$myPrefix.Discrete
                                                  ,ContData.env$myName.WaterLevel
                                                  ,sep=".")
 ContData.env$myName.Discrete.Salinity <- paste(ContData.env$myPrefix.Discrete
-                                                 ,ContData.env$myName.Salinity
-                                                 ,sep=".")
+                                               ,ContData.env$myName.Salinity
+                                               ,sep=".")
+ContData.env$myName.Discrete.x16 <- paste(ContData.env$myPrefix.Discrete
+                                          ,ContData.env$myName.x16
+                                          ,sep=".")
+ContData.env$myName.Discrete.x17 <- paste(ContData.env$myPrefix.Discrete
+                                          ,ContData.env$myName.x17
+                                          ,sep=".")
+ContData.env$myName.Discrete.x18 <- paste(ContData.env$myPrefix.Discrete
+                                          ,ContData.env$myName.x18
+                                          ,sep=".")
+ContData.env$myName.Discrete.x19 <- paste(ContData.env$myPrefix.Discrete
+                                          ,ContData.env$myName.x19
+                                          ,sep=".")
+ContData.env$myName.Discrete.x20 <- paste(ContData.env$myPrefix.Discrete
+                                          ,ContData.env$myName.x20
+                                          ,sep=".")
+ContData.env$myName.Discrete.x21 <- paste(ContData.env$myPrefix.Discrete
+                                          ,ContData.env$myName.x21
+                                          ,sep=".")
+ContData.env$myName.Discrete.x22 <- paste(ContData.env$myPrefix.Discrete
+                                          ,ContData.env$myName.x22
+                                          ,sep=".")
+ContData.env$myName.Discrete.x23 <- paste(ContData.env$myPrefix.Discrete
+                                          ,ContData.env$myName.x23
+                                          ,sep=".")
+ContData.env$myName.Discrete.x24 <- paste(ContData.env$myPrefix.Discrete
+                                          ,ContData.env$myName.x24
+                                          ,sep=".")
+ContData.env$myName.Discrete.x25 <- paste(ContData.env$myPrefix.Discrete
+                                          ,ContData.env$myName.x25
+                                          ,sep=".")
+ContData.env$myName.Discrete.x26 <- paste(ContData.env$myPrefix.Discrete
+                                          ,ContData.env$myName.x26
+                                          ,sep=".")
 # Discrete, Labels
 ContData.env$myLab.Discrete.WaterTemp   <- paste(ContData.env$myLab.WaterTemp
                                                  ,"(Discrete)"
-												                         ,sep=" ")
+                                                 ,sep=" ")
 ContData.env$myLab.Discrete.AirTemp     <- paste(ContData.env$myLab.AirTemp
                                                  ,"(Discrete)"
-												                         ,sep=" ")
+                                                 ,sep=" ")
 ContData.env$myLab.Discrete.AirBP       <- paste(ContData.env$myLab.AirBP
                                                  ,"(Discrete)"
-												                         ,sep=" ")
+                                                 ,sep=" ")
 ContData.env$myLab.Discrete.WaterP      <- paste(ContData.env$myLab.WaterP
                                                  ,"(Discrete)"
                                                  ,sep=" ")
@@ -261,6 +368,39 @@ ContData.env$myLab.Discrete.WaterLevel  <- paste(ContData.env$myLab.WaterLevel
                                                  ,"(Discrete)"
                                                  ,sep=" ")
 ContData.env$myLab.Discrete.Salinity  <- paste(ContData.env$myLab.Salinity
+                                               ,"(Discrete)"
+                                               ,sep=" ")
+ContData.env$myLab.Discrete.x16         <- paste(ContData.env$myLab.x16
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
+ContData.env$myLab.Discrete.x17         <- paste(ContData.env$myLab.x17
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
+ContData.env$myLab.Discrete.x18         <- paste(ContData.env$myLab.x18
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
+ContData.env$myLab.Discrete.x19         <- paste(ContData.env$myLab.x19
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
+ContData.env$myLab.Discrete.x20         <- paste(ContData.env$myLab.x20
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
+ContData.env$myLab.Discrete.x21         <- paste(ContData.env$myLab.x21
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
+ContData.env$myLab.Discrete.x22         <- paste(ContData.env$myLab.x22
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
+ContData.env$myLab.Discrete.x23         <- paste(ContData.env$myLab.x23
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
+ContData.env$myLab.Discrete.x24         <- paste(ContData.env$myLab.x24
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
+ContData.env$myLab.Discrete.x25         <- paste(ContData.env$myLab.x25
+                                                 ,"(Discrete)"
+                                                 ,sep=" ")
+ContData.env$myLab.Discrete.x26         <- paste(ContData.env$myLab.x26
                                                  ,"(Discrete)"
                                                  ,sep=" ")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -282,19 +422,30 @@ ContData.env$myName.Dir.4Stats     <- "Data4_Stats"
 # Data Fields ####
 ContData.env$myNames.DataFields <- c(ContData.env$myName.WaterTemp
                                      , ContData.env$myName.AirTemp
-									                   , ContData.env$myName.AirBP
+                                     , ContData.env$myName.AirBP
                                      , ContData.env$myName.WaterP
                                      , ContData.env$myName.SensorDepth
                                      , ContData.env$myName.Discharge
                                      , ContData.env$myName.Cond
                                      , ContData.env$myName.DO
-									                   , ContData.env$myName.DO.adj
-									                   , ContData.env$myName.DO.pctsat
+                                     , ContData.env$myName.DO.adj
+                                     , ContData.env$myName.DO.pctsat
                                      , ContData.env$myName.pH
                                      , ContData.env$myName.Turbidity
                                      , ContData.env$myName.Chlorophylla
                                      , ContData.env$myName.WaterLevel
-									                   , ContData.env$myName.Salinity
+                                     , ContData.env$myName.Salinity
+                                     , ContData.env$myName.x16
+                                     , ContData.env$myName.x17
+                                     , ContData.env$myName.x18
+                                     , ContData.env$myName.x19
+                                     , ContData.env$myName.x20
+                                     , ContData.env$myName.x21
+                                     , ContData.env$myName.x22
+                                     , ContData.env$myName.x23
+                                     , ContData.env$myName.x24
+                                     , ContData.env$myName.x25
+                                     , ContData.env$myName.x26
                                      , ContData.env$myName.Discrete.WaterTemp
                                      , ContData.env$myName.Discrete.AirTemp
                                      , ContData.env$myName.Discrete.WaterP
@@ -303,14 +454,25 @@ ContData.env$myNames.DataFields <- c(ContData.env$myName.WaterTemp
                                      , ContData.env$myName.Discrete.Discharge
                                      , ContData.env$myName.Discrete.Cond
                                      , ContData.env$myName.Discrete.DO
-									                   , ContData.env$myName.Discrete.DO.adj
-									                   , ContData.env$myName.Discrete.DO.pctsat
+                                     , ContData.env$myName.Discrete.DO.adj
+                                     , ContData.env$myName.Discrete.DO.pctsat
                                      , ContData.env$myName.Discrete.pH
                                      , ContData.env$myName.Discrete.Turbidity
                                      , ContData.env$myName.Discrete.Chlorophylla
                                      , ContData.env$myName.Discrete.WaterLevel
-									                   , ContData.env$myName.Discrete.Salinity
-                                     )
+                                     , ContData.env$myName.Discrete.Salinity
+                                     , ContData.env$myName.Discrete.x16
+                                     , ContData.env$myName.Discrete.x17
+                                     , ContData.env$myName.Discrete.x18
+                                     , ContData.env$myName.Discrete.x19
+                                     , ContData.env$myName.Discrete.x20
+                                     , ContData.env$myName.Discrete.x21
+                                     , ContData.env$myName.Discrete.x22
+                                     , ContData.env$myName.Discrete.x23
+                                     , ContData.env$myName.Discrete.x24
+                                     , ContData.env$myName.Discrete.x25
+                                     , ContData.env$myName.Discrete.x26
+)
 ContData.env$myNames.DataFields.Lab <- c(ContData.env$myLab.WaterTemp
                                          , ContData.env$myLab.AirTemp
                                          , ContData.env$myLab.AirBP
@@ -326,25 +488,70 @@ ContData.env$myNames.DataFields.Lab <- c(ContData.env$myLab.WaterTemp
                                          , ContData.env$myLab.Chlorophylla
                                          , ContData.env$myLab.WaterLevel
                                          , ContData.env$myLab.Salinity
+                                         , ContData.env$myLab.x16
+                                         , ContData.env$myLab.x17
+                                         , ContData.env$myLab.x18
+                                         , ContData.env$myLab.x19
+                                         , ContData.env$myLab.x20
+                                         , ContData.env$myLab.x21
+                                         , ContData.env$myLab.x22
+                                         , ContData.env$myLab.x23
+                                         , ContData.env$myLab.x24
+                                         , ContData.env$myLab.x25
+                                         , ContData.env$myLab.x26
                                          , ContData.env$myLab.Discrete.WaterTemp
                                          , ContData.env$myLab.Discrete.AirTemp
                                          , ContData.env$myLab.Discrete.WaterP
                                          , ContData.env$myLab.Discrete.AirBP
-                                      , ContData.env$myLab.Discrete.SensorDepth
+                                         , ContData.env$myLab.Discrete.SensorDepth
                                          , ContData.env$myLab.Discrete.Discharge
                                          , ContData.env$myLab.Discrete.Cond
                                          , ContData.env$myLab.Discrete.DO
-                                      , ContData.env$myLab.Discrete.DO.adj
-                                      , ContData.env$myLab.Discrete.DO.pctsat
+                                         , ContData.env$myLab.Discrete.DO.adj
+                                         , ContData.env$myLab.Discrete.DO.pctsat
                                          , ContData.env$myLab.Discrete.pH
                                          , ContData.env$myLab.Discrete.Turbidity
-                                      , ContData.env$myLab.Discrete.Chlorophylla
-                                        , ContData.env$myLab.Discrete.WaterLevel
-                                      , ContData.env$myLab.Discrete.Salinity
-                                         )
-ContData.env$myNames.DataFields.Col <- c("blue","green","gray","gray","black"
-                                         ,"brown","purple","orange","salmon"
-                                         ,"rosybrown","aquamarine1")
+                                         , ContData.env$myLab.Discrete.Chlorophylla
+                                         , ContData.env$myLab.Discrete.WaterLevel
+                                         , ContData.env$myLab.Discrete.Salinity
+                                         , ContData.env$myLab.Discrete.x16
+                                         , ContData.env$myLab.Discrete.x17
+                                         , ContData.env$myLab.Discrete.x18
+                                         , ContData.env$myLab.Discrete.x19
+                                         , ContData.env$myLab.Discrete.x20
+                                         , ContData.env$myLab.Discrete.x21
+                                         , ContData.env$myLab.Discrete.x22
+                                         , ContData.env$myLab.Discrete.x23
+                                         , ContData.env$myLab.Discrete.x24
+                                         , ContData.env$myLab.Discrete.x25
+                                         , ContData.env$myLab.Discrete.x26
+)
+ContData.env$myNames.DataFields.Col <- c("blue",
+                                         "green",
+                                         "gray",
+                                         "gray",
+                                         "black",
+                                         "brown",
+                                         "purple",
+                                         "orange",
+                                         "salmon",
+                                         "rosybrown",
+                                         "aquamarine1",
+                                         "magenta",
+                                         "black",
+                                         "green",
+                                         "purple",
+                                         "orange",
+                                         "gray",
+                                         "gray",
+                                         "gray",
+                                         "gray",
+                                         "gray",
+                                         "gray",
+                                         "gray",
+                                         "gray",
+                                         "gray",
+                                         "gray") #26
 #
 ## Name Order (change order below to change order in output file)
 ContData.env$myNames.Order <- c(ContData.env$myName.SiteID
@@ -369,6 +576,17 @@ ContData.env$myNames.Order <- c(ContData.env$myName.SiteID
                                 , ContData.env$myName.Chlorophylla
                                 , ContData.env$myName.WaterLevel
                                 , ContData.env$myName.Salinity
+                                , ContData.env$myName.x16
+                                , ContData.env$myName.x17
+                                , ContData.env$myName.x18
+                                , ContData.env$myName.x19
+                                , ContData.env$myName.x20
+                                , ContData.env$myName.x21
+                                , ContData.env$myName.x22
+                                , ContData.env$myName.x23
+                                , ContData.env$myName.x24
+                                , ContData.env$myName.x25
+                                , ContData.env$myName.x26
                                 , ContData.env$myName.LoggerID.Water
                                 , ContData.env$myName.RowID.Water
                                 , ContData.env$myName.Discrete.WaterTemp
@@ -386,7 +604,18 @@ ContData.env$myNames.Order <- c(ContData.env$myName.SiteID
                                 , ContData.env$myName.Discrete.Chlorophylla
                                 , ContData.env$myName.Discrete.WaterLevel
                                 , ContData.env$myName.Discrete.Salinity
-                                )
+                                , ContData.env$myName.Discrete.x16
+                                , ContData.env$myName.Discrete.x17
+                                , ContData.env$myName.Discrete.x18
+                                , ContData.env$myName.Discrete.x19
+                                , ContData.env$myName.Discrete.x20
+                                , ContData.env$myName.Discrete.x21
+                                , ContData.env$myName.Discrete.x22
+                                , ContData.env$myName.Discrete.x23
+                                , ContData.env$myName.Discrete.x24
+                                , ContData.env$myName.Discrete.x25
+                                , ContData.env$myName.Discrete.x26
+)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Data Quality Flag Values ####
 ContData.env$myFlagVal.Pass    <- "P"
@@ -439,6 +668,28 @@ ContData.env$myThresh.Gross.Fail.Hi.WaterLevel   <- ContData.env$myThresh.Gross.
 ContData.env$myThresh.Gross.Fail.Lo.WaterLevel   <- ContData.env$myThresh.Gross.Fail.Lo.SensorDepth
 ContData.env$myThresh.Gross.Fail.Hi.Salinity      <- 41
 ContData.env$myThresh.Gross.Fail.Lo.Salinity     <- 2
+ContData.env$myThresh.Gross.Fail.Hi.x16      <- 3
+ContData.env$myThresh.Gross.Fail.Lo.x16     <- 10^5
+ContData.env$myThresh.Gross.Fail.Hi.x17      <- 3
+ContData.env$myThresh.Gross.Fail.Lo.x17     <- 10^5
+ContData.env$myThresh.Gross.Fail.Hi.x18      <- 3
+ContData.env$myThresh.Gross.Fail.Lo.x18     <- 10^5
+ContData.env$myThresh.Gross.Fail.Hi.x19      <- 3
+ContData.env$myThresh.Gross.Fail.Lo.x19     <- 10^5
+ContData.env$myThresh.Gross.Fail.Hi.x20      <- 3
+ContData.env$myThresh.Gross.Fail.Lo.x20     <- 10^5
+ContData.env$myThresh.Gross.Fail.Hi.x21      <- 3
+ContData.env$myThresh.Gross.Fail.Lo.x21     <- 10^5
+ContData.env$myThresh.Gross.Fail.Hi.x22      <- 3
+ContData.env$myThresh.Gross.Fail.Lo.x22     <- 10^5
+ContData.env$myThresh.Gross.Fail.Hi.x23      <- 3
+ContData.env$myThresh.Gross.Fail.Lo.x23     <- 10^5
+ContData.env$myThresh.Gross.Fail.Hi.x24      <- 3
+ContData.env$myThresh.Gross.Fail.Lo.x24     <- 10^5
+ContData.env$myThresh.Gross.Fail.Hi.x25      <- 3
+ContData.env$myThresh.Gross.Fail.Lo.x25     <- 10^5
+ContData.env$myThresh.Gross.Fail.Hi.x26      <- 3
+ContData.env$myThresh.Gross.Fail.Lo.x26     <- 10^5
 ## Gross Min/Max, Suspect (extreme)
 ### Examines values as outliers versus threholds
 ### if value >= Hi or <= Lo then flagged as "Suspect"
@@ -472,6 +723,28 @@ ContData.env$myThresh.Gross.Suspect.Hi.WaterLevel   <- ContData.env$myThresh.Gro
 ContData.env$myThresh.Gross.Suspect.Lo.WaterLevel   <- ContData.env$myThresh.Gross.Suspect.Lo.SensorDept
 ContData.env$myThresh.Gross.Suspect.Hi.Salinity    <- 37
 ContData.env$myThresh.Gross.Suspect.Lo.Salinity    <- 3
+ContData.env$myThresh.Gross.Suspect.Hi.x16    <- 10^5
+ContData.env$myThresh.Gross.Suspect.Lo.x16    <- 3
+ContData.env$myThresh.Gross.Suspect.Hi.x17    <- 10^5
+ContData.env$myThresh.Gross.Suspect.Lo.x17    <- 3
+ContData.env$myThresh.Gross.Suspect.Hi.x18    <- 10^5
+ContData.env$myThresh.Gross.Suspect.Lo.x18    <- 3
+ContData.env$myThresh.Gross.Suspect.Hi.x19    <- 10^5
+ContData.env$myThresh.Gross.Suspect.Lo.x19    <- 3
+ContData.env$myThresh.Gross.Suspect.Hi.x20    <- 10^5
+ContData.env$myThresh.Gross.Suspect.Lo.x20    <- 3
+ContData.env$myThresh.Gross.Suspect.Hi.x21    <- 10^5
+ContData.env$myThresh.Gross.Suspect.Lo.x21    <- 3
+ContData.env$myThresh.Gross.Suspect.Hi.x22    <- 10^5
+ContData.env$myThresh.Gross.Suspect.Lo.x22    <- 3
+ContData.env$myThresh.Gross.Suspect.Hi.x23    <- 10^5
+ContData.env$myThresh.Gross.Suspect.Lo.x23    <- 3
+ContData.env$myThresh.Gross.Suspect.Hi.x24    <- 10^5
+ContData.env$myThresh.Gross.Suspect.Lo.x24    <- 3
+ContData.env$myThresh.Gross.Suspect.Hi.x25    <- 10^5
+ContData.env$myThresh.Gross.Suspect.Lo.x25    <- 3
+ContData.env$myThresh.Gross.Suspect.Hi.x26    <- 10^5
+ContData.env$myThresh.Gross.Suspect.Lo.x26    <- 3
 # _QC, Spike ----
 ## Spike thresholds (absolute change)
 ### Examines difference between consecutive measurements
@@ -507,6 +780,28 @@ ContData.env$myThresh.Spike.Hi.WaterLevel  <- ContData.env$myThresh.Spike.Hi.Sen
 ContData.env$myThresh.Spike.Lo.WaterLevel  <- ContData.env$myThresh.Spike.Lo.SensorDepth
 ContData.env$myThresh.Spike.Hi.Salinity    <- 5
 ContData.env$myThresh.Spike.Lo.Salinity    <- 3
+ContData.env$myThresh.Spike.Hi.x16    <- 500
+ContData.env$myThresh.Spike.Lo.x16    <- 3
+ContData.env$myThresh.Spike.Hi.x17    <- 500
+ContData.env$myThresh.Spike.Lo.x17    <- 3
+ContData.env$myThresh.Spike.Hi.x18    <- 500
+ContData.env$myThresh.Spike.Lo.x18    <- 3
+ContData.env$myThresh.Spike.Hi.x19    <- 500
+ContData.env$myThresh.Spike.Lo.x19    <- 3
+ContData.env$myThresh.Spike.Hi.x20    <- 500
+ContData.env$myThresh.Spike.Lo.x20    <- 3
+ContData.env$myThresh.Spike.Hi.x21    <- 500
+ContData.env$myThresh.Spike.Lo.x21    <- 3
+ContData.env$myThresh.Spike.Hi.x22    <- 500
+ContData.env$myThresh.Spike.Lo.x22    <- 3
+ContData.env$myThresh.Spike.Hi.x23    <- 500
+ContData.env$myThresh.Spike.Lo.x23    <- 3
+ContData.env$myThresh.Spike.Hi.x24    <- 500
+ContData.env$myThresh.Spike.Lo.x24    <- 3
+ContData.env$myThresh.Spike.Hi.x25    <- 500
+ContData.env$myThresh.Spike.Lo.x25    <- 3
+ContData.env$myThresh.Spike.Hi.x26    <- 500
+ContData.env$myThresh.Spike.Lo.x26    <- 3
 # _QC, ROC----
 ## Rate of Change (relative change)
 ### Examines SD over "period" and difference in consecutive values
@@ -543,6 +838,28 @@ ContData.env$myThresh.RoC.SD.number.WaterLevel   <- ContData.env$myDefault.RoC.S
 ContData.env$myThresh.RoC.SD.period.WaterLevel   <- ContData.env$myDefault.RoC.SD.period
 ContData.env$myThresh.RoC.SD.number.Salinity     <- ContData.env$myDefault.RoC.SD.number
 ContData.env$myThresh.RoC.SD.period.Salinity     <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.x16     <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.x16     <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.x17     <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.x17     <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.x18     <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.x18     <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.x19     <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.x19     <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.x20     <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.x20     <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.x21     <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.x21     <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.x22     <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.x22     <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.x23     <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.x23     <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.x24     <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.x24     <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.x25     <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.x25     <- ContData.env$myDefault.RoC.SD.period
+ContData.env$myThresh.RoC.SD.number.x26     <- ContData.env$myDefault.RoC.SD.number
+ContData.env$myThresh.RoC.SD.period.x26     <- ContData.env$myDefault.RoC.SD.period
 # QC, Flat Line----
 ## No Change (flat-line)
 ### Examines consecutive values within "Tolerance" of each other
@@ -596,6 +913,39 @@ ContData.env$myThresh.Flat.Tolerance.WaterLevel   <- ContData.env$myThresh.Flat.
 ContData.env$myThresh.Flat.Hi.Salinity            <- ContData.env$myDefault.Flat.Hi * 2
 ContData.env$myThresh.Flat.Lo.Salinity            <- ContData.env$myDefault.Flat.Lo * 2
 ContData.env$myThresh.Flat.Tolerance.Salinity     <- 0.01
+ContData.env$myThresh.Flat.Hi.x16            <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.x16            <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.x16     <- 0.01
+ContData.env$myThresh.Flat.Hi.x17            <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.x17            <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.x17     <- 0.01
+ContData.env$myThresh.Flat.Hi.x18            <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.x18            <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.x18     <- 0.01
+ContData.env$myThresh.Flat.Hi.x19            <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.x19            <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.x19     <- 0.01
+ContData.env$myThresh.Flat.Hi.x20            <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.x20            <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.x20     <- 0.01
+ContData.env$myThresh.Flat.Hi.x21            <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.x21            <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.x21     <- 0.01
+ContData.env$myThresh.Flat.Hi.x22            <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.x22            <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.x22     <- 0.01
+ContData.env$myThresh.Flat.Hi.x23            <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.x23            <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.x23     <- 0.01
+ContData.env$myThresh.Flat.Hi.x24            <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.x24            <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.x24     <- 0.01
+ContData.env$myThresh.Flat.Hi.x25            <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.x25            <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.x25     <- 0.01
+ContData.env$myThresh.Flat.Hi.x26            <- ContData.env$myDefault.Flat.Hi * 2
+ContData.env$myThresh.Flat.Lo.x26            <- ContData.env$myDefault.Flat.Lo * 2
+ContData.env$myThresh.Flat.Tolerance.x26     <- 0.01
 #
 ContData.env$myThresh.Flat.MaxComp    <- max(ContData.env$myThresh.Flat.Hi.WaterTemp
                                              , ContData.env$myThresh.Flat.Hi.AirTemp
@@ -612,7 +962,18 @@ ContData.env$myThresh.Flat.MaxComp    <- max(ContData.env$myThresh.Flat.Hi.Water
                                              , ContData.env$myThresh.Flat.Hi.Chlorophylla
                                              , ContData.env$myThresh.Flat.Hi.WaterLevel
                                              , ContData.env$myThresh.Flat.Hi.Salinity
-                                             )
+                                             , ContData.env$myThresh.Flat.Hi.x16
+                                             , ContData.env$myThresh.Flat.Hi.x17
+                                             , ContData.env$myThresh.Flat.Hi.x18
+                                             , ContData.env$myThresh.Flat.Hi.x19
+                                             , ContData.env$myThresh.Flat.Hi.x20
+                                             , ContData.env$myThresh.Flat.Hi.x21
+                                             , ContData.env$myThresh.Flat.Hi.x22
+                                             , ContData.env$myThresh.Flat.Hi.x23
+                                             , ContData.env$myThresh.Flat.Hi.x24
+                                             , ContData.env$myThresh.Flat.Hi.x25
+                                             , ContData.env$myThresh.Flat.Hi.x26
+)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Data Fields with Flags ####
 ContData.env$myName.Flag        <- "Flag" # flag prefix
@@ -664,7 +1025,7 @@ ContData.env$myName.Flag.Turbidity    <- paste(ContData.env$myName.Flag
                                                , ContData.env$myName.Turbidity
                                                , sep=".")
 ContData.env$myName.Flag.Chlorophylla <- paste(ContData.env$myName.Flag
-                                             , ContData.env$myName.Chlorophylla
+                                               , ContData.env$myName.Chlorophylla
                                                , sep=".")
 ContData.env$myName.Flag.WaterLevel   <- paste(ContData.env$myName.Flag
                                                , ContData.env$myName.WaterLevel
@@ -672,6 +1033,39 @@ ContData.env$myName.Flag.WaterLevel   <- paste(ContData.env$myName.Flag
 ContData.env$myName.Flag.Salinity     <- paste(ContData.env$myName.Flag
                                                , ContData.env$myName.Salinity
                                                , sep=".")
+ContData.env$myName.Flag.x16     <- paste(ContData.env$myName.Flag
+                                          , ContData.env$myName.x16
+                                          , sep=".")
+ContData.env$myName.Flag.x17     <- paste(ContData.env$myName.Flag
+                                          , ContData.env$myName.x17
+                                          , sep=".")
+ContData.env$myName.Flag.x18     <- paste(ContData.env$myName.Flag
+                                          , ContData.env$myName.x18
+                                          , sep=".")
+ContData.env$myName.Flag.x19     <- paste(ContData.env$myName.Flag
+                                          , ContData.env$myName.x19
+                                          , sep=".")
+ContData.env$myName.Flag.x20     <- paste(ContData.env$myName.Flag
+                                          , ContData.env$myName.x20
+                                          , sep=".")
+ContData.env$myName.Flag.x21     <- paste(ContData.env$myName.Flag
+                                          , ContData.env$myName.x21
+                                          , sep=".")
+ContData.env$myName.Flag.x22     <- paste(ContData.env$myName.Flag
+                                          , ContData.env$myName.x22
+                                          , sep=".")
+ContData.env$myName.Flag.x23     <- paste(ContData.env$myName.Flag
+                                          , ContData.env$myName.x23
+                                          , sep=".")
+ContData.env$myName.Flag.x24     <- paste(ContData.env$myName.Flag
+                                          , ContData.env$myName.x24
+                                          , sep=".")
+ContData.env$myName.Flag.x25     <- paste(ContData.env$myName.Flag
+                                          , ContData.env$myName.x25
+                                          , sep=".")
+ContData.env$myName.Flag.x26     <- paste(ContData.env$myName.Flag
+                                          , ContData.env$myName.x26
+                                          , sep=".")
 # Data Quality Test Names
 ContData.env$myNames.QCTests <- c("Gross","Spike","RoC","Flat")
 ContData.env$myNames.QCCalcs <- c("SD.Time"
@@ -698,7 +1092,7 @@ ContData.env$myFormat.Time           <- "%H:%M:%S"
 ContData.env$myFormat.DateTime       <- "%Y-%m-%d %H:%M:%S"
 ContData.env$DateRange.Start.Default <- format(as.Date("1900-01-01")
                                                , ContData.env$myFormat.Date)
-                                               #YYYY-MM-DD
+#YYYY-MM-DD
 ContData.env$DateRange.End.Default   <- format(Sys.Date()
                                                , ContData.env$myFormat.Date)
 # Time Zone, used in Gage script in dataRetrieval, OlsonNames()
@@ -728,12 +1122,12 @@ ContData.env$myName.Season   <- "Season"
 ContData.env$myName.YrSeason <- "YearSeason"
 # for summary stats
 ContData.env$myNames.Fields.TimePeriods <- c(ContData.env$myName.Yr
-                      											,ContData.env$myName.YrMo
-                      											,ContData.env$myName.Mo
-                      											,ContData.env$myName.MoDa
-                      											,ContData.env$myName.JuDa
-                      											,ContData.env$myName.Season
-                      											,ContData.env$myName.YrSeason)
+                                             ,ContData.env$myName.YrMo
+                                             ,ContData.env$myName.Mo
+                                             ,ContData.env$myName.MoDa
+                                             ,ContData.env$myName.JuDa
+                                             ,ContData.env$myName.Season
+                                             ,ContData.env$myName.YrSeason)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Exclude Trigger ####
 # Trigger for Stats to exclude (TRUE) or include (FALSE) where flag = "fail"
