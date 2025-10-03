@@ -38,7 +38,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Environment Name ####
 # Environment for use only by ContDataQC library
-ContData.env <- new.env(parent = emptyenv())
+# ContData.env <- new.env(parent = emptyenv())
 # The above line is not used in custom configurations.
 # assign variables to new environment requires editing of all lines.
 # For example, myDelim <- "_" BECOMES ContData.env$myDelim, "_"

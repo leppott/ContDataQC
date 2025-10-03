@@ -3,9 +3,15 @@ NEWS-ContDataQC
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-10-02 17:08:28.016728
+    #> Last Update: 2025-10-03 07:18:07.905934
 
 # Version History
+
+# v2.1.0.9003
+
+2025-10-03
+
+- refactor: Change config.ORIG.R to be a custom file
 
 # v2.1.0.9002
 

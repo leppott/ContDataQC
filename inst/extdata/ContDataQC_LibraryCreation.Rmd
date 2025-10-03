@@ -127,7 +127,7 @@ devtools::document()
 ## Install New Package (locally)
 setwd("..") # return to root directory first
 devtools::install(myLibrary
-                  , build_vignettes = TRUE
+                  , build_vignettes = FALSE
                   , quick = FALSE
                   , reload = TRUE)
 
